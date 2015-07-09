@@ -10,6 +10,7 @@ mandrill_client = new mandrill.Mandrill('dzbY2mySNE_Zsqr3hsK70A');
 module.exports = {
     save: function (data, callback) {
         data.password = md5(data.password);
+        
         if (!data._id) {
             data._id = sails.ObjectID();
             sails.query(function (err, db) {
@@ -97,15 +98,6 @@ module.exports = {
                             '$regex': check
                         }
                 }]
-                }, {
-                    "firstname": 1,
-                    "lastname": 1,
-                    "fbid": 1,
-                    "email": 1,
-                    "gid": 1,
-                    "passcode": 1,
-                    "profilepic": 1,
-                    "username": 1
                 }).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
                     if (err) {
                         console.log({
