@@ -65,6 +65,12 @@ module.exports = {
             res.json(data);
         }
         User.countusers(req.body, print);
+    },
+    adminlogin: function (req, res) {
+        var print = function (data) {
+            res.json(data);
+        }
+        User.adminlogin(req.body, print);
     }
-    
+
 };
