@@ -10,47 +10,85 @@ mandrill_client = new mandrill.Mandrill('dzbY2mySNE_Zsqr3hsK70A');
 module.exports = {
     save: function (data, callback) {
         data.password = md5(data.password);
-        
         if (!data._id) {
             data._id = sails.ObjectID();
             sails.query(function (err, db) {
-                var cuser = db.collection('user').insert(data, function (err, created) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false
-                        });
-                    }
-                    if (created) {
-                        console.log(created);
-                        callback({
-                            value: true
-                        });
-                    }
-                });
+                var exit = 0;
+                var exitup = 0;
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false
+                    });
+                }
+                if (db) {
+                    exit++;
+                    db.collection("user").find({
+                        "email": data.email
+                    }).each(function (err, data2) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                        }
+                        if (data2 != null) {
+                            exitup++;
+                            callback({
+                                value: false
+                            });
+                        } else {
+                            if (exit != exitup) {
+                                var cuser = db.collection('user').insert(data, function (err, created) {
+                                    if (err) {
+                                        console.log(err);
+                                        callback({
+                                            value: false
+                                        });
+                                    }
+                                    if (created) {
+                                        console.log(created);
+                                        callback({
+                                            value: true
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    });
+
+                }
             });
         } else {
             sails.query(function (err, db) {
                 var user = sails.ObjectID(data._id);
                 delete data._id
-                var cuser = db.collection('user').update({
-                    _id: user
-                }, {
-                    $set: data
-                }, function (err, updated) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false
-                        });
-                    }
-                    if (updated) {
-                        console.log(updated);
-                        callback({
-                            value: true
-                        });
-                    }
-                });
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false
+                    });
+                }
+                if (db) {
+                    var cuser = db.collection('user').update({
+                        _id: user
+                    }, {
+                        $set: data
+                    }, function (err, updated) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                        }
+                        if (updated) {
+                            console.log(updated);
+                            callback({
+                                value: true
+                            });
+                        }
+                    });
+                }
             });
         }
     },
@@ -348,7 +386,7 @@ module.exports = {
                         } else {
                             console.log(updated.result.nModified);
                             callback({
-                                value: false
+                                value: true
                             });
                         }
                     }
