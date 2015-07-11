@@ -6,6 +6,9 @@
  */
 module.exports = {
     save: function (data, callback) {
+        var dummy = sails.ObjectID();
+        data.timestamp = dummy.getTimestamp();
+        data.product = sails.ObjectID(data.product);
         if (!data._id) {
             data._id = sails.ObjectID();
             sails.query(function (err, db) {
@@ -81,7 +84,7 @@ module.exports = {
             }
             if (db) {
                 db.collection("enquiry").count({
-                    enquiryname: {
+                    name: {
                         '$regex': check
                     }
                 }, function (err, number) {
@@ -94,7 +97,7 @@ module.exports = {
 
                 });
                 db.collection("enquiry").find({
-                    enquiryname: {
+                    name: {
                         '$regex': check
                     }
                 }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {

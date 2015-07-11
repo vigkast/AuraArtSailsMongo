@@ -316,7 +316,7 @@ module.exports = {
                 db.collection('user').find({
                     email: data.email,
                     password: data.password,
-                    accesslevel: "admin"
+                    accesslevel: "superadmin"
                 }).each(function (err, found) {
                     if (err) {
                         console.log(err);

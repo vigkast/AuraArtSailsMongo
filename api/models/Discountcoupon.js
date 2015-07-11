@@ -81,7 +81,7 @@ module.exports = {
             }
             if (db) {
                 db.collection("discountcoupon").count({
-                    discountcouponname: {
+                    name: {
                         '$regex': check
                     }
                 }, function (err, number) {
@@ -94,7 +94,7 @@ module.exports = {
 
                 });
                 db.collection("discountcoupon").find({
-                    discountcouponname: {
+                    name: {
                         '$regex': check
                     }
                 }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {

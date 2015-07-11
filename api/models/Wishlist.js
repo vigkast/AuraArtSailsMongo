@@ -8,8 +8,12 @@
 module.exports = {
     save: function (data, callback) {
         var user = sails.ObjectID(data.user);
-        data.wishlistfolder = sails.ObjectID(data.wishlistfolder);
-        data.artwork = sails.ObjectID(data.artwork);
+        if (data.wishlistfolder) {
+            data.wishlistfolder = sails.ObjectID(data.wishlistfolder);
+        }
+        if (data.artwork) {
+            data.artwork = sails.ObjectID(data.artwork);
+        }
         delete data.user;
         if (!data._id) {
             data._id = sails.ObjectID();
@@ -384,101 +388,5 @@ module.exports = {
                     });
             }
         });
-    },
-    timebomb: function (data3, callback) {
-        //        var returns = [];
-        //        var d = new Date(data3.timebomb);
-        //        var exit = 0;
-        //        var exitdown = 0;
-        //        var exitup = 0;
-        //        sails.query(function (err, db) {
-        //            if (err) {
-        //                console.log(err);
-        //                callback({
-        //                    value: false
-        //                });
-        //            }
-        //            if (db) {
-        //                db.collection("user").aggregate([
-        //                    {
-        //                        $match: {
-        //                            "wishlist.timebomb": {
-        //                                $lte: d
-        //                            }
-        //                        }
-        //                    },
-        //                    {
-        //                        $unwind: "$wishlist"
-        //                    },
-        //                    {
-        //                        $match: {
-        //                            "wishlist.timebomb": {
-        //                                $lte: d
-        //                            }
-        //                        }
-        //                    },
-        //                    {
-        //                        $project: {
-        //                            wishlist: 1
-        //                        }
-        //                    }
-        //                ]).each(function (err, data2) {
-        //                    if (data2 != null) {
-        //                        exitup++;
-        //                        returns.push(data2.wishlist._id);
-        //                    } else {
-        //                        exit++;
-        //                        if (exit == exitup) {
-        //                            console.log(exitup);
-        //                            console.log(exit);
-        //                            if (returns != "") {
-        //                                for (var i = 0; i < returns.length; i++) {
-        //                                    var data = {};
-        //                                    data._id = sails.ObjectID(returns[i]);
-        //                                    console.log(data._id);
-        //                                    var dummy = sails.ObjectID();
-        //                                    data.modifytime = dummy.getTimestamp();
-        //                                    db.collection("user").update({
-        //                                        "wishlist._id": data._id
-        //                                    }, {
-        //                                        $set: {
-        //                                            'wishlist.$.folder': ''
-        //                                        }
-        //                                    }, function (err, updated) {
-        //                                        if (err) {
-        //                                            console.log(err);
-        //                                            callback({
-        //                                                value: false
-        //                                            });
-        //                                        }
-        //                                        if (updated) {
-        //                                            callback({
-        //                                                value: true
-        //                                            });
-        //                                            console.log("data");
-        //                                        }
-        //                                    });
-        //                                }
-        //                            }
-        //                            if (returns == "") {
-        //                                callback("No timebombs.");
-        //                            }
-        //                        }
-        //                    }
-        //                    if (data2 == null) {
-        //                        if (exit != exitup) {
-        //                            console.log("No Timebombs.");
-        //                            callback("No Timebombs.")
-        //                        }
-        //                    }
-        //                    if (err) {
-        //                        console.log(err);
-        //                        callback({
-        //                            value: false
-        //                        });
-        //                    }
-        //                });
-        //            }
-        //        });
     }
 };

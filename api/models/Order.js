@@ -8,6 +8,13 @@ module.exports = {
     save: function (data, callback) {
         var dummy = sails.ObjectID();
         data.timestamp = dummy.getTimestamp();
+        data.discountcoupon = sails.ObjectID(data.discountcoupon);
+        if (data.artwork) {
+            for (var i = 0; i < data.artwork.length; i++) {
+                data.artwork[i] = sails.ObjectID(data.artwork[i]);
+            }
+        }
+        console.log(data.artwork);
         if (!data._id) {
             data._id = sails.ObjectID();
             sails.query(function (err, db) {
@@ -83,7 +90,7 @@ module.exports = {
             }
             if (db) {
                 db.collection("order").count({
-                    ordername: {
+                    artist: {
                         '$regex': check
                     }
                 }, function (err, number) {
@@ -96,7 +103,7 @@ module.exports = {
 
                 });
                 db.collection("order").find({
-                    ordername: {
+                    artist: {
                         '$regex': check
                     }
                 }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
