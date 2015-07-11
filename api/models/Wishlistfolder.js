@@ -40,7 +40,7 @@ module.exports = {
                             callback({
                                 value: true
                             });
-                            console.log(updated);
+                            console.log("updated");
                         }
                     });
                 }
@@ -82,7 +82,7 @@ module.exports = {
                             callback({
                                 value: true
                             });
-                            console.log(updated);
+                            console.log("updated");
                         }
                     });
                 }
@@ -171,7 +171,7 @@ module.exports = {
                     {
                         $match: {
                             _id: user,
-                            "wishlistfolder.title": {
+                            "wishlistfolder.name": {
                                 $exists: true
                             }
                         }
@@ -181,7 +181,7 @@ module.exports = {
                     },
                     {
                         $match: {
-                            "wishlistfolder.title": {
+                            "wishlistfolder.name": {
                                 $exists: true
                             }
                         }
@@ -210,7 +210,6 @@ module.exports = {
     findlimited: function (data, callback) {
         var newcallback = 0;
         var newreturns = {};
-        newreturns.data = [];
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
@@ -227,10 +226,10 @@ module.exports = {
                     {
                         $match: {
                             _id: user,
-                            "wishlistfolder.title": {
+                            "wishlistfolder.name": {
                                 $exists: true
                             },
-                            "wishlistfolder.title": {
+                            "wishlistfolder.name": {
                                 $regex: check
                             }
                         }
@@ -240,10 +239,10 @@ module.exports = {
                     },
                     {
                         $match: {
-                            "wishlistfolder.title": {
+                            "wishlistfolder.name": {
                                 $exists: true
                             },
-                            "wishlistfolder.title": {
+                            "wishlistfolder.name": {
                                 $regex: check
                             }
                         }
@@ -278,10 +277,10 @@ module.exports = {
                     {
                         $match: {
                             _id: user,
-                            "wishlistfolder.title": {
+                            "wishlistfolder.name": {
                                 $exists: true
                             },
-                            "wishlistfolder.title": {
+                            "wishlistfolder.name": {
                                 $regex: check
                             }
                         }
@@ -291,10 +290,10 @@ module.exports = {
                     },
                     {
                         $match: {
-                            "wishlistfolder.title": {
+                            "wishlistfolder.name": {
                                 $exists: true
                             },
-                            "wishlistfolder.title": {
+                            "wishlistfolder.name": {
                                 $regex: check
                             }
                         }
@@ -306,8 +305,8 @@ module.exports = {
                     }
                 ]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
                     function (err, found) {
-                        if (data != null) {
-                            newreturns.data.push(found);
+                        if (found != null) {
+                            newreturns.data = found;
                             callback(newreturns);
 
                         }

@@ -47,7 +47,7 @@ module.exports = {
                                         });
                                     }
                                     if (created) {
-                                        console.log(created);
+                                        console.log("created");
                                         callback({
                                             value: true
                                         });
@@ -135,6 +135,15 @@ module.exports = {
                             '$regex': check
                         }
                 }]
+                }, {
+                    name: 1,
+                    email: 1,
+                    dob: 1,
+                    locality: 1,
+                    accesslevel: 1,
+                    fbid: 1,
+                    gid: 1,
+                    artistdesc: 1
                 }).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
                     if (err) {
                         console.log({
@@ -166,7 +175,16 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("user").find({}, {}).each(function (err, found) {
+                db.collection("user").find({}, {
+                    name: 1,
+                    email: 1,
+                    dob: 1,
+                    locality: 1,
+                    accesslevel: 1,
+                    fbid: 1,
+                    gid: 1,
+                    artistdesc: 1
+                }).each(function (err, found) {
                     if (err) {
                         console.log({
                             value: false
@@ -194,6 +212,15 @@ module.exports = {
             if (db) {
                 db.collection("user").find({
                     "_id": sails.ObjectID(data._id)
+                }, {
+                    name: 1,
+                    email: 1,
+                    dob: 1,
+                    locality: 1,
+                    accesslevel: 1,
+                    fbid: 1,
+                    gid: 1,
+                    artistdesc: 1
                 }).each(function (err, data) {
                     if (err) {
                         console.log(err);
