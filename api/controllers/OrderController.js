@@ -30,47 +30,16 @@ module.exports = {
         }
         Order.findone(req.body, print);
     },
-    searchmail: function (req, res) {
-        var print = function (data) {
-            res.json(data);
-        }
-        Order.searchmail(req.body, print);
-    },
     delete: function (req, res) {
         var print = function (data) {
             res.json(data);
         }
         Order.delete(req.body, print);
     },
-    login: function (req, res) {
-        var print = function (data) {
-            res.json(data);
-        }
-        Order.login(req.body, print);
-    },
-    changepassword: function (req, res) {
-        var print = function (data) {
-            res.json(data);
-        }
-        Order.changepassword(req.body, print);
-    },
-    forgotpassword: function (req, res) {
-        var print = function (data) {
-            res.json(data);
-        }
-        Order.forgotpassword(req.body, print);
-    },
     countorders: function (req, res) {
         var print = function (data) {
             res.json(data);
         }
         Order.countorders(req.body, print);
-    },
-    adminlogin: function (req, res) {
-        var print = function (data) {
-            res.json(data);
-        }
-        Order.adminlogin(req.body, print);
     }
-
 };
