@@ -40,7 +40,7 @@ module.exports = {
                             callback({
                                 value: true
                             });
-                            console.log(updated);
+                            console.log("updated");
                         }
                     });
                 }

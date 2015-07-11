@@ -348,6 +348,15 @@ module.exports = {
             db.collection('user').find({
                 email: data.email,
                 password: data.password
+            }, {
+                name: 1,
+                email: 1,
+                dob: 1,
+                locality: 1,
+                accesslevel: 1,
+                fbid: 1,
+                gid: 1,
+                artistdesc: 1
             }).each(function (err, found) {
                 exitup++;
                 if (err) {
@@ -357,12 +366,41 @@ module.exports = {
                     console.log(err);
                 }
                 if (found != null) {
+                    if (found.forgotpassword) {
+                        db.collection('user').update({
+                            email: data.email,
+                            password: data.password
+                        }, {
+                            $set: {
+                                forgotpassword: ""
+                            }
+                        }, function (err, updated) {
+                            if (err) {
+                                console.log(err);
+                                callback({
+                                    value: false
+                                });
+                            }
+                            if (updated) {
+                                console.log("updated");
+                            }
+                        });
+                    }
                     callback(found);
                     console.log(found);
                 } else {
                     db.collection('user').find({
                         email: data.email,
                         forgotpassword: data.password
+                    }, {
+                        name: 1,
+                        email: 1,
+                        dob: 1,
+                        locality: 1,
+                        accesslevel: 1,
+                        fbid: 1,
+                        gid: 1,
+                        artistdesc: 1
                     }).each(function (err, found) {
                         exit++;
                         if (err) {
