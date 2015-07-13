@@ -10,6 +10,7 @@ module.exports = {
         var ticket = sails.ObjectID(data.ticket);
         var dummy = sails.ObjectID();
         data.timestamp = dummy.getTimestamp();
+        data.user = sails.ObjectID(data.user);
         delete data.ticket;
         if (!data._id) {
             data._id = sails.ObjectID();
