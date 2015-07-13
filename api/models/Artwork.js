@@ -207,6 +207,55 @@ module.exports = {
             }
         });
     },
+    findall: function (data, callback) {
+        var user = sails.ObjectID(data.user);
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").aggregate([
+                    {
+                        $match: {
+                            "artwork.name": {
+                                $exists: true
+                            }
+                        }
+                    },
+                    {
+                        $unwind: "$artwork"
+                    },
+                    {
+                        $match: {
+                            "artwork.name": {
+                                $exists: true
+                            }
+                        }
+                    },
+                    {
+                        $project: {
+                            artwork: 1
+                        }
+                    }
+                ]).toArray(
+                    function (err, data) {
+                        if (data != null) {
+                            callback(data);
+                            console.log(data);
+                        }
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                        }
+                    });
+            }
+        });
+    },
     findlimited: function (data, callback) {
         var newcallback = 0;
         var newreturns = {};

@@ -25,6 +25,13 @@ module.exports = {
         Artwork.find(req.body, callback);
 
     },
+    findall: function (req, res) {
+        function callback(data) {
+            res.json(data);
+        };
+        Artwork.findall(req.body, callback);
+
+    },
     findlimited: function (req, res) {
         function callback(data) {
             res.json(data);
