@@ -8,6 +8,10 @@ module.exports = {
     save: function (data, callback) {
         if (!data._id) {
             data._id = sails.ObjectID();
+            if (!data.creationtime) {
+                data.creationtime = data._id.getTimestamp();
+            }
+            data.modifytime = data.creationtime;
             sails.query(function (err, db) {
                 var exit = 0;
                 var exitup = 0;
@@ -34,6 +38,8 @@ module.exports = {
             });
         } else {
             sails.query(function (err, db) {
+                var dummy = sails.ObjectID();
+                data.modifytime = dummy.getTimestamp();
                 var discountcoupon = sails.ObjectID(data._id);
                 delete data._id
                 if (err) {
