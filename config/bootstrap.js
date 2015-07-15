@@ -21,6 +21,8 @@ module.exports.bootstrap = function (cb) {
         sails.Grid = require('mongodb').Grid,
         sails.Code = require('mongodb').Code,
         sails.assert = require('assert');
+    sails.fs = require('fs');
+    sails.im = require('imagemagick');
     // Connection URL
     sails.url = 'mongodb://localhost:27017/auraart';
 
