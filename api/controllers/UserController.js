@@ -4,6 +4,9 @@
  * @description :: Server-side logic for managing User
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
+
+var lwip = require('lwip');
+
 module.exports = {
     uploadfile: function (req, res) {
         req.file("file").upload(function (err, uploadedFiles) {
@@ -57,6 +60,26 @@ module.exports = {
             var isfile2 = sails.fs.existsSync(newfilename);
             if (!isfile2) {
 
+                lwip.open(newfilepath, function (err, image) {
+
+                    // check err...
+                    // manipulate image:
+                    image.resize(width, height, "lanczos", function (err, image) {
+
+                        // check err...
+                        // manipulate some more:
+                        image.toBuffer('png', function (err, buffer) {
+
+                            sails.fs.writeFileSync('./uploads/' + newfilename, buffer);
+                            showimage('./uploads/' + newfilename);
+                            // check err...
+                            // save buffer to disk / send over network / etc.
+
+                        });
+
+                    });
+
+                });
 
             } else {
                 showimage(newfilename);
