@@ -51,7 +51,7 @@ module.exports = {
 
         function checknewfile(newfilepath, width, heigth) {
             newfilenamearr = newfilepath.split(".");
-            extension = newfilname.pop();
+            extension = newfilenamearr.pop();
             var newfilename = "";
             _.each(newfilename, function (n) {
                 newfilename += n;
