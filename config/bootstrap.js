@@ -20,12 +20,13 @@ module.exports.bootstrap = function (cb) {
         sails.GridStore = require('mongodb').GridStore,
         sails.Grid = require('mongodb').Grid,
         sails.Code = require('mongodb').Code,
-        sails.assert = require('assert');
-    sails.fs = require('fs');
-    sails.im = require('imagemagick');
-    // Connection URL
-    sails.url = 'mongodb://localhost:27017/auraart';
-
+        sails.assert = require('assert'),
+        sails.fs = require('fs'),
+        sails.im = require('imagemagick'),
+        sails.sizeOf = require('image-size'),
+        sails.easyimg = require('easyimage'),
+        // Connection URL
+        sails.url = 'mongodb://localhost:27017/auraart';
     sails.query = function (myfunc) {
             sails.MongoClient.connect(sails.url, myfunc);
         }
