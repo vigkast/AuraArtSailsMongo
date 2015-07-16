@@ -50,30 +50,38 @@ module.exports = {
         }
 
         function checknewfile(newfilepath, width, height) {
-	width=parseInt(width);
-	height=parseInt(height);  
-          newfilenamearr = newfilepath.split(".");
+            width = parseInt(width);
+            height = parseInt(height);
+            newfilenamearr = newfilepath.split(".");
             extension = newfilenamearr.pop();
             var newfilename = ".";
             _.each(newfilenamearr, function (n) {
                 newfilename += n;
             });
-console.log(newfilepath);
-            newfilename += "_" + width + "_" + height +"." +extension;
-console.log(newfilename);
+
+            newfilename += "_" + width + "_" + height + "." + extension;
             var isfile2 = sails.fs.existsSync(newfilename);
             if (!isfile2) {
 
                 lwip.open(newfilepath, function (err, image) {
 
-			console.log(err);
+                    var dimensions = {};
+                    dimensions.width = image.width();
+                    dimensions.height = image.height();
+                    if (width == 0) {
+                        width = dimensions.width / dimensions.height * height;
+                    }
+                    if (height == 0) {
+                        height = dimensions.height / dimensions.width * width;
+                    }
+                    console.log(err);
                     image.resize(width, height, "lanczos", function (err, image) {
 
                         // check err...
                         // manipulate some more:
                         image.toBuffer('png', function (err, buffer) {
 
-                            sails.fs.writeFileSync( newfilename, buffer);
+                            sails.fs.writeFileSync(newfilename, buffer);
                             showimage(newfilename);
                             // check err...
                             // save buffer to disk / send over network / etc.
@@ -107,12 +115,10 @@ console.log(newfilename);
                 showimage(filepath);
             } else if (!newwidth && newheight) {
                 newheight = parseInt(newheight);
-                newwidth = dimensions.width / dimensions.height * newheight;
-                checknewfile(filepath, newwidth, newheight);
+                checknewfile(filepath, 0, newheight);
             } else if (newwidth && !newheight) {
                 newwidth = parseInt(newwidth);
-                newheight = dimensions.height / dimensions.width * newwidth;
-                checknewfile(filepath, newwidth, newheight);
+                checknewfile(filepath, newwidth, 0);
             } else {
                 checknewfile(filepath, newwidth, newheight);
             }
