@@ -50,28 +50,31 @@ module.exports = {
         }
 
         function checknewfile(newfilepath, width, height) {
-            newfilenamearr = newfilepath.split(".");
+	width=parseInt(width);
+	height=parseInt(height);  
+          newfilenamearr = newfilepath.split(".");
             extension = newfilenamearr.pop();
-            var newfilename = "";
-            _.each(newfilename, function (n) {
+            var newfilename = ".";
+            _.each(newfilenamearr, function (n) {
                 newfilename += n;
             });
-            newfilename += "_" + width + "_" + height + extension;
+console.log(newfilepath);
+            newfilename += "_" + width + "_" + height +"." +extension;
+console.log(newfilename);
             var isfile2 = sails.fs.existsSync(newfilename);
             if (!isfile2) {
 
                 lwip.open(newfilepath, function (err, image) {
 
-                    // check err...
-                    // manipulate image:
+			console.log(err);
                     image.resize(width, height, "lanczos", function (err, image) {
 
                         // check err...
                         // manipulate some more:
                         image.toBuffer('png', function (err, buffer) {
 
-                            sails.fs.writeFileSync('./uploads/' + newfilename, buffer);
-                            showimage('./uploads/' + newfilename);
+                            sails.fs.writeFileSync( newfilename, buffer);
+                            showimage(newfilename);
                             // check err...
                             // save buffer to disk / send over network / etc.
 
