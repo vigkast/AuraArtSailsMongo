@@ -6,7 +6,7 @@
  */
 
 var lwip = require('lwip');
-
+var mime = require('mime');
 module.exports = {
     uploadfile: function (req, res) {
         req.file("file").upload(function (err, uploadedFiles) {
@@ -44,7 +44,10 @@ module.exports = {
     //    },
     resize: function (req, res, extension) {
         function showimage(path) {
-            res.attachment(path);
+            var image = sails.fs.readFileSync(path);
+            var mimetype = mime.lookup(path);
+            res.set('Content-Type', mimetype);
+            res.send(image);
         }
 
         function checknewfile(newfilepath, width, height) {
