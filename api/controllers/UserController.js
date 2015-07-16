@@ -54,7 +54,7 @@ module.exports = {
                 newfilename += n;
             });
             newfilename += "_" + width + "_" + height + extension;
-            var isfile2 = fs.existsSync(newfilename);
+            var isfile2 = sails.fs.existsSync(newfilename);
             if (!isfile2) {
 
 
@@ -69,7 +69,7 @@ module.exports = {
         var newwidth = req.query.width;
 
 
-        var isfile = fs.existsSync(filepath);
+        var isfile = sails.fs.existsSync(filepath);
         if (!isfile) {
             res.json({
                 message: "File not found",
