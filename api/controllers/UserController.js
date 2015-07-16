@@ -11,7 +11,7 @@ module.exports = {
             _.each(uploadedFiles, function (n) {
                 var oldpath = n.fd;
                 var source = sails.fs.createReadStream(n.fd);
-                n.fd = n.fd.split("\\").pop();
+                n.fd = n.fd.split("\\\\").pop();
                 var dest = sails.fs.createWriteStream('./uploads' + n.fd);
                 source.pipe(dest);
                 source.on('end', function () {
