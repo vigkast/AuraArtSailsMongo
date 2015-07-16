@@ -31,7 +31,7 @@ module.exports = {
                     // encode to jpeg and get a buffer object:
                     image.toBuffer('png', function (err, buffer) {
 
-                        fs.writeFileSync('./uploads/demo2.png', buffer);
+                        sails.fs.writeFileSync('./uploads/demo2.png', buffer);
                         showimage('./uploads/demo2.png');
                         // check err...
                         // save buffer to disk / send over network / etc.
