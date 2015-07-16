@@ -300,45 +300,6 @@ module.exports = {
             });
         });
     },
-    adminlogin: function (data, callback) {
-        data.password = md5(data.password);
-        var exit = 0;
-        var exitup = 0;
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                exit++;
-                db.collection('user').find({
-                    email: data.email,
-                    password: data.password,
-                    accesslevel: "superadmin"
-                }).each(function (err, found) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false
-                        });
-                    }
-                    if (found != null) {
-                        exitup++;
-                        console.log(found);
-                        callback(found);
-                    } else {
-                        if (exit != exitup) {
-                            callback({
-                                value: false
-                            });
-                        }
-                    }
-                });
-            }
-        });
-    },
     login: function (data, callback) {
         var exitup = 0;
         var exit = 0;
