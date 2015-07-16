@@ -42,11 +42,9 @@ module.exports = {
     //            console.log('resized kittens.jpg to fit within 256x256px')
     //        });
     //    },
-    resize: function (req, res) {
+    resize: function (req, res, extension) {
         function showimage(path) {
-            var image = sails.fs.readFileSync(path);
-            res.set('Content-Type', 'image/png');
-            res.send(image);
+            res.attachment(path);
         }
 
         function checknewfile(newfilepath, width, height) {
@@ -79,7 +77,7 @@ module.exports = {
 
                         // check err...
                         // manipulate some more:
-                        image.toBuffer('png', function (err, buffer) {
+                        image.toBuffer(extension, function (err, buffer) {
 
                             sails.fs.writeFileSync(newfilename, buffer);
                             showimage(newfilename);
