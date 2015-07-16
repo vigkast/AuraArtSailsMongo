@@ -49,7 +49,7 @@ module.exports = {
             res.send(image);
         }
 
-        function checknewfile(newfilepath, width, heigth) {
+        function checknewfile(newfilepath, width, height) {
             newfilenamearr = newfilepath.split(".");
             extension = newfilenamearr.pop();
             var newfilename = "";
