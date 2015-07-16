@@ -24,7 +24,6 @@ module.exports.bootstrap = function (cb) {
         sails.fs = require('fs'),
         sails.im = require('imagemagick'),
         sails.sizeOf = require('image-size'),
-        sails.easyimg = require('easyimage'),
         // Connection URL
         sails.url = 'mongodb://localhost:27017/auraart';
     sails.query = function (myfunc) {
