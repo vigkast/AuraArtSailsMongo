@@ -7,6 +7,9 @@
 
 var lwip = require('lwip');
 var mime = require('mime');
+var express = require('express');
+var json2xls = require('json2xls');
+var app = express();
 module.exports = {
     uploadfile: function (req, res) {
         req.file("file").upload(function (err, uploadedFiles) {
@@ -14,7 +17,7 @@ module.exports = {
             _.each(uploadedFiles, function (n) {
                 var oldpath = n.fd;
                 var source = sails.fs.createReadStream(n.fd);
-                n.fd = n.fd.split("/").pop();
+                n.fd = n.fd.split('\\').pop().split('/').pop();
                 var dest = sails.fs.createWriteStream('./uploads/' + n.fd);
                 source.pipe(dest);
                 source.on('end', function () {
@@ -32,16 +35,33 @@ module.exports = {
             });
         });
     },
-    //    resize2: function (req, res) {
-    //        sails.im.resize({
-    //            srcData: fs.readFileSync('./uploads/demo.png', 'binary'),
-    //            width: 1000,
-    //            height: 10000
-    //        }, function (err, stdout, stderr) {
-    //            sails.fs.writeFileSync('./uploads/kittens-resized.jpg', stdout, 'binary');
-    //            console.log('resized kittens.jpg to fit within 256x256px')
-    //        });
-    //    },
+    excelobject: function (req, res) {
+        var file = req.query.file;
+        sails.xlsxj({
+            input: "./uploads/" + file,
+            output: "./uploads/output.json"
+        }, function (err, result) {
+            if (err) {
+                console.error(err);
+            } else {
+                for (var i = 0; i <= result.length; i++) {
+                    User.save(result[i], print);
+                }
+            }
+        });
+    },
+    jsontoexcel: function (req, res) {
+        console.log("in json function");
+        var json = {
+            foo: 'bar',
+            qux: 'moo',
+            poo: 123,
+            stux: moment().format('MMMM Do YYYY, h:mm:ss a')
+        }
+        var xls = json2xls(json);
+        res.json("created");
+        sails.fs.writeFileSync('./uploads/data.xlsx', xls, 'binary');
+    },
     resize: function (req, res, extension) {
         function showimage(path) {
             var image = sails.fs.readFileSync(path);
@@ -55,12 +75,15 @@ module.exports = {
             height = parseInt(height);
             newfilenamearr = newfilepath.split(".");
             extension = newfilenamearr.pop();
-            var newfilename = ".";
-            _.each(newfilenamearr, function (n) {
-                newfilename += n;
-            });
 
-            newfilename += "_" + width + "_" + height + "." + extension;
+            var indexno = newfilepath.search("." + extension);
+            var newfilestart = newfilepath.substr(0, indexno);
+            var newfileend = newfilepath.substr(indexno, newfilepath.length);
+
+
+
+            var newfilename = newfilestart + "_" + width + "_" + height + newfileend;
+            console.log(newfilename);
             var isfile2 = sails.fs.existsSync(newfilename);
             if (!isfile2) {
 

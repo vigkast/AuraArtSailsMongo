@@ -24,6 +24,10 @@ module.exports.bootstrap = function (cb) {
         sails.fs = require('fs'),
         sails.im = require('imagemagick'),
         sails.sizeOf = require('image-size'),
+        sails.xj = require("xls-to-json"),
+        sails.xlsxj = require("xlsx-to-json"),
+        sails.express = require("express"),
+        sails.nodeExcel = require('excel-export'),
         // Connection URL
         sails.url = 'mongodb://localhost:27017/auraart';
     sails.query = function (myfunc) {
