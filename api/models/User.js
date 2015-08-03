@@ -8,6 +8,50 @@ var md5 = require('MD5');
 var mandrill = require('mandrill-api/mandrill');
 mandrill_client = new mandrill.Mandrill('dzbY2mySNE_Zsqr3hsK70A');
 module.exports = {
+    adminlogin: function (data, callback) {
+        var exit = 0;
+        var exitup = 0;
+        data.password = md5(data.password);
+        sails.query(function (err, db) {
+            if (db) {
+                exit++;
+                db.collection('user').find({
+                    email: data.email,
+                    password: data.password,
+                    accesslevel: "admin"
+                }, {
+                    name: 1,
+                    email: 1,
+                    dob: 1,
+                    locality: 1,
+                    accesslevel: 1,
+                    fbid: 1,
+                    gid: 1,
+                    artistdesc: 1
+                }).each(function (err, found) {
+                    if (err) {
+                        callback({
+                            value: "false"
+                        });
+                        console.log(err);
+                    }
+                    if (found != null) {
+                        exitup++;
+                        callback(found);
+                    } else {
+                        if (exit != exitup) {
+                            callback({
+                                value: "false"
+                            });
+                        }
+                    }
+                });
+            }
+            if (err) {
+
+            }
+        });
+    },
     save: function (data, callback) {
         data.password = md5(data.password);
         if (!data._id) {

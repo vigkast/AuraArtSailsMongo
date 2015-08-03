@@ -190,6 +190,12 @@ module.exports = {
         }
         User.login(req.body, print);
     },
+    adminlogin: function (req, res) {
+        var print = function (data) {
+            res.json(data);
+        }
+        User.adminlogin(req.body, print);
+    },
     changepassword: function (req, res) {
         var print = function (data) {
             res.json(data);
@@ -208,5 +214,4 @@ module.exports = {
         }
         User.countusers(req.body, print);
     }
-
 };
