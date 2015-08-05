@@ -105,7 +105,7 @@ module.exports = {
                     }
                 }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
                     if (err) {
-                        callback{
+                        callback({
                             value: false
                         });
                         console.log(err);
