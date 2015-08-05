@@ -138,8 +138,10 @@ module.exports = {
         var newreturns = {};
         newreturns.data = [];
         var check = new RegExp(data.search, "i");
-        var pagesize = data.pagesize;
-        var pagenumber = data.pagenumber;
+        var pagesize = parseInt(data.pagesize);
+        var pagenumber = parseInt(data.pagenumber);
+        var sort = {};
+        sort[data.filter] = 1;
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -150,7 +152,7 @@ module.exports = {
             if (db) {
                 db.collection("user").count({
                     $or: [{
-                        username: {
+                        name: {
                             '$regex': check
                         }
                 }, {
@@ -169,7 +171,7 @@ module.exports = {
                 });
                 db.collection("user").find({
                     $or: [{
-                        username: {
+                        name: {
                             '$regex': check
                         }
                 }, {
@@ -186,7 +188,7 @@ module.exports = {
                     fbid: 1,
                     gid: 1,
                     artistdesc: 1
-                }).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
+                },{sort:sort}).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
                     if (err) {
                         callback({
                             value: false
