@@ -43,7 +43,6 @@ module.exports = {
                             callback({
                                 value: true
                             });
-                            console.log("updated");
                         }
                     });
                 }
@@ -85,7 +84,6 @@ module.exports = {
                             callback({
                                 value: true
                             });
-                            console.log("updated");
                         }
                     });
                 }
@@ -124,7 +122,6 @@ module.exports = {
                         callback({
                             value: true
                         });
-                        console.log("updated");
                     }
                 });
             }
@@ -148,7 +145,6 @@ module.exports = {
                 }).each(function (err, data2) {
                     if (data2 != null) {
                         callback(data2.ticketelement[0]);
-                        console.log("ticketelement findone");
                     }
                     if (err) {
                         console.log(err);
@@ -198,7 +194,6 @@ module.exports = {
                     function (err, data) {
                         if (data != null) {
                             callback(data);
-                            console.log(data);
                         }
                         if (err) {
                             console.log(err);
@@ -335,9 +330,7 @@ module.exports = {
         }
     },
     servertolocal: function (data, callback) {
-        console.log(data.modifytime);
         var d = new Date(data.modifytime);
-        console.log(d);
         var ticket = sails.ObjectID(data.ticket);
         sails.query(function (err, db) {
             if (err) {
@@ -375,7 +368,6 @@ module.exports = {
                     function (err, data) {
                         if (data != null) {
                             callback(data);
-                            console.log(data);
                         }
                         if (err) {
                             console.log(err);

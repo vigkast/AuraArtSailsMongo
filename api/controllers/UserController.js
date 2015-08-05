@@ -5,7 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-var lwip = require('lwip');
+//var lwip = require('lwip');
 var mime = require('mime');
 var express = require('express');
 var json2xls = require('json2xls');
@@ -43,9 +43,10 @@ module.exports = {
         }, function (err, result) {
             if (err) {
                 console.error(err);
-            } else {
-                for (var i = 0; i <= result.length; i++) {
-                    User.save(result[i], print);
+            }
+            if (result) {
+                for (var i = 0; i < result.length; i++) {
+                    User.save(result[i]);
                 }
             }
         });
@@ -159,6 +160,12 @@ module.exports = {
             res.json(data);
         }
         User.find(req.body, print);
+    },
+    findbyletter: function (req, res) {
+        var print = function (data) {
+            res.json(data);
+        }
+        User.findbyletter(req.body, print);
     },
     findlimited: function (req, res) {
         var print = function (data) {

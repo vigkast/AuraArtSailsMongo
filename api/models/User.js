@@ -91,7 +91,6 @@ module.exports = {
                                         });
                                     }
                                     if (created) {
-                                        console.log("created");
                                         callback({
                                             value: true
                                         });
@@ -125,7 +124,6 @@ module.exports = {
                             });
                         }
                         if (updated) {
-                            console.log(updated);
                             callback({
                                 value: true
                             });
@@ -190,15 +188,15 @@ module.exports = {
                     artistdesc: 1
                 }).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
                     if (err) {
-                        console.log({
+                        callback({
                             value: false
                         });
+                        console.log(err);
                     }
                     if (found != null) {
                         newreturns.data.push(found);
                     } else {
                         if (found == null) {
-                            console.log(newreturns.data);
                             newcallback++;
                             if (newcallback == 2) {
                                 callback(newreturns);
@@ -230,7 +228,7 @@ module.exports = {
                     artistdesc: 1
                 }).each(function (err, found) {
                     if (err) {
-                        console.log({
+                        callback({
                             value: false
                         });
                     }
@@ -239,6 +237,67 @@ module.exports = {
                     } else {
                         if (found == null) {
                             callback(returns);
+                        }
+                    }
+                });
+            }
+        });
+    },
+    findbyletter: function (data, callback) {
+        var newcallback = 0;
+        var newreturns = {};
+        newreturns.data = [];
+        data.search = "^" + data.search;
+        var check = new RegExp(data.search, "i");
+        var pagesize = data.pagesize;
+        var pagenumber = data.pagenumber;
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").count({
+                    "name": check,
+                    "accesslevel": "artist"
+                }, function (err, number) {
+                    newreturns.total = number;
+                    newreturns.totalpages = Math.ceil(number / data.pagesize);
+                    newcallback++;
+                    if (newcallback == 2) {
+                        callback(newreturns);
+                    }
+
+                });
+                db.collection("user").find({
+                    "name": check,
+                    "accesslevel": "artist"
+                }, {
+                    name: 1,
+                    email: 1,
+                    dob: 1,
+                    locality: 1,
+                    accesslevel: 1,
+                    fbid: 1,
+                    gid: 1,
+                    artistdesc: 1
+                }).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
+                    if (err) {
+                        callback({
+                            value: false
+                        });
+                        console.log(err);
+                    }
+                    if (found != null) {
+                        newreturns.data.push(found);
+                    } else {
+                        if (found == null) {
+                            newcallback++;
+                            if (newcallback == 2) {
+                                callback(newreturns);
+                            }
                         }
                     }
                 });
@@ -273,7 +332,6 @@ module.exports = {
                         });
                     }
                     if (data != null) {
-                        console.log(data);
                         delete data.password;
                         callback(data);
                     }
@@ -330,7 +388,6 @@ module.exports = {
                 _id: sails.ObjectID(data._id)
             }, function (err, deleted) {
                 if (deleted) {
-                    console.log(deleted);
                     callback({
                         value: true
                     });
@@ -386,13 +443,9 @@ module.exports = {
                                     value: false
                                 });
                             }
-                            if (updated) {
-                                console.log("updated");
-                            }
                         });
                     }
                     callback(found);
-                    console.log(found);
                 } else {
                     db.collection('user').find({
                         email: data.email,
@@ -431,15 +484,9 @@ module.exports = {
                                         value: false
                                     });
                                 }
-                                if (updated) {
-                                    console.log(updated);
-                                }
                             });
                         } else {
                             exitdown++;
-                            console.log(exit);
-                            console.log(exitup);
-                            console.log(exitdown);
                             if (exit == exitup == exitdown) {
                                 callback({
                                     value: false
@@ -463,7 +510,6 @@ module.exports = {
                 });
             }
             if (data.editpassword == "") {
-                console.log("Password can't be empty.");
                 callback({
                     value: false
                 });
@@ -480,19 +526,16 @@ module.exports = {
                 }, function (err, updated) {
                     if (err) {
                         console.log(err);
-                        console.log("Error");
                         callback({
                             value: false
                         });
                     }
                     if (updated) {
                         if (updated.result.nModified == 1) {
-                            console.log(updated.result.nModified);
                             callback({
                                 value: true
                             });
                         } else {
-                            console.log(updated.result.nModified);
                             callback({
                                 value: true
                             });
@@ -519,7 +562,6 @@ module.exports = {
                     for (var i = 0; i < 8; i++) {
                         text += possible.charAt(Math.floor(Math.random() * possible.length));
                     }
-                    console.log(text);
                     var encrypttext = md5(text);
                     sails.query(function (err, db) {
                         var user = sails.ObjectID(data._id);
@@ -562,7 +604,6 @@ module.exports = {
                                     "template_content": template_content,
                                     "message": message
                                 }, function (result) {
-                                    console.log(result);
                                     callback(result);
                                 }, function (e) {
                                     console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
