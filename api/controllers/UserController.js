@@ -5,7 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-//var lwip = require('lwip');
+var lwip = require('lwip');
 var mime = require('mime');
 var express = require('express');
 var json2xls = require('json2xls');

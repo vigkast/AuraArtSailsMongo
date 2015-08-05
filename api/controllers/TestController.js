@@ -5,7 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-//var lwip = require('lwip');
+var lwip = require('lwip');
 
 module.exports = {
     resize: function (req, res) {
