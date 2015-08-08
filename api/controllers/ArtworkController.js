@@ -56,5 +56,11 @@ module.exports = {
             res.json(data);
         };
         Artwork.servertolocal(req.body, callback);
+    },
+    findhome: function (req, res) {
+        function callback(data) {
+            res.json(data);
+        };
+        Artwork.findhome(req.body, callback);
     }
 };
