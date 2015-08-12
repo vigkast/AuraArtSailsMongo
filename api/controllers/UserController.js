@@ -6,7 +6,6 @@
  */
 
 var lwip = require('lwip');
-var mime = require('mime');
 var express = require('express');
 var json2xls = require('json2xls');
 var app = express();
@@ -35,39 +34,6 @@ module.exports = {
                         var gridStore = new sails.GridStore(db, fileId, filename, 'w', {
                             content_type: mimetype
                         });
-                        gridStore.open(function (err, gridStore) {
-                            gridStore.writeFile(filepath, function (err, doc) {
-                                sails.GridStore.read(db, fileId, function (err, fileData) {
-                                    var buffr = fileData;
-                                    res.json(fileId);
-                                    sails.fs.unlink(filepath, function (err) {
-                                        if (err) {
-                                            console.log(err);
-                                        }
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        });
-            if (err) {
-                console.log(err);
-            }
-            req.file("file").upload({
-                maxBytes: 100000000
-            }, function (err, uploadedFiles) {
-                if (err) {
-                    return res.send(500, err);
-                }
-                _.each(uploadedFiles, function (n) {
-                    var filepath = n.fd;
-                    var newdate = sails.moment(new Date()).format('YYYY-MM-DDh-mm-ss-SSSSa');
-                    var filename = 'image' + newdate + '.jpg';
-                    db.open(function (err, db) {
-                        var fileId = new sails.ObjectID();
-                        var gridStore = new sails.GridStore(db, fileId, filename, 'w');
                         gridStore.open(function (err, gridStore) {
                             gridStore.writeFile(filepath, function (err, doc) {
                                 sails.GridStore.read(db, fileId, function (err, fileData) {
