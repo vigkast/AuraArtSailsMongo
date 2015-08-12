@@ -1,7 +1,7 @@
 /**
- * WishlistfolderController
+ * CartController
  *
- * @description :: Server-side logic for managing Wishlistfolder
+ * @description :: Server-side logic for managing Cart
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
@@ -10,44 +10,44 @@ module.exports = {
         function callback(data) {
             res.json(data);
         };
-        Wishlistfolder.save(req.body, callback);
+        Cart.save(req.body, callback);
     },
     delete: function (req, res) {
         function callback(data) {
             res.json(data);
         };
-        Wishlistfolder.delete(req.body, callback);
+        Cart.delete(req.body, callback);
     },
     find: function (req, res) {
         function callback(data) {
             res.json(data);
         };
-        Wishlistfolder.find(req.body, callback);
+        Cart.find(req.body, callback);
 
     },
     findlimited: function (req, res) {
         function callback(data) {
             res.json(data);
         };
-        Wishlistfolder.findlimited(req.body, callback);
+        Cart.findlimited(req.body, callback);
 
     },
     findOne: function (req, res) {
         function callback(data) {
             res.json(data);
         };
-        Wishlistfolder.findOne(req.body, callback);
+        Cart.findOne(req.body, callback);
     },
     localtoserver: function (req, res) {
         function callback(data) {
             res.json(data);
         };
-        Wishlistfolder.localtoserver(req.body, callback);
+        Cart.localtoserver(req.body, callback);
     },
     servertolocal: function (req, res) {
         function callback(data) {
             res.json(data);
         };
-        Wishlistfolder.servertolocal(req.body, callback);
+        Cart.servertolocal(req.body, callback);
     }
 };

@@ -20,14 +20,8 @@ module.exports = {
                     password: data.password,
                     accesslevel: "admin"
                 }, {
-                    name: 1,
-                    email: 1,
-                    dob: 1,
-                    locality: 1,
-                    accesslevel: 1,
-                    fbid: 1,
-                    gid: 1,
-                    artistdesc: 1
+                    password: 0,
+                    forgotpassword: 0
                 }).each(function (err, found) {
                     if (err) {
                         callback({
@@ -180,15 +174,11 @@ module.exports = {
                         }
                 }]
                 }, {
-                    name: 1,
-                    email: 1,
-                    dob: 1,
-                    locality: 1,
-                    accesslevel: 1,
-                    fbid: 1,
-                    gid: 1,
-                    artistdesc: 1
-                },{sort:sort}).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
+                    password: 0,
+                    forgotpassword: 0
+                }, {
+                    sort: sort
+                }).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -220,14 +210,8 @@ module.exports = {
             }
             if (db) {
                 db.collection("user").find({}, {
-                    name: 1,
-                    email: 1,
-                    dob: 1,
-                    locality: 1,
-                    accesslevel: 1,
-                    fbid: 1,
-                    gid: 1,
-                    artistdesc: 1
+                    password: 0,
+                    forgotpassword: 0
                 }).each(function (err, found) {
                     if (err) {
                         callback({
@@ -277,14 +261,8 @@ module.exports = {
                     "name": check,
                     "accesslevel": "artist"
                 }, {
-                    name: 1,
-                    email: 1,
-                    dob: 1,
-                    locality: 1,
-                    accesslevel: 1,
-                    fbid: 1,
-                    gid: 1,
-                    artistdesc: 1
+                    password: 0,
+                    forgotpassword: 0
                 }).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
                     if (err) {
                         callback({
@@ -318,14 +296,8 @@ module.exports = {
                 db.collection("user").find({
                     "_id": sails.ObjectID(data._id)
                 }, {
-                    name: 1,
-                    email: 1,
-                    dob: 1,
-                    locality: 1,
-                    accesslevel: 1,
-                    fbid: 1,
-                    gid: 1,
-                    artistdesc: 1
+                    password: 0,
+                    forgotpassword: 0
                 }).each(function (err, data) {
                     if (err) {
                         console.log(err);
@@ -413,14 +385,8 @@ module.exports = {
                 email: data.email,
                 password: data.password
             }, {
-                name: 1,
-                email: 1,
-                dob: 1,
-                locality: 1,
-                accesslevel: 1,
-                fbid: 1,
-                gid: 1,
-                artistdesc: 1
+                password: 0,
+                forgotpassword: 0
             }).each(function (err, found) {
                 exitup++;
                 if (err) {
@@ -453,14 +419,8 @@ module.exports = {
                         email: data.email,
                         forgotpassword: data.password
                     }, {
-                        name: 1,
-                        email: 1,
-                        dob: 1,
-                        locality: 1,
-                        accesslevel: 1,
-                        fbid: 1,
-                        gid: 1,
-                        artistdesc: 1
+                        password: 0,
+                        forgotpassword: 0
                     }).each(function (err, found) {
                         exit++;
                         if (err) {
