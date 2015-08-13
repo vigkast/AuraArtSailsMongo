@@ -314,7 +314,8 @@ module.exports = {
         });
     },
     searchmail: function (data, callback) {
-
+        var exit=0;
+        var exitup=0;
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
