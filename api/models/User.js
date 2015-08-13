@@ -384,8 +384,7 @@ module.exports = {
                 email: data.email,
                 password: data.password
             }, {
-                password: 0,
-                forgotpassword: 0
+                password: 0
             }).each(function (err, found) {
                 exitup++;
                 if (err) {
@@ -412,6 +411,7 @@ module.exports = {
                             }
                         });
                     }
+                    delete found.forgotpassword;
                     callback(found);
                 } else {
                     db.collection('user').find({
