@@ -314,8 +314,7 @@ module.exports = {
         });
     },
     searchmail: function (data, callback) {
-        var exit = 0;
-        var exitup = 0;
+
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -508,75 +507,93 @@ module.exports = {
         });
     },
     forgotpassword: function (data, callback) {
+        var exit = 0;
+        var exitup = 0;
         sails.query(function (err, db) {
-            db.collection('user').find({
-                email: data.email
-            }).each(function (err, data) {
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
-                }
-                if (data != null) {
-                    var text = "";
-                    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-                    for (var i = 0; i < 8; i++) {
-                        text += possible.charAt(Math.floor(Math.random() * possible.length));
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                exit++;
+                db.collection('user').find({
+                    email: data.email
+                }).each(function (err, data) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
                     }
-                    var encrypttext = md5(text);
-                    sails.query(function (err, db) {
-                        var user = sails.ObjectID(data._id);
-                        db.collection('user').update({
-                            email: data.email
-                        }, {
-                            $set: {
-                                forgotpassword: encrypttext
-                            }
-                        }, function (err, updated) {
-                            if (err) {
-                                console.log(err);
-                                callback({
-                                    value: false
-                                });
+                    if (data != null) {
+                        exitup++;
+                        var text = "";
+                        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                        for (var i = 0; i < 8; i++) {
+                            text += possible.charAt(Math.floor(Math.random() * possible.length));
+                        }
+                        var encrypttext = md5(text);
+                        sails.query(function (err, db) {
+                            var user = sails.ObjectID(data._id);
+                            db.collection('user').update({
+                                email: data.email
+                            }, {
+                                $set: {
+                                    forgotpassword: encrypttext
+                                }
+                            }, function (err, updated) {
+                                if (err) {
+                                    console.log(err);
+                                    callback({
+                                        value: false
+                                    });
 
-                            }
-                            if (updated) {
-                                var template_name = "Aura Art";
-                                var template_content = [{
-                                    "name": "aura-art",
-                                    "content": "aura-art"
+                                }
+                                if (updated) {
+                                    var template_name = "Aura Art";
+                                    var template_content = [{
+                                        "name": "aura-art",
+                                        "content": "aura-art"
     }]
-                                var message = {
-                                    "from_email": "vigneshkasthuri2009@gmail.com",
-                                    "from_name": "Wohlig",
-                                    "to": [{
-                                        "email": data.email,
-                                        "type": "to"
+                                    var message = {
+                                        "from_email": "vigneshkasthuri2009@gmail.com",
+                                        "from_name": "Wohlig",
+                                        "to": [{
+                                            "email": data.email,
+                                            "type": "to"
         }],
-                                    "global_merge_vars": [
-                                        {
-                                            "name": "password",
-                                            "content": text
+                                        "global_merge_vars": [
+                                            {
+                                                "name": "password",
+                                                "content": text
   }
 ]
-                                };
-                                mandrill_client.messages.sendTemplate({
-                                    "template_name": template_name,
-                                    "template_content": template_content,
-                                    "message": message
-                                }, function (result) {
-                                    callback({
-                                        value: true
+                                    };
+                                    mandrill_client.messages.sendTemplate({
+                                        "template_name": template_name,
+                                        "template_content": template_content,
+                                        "message": message
+                                    }, function (result) {
+                                        callback({
+                                            value: true
+                                        });
+                                    }, function (e) {
+                                        console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
                                     });
-                                }, function (e) {
-                                    console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
-                                });
-                            }
+                                }
+                            });
                         });
-                    });
-                }
-            });
+                    } else {
+                        if (exit != exitup) {
+                            callback({
+                                value: false
+                            });
+                        }
+                    }
+                });
+            }
         });
     },
     countusers: function (data, callback) {

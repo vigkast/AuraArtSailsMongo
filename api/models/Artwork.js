@@ -577,7 +577,7 @@ module.exports = {
                     $group: {
                         "_id": null,
                         count: {
-                            $sum: "$artwork.name"
+                            $sum: 1
                         }
                     }
                 }, {
