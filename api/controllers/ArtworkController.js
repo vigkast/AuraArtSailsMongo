@@ -46,6 +46,13 @@ module.exports = {
         Artwork.findlimited(req.body, callback);
 
     },
+    findlimitedout: function (req, res) {
+        function callback(data) {
+            res.json(data);
+        };
+        Artwork.findlimitedout(req.body, callback);
+
+    },
     findOne: function (req, res) {
         function callback(data) {
             res.json(data);
@@ -69,5 +76,11 @@ module.exports = {
             res.json(data);
         };
         Artwork.findhome(req.body, callback);
+    },
+    deleteout: function (req, res) {
+        function callback(data) {
+            res.json(data);
+        };
+        Artwork.deleteout(req.body, callback);
     }
 };

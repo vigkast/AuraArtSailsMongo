@@ -566,7 +566,9 @@ module.exports = {
                                     "template_content": template_content,
                                     "message": message
                                 }, function (result) {
-                                    callback(result);
+                                    callback({
+                                        value: true
+                                    });
                                 }, function (e) {
                                     console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
                                 });
