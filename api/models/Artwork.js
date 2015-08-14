@@ -124,7 +124,8 @@ module.exports = {
             }
         });
     },
-    findOne: function (data, callback) {
+    findone: function (data, callback) {
+        console.log(data);
         var user = sails.ObjectID(data.user);
         sails.query(function (err, db) {
             if (err) {

@@ -53,11 +53,12 @@ module.exports = {
         Artwork.findlimitedout(req.body, callback);
 
     },
-    findOne: function (req, res) {
+    findone: function (req, res) {
+        
         function callback(data) {
             res.json(data);
         };
-        Artwork.findOne(req.body, callback);
+        Artwork.findone(req.body, callback);
     },
     localtoserver: function (req, res) {
         function callback(data) {
