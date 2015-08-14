@@ -250,94 +250,54 @@ module.exports = {
         var user = sails.ObjectID(data.user);
         var sort = {};
         sort['artwork.' + data.filter] = 1;
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("user").aggregate([{
-                    $match: {
-                        _id: user,
-                        "artwork.name": {
-                            $exists: true
-                        },
-                        "artwork.name": {
-                            $regex: check
+        if (data.type != "") {
+            sails.query(function (err, db) {
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false
+                    });
+                }
+                if (db) {
+                    db.collection("user").aggregate([{
+                        $match: {
+                            _id: user,
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.type": data.type,
+                            "artwork.name": {
+                                $regex: check
+                            }
                         }
-                    }
                 }, {
-                    $unwind: "$artwork"
+                        $unwind: "$artwork"
                 }, {
-                    $match: {
-                        "artwork.name": {
-                            $exists: true
-                        },
-                        "artwork.name": {
-                            $regex: check
+                        $match: {
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.type": data.type,
+                            "artwork.name": {
+                                $regex: check
+                            }
                         }
-                    }
                 }, {
-                    $group: {
-                        _id: user,
-                        count: {
-                            $sum: 1
+                        $group: {
+                            _id: user,
+                            count: {
+                                $sum: 1
+                            }
                         }
-                    }
                 }, {
-                    $project: {
-                        count: 1
-                    }
+                        $project: {
+                            count: 1
+                        }
                 }]).toArray(function (err, result) {
-                    if (result[0]) {
-                        newreturns.total = result[0].count;
-                        newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
-                        newcallback++;
-                    }
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false
-                        });
-                    }
-                });
-                db.collection("user").aggregate([{
-                    $match: {
-                        _id: user,
-                        "artwork.name": {
-                            $exists: true
-                        },
-                        "artwork.name": {
-                            $regex: check
-                        }
-                    }
-                }, {
-                    $unwind: "$artwork"
-                }, {
-                    $match: {
-                        "artwork.name": {
-                            $exists: true
-                        },
-                        "artwork.name": {
-                            $regex: check
-                        }
-                    }
-                }, {
-                    $project: {
-                        artwork: 1
-                    }
-                }, {
-                    $sort: sort
-                }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
-                    function (err, found) {
-                        console.log(sort);
-                        console.log(found);
-                        if (found != null) {
-                            newreturns.data = found;
-                            callback(newreturns);
-
+                        if (result[0]) {
+                            newreturns.total = result[0].count;
+                            newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                            newcallback++;
                         }
                         if (err) {
                             console.log(err);
@@ -346,8 +306,150 @@ module.exports = {
                             });
                         }
                     });
-            }
-        });
+                    db.collection("user").aggregate([{
+                        $match: {
+                            _id: user,
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.type": data.type,
+                            "artwork.name": {
+                                $regex: check
+                            }
+                        }
+                }, {
+                        $unwind: "$artwork"
+                }, {
+                        $match: {
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.type": data.type,
+                            "artwork.name": {
+                                $regex: check
+                            }
+                        }
+                }, {
+                        $project: {
+                            artwork: 1
+                        }
+                }, {
+                        $sort: sort
+                }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
+                        function (err, found) {
+                            if (found != null) {
+                                newreturns.data = found;
+                                callback(newreturns);
+
+                            }
+                            if (err) {
+                                console.log(err);
+                                callback({
+                                    value: false
+                                });
+                            }
+                        });
+                }
+            });
+        } else {
+            sails.query(function (err, db) {
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false
+                    });
+                }
+                if (db) {
+                    db.collection("user").aggregate([{
+                        $match: {
+                            _id: user,
+                            "artwork.name": {
+                                $exists: true
+                            },
+
+                            "artwork.name": {
+                                $regex: check
+                            }
+                        }
+                }, {
+                        $unwind: "$artwork"
+                }, {
+                        $match: {
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.name": {
+                                $regex: check
+                            }
+                        }
+                }, {
+                        $group: {
+                            _id: user,
+                            count: {
+                                $sum: 1
+                            }
+                        }
+                }, {
+                        $project: {
+                            count: 1
+                        }
+                }]).toArray(function (err, result) {
+                        if (result[0]) {
+                            newreturns.total = result[0].count;
+                            newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                            newcallback++;
+                        }
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                        }
+                    });
+                    db.collection("user").aggregate([{
+                        $match: {
+                            _id: user,
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.name": {
+                                $regex: check
+                            }
+                        }
+                }, {
+                        $unwind: "$artwork"
+                }, {
+                        $match: {
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.name": {
+                                $regex: check
+                            }
+                        }
+                }, {
+                        $project: {
+                            artwork: 1
+                        }
+                }, {
+                        $sort: sort
+                }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
+                        function (err, found) {
+                            if (found != null) {
+                                newreturns.data = found;
+                                callback(newreturns);
+
+                            }
+                            if (err) {
+                                console.log(err);
+                                callback({
+                                    value: false
+                                });
+                            }
+                        });
+                }
+            });
+        }
     },
     localtoserver: function (data, callback) {
         if (data.creationtime) {
