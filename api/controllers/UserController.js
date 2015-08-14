@@ -179,6 +179,12 @@ module.exports = {
         }
         User.find(req.body, print);
     },
+    findimage: function (req, res) {
+        var print = function (data) {
+            res.json(data);
+        }
+        User.findimage(req.body, print);
+    },
     findbyletter: function (req, res) {
         var print = function (data) {
             res.json(data);
