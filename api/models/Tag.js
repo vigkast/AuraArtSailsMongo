@@ -70,51 +70,101 @@ module.exports = {
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("tag").count({
-                    name: {
-                        '$regex': check
-                    }
-                }, function (err, number) {
-                    newreturns.total = number;
-                    newreturns.totalpages = Math.ceil(number / data.pagesize);
-                    newcallback++;
-                    if (newcallback == 2) {
-                        callback(newreturns);
-                    }
+        if (data.category != "") {
+            sails.query(function (err, db) {
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false
+                    });
+                }
+                if (db) {
+                    db.collection("tag").count({
+                        name: {
+                            '$regex': check
+                        },
+                        category: data.category
+                    }, function (err, number) {
+                        newreturns.total = number;
+                        newreturns.totalpages = Math.ceil(number / data.pagesize);
+                        newcallback++;
+                        if (newcallback == 2) {
+                            callback(newreturns);
+                        }
 
-                });
-                db.collection("tag").find({
-                    name: {
-                        '$regex': check
-                    }
-                }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
-                    if (err) {
-                        callback({
-                            value: false
-                        });
-                        console.log(err);
-                    }
-                    if (found != null) {
-                        newreturns.data.push(found);
-                    } else {
-                        if (found == null) {
-                            newcallback++;
-                            if (newcallback == 2) {
-                                callback(newreturns);
+                    });
+                    db.collection("tag").find({
+                        name: {
+                            '$regex': check
+                        },
+                        category: data.category
+                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
+                        if (err) {
+                            callback({
+                                value: false
+                            });
+                            console.log(err);
+                        }
+                        if (found != null) {
+                            newreturns.data.push(found);
+                        } else {
+                            if (found == null) {
+                                newcallback++;
+                                if (newcallback == 2) {
+                                    callback(newreturns);
+                                }
                             }
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        } else {
+            sails.query(function (err, db) {
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false
+                    });
+                }
+                if (db) {
+                    db.collection("tag").count({
+                        name: {
+                            '$regex': check
+                        }
+                    }, function (err, number) {
+                        newreturns.total = number;
+                        newreturns.totalpages = Math.ceil(number / data.pagesize);
+                        newcallback++;
+                        if (newcallback == 2) {
+                            callback(newreturns);
+                        }
+
+                    });
+                    db.collection("tag").find({
+                        name: {
+                            '$regex': check
+                        }
+                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
+                        if (err) {
+                            callback({
+                                value: false
+                            });
+                            console.log(err);
+                        }
+                        if (found != null) {
+                            newreturns.data.push(found);
+                        } else {
+                            if (found == null) {
+                                newcallback++;
+                                if (newcallback == 2) {
+                                    callback(newreturns);
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        }
     },
     find: function (data, callback) {
         var returns = [];
