@@ -102,11 +102,12 @@ module.exports = {
                 var dummy = sails.ObjectID();
                 data.modifytime = dummy.getTimestamp();
                 db.collection("user").update({
-                    "_id": user,
-                    "artwork._id": data._id
+                    "_id": user
                 }, {
-                    $set: {
-                        "artwork.$": data
+                    $pull: {
+                        "artwork": {
+                            "_id": sails.ObjectID(data._id)
+                        }
                     }
                 }, function (err, updated) {
                     if (err) {
@@ -612,13 +613,11 @@ module.exports = {
                 });
             }
             if (db) {
-                var dummy = sails.ObjectID();
-                data.modifytime = dummy.getTimestamp();
                 db.collection("user").update({
-                    "artwork._id": data._id
-                }, {
-                    $set: {
-                        "artwork.$": data
+                    $pull: {
+                        "artwork": {
+                            "_id": sails.ObjectID(data._id)
+                        }
                     }
                 }, function (err, updated) {
                     if (err) {
@@ -638,6 +637,7 @@ module.exports = {
     },
     findlimitedout: function (data, callback) {
         var newreturns = {};
+        var returns = [];
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
@@ -653,18 +653,7 @@ module.exports = {
                     });
                 }
                 if (db) {
-                    db.collection("user").count({
-                        "artwork.name": {
-                            $exists: true
-                        },
-                        "artwork.name": {
-                            '$regex': check
-                        },
-                        "artwork.type": data.type
-                    }, function (err, number) {
-                        newreturns.total = number;
-                        newreturns.totalpages = Math.ceil(number / data.pagesize);
-                    });
+
                     db.collection("user").aggregate([{
                         $match: {
                             "artwork.name": {
@@ -717,17 +706,50 @@ module.exports = {
                     });
                 }
                 if (db) {
-                    db.collection("user").count({
-                        "artwork.name": {
-                            $exists: true
-                        },
-                        "artwork.name": {
-                            '$regex': check
-                        }
-                    }, function (err, number) {
-                        newreturns.total = number;
-                        newreturns.totalpages = Math.ceil(number / data.pagesize);
-                    });
+                    function callbackdata(newreturns) {
+                        db.collection('user').mapReduce(
+                            function () {
+                                emit('artwork', {
+                                    count: this.artwork.length
+                                });
+                            },
+                            function (key, values) {
+                                var result = {
+                                    count: 0
+                                };
+                                values.forEach(function (value) {
+                                    result.count += value.count;
+                                });
+                                return result;
+                            }, {
+                                out: "artworkcount"
+                            },
+                            function (err, collection) {
+                                if (err) {
+                                    console.log(err);
+                                    callback({
+                                        value: "false"
+                                    });
+                                }
+                                if (collection) {
+                                    collection.find().each(function (err, found) {
+                                        if (err) {
+                                            callback({
+                                                value: false
+                                            });
+                                        }
+                                        if (found != null) {
+                                            returns.push(found);
+                                        } else {
+                                            if (found == null) {
+                                                newreturns.totalpages = Math.ceil(returns[0].value.count / data.pagesize);
+                                                callback(newreturns);
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                    }
                     db.collection("user").aggregate([{
                         $match: {
                             "artwork.name": {
@@ -758,7 +780,7 @@ module.exports = {
                         function (err, found) {
                             if (found != null) {
                                 newreturns.data = found;
-                                callback(newreturns);
+                                callbackdata(newreturns);
                             }
                             if (err) {
                                 console.log(err);
