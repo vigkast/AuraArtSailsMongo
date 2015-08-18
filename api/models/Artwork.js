@@ -653,7 +653,6 @@ module.exports = {
                     });
                 }
                 if (db) {
-
                     db.collection("user").aggregate([{
                         $match: {
                             "artwork.name": {
@@ -706,50 +705,6 @@ module.exports = {
                     });
                 }
                 if (db) {
-                    function callbackdata(newreturns) {
-                        db.collection('user').mapReduce(
-                            function () {
-                                emit('artwork', {
-                                    count: this.artwork.length
-                                });
-                            },
-                            function (key, values) {
-                                var result = {
-                                    count: 0
-                                };
-                                values.forEach(function (value) {
-                                    result.count += value.count;
-                                });
-                                return result;
-                            }, {
-                                out: "artworkcount"
-                            },
-                            function (err, collection) {
-                                if (err) {
-                                    console.log(err);
-                                    callback({
-                                        value: "false"
-                                    });
-                                }
-                                if (collection) {
-                                    collection.find().each(function (err, found) {
-                                        if (err) {
-                                            callback({
-                                                value: false
-                                            });
-                                        }
-                                        if (found != null) {
-                                            returns.push(found);
-                                        } else {
-                                            if (found == null) {
-                                                newreturns.totalpages = Math.ceil(returns[0].value.count / data.pagesize);
-                                                callback(newreturns);
-                                            }
-                                        }
-                                    });
-                                }
-                            });
-                    }
                     db.collection("user").aggregate([{
                         $match: {
                             "artwork.name": {
@@ -780,7 +735,7 @@ module.exports = {
                         function (err, found) {
                             if (found != null) {
                                 newreturns.data = found;
-                                callbackdata(newreturns);
+                                callback(newreturns);
                             }
                             if (err) {
                                 console.log(err);

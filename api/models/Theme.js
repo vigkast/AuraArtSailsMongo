@@ -17,19 +17,40 @@ module.exports = {
                         value: false
                     });
                 }
-                var ctheme = db.collection('theme').insert(data, function (err, created) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false
-                        });
-                    }
-                    if (created) {
-                        callback({
-                            value: true
-                        });
-                    }
-                });
+                if (db) {
+                    exit++;
+                    db.collection("theme").find({
+                        "name": data.name
+                    }).each(function (err, data2) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                        }
+                        if (data2 != null) {
+                            exitup++;
+                            callback(data2);
+                        } else {
+                            if (exit != exitup) {
+                                var ctheme = db.collection('theme').insert(data, function (err, created) {
+                                    if (err) {
+                                        console.log(err);
+                                        callback({
+                                            value: false
+                                        });
+                                    }
+                                    if (created) {
+                                        callback({
+                                            value: true,
+                                            id: data._id
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
             });
         } else {
             sails.query(function (err, db) {
@@ -118,6 +139,15 @@ module.exports = {
     },
     find: function (data, callback) {
         var returns = [];
+        var exit = 0;
+        var exitup = 1;
+        var check = new RegExp(data.search, "i");
+
+        function callback2(exit, exitup, data) {
+            if (exit == exitup) {
+                callback(data);
+            }
+        }
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -126,7 +156,11 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("theme").find({}, {}).each(function (err, found) {
+                db.collection("theme").find({
+                    name: {
+                        '$regex': check
+                    }
+                }).limit(10).toArray(function (err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -134,11 +168,21 @@ module.exports = {
                         console.log(err);
                     }
                     if (found != null) {
-                        returns.push(found);
-                    } else {
-                        if (found == null) {
-                            callback(returns);
+                        exit++;
+                        if (data.theme.length != 0) {
+                            var nedata;
+                            nedata = _.remove(found, function (n) {
+                                var flag = false;
+                                _.each(data.theme, function (n1) {
+                                    if (n1.name == n.name) {
+                                        flag = true;
+                                    }
+                                })
+                                return flag;
+                            });
                         }
+                        returns = returns.concat(found);
+                        callback2(exit, exitup, returns);
                     }
                 });
             }
