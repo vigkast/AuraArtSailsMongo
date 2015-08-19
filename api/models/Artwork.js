@@ -637,7 +637,6 @@ module.exports = {
     },
     findlimitedout: function (data, callback) {
         var newreturns = {};
-        var returns = [];
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
@@ -653,6 +652,54 @@ module.exports = {
                     });
                 }
                 if (db) {
+                    db.collection("user").aggregate([
+                        {
+                            $match: {
+                                "artwork.name": {
+                                    $exists: true
+                                },
+                                "artwork.name": {
+                                    $regex: check
+                                },
+                                "artwork.type": data.type
+                            }
+                        }, {
+                            $unwind: "$artwork"
+                            }, {
+                            $match: {
+                                "artwork.name": {
+                                    $exists: true
+                                },
+                                "artwork.name": {
+                                    $regex: check
+                                },
+                                "artwork.type": data.type
+                            }
+                        },
+                        {
+                            $group: {
+                                _id: user,
+                                count: {
+                                    $sum: 1
+                                }
+                            }
+                        },
+                        {
+                            $project: {
+                                count: 1
+                            }
+                    }
+                ]).toArray(function (err, result) {
+                        if (result[0]) {
+                            newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                        }
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                        }
+                    });
                     db.collection("user").aggregate([{
                         $match: {
                             "artwork.name": {
@@ -705,6 +752,52 @@ module.exports = {
                     });
                 }
                 if (db) {
+                    db.collection("user").aggregate([
+                        {
+                            $match: {
+                                "artwork.name": {
+                                    $exists: true
+                                },
+                                "artwork.name": {
+                                    $regex: check
+                                }
+                            }
+                        }, {
+                            $unwind: "$artwork"
+                            }, {
+                            $match: {
+                                "artwork.name": {
+                                    $exists: true
+                                },
+                                "artwork.name": {
+                                    $regex: check
+                                }
+                            }
+                        },
+                        {
+                            $group: {
+                                _id: user,
+                                count: {
+                                    $sum: 1
+                                }
+                            }
+                        },
+                        {
+                            $project: {
+                                count: 1
+                            }
+                    }
+                ]).toArray(function (err, result) {
+                        if (result[0]) {
+                            newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                        }
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                        }
+                    });
                     db.collection("user").aggregate([{
                         $match: {
                             "artwork.name": {
