@@ -134,8 +134,9 @@ module.exports = {
         var check = new RegExp(data.search, "i");
         var pagesize = parseInt(data.pagesize);
         var pagenumber = parseInt(data.pagenumber);
+        var sortnum = parseInt(data.sort);
         var sort = {};
-        sort[data.filter] = 1;
+        sort[data.filter] = sortnum;
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -314,8 +315,8 @@ module.exports = {
         });
     },
     searchmail: function (data, callback) {
-        var exit=0;
-        var exitup=0;
+        var exit = 0;
+        var exitup = 0;
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -624,7 +625,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("fs.files").find({},{}).each(function (err, found) {
+                db.collection("fs.files").find({}, {}).each(function (err, found) {
                     if (err) {
                         console.log({
                             value: false
@@ -636,6 +637,78 @@ module.exports = {
                         if (found == null) {
                             callback(returns);
                         }
+                    }
+                });
+            }
+        });
+    },
+    countusers: function (data, callback) {
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").count({}, function (err, number) {
+                    if (number != null) {
+                        callback(number);
+                    }
+                });
+            }
+        });
+    },
+    countartwork: function (data, callback) {
+        var user = sails.ObjectID(data.user);
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").aggregate([
+                    {
+                        $match: {
+                            "artwork.name": {
+                                $exists: true
+                            }
+                        }
+                    },
+                    {
+                        $unwind: "$artwork"
+                    },
+                    {
+                        $match: {
+                            "artwork.name": {
+                                $exists: true
+                            }
+                        }
+                    },
+                    {
+                        $group: {
+                            _id: user,
+                            count: {
+                                $sum: 1
+                            }
+                        }
+                    },
+                    {
+                        $project: {
+                            count: 1
+                        }
+                    }
+                ]).toArray(function (err, result) {
+                    if (result[0]) {
+                        callback(result[0].count);
+                    }
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
                     }
                 });
             }
