@@ -244,5 +244,11 @@ module.exports = {
             res.json(data);
         }
         User.countusers(req.body, print);
+    },
+    countartwork: function (req, res) {
+        var print = function (data) {
+            res.json(data);
+        }
+        User.countartwork(req.body, print);
     }
 };
