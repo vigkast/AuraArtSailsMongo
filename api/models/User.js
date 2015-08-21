@@ -658,7 +658,6 @@ module.exports = {
                     if (number != null) {
                         callback(number);
                     }
-                    console.log(number);
                 });
             }
         });
