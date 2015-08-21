@@ -658,6 +658,7 @@ module.exports = {
                     if (number != null) {
                         callback(number);
                     }
+                    console.log(number);
                 });
             }
         });
@@ -706,6 +707,9 @@ module.exports = {
                 ]).toArray(function (err, result) {
                     if (result[0]) {
                         callback(result[0].count);
+                    }
+                    if (!result[0]) {
+                        callback(0);
                     }
                     if (err) {
                         console.log(err);
