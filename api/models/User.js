@@ -132,6 +132,7 @@ module.exports = {
         var newreturns = {};
         newreturns.data = [];
         var check = new RegExp(data.search, "i");
+        var accesslevel = data.accesslevel;
         var pagesize = parseInt(data.pagesize);
         var pagenumber = parseInt(data.pagenumber);
         var sortnum = parseInt(data.sort);
@@ -154,7 +155,8 @@ module.exports = {
                         email: {
                             '$regex': check
                         }
-                }]
+                }],
+                    accesslevel: accesslevel
                 }, function (err, number) {
                     newreturns.total = number;
                     newreturns.totalpages = Math.ceil(number / data.pagesize);
@@ -173,7 +175,8 @@ module.exports = {
                         email: {
                             '$regex': check
                         }
-                }]
+                }],
+                    accesslevel: accesslevel
                 }, {
                     password: 0,
                     forgotpassword: 0
