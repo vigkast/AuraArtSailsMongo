@@ -54,7 +54,7 @@ module.exports = {
 
     },
     findone: function (req, res) {
-        
+
         function callback(data) {
             res.json(data);
         };
@@ -83,5 +83,11 @@ module.exports = {
             res.json(data);
         };
         Artwork.deleteout(req.body, callback);
+    },
+    lastsr: function (req, res) {
+        function callback(data) {
+            res.json(data);
+        };
+        Artwork.lastsr(req.body, callback);
     }
 };

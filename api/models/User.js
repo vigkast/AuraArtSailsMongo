@@ -719,5 +719,37 @@ module.exports = {
                 });
             }
         });
+    },
+    findbyaccess: function (data, callback) {
+        var returns = [];
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").find({
+                    accesslevel: data.accesslevel
+                }, {
+                    password: 0,
+                    forgotpassword: 0
+                }).each(function (err, found) {
+                    if (err) {
+                        callback({
+                            value: false
+                        });
+                    }
+                    if (found != null) {
+                        returns.push(found);
+                    } else {
+                        if (found == null) {
+                            callback(returns);
+                        }
+                    }
+                });
+            }
+        });
     }
 };

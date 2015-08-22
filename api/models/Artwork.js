@@ -126,7 +126,6 @@ module.exports = {
         });
     },
     findone: function (data, callback) {
-        console.log(data);
         var user = sails.ObjectID(data.user);
         sails.query(function (err, db) {
             if (err) {
@@ -842,5 +841,63 @@ module.exports = {
                 }
             });
         }
+    },
+    lastsr: function (data, callback) {
+        var user = sails.ObjectID(data.user);
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").aggregate([
+                    {
+                        $match: {
+                            "artwork.name": {
+                                $exists: true
+                            }
+                        }
+                    }, {
+                        $unwind: "$artwork"
+                    }, {
+                        $match: {
+                            "artwork.name": {
+                                $exists: true
+                            }
+                        }
+                    },
+                    {
+                        $group: {
+                            _id: user,
+                            count: {
+                                $last: "$artwork.srno"
+                            }
+                        }
+                    },
+                    {
+                        $project: {
+                            count: 1
+                        }
+                    }
+                ]).toArray(function (err, result) {
+                    if (result[0]) {
+                        callback(result);
+                    }
+                    if (!result[0]) {
+                        callback([{
+                            count: 0
+                        }]);
+                    }
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                    }
+                });
+            }
+        });
     }
 };
