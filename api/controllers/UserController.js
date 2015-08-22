@@ -190,7 +190,7 @@ module.exports = {
             res.json(data);
         }
         User.find(req.body, print);
-    }
+    },
     findbyletter: function (req, res) {
         var print = function (data) {
             res.json(data);
