@@ -751,5 +751,30 @@ module.exports = {
                 });
             }
         });
+    },
+    removeimage: function (data, callback) {
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("fs.files").remove({}, function (err, data) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                    }
+                    if (data) {
+                        callback({
+                            value: true
+                        });
+                    }
+                });
+            }
+        });
     }
 };

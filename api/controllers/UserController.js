@@ -167,6 +167,18 @@ module.exports = {
             });
         }
     },
+    findimage: function (req, res) {
+        var print = function (data) {
+            res.json(data);
+        }
+        User.findimage(req.body, print);
+    },
+    removeimage: function (req, res) {
+        var print = function (data) {
+            res.json(data);
+        }
+        User.removeimage(req.body, print);
+    },
     save: function (req, res) {
         var print = function (data) {
             res.json(data);
@@ -178,13 +190,7 @@ module.exports = {
             res.json(data);
         }
         User.find(req.body, print);
-    },
-    findimage: function (req, res) {
-        var print = function (data) {
-            res.json(data);
-        }
-        User.findimage(req.body, print);
-    },
+    }
     findbyletter: function (req, res) {
         var print = function (data) {
             res.json(data);
