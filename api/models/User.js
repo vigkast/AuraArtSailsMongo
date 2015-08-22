@@ -4,14 +4,11 @@
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
-var md5 = require('MD5');
-var mandrill = require('mandrill-api/mandrill');
-mandrill_client = new mandrill.Mandrill('dzbY2mySNE_Zsqr3hsK70A');
 module.exports = {
     adminlogin: function (data, callback) {
         var exit = 0;
         var exitup = 0;
-        data.password = md5(data.password);
+        data.password = sails.md5(data.password);
         sails.query(function (err, db) {
             if (db) {
                 exit++;
@@ -47,7 +44,7 @@ module.exports = {
         });
     },
     save: function (data, callback) {
-        data.password = md5(data.password);
+        data.password = sails.md5(data.password);
         if (!data._id) {
             data._id = sails.ObjectID();
             sails.query(function (err, db) {
@@ -383,7 +380,7 @@ module.exports = {
         var exitup = 0;
         var exit = 0;
         var exitdown = 0;
-        data.password = md5(data.password);
+        data.password = sails.md5(data.password);
         sails.query(function (err, db) {
             db.collection('user').find({
                 email: data.email,
@@ -465,9 +462,9 @@ module.exports = {
         });
     },
     changepassword: function (data, callback) {
-        data.password = md5(data.password);
+        data.password = sails.md5(data.password);
         var user = sails.ObjectID(data._id);
-        var newpass = md5(data.editpassword);
+        var newpass = sails.md5(data.editpassword);
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -539,7 +536,7 @@ module.exports = {
                         for (var i = 0; i < 8; i++) {
                             text += possible.charAt(Math.floor(Math.random() * possible.length));
                         }
-                        var encrypttext = md5(text);
+                        var encrypttext = sails.md5(text);
                         sails.query(function (err, db) {
                             var user = sails.ObjectID(data._id);
                             db.collection('user').update({
@@ -576,7 +573,7 @@ module.exports = {
   }
 ]
                                     };
-                                    mandrill_client.messages.sendTemplate({
+                                    sails.mandrill_client.messages.sendTemplate({
                                         "template_name": template_name,
                                         "template_content": template_content,
                                         "message": message

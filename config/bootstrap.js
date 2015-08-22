@@ -24,12 +24,12 @@ module.exports.bootstrap = function (cb) {
         sails.moment = require('moment'),
         sails.fs = require('fs'),
         sails.mime = require('mime'),
-        sails.im = require('imagemagick'),
-        sails.sizeOf = require('image-size'),
-        sails.xj = require("xls-to-json"),
         sails.xlsxj = require("xlsx-to-json"),
-        sails.express = require("express"),
-        sails.nodeExcel = require('excel-export'),
+        sails.json2xls = require('json2xls'),
+        sails.sha512 = require('sha512'),
+        sails.md5 = require('MD5'),
+        sails.mandrill = require('mandrill-api/mandrill'),
+        sails.mandrill_client = new sails.mandrill.Mandrill('dzbY2mySNE_Zsqr3hsK70A'),
         // Connection URL
         sails.url = 'mongodb://localhost:27017/auraart';
     sails.query = function (myfunc) {

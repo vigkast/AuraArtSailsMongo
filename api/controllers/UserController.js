@@ -5,10 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-var lwip = require('lwip');
-var express = require('express');
-var json2xls = require('json2xls');
-var app = express();
+//var lwip = require('lwip');
 module.exports = {
     uploadfile: function (req, res) {
         sails.query(function (err, db) {
@@ -76,7 +73,7 @@ module.exports = {
             poo: 123,
             stux: moment().format('MMMM Do YYYY, h:mm:ss a')
         }
-        var xls = json2xls(json);
+        var xls = sails.json2xls(json);
         res.json("created");
         sails.fs.writeFileSync('./uploads/data.xlsx', xls, 'binary');
     },
