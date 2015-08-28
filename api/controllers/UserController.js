@@ -4,8 +4,7 @@
  * @description :: Server-side logic for managing User
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-
-//var lwip = require('lwip');
+var writedata = '';
 module.exports = {
     uploadfile: function (req, res) {
         sails.query(function (err, db) {
@@ -51,19 +50,45 @@ module.exports = {
     },
     excelobject: function (req, res) {
         var file = req.query.file;
-        sails.xlsxj({
-            input: "./uploads/" + file,
-            output: "./uploads/output.json"
-        }, function (err, result) {
+        var fd = sails.ObjectID(file);
+        sails.query(function (err, db) {
             if (err) {
-                console.error(err);
+                console.log(err);
             }
-            if (result) {
-                for (var i = 0; i < result.length; i++) {
-                    User.save(result[i]);
-                }
+            if (db) {
+                sails.GridStore.read(db, fd, function (err, fileData) {
+                    var decoder = new sails.StringDecoder('utf8');
+                    var writedata = decoder.write(fileData);
+                    if (writedata != '') {
+                        excelcall(writedata);
+                    }
+                });
             }
         });
+
+        function excelcall(data) {
+            excel(data, function (err, json) {
+                if (err) console.log(err);
+                if (json) {
+                    console.log(json);
+                }
+                // data is an array of arrays
+            });
+            //            sails.xlsxj({
+            //                input: data,
+            //                output: "./uploads/output.json"
+            //            }, function (err, result) {
+            //                if (err) {
+            //                    console.error(err);
+            //                }
+            //                if (result) {
+            //                    console.log(result);
+            //                    for (var i = 0; i < result.length; i++) {
+            //                        //                        User.save(result[i]);
+            //                    }
+            //                }
+            //            });
+        }
     },
     jsontoexcel: function (req, res) {
         console.log("in json function");
