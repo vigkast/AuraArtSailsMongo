@@ -76,7 +76,7 @@ module.exports = {
 					function createart(num) {
 						m = result[num];
 						User.saveforexcel(m, function (print) {
-							 if (print) {
+							if (print) {
 								m.user = print;
 								if (m.user != "") {
 									delete m.username;
@@ -88,7 +88,9 @@ module.exports = {
 										if (num == result.length) {
 
 										} else {
-											createart(num);
+											setTimeout(function () {
+												createart(num);
+											}, 500);
 										}
 									});
 								}
