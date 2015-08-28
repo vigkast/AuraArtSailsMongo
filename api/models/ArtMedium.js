@@ -289,11 +289,13 @@ module.exports = {
 			});
 		});
 	},
-	savemediumexcel: function (data,callback) {
+	savemediumexcel: function (data, callback) {
+		var newdata = {};
+		newdata.name = data.mediumname;
+		newdata._id = sails.ObjectID();
 		sails.query(function (err, db) {
 			var exit = 0;
 			var exitup = 0;
-			data._id = sails.ObjectID();
 			if (err) {
 				console.log(err);
 				callback({
@@ -303,7 +305,7 @@ module.exports = {
 			if (db) {
 				exit++;
 				db.collection("artmedium").find({
-					"name": data.name
+					"name": data.mediumname
 				}).each(function (err, data2) {
 					if (err) {
 						console.log(err);
@@ -316,7 +318,7 @@ module.exports = {
 						callback(data2._id);
 					} else {
 						if (exit != exitup) {
-							db.collection('artmedium').insert(data, function (err, created) {
+							db.collection('artmedium').insert(newdata, function (err, created) {
 								if (err) {
 									console.log(err);
 									callback({
@@ -324,7 +326,7 @@ module.exports = {
 									});
 								}
 								if (created) {
-									callback(data._id);
+									callback(newdata._id);
 								}
 							});
 						}

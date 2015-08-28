@@ -72,33 +72,30 @@ module.exports = {
 							sails.fs.unlink(outputpath, function (data2) {});
 						}
 					});
-					_.each(result, function (m) {
-						User.findorcreate(m.username, function (print) {
-							if (print.value && print.value == false) {
-								User.saveforexcel(m.username, function (reurn) {
-									m._id = reurn;
-									if (m._id != "") {
-										delete m.username;
-										ArtMedium.savemediumexcel(m.mediumname, function (mediumid) {
-											m.medium = mediumid;
-											delete m.mediumname;
-											Artwork.saveartwork(m);
-										});
-									}
-								});
-							} else if (print) {
-								m._id = print;
-								if (m._id != "") {
+
+					function createart(num) {
+						m = result[num];
+						User.saveforexcel(m, function (print) {
+							 if (print) {
+								m.user = print;
+								if (m.user != "") {
 									delete m.username;
-									ArtMedium.savemediumexcel(m.mediumname, function (mediumid) {
+									ArtMedium.savemediumexcel(m, function (mediumid) {
 										m.medium = mediumid;
 										delete m.mediumname;
 										Artwork.saveartwork(m);
+										num++;
+										if (num == result.length) {
+
+										} else {
+											createart(num);
+										}
 									});
 								}
 							}
 						});
-					});
+					}
+					createart(0);
 				}
 			});
 		}
@@ -297,5 +294,11 @@ module.exports = {
 			res.json(data);
 		}
 		User.countartwork(req.body, print);
+	},
+	saveforexcel: function (req, res) {
+		var print = function (data) {
+			res.json(data);
+		}
+		User.saveforexcel(req.body, print);
 	}
 };

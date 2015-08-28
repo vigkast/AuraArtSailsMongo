@@ -769,36 +769,11 @@ module.exports = {
 			}
 		});
 	},
-	findorcreate: function (data, callback) {
-		sails.query(function (err, db) {
-			if (err) {
-				console.log(err);
-				callback({
-					value: false
-				});
-			}
-			if (db) {
-				db.collection("user").find({
-					"name": data
-				}).each(function (err, data2) {
-					if (err) {
-						console.log(err);
-						callback({
-							value: false
-						});
-					}
-					if (data != null) {
-						callback(data2._id);
-					}
-				});
-			}
-		});
-	},
 	saveforexcel: function (data, callback) {
-		if (data.password) {
-			data.password = sails.md5(data.password);
-		}
-		data.accesslevel = "artist";
+		var newdata = {};
+		newdata.name = data.username;
+		newdata._id = sails.ObjectID();
+		newdata.accesslevel = "artist";
 		sails.query(function (err, db) {
 			var exit = 0;
 			var exitup = 0;
@@ -809,15 +784,33 @@ module.exports = {
 				});
 			}
 			if (db) {
-				db.collection('user').insert(data, function (err, created) {
+				exit++;
+				db.collection("user").find({
+					"name": data.username
+				}).each(function (err, data2) {
 					if (err) {
 						console.log(err);
 						callback({
 							value: false
 						});
 					}
-					if (created) {
-						callback(data._id);
+					if (data2 != null) {
+						exitup++;
+						callback(data2._id);
+					} else {
+						if (exit != exitup) {
+							db.collection('user').insert(newdata, function (err, created) {
+								if (err) {
+									console.log(err);
+									callback({
+										value: false
+									});
+								}
+								if (created) {
+									callback(newdata._id);
+								}
+							});
+						}
 					}
 				});
 			}
