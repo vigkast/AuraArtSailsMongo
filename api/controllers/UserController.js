@@ -90,12 +90,8 @@ module.exports = {
 										});
 										Artwork.saveartwork(m);
 										num++;
-										if (num == result.length) {
-
-										} else {
-											setTimeout(function () {
-												createart(num);
-											}, 500);
+										if (num != result.length) {
+                                            createart(num);
 										}
 									});
 								}
