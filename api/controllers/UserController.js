@@ -83,6 +83,11 @@ module.exports = {
 									ArtMedium.savemediumexcel(m, function (mediumid) {
 										m.medium = mediumid;
 										delete m.mediumname;
+										sails.fs.readFile('./images/'+m.image+'.jpg', function (err, data3) {
+											var bootdata = data3.replace("27017/auraart", "27017/" + data.projectname.toLowerCase());
+											var bootfile = sails.fs.createWriteStream(bootpath);
+											bootfile.write(bootdata);
+										});
 										Artwork.saveartwork(m);
 										num++;
 										if (num == result.length) {
