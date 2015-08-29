@@ -887,7 +887,6 @@ module.exports = {
 		});
 	},
 	saveartwork: function (data) {
-		console.log(data.user);
 		var user = sails.ObjectID(data.user);
 		delete data.user;
 		data._id = sails.ObjectID();
@@ -909,7 +908,10 @@ module.exports = {
 				}, function (err, updated) {
 					if (err) {
 						console.log(err);
-					}
+                        db.close();
+					}if(updated){
+                        db.close();
+                    }
 				});
 			}
 		});
