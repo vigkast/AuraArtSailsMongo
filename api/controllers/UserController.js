@@ -106,8 +106,8 @@ module.exports = {
                                                     ArtMedium.savemediumexcel(m, function (mediumid) {
                                                         m.medium = mediumid;
                                                         delete m.mediumname;
-                                                        m.image = m.image.split(";");
-                                                        _.each(m.image, function (z) {
+                                                        m.imageno = m.imageno.split(";");
+                                                        _.each(m.imageno, function (z) {
                                                             var imagewithext = z.trim() + '.jpg';
                                                             extension = z.split('.');
                                                             mimetype = "image/jpeg";
@@ -140,8 +140,8 @@ module.exports = {
                                                                                 if (doc) {
                                                                                     gridStore.close(function () {
                                                                                         excelimages.push(fileId);
-                                                                                        if (m.image.length == excelimages.length) {
-                                                                                            m.imageno = excelimages;
+                                                                                        if (m.imageno.length == excelimages.length) {
+                                                                                            m.image = excelimages;
                                                                                             m.srno = num + 1;
                                                                                             Artwork.saveartwork(m);
                                                                                             console.log(num);
