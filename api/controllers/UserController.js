@@ -8,7 +8,6 @@
 var request = require("request").defaults({
     encoding: null
 });
-
 var writedata = "";
 module.exports = {
     uploadfile: function (req, res) {
