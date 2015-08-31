@@ -118,11 +118,6 @@ module.exports = {
                                                             } else if (extension[0] == 'gif') {
                                                                 mimetype = 'image/gif';
                                                             }
-
-
-
-
-
                                                             request.get("http://wohlig.co.in/auraimg/" + imagewithext, function (err, d2, imagebuf) {
 
                                                                 if (err) {
@@ -146,7 +141,7 @@ module.exports = {
                                                                                     gridStore.close(function () {
                                                                                         excelimages.push(fileId);
                                                                                         if (m.image.length == excelimages.length) {
-                                                                                            m.image = excelimages;
+                                                                                            m.imageno = excelimages;
                                                                                             m.srno = num + 1;
                                                                                             Artwork.saveartwork(m);
                                                                                             console.log(num);
