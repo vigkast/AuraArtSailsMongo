@@ -236,16 +236,15 @@ module.exports = {
                                         console.log(err);
                                     }
                                     image2.toBuffer("jpg", {}, function (err, imagebuf) {
-                                        gridStore.write(imagebuf, function (err, doc) {
-                                            if (err) {
-                                                console.log(err);
-                                            }
-                                            if (doc) {
-                                                gridStore.close(function () {
-                                                    showimage(fileId);
-                                                });
-                                            }
-                                        });
+                                        if (err) {
+                                            console.log(err);
+                                        }
+                                        if (imagebuf) {
+                                            gridStore.close(function () {
+                                                res.set('Content-Type', mimetype);
+                                                res.send(new Buffer(imagebuf));
+                                            });
+                                        }
                                     });
                                 });
                             });
