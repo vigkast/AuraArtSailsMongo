@@ -147,6 +147,7 @@ module.exports = {
                                                                                         excelimages.push(fileId);
                                                                                         if (m.image.length == excelimages.length) {
                                                                                             m.image = excelimages;
+                                                                                            m.srno = num + 1;
                                                                                             Artwork.saveartwork(m);
                                                                                             console.log(num);
                                                                                             num++;
@@ -379,5 +380,11 @@ module.exports = {
             res.json(data);
         }
         User.saveforexcel(req.body, print);
+    },
+    deletedata: function (req, res) {
+        var print = function (data) {
+            res.json(data);
+        }
+        User.deletedata(req.body, print);
     }
 };

@@ -805,6 +805,7 @@ module.exports = {
                         callback({
                             value: false
                         });
+                        db.close();
                     }
                     if (data2 != null) {
                         exitup++;
@@ -829,6 +830,58 @@ module.exports = {
                     }
                 });
             }
+        });
+    },
+    deletedata: function (data, callback) {
+        sails.query(function (err, db) {
+            db.collection('user').remove({}, function (err, data) {
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false
+                    });
+                    db.close();
+                }
+                if (data) {
+                    db.collection('artmedium').remove({}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        }
+                        if (data) {
+
+                            db.collection("fs.files").remove({}, function (err, data) {
+                                if (err) {
+                                    console.log(err);
+                                    callback({
+                                        value: false
+                                    });
+                                }
+                                if (data) {
+                                    db.collection("fs.chunks").remove({}, function (err, data) {
+                                        if (err) {
+                                            console.log(err);
+                                            callback({
+                                                value: false
+                                            });
+                                            db.close();
+                                        }
+                                        if (data) {
+                                            callback({
+                                                value: true
+                                            });
+                                            db.close();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         });
     }
 };
