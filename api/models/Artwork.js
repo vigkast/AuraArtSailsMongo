@@ -128,6 +128,7 @@ module.exports = {
                         callback({
                             value: true
                         });
+                        db.close();
                     }
                 });
             }
@@ -141,6 +142,7 @@ module.exports = {
                 callback({
                     value: false
                 });
+                db.close();
             }
             if (db) {
                 db.collection("user").find({
@@ -151,12 +153,14 @@ module.exports = {
                 }).each(function (err, data2) {
                     if (data2 != null) {
                         callback(data2.artwork[0]);
+                        db.close();
                     }
                     if (err) {
                         console.log(err);
                         callback({
                             value: false
                         });
+                        db.close();
                     }
                 });
             }
@@ -170,6 +174,7 @@ module.exports = {
                 callback({
                     value: false
                 });
+                db.close();
             }
             if (db) {
                 db.collection("user").aggregate([{
@@ -195,12 +200,14 @@ module.exports = {
                     function (err, data) {
                         if (data != null) {
                             callback(data);
+                            db.close();
                         }
                         if (err) {
                             console.log(err);
                             callback({
                                 value: false
                             });
+                            db.close();
                         }
                     });
             }
@@ -214,6 +221,7 @@ module.exports = {
                 callback({
                     value: false
                 });
+                db.close();
             }
             if (db) {
                 db.collection("user").aggregate([{
@@ -238,12 +246,14 @@ module.exports = {
                     function (err, data) {
                         if (data != null) {
                             callback(data);
+                            db.close();
                         }
                         if (err) {
                             console.log(err);
                             callback({
                                 value: false
                             });
+                            db.close();
                         }
                     });
             }
@@ -266,6 +276,7 @@ module.exports = {
                     callback({
                         value: false
                     });
+                    db.close();
                 }
                 if (db) {
                     db.collection("user").aggregate([{
@@ -312,6 +323,7 @@ module.exports = {
                             callback({
                                 value: false
                             });
+                            db.close();
                         }
                     });
                     db.collection("user").aggregate([{
@@ -348,13 +360,14 @@ module.exports = {
                             if (found != null) {
                                 newreturns.data = found;
                                 callback(newreturns);
-
+                                db.close();
                             }
                             if (err) {
                                 console.log(err);
                                 callback({
                                     value: false
                                 });
+                                db.close();
                             }
                         });
                 }
@@ -366,6 +379,7 @@ module.exports = {
                     callback({
                         value: false
                     });
+                    db.close();
                 }
                 if (db) {
                     db.collection("user").aggregate([{
@@ -411,6 +425,7 @@ module.exports = {
                             callback({
                                 value: false
                             });
+                            db.close();
                         }
                     });
                     db.collection("user").aggregate([{
@@ -445,13 +460,14 @@ module.exports = {
                             if (found != null) {
                                 newreturns.data = found;
                                 callback(newreturns);
-
+                                db.close();
                             }
                             if (err) {
                                 console.log(err);
                                 callback({
                                     value: false
                                 });
+                                db.close();
                             }
                         });
                 }
@@ -478,6 +494,7 @@ module.exports = {
                 callback({
                     value: false
                 });
+                db.close();
             }
             if (db) {
                 db.collection("user").aggregate([{
@@ -503,12 +520,14 @@ module.exports = {
                     function (err, data) {
                         if (data != null) {
                             callback(data);
+                            db.close();
                         }
                         if (err) {
                             console.log(err);
                             callback({
                                 value: false
                             });
+                            db.close();
                         }
                     });
             }
@@ -522,6 +541,7 @@ module.exports = {
                 callback({
                     value: false
                 });
+                db.close();
             }
             if (db) {
                 db.collection("user").aggregate([{
@@ -554,12 +574,14 @@ module.exports = {
                     function (err, data) {
                         if (data != null) {
                             callback(data);
+                            db.close();
                         }
                         if (err) {
                             console.log(err);
                             callback({
                                 value: false
                             });
+                            db.close();
                         }
                     });
             }
@@ -572,6 +594,7 @@ module.exports = {
                 callback({
                     value: false
                 });
+                db.close();
             }
             if (db) {
                 db.collection("user").aggregate([{
@@ -598,12 +621,14 @@ module.exports = {
                     function (err, data) {
                         if (data != null) {
                             callback(data);
+                            db.close();
                         }
                         if (err) {
                             console.log(err);
                             callback({
                                 value: false
                             });
+                            db.close();
                         }
                     });
             }
@@ -617,6 +642,7 @@ module.exports = {
                 callback({
                     value: false
                 });
+                db.close();
             }
             if (db) {
                 db.collection("user").update({
@@ -631,11 +657,13 @@ module.exports = {
                         callback({
                             value: false
                         });
+                        db.close();
                     }
                     if (updated) {
                         callback({
                             value: true
                         });
+                        db.close();
                     }
                 });
             }
@@ -657,6 +685,7 @@ module.exports = {
                     callback({
                         value: false
                     });
+                    db.close();
                 }
                 if (db) {
                     db.collection("user").aggregate([{
@@ -701,6 +730,7 @@ module.exports = {
                             callback({
                                 value: false
                             });
+                            db.close();
                         }
                     });
                     db.collection("user").aggregate([{
@@ -736,12 +766,14 @@ module.exports = {
                             if (found != null) {
                                 newreturns.data = found;
                                 callback(newreturns);
+                                db.close();
                             }
                             if (err) {
                                 console.log(err);
                                 callback({
                                     value: false
                                 });
+                                db.close();
                             }
                         });
                 }
@@ -753,6 +785,7 @@ module.exports = {
                     callback({
                         value: false
                     });
+                    db.close();
                 }
                 if (db) {
                     db.collection("user").aggregate([{
@@ -795,6 +828,7 @@ module.exports = {
                             callback({
                                 value: false
                             });
+                            db.close();
                         }
                     });
                     db.collection("user").aggregate([{
@@ -828,12 +862,14 @@ module.exports = {
                             if (found != null) {
                                 newreturns.data = found;
                                 callback(newreturns);
+                                db.close();
                             }
                             if (err) {
                                 console.log(err);
                                 callback({
                                     value: false
                                 });
+                                db.close();
                             }
                         });
                 }
@@ -848,6 +884,7 @@ module.exports = {
                 callback({
                     value: false
                 });
+                db.close();
             }
             if (db) {
                 db.collection("user").aggregate([{
@@ -878,17 +915,18 @@ module.exports = {
         }]).toArray(function (err, result) {
                     if (result[0]) {
                         callback(result);
+                        db.close();
                     }
                     if (!result[0]) {
-                        callback([{
-                            count: 0
-            }]);
+                        callback([{count: 0}]);
+                        db.close();
                     }
                     if (err) {
                         console.log(err);
                         callback({
                             value: false
                         });
+                        db.close();
                     }
                 });
             }
@@ -901,6 +939,7 @@ module.exports = {
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
+                db.close();
             }
             if (db) {
                 if (!data.creationtime) {

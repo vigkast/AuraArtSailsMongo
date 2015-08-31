@@ -212,7 +212,7 @@ module.exports = {
                 sails.GridStore.read(db, fd, function (err, fileData) {
                     width = parseInt(newwidth);
                     height = parseInt(newheight);
-                    lwip.open(fileData, 'jpg', function (err, image) {
+                    sails.lwip.open(fileData, 'jpg', function (err, image) {
                         var dimensions = {};
                         dimensions.width = image.width();
                         dimensions.height = image.height();
