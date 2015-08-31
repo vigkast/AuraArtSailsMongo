@@ -98,12 +98,17 @@ module.exports = {
                                         excelimages = [];
                                         m = result[num];
                                         User.saveforexcel(m, function (print) {
+                                            m.subtype = [];
                                             if (print != undefined) {
                                                 m.user = print;
                                                 if (m.user != undefined) {
                                                     delete m.username;
                                                     ArtMedium.savemediumexcel(m, function (mediumid) {
-                                                        m.medium = mediumid;
+                                                        var mediumdata = {};
+                                                        mediumdata._id = mediumid;
+                                                        mediumdata.name = m.mediumname;
+                                                        mediumdata.category = m.type;
+                                                        m.subtype.push(mediumdata);
                                                         delete m.mediumname;
                                                         m.imageno = m.imageno.split(";");
                                                         _.each(m.imageno, function (z) {

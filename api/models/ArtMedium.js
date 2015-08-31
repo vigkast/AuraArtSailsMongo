@@ -210,7 +210,6 @@ module.exports = {
         function callback2(exit, exitup, data) {
             if (exit == exitup) {
                 callback(data);
-                db.close();
             }
         }
         sails.query(function (err, db) {
@@ -316,6 +315,7 @@ module.exports = {
         var newdata = {};
         newdata.name = data.mediumname;
         newdata._id = sails.ObjectID();
+        newdata.category = data.type;
         sails.query(function (err, db) {
             var exit = 0;
             var exitup = 0;
