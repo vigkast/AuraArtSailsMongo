@@ -883,5 +883,22 @@ module.exports = {
                 }
             });
         });
+    },
+    countimage: function (data, callback) {
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("fs.files").count({}, function (err, number) {
+                    if (number != null) {
+                        callback(number);
+                    }
+                });
+            }
+        });
     }
 };

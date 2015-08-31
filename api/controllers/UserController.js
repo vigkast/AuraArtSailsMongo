@@ -278,6 +278,12 @@ module.exports = {
         }
         User.findimage(req.body, print);
     },
+    countimage: function (req, res) {
+        var print = function (data) {
+            res.json(data);
+        }
+        User.countimage(req.body, print);
+    },
     removeimage: function (req, res) {
         var print = function (data) {
             res.json(data);
