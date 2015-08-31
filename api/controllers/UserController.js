@@ -228,28 +228,19 @@ module.exports = {
                             db.open(function (err, db) {
                                 var fileId = new sails.ObjectID();
                                 var mimetype = "image/jpeg";
-                                var gridStore = new sails.GridStore(db, fileId, 'w', {
-                                    content_type: mimetype
-                                });
-                                gridStore.open(function (err, gridStore) {
+                                image2.toBuffer("jpg", {}, function (err, imagebuf) {
                                     if (err) {
                                         console.log(err);
                                     }
-                                    image2.toBuffer("jpg", {}, function (err, imagebuf) {
-                                        if (err) {
-                                            console.log(err);
-                                        }
-                                        if (imagebuf) {
-                                            gridStore.close(function () {
-                                                res.set('Content-Type', mimetype);
-                                                res.send(new Buffer(imagebuf));
-                                            });
-                                        }
-                                    });
+                                    if (imagebuf) {
+                                        res.set('Content-Type', mimetype);
+                                        res.send(new Buffer(imagebuf));
+                                    }
                                 });
                             });
                         });
                     });
+
                 });
             });
         }
