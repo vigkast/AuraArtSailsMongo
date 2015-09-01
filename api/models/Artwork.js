@@ -679,7 +679,6 @@ module.exports = {
                     callback({
                         value: false
                     });
-                    db.close();
                 }
                 if (db) {
                     db.collection("user").aggregate([{
@@ -724,7 +723,6 @@ module.exports = {
                             callback({
                                 value: false
                             });
-                            db.close();
                         }
                     });
                     db.collection("user").aggregate([{
@@ -760,14 +758,12 @@ module.exports = {
                             if (found != null) {
                                 newreturns.data = found;
                                 callback(newreturns);
-                                db.close();
                             }
                             if (err) {
                                 console.log(err);
                                 callback({
                                     value: false
                                 });
-                                db.close();
                             }
                         });
                 }
@@ -779,7 +775,6 @@ module.exports = {
                     callback({
                         value: false
                     });
-                    db.close();
                 }
                 if (db) {
                     db.collection("user").aggregate([{
@@ -822,7 +817,6 @@ module.exports = {
                             callback({
                                 value: false
                             });
-                            db.close();
                         }
                     });
                     db.collection("user").aggregate([{
@@ -856,14 +850,12 @@ module.exports = {
                             if (found != null) {
                                 newreturns.data = found;
                                 callback(newreturns);
-                                db.close();
                             }
                             if (err) {
                                 console.log(err);
                                 callback({
                                     value: false
                                 });
-                                db.close();
                             }
                         });
                 }
