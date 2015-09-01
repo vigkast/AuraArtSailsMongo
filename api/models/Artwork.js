@@ -360,7 +360,6 @@ module.exports = {
                             if (found != null) {
                                 newreturns.data = found;
                                 callback(newreturns);
-                                db.close();
                             }
                             if (err) {
                                 console.log(err);
