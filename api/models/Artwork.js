@@ -267,6 +267,8 @@ module.exports = {
         var pagenumber = data.pagenumber;
         var user = sails.ObjectID(data.user);
         var sortnum = parseInt(data.sort);
+        console.log(data.sort);
+        console.log(sortnum);
         var sort = {};
         sort['artwork.' + data.filter] = sortnum;
         if (data.type != "") {
@@ -276,7 +278,6 @@ module.exports = {
                     callback({
                         value: false
                     });
-                    db.close();
                 }
                 if (db) {
                     db.collection("user").aggregate([{
@@ -323,7 +324,6 @@ module.exports = {
                             callback({
                                 value: false
                             });
-                            db.close();
                         }
                     });
                     db.collection("user").aggregate([{
@@ -366,7 +366,6 @@ module.exports = {
                                 callback({
                                     value: false
                                 });
-                                db.close();
                             }
                         });
                 }
@@ -378,7 +377,6 @@ module.exports = {
                     callback({
                         value: false
                     });
-                    db.close();
                 }
                 if (db) {
                     db.collection("user").aggregate([{
@@ -424,7 +422,6 @@ module.exports = {
                             callback({
                                 value: false
                             });
-                            db.close();
                         }
                     });
                     db.collection("user").aggregate([{
@@ -459,14 +456,12 @@ module.exports = {
                             if (found != null) {
                                 newreturns.data = found;
                                 callback(newreturns);
-                                db.close();
                             }
                             if (err) {
                                 console.log(err);
                                 callback({
                                     value: false
                                 });
-                                db.close();
                             }
                         });
                 }
@@ -917,7 +912,9 @@ module.exports = {
                         db.close();
                     }
                     if (!result[0]) {
-                        callback([{count: 0}]);
+                        callback([{
+                            count: 0
+                        }]);
                         db.close();
                     }
                     if (err) {
