@@ -318,8 +318,6 @@ module.exports = {
         });
     },
     searchmail: function (data, callback) {
-        var exit = 0;
-        var exitup = 0;
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -328,27 +326,23 @@ module.exports = {
                 });
             }
             if (db) {
-                exit++;
                 db.collection("user").find({
                     "email": data.email
-                }).each(function (err, data) {
+                }).toArray(function (err, data) {
                     if (err) {
                         console.log(err);
                         callback({
                             value: false
                         });
                     }
-                    if (data != null) {
-                        exitup++;
+                    if (data[0] != null) {
                         callback({
                             value: true
                         });
                     } else {
-                        if (exit != exitup) {
-                            callback({
-                                value: false
-                            });
-                        }
+                        callback({
+                            value: false
+                        });
                     }
                 });
             }
@@ -759,6 +753,7 @@ module.exports = {
                         callback({
                             value: false
                         });
+                        db.close();
                     }
                     if (data) {
                         db.collection("fs.chunks").remove({}, function (err, data) {
