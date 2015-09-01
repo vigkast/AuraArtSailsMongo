@@ -267,8 +267,6 @@ module.exports = {
         var pagenumber = data.pagenumber;
         var user = sails.ObjectID(data.user);
         var sortnum = parseInt(data.sort);
-        console.log(data.sort);
-        console.log(sortnum);
         var sort = {};
         sort['artwork.' + data.filter] = sortnum;
         if (data.type != "") {
