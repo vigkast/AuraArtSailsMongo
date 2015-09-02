@@ -138,70 +138,139 @@ module.exports = {
         var sortnum = parseInt(data.sort);
         var sort = {};
         sort[data.filter] = sortnum;
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("user").count({
-                    $or: [{
-                        name: {
-                            '$regex': check
-                        }
+        if (data.type != "" && accesslevel == "artist") {
+            sails.query(function (err, db) {
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false
+                    });
+                }
+                if (db) {
+                    db.collection("user").count({
+                        $or: [{
+                            name: {
+                                '$regex': check
+                            }
           }, {
-                        email: {
-                            '$regex': check
-                        }
+                            email: {
+                                '$regex': check
+                            }
           }],
-                    accesslevel: accesslevel
-                }, function (err, number) {
-                    newreturns.total = number;
-                    newreturns.totalpages = Math.ceil(number / data.pagesize);
-                    newcallback++;
-                    if (newcallback == 2) {
-                        callback(newreturns);
-                    }
+                        accesslevel: accesslevel,
+                        "artwork.type": data.type
+                    }, function (err, number) {
+                        newreturns.total = number;
+                        newreturns.totalpages = Math.ceil(number / data.pagesize);
+                        newcallback++;
+                        if (newcallback == 2) {
+                            callback(newreturns);
+                        }
 
-                });
-                db.collection("user").find({
-                    $or: [{
-                        name: {
-                            '$regex': check
-                        }
+                    });
+                    db.collection("user").find({
+                        $or: [{
+                            name: {
+                                '$regex': check
+                            }
           }, {
-                        email: {
-                            '$regex': check
-                        }
+                            email: {
+                                '$regex': check
+                            }
           }],
-                    accesslevel: accesslevel
-                }, {
-                    password: 0,
-                    forgotpassword: 0
-                }, {
-                    sort: sort
-                }).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
-                    if (err) {
-                        callback({
-                            value: false
-                        });
-                        console.log(err);
-                    }
-                    if (found != null) {
-                        newreturns.data.push(found);
-                    } else {
-                        if (found == null) {
-                            newcallback++;
-                            if (newcallback == 2) {
-                                callback(newreturns);
+                        accesslevel: accesslevel,
+                        "artwork.type": data.type
+                    }, {
+                        password: 0,
+                        forgotpassword: 0
+                    }, {
+                        sort: sort
+                    }).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
+                        if (err) {
+                            callback({
+                                value: false
+                            });
+                            console.log(err);
+                        }
+                        if (found != null) {
+                            newreturns.data.push(found);
+                        } else {
+                            if (found == null) {
+                                newcallback++;
+                                if (newcallback == 2) {
+                                    callback(newreturns);
+                                }
                             }
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        } else {
+            sails.query(function (err, db) {
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false
+                    });
+                }
+                if (db) {
+                    db.collection("user").count({
+                        $or: [{
+                            name: {
+                                '$regex': check
+                            }
+          }, {
+                            email: {
+                                '$regex': check
+                            }
+          }],
+                        accesslevel: accesslevel
+                    }, function (err, number) {
+                        newreturns.total = number;
+                        newreturns.totalpages = Math.ceil(number / data.pagesize);
+                        newcallback++;
+                        if (newcallback == 2) {
+                            callback(newreturns);
+                        }
+
+                    });
+                    db.collection("user").find({
+                        $or: [{
+                            name: {
+                                '$regex': check
+                            }
+          }, {
+                            email: {
+                                '$regex': check
+                            }
+          }],
+                        accesslevel: accesslevel
+                    }, {
+                        password: 0,
+                        forgotpassword: 0
+                    }, {
+                        sort: sort
+                    }).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
+                        if (err) {
+                            callback({
+                                value: false
+                            });
+                            console.log(err);
+                        }
+                        if (found != null) {
+                            newreturns.data.push(found);
+                        } else {
+                            if (found == null) {
+                                newcallback++;
+                                if (newcallback == 2) {
+                                    callback(newreturns);
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        }
     },
     find: function (data, callback) {
         var returns = [];
