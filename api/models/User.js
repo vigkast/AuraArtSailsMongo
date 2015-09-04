@@ -822,7 +822,7 @@ module.exports = {
                         callback({
                             value: false
                         });
-                        db.close();
+                        
                     }
                     if (data) {
                         db.collection("fs.chunks").remove({}, function (err, data) {
@@ -831,13 +831,13 @@ module.exports = {
                                 callback({
                                     value: false
                                 });
-                                db.close();
+                                
                             }
                             if (data) {
                                 callback({
                                     value: true
                                 });
-                                db.close();
+                                
                             }
                         });
                     }
@@ -869,12 +869,12 @@ module.exports = {
                         callback({
                             value: false
                         });
-                        db.close();
+                        
                     }
                     if (data2 != null) {
                         exitup++;
                         callback(data2._id);
-                        db.close();
+                        
                     } else {
                         if (exit != exitup) {
                             db.collection('user').insert(newdata, function (err, created) {
@@ -883,11 +883,11 @@ module.exports = {
                                     callback({
                                         value: false
                                     });
-                                    db.close();
+                                    
                                 }
                                 if (created) {
                                     callback(newdata._id);
-                                    db.close();
+                                    
                                 }
                             });
                         }
@@ -904,7 +904,7 @@ module.exports = {
                     callback({
                         value: false
                     });
-                    db.close();
+                    
                 }
                 if (data) {
                     db.collection('artmedium').remove({}, function (err, data) {
@@ -913,7 +913,7 @@ module.exports = {
                             callback({
                                 value: false
                             });
-                            db.close();
+                            
                         }
                         if (data) {
 
@@ -931,13 +931,13 @@ module.exports = {
                                             callback({
                                                 value: false
                                             });
-                                            db.close();
+                                            
                                         }
                                         if (data) {
                                             callback({
                                                 value: true
                                             });
-                                            db.close();
+                                            
                                         }
                                     });
                                 }
