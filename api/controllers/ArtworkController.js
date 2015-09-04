@@ -89,5 +89,11 @@ module.exports = {
             res.json(data);
         };
         Artwork.lastsr(req.body, callback);
+    },
+    artworktype: function (req, res) {
+        function callback(data) {
+            res.json(data);
+        };
+        Artwork.artworktype(req.body, callback);
     }
 };

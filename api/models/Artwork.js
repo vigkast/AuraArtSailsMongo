@@ -62,7 +62,7 @@ module.exports = {
                     callback({
                         value: false
                     });
-                    
+
                 }
                 if (db) {
 
@@ -77,13 +77,13 @@ module.exports = {
                             callback({
                                 value: false
                             });
-                            
+
                         }
                         if (updated) {
                             callback({
                                 value: true
                             });
-                            
+
                         }
                     });
                 }
@@ -100,7 +100,7 @@ module.exports = {
                 callback({
                     value: false
                 });
-                
+
             }
             if (db) {
                 var dummy = sails.ObjectID();
@@ -119,13 +119,13 @@ module.exports = {
                         callback({
                             value: false
                         });
-                        
+
                     }
                     if (updated) {
                         callback({
                             value: true
                         });
-                        
+
                     }
                 });
             }
@@ -139,7 +139,7 @@ module.exports = {
                 callback({
                     value: false
                 });
-                
+
             }
             if (db) {
                 db.collection("user").find({
@@ -150,14 +150,14 @@ module.exports = {
                 }).each(function (err, data2) {
                     if (data2 != null) {
                         callback(data2.artwork[0]);
-                        
+
                     }
                     if (err) {
                         console.log(err);
                         callback({
                             value: false
                         });
-                        
+
                     }
                 });
             }
@@ -171,7 +171,7 @@ module.exports = {
                 callback({
                     value: false
                 });
-                
+
             }
             if (db) {
                 db.collection("user").aggregate([{
@@ -197,14 +197,14 @@ module.exports = {
                     function (err, data) {
                         if (data != null) {
                             callback(data);
-                            
+
                         }
                         if (err) {
                             console.log(err);
                             callback({
                                 value: false
                             });
-                            
+
                         }
                     });
             }
@@ -218,7 +218,7 @@ module.exports = {
                 callback({
                     value: false
                 });
-                
+
             }
             if (db) {
                 db.collection("user").aggregate([{
@@ -243,14 +243,14 @@ module.exports = {
                     function (err, data) {
                         if (data != null) {
                             callback(data);
-                            
+
                         }
                         if (err) {
                             console.log(err);
                             callback({
                                 value: false
                             });
-                            
+
                         }
                     });
             }
@@ -483,7 +483,7 @@ module.exports = {
                 callback({
                     value: false
                 });
-                
+
             }
             if (db) {
                 db.collection("user").aggregate([{
@@ -509,14 +509,14 @@ module.exports = {
                     function (err, data) {
                         if (data != null) {
                             callback(data);
-                            
+
                         }
                         if (err) {
                             console.log(err);
                             callback({
                                 value: false
                             });
-                            
+
                         }
                     });
             }
@@ -530,7 +530,7 @@ module.exports = {
                 callback({
                     value: false
                 });
-                
+
             }
             if (db) {
                 db.collection("user").aggregate([{
@@ -563,14 +563,14 @@ module.exports = {
                     function (err, data) {
                         if (data != null) {
                             callback(data);
-                            
+
                         }
                         if (err) {
                             console.log(err);
                             callback({
                                 value: false
                             });
-                            
+
                         }
                     });
             }
@@ -583,7 +583,7 @@ module.exports = {
                 callback({
                     value: false
                 });
-                
+
             }
             if (db) {
                 db.collection("user").aggregate([{
@@ -610,14 +610,14 @@ module.exports = {
                     function (err, data) {
                         if (data != null) {
                             callback(data);
-                            
+
                         }
                         if (err) {
                             console.log(err);
                             callback({
                                 value: false
                             });
-                            
+
                         }
                     });
             }
@@ -631,7 +631,7 @@ module.exports = {
                 callback({
                     value: false
                 });
-                
+
             }
             if (db) {
                 db.collection("user").update({
@@ -646,13 +646,13 @@ module.exports = {
                         callback({
                             value: false
                         });
-                        
+
                     }
                     if (updated) {
                         callback({
                             value: true
                         });
-                        
+
                     }
                 });
             }
@@ -865,7 +865,7 @@ module.exports = {
                 callback({
                     value: false
                 });
-                
+
             }
             if (db) {
                 db.collection("user").aggregate([{
@@ -896,20 +896,20 @@ module.exports = {
         }]).toArray(function (err, result) {
                     if (result[0]) {
                         callback(result);
-                        
+
                     }
                     if (!result[0]) {
                         callback([{
                             count: 0
                         }]);
-                        
+
                     }
                     if (err) {
                         console.log(err);
                         callback({
                             value: false
                         });
-                        
+
                     }
                 });
             }
@@ -922,7 +922,7 @@ module.exports = {
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
-                
+
             }
             if (db) {
                 if (!data.creationtime) {
@@ -938,13 +938,188 @@ module.exports = {
                 }, function (err, updated) {
                     if (err) {
                         console.log(err);
-                        
+
                     }
                     if (updated) {
-                        
+
                     }
                 });
             }
         });
+    },
+    artworktype: function (data, callback) {
+        var newcallback = 0;
+        var newreturns = {};
+        var check = new RegExp(data.search, "i");
+        var pagesize = data.pagesize;
+        var pagenumber = data.pagenumber;
+        var user = sails.ObjectID(data.user);
+        if (data.type != "") {
+            sails.query(function (err, db) {
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false
+                    });
+                }
+                if (db) {
+                    db.collection("user").aggregate([{
+                        $match: {
+                            _id: user,
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.type": data.type
+                        }
+          }, {
+                        $unwind: "$artwork"
+          }, {
+                        $match: {
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.type": data.type
+                        }
+          }, {
+                        $group: {
+                            _id: user,
+                            count: {
+                                $sum: 1
+                            }
+                        }
+          }, {
+                        $project: {
+                            count: 1
+                        }
+          }]).toArray(function (err, result) {
+                        if (result[0]) {
+                            newreturns.total = result[0].count;
+                            newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                        }
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                        }
+                    });
+                    db.collection("user").aggregate([{
+                        $match: {
+                            _id: user,
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.type": data.type
+                        }
+          }, {
+                        $unwind: "$artwork"
+          }, {
+                        $match: {
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.type": data.type
+                        }
+          }, {
+                        $project: {
+                            artwork: 1
+                        }
+          }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
+                        function (err, found) {
+                            if (found != null) {
+                                newreturns.data = found;
+                                callback(newreturns);
+                            }
+                            if (err) {
+                                console.log(err);
+                                callback({
+                                    value: false
+                                });
+                            }
+                        });
+                }
+            });
+        } else {
+            sails.query(function (err, db) {
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false
+                    });
+                }
+                if (db) {
+                    db.collection("user").aggregate([{
+                        $match: {
+                            _id: user,
+                            "artwork.name": {
+                                $exists: true
+                            }
+                        }
+          }, {
+                        $unwind: "$artwork"
+          }, {
+                        $match: {
+                            "artwork.name": {
+                                $exists: true
+                            }
+                        }
+          }, {
+                        $group: {
+                            _id: user,
+                            count: {
+                                $sum: 1
+                            }
+                        }
+          }, {
+                        $project: {
+                            count: 1
+                        }
+          }]).toArray(function (err, result) {
+                        if (result[0]) {
+                            newreturns.total = result[0].count;
+                            newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                        }
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                        }
+                    });
+                    db.collection("user").aggregate([{
+                        $match: {
+                            _id: user,
+                            "artwork.name": {
+                                $exists: true
+                            }
+                        }
+          }, {
+                        $unwind: "$artwork"
+          }, {
+                        $match: {
+                            "artwork.name": {
+                                $exists: true
+                            }
+                        }
+          }, {
+                        $project: {
+                            artwork: 1
+                        }
+          }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
+                        function (err, found) {
+                            if (found != null) {
+                                newreturns.data = found;
+                                callback(newreturns);
+                            }
+                            if (err) {
+                                console.log(err);
+                                callback({
+                                    value: false
+                                });
+                            }
+                        });
+                }
+            });
+        }
     }
 };
