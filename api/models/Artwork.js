@@ -992,6 +992,7 @@ module.exports = {
                         }
           }]).toArray(function (err, result) {
                         if (result[0]) {
+                            
                             newreturns.total = result[0].count;
                             newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
                         }
@@ -1048,7 +1049,6 @@ module.exports = {
                 if (db) {
                     db.collection("user").aggregate([{
                         $match: {
-                            _id: user,
                             "artwork.name": {
                                 $exists: true
                             }
@@ -1086,7 +1086,6 @@ module.exports = {
                     });
                     db.collection("user").aggregate([{
                         $match: {
-                            _id: user,
                             "artwork.name": {
                                 $exists: true
                             }
