@@ -965,7 +965,6 @@ module.exports = {
                 if (db) {
                     db.collection("user").aggregate([{
                         $match: {
-                            _id: user,
                             "artwork.name": {
                                 $exists: true
                             },
@@ -1005,7 +1004,6 @@ module.exports = {
                     });
                     db.collection("user").aggregate([{
                         $match: {
-                            _id: user,
                             "artwork.name": {
                                 $exists: true
                             },
