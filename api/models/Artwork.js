@@ -992,7 +992,7 @@ module.exports = {
                         }
           }]).toArray(function (err, result) {
                         if (result[0]) {
-                            
+
                             newreturns.total = result[0].count;
                             newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
                         }
@@ -1021,7 +1021,7 @@ module.exports = {
                         }
           }, {
                         $project: {
-                            name:1,
+                            name: 1,
                             artwork: 1
                         }
           }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
@@ -1077,6 +1077,7 @@ module.exports = {
                         if (result[0]) {
                             newreturns.total = result[0].count;
                             newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                            callbackfunc();
                         }
                         if (err) {
                             console.log(err);
@@ -1085,38 +1086,41 @@ module.exports = {
                             });
                         }
                     });
-                    db.collection("user").aggregate([{
-                        $match: {
-                            "artwork.name": {
-                                $exists: true
+
+                    function callbackfunc() {
+                        db.collection("user").aggregate([{
+                            $match: {
+                                "artwork.name": {
+                                    $exists: true
+                                }
                             }
-                        }
           }, {
-                        $unwind: "$artwork"
+                            $unwind: "$artwork"
           }, {
-                        $match: {
-                            "artwork.name": {
-                                $exists: true
+                            $match: {
+                                "artwork.name": {
+                                    $exists: true
+                                }
                             }
-                        }
           }, {
-                        $project: {
-                            name:1,
-                            artwork: 1
-                        }
+                            $project: {
+                                name: 1,
+                                artwork: 1
+                            }
           }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
-                        function (err, found) {
-                            if (found != null) {
-                                newreturns.data = found;
-                                callback(newreturns);
-                            }
-                            if (err) {
-                                console.log(err);
-                                callback({
-                                    value: false
-                                });
-                            }
-                        });
+                            function (err, found) {
+                                if (found != null) {
+                                    newreturns.data = found;
+                                    callback(newreturns);
+                                }
+                                if (err) {
+                                    console.log(err);
+                                    callback({
+                                        value: false
+                                    });
+                                }
+                            });
+                    }
                 }
             });
         }
