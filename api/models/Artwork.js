@@ -604,6 +604,7 @@ module.exports = {
                     }
         }, {
                     $project: {
+                        name: 1,
                         artwork: 1
                     }
         }]).toArray(
