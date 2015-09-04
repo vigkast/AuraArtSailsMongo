@@ -1021,6 +1021,7 @@ module.exports = {
                         }
           }, {
                         $project: {
+                            name:1,
                             artwork: 1
                         }
           }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
