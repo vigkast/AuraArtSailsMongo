@@ -322,9 +322,9 @@ module.exports = {
                 if (db) {
                     db.collection("user").count({
                         $and: [{
-                            name: search
+                            name: check
                         }, {
-                            name: searchname
+                            name: checkname
                         }],
                         "accesslevel": "artist",
                         "artwork.type": data.type
@@ -339,9 +339,9 @@ module.exports = {
                     });
                     db.collection("user").find({
                         $and: [{
-                            name: search
+                            name: check
                         }, {
-                            name: searchname
+                            name: checkname
                         }],
                         "accesslevel": "artist",
                         "artwork.type": data.type
@@ -379,9 +379,9 @@ module.exports = {
                 if (db) {
                     db.collection("user").count({
                         $and: [{
-                            name: search
+                            name: check
                         }, {
-                            name: searchname
+                            name: checkname
                         }],
                         "accesslevel": "artist"
                     }, function (err, number) {
@@ -395,9 +395,9 @@ module.exports = {
                     });
                     db.collection("user").find({
                         $and: [{
-                            name: search
+                            name: check
                         }, {
-                            name: searchname
+                            name: checkname
                         }],
                         "accesslevel": "artist"
                     }, {
