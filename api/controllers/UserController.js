@@ -256,6 +256,7 @@ module.exports = {
                     console.log(err);
                 }
                 var filename = oldfile;
+                console.log(filename);
                 var file = new sails.GridStore(db, filename, "r");
                 file.open(function (err, file) {
                     if (err) {
