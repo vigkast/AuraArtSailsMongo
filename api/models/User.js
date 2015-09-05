@@ -310,52 +310,103 @@ module.exports = {
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("user").count({
-                    "name": check,
-                    "accesslevel": "artist"
-                }, function (err, number) {
-                    newreturns.total = number;
-                    newreturns.totalpages = Math.ceil(number / data.pagesize);
-                    newcallback++;
-                    if (newcallback == 2) {
-                        callback(newreturns);
-                    }
+        if (data.type != "") {
+            sails.query(function (err, db) {
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false
+                    });
+                }
+                if (db) {
+                    db.collection("user").count({
+                        "name": check,
+                        "accesslevel": "artist",
+                        "arwtork.type": data.type
+                    }, function (err, number) {
+                        newreturns.total = number;
+                        newreturns.totalpages = Math.ceil(number / data.pagesize);
+                        newcallback++;
+                        if (newcallback == 2) {
+                            callback(newreturns);
+                        }
 
-                });
-                db.collection("user").find({
-                    "name": check,
-                    "accesslevel": "artist"
-                }, {
-                    password: 0,
-                    forgotpassword: 0
-                }).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
-                    if (err) {
-                        callback({
-                            value: false
-                        });
-                        console.log(err);
-                    }
-                    if (found != null) {
-                        newreturns.data.push(found);
-                    } else {
-                        if (found == null) {
-                            newcallback++;
-                            if (newcallback == 2) {
-                                callback(newreturns);
+                    });
+                    db.collection("user").find({
+                        "name": check,
+                        "accesslevel": "artist",
+                        "arwtork.type": data.type
+                    }, {
+                        password: 0,
+                        forgotpassword: 0
+                    }).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
+                        if (err) {
+                            callback({
+                                value: false
+                            });
+                            console.log(err);
+                        }
+                        if (found != null) {
+                            newreturns.data.push(found);
+                        } else {
+                            if (found == null) {
+                                newcallback++;
+                                if (newcallback == 2) {
+                                    callback(newreturns);
+                                }
                             }
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        } else {
+            sails.query(function (err, db) {
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false
+                    });
+                }
+                if (db) {
+                    db.collection("user").count({
+                        "name": check,
+                        "accesslevel": "artist"
+                    }, function (err, number) {
+                        newreturns.total = number;
+                        newreturns.totalpages = Math.ceil(number / data.pagesize);
+                        newcallback++;
+                        if (newcallback == 2) {
+                            callback(newreturns);
+                        }
+
+                    });
+                    db.collection("user").find({
+                        "name": check,
+                        "accesslevel": "artist"
+                    }, {
+                        password: 0,
+                        forgotpassword: 0
+                    }).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
+                        if (err) {
+                            callback({
+                                value: false
+                            });
+                            console.log(err);
+                        }
+                        if (found != null) {
+                            newreturns.data.push(found);
+                        } else {
+                            if (found == null) {
+                                newcallback++;
+                                if (newcallback == 2) {
+                                    callback(newreturns);
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        }
     },
     findone: function (data, callback) {
         sails.query(function (err, db) {
@@ -822,7 +873,7 @@ module.exports = {
                         callback({
                             value: false
                         });
-                        
+
                     }
                     if (data) {
                         db.collection("fs.chunks").remove({}, function (err, data) {
@@ -831,13 +882,13 @@ module.exports = {
                                 callback({
                                     value: false
                                 });
-                                
+
                             }
                             if (data) {
                                 callback({
                                     value: true
                                 });
-                                
+
                             }
                         });
                     }
@@ -869,12 +920,12 @@ module.exports = {
                         callback({
                             value: false
                         });
-                        
+
                     }
                     if (data2 != null) {
                         exitup++;
                         callback(data2._id);
-                        
+
                     } else {
                         if (exit != exitup) {
                             db.collection('user').insert(newdata, function (err, created) {
@@ -883,11 +934,11 @@ module.exports = {
                                     callback({
                                         value: false
                                     });
-                                    
+
                                 }
                                 if (created) {
                                     callback(newdata._id);
-                                    
+
                                 }
                             });
                         }
@@ -904,7 +955,7 @@ module.exports = {
                     callback({
                         value: false
                     });
-                    
+
                 }
                 if (data) {
                     db.collection('artmedium').remove({}, function (err, data) {
@@ -913,7 +964,7 @@ module.exports = {
                             callback({
                                 value: false
                             });
-                            
+
                         }
                         if (data) {
 
@@ -931,13 +982,13 @@ module.exports = {
                                             callback({
                                                 value: false
                                             });
-                                            
+
                                         }
                                         if (data) {
                                             callback({
                                                 value: true
                                             });
-                                            
+
                                         }
                                     });
                                 }
