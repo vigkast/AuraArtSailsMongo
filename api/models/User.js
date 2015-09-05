@@ -321,8 +321,8 @@ module.exports = {
                 }
                 if (db) {
                     db.collection("user").count({
-                        "name": check,
                         "name": checkname,
+                        "name": check,
                         "accesslevel": "artist",
                         "artwork.type": data.type
                     }, function (err, number) {
@@ -335,8 +335,8 @@ module.exports = {
 
                     });
                     db.collection("user").find({
-                        "name": check,
                         "name": checkname,
+                        "name": check,
                         "accesslevel": "artist",
                         "artwork.type": data.type
                     }, {
@@ -372,6 +372,7 @@ module.exports = {
                 }
                 if (db) {
                     db.collection("user").count({
+                        "name": checkname,
                         "name": check,
                         "accesslevel": "artist"
                     }, function (err, number) {
@@ -384,6 +385,7 @@ module.exports = {
 
                     });
                     db.collection("user").find({
+                        "name": checkname,
                         "name": check,
                         "accesslevel": "artist"
                     }, {
