@@ -213,12 +213,12 @@ module.exports = {
                 if (err) {
                     console.log(err);
                 }
-                db.open(function (err, db) {
+                db.open(function (err, database) {
                     if (err) {
                         console.log(err);
                     }
-                    if (db) {
-                        sails.GridStore.read(db, fd, function (err, fileData) {
+                    if (database) {
+                        sails.GridStore.read(database, fd, function (err, fileData) {
                             if (err) {
                                 console.log(err);
                             }
@@ -273,12 +273,12 @@ module.exports = {
                 }
                 var filename = oldfile;
                 console.log(filename);
-                db.open(function (err, db) {
+                db.open(function (err, database) {
                     if (err) {
                         console.log(err);
                     }
-                    if (db) {
-                        var file = new sails.GridStore(db, filename, "r");
+                    if (database) {
+                        var file = new sails.GridStore(database, filename, "r");
                         file.open(function (err, file) {
                             if (err) {
                                 console.log(err);
