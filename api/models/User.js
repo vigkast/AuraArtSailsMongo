@@ -322,7 +322,7 @@ module.exports = {
                     db.collection("user").count({
                         "name": check,
                         "accesslevel": "artist",
-                        "arwtork.type": data.type
+                        "artwork.type": data.type
                     }, function (err, number) {
                         newreturns.total = number;
                         newreturns.totalpages = Math.ceil(number / data.pagesize);
@@ -335,7 +335,7 @@ module.exports = {
                     db.collection("user").find({
                         "name": check,
                         "accesslevel": "artist",
-                        "arwtork.type": data.type
+                        "artwork.type": data.type
                     }, {
                         password: 0,
                         forgotpassword: 0
