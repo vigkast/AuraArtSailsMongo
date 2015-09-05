@@ -308,6 +308,7 @@ module.exports = {
         newreturns.data = [];
         data.search = "^" + data.search;
         var check = new RegExp(data.search, "i");
+        var checkname = new RegExp(data.searchname, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
         if (data.type != "") {
@@ -321,6 +322,7 @@ module.exports = {
                 if (db) {
                     db.collection("user").count({
                         "name": check,
+                        "name": checkname,
                         "accesslevel": "artist",
                         "artwork.type": data.type
                     }, function (err, number) {
@@ -334,6 +336,7 @@ module.exports = {
                     });
                     db.collection("user").find({
                         "name": check,
+                        "name": checkname,
                         "accesslevel": "artist",
                         "artwork.type": data.type
                     }, {
