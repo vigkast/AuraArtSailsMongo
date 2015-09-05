@@ -273,14 +273,21 @@ module.exports = {
                 }
                 var filename = oldfile;
                 console.log(filename);
-                var file = new sails.GridStore(db, filename, "r");
-                file.open(function (err, file) {
+                db.open(function (err, db) {
                     if (err) {
                         console.log(err);
                     }
-                    res.set('Content-Type', file.contentType);
-                    var stream = file.stream();
-                    stream.pipe(res);
+                    if (db) {
+                        var file = new sails.GridStore(db, filename, "r");
+                        file.open(function (err, file) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            res.set('Content-Type', file.contentType);
+                            var stream = file.stream();
+                            stream.pipe(res);
+                        });
+                    }
                 });
             });
         }
