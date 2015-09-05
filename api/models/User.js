@@ -321,8 +321,11 @@ module.exports = {
                 }
                 if (db) {
                     db.collection("user").count({
-                        "name": checkname,
-                        "name": check,
+                        $and: [{
+                            name: search
+                        }, {
+                            name: searchname
+                        }],
                         "accesslevel": "artist",
                         "artwork.type": data.type
                     }, function (err, number) {
@@ -335,8 +338,11 @@ module.exports = {
 
                     });
                     db.collection("user").find({
-                        "name": checkname,
-                        "name": check,
+                        $and: [{
+                            name: search
+                        }, {
+                            name: searchname
+                        }],
                         "accesslevel": "artist",
                         "artwork.type": data.type
                     }, {
@@ -372,8 +378,11 @@ module.exports = {
                 }
                 if (db) {
                     db.collection("user").count({
-                        "name": checkname,
-                        "name": check,
+                        $and: [{
+                            name: search
+                        }, {
+                            name: searchname
+                        }],
                         "accesslevel": "artist"
                     }, function (err, number) {
                         newreturns.total = number;
@@ -385,8 +394,11 @@ module.exports = {
 
                     });
                     db.collection("user").find({
-                        "name": checkname,
-                        "name": check,
+                        $and: [{
+                            name: search
+                        }, {
+                            name: searchname
+                        }],
                         "accesslevel": "artist"
                     }, {
                         password: 0,
