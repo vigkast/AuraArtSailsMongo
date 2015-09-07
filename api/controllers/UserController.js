@@ -267,27 +267,31 @@ module.exports = {
         }
 
         function showimage(oldfile) {
+            var filename = oldfile;
             sails.query(function (err, db) {
                 if (err) {
                     console.log(err);
+                    callback({
+                        value: "busy"
+                    });
+                } else if (db) {
+                    db.open(function (err, database) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        if (database) {
+                            var file = new sails.GridStore(database, filename, "r");
+                            file.open(function (err, file) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                res.set('Content-Type', file.contentType);
+                                var stream = file.stream();
+                                stream.pipe(res);
+                            });
+                        }
+                    });
                 }
-                var filename = oldfile;
-                db.open(function (err, database) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    if (database) {
-                        var file = new sails.GridStore(database, filename, "r");
-                        file.open(function (err, file) {
-                            if (err) {
-                                console.log(err);
-                            }
-                            res.set('Content-Type', file.contentType);
-                            var stream = file.stream();
-                            stream.pipe(res);
-                        });
-                    }
-                });
             });
         }
     },
