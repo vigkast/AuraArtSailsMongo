@@ -969,6 +969,7 @@ module.exports = {
                             "artwork.name": {
                                 $exists: true
                             },
+                            "artwork.name": check,
                             "artwork.type": data.type
                         }
           }, {
@@ -978,6 +979,7 @@ module.exports = {
                             "artwork.name": {
                                 $exists: true
                             },
+                            "artwork.name": check,
                             "artwork.type": data.type
                         }
           }, {
@@ -1009,6 +1011,7 @@ module.exports = {
                             "artwork.name": {
                                 $exists: true
                             },
+                            "artwork.name": check,
                             "artwork.type": data.type
                         }
           }, {
@@ -1018,6 +1021,7 @@ module.exports = {
                             "artwork.name": {
                                 $exists: true
                             },
+                            "artwork.name": check,
                             "artwork.type": data.type
                         }
           }, {
@@ -1053,7 +1057,8 @@ module.exports = {
                         $match: {
                             "artwork.name": {
                                 $exists: true
-                            }
+                            },
+                            "artwork.name": check
                         }
           }, {
                         $unwind: "$artwork"
@@ -1061,7 +1066,8 @@ module.exports = {
                         $match: {
                             "artwork.name": {
                                 $exists: true
-                            }
+                            },
+                            "artwork.name": check
                         }
           }, {
                         $group: {
@@ -1093,7 +1099,8 @@ module.exports = {
                             $match: {
                                 "artwork.name": {
                                     $exists: true
-                                }
+                                },
+                                "artwork.name": check
                             }
           }, {
                             $unwind: "$artwork"
@@ -1101,7 +1108,8 @@ module.exports = {
                             $match: {
                                 "artwork.name": {
                                     $exists: true
-                                }
+                                },
+                                "artwork.name": check
                             }
           }, {
                             $project: {
