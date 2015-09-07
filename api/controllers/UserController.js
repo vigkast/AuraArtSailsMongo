@@ -212,11 +212,10 @@ module.exports = {
             sails.query(function (err, db) {
                 if (err) {
                     console.log(err);
-                    callback({
+                    res.json({
                         value: "busy"
                     });
-                }
-                if (db) {
+                } else if (db) {
                     db.open(function (err, database) {
                         if (err) {
                             console.log(err);
@@ -276,7 +275,7 @@ module.exports = {
             sails.query(function (err, db) {
                 if (err) {
                     console.log(err);
-                    callback({
+                    res.json({
                         value: "busy"
                     });
                 } else if (db) {
