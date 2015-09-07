@@ -272,7 +272,7 @@ module.exports = {
                     console.log(err);
                 }
                 var filename = oldfile;
-                console.log(filename);
+                console.log(db);
                 db.open(function (err, database) {
                     if (err) {
                         console.log(err);
