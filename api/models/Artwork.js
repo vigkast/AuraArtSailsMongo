@@ -1021,65 +1021,65 @@ module.exports = {
         var pagenumber = data.pagenumber;
         var user = sails.ObjectID(data.user);
         sails.query(function (err, db) {
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
-                }
-                if (db) {
-                    if (data.type != "") {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                if (data.type != "") {
 
-                        db.collection("user").aggregate([{
-                            $match: {
-                                "artwork.name": {
-                                    $exists: true
-                                },
-                                "artwork.name": check,
-                                "artwork.type": data.type
-                            }
+                    db.collection("user").aggregate([{
+                        $match: {
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.name": check,
+                            "artwork.type": data.type
+                        }
           }, {
-                            $unwind: "$artwork"
+                        $unwind: "$artwork"
           }, {
-                            $match: {
-                                "artwork.name": {
-                                    $exists: true
-                                },
-                                "artwork.name": check,
-                                "artwork.type": data.type
-                            }
+                        $match: {
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.name": check,
+                            "artwork.type": data.type
+                        }
           }, {
-                            $group: {
-                                _id: user,
-                                count: {
-                                    $sum: 1
-                                }
+                        $group: {
+                            _id: user,
+                            count: {
+                                $sum: 1
                             }
+                        }
           }, {
-                            $project: {
-                                count: 1
-                            }
+                        $project: {
+                            count: 1
+                        }
           }]).toArray(function (err, result) {
-                            if (result && result[0]) {
-                                newreturns.total = result[0].count;
-                                newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
-                                callbackfunc1();
-                            } else if (err) {
-                                console.log(err);
-                                callback({
-                                    value: false
-                                });
-                                db.close();
-                            } else {
-                                callback({
-                                    value: false,
-                                    comment: "Count of null."
-                                });
-                                db.close();
-                            }
-                        });
+                        if (result && result[0]) {
+                            newreturns.total = result[0].count;
+                            newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                            callbackfunc1();
+                        } else if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "Count of null."
+                            });
+                            db.close();
+                        }
+                    });
 
-                        function callbackfunc1() {
+                    function callbackfunc1() {
                         db.collection("user").aggregate([{
                             $match: {
                                 "artwork.name": {
@@ -1217,5 +1217,5 @@ module.exports = {
                 }
             }
         });
-}
+    }
 };
