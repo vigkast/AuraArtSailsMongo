@@ -256,6 +256,7 @@ module.exports = {
                                                         if (imagebuf) {
                                                             res.set('Content-Type', mimetype);
                                                             res.send(new Buffer(imagebuf));
+                                                            db.close();
                                                         }
                                                     });
                                                 }
@@ -292,6 +293,7 @@ module.exports = {
                                 res.set('Content-Type', file.contentType);
                                 var stream = file.stream();
                                 stream.pipe(res);
+                                db.close();
                             });
                         }
                     });
