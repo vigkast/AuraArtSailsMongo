@@ -192,13 +192,6 @@ module.exports = {
         sails.fs.writeFileSync('./uploads/data.xlsx', xls, 'binary');
     },
     resize: function (req, res) {
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                res.json({
-                    value: "busy"
-                });
-            } else {
         var file = req.param('file');
         var fd = sails.ObjectID(file);
         var newheight = req.param('height');
@@ -214,6 +207,13 @@ module.exports = {
         } else {
             findimage(fd, newwidth, newheight);
         }
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                res.json({
+                    value: "busy"
+                });
+            } else {
 
                 function findimage(fd, newwidth, newheight) {
                     if (database) {
