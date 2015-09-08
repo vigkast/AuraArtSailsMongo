@@ -364,6 +364,7 @@ module.exports = {
                             if (result[0]) {
                                 newreturns.total = result[0].count;
                                 newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                                callbackfunc();
                             } else if (err) {
                                 console.log(err);
                                 callback({
@@ -378,54 +379,57 @@ module.exports = {
                                 db.close();
                             }
                         });
-                        db.collection("user").aggregate([{
-                            $match: {
-                                _id: user,
-                                "artwork.name": {
-                                    $exists: true
-                                },
-                                "artwork.type": data.type,
-                                "artwork.name": {
-                                    $regex: check
+
+                        function callbackfunc() {
+                            db.collection("user").aggregate([{
+                                $match: {
+                                    _id: user,
+                                    "artwork.name": {
+                                        $exists: true
+                                    },
+                                    "artwork.type": data.type,
+                                    "artwork.name": {
+                                        $regex: check
+                                    }
                                 }
-                            }
           }, {
-                            $unwind: "$artwork"
+                                $unwind: "$artwork"
           }, {
-                            $match: {
-                                "artwork.name": {
-                                    $exists: true
-                                },
-                                "artwork.type": data.type,
-                                "artwork.name": {
-                                    $regex: check
+                                $match: {
+                                    "artwork.name": {
+                                        $exists: true
+                                    },
+                                    "artwork.type": data.type,
+                                    "artwork.name": {
+                                        $regex: check
+                                    }
                                 }
-                            }
           }, {
-                            $project: {
-                                artwork: 1
-                            }
+                                $project: {
+                                    artwork: 1
+                                }
           }, {
-                            $sort: sort
+                                $sort: sort
           }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
-                            if (found && found[0]) {
-                                newreturns.data = found;
-                                callback(newreturns);
-                                db.close();
-                            } else if (err) {
-                                console.log(err);
-                                callback({
-                                    value: false
-                                });
-                                db.close();
-                            } else {
-                                callback({
-                                    value: false,
-                                    comment: "No data found."
-                                });
-                                db.close();
-                            }
-                        });
+                                if (found && found[0]) {
+                                    newreturns.data = found;
+                                    callback(newreturns);
+                                    db.close();
+                                } else if (err) {
+                                    console.log(err);
+                                    callback({
+                                        value: false
+                                    });
+                                    db.close();
+                                } else {
+                                    callback({
+                                        value: false,
+                                        comment: "No data found."
+                                    });
+                                    db.close();
+                                }
+                            });
+                        }
                     } else {
                         db.collection("user").aggregate([{
                             $match: {
@@ -464,6 +468,7 @@ module.exports = {
                             if (result && result[0]) {
                                 newreturns.total = result[0].count;
                                 newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                                callbackfunc1();
                             } else if (err) {
                                 console.log(err);
                                 callback({
@@ -478,52 +483,55 @@ module.exports = {
                                 db.close();
                             }
                         });
-                        db.collection("user").aggregate([{
-                            $match: {
-                                _id: user,
-                                "artwork.name": {
-                                    $exists: true
-                                },
-                                "artwork.name": {
-                                    $regex: check
+
+                        function callbackfunc1() {
+                            db.collection("user").aggregate([{
+                                $match: {
+                                    _id: user,
+                                    "artwork.name": {
+                                        $exists: true
+                                    },
+                                    "artwork.name": {
+                                        $regex: check
+                                    }
                                 }
-                            }
           }, {
-                            $unwind: "$artwork"
+                                $unwind: "$artwork"
           }, {
-                            $match: {
-                                "artwork.name": {
-                                    $exists: true
-                                },
-                                "artwork.name": {
-                                    $regex: check
+                                $match: {
+                                    "artwork.name": {
+                                        $exists: true
+                                    },
+                                    "artwork.name": {
+                                        $regex: check
+                                    }
                                 }
-                            }
           }, {
-                            $project: {
-                                artwork: 1
-                            }
+                                $project: {
+                                    artwork: 1
+                                }
           }, {
-                            $sort: sort
+                                $sort: sort
           }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
-                            if (found && found[0]) {
-                                newreturns.data = found;
-                                callback(newreturns);
-                                db.close();
-                            } else if (err) {
-                                console.log(err);
-                                callback({
-                                    value: false
-                                });
-                                db.close();
-                            } else {
-                                callback({
-                                    value: false,
-                                    comment: "No data found."
-                                });
-                                db.close();
-                            }
-                        });
+                                if (found && found[0]) {
+                                    newreturns.data = found;
+                                    callback(newreturns);
+                                    db.close();
+                                } else if (err) {
+                                    console.log(err);
+                                    callback({
+                                        value: false
+                                    });
+                                    db.close();
+                                } else {
+                                    callback({
+                                        value: false,
+                                        comment: "No data found."
+                                    });
+                                    db.close();
+                                }
+                            });
+                        }
                     }
                 } else {
                     callback({
@@ -752,6 +760,7 @@ module.exports = {
           }]).toArray(function (err, result) {
                         if (result && result[0]) {
                             newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                            callbackfunc();
                         } else if (err) {
                             console.log(err);
                             callback({
@@ -766,52 +775,55 @@ module.exports = {
                             db.close();
                         }
                     });
-                    db.collection("user").aggregate([{
-                        $match: {
-                            "artwork.name": {
-                                $exists: true
-                            },
-                            "artwork.name": {
-                                $regex: check
-                            },
-                            "artwork.type": data.type
-                        }
+
+                    function callbackfunc() {
+                        db.collection("user").aggregate([{
+                            $match: {
+                                "artwork.name": {
+                                    $exists: true
+                                },
+                                "artwork.name": {
+                                    $regex: check
+                                },
+                                "artwork.type": data.type
+                            }
           }, {
-                        $unwind: "$artwork"
+                            $unwind: "$artwork"
           }, {
-                        $match: {
-                            "artwork.name": {
-                                $exists: true
-                            },
-                            "artwork.name": {
-                                $regex: check
-                            },
-                            "artwork.type": data.type
-                        }
+                            $match: {
+                                "artwork.name": {
+                                    $exists: true
+                                },
+                                "artwork.name": {
+                                    $regex: check
+                                },
+                                "artwork.type": data.type
+                            }
           }, {
-                        $project: {
-                            artwork: 1
-                        }
+                            $project: {
+                                artwork: 1
+                            }
           }, {
-                        $sort: sort
+                            $sort: sort
           }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
-                        if (found && found[0]) {
-                            newreturns.data = found;
-                            callback(newreturns);
-                            db.close();
-                        } else if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "No data found."
-                            });
-                        }
-                    });
+                            if (found && found[0]) {
+                                newreturns.data = found;
+                                callback(newreturns);
+                                db.close();
+                            } else if (err) {
+                                console.log(err);
+                                callback({
+                                    value: false
+                                });
+                                db.close();
+                            } else {
+                                callback({
+                                    value: false,
+                                    comment: "No data found."
+                                });
+                            }
+                        });
+                    }
                 } else {
                     db.collection("user").aggregate([{
                         $match: {
@@ -847,6 +859,7 @@ module.exports = {
           }]).toArray(function (err, result) {
                         if (result && result[0]) {
                             newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                            callbackfunc1();
                         } else if (err) {
                             console.log(err);
                             callback({
@@ -861,34 +874,35 @@ module.exports = {
                             db.close();
                         }
                     });
-                    db.collection("user").aggregate([{
-                        $match: {
-                            "artwork.name": {
-                                $exists: true
-                            },
-                            "artwork.name": {
-                                $regex: check
+
+                    function callbackfunc1() {
+                        db.collection("user").aggregate([{
+                            $match: {
+                                "artwork.name": {
+                                    $exists: true
+                                },
+                                "artwork.name": {
+                                    $regex: check
+                                }
                             }
-                        }
           }, {
-                        $unwind: "$artwork"
+                            $unwind: "$artwork"
           }, {
-                        $match: {
-                            "artwork.name": {
-                                $exists: true
-                            },
-                            "artwork.name": {
-                                $regex: check
+                            $match: {
+                                "artwork.name": {
+                                    $exists: true
+                                },
+                                "artwork.name": {
+                                    $regex: check
+                                }
                             }
-                        }
           }, {
-                        $project: {
-                            artwork: 1
-                        }
+                            $project: {
+                                artwork: 1
+                            }
           }, {
-                        $sort: sort
-          }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
-                        function (err, found) {
+                            $sort: sort
+          }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
                             if (found && found[0]) {
                                 newreturns.data = found;
                                 callback(newreturns);
@@ -907,6 +921,7 @@ module.exports = {
                                 db.close();
                             }
                         });
+                    }
                 }
             }
         });
