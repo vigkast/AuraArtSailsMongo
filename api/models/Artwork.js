@@ -15,7 +15,7 @@ module.exports = {
                 });
             }
             if (db) {
-                if (data.user && sails.ObjectID(data.user)) {
+                if (data.user && sails.ObjectID.isValid(data.user)) {
                     var user = sails.ObjectID(data.user);
                     delete data.user;
                     if (!data._id) {
@@ -51,7 +51,7 @@ module.exports = {
                             }
                         });
                     } else {
-                        if (data._id && sails.ObjectID(data._id)) {
+                        if (data._id && sails.ObjectID.isValid(data._id)) {
                             data._id = sails.ObjectID(data._id);
                             if (!data.modifytime) {
                                 var dummy = sails.ObjectID();
@@ -106,7 +106,7 @@ module.exports = {
         });
     },
     delete: function (data, callback) {
-        if (data.user && sails.ObjectID(data.user) && data._id && sails.ObjectID(data._id)) {
+        if (data.user && sails.ObjectID.isValid(data.user) && data._id && sails.ObjectID.isValid(data._id)) {
             var user = sails.ObjectID(data.user);
             delete data.user;
             data._id = sails.ObjectID(data._id);
@@ -158,7 +158,7 @@ module.exports = {
         }
     },
     findone: function (data, callback) {
-        if (data.user && sails.ObjectID(data.user) && data._id && sails.ObjectID(data._id)) {
+        if (data.user && sails.ObjectID.isValid(data.user) && data._id && sails.ObjectID.isValid(data._id)) {
             var user = sails.ObjectID(data.user);
             sails.query(function (err, db) {
                 if (err) {
@@ -201,7 +201,7 @@ module.exports = {
         }
     },
     find: function (data, callback) {
-        if (data.user && sails.ObjectID(data.user)) {
+        if (data.user && sails.ObjectID.isValid(data.user)) {
             var user = sails.ObjectID(data.user);
             sails.query(function (err, db) {
                 if (err) {
@@ -314,7 +314,7 @@ module.exports = {
                 });
             }
             if (db) {
-                if (data.user && sails.ObjectID(data.user)) {
+                if (data.user && sails.ObjectID.isValid(data.user)) {
                     var newcallback = 0;
                     var newreturns = {};
                     var check = new RegExp(data.search, "i");
@@ -601,7 +601,7 @@ module.exports = {
         });
     },
     findbyid: function (data, callback) {
-        if (data._id && sails.ObjectID(data._id)) {
+        if (data._id && sails.ObjectID.isValid(data._id)) {
             sails.query(function (err, db) {
                 if (err) {
                     console.log(err);
@@ -660,7 +660,7 @@ module.exports = {
         }
     },
     deleteout: function (data, callback) {
-        if (data._id && sails.ObjectID(data._id)) {
+        if (data._id && sails.ObjectID.isValid(data._id)) {
             data._id = sails.ObjectID(data._id);
             sails.query(function (err, db) {
                 if (err) {
@@ -989,7 +989,7 @@ module.exports = {
         });
     },
     saveartwork: function (data) {
-        if (data.user && sails.ObjectID(data.user)) {
+        if (data.user && sails.ObjectID.isValid(data.user)) {
             var user = sails.ObjectID(data.user);
             delete data.user;
             data._id = sails.ObjectID();
