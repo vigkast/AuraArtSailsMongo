@@ -1063,7 +1063,7 @@ module.exports = {
                             if (result && result[0]) {
                                 newreturns.total = result[0].count;
                                 newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
-                                callbackfunc();
+                                callbackfunc1();
                             } else if (err) {
                                 console.log(err);
                                 callback({
@@ -1079,7 +1079,7 @@ module.exports = {
                             }
                         });
 
-                        function callbackfunc() {
+                        function callbackfunc1() {
                         db.collection("user").aggregate([{
                             $match: {
                                 "artwork.name": {
