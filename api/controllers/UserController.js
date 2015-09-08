@@ -192,30 +192,30 @@ module.exports = {
         sails.fs.writeFileSync('./uploads/data.xlsx', xls, 'binary');
     },
     resize: function (req, res) {
-        var file = req.param('file');
-        var fd = sails.ObjectID(file);
-        var newheight = req.param('height');
-        var newwidth = req.param('width');
-        if (!newwidth && !newheight) {
-            showimage(fd);
-        } else if (!newwidth && newheight) {
-            newheight = parseInt(newheight);
-            findimage(fd, 0, newheight);
-        } else if (newwidth && !newheight) {
-            newwidth = parseInt(newwidth);
-            findimage(fd, newwidth, 0);
-        } else {
-            findimage(fd, newwidth, newheight);
-        }
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                res.json({
+                    value: "busy"
+                });
+            } else {
+                var file = req.param('file');
+                var fd = sails.ObjectID(file);
+                var newheight = req.param('height');
+                var newwidth = req.param('width');
+                if (!newwidth && !newheight) {
+                    showimage(fd);
+                } else if (!newwidth && newheight) {
+                    newheight = parseInt(newheight);
+                    findimage(fd, 0, newheight);
+                } else if (newwidth && !newheight) {
+                    newwidth = parseInt(newwidth);
+                    findimage(fd, newwidth, 0);
+                } else {
+                    findimage(fd, newwidth, newheight);
+                }
 
-        function findimage(fd, newwidth, newheight) {
-            sails.query(function (err, db) {
-                if (err) {
-                    console.log(err);
-                    res.json({
-                        value: "busy"
-                    });
-                } else if (db) {
+                function findimage(fd, newwidth, newheight) {
                     db.open(function (err, database) {
                         if (err) {
                             console.log(err);
@@ -267,18 +267,9 @@ module.exports = {
                         }
                     });
                 }
-            });
-        }
 
-        function showimage(oldfile) {
-            var filename = oldfile;
-            sails.query(function (err, db) {
-                if (err) {
-                    console.log(err);
-                    res.json({
-                        value: "busy"
-                    });
-                } else if (db) {
+                function showimage(oldfile) {
+                    var filename = oldfile;
                     db.open(function (err, database) {
                         if (err) {
                             console.log(err);
@@ -296,8 +287,8 @@ module.exports = {
                         }
                     });
                 }
-            });
-        }
+            }
+        });
     },
     findimage: function (req, res) {
         var print = function (data) {
