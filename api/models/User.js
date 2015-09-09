@@ -382,8 +382,7 @@ module.exports = {
                         }, {
                                 name: checkname
                         }],
-                            "accesslevel": "artist",
-                            "artwork.type": data.type
+                            "accesslevel": "artist"
                         }, {
                             password: 0,
                             forgotpassword: 0
@@ -414,12 +413,13 @@ module.exports = {
                         }, {
                             name: checkname
                         }],
-                        "accesslevel": "artist"
+                        "accesslevel": "artist",
+                        "artwork.type": data.type
                     }, function (err, number) {
                         if (number) {
                             newreturns.total = number;
                             newreturns.totalpages = Math.ceil(number / data.pagesize);
-                            callbackfunc1();
+                            callbackfunc();
                         } else if (err) {
                             callback({
                                 value: false
@@ -434,7 +434,7 @@ module.exports = {
                         }
                     });
 
-                    function callbackfunc1() {
+                    function callbackfunc() {
                         db.collection("user").find({
                             $and: [{
                                 name: check
@@ -839,50 +839,6 @@ module.exports = {
                 db.collection("user").count({}, function (err, number) {
                     if (number != null) {
                         callback(number);
-                    }
-                });
-            }
-        });
-    },
-    findimage: function (data, callback) {
-        var returns = [];
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("fs.files").find({}, {}).each(function (err, found) {
-                    if (err) {
-                        console.log({
-                            value: false
-                        });
-                    }
-                    if (found != null) {
-                        returns.push(found);
-                    } else {
-                        if (found == null) {
-                            callback(returns);
-                        }
-                    }
-                });
-            }
-        });
-    },
-    countusers: function (data, callback) {
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("user").count({}, function (err, number) {
-                    if (number != null) {
-                        callback(number);
                         db.close();
                     } else if (err) {
                         callback({
@@ -892,7 +848,36 @@ module.exports = {
                     } else {
                         callback({
                             value: false,
-                            comment: "No User"
+                            comment: "No user found."
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    },
+    findimage: function (data, callback) {
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("fs.files").find({}, {}).toArray(function (err, found) {
+                    if (err) {
+                        console.log({
+                            value: false
+                        });
+                        db.close();
+                    } else if (found && found[0]) {
+                        callback(found);
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
                         });
                         db.close();
                     }
@@ -1008,23 +993,31 @@ module.exports = {
                         callback({
                             value: false
                         });
-
-                    }
-                    if (data) {
+                        db.close();
+                    } else if (data) {
                         db.collection("fs.chunks").remove({}, function (err, data) {
                             if (err) {
                                 console.log(err);
                                 callback({
                                     value: false
                                 });
-
-                            }
-                            if (data) {
+                                db.close();
+                            } else if (data) {
                                 callback({
                                     value: true
                                 });
-
+                                db.close();
+                            } else {
+                                callback({
+                                    value: false,
+                                    comment: "No data found"
+                                });
                             }
+                        });
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No dta found"
                         });
                     }
                 });
@@ -1037,8 +1030,6 @@ module.exports = {
         newdata._id = sails.ObjectID();
         newdata.accesslevel = "artist";
         sails.query(function (err, db) {
-            var exit = 0;
-            var exitup = 0;
             if (err) {
                 console.log(err);
                 callback({
@@ -1046,37 +1037,37 @@ module.exports = {
                 });
             }
             if (db) {
-                exit++;
                 db.collection("user").find({
                     "name": data.username
-                }).each(function (err, data2) {
+                }).toArray(function (err, data2) {
                     if (err) {
                         console.log(err);
                         callback({
                             value: false
                         });
-
-                    }
-                    if (data2 != null) {
-                        exitup++;
-                        callback(data2._id);
-
+                        db.close();
+                    } else if (data2 && data2[0]) {
+                        callback(data2[0]._id);
+                        db.close();
                     } else {
-                        if (exit != exitup) {
-                            db.collection('user').insert(newdata, function (err, created) {
-                                if (err) {
-                                    console.log(err);
-                                    callback({
-                                        value: false
-                                    });
-
-                                }
-                                if (created) {
-                                    callback(newdata._id);
-
-                                }
-                            });
-                        }
+                        db.collection('user').insert(newdata, function (err, created) {
+                            if (err) {
+                                console.log(err);
+                                callback({
+                                    value: false
+                                });
+                                db.close();
+                            } else if (created) {
+                                callback(newdata._id);
+                                db.close();
+                            } else {
+                                callback({
+                                    value: false,
+                                    comment: "Not created"
+                                });
+                                db.close();
+                            }
+                        });
                     }
                 });
             }
@@ -1084,52 +1075,78 @@ module.exports = {
     },
     deletedata: function (data, callback) {
         sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
             db.collection('user').remove({}, function (err, data) {
                 if (err) {
                     console.log(err);
                     callback({
                         value: false
                     });
-
-                }
-                if (data) {
-                    db.collection('artmedium').remove({}, function (err, data) {
+                    db.close();
+                } else if (data) {
+                    db.collection('artmedium').remove({}, function (err, data2) {
                         if (err) {
                             console.log(err);
                             callback({
                                 value: false
                             });
-
-                        }
-                        if (data) {
-
-                            db.collection("fs.files").remove({}, function (err, data) {
+                            db.close();
+                        } else if (data2) {
+                            db.collection("fs.files").remove({}, function (err, data3) {
                                 if (err) {
                                     console.log(err);
                                     callback({
                                         value: false
                                     });
-                                }
-                                if (data) {
-                                    db.collection("fs.chunks").remove({}, function (err, data) {
+                                    db.close();
+                                } else if (data3) {
+                                    db.collection("fs.chunks").remove({}, function (err, data4) {
                                         if (err) {
                                             console.log(err);
                                             callback({
                                                 value: false
                                             });
-
-                                        }
-                                        if (data) {
+                                            db.close();
+                                        } else if (data4) {
                                             callback({
                                                 value: true
                                             });
-
+                                            db.close();
+                                        } else {
+                                            callback({
+                                                value: false,
+                                                comment: "No data to delete"
+                                            });
+                                            db.close();
                                         }
                                     });
+                                } else {
+                                    callback({
+                                        value: false,
+                                        comment: "No data to delete"
+                                    });
+                                    db.close();
                                 }
                             });
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "No data to delete"
+                            });
+                            db.close();
                         }
                     });
+                } else {
+                    callback({
+                        value: false,
+                        comment: "No data to delete"
+                    });
+                    db.close();
                 }
             });
         });
@@ -1146,6 +1163,18 @@ module.exports = {
                 db.collection("fs.files").count({}, function (err, number) {
                     if (number != null) {
                         callback(number);
+                        db.close();
+                    } else if (err) {
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No Image found."
+                        });
+                        db.close();
                     }
                 });
             }
