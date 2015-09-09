@@ -1035,6 +1035,8 @@ module.exports = {
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
         var user = sails.ObjectID(data.user);
+        var sort = {};
+        sort['artwork' + data.filter] = data.sort;
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -1050,7 +1052,7 @@ module.exports = {
                             "artwork.name": {
                                 $exists: true
                             },
-                            "artwork.name": check,
+                            "name": check,
                             "artwork.type": data.type
                         }
           }, {
@@ -1060,7 +1062,7 @@ module.exports = {
                             "artwork.name": {
                                 $exists: true
                             },
-                            "artwork.name": check,
+                            "name": check,
                             "artwork.type": data.type
                         }
           }, {
@@ -1100,7 +1102,7 @@ module.exports = {
                                 "artwork.name": {
                                     $exists: true
                                 },
-                                "artwork.name": check,
+                                "name": check,
                                 "artwork.type": data.type
                             }
           }, {
@@ -1110,7 +1112,7 @@ module.exports = {
                                 "artwork.name": {
                                     $exists: true
                                 },
-                                "artwork.name": check,
+                                "name": check,
                                 "artwork.type": data.type
                             }
           }, {
@@ -1118,7 +1120,9 @@ module.exports = {
                                 name: 1,
                                 artwork: 1
                             }
-          }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
+          }, {
+                            $sort: sort
+            }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
                             function (err, found) {
                                 if (found && found[0]) {
                                     newreturns.data = found;
@@ -1145,7 +1149,7 @@ module.exports = {
                             "artwork.name": {
                                 $exists: true
                             },
-                            "artwork.name": check
+                            "name": check
                         }
           }, {
                         $unwind: "$artwork"
@@ -1154,7 +1158,7 @@ module.exports = {
                             "artwork.name": {
                                 $exists: true
                             },
-                            "artwork.name": check
+                            "name": check
                         }
           }, {
                         $group: {
@@ -1193,7 +1197,7 @@ module.exports = {
                                 "artwork.name": {
                                     $exists: true
                                 },
-                                "artwork.name": check
+                                "name": check
                             }
           }, {
                             $unwind: "$artwork"
@@ -1202,13 +1206,15 @@ module.exports = {
                                 "artwork.name": {
                                     $exists: true
                                 },
-                                "artwork.name": check
+                                "name": check
                             }
           }, {
                             $project: {
                                 name: 1,
                                 artwork: 1
                             }
+          }, {
+                            $sort: sort
           }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
                             if (found && found[0]) {
                                 newreturns.data = found;
