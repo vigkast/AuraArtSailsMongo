@@ -1035,9 +1035,9 @@ module.exports = {
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
         var user = sails.ObjectID(data.user);
-//        var sortnum = parseInt(data.sort);
-//        var sort = {};
-//        sort['artwork.' + data.filter] = sortnum;
+        var sortnum = parseInt(data.sort);
+        var sort = {};
+        sort['artwork.' + data.filter] = sortnum;
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -1121,6 +1121,8 @@ module.exports = {
                                 name: 1,
                                 artwork: 1
                             }
+          }, {
+                            $sort: sort
           }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
                             function (err, found) {
                                 if (found && found[0]) {
@@ -1212,6 +1214,8 @@ module.exports = {
                                 name: 1,
                                 artwork: 1
                             }
+          }, {
+                            $sort: sort
           }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
                             if (found && found[0]) {
                                 newreturns.data = found;
