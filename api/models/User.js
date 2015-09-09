@@ -960,7 +960,7 @@ module.exports = {
                 }, {
                     password: 0,
                     forgotpassword: 0
-                }).each(function (err, found) {
+                }).toArray(function (err, found) {
                     if (err) {
                         callback({
                             value: false
