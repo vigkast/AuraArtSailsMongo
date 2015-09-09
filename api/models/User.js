@@ -354,7 +354,7 @@ module.exports = {
                         }, {
                             name: checkname
                         }],
-                        "accesslevel": "artist",
+                        accesslevel: "artist",
                         "artwork.type": data.type
                     }, function (err, number) {
                         if (number) {
@@ -362,6 +362,7 @@ module.exports = {
                             newreturns.totalpages = Math.ceil(number / data.pagesize);
                             callbackfunc();
                         } else if (err) {
+                            console.log(err);
                             callback({
                                 value: false
                             });
@@ -382,12 +383,12 @@ module.exports = {
                         }, {
                                 name: checkname
                         }],
-                            "accesslevel": "artist",
+                            accesslevel: "artist",
                             "artwork.type": data.type
                         }, {
                             password: 0,
                             forgotpassword: 0
-                        }).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
+                        }).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
                             if (err) {
                                 callback({
                                     value: false
@@ -401,7 +402,7 @@ module.exports = {
                             } else {
                                 callback({
                                     value: false,
-                                    comment: "No data found"
+                                    comment: "No data found."
                                 });
                                 db.close();
                             }
@@ -414,13 +415,14 @@ module.exports = {
                         }, {
                             name: checkname
                         }],
-                        "accesslevel": "artist"
+                        accesslevel: "artist"
                     }, function (err, number) {
                         if (number) {
                             newreturns.total = number;
                             newreturns.totalpages = Math.ceil(number / data.pagesize);
                             callbackfunc1();
                         } else if (err) {
+                            console.log(err);
                             callback({
                                 value: false
                             });
@@ -441,11 +443,11 @@ module.exports = {
                         }, {
                                 name: checkname
                         }],
-                            "accesslevel": "artist"
+                            accesslevel: "artist"
                         }, {
                             password: 0,
                             forgotpassword: 0
-                        }).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
+                        }).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
                             if (err) {
                                 callback({
                                     value: false
@@ -459,7 +461,7 @@ module.exports = {
                             } else {
                                 callback({
                                     value: false,
-                                    comment: "No data found"
+                                    comment: "No data found."
                                 });
                                 db.close();
                             }
