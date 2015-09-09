@@ -1037,7 +1037,7 @@ module.exports = {
         var user = sails.ObjectID(data.user);
         var sortnum = parseInt(data.sort);
         var sort = {};
-        sort['artwork.' + data.filter, 'artwork.srno'] = sortnum;
+        sort['artwork.' + data.filter] = sortnum;
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
