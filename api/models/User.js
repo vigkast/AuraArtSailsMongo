@@ -382,7 +382,8 @@ module.exports = {
                         }, {
                                 name: checkname
                         }],
-                            "accesslevel": "artist"
+                            "accesslevel": "artist",
+                            "artwork.type": data.type
                         }, {
                             password: 0,
                             forgotpassword: 0
@@ -413,13 +414,12 @@ module.exports = {
                         }, {
                             name: checkname
                         }],
-                        "accesslevel": "artist",
-                        "artwork.type": data.type
+                        "accesslevel": "artist"
                     }, function (err, number) {
                         if (number) {
                             newreturns.total = number;
                             newreturns.totalpages = Math.ceil(number / data.pagesize);
-                            callbackfunc();
+                            callbackfunc1();
                         } else if (err) {
                             callback({
                                 value: false
@@ -434,7 +434,7 @@ module.exports = {
                         }
                     });
 
-                    function callbackfunc() {
+                    function callbackfunc1() {
                         db.collection("user").find({
                             $and: [{
                                 name: check
