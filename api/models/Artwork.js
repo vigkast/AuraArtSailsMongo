@@ -1036,7 +1036,7 @@ module.exports = {
         var pagenumber = data.pagenumber;
         var user = sails.ObjectID(data.user);
         var sort = {};
-        sort['artwork' + data.filter] = data.sort;
+        sort['artwork.' + data.filter] = data.sort;
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
