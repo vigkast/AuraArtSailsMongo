@@ -243,55 +243,61 @@ module.exports = {
                                             if (height == 0) {
                                                 height = dimensions.height / dimensions.width * width;
                                             }
-                                            image.resize(width, height, "lanczos", function (err, image2) {
-                                                if (err) {
-                                                    consoel.log(err);
-                                                    db.close();
-                                                } else if (image2) {
-                                                    var fileId = new sails.ObjectID();
-                                                    var mimetype = "image/jpeg";
-                                                    var filename1 = 'image' + fd + '_width' + width + '_height' + height;
-                                                    console.log(filename1);
-                                                    console.log(image.width());
-                                                    console.log(image.height());
-                                                    db.collection('fs.files').find({
-                                                        filename1: filename
-                                                    }).toArray(function (err, found) {
-                                                        if (err) {
-                                                            console.log(err);
-                                                            res.json({
-                                                                value: false
-                                                            });
-                                                            db.close();
-                                                        } else if (found && found[0]) {
-                                                            showimage(found[0]._id);
-                                                        } else {
-                                                            var gridStore = new sails.GridStore(db, fileId, filename1, 'w', {
-                                                                content_type: mimetype
-                                                            });
-                                                            gridStore.open(function (err, gridStore) {
-                                                                if (err) {
-                                                                    console.log(err);
-                                                                    db.close();
-                                                                } else if (gridStore) {
-                                                                    image2.toBuffer("jpg", {}, function (err, imagebuf) {
-                                                                        gridStore.write(imagebuf, function (err, doc) {
-                                                                            if (err) {
-                                                                                console.log(err);
-                                                                                db.close();
-                                                                            } else if (doc) {
-                                                                                gridStore.close(function () {
-                                                                                    showimage(fileId);
-                                                                                });
-                                                                            }
+                                            if (width != 0 && height != 0) {
+                                                resizeimage();
+                                            }
+
+                                            function resizeimage() {
+                                                image.resize(width, height, "lanczos", function (err, image2) {
+                                                    if (err) {
+                                                        consoel.log(err);
+                                                        db.close();
+                                                    } else if (image2) {
+                                                        var fileId = new sails.ObjectID();
+                                                        var mimetype = "image/jpeg";
+                                                        var filename1 = 'image' + fd + '_width' + width + '_height' + height;
+                                                        db.collection('fs.files').find({
+                                                            filename: filename1
+                                                        }).toArray(function (err, found) {
+                                                            var i;
+                                                            if (err) {
+                                                                console.log(err);
+                                                                res.json({
+                                                                    value: false
+                                                                });
+                                                                db.close();
+                                                            } else if (found && found[0]) {
+                                                                console.log(i);
+                                                                showimage(found[0]._id);
+                                                            } else {
+                                                                console.log(i);
+                                                                var gridStore = new sails.GridStore(db, fileId, filename1, 'w', {
+                                                                    content_type: mimetype
+                                                                });
+                                                                gridStore.open(function (err, gridStore) {
+                                                                    if (err) {
+                                                                        console.log(err);
+                                                                        db.close();
+                                                                    } else if (gridStore) {
+                                                                        image2.toBuffer("jpg", {}, function (err, imagebuf) {
+                                                                            gridStore.write(imagebuf, function (err, doc) {
+                                                                                if (err) {
+                                                                                    console.log(err);
+                                                                                    db.close();
+                                                                                } else if (doc) {
+                                                                                    gridStore.close(function () {
+                                                                                        showimage(fileId);
+                                                                                    });
+                                                                                }
+                                                                            });
                                                                         });
-                                                                    });
-                                                                }
-                                                            });
-                                                        }
-                                                    });
-                                                }
-                                            });
+                                                                    }
+                                                                });
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            }
                                         }
                                     });
                                 }
