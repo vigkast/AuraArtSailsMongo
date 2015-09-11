@@ -267,13 +267,17 @@ module.exports = {
                                                                 });
                                                                 db.close();
                                                             } else if (found && found[0]) {
+                                                                console.log("in found");
                                                                 console.log(i);
                                                                 showimage(found[0]._id);
+                                                                i++;
                                                             } else {
+                                                                console.log("in else");
                                                                 console.log(i);
                                                                 var gridStore = new sails.GridStore(db, fileId, filename1, 'w', {
                                                                     content_type: mimetype
                                                                 });
+                                                                i++;
                                                                 gridStore.open(function (err, gridStore) {
                                                                     if (err) {
                                                                         console.log(err);
