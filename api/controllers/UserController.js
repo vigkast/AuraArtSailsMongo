@@ -243,7 +243,7 @@ module.exports = {
                                             if (height == 0) {
                                                 height = dimensions.height / dimensions.width * width;
                                             }
-                                            if (width != 0 && height != 0) {
+                                            if (width && height && width > 0 && height > 0) {
                                                 resizeimage();
                                             }
 
