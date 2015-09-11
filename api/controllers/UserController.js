@@ -397,16 +397,11 @@ module.exports = {
                                                         var mimetype = "image/jpeg";
                                                         var filename1 = 'image' + fd + '_width' + width + '_height' + height;
                                                         console.log(filename1);
-
-
-                                                        console.log(image.width());
+                                                        console.log(height);
                                                         console.log(width);
                                                         console.log(image.height());
-                                                        console.log(height);
-
-
+                                                        console.log(image.width());
                                                     }
-
                                                 });
                                             }
                                         }
