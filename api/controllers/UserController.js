@@ -267,6 +267,7 @@ module.exports = {
                                                                 });
                                                                 db.close();
                                                             } else if (found && found[0]) {
+
                                                                 console.log("in found");
                                                                 showimage(found[0]._id);
                                                             } else {
@@ -325,6 +326,104 @@ module.exports = {
                                 }
                             });
                         }
+                    }
+                });
+            }
+        });
+    },
+    testng: function (req, res) {
+        var file = req.param('file');
+        var fd = sails.ObjectID(file);
+        var newheight = req.param('height');
+        var newwidth = req.param('width');
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+            }
+            if (db) {
+                db.open(function (err, db) {
+                    if (err) {
+                        console.log(err);
+                        res.json({
+                            value: false
+                        });
+                    }
+                    if (db) {
+                        if (!newwidth && !newheight) {
+                            showimage(fd);
+                        } else if (!newwidth && newheight) {
+                            newheight = parseInt(newheight);
+                            findimage(fd, 0, newheight);
+                        } else if (newwidth && !newheight) {
+                            newwidth = parseInt(newwidth);
+                            findimage(fd, newwidth, 0);
+                        } else {
+                            findimage(fd, newwidth, newheight);
+                        }
+
+                        function findimage(fd, newwidth, newheight) {
+                            sails.GridStore.read(db, fd, function (err, fileData) {
+                                if (err) {
+                                    console.log();
+                                    db.close();
+                                } else if (fileData) {
+                                    width = parseInt(newwidth);
+                                    height = parseInt(newheight);
+                                    sails.lwip.open(fileData, 'jpg', function (err, image) {
+                                        if (err) {
+                                            console.log(err);
+                                            db.close();
+                                        } else if (image) {
+                                            var dimensions = {};
+                                            dimensions.width = image.width();
+                                            dimensions.height = image.height();
+                                            if (width == 0) {
+                                                width = dimensions.width / dimensions.height * height;
+                                            }
+                                            if (height == 0) {
+                                                height = dimensions.height / dimensions.width * width;
+                                            }
+                                            if (width && height && width > 0 && height > 0) {
+                                                resizeimage();
+                                            }
+
+                                            function resizeimage() {
+                                                image.resize(width, height, "lanczos", function (err, image2) {
+                                                    if (err) {
+                                                        consoel.log(err);
+                                                        db.close();
+                                                    } else if (image2) {
+                                                        var fileId = new sails.ObjectID();
+                                                        var mimetype = "image/jpeg";
+                                                        var filename1 = 'image' + fd + '_width' + width + '_height' + height;
+                                                        console.log(filename1);
+                                                    
+                                                        db.collection('fs.files').find({
+                                                            filename: filename1
+                                                        }).toArray(function (err, found) {
+                                                            if (err) {
+                                                                console.log(err);
+                                                                res.json({
+                                                                    value: false
+                                                                });
+                                                                db.close();
+                                                            } else if (found && found[0]) {
+
+                                                                console.log("in found");
+                                                            } else {
+                                                                console.log("in else");
+
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }
+
                     }
                 });
             }
