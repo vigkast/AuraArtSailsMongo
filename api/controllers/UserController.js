@@ -250,9 +250,12 @@ module.exports = {
                                                 } else if (image2) {
                                                     var fileId = new sails.ObjectID();
                                                     var mimetype = "image/jpeg";
-                                                    var filename = 'image' + fd + '_width' + image.width() + '_height' + image.height();
+                                                    var filename1 = 'image' + fd + '_width' + width + '_height' + height;
+                                                    console.log(filename1);
+                                                    console.log(image.width());
+                                                    console.log(image.height());
                                                     db.collection('fs.files').find({
-                                                        filename: filename
+                                                        filename1: filename
                                                     }).toArray(function (err, found) {
                                                         if (err) {
                                                             console.log(err);
@@ -263,7 +266,7 @@ module.exports = {
                                                         } else if (found && found[0]) {
                                                             showimage(found[0]._id);
                                                         } else {
-                                                            var gridStore = new sails.GridStore(db, fileId, filename, 'w', {
+                                                            var gridStore = new sails.GridStore(db, fileId, filename1, 'w', {
                                                                 content_type: mimetype
                                                             });
                                                             gridStore.open(function (err, gridStore) {
