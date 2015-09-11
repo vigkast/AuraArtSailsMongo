@@ -192,47 +192,48 @@ module.exports = {
         sails.fs.writeFileSync('./uploads/data.xlsx', xls, 'binary');
     },
     resize: function (req, res) {
+        var file = req.param('file');
+        var fd = sails.ObjectID(file);
+        var newheight = req.param('height');
+        var newwidth = req.param('width');
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
-                res.json({
-                    value: "busy"
-                });
-            } else {
-                var file = req.param('file');
-                var fd = sails.ObjectID(file);
-                var newheight = req.param('height');
-                var newwidth = req.param('width');
-                if (!newwidth && !newheight) {
-                    showimage(fd);
-                } else if (!newwidth && newheight) {
-                    newheight = parseInt(newheight);
-                    findimage(fd, 0, newheight);
-                } else if (newwidth && !newheight) {
-                    newwidth = parseInt(newwidth);
-                    findimage(fd, newwidth, 0);
-                } else {
-                    findimage(fd, newwidth, newheight);
-                }
-
-                function findimage(fd, newwidth, newheight) {
-                    db.open(function (err, database) {
-                        if (err) {
-                            console.log(err);
+            }
+            if (db) {
+                db.open(function (err, db) {
+                    if (err) {
+                        console.log(err);
+                        res.json({
+                            value: false
+                        });
+                    }
+                    if (db) {
+                        if (!newwidth && !newheight) {
+                            showimage(fd);
+                        } else if (!newwidth && newheight) {
+                            newheight = parseInt(newheight);
+                            findimage(fd, 0, newheight);
+                        } else if (newwidth && !newheight) {
+                            newwidth = parseInt(newwidth);
+                            findimage(fd, newwidth, 0);
+                        } else {
+                            findimage(fd, newwidth, newheight);
                         }
-                        if (database) {
-                            sails.GridStore.read(database, fd, function (err, fileData) {
+
+                        function findimage(fd, newwidth, newheight) {
+                            sails.GridStore.read(db, fd, function (err, fileData) {
                                 if (err) {
-                                    console.log(err);
-                                }
-                                if (fileData) {
+                                    console.log();
+                                    db.close();
+                                } else if (fileData) {
                                     width = parseInt(newwidth);
                                     height = parseInt(newheight);
                                     sails.lwip.open(fileData, 'jpg', function (err, image) {
                                         if (err) {
                                             console.log(err);
-                                        }
-                                        if (image) {
+                                            db.close();
+                                        } else if (image) {
                                             var dimensions = {};
                                             dimensions.width = image.width();
                                             dimensions.height = image.height();
@@ -244,18 +245,46 @@ module.exports = {
                                             }
                                             image.resize(width, height, "lanczos", function (err, image2) {
                                                 if (err) {
-                                                    console.log(err);
-                                                }
-                                                if (image2) {
+                                                    consoel.log(err);
+                                                    db.close();
+                                                } else if (image2) {
                                                     var fileId = new sails.ObjectID();
                                                     var mimetype = "image/jpeg";
-                                                    image2.toBuffer("jpg", {}, function (err, imagebuf) {
+                                                    var filename = 'image' + fd + '_width' + image.width() + '_height' + image.height();
+                                                    db.collection('fs.files').find({
+                                                        filename: filename
+                                                    }).toArray(function (err, found) {
                                                         if (err) {
                                                             console.log(err);
-                                                        }
-                                                        if (imagebuf) {
-                                                            res.set('Content-Type', mimetype);
-                                                            res.send(new Buffer(imagebuf));
+                                                            res.json({
+                                                                value: false
+                                                            });
+                                                            db.close();
+                                                        } else if (found && found[0]) {
+                                                            showimage(found[0]._id);
+                                                        } else {
+                                                            var gridStore = new sails.GridStore(db, fileId, filename, 'w', {
+                                                                content_type: mimetype
+                                                            });
+                                                            gridStore.open(function (err, gridStore) {
+                                                                if (err) {
+                                                                    console.log(err);
+                                                                    db.close();
+                                                                } else if (gridStore) {
+                                                                    image2.toBuffer("jpg", {}, function (err, imagebuf) {
+                                                                        gridStore.write(imagebuf, function (err, doc) {
+                                                                            if (err) {
+                                                                                console.log(err);
+                                                                                db.close();
+                                                                            } else if (doc) {
+                                                                                gridStore.close(function () {
+                                                                                    showimage(fileId);
+                                                                                });
+                                                                            }
+                                                                        });
+                                                                    });
+                                                                }
+                                                            });
                                                         }
                                                     });
                                                 }
@@ -265,28 +294,33 @@ module.exports = {
                                 }
                             });
                         }
-                    });
-                }
 
-                function showimage(oldfile) {
-                    var filename = oldfile;
-                    db.open(function (err, database) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        if (database) {
-                            var file = new sails.GridStore(database, filename, "r");
+                        function showimage(oldfile) {
+                            var filename = oldfile;
+                            var file = new sails.GridStore(db, filename, "r");
                             file.open(function (err, file) {
                                 if (err) {
                                     console.log(err);
+                                    res.json({
+                                        value: false
+                                    });
+                                    db.close();
+                                } else if (file) {
+                                    res.set('Content-Type', file.contentType);
+                                    var stream = file.stream();
+                                    stream.pipe(res);
+                                    db.close();
+                                } else {
+                                    res.json({
+                                        value: false,
+                                        comment: "Image not found"
+                                    });
+                                    db.close();
                                 }
-                                res.set('Content-Type', file.contentType);
-                                var stream = file.stream();
-                                stream.pipe(res);
                             });
                         }
-                    });
-                }
+                    }
+                });
             }
         });
     },
