@@ -259,7 +259,7 @@ module.exports = {
                                                         db.collection('fs.files').find({
                                                             filename: filename1
                                                         }).toArray(function (err, found) {
-                                                            var i==0;
+                                                            var i=0;
                                                             if (err) {
                                                                 console.log(err);
                                                                 res.json({
