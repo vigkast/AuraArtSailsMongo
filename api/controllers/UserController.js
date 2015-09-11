@@ -369,7 +369,7 @@ module.exports = {
                                 } else if (fileData) {
                                     width = parseInt(newwidth);
                                     height = parseInt(newheight);
-                                    sails.lwip.open(./7.jpg, function (err, image) {
+                                    sails.lwip.open('./7.jpg', function (err, image) {
                                         if (err) {
                                             console.log(err);
                                             db.close();
