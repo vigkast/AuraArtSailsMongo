@@ -256,10 +256,14 @@ module.exports = {
                                                         var fileId = new sails.ObjectID();
                                                         var mimetype = "image/jpeg";
                                                         var filename1 = 'image' + fd + '_width' + width + '_height' + height;
+                                                        console.log(image.width());
+                                                        console.log(width);
+                                                        console.log("/////////////////////////////////////////");
+                                                        console.log(image.height());
+                                                        console.log(height);
                                                         db.collection('fs.files').find({
                                                             filename: filename1
                                                         }).toArray(function (err, found) {
-                                                            var i=0;
                                                             if (err) {
                                                                 console.log(err);
                                                                 res.json({
@@ -268,16 +272,12 @@ module.exports = {
                                                                 db.close();
                                                             } else if (found && found[0]) {
                                                                 console.log("in found");
-                                                                console.log(i);
                                                                 showimage(found[0]._id);
-                                                                i++;
                                                             } else {
                                                                 console.log("in else");
-                                                                console.log(i);
                                                                 var gridStore = new sails.GridStore(db, fileId, filename1, 'w', {
                                                                     content_type: mimetype
                                                                 });
-                                                                i++;
                                                                 gridStore.open(function (err, gridStore) {
                                                                     if (err) {
                                                                         console.log(err);
