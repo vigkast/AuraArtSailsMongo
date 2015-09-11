@@ -262,6 +262,7 @@ module.exports = {
                                                             db.close();
                                                         } else if (found && found[0]) {
                                                             showimage(found[0]._id);
+                                                            console.log(found[0]);
                                                         } else {
                                                             var gridStore = new sails.GridStore(db, fileId, filename, 'w', {
                                                                 content_type: mimetype
@@ -304,18 +305,15 @@ module.exports = {
                                     res.json({
                                         value: false
                                     });
-                                    db.close();
                                 } else if (file) {
                                     res.set('Content-Type', file.contentType);
                                     var stream = file.stream();
                                     stream.pipe(res);
-                                    db.close();
                                 } else {
                                     res.json({
                                         value: false,
                                         comment: "Image not found"
                                     });
-                                    db.close();
                                 }
                             });
                         }
