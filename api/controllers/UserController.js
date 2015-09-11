@@ -256,11 +256,7 @@ module.exports = {
                                                         var fileId = new sails.ObjectID();
                                                         var mimetype = "image/jpeg";
                                                         var filename1 = 'image' + fd + '_width' + width + '_height' + height;
-                                                        console.log(image.width());
-                                                        console.log(width);
-                                                        console.log("/////////////////////////////////////////");
-                                                        console.log(image.height());
-                                                        console.log(height);
+                                                        console.log(filename1);
                                                         db.collection('fs.files').find({
                                                             filename: filename1
                                                         }).toArray(function (err, found) {
