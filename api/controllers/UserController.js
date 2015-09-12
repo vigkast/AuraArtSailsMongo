@@ -155,9 +155,8 @@ module.exports = {
                                                                                                 console.log(num);
                                                                                                 num++;
                                                                                                 if (num < result.length) {
-                                                                                                    setTimeout(function () {
-                                                                                                        createart(num)
-                                                                                                    }, 500);
+
+                                                                                                    createart(num);
                                                                                                 } else {
                                                                                                     console.log("Done");
                                                                                                 }
