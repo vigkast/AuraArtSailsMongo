@@ -150,8 +150,10 @@ module.exports = {
                                                                                             Artwork.saveartwork(m);
                                                                                             console.log(num);
                                                                                             num++;
-                                                                                            if (num != result.length) {
+                                                                                            if (num < result.length) {
                                                                                                 createart(num);
+                                                                                            } else {
+                                                                                                console.log("Done");
                                                                                             }
                                                                                         }
                                                                                     });
