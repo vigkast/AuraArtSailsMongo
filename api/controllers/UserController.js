@@ -100,7 +100,8 @@ module.exports = {
                                         User.saveforexcel(m, function (print) {
                                             m.subtype = [];
                                             if (print != undefined) {
-                                                m.user = print.trim();
+                                                m.user = print;
+                                                m.user = m.user.toString().trim();
                                                 if (m.user && m.user != undefined) {
                                                     delete m.username;
                                                     ArtMedium.savemediumexcel(m, function (mediumid) {
