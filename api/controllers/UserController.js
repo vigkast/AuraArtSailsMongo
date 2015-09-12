@@ -245,7 +245,6 @@ module.exports = {
                                         if (err) {
                                             console.log(err);
                                         } else if (filedata) {
-                                            console.log(filedata.metadata);
                                             var imagewidth = filedata.metadata.width;
                                             var imageheight = filedata.metadata.height;
 
