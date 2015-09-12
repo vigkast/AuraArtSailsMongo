@@ -100,7 +100,7 @@ module.exports = {
                                         User.saveforexcel(m, function (print) {
                                             m.subtype = [];
                                             if (print != undefined) {
-                                                m.user = print;
+                                                m.user = print.trim();
                                                 if (m.user && m.user != undefined) {
                                                     delete m.username;
                                                     ArtMedium.savemediumexcel(m, function (mediumid) {
@@ -149,7 +149,7 @@ module.exports = {
                                                                                             m.image = excelimages;
                                                                                             m.srno = num + 1;
                                                                                             Artwork.saveartwork(m);
-                                                                                            console.log(num);
+                                                                                            console.log(num,m.user);
                                                                                             num++;
                                                                                             if (num < result.length) {
                                                                                                 createart(num);
