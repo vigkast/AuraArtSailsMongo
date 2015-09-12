@@ -102,72 +102,77 @@ module.exports = {
                                             if (print != undefined) {
                                                 m.user = print;
                                                 if (m.user && m.user != undefined) {
-                                                    delete m.username;
-                                                    ArtMedium.savemediumexcel(m, function (mediumid) {
-                                                        var mediumdata = {};
-                                                        mediumdata._id = mediumid;
-                                                        mediumdata.name = m.mediumname;
-                                                        mediumdata.category = m.type;
-                                                        m.subtype.push(mediumdata);
-                                                        delete m.mediumname;
-                                                        m.imageno = m.imageno.split(";");
-                                                        _.each(m.imageno, function (z) {
-                                                            var imagewithext = z.trim() + '.jpg';
-                                                            extension = z.split('.');
-                                                            mimetype = "image/jpeg";
-                                                            if (extension[0] == 'jpg') {
-                                                                mimetype = 'image/jpeg';
-                                                            } else if (extension[0] == 'png') {
-                                                                mimetype = 'image/png';
-                                                            } else if (extension[0] == 'gif') {
-                                                                mimetype = 'image/gif';
-                                                            }
-                                                            sails.fs.readFile('./auraimg/' + imagewithext, function (err, imagebuf) {
-                                                                if (err) {
-                                                                    console.log(err);
+                                                    if (m.value && m.value != false) {
+                                                        delete m.username;
+                                                        ArtMedium.savemediumexcel(m, function (mediumid) {
+                                                            var mediumdata = {};
+                                                            mediumdata._id = mediumid;
+                                                            mediumdata.name = m.mediumname;
+                                                            mediumdata.category = m.type;
+                                                            m.subtype.push(mediumdata);
+                                                            delete m.mediumname;
+                                                            m.imageno = m.imageno.split(";");
+                                                            _.each(m.imageno, function (z) {
+                                                                var imagewithext = z.trim() + '.jpg';
+                                                                extension = z.split('.');
+                                                                mimetype = "image/jpeg";
+                                                                if (extension[0] == 'jpg') {
+                                                                    mimetype = 'image/jpeg';
+                                                                } else if (extension[0] == 'png') {
+                                                                    mimetype = 'image/png';
+                                                                } else if (extension[0] == 'gif') {
+                                                                    mimetype = 'image/gif';
                                                                 }
-                                                                if (imagebuf) {
-                                                                    var dimensions = sails.sizeOf('./auraimg/' + imagewithext);
-                                                                    var fileId = sails.ObjectID();
-                                                                    var gridStore = new sails.GridStore(db, fileId, 'w', {
-                                                                        content_type: mimetype,
-                                                                        metadata: dimensions
-                                                                    });
-                                                                    gridStore.open(function (err, gridStore) {
-                                                                        if (err) {
-                                                                            console.log(err);
-                                                                        }
-                                                                        if (gridStore) {
-                                                                            gridStore.write(imagebuf, function (err, doc) {
-                                                                                if (err) {
-                                                                                    console.log(err);
-                                                                                }
-                                                                                if (doc) {
-                                                                                    gridStore.close(function () {
-                                                                                        excelimages.push(fileId);
-                                                                                        if (m.imageno.length == excelimages.length) {
-                                                                                            m.image = excelimages;
-                                                                                            m.srno = num + 1;
-                                                                                            Artwork.saveartwork(m);
-                                                                                            console.log(num);
-                                                                                            num++;
-                                                                                            if (num < result.length) {
-                                                                                                setTimeout(function () {
-                                                                                                    createart(num)
-                                                                                                }, 500);
-                                                                                            } else {
-                                                                                                console.log("Done");
+                                                                sails.fs.readFile('./auraimg/' + imagewithext, function (err, imagebuf) {
+                                                                    if (err) {
+                                                                        console.log(err);
+                                                                    }
+                                                                    if (imagebuf) {
+                                                                        var dimensions = sails.sizeOf('./auraimg/' + imagewithext);
+                                                                        var fileId = sails.ObjectID();
+                                                                        var gridStore = new sails.GridStore(db, fileId, 'w', {
+                                                                            content_type: mimetype,
+                                                                            metadata: dimensions
+                                                                        });
+                                                                        gridStore.open(function (err, gridStore) {
+                                                                            if (err) {
+                                                                                console.log(err);
+                                                                            }
+                                                                            if (gridStore) {
+                                                                                gridStore.write(imagebuf, function (err, doc) {
+                                                                                    if (err) {
+                                                                                        console.log(err);
+                                                                                    }
+                                                                                    if (doc) {
+                                                                                        gridStore.close(function () {
+                                                                                            excelimages.push(fileId);
+                                                                                            if (m.imageno.length == excelimages.length) {
+                                                                                                m.image = excelimages;
+                                                                                                m.srno = num + 1;
+                                                                                                Artwork.saveartwork(m);
+                                                                                                console.log(num);
+                                                                                                num++;
+                                                                                                if (num < result.length) {
+                                                                                                    setTimeout(function () {
+                                                                                                        createart(num)
+                                                                                                    }, 500);
+                                                                                                } else {
+                                                                                                    console.log("Done");
+                                                                                                }
                                                                                             }
-                                                                                        }
-                                                                                    });
-                                                                                }
-                                                                            });
-                                                                        }
-                                                                    });
-                                                                }
+                                                                                        });
+                                                                                    }
+                                                                                });
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                });
                                                             });
                                                         });
-                                                    });
+                                                    } else {
+                                                        num++;
+                                                        createart(num);
+                                                    }
                                                 } else {
                                                     res.badRequest();
                                                 }
