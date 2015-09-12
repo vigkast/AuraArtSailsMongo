@@ -101,7 +101,7 @@ module.exports = {
                                             m.subtype = [];
                                             if (print != undefined) {
                                                 m.user = print;
-                                                if (m.user != undefined) {
+                                                if (m.user && m.user != undefined) {
                                                     delete m.username;
                                                     ArtMedium.savemediumexcel(m, function (mediumid) {
                                                         var mediumdata = {};
@@ -122,15 +122,16 @@ module.exports = {
                                                             } else if (extension[0] == 'gif') {
                                                                 mimetype = 'image/gif';
                                                             }
-                                                            request.get("http://wohlig.co.in/auraimg/" + imagewithext, function (err, d2, imagebuf) {
-
+                                                            sails.fs.readFile('./auraimg/' + imagewithext, function (err, imagebuf) {
                                                                 if (err) {
                                                                     console.log(err);
                                                                 }
                                                                 if (imagebuf) {
+                                                                    var dimensions = sails.sizeOf('./auraimg/' + imagewithext);
                                                                     var fileId = sails.ObjectID();
                                                                     var gridStore = new sails.GridStore(db, fileId, 'w', {
-                                                                        content_type: mimetype
+                                                                        content_type: mimetype,
+                                                                        metadata: dimensions
                                                                     });
                                                                     gridStore.open(function (err, gridStore) {
                                                                         if (err) {
@@ -165,6 +166,8 @@ module.exports = {
                                                             });
                                                         });
                                                     });
+                                                } else {
+                                                    res.badRequest();
                                                 }
                                             } else {
                                                 num++;
@@ -231,76 +234,87 @@ module.exports = {
                                 } else if (fileData) {
                                     width = parseInt(newwidth);
                                     height = parseInt(newheight);
-                                    sails.lwip.open(fileData, 'jpg', function (err, image) {
+                                    var filemeta = new sails.GridStore(db, fd, "r");
+                                    filemeta.open(function (err, filedata) {
                                         if (err) {
                                             console.log(err);
-                                            db.close();
-                                        } else if (image) {
-                                            var dimensions = {};
-                                            dimensions.width = image.width();
-                                            dimensions.height = image.height();
-                                            if (width == 0) {
-                                                width = dimensions.width / dimensions.height * height;
-                                            }
-                                            if (height == 0) {
-                                                height = dimensions.height / dimensions.width * width;
-                                            }
-                                            if (width && height && width > 0 && height > 0) {
-                                                resizeimage();
-                                            }
+                                        } else if (filedata) {
+                                            console.log(filedata.metadata);
+                                            var imagewidth = filedata.metadata.width;
+                                            var imageheight = filedata.metadata.height;
 
-                                            function resizeimage() {
-                                                image.resize(width, height, "lanczos", function (err, image2) {
-                                                    if (err) {
-                                                        consoel.log(err);
-                                                        db.close();
-                                                    } else if (image2) {
-                                                        var fileId = new sails.ObjectID();
-                                                        var mimetype = "image/jpeg";
-                                                        var filename1 = 'image' + fd + '_width' + width + '_height' + height;
-                                                        console.log(filename1);
-                                                        db.collection('fs.files').find({
-                                                            filename: filename1
-                                                        }).toArray(function (err, found) {
+                                            sails.lwip.open(fileData, 'jpg', function (err, image) {
+                                                if (err) {
+                                                    console.log(err);
+                                                    db.close();
+                                                } else if (image) {
+                                                    var dimensions = {};
+                                                    dimensions.width = imagewidth;
+                                                    dimensions.height = imageheight;
+                                                    if (width == 0) {
+                                                        width = dimensions.width / dimensions.height * height;
+                                                    }
+                                                    if (height == 0) {
+                                                        height = dimensions.height / dimensions.width * width;
+                                                    }
+                                                    if (width && height && width > 0 && height > 0) {
+                                                        resizeimage();
+                                                    }
+
+                                                    function resizeimage() {
+                                                        image.resize(width, height, "lanczos", function (err, image2) {
                                                             if (err) {
-                                                                console.log(err);
-                                                                res.json({
-                                                                    value: false
-                                                                });
+                                                                consoel.log(err);
                                                                 db.close();
-                                                            } else if (found && found[0]) {
-
-                                                                console.log("in found");
-                                                                showimage(found[0]._id);
-                                                            } else {
-                                                                console.log("in else");
-                                                                var gridStore = new sails.GridStore(db, fileId, filename1, 'w', {
-                                                                    content_type: mimetype
-                                                                });
-                                                                gridStore.open(function (err, gridStore) {
+                                                            } else if (image2) {
+                                                                var fileId = new sails.ObjectID();
+                                                                var mimetype = "image/jpeg";
+                                                                var filename1 = 'image' + fd + '_width' + width + '_height' + height;
+                                                                console.log(filename1);
+                                                                db.collection('fs.files').find({
+                                                                    filename: filename1
+                                                                }).toArray(function (err, found) {
                                                                     if (err) {
                                                                         console.log(err);
+                                                                        res.json({
+                                                                            value: false
+                                                                        });
                                                                         db.close();
-                                                                    } else if (gridStore) {
-                                                                        image2.toBuffer("jpg", {}, function (err, imagebuf) {
-                                                                            gridStore.write(imagebuf, function (err, doc) {
-                                                                                if (err) {
-                                                                                    console.log(err);
-                                                                                    db.close();
-                                                                                } else if (doc) {
-                                                                                    gridStore.close(function () {
-                                                                                        showimage(fileId);
+                                                                    } else if (found && found[0]) {
+
+                                                                        console.log("in found");
+                                                                        showimage(found[0]._id);
+                                                                    } else {
+                                                                        console.log("in else");
+                                                                        var gridStore = new sails.GridStore(db, fileId, filename1, 'w', {
+                                                                            content_type: mimetype
+                                                                        });
+                                                                        gridStore.open(function (err, gridStore) {
+                                                                            if (err) {
+                                                                                console.log(err);
+                                                                                db.close();
+                                                                            } else if (gridStore) {
+                                                                                image2.toBuffer("jpg", {}, function (err, imagebuf) {
+                                                                                    gridStore.write(imagebuf, function (err, doc) {
+                                                                                        if (err) {
+                                                                                            console.log(err);
+                                                                                            db.close();
+                                                                                        } else if (doc) {
+                                                                                            gridStore.close(function () {
+                                                                                                showimage(fileId);
+                                                                                            });
+                                                                                        }
                                                                                     });
-                                                                                }
-                                                                            });
+                                                                                });
+                                                                            }
                                                                         });
                                                                     }
                                                                 });
                                                             }
                                                         });
                                                     }
-                                                });
-                                            }
+                                                }
+                                            });
                                         }
                                     });
                                 }

@@ -989,44 +989,37 @@ module.exports = {
         });
     },
     saveartwork: function (data) {
-        if (data.user && sails.ObjectID.isValid(data.user)) {
-            var user = sails.ObjectID(data.user);
-            delete data.user;
-            data._id = sails.ObjectID();
-            sails.query(function (err, db) {
-                if (err) {
-                    console.log(err);
+        var user = sails.ObjectID(data.user);
+        delete data.user;
+        data._id = sails.ObjectID();
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+            }
+            if (db) {
+                if (!data.creationtime) {
+                    data.creationtime = data._id.getTimestamp();
                 }
-                if (db) {
-                    if (!data.creationtime) {
-                        data.creationtime = data._id.getTimestamp();
+                data.modifytime = data.creationtime;
+                db.collection("user").update({
+                    _id: user
+                }, {
+                    $push: {
+                        artwork: data
                     }
-                    data.modifytime = data.creationtime;
-                    db.collection("user").update({
-                        _id: user
-                    }, {
-                        $push: {
-                            artwork: data
-                        }
-                    }, function (err, updated) {
-                        if (err) {
-                            console.log(err);
-                            db.close();
-                        } else if (updated) {
-                            db.close();
-                        } else {
-                            console.log("No user found");
-                            db.close();
-                        }
-                    });
-                }
-            });
-        } else {
-            callback({
-                value: false,
-                comment: "Userid is not valid."
-            });
-        }
+                }, function (err, updated) {
+                    if (err) {
+                        console.log(err);
+                        db.close();
+                    } else if (updated) {
+                        db.close();
+                    } else {
+                        console.log("No user found");
+                        db.close();
+                    }
+                });
+            }
+        });
     },
     artworktype: function (data, callback) {
         var newcallback = 0;
