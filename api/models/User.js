@@ -1026,12 +1026,15 @@ module.exports = {
             }
         });
     },
+    
     saveforexcel: function (data, callback) {
         var newdata = {};
         newdata.name = data.username;
         newdata._id = sails.ObjectID();
         newdata.accesslevel = "artist";
         sails.query(function (err, db) {
+            var exit = 0;
+            var exitup = 0;
             if (err) {
                 console.log(err);
                 callback({
@@ -1039,37 +1042,36 @@ module.exports = {
                 });
             }
             if (db) {
+                exit++;
                 db.collection("user").find({
                     "name": data.username
-                }).toArray(function (err, data2) {
+                }).each(function (err, data2) {
                     if (err) {
                         console.log(err);
                         callback({
                             value: false
                         });
-                        db.close();
-                    } else if (data2 && data2[0]) {
-                        callback(data2[0]._id);
+                    }
+                    if (data2 != null) {
+                        exitup++;
+                        callback(data2._id);
                         db.close();
                     } else {
-                        db.collection('user').insert(newdata, function (err, created) {
-                            if (err) {
-                                console.log(err);
-                                callback({
-                                    value: false
-                                });
-                                db.close();
-                            } else if (created) {
-                                callback(newdata._id);
-                                db.close();
-                            } else {
-                                callback({
-                                    value: false,
-                                    comment: "Not created"
-                                });
-                                db.close();
-                            }
-                        });
+                        if (exit != exitup) {
+                            db.collection('user').insert(newdata, function (err, created) {
+                                if (err) {
+                                    console.log(err);
+                                    callback({
+                                        value: false
+                                    });
+                                    db.close();
+                                }
+                                if (created) {
+                                    callback(newdata._id);
+                                    db.close();
+                                }
+                            });
+                        }
                     }
                 });
             }
