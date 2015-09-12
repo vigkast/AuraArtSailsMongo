@@ -1050,7 +1050,6 @@ module.exports = {
                         db.close();
                     } else if (data2 && data2[0]) {
                         callback(data2[0]._id);
-                        db.close();
                     } else {
                         db.collection('user').insert(newdata, function (err, created) {
                             if (err) {
