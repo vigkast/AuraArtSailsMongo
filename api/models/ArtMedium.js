@@ -6,91 +6,91 @@
  */
 module.exports = {
     save: function (data, callback) {
-        if (!data._id) {
-            data._id = sails.ObjectID();
-            sails.query(function (err, db) {
-                var exit = 0;
-                var exitup = 0;
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
-                    
-                }
-                if (db) {
-                    exit++;
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                if (!data._id) {
+                    data._id = sails.ObjectID();
                     db.collection("artmedium").find({
                         "name": data.name
-                    }).each(function (err, data2) {
+                    }).toArray(function (err, data2) {
                         if (err) {
                             console.log(err);
                             callback({
                                 value: false
                             });
-                            
-                        }
-                        if (data2 != null) {
-                            exitup++;
+                            db.close();
+                        } else if (data2 && data2[0]) {
                             callback(data2);
-                            
+                            db.close();
                         } else {
-                            if (exit != exitup) {
-                                var cartmedium = db.collection('artmedium').insert(data, function (err, created) {
-                                    if (err) {
-                                        console.log(err);
-                                        callback({
-                                            value: false
-                                        });
-                                        
-                                    }
-                                    if (created) {
-                                        callback({
-                                            value: true,
-                                            id: data._id
-                                        });
-                                        
-                                    }
+                            var cartmedium = db.collection('artmedium').insert(data, function (err, created) {
+                                if (err) {
+                                    console.log(err);
+                                    callback({
+                                        value: false
+                                    });
+                                    db.close();
+                                } else if (created) {
+                                    callback({
+                                        value: true,
+                                        id: data._id
+                                    });
+                                    db.close();
+                                } else {
+                                    callback({
+                                        value: false,
+                                        comment: "Not created"
+                                    });
+                                    db.close();
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    if (data._id && sails.ObjectID.isValid(data._id)) {
+                        var artmedium = sails.ObjectID(data._id);
+                        delete data._id;
+                        var cartmedium = db.collection('artmedium').update({
+                            _id: artmedium
+                        }, {
+                            $set: data
+                        }, function (err, updated) {
+                            if (err) {
+                                console.log(err);
+                                callback({
+                                    value: false
                                 });
+                                db.close();
+                            } else if (updated) {
+                                callback({
+                                    value: true,
+                                    id: data._id
+                                });
+                                db.close();
+                            } else {
+                                callback({
+                                    value: false,
+                                    comment: "Not updated"
+                                });
+                                db.close();
                             }
-                        }
-                    });
+                        });
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "Id incorrect"
+                        });
+                        db.close();
+                    }
                 }
-            });
-        } else {
-            sails.query(function (err, db) {
-                var artmedium = sails.ObjectID(data._id);
-                delete data._id
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
-                    
-                }
-                if (db) {
-                    var cartmedium = db.collection('artmedium').update({
-                        _id: artmedium
-                    }, {
-                        $set: data
-                    }, function (err, updated) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            
-                        }
-                        if (updated) {
-                            callback({
-                                value: true
-                            });
-                            
-                        }
-                    });
-                }
-            });
-        }
+            }
+        });
     },
     findlimited: function (data, callback) {
         var newcallback = 0;
@@ -99,107 +99,119 @@ module.exports = {
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
-        if (data.category != "") {
-            sails.query(function (err, db) {
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
-                    
-                }
-                if (db) {
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                if (data.category != "") {
                     db.collection("artmedium").count({
                         name: {
                             '$regex': check
                         },
                         category: data.category
                     }, function (err, number) {
-                        newreturns.total = number;
-                        newreturns.totalpages = Math.ceil(number / data.pagesize);
-                        newcallback++;
-                        if (newcallback == 2) {
-                            callback(newreturns);
-                            
-                        }
-                    });
-                    db.collection("artmedium").find({
-                        name: {
-                            '$regex': check
-                        },
-                        category: data.category
-                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
-                        if (err) {
+                        if (number) {
+                            newreturns.total = number;
+                            newreturns.totalpages = Math.ceil(number / data.pagesize);
+                            callbackfunc();
+                        } else if (err) {
+                            console.log(err);
                             callback({
                                 value: false
                             });
-                            
-                            console.log(err);
-                        }
-                        if (found != null) {
-                            newreturns.data.push(found);
+                            db.close();
                         } else {
-                            if (found == null) {
-                                newcallback++;
-                                if (newcallback == 2) {
-                                    callback(newreturns);
-                                    
-                                }
-                            }
+                            callback({
+                                value: false,
+                                comment: "Count of null"
+                            });
+                            db.close();
                         }
                     });
-                }
-            });
-        } else {
-            sails.query(function (err, db) {
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
-                    
-                }
-                if (db) {
+
+                    function callbackfunc() {
+                        db.collection("artmedium").find({
+                            name: {
+                                '$regex': check
+                            },
+                            category: data.category
+                        }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
+                            if (err) {
+                                callback({
+                                    value: false
+                                });
+                                console.log(err);
+                                db.close();
+                            } else if (found && found[0]) {
+                                newreturns.data = found;
+                                callback(newreturns);
+                                db.close();
+                            } else {
+                                callback({
+                                    value: false,
+                                    comment: "Count of null"
+                                });
+                                db.close();
+                            }
+                        });
+                    }
+                } else {
                     db.collection("artmedium").count({
                         name: {
                             '$regex': check
                         }
                     }, function (err, number) {
-                        newreturns.total = number;
-                        newreturns.totalpages = Math.ceil(number / data.pagesize);
-                        newcallback++;
-                        if (newcallback == 2) {
-                            callback(newreturns);
-                            
-                        }
-                    });
-                    db.collection("artmedium").find({
-                        name: {
-                            '$regex': check
-                        }
-                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
-                        if (err) {
+                        if (number) {
+                            newreturns.total = number;
+                            newreturns.totalpages = Math.ceil(number / data.pagesize);
+                            callbackfunc1();
+                        } else if (err) {
+                            console.log(err);
                             callback({
                                 value: false
                             });
-                            
-                            console.log(err);
-                        }
-                        if (found != null) {
-                            newreturns.data.push(found);
+                            db.close();
                         } else {
-                            if (found == null) {
-                                newcallback++;
-                                if (newcallback == 2) {
-                                    callback(newreturns);
-                                    
-                                }
-                            }
+                            callback({
+                                value: false,
+                                comment: "Count of null"
+                            });
+                            db.close();
                         }
                     });
+
+                    function callbackfunc1() {
+                        db.collection("artmedium").find({
+                            name: {
+                                '$regex': check
+                            }
+                        }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
+                            if (err) {
+                                callback({
+                                    value: false
+                                });
+                                console.log(err);
+                                db.close();
+                            } else if (found && found[0]) {
+                                newreturns.data = found;
+                                callback(newreturns);
+                                db.close();
+                            } else {
+                                callback({
+                                    value: false,
+                                    comment: "No data found"
+                                });
+                                db.close();
+                            }
+                        });
+                    }
                 }
-            });
-        }
+            }
+        });
     },
     find: function (data, callback) {
         var returns = [];
@@ -210,6 +222,7 @@ module.exports = {
         function callback2(exit, exitup, data) {
             if (exit == exitup) {
                 callback(data);
+                db.close();
             }
         }
         sails.query(function (err, db) {
@@ -218,7 +231,7 @@ module.exports = {
                 callback({
                     value: false
                 });
-                
+
             }
             if (db) {
                 db.collection("artmedium").find({
@@ -231,10 +244,9 @@ module.exports = {
                         callback({
                             value: false
                         });
-                        
                         console.log(err);
-                    }
-                    if (found != null) {
+                        db.close();
+                    } else if (found != null) {
                         exit++;
                         if (data.artmedium.length != 0) {
                             var nedata;
@@ -250,6 +262,12 @@ module.exports = {
                         }
                         returns = returns.concat(found);
                         callback2(exit, exitup, returns);
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
                     }
                 });
             }
@@ -262,7 +280,7 @@ module.exports = {
                 callback({
                     value: false
                 });
-                
+
             }
             if (db) {
                 db.collection("artmedium").find({
@@ -273,11 +291,15 @@ module.exports = {
                         callback({
                             value: false
                         });
-                        
-                    }
-                    if (data != null) {
+                        db.close();
+                    } else if (data != null) {
                         callback(data);
-                        
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
                     }
                 });
             }
@@ -290,7 +312,6 @@ module.exports = {
                 callback({
                     value: false
                 });
-                
             }
             var cartmedium = db.collection('artmedium').remove({
                 _id: sails.ObjectID(data._id)
@@ -299,14 +320,19 @@ module.exports = {
                     callback({
                         value: true
                     });
-                    
-                }
-                if (err) {
+                    db.close();
+                } else if (err) {
                     console.log(err);
                     callback({
                         value: false
                     });
-                    
+                    db.close();
+                } else {
+                    callback({
+                        value: false,
+                        comment: "No data found."
+                    });
+                    db.close();
                 }
             });
         });
@@ -315,7 +341,6 @@ module.exports = {
         var newdata = {};
         newdata.name = data.mediumname;
         newdata._id = sails.ObjectID();
-        newdata.category = data.type;
         sails.query(function (err, db) {
             var exit = 0;
             var exitup = 0;
@@ -324,7 +349,6 @@ module.exports = {
                 callback({
                     value: false
                 });
-                
             }
             if (db) {
                 exit++;
@@ -336,12 +360,12 @@ module.exports = {
                         callback({
                             value: false
                         });
-                        
+                        db.close();
                     }
                     if (data2 != null) {
                         exitup++;
                         callback(data2._id);
-                        
+                        db.close();
                     } else {
                         if (exit != exitup) {
                             db.collection('artmedium').insert(newdata, function (err, created) {
@@ -350,11 +374,11 @@ module.exports = {
                                     callback({
                                         value: false
                                     });
-                                    
+                                    db.close();
                                 }
                                 if (created) {
                                     callback(newdata._id);
-                                    
+                                    db.close();
                                 }
                             });
                         }

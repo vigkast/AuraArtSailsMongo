@@ -1040,7 +1040,6 @@ module.exports = {
                 callback({
                     value: false
                 });
-                db.close();
             }
             if (db) {
                 exit++;
