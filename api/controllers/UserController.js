@@ -101,6 +101,8 @@ module.exports = {
                                             m.subtype = [];
                                             if (print != undefined) {
                                                 m.user = print;
+                                                console.log("/////////////");
+                                                console.log(m.user);
                                                 if (m.user && m.user != undefined) {
                                                     if (!m.value) {
                                                         delete m.username;
