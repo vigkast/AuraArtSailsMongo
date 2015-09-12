@@ -23,6 +23,7 @@ module.exports.bootstrap = function (cb) {
 		sails.assert = require('assert'),
 		sails.moment = require('moment'),
 		sails.fs = require('fs'),
+        sails.sizeOf = require('image-size');
 		sails.mime = require('mime'),
 		sails.xlsxj = require("xlsx-to-json"),
 		sails.json2xls = require('json2xls'),
