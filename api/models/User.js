@@ -1040,6 +1040,7 @@ module.exports = {
                 callback({
                     value: false
                 });
+                db.close();
             }
             if (db) {
                 exit++;
@@ -1051,6 +1052,7 @@ module.exports = {
                         callback({
                             value: false
                         });
+                        db.close();
                     }
                     if (data2 != null) {
                         exitup++;

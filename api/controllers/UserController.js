@@ -104,7 +104,7 @@ module.exports = {
                                                 console.log("/////////////");
                                                 console.log(m.user);
                                                 if (m.user && m.user != undefined) {
-                                                    if (!m.value) {
+                                                    if (!m.value && m.value != false) {
                                                         delete m.username;
                                                         ArtMedium.savemediumexcel(m, function (mediumid) {
                                                             var mediumdata = {};
