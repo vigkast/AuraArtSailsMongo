@@ -1045,8 +1045,7 @@ module.exports = {
                             "artwork.name": {
                                 $exists: true
                             },
-                            "name": check,
-                            "artwork.type": data.type
+                            "name": check
                         }
           }, {
                         $unwind: "$artwork"
@@ -1056,7 +1055,11 @@ module.exports = {
                                 $exists: true
                             },
                             "name": check,
-                            "artwork.type": data.type
+                            "artwork.type": data.type,
+                            "artwork.gprice": {
+                                $gte: data.minprice,
+                                $lte: data.maxprice
+                            }
                         }
           }, {
                         $group: {
@@ -1095,8 +1098,7 @@ module.exports = {
                                 "artwork.name": {
                                     $exists: true
                                 },
-                                "name": check,
-                                "artwork.type": data.type
+                                "name": check
                             }
           }, {
                             $unwind: "$artwork"
@@ -1106,7 +1108,11 @@ module.exports = {
                                     $exists: true
                                 },
                                 "name": check,
-                                "artwork.type": data.type
+                                "artwork.type": data.type,
+                                "artwork.gprice": {
+                                    $gte: data.minprice,
+                                    $lte: data.maxprice
+                                }
                             }
           }, {
                             $project: {

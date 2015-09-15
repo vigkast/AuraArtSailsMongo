@@ -235,7 +235,7 @@ module.exports = {
                         function findimage(fd, newwidth, newheight) {
                             sails.GridStore.read(db, fd, function (err, fileData) {
                                 if (err) {
-                                    console.log();
+                                    console.log(err);
                                     db.close();
                                 } else if (fileData) {
                                     width = parseInt(newwidth);
@@ -275,7 +275,6 @@ module.exports = {
                                                                 var fileId = new sails.ObjectID();
                                                                 var mimetype = "image/jpeg";
                                                                 var filename1 = 'image' + fd + '_width' + width + '_height' + height;
-                                                                console.log(filename1);
                                                                 db.collection('fs.files').find({
                                                                     filename: filename1
                                                                 }).toArray(function (err, found) {
@@ -286,7 +285,6 @@ module.exports = {
                                                                         });
                                                                         db.close();
                                                                     } else if (found && found[0]) {
-
                                                                         console.log("in found");
                                                                         showimage(found[0]._id);
                                                                     } else {
