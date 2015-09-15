@@ -112,6 +112,30 @@ module.exports = {
                                                             m.subtype.push(mediumdata);
                                                             delete m.mediumname;
                                                             m.imageno = m.imageno.split(";");
+                                                            if (m.gprice && m.gprice != "") {
+                                                                var gprice = m.gprice.split(",");
+                                                                m.gprice = "";
+                                                                _.each(gprice, function (gp) {
+                                                                    m.gprice += gp;
+                                                                });
+                                                                m.gprice = parseInt(m.gprice);
+                                                            }
+                                                            if (m.pricesq && m.pricesq != "") {
+                                                                var pricesq = m.pricesq.split(",");
+                                                                m.pricesq = "";
+                                                                _.each(pricesq, function (ps) {
+                                                                    m.pricesq += ps;
+                                                                });
+                                                                m.pricesq = parseInt(m.pricesq);
+                                                            }
+                                                            if (m.price && m.price != "") {
+                                                                var price = m.price.split(",");
+                                                                m.price = "";
+                                                                _.each(price, function (p) {
+                                                                    m.price += p;
+                                                                });
+                                                                m.price = parseInt(m.price);
+                                                            }
                                                             _.each(m.imageno, function (z) {
                                                                 var imagewithext = z.trim() + '.jpg';
                                                                 extension = z.split('.');
