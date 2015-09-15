@@ -1054,11 +1054,14 @@ module.exports = {
                             "artwork.name": {
                                 $exists: true
                             },
-                            "name": check,
                             "artwork.type": data.type,
                             "artwork.gprice": {
                                 $gte: data.minprice,
                                 $lte: data.maxprice
+                            },
+                            "artwork.breadth": {
+                                $gte: data.minbreadth,
+                                $lte: data.maxbreadth
                             }
                         }
           }, {
@@ -1107,11 +1110,14 @@ module.exports = {
                                 "artwork.name": {
                                     $exists: true
                                 },
-                                "name": check,
                                 "artwork.type": data.type,
                                 "artwork.gprice": {
                                     $gte: data.minprice,
                                     $lte: data.maxprice
+                                },
+                                "artwork.breadth": {
+                                    $gte: data.minbreadth,
+                                    $lte: data.maxbreadth
                                 }
                             }
           }, {
@@ -1157,7 +1163,14 @@ module.exports = {
                             "artwork.name": {
                                 $exists: true
                             },
-                            "name": check
+                            "artwork.gprice": {
+                                $gte: data.minprice,
+                                $lte: data.maxprice
+                            },
+                            "artwork.breadth": {
+                                $gte: data.minbreadth,
+                                $lte: data.maxbreadth
+                            }
                         }
           }, {
                         $group: {
@@ -1205,7 +1218,14 @@ module.exports = {
                                 "artwork.name": {
                                     $exists: true
                                 },
-                                "name": check
+                                "artwork.gprice": {
+                                    $gte: data.minprice,
+                                    $lte: data.maxprice
+                                },
+                                "artwork.breadth": {
+                                    $gte: data.minbreadth,
+                                    $lte: data.maxbreadth
+                                }
                             }
           }, {
                             $project: {
