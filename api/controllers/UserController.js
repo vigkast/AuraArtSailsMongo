@@ -136,6 +136,15 @@ module.exports = {
                                                                 });
                                                                 m.price = parseInt(m.price);
                                                             }
+                                                            if (m.height && m.height != "") {
+                                                                m.height = parseFloat(m.height):
+                                                            }
+                                                            if (m.breadth && m.breadth != "") {
+                                                                m.breadth = parseFloat(m.breadth):
+                                                            }
+                                                            if (m.width && m.width != "") {
+                                                                m.width = parseFloat(m.width):
+                                                            }
                                                             _.each(m.imageno, function (z) {
                                                                 var imagewithext = z.trim() + '.jpg';
                                                                 extension = z.split('.');
