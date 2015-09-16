@@ -183,19 +183,14 @@ module.exports = {
             height = parseInt(height);
             newfilenamearr = newfilepath.split(".");
             extension = newfilenamearr.pop();
-
             var indexno = newfilepath.search("." + extension);
             var newfilestart = newfilepath.substr(0, indexno);
             var newfileend = newfilepath.substr(indexno, newfilepath.length);
-
-
-
             var newfilename = newfilestart + "_" + width + "_" + height + newfileend;
             var isfile2 = sails.fs.existsSync(newfilename);
             if (!isfile2) {
                 console.log("in if");
                 sails.lwip.open(newfilepath, function (err, image) {
-
                     var dimensions = {};
                     dimensions.width = image.width();
                     dimensions.height = image.height();
@@ -205,20 +200,13 @@ module.exports = {
                     if (height == 0) {
                         height = dimensions.height / dimensions.width * width;
                     }
-                    console.log(err);
                     image.resize(width, height, "lanczos", function (err, image) {
-
                         image.toBuffer(extension, function (err, buffer) {
-
                             sails.fs.writeFileSync(newfilename, buffer);
                             showimage(newfilename);
-
                         });
-
                     });
-
                 });
-
             } else {
                 console.log("in else");
                 showimage(newfilename);
@@ -229,17 +217,23 @@ module.exports = {
         var filepath = './auraimg/' + file;
         var newheight = req.query.height;
         var newwidth = req.query.width;
-
-        if (!newwidth && !newheight) {
-            showimage(filepath);
-        } else if (!newwidth && newheight) {
-            newheight = parseInt(newheight);
-            checknewfile(filepath, 0, newheight);
-        } else if (newwidth && !newheight) {
-            newwidth = parseInt(newwidth);
-            checknewfile(filepath, newwidth, 0);
+        var isfile = sails.fs.existsSync(filepath);
+        if (isfile == false) {
+            res.json({
+                comment: "No Such Image Found."
+            });
         } else {
-            checknewfile(filepath, newwidth, newheight);
+            if (!newwidth && !newheight) {
+                showimage(filepath);
+            } else if (!newwidth && newheight) {
+                newheight = parseInt(newheight);
+                checknewfile(filepath, 0, newheight);
+            } else if (newwidth && !newheight) {
+                newwidth = parseInt(newwidth);
+                checknewfile(filepath, newwidth, 0);
+            } else {
+                checknewfile(filepath, newwidth, newheight);
+            }
         }
     },
     save: function (req, res) {
