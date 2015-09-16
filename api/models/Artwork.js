@@ -1082,7 +1082,7 @@ module.exports = {
                         $match: matchobj
           }, {
                         $group: {
-                            _id: user,
+                             _id: "$_id",
                             count: {
                                 $sum: 1
                             }
@@ -1176,7 +1176,7 @@ module.exports = {
                         }
           }, {
                         $group: {
-                            _id: user,
+                            _id: "$_id",
                             count: {
                                 $sum: 1
                             }
@@ -1294,7 +1294,7 @@ module.exports = {
                         }
           }, {
                         $group: {
-                            _id: user,
+                             _id: "$_id",
                             count: {
                                 $sum: 1
                             }
