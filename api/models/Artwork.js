@@ -1039,30 +1039,24 @@ module.exports = {
             if (db) {
                 if (data.type == "") {
                     console.log("In Empty");
-                    if (data.minbreadth != 0 && data.maxbreadth != 10000) {
+                    if (data.minbreadth == 0 && data.maxbreadth == 10000) {
                         console.log("in if");
                         var matchobj = {
                             "artwork.name": {
                                 $exists: true
                             },
-                            $and: [{
-                                "artwork.gprice": {
-                                    $gte: data.minprice,
-                                    $lte: data.maxprice
-                                },
-                                "artwork.height": {
-                                    $gte: data.minheight,
-                                    $lte: data.maxheight
-                                },
-                                "artwork.width": {
-                                    $gte: data.minwidth,
-                                    $lte: data.maxwidth
-                                },
-                                "artwork.breadth": {
-                                    $gte: data.minbreadth,
-                                    $lte: data.maxbreadth
-                                }
-                            }]
+                            "artwork.gprice": {
+                                $gte: data.minprice,
+                                $lte: data.maxprice
+                            },
+                            "artwork.height": {
+                                $gte: data.minheight,
+                                $lte: data.maxheight
+                            },
+                            "artwork.width": {
+                                $gte: data.minwidth,
+                                $lte: data.maxwidth
+                            }
                         };
                     } else {
                         console.log("in else");
@@ -1070,20 +1064,22 @@ module.exports = {
                             "artwork.name": {
                                 $exists: true
                             },
-                            $and: [{
-                                "artwork.gprice": {
-                                    $gte: data.minprice,
-                                    $lte: data.maxprice
-                                },
-                                "artwork.height": {
-                                    $gte: data.minheight,
-                                    $lte: data.maxheight
-                                },
-                                "artwork.width": {
-                                    $gte: data.minwidth,
-                                    $lte: data.maxwidth
-                                }
-                            }]
+                            "artwork.gprice": {
+                                $gte: data.minprice,
+                                $lte: data.maxprice
+                            },
+                            "artwork.height": {
+                                $gte: data.minheight,
+                                $lte: data.maxheight
+                            },
+                            "artwork.width": {
+                                $gte: data.minwidth,
+                                $lte: data.maxwidth
+                            },
+                            "artwork.breadth": {
+                                $gte: data.minbreadth,
+                                $lte: data.maxbreadth
+                            }
                         };
                     }
                     db.collection("user").aggregate([{
