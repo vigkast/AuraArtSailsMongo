@@ -1185,7 +1185,8 @@ module.exports = {
                             "artwork.width": {
                                 $gte: data.minwidth,
                                 $lte: data.maxwidth
-                            }
+                            },
+                            "artwork.subtype.name": checkmedium
                         }
           }, {
                         $group: {
@@ -1242,7 +1243,8 @@ module.exports = {
                                 "artwork.width": {
                                     $gte: data.minwidth,
                                     $lte: data.maxwidth
-                                }
+                                },
+                                "artwork.subtype.name": checkmedium
                             }
           }, {
                             $project: {
@@ -1301,7 +1303,8 @@ module.exports = {
                             "artwork.breadth": {
                                 $gte: data.minbreadth,
                                 $lte: data.maxbreadth
-                            }
+                            },
+                            "artwork.subtype.name": checkmedium
                         }
           }, {
                         $group: {
@@ -1362,7 +1365,8 @@ module.exports = {
                                 "artwork.breadth": {
                                     $gte: data.minbreadth,
                                     $lte: data.maxbreadth
-                                }
+                                },
+                                "artwork.subtype.name": checkmedium
                             }
           }, {
                             $project: {
