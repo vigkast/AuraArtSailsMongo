@@ -375,5 +375,35 @@ module.exports = {
                     });
             }
         });
-    }
+    },
+    accessfolder: function (data, callback) {
+        var user = sails.ObjectID(data.user);
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").find({
+                    "_id": user,
+                    "wishlistfolder._id": sails.ObjectID(data._id),
+                    "wishlistfolder.password": data.password
+                }, {
+                    "wishlistfolder.$": 1
+                }).each(function (err, data2) {
+                    if (data2 != null) {
+                        callback(data2.wishlistfolder[0]);
+                    }
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                    }
+                });
+            }
+        });
+    },
 };

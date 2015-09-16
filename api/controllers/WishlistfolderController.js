@@ -38,6 +38,12 @@ module.exports = {
         };
         Wishlistfolder.findOne(req.body, callback);
     },
+    accessfolder: function (req, res) {
+        function callback(data) {
+            res.json(data);
+        };
+        Wishlistfolder.accessfolder(req.body, callback);
+    },
     localtoserver: function (req, res) {
         function callback(data) {
             res.json(data);

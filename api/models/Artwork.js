@@ -543,63 +543,6 @@ module.exports = {
             }
         });
     },
-    findhome: function (data, callback) {
-        var check = new RegExp(data.search, "g");
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("user").aggregate([{
-                    $match: {
-                        "artwork.name": {
-                            $exists: true
-                        },
-                        "artwork.type": {
-                            $regex: check
-                        },
-                        "accesslevel": "artist"
-                    }
-        }, {
-                    $unwind: "$artwork"
-        }, {
-                    $match: {
-                        "artwork.name": {
-                            $exists: true
-                        },
-                        "artwork.type": {
-                            $regex: check
-                        },
-                        "accesslevel": "artist"
-                    }
-        }, {
-                    $project: {
-                        artwork: 1
-                    }
-        }]).toArray(function (err, found) {
-                    if (found && found[0]) {
-                        callback(found);
-                        db.close();
-                    } else if (err) {
-                        console.log(err);
-                        callback({
-                            value: false
-                        });
-                        db.close();
-                    } else {
-                        callback({
-                            value: false,
-                            comment: "No data found."
-                        });
-                        db.close();
-                    }
-                });
-            }
-        });
-    },
     findbyid: function (data, callback) {
         if (data._id && sails.ObjectID.isValid(data._id)) {
             sails.query(function (err, db) {
