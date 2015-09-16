@@ -1055,6 +1055,10 @@ module.exports = {
                             "artwork.width": {
                                 $gte: data.minwidth,
                                 $lte: data.maxwidth
+                            },
+                            "artwork.breadth": {
+                                $gte: data.minbreadth,
+                                $lte: data.maxbreadth
                             }
                         };
                     } else {
