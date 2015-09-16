@@ -1082,7 +1082,7 @@ module.exports = {
                         $match: matchobj
           }, {
                         $group: {
-                             _id: "$_id",
+                            _id: "$_id",
                             count: {
                                 $sum: 1
                             }
@@ -1188,6 +1188,7 @@ module.exports = {
           }]).toArray(function (err, result) {
                         if (result && result[0]) {
                             console.log(result[0]);
+                            console.log(data);
                             newreturns.total = result[0].count;
                             newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
                             callbackfunc1();
@@ -1294,7 +1295,7 @@ module.exports = {
                         }
           }, {
                         $group: {
-                             _id: "$_id",
+                            _id: "$_id",
                             count: {
                                 $sum: 1
                             }
