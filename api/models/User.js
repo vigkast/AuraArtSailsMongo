@@ -858,35 +858,6 @@ module.exports = {
             }
         });
     },
-    findimage: function (data, callback) {
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("fs.files").find({}, {}).toArray(function (err, found) {
-                    if (err) {
-                        console.log({
-                            value: false
-                        });
-                        db.close();
-                    } else if (found && found[0]) {
-                        callback(found);
-                        db.close();
-                    } else {
-                        callback({
-                            value: false,
-                            comment: "No data found"
-                        });
-                        db.close();
-                    }
-                });
-            }
-        });
-    },
     countartwork: function (data, callback) {
         var user = sails.ObjectID(data.user);
         sails.query(function (err, db) {
@@ -975,52 +946,6 @@ module.exports = {
                             comment: "No User found"
                         });
                         db.close();
-                    }
-                });
-            }
-        });
-    },
-    removeimage: function (data, callback) {
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("fs.files").remove({}, function (err, data) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false
-                        });
-                        db.close();
-                    } else if (data) {
-                        db.collection("fs.chunks").remove({}, function (err, data) {
-                            if (err) {
-                                console.log(err);
-                                callback({
-                                    value: false
-                                });
-                                db.close();
-                            } else if (data) {
-                                callback({
-                                    value: true
-                                });
-                                db.close();
-                            } else {
-                                callback({
-                                    value: false,
-                                    comment: "No data found"
-                                });
-                            }
-                        });
-                    } else {
-                        callback({
-                            value: false,
-                            comment: "No dta found"
-                        });
                     }
                 });
             }
@@ -1157,35 +1082,6 @@ module.exports = {
                     db.close();
                 }
             });
-        });
-    },
-    countimage: function (data, callback) {
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("fs.files").count({}, function (err, number) {
-                    if (number != null) {
-                        callback(number);
-                        db.close();
-                    } else if (err) {
-                        callback({
-                            value: false
-                        });
-                        db.close();
-                    } else {
-                        callback({
-                            value: false,
-                            comment: "No Image found."
-                        });
-                        db.close();
-                    }
-                });
-            }
         });
     }
 };

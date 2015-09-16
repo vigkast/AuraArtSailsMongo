@@ -193,7 +193,7 @@ module.exports = {
             var newfilename = newfilestart + "_" + width + "_" + height + newfileend;
             var isfile2 = sails.fs.existsSync(newfilename);
             if (!isfile2) {
-
+                console.log("in if");
                 sails.lwip.open(newfilepath, function (err, image) {
 
                     var dimensions = {};
@@ -220,6 +220,7 @@ module.exports = {
                 });
 
             } else {
+                console.log("in else");
                 showimage(newfilename);
             }
         }
@@ -240,24 +241,6 @@ module.exports = {
         } else {
             checknewfile(filepath, newwidth, newheight);
         }
-    },
-    findimage: function (req, res) {
-        var print = function (data) {
-            res.json(data);
-        }
-        User.findimage(req.body, print);
-    },
-    countimage: function (req, res) {
-        var print = function (data) {
-            res.json(data);
-        }
-        User.countimage(req.body, print);
-    },
-    removeimage: function (req, res) {
-        var print = function (data) {
-            res.json(data);
-        }
-        User.removeimage(req.body, print);
     },
     save: function (req, res) {
         var print = function (data) {
