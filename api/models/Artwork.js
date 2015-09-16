@@ -1039,6 +1039,7 @@ module.exports = {
             }
             if (db) {
                 if (data.type == "") {
+                    console.log("In Empty");
                     if (data.minbreadth != 0 && data.maxbreadth != 10000) {
                         var matchobj = {
                             "artwork.name": {
@@ -1154,6 +1155,7 @@ module.exports = {
                         });
                     }
                 } else if (data.type != "Sculptures") {
+                    console.log("In PPO");
                     db.collection("user").aggregate([{
                         $match: {
                             "artwork.name": {
@@ -1271,6 +1273,7 @@ module.exports = {
                             });
                     }
                 } else if (data.type == "Sculptures") {
+                    console.log("In Sculptures");
                     db.collection("user").aggregate([{
                         $match: {
                             "artwork.name": {
