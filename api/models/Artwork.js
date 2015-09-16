@@ -1040,6 +1040,7 @@ module.exports = {
                 if (data.type == "") {
                     console.log("In Empty");
                     if (data.minbreadth != 0 && data.maxbreadth != 10000) {
+                        console.log("in if");
                         var matchobj = {
                             "artwork.name": {
                                 $exists: true
@@ -1064,6 +1065,7 @@ module.exports = {
                             }]
                         };
                     } else {
+                        console.log("in else");
                         var matchobj = {
                             "artwork.name": {
                                 $exists: true
