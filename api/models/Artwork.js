@@ -1025,6 +1025,7 @@ module.exports = {
         var newcallback = 0;
         var newreturns = {};
         var check = new RegExp(data.search, "i");
+        var checkmedium = new RegExp(data.medium, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
         var sort = {};
@@ -1091,6 +1092,12 @@ module.exports = {
           }, {
                         $match: matchobj
           }, {
+                        $unwind: "$artwork.subtype"
+          }, {
+                        $match: {
+                            "artwork.subtype.name": checkmedium
+                        }
+          }, {
                         $group: {
                             _id: "$_id",
                             count: {
@@ -1130,6 +1137,12 @@ module.exports = {
                             $unwind: "$artwork"
           }, {
                             $match: matchobj
+          }, {
+                            $unwind: "$artwork.subtype"
+          }, {
+                            $match: {
+                                "artwork.subtype.name": checkmedium
+                            }
           }, {
                             $project: {
                                 name: 1,
