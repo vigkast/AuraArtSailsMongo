@@ -1039,9 +1039,7 @@ module.exports = {
             }
             if (db) {
                 if (data.type == "") {
-                    console.log("In Empty");
                     if (data.minbreadth == 0 && data.maxbreadth == 10000) {
-                        console.log("in if");
                         var matchobj = {
                             "artwork.name": {
                                 $exists: true
@@ -1061,7 +1059,6 @@ module.exports = {
                             "artwork.subtype.name": checkmedium
                         };
                     } else {
-                        console.log("in else");
                         var matchobj = {
                             "artwork.name": {
                                 $exists: true
@@ -1161,7 +1158,6 @@ module.exports = {
                         });
                     }
                 } else if (data.type != "Sculptures") {
-                    console.log("In PPO");
                     db.collection("user").aggregate([{
                         $match: {
                             "name": check
@@ -1275,7 +1271,6 @@ module.exports = {
                             });
                     }
                 } else if (data.type == "Sculptures") {
-                    console.log("In Sculptures");
                     db.collection("user").aggregate([{
                         $match: {
                             "name": check
