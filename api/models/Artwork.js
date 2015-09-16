@@ -1191,7 +1191,7 @@ module.exports = {
                             console.log(data);
                             newreturns.total = result[0].count;
                             newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
-                            callbackfunc1();
+                            callbackfunc();
                         } else if (err) {
                             console.log(err);
                             callback({
@@ -1207,7 +1207,7 @@ module.exports = {
                         }
                     });
 
-                    function callbackfunc1() {
+                    function callbackfunc() {
                         db.collection("user").aggregate([{
                             $match: {
                                 "name": check
