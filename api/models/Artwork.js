@@ -1044,36 +1044,44 @@ module.exports = {
                             "artwork.name": {
                                 $exists: true
                             },
-                            "artwork.gprice": {
-                                $gte: data.minprice,
-                                $lte: data.maxprice
-                            },
-                            "artwork.height": {
-                                $gte: data.minheight,
-                                $lte: data.maxheight
-                            },
-                            "artwork.width": {
-                                $gte: data.minwidth,
-                                $lte: data.maxwidth
-                            },
-                            "artwork.breadth": {
-                                $gte: data.minbreadth,
-                                $lte: data.maxbreadth
-                            }
+                            $and: [{
+                                "artwork.gprice": {
+                                    $gte: data.minprice,
+                                    $lte: data.maxprice
+                                },
+                                "artwork.height": {
+                                    $gte: data.minheight,
+                                    $lte: data.maxheight
+                                },
+                                "artwork.width": {
+                                    $gte: data.minwidth,
+                                    $lte: data.maxwidth
+                                },
+                                "artwork.breadth": {
+                                    $gte: data.minbreadth,
+                                    $lte: data.maxbreadth
+                                }
+                            }]
                         };
                     } else {
                         var matchobj = {
                             "artwork.name": {
                                 $exists: true
                             },
-                            "artwork.gprice": {
-                                $gte: data.minprice,
-                                $lte: data.maxprice
-                            },
-                            "artwork.height": {
-                                $gte: data.minheight,
-                                $lte: data.maxheight
-                            }
+                            $and: [{
+                                "artwork.gprice": {
+                                    $gte: data.minprice,
+                                    $lte: data.maxprice
+                                },
+                                "artwork.height": {
+                                    $gte: data.minheight,
+                                    $lte: data.maxheight
+                                },
+                                "artwork.width": {
+                                    $gte: data.minwidth,
+                                    $lte: data.maxwidth
+                                }
+                            }]
                         };
                     }
                     db.collection("user").aggregate([{
