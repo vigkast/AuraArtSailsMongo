@@ -11,44 +11,26 @@ var request = require("request").defaults({
 var writedata = "";
 module.exports = {
     uploadfile: function (req, res) {
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-            }
-            req.file("file").upload({
-                maxBytes: 100000000
-            }, function (err, uploadedFiles) {
-                if (err) {
-                    return res.send(500, err);
-                }
-                _.each(uploadedFiles, function (n) {
-                    var filepath = n.fd;
-                    var newfilepath = n.fd;
-                    var newfilenamearr = newfilepath.split(".");
-                    var extension = newfilenamearr.pop();
-                    var mimetype = sails.mime.lookup(n.fd);
-                    var newdate = sails.moment(new Date()).format('YYYY-MM-DDh-mm-ss-SSSSa');
-                    var filename = 'image' + newdate + '.' + extension;
-                    db.open(function (err, db) {
-                        var fileId = new sails.ObjectID();
-                        var gridStore = new sails.GridStore(db, fileId, filename, 'w', {
-                            content_type: mimetype
-                        });
-                        gridStore.open(function (err, gridStore) {
-                            gridStore.writeFile(filepath, function (err, doc) {
-                                sails.GridStore.read(db, fileId, function (err, fileData) {
-                                    var buffr = fileData;
-                                    res.json(fileId);
-                                    sails.fs.unlink(filepath, function (err) {
-                                        if (err) {
-                                            console.log(err);
-                                        }
-                                    });
-                                });
-                            });
-                        });
+        req.file("file").upload(function (err, uploadedFiles) {
+            if (err) return res.send(500, err);
+            _.each(uploadedFiles, function (n) {
+                var oldpath = n.fd;
+                var source = sails.fs.createReadStream(n.fd);
+                n.fd = n.fd.split('\\').pop().split('/').pop();
+                var dest = sails.fs.createWriteStream('./auraimg/' + n.fd);
+                source.pipe(dest);
+                source.on('end', function () {
+                    sails.fs.unlink(oldpath, function (data) {
+                        console.log(data);
                     });
                 });
+                source.on('error', function (err) {
+                    console.log(err);
+                });
+            });
+            return res.json({
+                message: uploadedFiles.length + ' file(s) uploaded successfully!',
+                files: uploadedFiles
             });
         });
     },
@@ -66,7 +48,6 @@ module.exports = {
                         res.connection.setTimeout(200000);
                         req.connection.setTimeout(200000);
                         var extension = "";
-                        var mimetype = "";
                         var excelimages = [];
                         req.file("file").upload(function (err, uploadedFiles) {
                             if (err) {
@@ -99,118 +80,72 @@ module.exports = {
                                         m = result[num];
                                         User.saveforexcel(m, function (print) {
                                             m.subtype = [];
-                                            if (print != undefined) {
-                                                m.user = print;
-                                                if (m.user && m.user != undefined) {
-                                                    if (!m.value && m.value != false) {
-                                                        delete m.username;
-                                                        ArtMedium.savemediumexcel(m, function (mediumid) {
-                                                            var mediumdata = {};
-                                                            mediumdata._id = mediumid;
-                                                            mediumdata.name = m.mediumname;
-                                                            mediumdata.category = m.type;
-                                                            m.subtype.push(mediumdata);
-                                                            delete m.mediumname;
-                                                            m.imageno = m.imageno.split(";");
-                                                            if (m.gprice && m.gprice != "") {
-                                                                var gprice = m.gprice.split(",");
-                                                                m.gprice = "";
-                                                                _.each(gprice, function (gp) {
-                                                                    m.gprice += gp;
-                                                                });
-                                                                m.gprice = parseInt(m.gprice);
-                                                            }
-                                                            if (m.pricesq && m.pricesq != "") {
-                                                                var pricesq = m.pricesq.split(",");
-                                                                m.pricesq = "";
-                                                                _.each(pricesq, function (ps) {
-                                                                    m.pricesq += ps;
-                                                                });
-                                                                m.pricesq = parseInt(m.pricesq);
-                                                            }
-                                                            if (m.price && m.price != "") {
-                                                                var price = m.price.split(",");
-                                                                m.price = "";
-                                                                _.each(price, function (p) {
-                                                                    m.price += p;
-                                                                });
-                                                                m.price = parseInt(m.price);
-                                                            }
-                                                            if (m.height && m.height != "") {
-                                                                m.height = parseFloat(m.height);
-                                                            }
-                                                            if (m.breadth && m.breadth != "") {
-                                                                m.breadth = parseFloat(m.breadth);
-                                                            }
-                                                            if (m.width && m.width != "") {
-                                                                m.width = parseFloat(m.width);
-                                                            }
-                                                            _.each(m.imageno, function (z) {
-                                                                var imagewithext = z.trim() + '.jpg';
-                                                                extension = z.split('.');
-                                                                mimetype = "image/jpeg";
-                                                                if (extension[0] == 'jpg') {
-                                                                    mimetype = 'image/jpeg';
-                                                                } else if (extension[0] == 'png') {
-                                                                    mimetype = 'image/png';
-                                                                } else if (extension[0] == 'gif') {
-                                                                    mimetype = 'image/gif';
-                                                                }
-                                                                sails.fs.readFile('./auraimg/' + imagewithext, function (err, imagebuf) {
-                                                                    if (err) {
-                                                                        console.log(err);
-                                                                    }
-                                                                    if (imagebuf) {
-                                                                        var dimensions = sails.sizeOf('./auraimg/' + imagewithext);
-                                                                        var fileId = sails.ObjectID();
-                                                                        var gridStore = new sails.GridStore(db, fileId, 'w', {
-                                                                            content_type: mimetype,
-                                                                            metadata: dimensions
-                                                                        });
-                                                                        gridStore.open(function (err, gridStore) {
-                                                                            if (err) {
-                                                                                console.log(err);
-                                                                            }
-                                                                            if (gridStore) {
-                                                                                gridStore.write(imagebuf, function (err, doc) {
-                                                                                    if (err) {
-                                                                                        console.log(err);
-                                                                                    }
-                                                                                    if (doc) {
-                                                                                        gridStore.close(function () {
-                                                                                            excelimages.push(fileId);
-                                                                                            if (m.imageno.length == excelimages.length) {
-                                                                                                m.image = excelimages;
-                                                                                                m.srno = num + 1;
-                                                                                                Artwork.saveartwork(m);
-                                                                                                console.log(num);
-                                                                                                num++;
-                                                                                                if (num < result.length) {
+                                            if (!print.value && print.value != false) {
+                                                createartwork();
+                                            }
 
-                                                                                                    createart(num);
-                                                                                                } else {
-                                                                                                    console.log("Done");
-                                                                                                }
-                                                                                            }
-                                                                                        });
-                                                                                    }
-                                                                                });
-                                                                            }
-                                                                        });
-                                                                    }
-                                                                });
-                                                            });
+                                            function createartwork() {
+                                                m.user = print;
+                                                delete m.username;
+                                                ArtMedium.savemediumexcel(m, function (mediumid) {
+                                                    var mediumdata = {};
+                                                    mediumdata._id = mediumid;
+                                                    mediumdata.name = m.mediumname;
+                                                    mediumdata.category = m.type;
+                                                    m.subtype.push(mediumdata);
+                                                    delete m.mediumname;
+                                                    if (m.gprice && m.gprice != "") {
+                                                        var gprice = m.gprice.split(",");
+                                                        m.gprice = "";
+                                                        _.each(gprice, function (gp) {
+                                                            m.gprice += gp;
                                                         });
-                                                    } else {
-                                                        num++;
-                                                        createart(num);
+                                                        m.gprice = parseInt(m.gprice);
                                                     }
-                                                } else {
-                                                    res.badRequest();
-                                                }
-                                            } else {
-                                                num++;
-                                                createart(num);
+                                                    if (m.pricesq && m.pricesq != "") {
+                                                        var pricesq = m.pricesq.split(",");
+                                                        m.pricesq = "";
+                                                        _.each(pricesq, function (ps) {
+                                                            m.pricesq += ps;
+                                                        });
+                                                        m.pricesq = parseInt(m.pricesq);
+                                                    }
+                                                    if (m.price && m.price != "") {
+                                                        var price = m.price.split(",");
+                                                        m.price = "";
+                                                        _.each(price, function (p) {
+                                                            m.price += p;
+                                                        });
+                                                        m.price = parseInt(m.price);
+                                                    }
+                                                    if (m.height && m.height != "") {
+                                                        m.height = parseFloat(m.height);
+                                                    }
+                                                    if (m.breadth && m.breadth != "") {
+                                                        m.breadth = parseFloat(m.breadth);
+                                                    }
+                                                    if (m.width && m.width != "") {
+                                                        m.width = parseFloat(m.width);
+                                                    }
+                                                    m.imageno = m.imageno.split(";");
+                                                    _.each(m.imageno, function (z) {
+                                                        excelimages.push(z.trim() + '.jpg');
+                                                        if (m.imageno.length == excelimages.length) {
+                                                            m.image = excelimages;
+                                                            m.srno = num + 1;
+                                                            Artwork.saveartwork(m);
+                                                            console.log(num);
+                                                            num++;
+                                                            if (num < result.length) {
+                                                                setTimeout(function () {
+                                                                    createart(num);
+                                                                }, 250);
+                                                            } else {
+                                                                console.log("Done");
+                                                            }
+                                                        }
+                                                    });
+                                                });
                                             }
                                         });
                                     }
@@ -236,150 +171,75 @@ module.exports = {
         sails.fs.writeFileSync('./uploads/data.xlsx', xls, 'binary');
     },
     resize: function (req, res) {
-        var file = req.param('file');
-        var fd = sails.ObjectID(file);
-        var newheight = req.param('height');
-        var newwidth = req.param('width');
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-            }
-            if (db) {
-                db.open(function (err, db) {
-                    if (err) {
-                        console.log(err);
-                        res.json({
-                            value: false
+        function showimage(path) {
+            var image = sails.fs.readFileSync(path);
+            var mimetype = sails.mime.lookup(path);
+            res.set('Content-Type', mimetype);
+            res.send(image);
+        }
+
+        function checknewfile(newfilepath, width, height) {
+            width = parseInt(width);
+            height = parseInt(height);
+            newfilenamearr = newfilepath.split(".");
+            extension = newfilenamearr.pop();
+
+            var indexno = newfilepath.search("." + extension);
+            var newfilestart = newfilepath.substr(0, indexno);
+            var newfileend = newfilepath.substr(indexno, newfilepath.length);
+
+
+
+            var newfilename = newfilestart + "_" + width + "_" + height + newfileend;
+            var isfile2 = sails.fs.existsSync(newfilename);
+            if (!isfile2) {
+
+                lwip.open(newfilepath, function (err, image) {
+
+                    var dimensions = {};
+                    dimensions.width = image.width();
+                    dimensions.height = image.height();
+                    if (width == 0) {
+                        width = dimensions.width / dimensions.height * height;
+                    }
+                    if (height == 0) {
+                        height = dimensions.height / dimensions.width * width;
+                    }
+                    console.log(err);
+                    image.resize(width, height, "lanczos", function (err, image) {
+
+                        image.toBuffer(extension, function (err, buffer) {
+
+                            sails.fs.writeFileSync(newfilename, buffer);
+                            showimage(newfilename);
+
                         });
-                    }
-                    if (db) {
-                        if (!newwidth && !newheight) {
-                            showimage(fd);
-                        } else if (!newwidth && newheight) {
-                            newheight = parseInt(newheight);
-                            findimage(fd, 0, newheight);
-                        } else if (newwidth && !newheight) {
-                            newwidth = parseInt(newwidth);
-                            findimage(fd, newwidth, 0);
-                        } else {
-                            findimage(fd, newwidth, newheight);
-                        }
 
-                        function findimage(fd, newwidth, newheight) {
-                            sails.GridStore.read(db, fd, function (err, fileData) {
-                                if (err) {
-                                    console.log(err);
-                                    db.close();
-                                } else if (fileData) {
-                                    width = parseInt(newwidth);
-                                    height = parseInt(newheight);
-                                    var filemeta = new sails.GridStore(db, fd, "r");
-                                    filemeta.open(function (err, filedata) {
-                                        if (err) {
-                                            console.log(err);
-                                        } else if (filedata) {
-                                            var imagewidth = filedata.metadata.width;
-                                            var imageheight = filedata.metadata.height;
+                    });
 
-                                            sails.lwip.open(fileData, 'jpg', function (err, image) {
-                                                if (err) {
-                                                    console.log(err);
-                                                    db.close();
-                                                } else if (image) {
-                                                    var dimensions = {};
-                                                    dimensions.width = imagewidth;
-                                                    dimensions.height = imageheight;
-                                                    if (width == 0) {
-                                                        width = dimensions.width / dimensions.height * height;
-                                                    }
-                                                    if (height == 0) {
-                                                        height = dimensions.height / dimensions.width * width;
-                                                    }
-                                                    if (width && height && width > 0 && height > 0) {
-                                                        resizeimage();
-                                                    }
-
-                                                    function resizeimage() {
-                                                        image.resize(width, height, "lanczos", function (err, image2) {
-                                                            if (err) {
-                                                                consoel.log(err);
-                                                                db.close();
-                                                            } else if (image2) {
-                                                                var fileId = new sails.ObjectID();
-                                                                var mimetype = "image/jpeg";
-                                                                var filename1 = 'image' + fd + '_width' + width + '_height' + height;
-                                                                db.collection('fs.files').find({
-                                                                    filename: filename1
-                                                                }).toArray(function (err, found) {
-                                                                    if (err) {
-                                                                        console.log(err);
-                                                                        res.json({
-                                                                            value: false
-                                                                        });
-                                                                        db.close();
-                                                                    } else if (found && found[0]) {
-                                                                        showimage(found[0]._id);
-                                                                    } else {
-                                                                        var gridStore = new sails.GridStore(db, fileId, filename1, 'w', {
-                                                                            content_type: mimetype
-                                                                        });
-                                                                        gridStore.open(function (err, gridStore) {
-                                                                            if (err) {
-                                                                                console.log(err);
-                                                                                db.close();
-                                                                            } else if (gridStore) {
-                                                                                image2.toBuffer("jpg", {}, function (err, imagebuf) {
-                                                                                    gridStore.write(imagebuf, function (err, doc) {
-                                                                                        if (err) {
-                                                                                            console.log(err);
-                                                                                            db.close();
-                                                                                        } else if (doc) {
-                                                                                            gridStore.close(function () {
-                                                                                                showimage(fileId);
-                                                                                            });
-                                                                                        }
-                                                                                    });
-                                                                                });
-                                                                            }
-                                                                        });
-                                                                    }
-                                                                });
-                                                            }
-                                                        });
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                        }
-
-                        function showimage(oldfile) {
-                            var filename = oldfile;
-                            var file = new sails.GridStore(db, filename, "r");
-                            file.open(function (err, file) {
-                                if (err) {
-                                    console.log(err);
-                                    res.json({
-                                        value: false
-                                    });
-                                } else if (file) {
-                                    res.set('Content-Type', file.contentType);
-                                    var stream = file.stream();
-                                    stream.pipe(res);
-                                } else {
-                                    res.json({
-                                        value: false,
-                                        comment: "Image not found"
-                                    });
-                                }
-                            });
-                        }
-                    }
                 });
+
+            } else {
+                showimage(newfilename);
             }
-        });
+        }
+
+        var file = req.query.file;
+        var filepath = './auraimg/' + file;
+        var newheight = req.query.height;
+        var newwidth = req.query.width;
+
+        if (!newwidth && !newheight) {
+            showimage(filepath);
+        } else if (!newwidth && newheight) {
+            newheight = parseInt(newheight);
+            checknewfile(filepath, 0, newheight);
+        } else if (newwidth && !newheight) {
+            newwidth = parseInt(newwidth);
+            checknewfile(filepath, newwidth, 0);
+        } else {
+            checknewfile(filepath, newwidth, newheight);
+        }
     },
     findimage: function (req, res) {
         var print = function (data) {

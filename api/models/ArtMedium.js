@@ -361,8 +361,7 @@ module.exports = {
                             value: false
                         });
                         db.close();
-                    }
-                    if (data2 != null) {
+                    } else if (data2 != null) {
                         exitup++;
                         callback(data2._id);
                         db.close();
@@ -375,9 +374,13 @@ module.exports = {
                                         value: false
                                     });
                                     db.close();
-                                }
-                                if (created) {
+                                } else if (created) {
                                     callback(newdata._id);
+                                    db.close();
+                                } else {
+                                    callback({
+                                        value: false
+                                    });
                                     db.close();
                                 }
                             });
