@@ -1057,7 +1057,8 @@ module.exports = {
                             "artwork.width": {
                                 $gte: data.minwidth,
                                 $lte: data.maxwidth
-                            }
+                            },
+                            "artwork.subtype.name": checkmedium
                         };
                     } else {
                         console.log("in else");
@@ -1080,7 +1081,8 @@ module.exports = {
                             "artwork.breadth": {
                                 $gte: data.minbreadth,
                                 $lte: data.maxbreadth
-                            }
+                            },
+                            "artwork.subtype.name": checkmedium
                         };
                     }
                     db.collection("user").aggregate([{
@@ -1091,12 +1093,6 @@ module.exports = {
                         $unwind: "$artwork"
           }, {
                         $match: matchobj
-          }, {
-                        $unwind: "$artwork.subtype"
-          }, {
-                        $match: {
-                            "artwork.subtype.name": checkmedium
-                        }
           }, {
                         $group: {
                             _id: "$_id",
@@ -1137,12 +1133,6 @@ module.exports = {
                             $unwind: "$artwork"
           }, {
                             $match: matchobj
-          }, {
-                            $unwind: "$artwork.subtype"
-          }, {
-                            $match: {
-                                "artwork.subtype.name": checkmedium
-                            }
           }, {
                             $project: {
                                 name: 1,
