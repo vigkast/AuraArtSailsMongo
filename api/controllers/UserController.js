@@ -194,7 +194,7 @@ module.exports = {
             var isfile2 = sails.fs.existsSync(newfilename);
             if (!isfile2) {
 
-                lwip.open(newfilepath, function (err, image) {
+                sails.lwip.open(newfilepath, function (err, image) {
 
                     var dimensions = {};
                     dimensions.width = image.width();
