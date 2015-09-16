@@ -1027,7 +1027,6 @@ module.exports = {
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
-        var user = sails.ObjectID(data.user);
         var sort = {};
         sort['artwork.' + data.filter] = data.sort;
         sails.query(function (err, db) {
@@ -1075,9 +1074,6 @@ module.exports = {
                     }
                     db.collection("user").aggregate([{
                         $match: {
-                            "artwork.name": {
-                                $exists: true
-                            },
                             "name": check
                         }
           }, {
@@ -1118,9 +1114,6 @@ module.exports = {
                     function callbackfunc2() {
                         db.collection("user").aggregate([{
                             $match: {
-                                "artwork.name": {
-                                    $exists: true
-                                },
                                 "name": check
                             }
           }, {
@@ -1158,9 +1151,6 @@ module.exports = {
                     console.log("In PPO");
                     db.collection("user").aggregate([{
                         $match: {
-                            "artwork.name": {
-                                $exists: true
-                            },
                             "name": check
                         }
           }, {
@@ -1197,6 +1187,7 @@ module.exports = {
                         }
           }]).toArray(function (err, result) {
                         if (result && result[0]) {
+                            console.log(result[0]);
                             newreturns.total = result[0].count;
                             newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
                             callbackfunc1();
@@ -1218,9 +1209,6 @@ module.exports = {
                     function callbackfunc1() {
                         db.collection("user").aggregate([{
                             $match: {
-                                "artwork.name": {
-                                    $exists: true
-                                },
                                 "name": check
                             }
           }, {
@@ -1255,6 +1243,7 @@ module.exports = {
                             function (err, found) {
                                 if (found && found[0]) {
                                     newreturns.data = found;
+                                    console.log(found);
                                     callback(newreturns);
                                     db.close();
                                 } else if (err) {
@@ -1276,9 +1265,6 @@ module.exports = {
                     console.log("In Sculptures");
                     db.collection("user").aggregate([{
                         $match: {
-                            "artwork.name": {
-                                $exists: true
-                            },
                             "name": check
                         }
           }, {
@@ -1340,9 +1326,6 @@ module.exports = {
                     function callbackfunc1() {
                         db.collection("user").aggregate([{
                             $match: {
-                                "artwork.name": {
-                                    $exists: true
-                                },
                                 "name": check
                             }
           }, {

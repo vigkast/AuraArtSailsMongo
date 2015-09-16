@@ -318,10 +318,8 @@ module.exports = {
                                                                         });
                                                                         db.close();
                                                                     } else if (found && found[0]) {
-                                                                        console.log("in found");
                                                                         showimage(found[0]._id);
                                                                     } else {
-                                                                        console.log("in else");
                                                                         var gridStore = new sails.GridStore(db, fileId, filename1, 'w', {
                                                                             content_type: mimetype
                                                                         });
