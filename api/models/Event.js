@@ -223,5 +223,64 @@ module.exports = {
                 });
             }
         });
+    },
+    findevents: function (data, callback) {
+
+        if (data && data.year && data.year == "past") {
+            var matchobj = {
+                $exists: true,
+                $lt: parseInt(sails.moment().format("YYYY"))
+            };
+            callbackfunc();
+        } else if (data && data.year && data.year == "present") {
+            var matchobj = {
+                $exists: true,
+                $eq: parseInt(sails.moment().format("YYYY"))
+            };
+            callbackfunc();
+        } else if (data && data.year && data.year == "upcoming") {
+            var matchobj = {
+                $exists: true,
+                $gt: parseInt(sails.moment().format("YYYY"))
+            };
+            callbackfunc();
+        } else {
+            callback({
+                value: false,
+                comment: "Please provide year"
+            });
+        }
+
+        function callbackfunc() {
+            sails.query(function (err, db) {
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false
+                    });
+                } else if (db) {
+                    db.collection('event').find({
+                        year: matchobj
+                    }).toArray(function (err, data2) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else if (data2 && data2[0]) {
+                            callback(data2);
+                            db.close()
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "No data found"
+                            });
+                            db.close();
+                        }
+                    });
+                }
+            });
+        }
     }
 };

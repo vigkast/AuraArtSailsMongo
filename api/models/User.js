@@ -156,7 +156,7 @@ module.exports = {
             }
             if (db) {
                 if (data.type != "" && accesslevel == "artist") {
-                    db.collection("user").count({
+                    var matchobj = {
                         $or: [{
                             name: {
                                 '$regex': check
@@ -168,8 +168,27 @@ module.exports = {
                         }],
                         accesslevel: accesslevel,
                         "artwork.type": data.type
-                    }, function (err, number) {
-                        if (number) {
+                    };
+                    callbackfunc1();
+                } else {
+                    var matchobj = {
+                        $or: [{
+                            name: {
+                                '$regex': check
+                            }
+                        }, {
+                            email: {
+                                '$regex': check
+                            }
+                        }],
+                        accesslevel: accesslevel
+                    };
+                    callbackfunc1();
+                }
+
+                function callbackfunc1() {
+                    db.collection("user").count(matchobj, function (err, number) {
+                        if (number && number != "") {
                             newreturns.total = number;
                             newreturns.totalpages = Math.ceil(number / data.pagesize);
                             callbackfunc();
@@ -189,88 +208,7 @@ module.exports = {
                     });
 
                     function callbackfunc() {
-                        db.collection("user").find({
-                            $or: [{
-                                name: {
-                                    '$regex': check
-                                }
-          }, {
-                                email: {
-                                    '$regex': check
-                                }
-          }],
-                            accesslevel: accesslevel,
-                            "artwork.type": data.type
-                        }, {
-                            password: 0,
-                            forgotpassword: 0
-                        }, {
-                            sort: sort
-                        }).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
-                            if (err) {
-                                callback({
-                                    value: false
-                                });
-                                console.log(err);
-                                db.close();
-                            } else if (found && found[0]) {
-                                newreturns.data = found;
-                                callback(newreturns);
-                                db.close();
-                            } else {
-                                callback({
-                                    value: false,
-                                    comment: "No data found."
-                                });
-                                db.close();
-                            }
-                        });
-                    }
-                } else {
-                    db.collection("user").count({
-                        $or: [{
-                            name: {
-                                '$regex': check
-                            }
-                        }, {
-                            email: {
-                                '$regex': check
-                            }
-                        }],
-                        accesslevel: accesslevel
-                    }, function (err, number) {
-                        if (number) {
-                            newreturns.total = number;
-                            newreturns.totalpages = Math.ceil(number / data.pagesize);
-                            callbackfunc1();
-                        } else if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "Count of null"
-                            });
-                            db.close();
-                        }
-                    });
-
-                    function callbackfunc1() {
-                        db.collection("user").find({
-                            $or: [{
-                                name: {
-                                    '$regex': check
-                                }
-          }, {
-                                email: {
-                                    '$regex': check
-                                }
-          }],
-                            accesslevel: accesslevel
-                        }, {
+                        db.collection("user").find(matchobj, {
                             password: 0,
                             forgotpassword: 0
                         }, {
@@ -339,6 +277,28 @@ module.exports = {
         var checkname = new RegExp(data.searchname, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
+        if (data.type && data.type != "") {
+            var matchobj = {
+                $and: [{
+                    name: check
+                        }, {
+                    name: checkname
+                        }],
+                accesslevel: "artist",
+                "artwork.type": data.type
+            };
+            callbackfunc1();
+        } else {
+            var matchobj = {
+                $and: [{
+                    name: check
+                        }, {
+                    name: checkname
+                        }],
+                accesslevel: "artist"
+            };
+            callbackfunc1();
+        }
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -347,16 +307,8 @@ module.exports = {
                 });
             }
             if (db) {
-                if (data.type != "") {
-                    db.collection("user").count({
-                        $and: [{
-                            name: check
-                        }, {
-                            name: checkname
-                        }],
-                        accesslevel: "artist",
-                        "artwork.type": data.type
-                    }, function (err, number) {
+                function callbackfunc1() {
+                    db.collection("user").count(matchobj, function (err, number) {
                         if (number) {
                             newreturns.total = number;
                             newreturns.totalpages = Math.ceil(number / data.pagesize);
@@ -377,74 +329,7 @@ module.exports = {
                     });
 
                     function callbackfunc() {
-                        db.collection("user").find({
-                            $and: [{
-                                name: check
-                        }, {
-                                name: checkname
-                        }],
-                            accesslevel: "artist",
-                            "artwork.type": data.type
-                        }, {
-                            password: 0,
-                            forgotpassword: 0
-                        }).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
-                            if (err) {
-                                callback({
-                                    value: false
-                                });
-                                console.log(err);
-                                db.close();
-                            } else if (found && found[0]) {
-                                newreturns.data = found;
-                                callback(newreturns);
-                                db.close();
-                            } else {
-                                callback({
-                                    value: false,
-                                    comment: "No data found."
-                                });
-                                db.close();
-                            }
-                        });
-                    }
-                } else {
-                    db.collection("user").count({
-                        $and: [{
-                            name: check
-                        }, {
-                            name: checkname
-                        }],
-                        accesslevel: "artist"
-                    }, function (err, number) {
-                        if (number) {
-                            newreturns.total = number;
-                            newreturns.totalpages = Math.ceil(number / data.pagesize);
-                            callbackfunc1();
-                        } else if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "Count of null"
-                            });
-                            db.close();
-                        }
-                    });
-
-                    function callbackfunc1() {
-                        db.collection("user").find({
-                            $and: [{
-                                name: check
-                        }, {
-                                name: checkname
-                        }],
-                            accesslevel: "artist"
-                        }, {
+                        db.collection("user").find(matchobj, {
                             password: 0,
                             forgotpassword: 0
                         }).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {

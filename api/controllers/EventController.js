@@ -37,6 +37,11 @@ module.exports = {
             res.json(data);
         };
         Event.findOne(req.body, callback);
+    },
+    findevents: function (req, res) {
+        function callback(data) {
+            res.json(data);
+        };
+        Event.findevents(req.body, callback);
     }
 };
-
