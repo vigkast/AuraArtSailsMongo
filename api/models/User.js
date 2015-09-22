@@ -299,15 +299,16 @@ module.exports = {
             };
             callbackfunc1();
         }
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                function callbackfunc1() {
+
+        function callbackfunc1() {
+            sails.query(function (err, db) {
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false
+                    });
+                }
+                if (db) {
                     db.collection("user").count(matchobj, function (err, number) {
                         if (number) {
                             newreturns.total = number;
@@ -353,8 +354,8 @@ module.exports = {
                         });
                     }
                 }
-            }
-        });
+            });
+        }
     },
     findone: function (data, callback) {
         if (data._id && sails.ObjectID.isValid(data._id)) {
