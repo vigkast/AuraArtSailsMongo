@@ -774,6 +774,7 @@ module.exports = {
                             },
                             "artwork.subtype.name": checkmedium
                         };
+                        callbackfunc1();
                     } else {
                         var matchobj = {
                             "artwork.name": {
@@ -797,7 +798,57 @@ module.exports = {
                             },
                             "artwork.subtype.name": checkmedium
                         };
+                        callbackfunc1();
                     }
+                } else if (data.type != "Sculptures") {
+                    var matchobj = {
+                        "artwork.name": {
+                            $exists: true
+                        },
+                        "artwork.type": data.type,
+                        "artwork.gprice": {
+                            $gte: data.minprice,
+                            $lte: data.maxprice
+                        },
+                        "artwork.height": {
+                            $gte: data.minheight,
+                            $lte: data.maxheight
+                        },
+                        "artwork.width": {
+                            $gte: data.minwidth,
+                            $lte: data.maxwidth
+                        },
+                        "artwork.breadth": {
+                            $gte: data.minbreadth,
+                            $lte: data.maxbreadth
+                        },
+                        "artwork.subtype.name": checkmedium
+                    };
+                    callbackfunc1();
+                } else if (data.type == "Sculptures") {
+                    var matchobj = {
+                        "artwork.name": {
+                            $exists: true
+                        },
+                        "artwork.type": "Sculptures",
+                        "artwork.gprice": {
+                            $gte: data.minprice,
+                            $lte: data.maxprice
+                        },
+                        "artwork.height": {
+                            $gte: data.minheight,
+                            $lte: data.maxheight
+                        },
+                        "artwork.width": {
+                            $gte: data.minwidth,
+                            $lte: data.maxwidth
+                        },
+                        "artwork.subtype.name": checkmedium
+                    };
+                    callbackfunc1();
+                }
+
+                function callbackfunc1() {
                     db.collection("user").aggregate([{
                         $match: {
                             "name": check
@@ -806,100 +857,6 @@ module.exports = {
                         $unwind: "$artwork"
           }, {
                         $match: matchobj
-          }, {
-                        $group: {
-                            _id: "$_id",
-                            count: {
-                                $sum: 1
-                            }
-                        }
-          }, {
-                        $project: {
-                            count: 1
-                        }
-          }]).toArray(function (err, result) {
-                        if (result && result[0]) {
-                            newreturns.total = result[0].count;
-                            newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
-                            callbackfunc2();
-                        } else if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "No such data"
-                            });
-                            db.close();
-                        }
-                    });
-
-                    function callbackfunc2() {
-                        db.collection("user").aggregate([{
-                            $match: {
-                                "name": check
-                            }
-          }, {
-                            $unwind: "$artwork"
-          }, {
-                            $match: matchobj
-          }, {
-                            $project: {
-                                name: 1,
-                                artwork: 1
-                            }
-          }, {
-                            $sort: sort
-          }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
-                            if (found && found[0]) {
-                                newreturns.data = found;
-                                callback(newreturns);
-                                db.close();
-                            } else if (err) {
-                                console.log(err);
-                                callback({
-                                    value: false
-                                });
-                                db.close();
-                            } else {
-                                callback({
-                                    value: false,
-                                    comment: "No data found"
-                                });
-                                db.close();
-                            }
-                        });
-                    }
-                } else if (data.type != "Sculptures") {
-                    db.collection("user").aggregate([{
-                        $match: {
-                            "name": check
-                        }
-          }, {
-                        $unwind: "$artwork"
-          }, {
-                        $match: {
-                            "artwork.name": {
-                                $exists: true
-                            },
-                            "artwork.type": data.type,
-                            "artwork.gprice": {
-                                $gte: data.minprice,
-                                $lte: data.maxprice
-                            },
-                            "artwork.height": {
-                                $gte: data.minheight,
-                                $lte: data.maxheight
-                            },
-                            "artwork.width": {
-                                $gte: data.minwidth,
-                                $lte: data.maxwidth
-                            },
-                            "artwork.subtype.name": checkmedium
-                        }
           }, {
                         $group: {
                             _id: "$_id",
@@ -939,146 +896,7 @@ module.exports = {
           }, {
                             $unwind: "$artwork"
           }, {
-                            $match: {
-                                "artwork.name": {
-                                    $exists: true
-                                },
-                                "artwork.type": data.type,
-                                "artwork.gprice": {
-                                    $gte: data.minprice,
-                                    $lte: data.maxprice
-                                },
-                                "artwork.height": {
-                                    $gte: data.minheight,
-                                    $lte: data.maxheight
-                                },
-                                "artwork.width": {
-                                    $gte: data.minwidth,
-                                    $lte: data.maxwidth
-                                },
-                                "artwork.subtype.name": checkmedium
-                            }
-          }, {
-                            $project: {
-                                name: 1,
-                                artwork: 1
-                            }
-          }, {
-                            $sort: sort
-            }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
-                            function (err, found) {
-                                if (found && found[0]) {
-                                    newreturns.data = found;
-                                    callback(newreturns);
-                                    db.close();
-                                } else if (err) {
-                                    console.log(err);
-                                    callback({
-                                        value: false
-                                    });
-                                    db.close();
-                                } else {
-                                    callback({
-                                        value: false,
-                                        comment: "No data found."
-                                    });
-                                    db.close();
-                                }
-                            });
-                    }
-                } else if (data.type == "Sculptures") {
-                    db.collection("user").aggregate([{
-                        $match: {
-                            "name": check
-                        }
-          }, {
-                        $unwind: "$artwork"
-          }, {
-                        $match: {
-                            "artwork.name": {
-                                $exists: true
-                            },
-                            "artwork.type": data.type,
-                            "artwork.gprice": {
-                                $gte: data.minprice,
-                                $lte: data.maxprice
-                            },
-                            "artwork.height": {
-                                $gte: data.minheight,
-                                $lte: data.maxheight
-                            },
-                            "artwork.width": {
-                                $gte: data.minwidth,
-                                $lte: data.maxwidth
-                            },
-                            "artwork.breadth": {
-                                $gte: data.minbreadth,
-                                $lte: data.maxbreadth
-                            },
-                            "artwork.subtype.name": checkmedium
-                        }
-          }, {
-                        $group: {
-                            _id: "$_id",
-                            count: {
-                                $sum: 1
-                            }
-                        }
-          }, {
-                        $project: {
-                            count: 1
-                        }
-          }]).toArray(function (err, result) {
-                        if (result && result[0]) {
-                            newreturns.total = result[0].count;
-                            newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
-                            callbackfunc1();
-                        } else if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "Count of null."
-                            });
-                            db.close();
-                        }
-                    });
-
-                    function callbackfunc1() {
-                        db.collection("user").aggregate([{
-                            $match: {
-                                "name": check
-                            }
-          }, {
-                            $unwind: "$artwork"
-          }, {
-                            $match: {
-                                "artwork.name": {
-                                    $exists: true
-                                },
-                                "artwork.type": data.type,
-                                "artwork.gprice": {
-                                    $gte: data.minprice,
-                                    $lte: data.maxprice
-                                },
-                                "artwork.height": {
-                                    $gte: data.minheight,
-                                    $lte: data.maxheight
-                                },
-                                "artwork.width": {
-                                    $gte: data.minwidth,
-                                    $lte: data.maxwidth
-                                },
-                                "artwork.breadth": {
-                                    $gte: data.minbreadth,
-                                    $lte: data.maxbreadth
-                                },
-                                "artwork.subtype.name": checkmedium
-                            }
+                            $match: matchobj
           }, {
                             $project: {
                                 name: 1,
