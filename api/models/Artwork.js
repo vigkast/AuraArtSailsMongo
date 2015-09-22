@@ -818,10 +818,6 @@ module.exports = {
                             $gte: data.minwidth,
                             $lte: data.maxwidth
                         },
-                        "artwork.breadth": {
-                            $gte: data.minbreadth,
-                            $lte: data.maxbreadth
-                        },
                         "artwork.subtype.name": checkmedium
                     };
                     callbackfunc1();
@@ -842,6 +838,10 @@ module.exports = {
                         "artwork.width": {
                             $gte: data.minwidth,
                             $lte: data.maxwidth
+                        },
+                        "artwork.breadth": {
+                            $gte: data.minbreadth,
+                            $lte: data.maxbreadth
                         },
                         "artwork.subtype.name": checkmedium
                     };
