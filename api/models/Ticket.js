@@ -11,43 +11,43 @@ module.exports = {
                 data.user[i] = sails.ObjectID(data.user[i]);
             }
         }
-        if (!data._id) {
-            data._id = sails.ObjectID();
-            sails.query(function (err, db) {
-                var exit = 0;
-                var exitup = 0;
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
-                }
-                var cticket = db.collection('ticket').insert(data, function (err, created) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false
-                        });
-                    }
-                    if (created) {
-                        callback({
-                            value: true
-                        });
-                    }
+        sails.query(function (err, db) {
+            var exit = 0;
+            var exitup = 0;
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
                 });
-            });
-        } else {
-            sails.query(function (err, db) {
-                var ticket = sails.ObjectID(data._id);
-                delete data._id
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
+            }
+            if (db) {
+                if (!data._id) {
+                    data._id = sails.ObjectID();
+                    db.collection('ticket').insert(data, function (err, created) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else if (created) {
+                            callback({
+                                value: true,
+                                id: data._id
+                            });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "Not created"
+                            });
+                            db.close();
+                        }
                     });
-                }
-                if (db) {
-                    var cticket = db.collection('ticket').update({
+                } else {
+                    var ticket = sails.ObjectID(data._id);
+                    delete data._id;
+                    db.collection('ticket').update({
                         _id: ticket
                     }, {
                         $set: data
@@ -57,16 +57,24 @@ module.exports = {
                             callback({
                                 value: false
                             });
-                        }
-                        if (updated) {
+                            db.close();
+                        } else if (updated) {
                             callback({
-                                value: true
+                                value: true,
+                                id: data._id
                             });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "Not updated"
+                            });
+                            db.close();
                         }
                     });
                 }
-            });
-        }
+            }
+        });
     },
     findlimited: function (data, callback) {
         var newcallback = 0;
@@ -88,36 +96,50 @@ module.exports = {
                         '$regex': check
                     }
                 }, function (err, number) {
-                    newreturns.total = number;
-                    newreturns.totalpages = Math.ceil(number / data.pagesize);
-                    newcallback++;
-                    if (newcallback == 2) {
-                        callback(newreturns);
-                    }
-
-                });
-                db.collection("ticket").find({
-                    artist: {
-                        '$regex': check
-                    }
-                }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
-                    if (err) {
+                    if (number) {
+                        newreturns.total = number;
+                        newreturns.totalpages = Math.ceil(number / data.pagesize);
+                        callbackfunc();
+                    } else if (err) {
                         callback({
                             value: false
                         });
                         console.log(err);
-                    }
-                    if (found != null) {
-                        newreturns.data.push(found);
+                        db.close();
                     } else {
-                        if (found == null) {
-                            newcallback++;
-                            if (newcallback == 2) {
-                                callback(newreturns);
-                            }
-                        }
+                        callback({
+                            value: false,
+                            comment: "Count of null"
+                        });
+                        db.close()
                     }
                 });
+
+                function callbackfunc() {
+                    db.collection("ticket").find({
+                        artist: {
+                            '$regex': check
+                        }
+                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
+                        if (err) {
+                            callback({
+                                value: false
+                            });
+                            console.log(err);
+                            db.close();
+                        } else if (found != null) {
+                            newreturns.data = found;
+                            callback(newreturns);
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "Data not found"
+                            });
+                            db.close();
+                        }
+                    });
+                }
             }
         });
     },
@@ -131,19 +153,22 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("ticket").find({}, {}).each(function (err, found) {
+                db.collection("ticket").find({}, {}).toArray(function (err, found) {
                     if (err) {
                         callback({
                             value: false
                         });
                         console.log(err);
-                    }
-                    if (found != null) {
-                        returns.push(found);
+                        db.close();
+                    } else if (found && found[0]) {
+                        callback(found);
+                        db.close();
                     } else {
-                        if (found == null) {
-                            callback(returns);
-                        }
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
                     }
                 });
             }
@@ -160,15 +185,22 @@ module.exports = {
             if (db) {
                 db.collection("ticket").find({
                     "_id": sails.ObjectID(data._id)
-                }, {}).each(function (err, data) {
+                }, {}).toArray(function (err, data) {
                     if (err) {
                         console.log(err);
                         callback({
                             value: false
                         });
-                    }
-                    if (data != null) {
-                        callback(data);
+                        db.close();
+                    } else if (data && data[0]) {
+                        callback(data[0]);
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
                     }
                 });
             }
@@ -189,12 +221,19 @@ module.exports = {
                     callback({
                         value: true
                     });
-                }
-                if (err) {
+                    db.close();
+                } else if (err) {
                     console.log(err);
                     callback({
                         value: false
                     });
+                    db.close();
+                } else {
+                    callback({
+                        value: false,
+                        comment: "Not deleted"
+                    });
+                    db.close();
                 }
             });
         });
@@ -209,8 +248,21 @@ module.exports = {
             }
             if (db) {
                 db.collection("ticket").count({}, function (err, number) {
-                    if (number != null) {
+                    if (number) {
                         callback(number);
+                        db.close();
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "Not deleted"
+                        });
+                        db.close();
                     }
                 });
             }

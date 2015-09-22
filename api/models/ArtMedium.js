@@ -29,7 +29,7 @@ module.exports = {
                             callback(data2);
                             db.close();
                         } else {
-                            var cartmedium = db.collection('artmedium').insert(data, function (err, created) {
+                            db.collection('artmedium').insert(data, function (err, created) {
                                 if (err) {
                                     console.log(err);
                                     callback({
@@ -56,7 +56,7 @@ module.exports = {
                     if (data._id && sails.ObjectID.isValid(data._id)) {
                         var artmedium = sails.ObjectID(data._id);
                         delete data._id;
-                        var cartmedium = db.collection('artmedium').update({
+                        db.collection('artmedium').update({
                             _id: artmedium
                         }, {
                             $set: data
@@ -280,20 +280,20 @@ module.exports = {
                 callback({
                     value: false
                 });
-
             }
             if (db) {
                 db.collection("artmedium").find({
                     "_id": sails.ObjectID(data._id)
-                }, {}).each(function (err, data) {
+                }, {}).toArray(function (err, data2) {
                     if (err) {
                         console.log(err);
                         callback({
                             value: false
                         });
                         db.close();
-                    } else if (data != null) {
-                        callback(data);
+                    } else if (data2 && data2[0]) {
+                        callback(data2[0]);
+                        db.close();
                     } else {
                         callback({
                             value: false,
@@ -341,6 +341,7 @@ module.exports = {
         var newdata = {};
         newdata.name = data.mediumname;
         newdata._id = sails.ObjectID();
+        newdata.category=data.type;
         sails.query(function (err, db) {
             var exit = 0;
             var exitup = 0;
@@ -361,7 +362,7 @@ module.exports = {
                             value: false
                         });
                         db.close();
-                    } else if (data2 != null) {
+                    } else if (data2 && data2 != null) {
                         exitup++;
                         callback(data2._id);
                         db.close();

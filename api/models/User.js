@@ -977,7 +977,7 @@ module.exports = {
                             value: false
                         });
                         db.close();
-                    } else if (data2 != null) {
+                    } else if (data2 && data2 != null) {
                         exitup++;
                         callback(data2._id);
                         db.close();

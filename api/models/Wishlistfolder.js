@@ -9,16 +9,16 @@ module.exports = {
     save: function (data, callback) {
         var user = sails.ObjectID(data.user);
         delete data.user;
-        if (!data._id) {
-            data._id = sails.ObjectID();
-            sails.query(function (err, db) {
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
-                }
-                if (db) {
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                if (!data._id) {
+                    data._id = sails.ObjectID();
                     if (!data.creationtime) {
                         data.creationtime = data._id.getTimestamp();
                     }
@@ -35,36 +35,32 @@ module.exports = {
                             callback({
                                 value: false
                             });
-                        }
-                        if (updated) {
+                            db.close();
+                        } else if (updated) {
                             callback({
-                                value: true
+                                value: true,
+                                id: data._id
                             });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "Not created"
+                            });
+                            db.close();
                         }
                     });
-                }
-            });
-        } else {
-            data._id = sails.ObjectID(data._id);
-            if (!data.modifytime) {
-                var dummy = sails.ObjectID();
-                data.modifytime = dummy.getTimestamp();
-            }
-            var tobechanged = {};
-            var attribute = "wishlistfolder.$.";
-            _.forIn(data, function (value, key) {
-                tobechanged[attribute + key] = value;
-            });
-
-            sails.query(function (err, db) {
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
+                } else {
+                    data._id = sails.ObjectID(data._id);
+                    if (!data.modifytime) {
+                        var dummy = sails.ObjectID();
+                        data.modifytime = dummy.getTimestamp();
+                    }
+                    var tobechanged = {};
+                    var attribute = "wishlistfolder.$.";
+                    _.forIn(data, function (value, key) {
+                        tobechanged[attribute + key] = value;
                     });
-                }
-                if (db) {
-
                     db.collection("user").update({
                         "_id": user,
                         "wishlistfolder._id": data._id
@@ -76,16 +72,24 @@ module.exports = {
                             callback({
                                 value: false
                             });
-                        }
-                        if (updated) {
+                            db.close();
+                        } else if (updated) {
                             callback({
-                                value: true
+                                value: true,
+                                id: data._id
                             });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "Not updated"
+                            });
+                            db.close();
                         }
                     });
                 }
-            });
-        }
+            }
+        });
     },
     delete: function (data, callback) {
         var user = sails.ObjectID(data.user);
@@ -114,11 +118,18 @@ module.exports = {
                         callback({
                             value: false
                         });
-                    }
-                    if (updated) {
+                        db.close();
+                    } else if (updated) {
                         callback({
                             value: true
                         });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "Not deleted"
+                        });
+                        db.close();
                     }
                 });
             }
@@ -139,15 +150,22 @@ module.exports = {
                     "wishlistfolder._id": sails.ObjectID(data._id)
                 }, {
                     "wishlistfolder.$": 1
-                }).each(function (err, data2) {
-                    if (data2 != null) {
-                        callback(data2.wishlistfolder[0]);
-                    }
-                    if (err) {
+                }).toArray(function (err, data2) {
+                    if (data2 && data2[0] && data2[0].wishlistfolder && data2[0].wishlistfolder[0]) {
+                        callback(data2[0].wishlistfolder[0]);
+                        db.close();
+                    } else if (err) {
                         console.log(err);
                         callback({
                             value: false
                         });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
                     }
                 });
             }
@@ -187,18 +205,24 @@ module.exports = {
                             wishlistfolder: 1
                         }
                     }
-                ]).toArray(
-                    function (err, data) {
-                        if (data != null) {
-                            callback(data);
-                        }
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                        }
-                    });
+                ]).toArray(function (err, data2) {
+                    if (data2 && data2[0]) {
+                        callback(data2);
+                        db.close();
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
             }
         });
     },
@@ -256,16 +280,22 @@ module.exports = {
                         }
                     }
                 ]).toArray(function (err, result) {
-                    if (result[0]) {
+                    if (result && result[0]) {
                         newreturns.total = result[0].count;
                         newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
-                        newcallback++;
-                    }
-                    if (err) {
+                        callbackfunc();
+                    } else if (err) {
                         console.log(err);
                         callback({
                             value: false
                         });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "Count of null"
+                        });
+                        db.close();
                     }
                 });
                 db.collection("user").aggregate([
@@ -300,16 +330,22 @@ module.exports = {
                     }
                 ]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
                     function (err, found) {
-                        if (found != null) {
+                        if (found && found[0]) {
                             newreturns.data = found;
                             callback(newreturns);
-
-                        }
-                        if (err) {
+                            db.close();
+                        } else if (err) {
                             console.log(err);
                             callback({
                                 value: false
                             });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "No data found"
+                            });
+                            db.close();
                         }
                     });
             }
@@ -392,15 +428,22 @@ module.exports = {
                     "wishlistfolder.password": data.password
                 }, {
                     "wishlistfolder.$": 1
-                }).each(function (err, data2) {
-                    if (data2 != null) {
-                        callback(data2.wishlistfolder[0]);
-                    }
-                    if (err) {
+                }).toArray(function (err, data2) {
+                    if (data2 && data2[0]) {
+                        callback(data2[0].wishlistfolder[0]);
+                        db.close();
+                    } else if (err) {
                         console.log(err);
                         callback({
                             value: false
                         });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
                     }
                 });
             }

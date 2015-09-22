@@ -8,43 +8,39 @@ module.exports = {
     save: function (data, callback) {
         var dummy = sails.ObjectID();
         data.timestamp = dummy.getTimestamp();
-        if (!data._id) {
-            data._id = sails.ObjectID();
-            sails.query(function (err, db) {
-                var exit = 0;
-                var exitup = 0;
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
-                }
-                var chtmlpage = db.collection('htmlpage').insert(data, function (err, created) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false
-                        });
-                    }
-                    if (created) {
-                        callback({
-                            value: true
-                        });
-                    }
+        data._id = sails.ObjectID();
+        sails.query(function (err, db) {
+            var exit = 0;
+            var exitup = 0;
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
                 });
-            });
-        } else {
-            sails.query(function (err, db) {
-                var htmlpage = sails.ObjectID(data._id);
-                delete data._id
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
+            } else if (db) {
+                if (!data._id) {
+                    db.collection('htmlpage').insert(data, function (err, created) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else if (created) {
+                            callback({
+                                value: true
+                            });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "Not created"
+                            });
+                            db.close();
+                        }
                     });
-                }
-                if (db) {
-                    var chtmlpage = db.collection('htmlpage').update({
+                } else {
+                    db.collection('htmlpage').update({
                         _id: htmlpage
                     }, {
                         $set: data
@@ -54,16 +50,23 @@ module.exports = {
                             callback({
                                 value: false
                             });
-                        }
-                        if (updated) {
+                            db.close();
+                        } else if (updated) {
                             callback({
                                 value: true
                             });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "Not updated"
+                            });
+                            db.close();
                         }
                     });
                 }
-            });
-        }
+            }
+        });
     },
     findlimited: function (data, callback) {
         var newcallback = 0;
@@ -85,36 +88,48 @@ module.exports = {
                         '$regex': check
                     }
                 }, function (err, number) {
-                    newreturns.total = number;
-                    newreturns.totalpages = Math.ceil(number / data.pagesize);
-                    newcallback++;
-                    if (newcallback == 2) {
-                        callback(newreturns);
-                    }
-
-                });
-                db.collection("htmlpage").find({
-                    title: {
-                        '$regex': check
-                    }
-                }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).each(function (err, found) {
-                    if (err) {
+                    if (number) {
+                        newreturns.total = number;
+                        newreturns.totalpages = Math.ceil(number / data.pagesize);
+                        callbackfunc();
+                    } else if (err) {
                         callback({
                             value: false
                         });
-                        console.log(err);
-                    }
-                    if (found != null) {
-                        newreturns.data.push(found);
+                        db.close();
                     } else {
-                        if (found == null) {
-                            newcallback++;
-                            if (newcallback == 2) {
-                                callback(newreturns);
-                            }
-                        }
+                        callback({
+                            value: false,
+                            comment: "Count of null"
+                        });
+                        db.close();
                     }
                 });
+
+                function callbackfunc() {
+                    db.collection("htmlpage").find({
+                        title: {
+                            '$regex': check
+                        }
+                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
+                        if (found && found[0]) {
+                            newreturns.data = found;
+                            callback(newreturns);
+                            db.close();
+                        } else if (err) {
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "Count of null"
+                            });
+                            db.close();
+                        }
+                    });
+                }
             }
         });
     },
@@ -128,19 +143,23 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("htmlpage").find({}, {}).each(function (err, found) {
+                db.collection("htmlpage").find({}, {}).toArray(function (err, found) {
                     if (err) {
                         callback({
                             value: false
                         });
                         console.log(err);
+                        db.close();
                     }
-                    if (found != null) {
-                        returns.push(found);
+                    if (found && found[0]) {
+                        callback(found);
+                        db.close();
                     } else {
-                        if (found == null) {
-                            callback(returns);
-                        }
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
                     }
                 });
             }
@@ -157,15 +176,21 @@ module.exports = {
             if (db) {
                 db.collection("htmlpage").find({
                     "_id": sails.ObjectID(data._id)
-                }, {}).each(function (err, data) {
-                    if (err) {
-                        console.log(err);
+                }, {}).toArray(function (err, data2) {
+                    if (data2 && data2[0]) {
+                        callback(data2);
+                        db.close();
+                    } else if (err) {
                         callback({
                             value: false
                         });
-                    }
-                    if (data != null) {
-                        callback(data);
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
                     }
                 });
             }
@@ -186,12 +211,19 @@ module.exports = {
                     callback({
                         value: true
                     });
-                }
-                if (err) {
+                    db.close();
+                } else if (err) {
                     console.log(err);
                     callback({
                         value: false
                     });
+                    db.close();
+                } else {
+                    callback({
+                        value: false,
+                        comment: "Not deleted"
+                    });
+                    db.close();
                 }
             });
         });
@@ -208,6 +240,18 @@ module.exports = {
                 db.collection("htmlpage").count({}, function (err, number) {
                     if (number != null) {
                         callback(number);
+                        db.close();
+                    } else if (err) {
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
                     }
                 });
             }

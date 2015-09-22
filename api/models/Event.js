@@ -1,32 +1,22 @@
 /**
- * Order.js
+ * Event.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 module.exports = {
     save: function (data, callback) {
-        var dummy = sails.ObjectID();
-        data.timestamp = dummy.getTimestamp();
-        data.discountcoupon = sails.ObjectID(data.discountcoupon);
-        if (data.artwork) {
-            for (var i = 0; i < data.artwork.length; i++) {
-                data.artwork[i] = sails.ObjectID(data.artwork[i]);
-            }
-        }
+
         data._id = sails.ObjectID();
         sails.query(function (err, db) {
-            var exit = 0;
-            var exitup = 0;
             if (err) {
                 console.log(err);
                 callback({
                     value: false
                 });
-            }
-            if (db) {
+            } else if (db) {
                 if (!data._id) {
-                    db.collection('order').insert(data, function (err, created) {
+                    db.collection('event').insert(data, function (err, created) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -41,16 +31,14 @@ module.exports = {
                         } else {
                             callback({
                                 value: false,
-                                comment: "Not created"
+                                commment: "Not created"
                             });
                             db.close();
                         }
                     });
                 } else {
-                    sails.ObjectID(data._id);
-                    delete data._id;
-                    db.collection('order').update({
-                        _id: order
+                    db.collection('event').update({
+                        _id: event
                     }, {
                         $set: data
                     }, function (err, updated) {
@@ -68,7 +56,7 @@ module.exports = {
                         } else {
                             callback({
                                 value: false,
-                                comment: "Not updated"
+                                commment: "Not updated"
                             });
                             db.close();
                         }
@@ -90,9 +78,8 @@ module.exports = {
                 callback({
                     value: false
                 });
-            }
-            if (db) {
-                db.collection("order").count({
+            } else if (db) {
+                db.collection("event").count({
                     artist: {
                         '$regex': check
                     }
@@ -117,7 +104,7 @@ module.exports = {
                 });
 
                 function callbackfunc() {
-                    db.collection("order").find({
+                    db.collection("event").find({
                         artist: {
                             '$regex': check
                         }
@@ -127,7 +114,7 @@ module.exports = {
                                 value: false
                             });
                             console.log(err);
-                            db.close()
+                            db.close();
                         } else if (found && found[0]) {
                             newreturns.data = found;
                             callback(newreturns);
@@ -145,16 +132,14 @@ module.exports = {
         });
     },
     find: function (data, callback) {
-        var returns = [];
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
                     value: false
                 });
-            }
-            if (db) {
-                db.collection("order").find({}, {}).toArray(function (err, found) {
+            } else if (db) {
+                db.collection("event").find({}, {}).toArray(function (err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -182,19 +167,18 @@ module.exports = {
                 callback({
                     value: false
                 });
-            }
-            if (db) {
-                db.collection("order").find({
+            } else if (db) {
+                db.collection("event").find({
                     "_id": sails.ObjectID(data._id)
-                }, {}).toArray(function (err, data2) {
+                }, {}).toArray(function (err, found) {
                     if (err) {
-                        console.log(err);
                         callback({
                             value: false
                         });
+                        console.log(err);
                         db.close();
-                    } else if (data2 && data2[0]) {
-                        callback(data2[0]);
+                    } else if (found && found[0]) {
+                        callback(found[0]);
                         db.close();
                     } else {
                         callback({
@@ -214,48 +198,19 @@ module.exports = {
                 callback({
                     value: false
                 });
-            }
-            db.collection('order').remove({
-                _id: sails.ObjectID(data._id)
-            }, function (err, deleted) {
-                if (deleted) {
-                    callback({
-                        value: true
-                    });
-                    db.close();
-                } else if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
-                    db.close();
-                } else {
-                    callback({
-                        value: false,
-                        comment: "Not deleted"
-                    });
-                    db.close();
-                }
-            });
-        });
-    },
-    countorders: function (data, callback) {
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("order").count({}, function (err, number) {
-                    if (nummber && number != null) {
-                        callback(number);
-                        db.close();
-                    } else if (err) {
-                        console.log(err);
+            } else if (db) {
+                db.collection('event').remove({
+                    _id: sails.ObjectID(data._id)
+                }, function (err, deleted) {
+                    if (err) {
                         callback({
                             value: false
+                        });
+                        console.log(err);
+                        db.close();
+                    } else if (deleted) {
+                        callback({
+                            value: true
                         });
                         db.close();
                     } else {

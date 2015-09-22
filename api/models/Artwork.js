@@ -174,7 +174,7 @@ module.exports = {
                     }, {
                         "artwork.$": 1
                     }).toArray(function (err, data2) {
-                        if (data2 != null) {
+                        if (data2 && data2[0] && data2[0].artwork && data2[0].artwork[0]) {
                             callback(data2[0].artwork[0]);
                             db.close();
                         } else if (err) {
@@ -231,7 +231,7 @@ module.exports = {
                             artwork: 1
                         }
         }]).toArray(function (err, data2) {
-                        if (data2 != null) {
+                        if (data2 && data2[0] && data2[0].artwork && data2[0].artwork[0]) {
                             callback(data2);
                             db.close();
                         } else if (err) {
@@ -286,7 +286,7 @@ module.exports = {
                         artwork: 1
                     }
         }]).toArray(function (err, data2) {
-                    if (data2 != null) {
+                    if (data2 && data2[0] && data2[0].artwork && data2[0].artwork[0]) {
                         callback(data2);
                         db.close();
                     } else if (err) {
