@@ -918,6 +918,7 @@ module.exports = {
                             $match: matchobj
           }, {
                             $project: {
+                                name:1,
                                 artwork: 1
                             }
           }, {
