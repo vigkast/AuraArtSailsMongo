@@ -154,7 +154,7 @@ module.exports = {
                                                             if (num < result.length) {
                                                                 setTimeout(function () {
                                                                     createart(num);
-                                                                }, 250);
+                                                                }, 350);
                                                             } else {
                                                                 res.json("Done");
                                                             }
