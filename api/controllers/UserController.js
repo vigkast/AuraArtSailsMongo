@@ -94,38 +94,65 @@ module.exports = {
                                                     mediumdata.category = m.type;
                                                     m.subtype.push(mediumdata);
                                                     delete m.mediumname;
-                                                    if (m.gprice && m.gprice != "") {
-                                                        var gprice = m.gprice.split(",");
-                                                        m.gprice = "";
-                                                        _.each(gprice, function (gp) {
-                                                            m.gprice += gp;
-                                                        });
-                                                        m.gprice = parseInt(m.gprice);
+                                                    if (m.gprice) {
+                                                        if (m.gprice != "") {
+                                                            var gprice = m.gprice.split(",");
+                                                            m.gprice = "";
+                                                            _.each(gprice, function (gp) {
+                                                                m.gprice += gp;
+                                                            });
+                                                            m.gprice = parseInt(m.gprice);
+                                                        } else {
+                                                            m.gprice = "N/A";
+                                                        }
                                                     }
-                                                    if (m.pricesq && m.pricesq != "") {
-                                                        var pricesq = m.pricesq.split(",");
-                                                        m.pricesq = "";
-                                                        _.each(pricesq, function (ps) {
-                                                            m.pricesq += ps;
-                                                        });
-                                                        m.pricesq = parseInt(m.pricesq);
+                                                    if (m.pricesq) {
+                                                        if (m.pricesq != "") {
+                                                            var pricesq = m.pricesq.split(",");
+                                                            m.pricesq = "";
+                                                            _.each(pricesq, function (ps) {
+                                                                m.pricesq += ps;
+                                                            });
+                                                            m.pricesq = parseInt(m.pricesq);
+                                                        } else {
+                                                            m.pricesq = "N/A";
+                                                        }
                                                     }
-                                                    if (m.price && m.price != "") {
-                                                        var price = m.price.split(",");
-                                                        m.price = "";
-                                                        _.each(price, function (p) {
-                                                            m.price += p;
-                                                        });
-                                                        m.price = parseInt(m.price);
+                                                    if (m.price) {
+                                                        if (m.price != "") {
+                                                            var price = m.price.split(",");
+                                                            m.price = "";
+                                                            _.each(price, function (p) {
+                                                                m.price += p;
+                                                            });
+                                                            m.price = parseInt(m.price);
+                                                        } else {
+                                                            m.price = "N/A";
+                                                        }
                                                     }
-                                                    if (m.height && m.height != "") {
-                                                        m.height = parseFloat(m.height);
+                                                    if (m.height) {
+                                                        if (m.height != "") {
+                                                            m.height = parseFloat(m.height);
+                                                        } else {
+                                                            m.height = "N/A";
+                                                        }
                                                     }
-                                                    if (m.breadth && m.breadth != "") {
-                                                        m.breadth = parseFloat(m.breadth);
+                                                    if (m.breadth) {
+                                                        if (m.breadth != "") {
+                                                            m.breadth = parseFloat(m.breadth);
+                                                        } else {
+                                                            m.breadth = "N/A";
+                                                        }
                                                     }
-                                                    if (m.width && m.width != "") {
-                                                        m.width = parseFloat(m.width);
+                                                    if (m.width) {
+                                                        if (m.width != "") {
+                                                            m.width = parseFloat(m.width);
+                                                        } else {
+                                                            m.width = "N/A";
+                                                        }
+                                                    }
+                                                    if (m.yoc && m.yoc == "") {
+                                                        m.yoc = "N/A";
                                                     }
                                                     m.imageno = m.imageno.split(";");
                                                     _.each(m.imageno, function (z) {
@@ -139,7 +166,7 @@ module.exports = {
                                                             if (num < result.length) {
                                                                 setTimeout(function () {
                                                                     createart(num);
-                                                                }, 250);
+                                                                }, 300);
                                                             } else {
                                                                 console.log("Done");
                                                             }
