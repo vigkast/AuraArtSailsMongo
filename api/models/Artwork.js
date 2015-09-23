@@ -738,14 +738,6 @@ module.exports = {
         });
     },
     artworktype: function (data, callback) {
-        var newcallback = 0;
-        var newreturns = {};
-        var check = new RegExp(data.search, "i");
-        var checkmedium = new RegExp(data.medium, "i");
-        var pagesize = data.pagesize;
-        var pagenumber = data.pagenumber;
-        var sort = {};
-        sort['artwork.' + data.filter] = data.sort;
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -754,9 +746,22 @@ module.exports = {
                 });
             }
             if (db) {
+                var newreturns = {};
+                var check = new RegExp(data.search, "i");
+                var checkmedium = new RegExp(data.medium, "i");
+                var pagesize = data.pagesize;
+                var pagenumber = data.pagenumber;
+                var user = sails.ObjectID(data.user);
+                var sortnum = parseInt(data.sort);
+                var sort = {};
+                sort['artwork.' + data.filter] = sortnum;
+
                 if (data.type == "") {
                     if (data.minbreadth == 0 && data.maxbreadth == 10000) {
                         var matchobj = {
+                            "name": {
+                                $regex: check
+                            },
                             "artwork.name": {
                                 $exists: true
                             },
@@ -772,11 +777,16 @@ module.exports = {
                                 $gte: data.minwidth,
                                 $lte: data.maxwidth
                             },
-                            "artwork.subtype.name": checkmedium
+                            "artwork.subtype.name": {
+                                $regex: checkmedium
+                            }
                         };
                         callbackfunc1();
                     } else {
                         var matchobj = {
+                            "name": {
+                                $regex: check
+                            },
                             "artwork.name": {
                                 $exists: true
                             },
@@ -796,12 +806,17 @@ module.exports = {
                                 $gte: data.minbreadth,
                                 $lte: data.maxbreadth
                             },
-                            "artwork.subtype.name": checkmedium
+                            "artwork.subtype.name": {
+                                $regex: checkmedium
+                            }
                         };
                         callbackfunc1();
                     }
                 } else if (data.type != "Sculptures") {
                     var matchobj = {
+                        "name": {
+                            $regex: check
+                        },
                         "artwork.name": {
                             $exists: true
                         },
@@ -818,11 +833,16 @@ module.exports = {
                             $gte: data.minwidth,
                             $lte: data.maxwidth
                         },
-                        "artwork.subtype.name": checkmedium
+                        "artwork.subtype.name": {
+                            $regex: checkmedium
+                        }
                     };
                     callbackfunc1();
                 } else if (data.type == "Sculptures") {
                     var matchobj = {
+                        "name": {
+                            $regex: check
+                        },
                         "artwork.name": {
                             $exists: true
                         },
@@ -843,23 +863,24 @@ module.exports = {
                             $gte: data.minbreadth,
                             $lte: data.maxbreadth
                         },
-                        "artwork.subtype.name": checkmedium
+                        "artwork.subtype.name": {
+                            $regex: checkmedium
+                        }
                     };
                     callbackfunc1();
                 }
 
+
                 function callbackfunc1() {
                     db.collection("user").aggregate([{
-                        $match: {
-                            "name": check
-                        }
+                        $match: matchobj
           }, {
                         $unwind: "$artwork"
           }, {
                         $match: matchobj
           }, {
                         $group: {
-                            _id: "$_id",
+                            _id: user,
                             count: {
                                 $sum: 1
                             }
@@ -890,40 +911,35 @@ module.exports = {
 
                     function callbackfunc() {
                         db.collection("user").aggregate([{
-                            $match: {
-                                "name": check
-                            }
+                            $match: matchobj
           }, {
                             $unwind: "$artwork"
           }, {
                             $match: matchobj
           }, {
                             $project: {
-                                name: 1,
                                 artwork: 1
                             }
           }, {
                             $sort: sort
-            }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
-                            function (err, found) {
-                                if (found && found[0]) {
-                                    newreturns.data = found;
-                                    callback(newreturns);
-                                    db.close();
-                                } else if (err) {
-                                    console.log(err);
-                                    callback({
-                                        value: false
-                                    });
-                                    db.close();
-                                } else {
-                                    callback({
-                                        value: false,
-                                        comment: "No data found."
-                                    });
-                                    db.close();
-                                }
-                            });
+          }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
+                            if (found && found[0]) {
+                                newreturns.data = found;
+                                callback(newreturns);
+                                db.close();
+                            } else if (err) {
+                                console.log(err);
+                                callback({
+                                    value: false
+                                });
+                                db.close();
+                            } else {
+                                callback({
+                                    value: false,
+                                    comment: "No data found."
+                                });
+                            }
+                        });
                     }
                 }
             }
