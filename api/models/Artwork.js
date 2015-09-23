@@ -758,30 +758,45 @@ module.exports = {
 
                 if (data.type == "") {
                     if (data.minbreadth == 0 && data.maxbreadth == 10000) {
-                        var matchobj = {
-                            "name": {
-                                $regex: check
-                            },
-                            "artwork.name": {
-                                $exists: true
-                            },
-                            "artwork.gprice": {
-                                $gte: data.minprice,
-                                $lte: data.maxprice
-                            },
-                            "artwork.height": {
-                                $gte: data.minheight,
-                                $lte: data.maxheight
-                            },
-                            "artwork.width": {
-                                $gte: data.minwidth,
-                                $lte: data.maxwidth
-                            },
-                            "artwork.subtype.name": {
-                                $regex: checkmedium
-                            }
-                        };
-                        callbackfunc1();
+                        if (data.minwidth == 0 && data.maxwidth == 10000 && data.minprice == 0 && data.maxprice == 10000000 && data.minheight = 0 && data.maxheight == 10000) {
+                            var matchobj = {
+                                "name": {
+                                    $regex: check
+                                },
+                                "artwork.name": {
+                                    $exists: true
+                                },
+                                "artwork.subtype.name": {
+                                    $regex: checkmedium
+                                }
+                            };
+                            callbackfunc1();
+                        } else {
+                            var matchobj = {
+                                "name": {
+                                    $regex: check
+                                },
+                                "artwork.name": {
+                                    $exists: true
+                                },
+                                "artwork.gprice": {
+                                    $gte: data.minprice,
+                                    $lte: data.maxprice
+                                },
+                                "artwork.height": {
+                                    $gte: data.minheight,
+                                    $lte: data.maxheight
+                                },
+                                "artwork.width": {
+                                    $gte: data.minwidth,
+                                    $lte: data.maxwidth
+                                },
+                                "artwork.subtype.name": {
+                                    $regex: checkmedium
+                                }
+                            };
+                            callbackfunc1();
+                        }
                     } else {
                         var matchobj = {
                             "name": {
@@ -918,7 +933,7 @@ module.exports = {
                             $match: matchobj
           }, {
                             $project: {
-                                name:1,
+                                name: 1,
                                 artwork: 1
                             }
           }, {
