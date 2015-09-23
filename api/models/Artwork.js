@@ -759,7 +759,6 @@ module.exports = {
                 if (data.type == "") {
                     if (data.minbreadth == 0 && data.maxbreadth == 10000) {
                         if (data.minwidth == 0 && data.maxwidth == 10000 && data.minprice == 0 && data.maxprice == 10000000 && data.minheight == 0 && data.maxheight == 10000) {
-                            console.log("in if width");
                             var matchobj = {
                                 "name": {
                                     $regex: check
@@ -773,7 +772,6 @@ module.exports = {
                             };
                             callbackfunc1();
                         } else {
-                            console.log("in else width");
                             var matchobj = {
                                 "name": {
                                     $regex: check
@@ -830,63 +828,94 @@ module.exports = {
                         callbackfunc1();
                     }
                 } else if (data.type != "Sculptures") {
-                    var matchobj = {
-                        "name": {
-                            $regex: check
-                        },
-                        "artwork.name": {
-                            $exists: true
-                        },
-                        "artwork.type": data.type,
-                        "artwork.gprice": {
-                            $gte: data.minprice,
-                            $lte: data.maxprice
-                        },
-                        "artwork.height": {
-                            $gte: data.minheight,
-                            $lte: data.maxheight
-                        },
-                        "artwork.width": {
-                            $gte: data.minwidth,
-                            $lte: data.maxwidth
-                        },
-                        "artwork.subtype.name": {
-                            $regex: checkmedium
-                        }
-                    };
-                    callbackfunc1();
+                    if (data.minwidth == 0 && data.maxwidth == 10000 && data.minprice == 0 && data.maxprice == 10000000 && data.minheight == 0 && data.maxheight == 10000) {
+                        var matchobj = {
+                            "name": {
+                                $regex: check
+                            },
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.type": data.type,
+                            "artwork.subtype.name": {
+                                $regex: checkmedium
+                            }
+                        };
+                        callbackfunc1();
+                    } else {
+                        var matchobj = {
+                            "name": {
+                                $regex: check
+                            },
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.type": data.type,
+                            "artwork.gprice": {
+                                $gte: data.minprice,
+                                $lte: data.maxprice
+                            },
+                            "artwork.height": {
+                                $gte: data.minheight,
+                                $lte: data.maxheight
+                            },
+                            "artwork.width": {
+                                $gte: data.minwidth,
+                                $lte: data.maxwidth
+                            },
+                            "artwork.subtype.name": {
+                                $regex: checkmedium
+                            }
+                        };
+                        callbackfunc1();
+                    }
                 } else if (data.type == "Sculptures") {
-                    var matchobj = {
-                        "name": {
-                            $regex: check
-                        },
-                        "artwork.name": {
-                            $exists: true
-                        },
-                        "artwork.type": "Sculptures",
-                        "artwork.gprice": {
-                            $gte: data.minprice,
-                            $lte: data.maxprice
-                        },
-                        "artwork.height": {
-                            $gte: data.minheight,
-                            $lte: data.maxheight
-                        },
-                        "artwork.width": {
-                            $gte: data.minwidth,
-                            $lte: data.maxwidth
-                        },
-                        "artwork.breadth": {
-                            $gte: data.minbreadth,
-                            $lte: data.maxbreadth
-                        },
-                        "artwork.subtype.name": {
-                            $regex: checkmedium
-                        }
-                    };
-                    callbackfunc1();
+                    if (data.minwidth == 0 && data.maxwidth == 10000 && data.minprice == 0 && data.maxprice == 10000000 && data.minheight == 0 && data.maxheight == 10000) {
+                        var matchobj = {
+                            "name": {
+                                $regex: check
+                            },
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.type": data.type,
+                            "artwork.subtype.name": {
+                                $regex: checkmedium
+                            }
+                        };
+                        callbackfunc1();
+                    } else {
+                        var matchobj = {
+                            "name": {
+                                $regex: check
+                            },
+                            "artwork.name": {
+                                $exists: true
+                            },
+                            "artwork.type": data.type,
+                            "artwork.gprice": {
+                                $gte: data.minprice,
+                                $lte: data.maxprice
+                            },
+                            "artwork.height": {
+                                $gte: data.minheight,
+                                $lte: data.maxheight
+                            },
+                            "artwork.width": {
+                                $gte: data.minwidth,
+                                $lte: data.maxwidth
+                            },
+                            "artwork.breadth": {
+                                $gte: data.minbreadth,
+                                $lte: data.maxbreadth
+                            },
+                            "artwork.subtype.name": {
+                                $regex: checkmedium
+                            }
+                        };
+                        callbackfunc1();
+                    }
                 }
-
 
                 function callbackfunc1() {
                     db.collection("user").aggregate([{
