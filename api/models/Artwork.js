@@ -758,7 +758,7 @@ module.exports = {
 
                 if (data.type == "") {
                     if (data.minbreadth == 0 && data.maxbreadth == 10000) {
-                        if (data.minwidth == 0 && data.maxwidth == 10000 && data.minprice == 0 && data.maxprice == 10000000 && data.minheight = 0 && data.maxheight == 10000) {
+                        if (data.minwidth == 0 && data.maxwidth == 10000 && data.minprice == 0 && data.maxprice == 10000000 && data.minheight == 0 && data.maxheight == 10000) {
                             var matchobj = {
                                 "name": {
                                     $regex: check
