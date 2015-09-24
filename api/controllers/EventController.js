@@ -32,11 +32,11 @@ module.exports = {
         Event.findlimited(req.body, callback);
 
     },
-    findOne: function (req, res) {
+    findone: function (req, res) {
         function callback(data) {
             res.json(data);
         };
-        Event.findOne(req.body, callback);
+        Event.findone(req.body, callback);
     },
     findevents: function (req, res) {
         function callback(data) {

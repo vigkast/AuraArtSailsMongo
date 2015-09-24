@@ -6,8 +6,6 @@
  */
 module.exports = {
     save: function (data, callback) {
-
-        data._id = sails.ObjectID();
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -15,7 +13,9 @@ module.exports = {
                     value: false
                 });
             } else if (db) {
+                
                 if (!data._id) {
+                    data._id = sails.ObjectID();
                     db.collection('event').insert(data, function (err, created) {
                         if (err) {
                             console.log(err);
@@ -37,6 +37,8 @@ module.exports = {
                         }
                     });
                 } else {
+                    var event=sails.ObjectID(data._id);
+                    delete data._id;
                     db.collection('event').update({
                         _id: event
                     }, {
@@ -72,64 +74,107 @@ module.exports = {
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            } else if (db) {
-                db.collection("event").count({
-                    artist: {
+        if (data.year != "") {
+            if (data.year == "past") {
+                var matchobj = {
+                    name: {
                         '$regex': check
+                    },
+                    year: {
+                        $exists: true,
+                        $lt: parseInt(sails.moment().format("YYYY"))
                     }
-                }, function (err, number) {
-                    if (number && number != "") {
-                        newreturns.total = number;
-                        newreturns.totalpages = Math.ceil(number / data.pagesize);
-                        callbackfunc();
-                    } else if (err) {
-                        callback({
-                            value: false
-                        });
-                        console.log(err);
-                        db.close();
-                    } else {
-                        callback({
-                            value: false,
-                            comment: "Count of null"
-                        });
-                        db.close();
+                };
+                callbackfunc();
+            } else if (data.year == "present") {
+                var matchobj = {
+                    name: {
+                        '$regex': check
+                    },
+                    year: {
+                        $exists: true,
+                        $eq: parseInt(sails.moment().format("YYYY"))
                     }
-                });
+                };
+                callbackfunc();
+            } else if (data.year == "upcoming") {
+                var matchobj = {
+                    name: {
+                        '$regex': check
+                    },
+                    year: {
+                        $exists: true,
+                        $gt: parseInt(sails.moment().format("YYYY"))
+                    }
+                };
+                callbackfunc();
+            }
+        } else {
+            var matchobj = {
+                name: {
+                    '$regex': check
+                },
+                year: {
+                    $exists: true
+                }
+            };
+            callbackfunc();
+        }
 
-                function callbackfunc() {
-                    db.collection("event").find({
-                        artist: {
-                            '$regex': check
-                        }
-                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
-                        if (err) {
+        function callbackfunc() {
+            sails.query(function (err, db) {
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false
+                    });
+                } else if (db) {
+                    db.collection("event").count(matchobj, function (err, number) {
+                        if (number && number != "") {
+                            newreturns.total = number;
+                            newreturns.totalpages = Math.ceil(number / data.pagesize);
+                            callbackfunc1();
+                        } else if (err) {
                             callback({
                                 value: false
                             });
                             console.log(err);
                             db.close();
-                        } else if (found && found[0]) {
-                            newreturns.data = found;
-                            callback(newreturns);
-                            db.close();
                         } else {
                             callback({
                                 value: false,
-                                comment: "No data found"
+                                comment: "Count of null"
                             });
                             db.close();
                         }
                     });
+
+                    function callbackfunc1() {
+                        db.collection("event").find(matchobj).skip(pagesize * (pagenumber - 1)).sort({
+                            year: -1
+                        }).limit(pagesize).toArray(function (err, found) {
+                            if (err) {
+                                callback({
+                                    value: false
+                                });
+                                console.log(err);
+                                db.close();
+                            } else if (found && found[0]) {
+                                newreturns.data = found;
+                                callback(newreturns);
+                                db.close();
+                            } else {
+                                callback({
+                                    value: false,
+                                    comment: "No data found"
+                                });
+                                db.close();
+                            }
+                        });
+                    }
                 }
-            }
-        });
+            });
+        }
     },
     find: function (data, callback) {
         sails.query(function (err, db) {
@@ -161,6 +206,7 @@ module.exports = {
         });
     },
     findone: function (data, callback) {
+        console.log(data);
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -226,22 +272,28 @@ module.exports = {
     },
     findevents: function (data, callback) {
 
-        if (data && data.year && data.year == "past") {
+        if (data.year && data.year == "past") {
             var matchobj = {
-                $exists: true,
-                $lt: parseInt(sails.moment().format("YYYY"))
+                year: {
+                    $exists: true,
+                    $lt: parseInt(sails.moment().format("YYYY"))
+                }
             };
             callbackfunc();
-        } else if (data && data.year && data.year == "present") {
+        } else if (data.year && data.year == "present") {
             var matchobj = {
-                $exists: true,
-                $eq: parseInt(sails.moment().format("YYYY"))
+                year: {
+                    $exists: true,
+                    $eq: parseInt(sails.moment().format("YYYY"))
+                }
             };
             callbackfunc();
-        } else if (data && data.year && data.year == "upcoming") {
+        } else if (data.year && data.year == "upcoming") {
             var matchobj = {
-                $exists: true,
-                $gt: parseInt(sails.moment().format("YYYY"))
+                year: {
+                    $exists: true,
+                    $gt: parseInt(sails.moment().format("YYYY"))
+                }
             };
             callbackfunc();
         } else {
@@ -259,8 +311,8 @@ module.exports = {
                         value: false
                     });
                 } else if (db) {
-                    db.collection('event').find({
-                        year: matchobj
+                    db.collection('event').find(matchobj).sort({
+                        year: -1
                     }).toArray(function (err, data2) {
                         if (err) {
                             console.log(err);
