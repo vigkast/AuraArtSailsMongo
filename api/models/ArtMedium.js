@@ -17,7 +17,7 @@ module.exports = {
                 if (!data._id) {
                     data._id = sails.ObjectID();
                     db.collection("artmedium").find({
-                        "name": data.name
+                        name: data.name
                     }).toArray(function (err, data2) {
                         if (err) {
                             console.log(err);
@@ -283,7 +283,7 @@ module.exports = {
             }
             if (db) {
                 db.collection("artmedium").find({
-                    "_id": sails.ObjectID(data._id)
+                    _id: sails.ObjectID(data._id)
                 }, {}).toArray(function (err, data2) {
                     if (err) {
                         console.log(err);
@@ -354,7 +354,7 @@ module.exports = {
             if (db) {
                 exit++;
                 db.collection("artmedium").find({
-                    "name": data.mediumname
+                    name: data.mediumname
                 }).each(function (err, data2) {
                     if (err) {
                         console.log(err);

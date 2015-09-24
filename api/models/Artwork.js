@@ -121,7 +121,7 @@ module.exports = {
                     var dummy = sails.ObjectID();
                     data.modifytime = dummy.getTimestamp();
                     db.collection("user").update({
-                        "_id": user
+                        _id: user
                     }, {
                         $pull: {
                             "artwork": {
@@ -169,7 +169,7 @@ module.exports = {
                 }
                 if (db) {
                     db.collection("user").find({
-                        "_id": user,
+                        _id: user,
                         "artwork._id": sails.ObjectID(data._id)
                     }, {
                         "artwork.$": 1
@@ -760,7 +760,7 @@ module.exports = {
                     if (data.minbreadth == 0 && data.maxbreadth == 10000) {
                         if (data.minwidth == 0 && data.maxwidth == 10000 && data.minprice == 0 && data.maxprice == 10000000 && data.minheight == 0 && data.maxheight == 10000) {
                             var matchobj = {
-                                "name": {
+                                name: {
                                     $regex: check
                                 },
                                 "artwork.name": {
@@ -773,7 +773,7 @@ module.exports = {
                             callbackfunc1();
                         } else {
                             var matchobj = {
-                                "name": {
+                                name: {
                                     $regex: check
                                 },
                                 "artwork.name": {
@@ -799,7 +799,7 @@ module.exports = {
                         }
                     } else {
                         var matchobj = {
-                            "name": {
+                            name: {
                                 $regex: check
                             },
                             "artwork.name": {
@@ -830,7 +830,7 @@ module.exports = {
                 } else if (data.type != "Sculptures") {
                     if (data.minwidth == 0 && data.maxwidth == 10000 && data.minprice == 0 && data.maxprice == 10000000 && data.minheight == 0 && data.maxheight == 10000) {
                         var matchobj = {
-                            "name": {
+                            name: {
                                 $regex: check
                             },
                             "artwork.name": {
@@ -844,7 +844,7 @@ module.exports = {
                         callbackfunc1();
                     } else {
                         var matchobj = {
-                            "name": {
+                            name: {
                                 $regex: check
                             },
                             "artwork.name": {
@@ -872,7 +872,7 @@ module.exports = {
                 } else if (data.type == "Sculptures") {
                     if (data.minwidth == 0 && data.maxwidth == 10000 && data.minprice == 0 && data.maxprice == 10000000 && data.minheight == 0 && data.maxheight == 10000 && data.minbreadth == 0 && data.maxbreadth == 10000) {
                         var matchobj = {
-                            "name": {
+                            name: {
                                 $regex: check
                             },
                             "artwork.name": {
@@ -886,7 +886,7 @@ module.exports = {
                         callbackfunc1();
                     } else {
                         var matchobj = {
-                            "name": {
+                            name: {
                                 $regex: check
                             },
                             "artwork.name": {

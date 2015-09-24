@@ -215,7 +215,7 @@ module.exports = {
                 });
             } else if (db) {
                 db.collection("event").find({
-                    "_id": sails.ObjectID(data._id)
+                    _id: sails.ObjectID(data._id)
                 }, {}).toArray(function (err, found) {
                     if (err) {
                         callback({

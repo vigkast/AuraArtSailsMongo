@@ -49,9 +49,6 @@ module.exports = {
         }
     },
     save: function (data, callback) {
-        var matchobj = {
-            email: data.email
-        };
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -65,7 +62,9 @@ module.exports = {
                 }
                 if (!data._id) {
                     data._id = sails.ObjectID();
-                    db.collection("user").find(matchobj).toArray(function (err, data2) {
+                    db.collection("user").findOne({
+                        email: data.email
+                    }).toArray(function (err, data2) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -74,7 +73,6 @@ module.exports = {
                             });
                             db.close();
                         } else if (data2 && data2[0]) {
-                            console.log(data2[0].email);
                             callback({
                                 value: false,
                                 comment: "User already exists"
@@ -377,7 +375,7 @@ module.exports = {
                 }
                 if (db) {
                     db.collection("user").find({
-                        "_id": sails.ObjectID(data._id)
+                        _id: sails.ObjectID(data._id)
                     }, {
                         password: 0,
                         forgotpassword: 0
@@ -410,9 +408,6 @@ module.exports = {
         }
     },
     searchmail: function (data, callback) {
-        var matchobj = {
-            email: data.email
-        };
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -421,7 +416,9 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("user").find(matchobj).toArray(function (err, data2) {
+                db.collection("user").find({
+                    email: data.email
+                }).toArray(function (err, data2) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -430,12 +427,14 @@ module.exports = {
                         db.close();
                     } else if (data2 && data2[0]) {
                         callback({
-                            value: true
+                            value: true,
+                            comment: "User found"
                         });
                         db.close();
                     } else {
                         callback({
-                            value: false
+                            value: false,
+                            comment: "No user found"
                         });
                         db.close();
                     }
@@ -588,12 +587,12 @@ module.exports = {
                         db.close();
                     } else if (data.editpassword && data.editpassword != "") {
                         db.collection('user').update({
-                            "_id": user,
-                            "email": data.email,
-                            "password": data.password
+                            _id: user,
+                            email: data.email,
+                            password: data.password
                         }, {
                             $set: {
-                                "password": newpass
+                                password: newpass
                             }
                         }, function (err, updated) {
                             if (err) {
@@ -864,7 +863,7 @@ module.exports = {
             if (db) {
                 exit++;
                 db.collection("user").find({
-                    "name": data.username
+                    name: data.username
                 }).each(function (err, data2) {
                     if (err) {
                         console.log(err);
