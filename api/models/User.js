@@ -68,12 +68,14 @@ module.exports = {
                         if (err) {
                             console.log(err);
                             callback({
-                                value: false
+                                value: false,
+                                comment: "Error"
                             });
                             db.close();
                         } else if (data2 && data2[0]) {
                             callback({
-                                value: false
+                                value: false,
+                                comment "User already exists"
                             });
                             db.close();
                         } else {
@@ -81,7 +83,8 @@ module.exports = {
                                 if (err) {
                                     console.log(err);
                                     callback({
-                                        value: false
+                                        value: false,
+                                        comment: "Error"
                                     });
                                     db.close();
                                 } else if (created) {
@@ -92,7 +95,8 @@ module.exports = {
                                     db.close();
                                 } else {
                                     callback({
-                                        value: false
+                                        value: false,
+                                        comment: "Error"
                                     });
                                     db.close();
                                 }
@@ -111,7 +115,8 @@ module.exports = {
                             if (err) {
                                 console.log(err);
                                 callback({
-                                    value: false
+                                    value: false,
+                                    comment: "Error"
                                 });
                                 db.close();
                             } else if (updated) {
@@ -121,7 +126,8 @@ module.exports = {
                                 db.close();
                             } else {
                                 callback({
-                                    value: false
+                                    value: false,
+                                    comment: "Error"
                                 });
                                 db.close();
                             }
