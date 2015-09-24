@@ -72,7 +72,8 @@ module.exports = {
                                 comment: "Error"
                             });
                             db.close();
-                        } else if (data2 && data2[0]) {
+                        } else if (data2 && data2[0].email) {
+                            console.log(data2);
                             callback({
                                 value: false,
                                 comment: "User already exists"
