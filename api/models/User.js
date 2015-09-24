@@ -427,6 +427,7 @@ module.exports = {
                         });
                         db.close();
                     } else if (data2 && data2[0]) {
+                        console.log(data2[0]
                         callback({
                             value: true
                         });
