@@ -62,7 +62,7 @@ module.exports = {
                 }
                 if (!data._id) {
                     data._id = sails.ObjectID();
-                    db.collection("user").findOne({
+                    db.collection("user").find({
                         email: data.email
                     }).toArray(function (err, data2) {
                         if (err) {
