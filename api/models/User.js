@@ -49,6 +49,9 @@ module.exports = {
         }
     },
     save: function (data, callback) {
+        var matchobj = {
+            email: data.email
+        };
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -62,9 +65,7 @@ module.exports = {
                 }
                 if (!data._id) {
                     data._id = sails.ObjectID();
-                    db.collection("user").find({
-                        "email": data.email
-                    }).toArray(function (err, data2) {
+                    db.collection("user").find(matchobj).toArray(function (err, data2) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -269,7 +270,7 @@ module.exports = {
                     } else {
                         callback({
                             value: false,
-                            comment:"No user found"
+                            comment: "No user found"
                         });
                         db.close();
                     }
@@ -409,6 +410,9 @@ module.exports = {
         }
     },
     searchmail: function (data, callback) {
+        var matchobj = {
+            email: data.email
+        };
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -417,9 +421,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("user").find({
-                    "email": data.email
-                }).toArray(function (err, data2) {
+                db.collection("user").find(matchobj).toArray(function (err, data2) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -427,7 +429,6 @@ module.exports = {
                         });
                         db.close();
                     } else if (data2 && data2[0]) {
-                        console.log(data2[0]);
                         callback({
                             value: true
                         });
