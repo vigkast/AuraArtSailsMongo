@@ -75,7 +75,7 @@ module.exports = {
                         } else if (data2 && data2[0]) {
                             callback({
                                 value: false,
-                                comment "User already exists"
+                                comment: "User already exists"
                             });
                             db.close();
                         } else {
