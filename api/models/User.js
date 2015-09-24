@@ -72,7 +72,7 @@ module.exports = {
                                 comment: "Error"
                             });
                             db.close();
-                        } else if (data2 && data2[0].email) {
+                        } else if (data2 && data2[0]) {
                             console.log(data2);
                             callback({
                                 value: false,
@@ -268,7 +268,8 @@ module.exports = {
                         db.close();
                     } else {
                         callback({
-                            value: false
+                            value: false,
+                            comment:"No user found"
                         });
                         db.close();
                     }
