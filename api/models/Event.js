@@ -13,7 +13,7 @@ module.exports = {
                     value: false
                 });
             } else if (db) {
-                
+
                 if (!data._id) {
                     data._id = sails.ObjectID();
                     db.collection('event').insert(data, function (err, created) {
@@ -37,7 +37,7 @@ module.exports = {
                         }
                     });
                 } else {
-                    var event=sails.ObjectID(data._id);
+                    var event = sails.ObjectID(data._id);
                     delete data._id;
                     db.collection('event').update({
                         _id: event
@@ -271,36 +271,44 @@ module.exports = {
         });
     },
     findevents: function (data, callback) {
-
-        if (data.year && data.year == "past") {
-            var matchobj = {
-                year: {
-                    $exists: true,
-                    $lt: parseInt(sails.moment().format("YYYY"))
-                }
-            };
-            callbackfunc();
-        } else if (data.year && data.year == "present") {
-            var matchobj = {
-                year: {
-                    $exists: true,
-                    $eq: parseInt(sails.moment().format("YYYY"))
-                }
-            };
-            callbackfunc();
-        } else if (data.year && data.year == "upcoming") {
-            var matchobj = {
-                year: {
-                    $exists: true,
-                    $gt: parseInt(sails.moment().format("YYYY"))
-                }
-            };
-            callbackfunc();
+        if (data.year) {
+            if (data.year == "past") {
+                var matchobj = {
+                    year: {
+                        $exists: true,
+                        $lt: parseInt(sails.moment().format("YYYY"))
+                    }
+                };
+                callbackfunc();
+            } else if (data.year == "present") {
+                var matchobj = {
+                    year: {
+                        $exists: true,
+                        $eq: parseInt(sails.moment().format("YYYY"))
+                    }
+                };
+                callbackfunc();
+            } else if (data.year == "upcoming") {
+                var matchobj = {
+                    year: {
+                        $exists: true,
+                        $gt: parseInt(sails.moment().format("YYYY"))
+                    }
+                };
+                callbackfunc();
+            } else {
+                callback({
+                    value: false,
+                    comment: "Year cannot be empty"
+                });
+            }
         } else {
-            callback({
-                value: false,
-                comment: "Please provide year"
-            });
+            var matchobj = {
+                year: {
+                    $exists: true
+                }
+            };
+            callbackfunc();
         }
 
         function callbackfunc() {
