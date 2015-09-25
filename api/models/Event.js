@@ -271,7 +271,7 @@ module.exports = {
         });
     },
     findevents: function (data, callback) {
-        if (data.year) {
+        if (data.year && data.year != "") {
             if (data.year == "past") {
                 var matchobj = {
                     year: {
