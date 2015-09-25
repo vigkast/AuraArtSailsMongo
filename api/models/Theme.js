@@ -222,7 +222,6 @@ module.exports = {
         function callback2(exit, exitup, data) {
             if (exit == exitup) {
                 callback(data);
-                db.close();
             }
         }
         sails.query(function (err, db) {
@@ -335,59 +334,6 @@ module.exports = {
                     db.close();
                 }
             });
-        });
-    },
-    savemediumexcel: function (data, callback) {
-        var newdata = {};
-        newdata.name = data.mediumname;
-        newdata._id = sails.ObjectID();
-        sails.query(function (err, db) {
-            var exit = 0;
-            var exitup = 0;
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                exit++;
-                db.collection("theme").find({
-                    "name": data.mediumname
-                }).each(function (err, data2) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false
-                        });
-                        db.close();
-                    } else if (data2 != null) {
-                        exitup++;
-                        callback(data2._id);
-                        db.close();
-                    } else {
-                        if (exit != exitup) {
-                            db.collection('theme').insert(newdata, function (err, created) {
-                                if (err) {
-                                    console.log(err);
-                                    callback({
-                                        value: false
-                                    });
-                                    db.close();
-                                } else if (created) {
-                                    callback(newdata._id);
-                                    db.close();
-                                } else {
-                                    callback({
-                                        value: false
-                                    });
-                                    db.close();
-                                }
-                            });
-                        }
-                    }
-                });
-            }
         });
     }
 };

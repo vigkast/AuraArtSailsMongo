@@ -222,7 +222,6 @@ module.exports = {
         function callback2(exit, exitup, data) {
             if (exit == exitup) {
                 callback(data);
-                db.close();
             }
         }
         sails.query(function (err, db) {
