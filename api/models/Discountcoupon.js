@@ -6,10 +6,6 @@
  */
 module.exports = {
     save: function (data, callback) {
-        if (!data.creationtime) {
-            data.creationtime = data._id.getTimestamp();
-        }
-        data.modifytime = data.creationtime;
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -40,9 +36,6 @@ module.exports = {
                         }
                     });
                 } else {
-                    var dummy = sails.ObjectID();
-                    data.modifytime = dummy.getTimestamp();
-                    var discountcoupon = sails.ObjectID(data._id);
                     delete data._id;
                     db.collection('discountcoupon').update({
                         _id: discountcoupon
@@ -209,7 +202,7 @@ module.exports = {
                     value: false
                 });
             }
-            var cdiscountcoupon = db.collection('discountcoupon').remove({
+            db.collection('discountcoupon').remove({
                 _id: sails.ObjectID(data._id)
             }, function (err, deleted) {
                 if (deleted) {

@@ -20,9 +20,6 @@ module.exports = {
                     data._id = sails.ObjectID();
 
                     if (!data.creationtime) {
-                        data.creationtime = data._id.getTimestamp();
-                    }
-                    data.modifytime = data.creationtime;
                     db.collection("htmlpage").update({
                         _id: htmlpage
                     }, {
@@ -51,10 +48,6 @@ module.exports = {
                     });
                 } else {
                     data._id = sails.ObjectID(data._id);
-                    if (!data.modifytime) {
-                        var dummy = sails.ObjectID();
-                        data.modifytime = dummy.getTimestamp();
-                    }
                     var tobechanged = {};
                     var attribute = "metadata.$.";
                     _.forIn(data, function (value, key) {
@@ -100,16 +93,15 @@ module.exports = {
                     value: false
                 });
             } else if (db) {
-                var dummy = sails.ObjectID();
-                data.modifytime = dummy.getTimestamp();
                 db.collection("htmlpage").update({
-                    "_id": htmlpage,
-                    "metadata._id": data._id
-                }, {
-                    $set: {
-                        "metadata.$": data
-                    }
-                }, function (err, updated) {
+                        _id: user
+                    }, {
+                        $pull: {
+                            "metadata": {
+                                "_id": sails.ObjectID(data._id)
+                            }
+                        }
+                    }, function (err, updated) {
                     if (err) {
                         console.log(err);
                         callback({

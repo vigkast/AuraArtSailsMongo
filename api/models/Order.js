@@ -6,8 +6,6 @@
  */
 module.exports = {
     save: function (data, callback) {
-        var dummy = sails.ObjectID();
-        data.timestamp = dummy.getTimestamp();
         data.discountcoupon = sails.ObjectID(data.discountcoupon);
         if (data.artwork) {
             for (var i = 0; i < data.artwork.length; i++) {

@@ -6,8 +6,6 @@
  */
 module.exports = {
     save: function (data, callback) {
-        var dummy = sails.ObjectID();
-        data.timestamp = dummy.getTimestamp();
         data.product = sails.ObjectID(data.product);
         sails.query(function (err, db) {
             var exit = 0;

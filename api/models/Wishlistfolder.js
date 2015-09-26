@@ -19,10 +19,6 @@ module.exports = {
             if (db) {
                 if (!data._id) {
                     data._id = sails.ObjectID();
-                    if (!data.creationtime) {
-                        data.creationtime = data._id.getTimestamp();
-                    }
-                    data.modifytime = data.creationtime;
                     db.collection("user").update({
                         _id: user
                     }, {
@@ -52,10 +48,6 @@ module.exports = {
                     });
                 } else {
                     data._id = sails.ObjectID(data._id);
-                    if (!data.modifytime) {
-                        var dummy = sails.ObjectID();
-                        data.modifytime = dummy.getTimestamp();
-                    }
                     var tobechanged = {};
                     var attribute = "wishlistfolder.$.";
                     _.forIn(data, function (value, key) {
@@ -103,14 +95,13 @@ module.exports = {
                 });
             }
             if (db) {
-                var dummy = sails.ObjectID();
-                data.modifytime = dummy.getTimestamp();
                 db.collection("user").update({
-                    "_id": user,
-                    "wishlistfolder._id": data._id
+                    _id: user
                 }, {
-                    $set: {
-                        "wishlistfolder.$": data
+                    $pull: {
+                        "wishlistfolder": {
+                            "_id": sails.ObjectID(data._id)
+                        }
                     }
                 }, function (err, updated) {
                     if (err) {

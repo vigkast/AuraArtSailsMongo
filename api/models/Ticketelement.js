@@ -8,8 +8,6 @@
 module.exports = {
     save: function (data, callback) {
         var ticket = sails.ObjectID(data.ticket);
-        var dummy = sails.ObjectID();
-        data.timestamp = dummy.getTimestamp();
         data.user = sails.ObjectID(data.user);
         delete data.ticket;
         sails.query(function (err, db) {
@@ -22,11 +20,6 @@ module.exports = {
             if (db) {
                 if (!data._id) {
                     data._id = sails.ObjectID();
-
-                    if (!data.creationtime) {
-                        data.creationtime = data._id.getTimestamp();
-                    }
-                    data.modifytime = data.creationtime;
                     db.collection("ticket").update({
                         _id: ticket
                     }, {
@@ -55,10 +48,6 @@ module.exports = {
                     });
                 } else {
                     data._id = sails.ObjectID(data._id);
-                    if (!data.modifytime) {
-                        var dummy = sails.ObjectID();
-                        data.modifytime = dummy.getTimestamp();
-                    }
                     var tobechanged = {};
                     var attribute = "ticketelement.$.";
                     _.forIn(data, function (value, key) {
@@ -105,16 +94,15 @@ module.exports = {
                 });
             }
             if (db) {
-                var dummy = sails.ObjectID();
-                data.modifytime = dummy.getTimestamp();
                 db.collection("ticket").update({
-                    "_id": ticket,
-                    "ticketelement._id": data._id
-                }, {
-                    $set: {
-                        "ticketelement.$": data
-                    }
-                }, function (err, updated) {
+                        _id: ticket
+                    }, {
+                        $pull: {
+                            "ticketelement": {
+                                "_id": sails.ObjectID(data._id)
+                            }
+                        }
+                    }, function (err, updated) {
                     if (err) {
                         console.log(err);
                         callback({

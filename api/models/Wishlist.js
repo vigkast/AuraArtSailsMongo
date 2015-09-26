@@ -25,72 +25,46 @@ module.exports = {
             if (db) {
                 if (!data._id) {
                     data._id = sails.ObjectID();
-                    if (!data.creationtime) {
-                        data.creationtime = data._id.getTimestamp();
-                    }
-                    data.modifytime = data.creationtime;
-                    db.collection("user").update({
-                        _id: user
-                    }, {
-                        $push: {
-                            wishlist: data
-                        }
-                    }, function (err, updated) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (updated) {
-                            callback({
-                                value: true,
-                                id: data._id
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "Not created"
-                            });
-                            db.close();
-                        }
-                    });
-                } else {
-                    data._id = sails.ObjectID(data._id);
-                    if (!data.modifytime) {
-                        var dummy = sails.ObjectID();
-                        data.modifytime = dummy.getTimestamp();
-                    }
-                    var tobechanged = {};
-                    var attribute = "wishlist.$.";
-                    _.forIn(data, function (value, key) {
-                        tobechanged[attribute + key] = value;
-                    });
-                    db.collection("user").update({
+                    db.collection("user").find({
                         "_id": user,
-                        "wishlist._id": data._id
+                        "wishlist.artwork": sails.ObjectID(data.artwork)
                     }, {
-                        $set: tobechanged
-                    }, function (err, updated) {
+                        "wishlist.$": 1
+                    }).toArray(function (err, data2) {
                         if (err) {
                             console.log(err);
                             callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (updated) {
-                            callback({
-                                value: true,
-                                id: data._id
-                            });
-                            db.close();
-                        } else {
-                            callback({
                                 value: false,
-                                comment: "Not updated"
+                                comment: "Error"
                             });
                             db.close();
+                        } else if (data2 && data2[0]) {
+                            Wishlist.delete(data, callback);
+                        } else {
+                            db.collection("user").update({
+                                _id: user
+                            }, {
+                                $push: {
+                                    wishlist: data
+                                }
+                            }, function (err, updated) {
+                                if (err) {
+                                    console.log(err);
+                                    callback({
+                                        value: false
+                                    });
+                                    db.close();
+                                } else if (updated) {
+
+                                    db.close();
+                                } else {
+                                    callback({
+                                        value: false,
+                                        comment: "Not created"
+                                    });
+                                    db.close();
+                                }
+                            });
                         }
                     });
                 }
@@ -109,14 +83,13 @@ module.exports = {
                 });
             }
             if (db) {
-                var dummy = sails.ObjectID();
-                data.modifytime = dummy.getTimestamp();
                 db.collection("user").update({
-                    "_id": user,
-                    "wishlist._id": data._id
+                    _id: user
                 }, {
-                    $set: {
-                        "wishlist.$": data
+                    $pull: {
+                        "wishlist": {
+                            "artwork": sails.ObjectID(data.artwork)
+                        }
                     }
                 }, function (err, updated) {
                     if (err) {
@@ -238,22 +211,22 @@ module.exports = {
             }
             if (db) {
                 db.collection("user").aggregate([{
-                        $match: {
-                            _id: user
+                    $match: {
+                        _id: user
+                    }
+                    }, {
+                    $unwind: "$wishlist"
+                    }, {
+                    $group: {
+                        _id: user,
+                        count: {
+                            $sum: 1
                         }
-                    },{
-                        $unwind: "$wishlist"
-                    },{
-                        $group: {
-                            _id: user,
-                            count: {
-                                $sum: 1
-                            }
-                        }
-                    },{
-                        $project: {
-                            count: 1
-                        }
+                    }
+                    }, {
+                    $project: {
+                        count: 1
+                    }
                     }]).toArray(function (err, result) {
                     if (result && result[0]) {
                         newreturns.total = result[0].count;
@@ -276,15 +249,15 @@ module.exports = {
 
                 function callbackfunc() {
                     db.collection("user").aggregate([{
-                            $match: {
-                                _id: user
-                            }
+                        $match: {
+                            _id: user
+                        }
                     }, {
-                            $unwind: "$wishlist"
+                        $unwind: "$wishlist"
                     }, {
-                            $project: {
-                                wishlist: 1
-                            }
+                        $project: {
+                            wishlist: 1
+                        }
                     }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
                         function (err, found) {
                             if (found != null) {
