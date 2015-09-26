@@ -237,45 +237,24 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("user").aggregate([
-                    {
+                db.collection("user").aggregate([{
                         $match: {
-                            _id: user,
-                            "wishlist.comment": {
-                                $exists: true
-                            },
-                            "wishlist.comment": {
-                                $regex: check
-                            }
+                            _id: user
                         }
-                    },
-                    {
+                    },{
                         $unwind: "$wishlist"
-                    },
-                    {
-                        $match: {
-                            "wishlist.comment": {
-                                $exists: true
-                            },
-                            "wishlist.comment": {
-                                $regex: check
-                            }
-                        }
-                    },
-                    {
+                    },{
                         $group: {
                             _id: user,
                             count: {
                                 $sum: 1
                             }
                         }
-                    },
-                    {
+                    },{
                         $project: {
                             count: 1
                         }
-                    }
-                ]).toArray(function (err, result) {
+                    }]).toArray(function (err, result) {
                     if (result && result[0]) {
                         newreturns.total = result[0].count;
                         newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
@@ -296,37 +275,17 @@ module.exports = {
                 });
 
                 function callbackfunc() {
-                    db.collection("user").aggregate([
-                        {
+                    db.collection("user").aggregate([{
                             $match: {
-                                _id: user,
-                                "wishlist.comment": {
-                                    $exists: true
-                                },
-                                "wishlist.comment": {
-                                    $regex: check
-                                }
+                                _id: user
                             }
-                    },
-                        {
+                    }, {
                             $unwind: "$wishlist"
-                    },
-                        {
-                            $match: {
-                                "wishlist.comment": {
-                                    $exists: true
-                                },
-                                "wishlist.comment": {
-                                    $regex: check
-                                }
-                            }
-                    },
-                        {
+                    }, {
                             $project: {
                                 wishlist: 1
                             }
-                    }
-                ]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
+                    }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
                         function (err, found) {
                             if (found != null) {
                                 newreturns.data = found;
