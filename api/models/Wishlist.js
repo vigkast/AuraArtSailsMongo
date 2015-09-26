@@ -26,7 +26,7 @@ module.exports = {
                 if (!data._id) {
                     data._id = sails.ObjectID();
                     db.collection("user").find({
-                        "_id": user,
+                        _id: user,
                         "wishlist.artwork": sails.ObjectID(data.artwork)
                     }, {
                         "wishlist.$": 1
@@ -55,8 +55,29 @@ module.exports = {
                                     });
                                     db.close();
                                 } else if (updated) {
-
-                                    db.close();
+                                    db.collection("user").find({
+                                        _id: user
+                                    }, {
+                                        password: 0,
+                                        forgotpassword: 0
+                                    }).toArray(function (err, data2) {
+                                        if (err) {
+                                            console.log(err);
+                                            callback({
+                                                value: false,
+                                                comment: "Error"
+                                            });
+                                            db.close();
+                                        } else if (data2 && data2[0]) {
+                                            callback(data2[0]);
+                                        } else {
+                                            callback({
+                                                value: false,
+                                                comment: "No data found"
+                                            });
+                                            db.close();
+                                        }
+                                    });
                                 } else {
                                     callback({
                                         value: false,
