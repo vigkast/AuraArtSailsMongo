@@ -95,5 +95,11 @@ module.exports = {
             res.json(data);
         };
         Artwork.artworktype(req.body, callback);
+    },
+    favoriteartwork: function (req, res) {
+        function callback(data) {
+            res.json(data);
+        };
+        Artwork.favoriteartwork(req.body, callback);
     }
 };
