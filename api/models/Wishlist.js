@@ -39,9 +39,10 @@ module.exports = {
                             });
                             db.close();
                         } else if (data2 && data2[0]) {
+                            data.user = user;
                             Wishlist.delete(data, function (data3) {
                                 if (data3.value == true) {
-                                    data._id=user;
+                                    data._id = user;
                                     User.findone(data, callback);
                                 } else {
                                     callback(data3);
@@ -62,7 +63,7 @@ module.exports = {
                                     });
                                     db.close();
                                 } else if (updated) {
-                                    data._id=user;
+                                    data._id = user;
                                     User.findone(data, callback);
                                 } else {
                                     callback({
@@ -81,7 +82,6 @@ module.exports = {
     delete: function (data, callback) {
         var user = sails.ObjectID(data.user);
         delete data.user;
-        data._id = sails.ObjectID(data._id);
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
