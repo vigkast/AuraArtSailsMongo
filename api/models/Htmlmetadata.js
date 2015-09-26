@@ -20,64 +20,65 @@ module.exports = {
                     data._id = sails.ObjectID();
 
                     if (!data.creationtime) {
-                    db.collection("htmlpage").update({
-                        _id: htmlpage
-                    }, {
-                        $push: {
-                            metadata: data
-                        }
-                    }, function (err, updated) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (updated) {
-                            callback({
-                                value: true
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "Not created"
-                            });
-                            db.close();
-                        }
-                    });
-                } else {
-                    data._id = sails.ObjectID(data._id);
-                    var tobechanged = {};
-                    var attribute = "metadata.$.";
-                    _.forIn(data, function (value, key) {
-                        tobechanged[attribute + key] = value;
-                    });
-                    db.collection("htmlpage").update({
-                        "_id": htmlpage,
-                        "metadata._id": data._id
-                    }, {
-                        $set: tobechanged
-                    }, function (err, updated) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (updated) {
-                            callback({
-                                value: true
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "Not updated"
-                            });
-                            db.close();
-                        }
-                    });
+                        db.collection("htmlpage").update({
+                            _id: htmlpage
+                        }, {
+                            $push: {
+                                metadata: data
+                            }
+                        }, function (err, updated) {
+                            if (err) {
+                                console.log(err);
+                                callback({
+                                    value: false
+                                });
+                                db.close();
+                            } else if (updated) {
+                                callback({
+                                    value: true
+                                });
+                                db.close();
+                            } else {
+                                callback({
+                                    value: false,
+                                    comment: "Not created"
+                                });
+                                db.close();
+                            }
+                        });
+                    } else {
+                        data._id = sails.ObjectID(data._id);
+                        var tobechanged = {};
+                        var attribute = "metadata.$.";
+                        _.forIn(data, function (value, key) {
+                            tobechanged[attribute + key] = value;
+                        });
+                        db.collection("htmlpage").update({
+                            "_id": htmlpage,
+                            "metadata._id": data._id
+                        }, {
+                            $set: tobechanged
+                        }, function (err, updated) {
+                            if (err) {
+                                console.log(err);
+                                callback({
+                                    value: false
+                                });
+                                db.close();
+                            } else if (updated) {
+                                callback({
+                                    value: true
+                                });
+                                db.close();
+                            } else {
+                                callback({
+                                    value: false,
+                                    comment: "Not updated"
+                                });
+                                db.close();
+                            }
+                        });
+                    }
                 }
             }
         });
@@ -94,14 +95,14 @@ module.exports = {
                 });
             } else if (db) {
                 db.collection("htmlpage").update({
-                        _id: user
-                    }, {
-                        $pull: {
-                            "metadata": {
-                                "_id": sails.ObjectID(data._id)
-                            }
+                    _id: user
+                }, {
+                    $pull: {
+                        "metadata": {
+                            "_id": sails.ObjectID(data._id)
                         }
-                    }, function (err, updated) {
+                    }
+                }, function (err, updated) {
                     if (err) {
                         console.log(err);
                         callback({
