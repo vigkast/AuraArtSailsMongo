@@ -339,6 +339,8 @@ module.exports = {
                         db.collection("user").find(matchobj, {
                             password: 0,
                             forgotpassword: 0
+                        }).sort({
+                            name: 1
                         }).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
                             if (err) {
                                 callback({

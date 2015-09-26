@@ -190,21 +190,11 @@ module.exports = {
                 db.collection("user").aggregate([
                     {
                         $match: {
-                            _id: user,
-                            "wishlist.comment": {
-                                $exists: true
-                            }
+                            _id: user
                         }
                     },
                     {
                         $unwind: "$wishlist"
-                    },
-                    {
-                        $match: {
-                            "wishlist.comment": {
-                                $exists: true
-                            }
-                        }
                     },
                     {
                         $project: {
