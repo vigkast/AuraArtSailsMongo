@@ -90,134 +90,134 @@ module.exports = {
         });
     },
     delete: function (data, callback) {
-            var user = sails.ObjectID(data.user);
-            delete data.user;
-            data._id = sails.ObjectID(data._id);
-            sails.query(function (err, db) {
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
-                }
-                if (db) {
-                    var dummy = sails.ObjectID();
-                    data.modifytime = dummy.getTimestamp();
-                    db.collection("user").update({
-                        _id: user
-                    }, {
-                        $pull: {
-                            "artwork": {
-                                "_id": sails.ObjectID(data._id)
-                            }
+        var user = sails.ObjectID(data.user);
+        delete data.user;
+        data._id = sails.ObjectID(data._id);
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                var dummy = sails.ObjectID();
+                data.modifytime = dummy.getTimestamp();
+                db.collection("user").update({
+                    _id: user
+                }, {
+                    $pull: {
+                        "artwork": {
+                            "_id": sails.ObjectID(data._id)
                         }
-                    }, function (err, updated) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (updated) {
-                            callback({
-                                value: true
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "No such Artwork."
-                            });
-                            db.close();
-                        }
-                    });
-                }
-            });
+                    }
+                }, function (err, updated) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else if (updated) {
+                        callback({
+                            value: true
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No such Artwork."
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
     },
     findone: function (data, callback) {
-            var user = sails.ObjectID(data.user);
-            sails.query(function (err, db) {
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
-                }
-                if (db) {
-                    db.collection("user").find({
-                        _id: user,
-                        "artwork._id": sails.ObjectID(data._id)
-                    }, {
-                        "artwork.$": 1
-                    }).toArray(function (err, data2) {
-                        if (data2 && data2[0] && data2[0].artwork && data2[0].artwork[0]) {
-                            callback(data2[0].artwork[0]);
-                            db.close();
-                        } else if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "No Such Artworkk."
-                            });
-                            db.close();
-                        }
-                    });
-                }
-            });
+        var user = sails.ObjectID(data.user);
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").find({
+                    _id: user,
+                    "artwork._id": sails.ObjectID(data._id)
+                }, {
+                    "artwork.$": 1
+                }).toArray(function (err, data2) {
+                    if (data2 && data2[0] && data2[0].artwork && data2[0].artwork[0]) {
+                        callback(data2[0].artwork[0]);
+                        db.close();
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No Such Artworkk."
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
     },
     find: function (data, callback) {
-            var user = sails.ObjectID(data.user);
-            sails.query(function (err, db) {
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
-                }
-                if (db) {
-                    db.collection("user").aggregate([{
-                        $match: {
-                            _id: user,
-                            "artwork.name": {
-                                $exists: true
-                            }
+        var user = sails.ObjectID(data.user);
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").aggregate([{
+                    $match: {
+                        _id: user,
+                        "artwork.name": {
+                            $exists: true
                         }
+                    }
         }, {
-                        $unwind: "$artwork"
+                    $unwind: "$artwork"
         }, {
-                        $match: {
-                            "artwork.name": {
-                                $exists: true
-                            }
+                    $match: {
+                        "artwork.name": {
+                            $exists: true
                         }
+                    }
         }, {
-                        $project: {
-                            artwork: 1
-                        }
+                    $project: {
+                        artwork: 1
+                    }
         }]).toArray(function (err, data2) {
-                        if (data2 && data2[0] && data2[0].artwork && data2[0].artwork[0]) {
-                            callback(data2);
-                            db.close();
-                        } else if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        }
-                    });
-                }
-            });
+                    if (data2 && data2[0] && data2[0].artwork && data2[0].artwork[0]) {
+                        callback(data2);
+                        db.close();
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
     },
     findall: function (data, callback) {
         var user = sails.ObjectID(data.user);
@@ -387,95 +387,95 @@ module.exports = {
         });
     },
     findbyid: function (data, callback) {
-            sails.query(function (err, db) {
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
 
-                }
-                if (db) {
-                    db.collection("user").aggregate([{
-                        $match: {
-                            "artwork.name": {
-                                $exists: true
-                            },
-                            "artwork._id": sails.ObjectID(data._id)
-                        }
+            }
+            if (db) {
+                db.collection("user").aggregate([{
+                    $match: {
+                        "artwork.name": {
+                            $exists: true
+                        },
+                        "artwork._id": sails.ObjectID(data._id)
+                    }
         }, {
-                        $unwind: "$artwork"
+                    $unwind: "$artwork"
         }, {
-                        $match: {
-                            "artwork.name": {
-                                $exists: true
-                            },
-                            "artwork._id": sails.ObjectID(data._id)
-                        }
+                    $match: {
+                        "artwork.name": {
+                            $exists: true
+                        },
+                        "artwork._id": sails.ObjectID(data._id)
+                    }
         }, {
-                        $project: {
-                            name: 1,
-                            artwork: 1
-                        }
+                    $project: {
+                        name: 1,
+                        artwork: 1
+                    }
         }]).toArray(function (err, found) {
-                        if (found && found[0]) {
-                            callback(found);
-                            db.close();
-                        } else if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "No data found."
-                            });
-                            db.close();
-                        }
-                    });
-                }
-            });
+                    if (found && found[0]) {
+                        callback(found);
+                        db.close();
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found."
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
     },
     deleteout: function (data, callback) {
-            data._id = sails.ObjectID(data._id);
-            sails.query(function (err, db) {
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
-                }
-                if (db) {
-                    db.collection("user").update({
-                        $pull: {
-                            "artwork": {
-                                "_id": sails.ObjectID(data._id)
-                            }
+        data._id = sails.ObjectID(data._id);
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").update({
+                    $pull: {
+                        "artwork": {
+                            "_id": sails.ObjectID(data._id)
                         }
-                    }, function (err, updated) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (updated) {
-                            callback({
-                                value: true
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "No data found."
-                            });
-                            db.close();
-                        }
-                    });
-                }
-            });
+                    }
+                }, function (err, updated) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else if (updated) {
+                        callback({
+                            value: true
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found."
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
     },
     findlimitedout: function (data, callback) {
         sails.query(function (err, db) {
@@ -938,6 +938,34 @@ module.exports = {
                         });
                     }
                 }
+            }
+        });
+    },
+    favoriteartwork: function (data, callback) {
+        var i = 0;
+        var returnData = [];
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false,
+                    comment: "Error"
+                });
+            } else if (db) {
+                _.each(data.artwork, function (art) {
+                    Artwork.findbyid(art, function (respo) {
+                        if (respo.value && respo.value != false) {
+                            i++;
+                        } else {
+                            i++;
+                            returnData.push(respo);
+                            if (i == data.artwork.length) {
+                                callback(returnData);
+                                db.close();
+                            }
+                        }
+                    });
+                });
             }
         });
     }
