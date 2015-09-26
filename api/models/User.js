@@ -73,7 +73,6 @@ module.exports = {
                             });
                             db.close();
                         } else if (data2 && data2[0]) {
-                            console.log(data2);
                             callback({
                                 value: false,
                                 comment: "User already exists"
@@ -394,7 +393,7 @@ module.exports = {
             }
         });
     },
-    searchmail: function (email, data, callback) {
+    searchmail: function (data, callback) {
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
