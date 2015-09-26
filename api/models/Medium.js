@@ -53,7 +53,6 @@ module.exports = {
                         }
                     });
                 } else {
-                    if (data._id && sails.ObjectID.isValid(data._id)) {
                         var medium = sails.ObjectID(data._id);
                         delete data._id;
                         db.collection('medium').update({
@@ -81,13 +80,6 @@ module.exports = {
                                 db.close();
                             }
                         });
-                    } else {
-                        callback({
-                            value: false,
-                            comment: "Id incorrect"
-                        });
-                        db.close();
-                    }
                 }
             }
         });

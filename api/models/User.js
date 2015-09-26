@@ -105,41 +105,33 @@ module.exports = {
                         }
                     });
                 } else {
-                    if (data._id && sails.ObjectID.isValid(data._id)) {
-                        var user = sails.ObjectID(data._id);
-                        delete data._id
-                        db.collection('user').update({
-                            _id: user
-                        }, {
-                            $set: data
-                        }, function (err, updated) {
-                            if (err) {
-                                console.log(err);
-                                callback({
-                                    value: false,
-                                    comment: "Error"
-                                });
-                                db.close();
-                            } else if (updated) {
-                                callback({
-                                    value: true
-                                });
-                                db.close();
-                            } else {
-                                callback({
-                                    value: false,
-                                    comment: "Error"
-                                });
-                                db.close();
-                            }
-                        });
-                    } else {
-                        callback({
-                            value: false,
-                            comment: "Userid Incorrect"
-                        });
-                        db.close();
-                    }
+                    var user = sails.ObjectID(data._id);
+                    delete data._id
+                    db.collection('user').update({
+                        _id: user
+                    }, {
+                        $set: data
+                    }, function (err, updated) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false,
+                                comment: "Error"
+                            });
+                            db.close();
+                        } else if (updated) {
+                            callback({
+                                value: true
+                            });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "Error"
+                            });
+                            db.close();
+                        }
+                    });
                 }
             }
         });
@@ -367,50 +359,42 @@ module.exports = {
         }
     },
     findone: function (data, callback) {
-        if (data._id && sails.ObjectID.isValid(data._id)) {
-            sails.query(function (err, db) {
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
-                }
-                if (db) {
-                    db.collection("user").find({
-                        _id: sails.ObjectID(data._id)
-                    }, {
-                        password: 0,
-                        forgotpassword: 0
-                    }).toArray(function (err, data2) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (data2 && data2[0]) {
-                            delete data2[0].password;
-                            callback(data2[0]);
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "User not found"
-                            });
-                            db.close();
-                        }
-                    });
-                }
-            });
-        } else {
-            callback({
-                value: false,
-                comment: "Userid incorrect."
-            });
-        }
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").find({
+                    _id: sails.ObjectID(data._id)
+                }, {
+                    password: 0,
+                    forgotpassword: 0
+                }).toArray(function (err, data2) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else if (data2 && data2[0]) {
+                        delete data2[0].password;
+                        callback(data2[0]);
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "User not found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
     },
-    searchmail: function (data, callback) {
-        console.log(data);
+    searchmail: function (email, data, callback) {
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -446,43 +430,36 @@ module.exports = {
         });
     },
     delete: function (data, callback) {
-        if (data._id && sails.ObjectID.isValid(data._id)) {
-            sails.query(function (err, db) {
-                if (err) {
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            var cuser = db.collection('user').remove({
+                _id: sails.ObjectID(data._id)
+            }, function (err, deleted) {
+                if (deleted) {
+                    callback({
+                        value: true
+                    });
+                    db.close();
+                } else if (err) {
                     console.log(err);
                     callback({
                         value: false
                     });
+                    db.close();
+                } else {
+                    callback({
+                        value: false,
+                        comment: "User not found"
+                    });
+                    db.close();
                 }
-                var cuser = db.collection('user').remove({
-                    _id: sails.ObjectID(data._id)
-                }, function (err, deleted) {
-                    if (deleted) {
-                        callback({
-                            value: true
-                        });
-                        db.close();
-                    } else if (err) {
-                        console.log(err);
-                        callback({
-                            value: false
-                        });
-                        db.close();
-                    } else {
-                        callback({
-                            value: false,
-                            comment: "User not found"
-                        });
-                        db.close();
-                    }
-                });
             });
-        } else {
-            callback({
-                value: false,
-                comment: "Userid Incorrect"
-            });
-        }
+        });
     },
     login: function (data, callback) {
         data.password = sails.md5(data.password);
@@ -571,7 +548,6 @@ module.exports = {
         });
     },
     changepassword: function (data, callback) {
-        if (data._id && sails.ObjectID.isValid(data._id)) {
             data.password = sails.md5(data.password);
             var user = sails.ObjectID(data._id);
             var newpass = sails.md5(data.editpassword);
@@ -633,12 +609,6 @@ module.exports = {
                     }
                 }
             });
-        } else {
-            callback({
-                value: false,
-                comment: "Userid Incorrect"
-            });
-        }
     },
     forgotpassword: function (data, callback) {
         sails.query(function (err, db) {

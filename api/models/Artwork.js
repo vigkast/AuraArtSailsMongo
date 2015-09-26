@@ -15,98 +15,81 @@ module.exports = {
                 });
             }
             if (db) {
-                if (data.user && sails.ObjectID.isValid(data.user)) {
-                    var user = sails.ObjectID(data.user);
-                    delete data.user;
-                    if (!data._id) {
-                        data._id = sails.ObjectID();
-                        if (!data.creationtime) {
-                            data.creationtime = data._id.getTimestamp();
+                var user = sails.ObjectID(data.user);
+                delete data.user;
+                if (!data._id) {
+                    data._id = sails.ObjectID();
+                    if (!data.creationtime) {
+                        data.creationtime = data._id.getTimestamp();
+                    }
+                    data.modifytime = data.creationtime;
+                    db.collection("user").update({
+                        _id: user
+                    }, {
+                        $push: {
+                            artwork: data
                         }
-                        data.modifytime = data.creationtime;
-                        db.collection("user").update({
-                            _id: user
-                        }, {
-                            $push: {
-                                artwork: data
-                            }
-                        }, function (err, updated) {
-                            if (err) {
-                                console.log(err);
-                                callback({
-                                    value: false
-                                });
-                                db.close();
-                            } else if (updated) {
-                                callback({
-                                    value: true
-                                });
-                                db.close();
-                            } else {
-                                callback({
-                                    value: false,
-                                    comment: "No Such Artwork"
-                                });
-                                db.close();
-                            }
-                        });
-                    } else {
-                        if (data._id && sails.ObjectID.isValid(data._id)) {
-                            data._id = sails.ObjectID(data._id);
-                            if (!data.modifytime) {
-                                var dummy = sails.ObjectID();
-                                data.modifytime = dummy.getTimestamp();
-                            }
-                            var tobechanged = {};
-                            var attribute = "artwork.$.";
-                            _.forIn(data, function (value, key) {
-                                tobechanged[attribute + key] = value;
+                    }, function (err, updated) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
                             });
-                            db.collection("user").update({
-                                "_id": user,
-                                "artwork._id": data._id
-                            }, {
-                                $set: tobechanged
-                            }, function (err, updated) {
-                                if (err) {
-                                    console.log(err);
-                                    callback({
-                                        value: false
-                                    });
-                                    db.close();
-                                } else if (updated) {
-                                    callback({
-                                        value: true
-                                    });
-                                    db.close();
-                                } else {
-                                    callback({
-                                        value: false,
-                                        comment: "No Such Artwork"
-                                    });
-                                    db.close();
-                                }
+                            db.close();
+                        } else if (updated) {
+                            callback({
+                                value: true
                             });
+                            db.close();
                         } else {
                             callback({
                                 value: false,
-                                comment: "ArtworkID incorrect."
+                                comment: "No Such Artwork"
                             });
                             db.close();
                         }
-                    }
-                } else {
-                    callback({
-                        value: false,
-                        comment: "UserID Incorrect"
                     });
-                    db.close();
+                } else {
+                    data._id = sails.ObjectID(data._id);
+                    if (!data.modifytime) {
+                        var dummy = sails.ObjectID();
+                        data.modifytime = dummy.getTimestamp();
+                    }
+                    var tobechanged = {};
+                    var attribute = "artwork.$.";
+                    _.forIn(data, function (value, key) {
+                        tobechanged[attribute + key] = value;
+                    });
+                    db.collection("user").update({
+                        "_id": user,
+                        "artwork._id": data._id
+                    }, {
+                        $set: tobechanged
+                    }, function (err, updated) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else if (updated) {
+                            callback({
+                                value: true
+                            });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "No Such Artwork"
+                            });
+                            db.close();
+                        }
+                    });
                 }
             }
         });
     },
     delete: function (data, callback) {
-        if (data.user && sails.ObjectID.isValid(data.user) && data._id && sails.ObjectID.isValid(data._id)) {
             var user = sails.ObjectID(data.user);
             delete data.user;
             data._id = sails.ObjectID(data._id);
@@ -150,15 +133,8 @@ module.exports = {
                     });
                 }
             });
-        } else {
-            callback({
-                value: false,
-                comment: "Userid or Artworkid incorrect."
-            });
-        }
     },
     findone: function (data, callback) {
-        if (data.user && sails.ObjectID.isValid(data.user) && data._id && sails.ObjectID.isValid(data._id)) {
             var user = sails.ObjectID(data.user);
             sails.query(function (err, db) {
                 if (err) {
@@ -193,15 +169,8 @@ module.exports = {
                     });
                 }
             });
-        } else {
-            callback({
-                value: false,
-                comment: "Userid or Artworkid incorrect."
-            });
-        }
     },
     find: function (data, callback) {
-        if (data.user && sails.ObjectID.isValid(data.user)) {
             var user = sails.ObjectID(data.user);
             sails.query(function (err, db) {
                 if (err) {
@@ -249,12 +218,6 @@ module.exports = {
                     });
                 }
             });
-        } else {
-            callback({
-                value: false,
-                comment: "Userid Incorrect."
-            });
-        }
     },
     findall: function (data, callback) {
         var user = sails.ObjectID(data.user);
@@ -424,7 +387,6 @@ module.exports = {
         });
     },
     findbyid: function (data, callback) {
-        if (data._id && sails.ObjectID.isValid(data._id)) {
             sails.query(function (err, db) {
                 if (err) {
                     console.log(err);
@@ -475,15 +437,8 @@ module.exports = {
                     });
                 }
             });
-        } else {
-            callback({
-                value: false,
-                comment: "Artworkid incorrect."
-            });
-        }
     },
     deleteout: function (data, callback) {
-        if (data._id && sails.ObjectID.isValid(data._id)) {
             data._id = sails.ObjectID(data._id);
             sails.query(function (err, db) {
                 if (err) {
@@ -521,12 +476,6 @@ module.exports = {
                     });
                 }
             });
-        } else {
-            callback({
-                value: false,
-                comment: "Artworkid incorrect."
-            });
-        }
     },
     findlimitedout: function (data, callback) {
         sails.query(function (err, db) {
