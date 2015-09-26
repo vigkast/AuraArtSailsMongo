@@ -41,6 +41,7 @@ module.exports = {
                         } else if (data2 && data2[0]) {
                             Wishlist.delete(data, function (data3) {
                                 if (data3.value == true) {
+                                    data._id=user;
                                     User.findone(data, callback);
                                 } else {
                                     callback(data3);
@@ -61,6 +62,7 @@ module.exports = {
                                     });
                                     db.close();
                                 } else if (updated) {
+                                    data._id=user;
                                     User.findone(data, callback);
                                 } else {
                                     callback({
