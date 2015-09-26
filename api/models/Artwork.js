@@ -958,7 +958,7 @@ module.exports = {
                             i++;
                         } else {
                             i++;
-                            returnData.push(respo);
+                            returnData.push(respo[0]);
                             if (i == data.artwork.length) {
                                 callback(returnData);
                                 db.close();
