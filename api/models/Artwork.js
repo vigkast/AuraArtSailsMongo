@@ -662,10 +662,6 @@ module.exports = {
                 console.log(err);
             }
             if (db) {
-                if (!data.creationtime) {
-                    data.creationtime = data._id.getTimestamp();
-                }
-                data.modifytime = data.creationtime;
                 db.collection("user").update({
                     _id: user
                 }, {
