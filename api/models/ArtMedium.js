@@ -5,8 +5,8 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 module.exports = {
-    save: function (data, callback) {
-        sails.query(function (err, db) {
+    save: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -18,7 +18,7 @@ module.exports = {
                     data._id = sails.ObjectID();
                     db.collection("artmedium").find({
                         name: data.name
-                    }).toArray(function (err, data2) {
+                    }).toArray(function(err, data2) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -29,7 +29,7 @@ module.exports = {
                             callback(data2);
                             db.close();
                         } else {
-                            db.collection('artmedium').insert(data, function (err, created) {
+                            db.collection('artmedium').insert(data, function(err, created) {
                                 if (err) {
                                     console.log(err);
                                     callback({
@@ -53,45 +53,45 @@ module.exports = {
                         }
                     });
                 } else {
-                        var artmedium = sails.ObjectID(data._id);
-                        delete data._id;
-                        db.collection('artmedium').update({
-                            _id: artmedium
-                        }, {
-                            $set: data
-                        }, function (err, updated) {
-                            if (err) {
-                                console.log(err);
-                                callback({
-                                    value: false
-                                });
-                                db.close();
-                            } else if (updated) {
-                                callback({
-                                    value: true,
-                                    id: data._id
-                                });
-                                db.close();
-                            } else {
-                                callback({
-                                    value: false,
-                                    comment: "Not updated"
-                                });
-                                db.close();
-                            }
-                        });
+                    var artmedium = sails.ObjectID(data._id);
+                    delete data._id;
+                    db.collection('artmedium').update({
+                        _id: artmedium
+                    }, {
+                        $set: data
+                    }, function(err, updated) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else if (updated) {
+                            callback({
+                                value: true,
+                                id: data._id
+                            });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "No data found"
+                            });
+                            db.close();
+                        }
+                    });
                 }
             }
         });
     },
-    findlimited: function (data, callback) {
+    findlimited: function(data, callback) {
         var newcallback = 0;
         var newreturns = {};
         newreturns.data = [];
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -105,7 +105,7 @@ module.exports = {
                             '$regex': check
                         },
                         category: data.category
-                    }, function (err, number) {
+                    }, function(err, number) {
                         if (number) {
                             newreturns.total = number;
                             newreturns.totalpages = Math.ceil(number / data.pagesize);
@@ -127,11 +127,11 @@ module.exports = {
 
                     function callbackfunc() {
                         db.collection("artmedium").find({
-                            name: {
+                            name: {
                                 '$regex': check
                             },
                             category: data.category
-                        }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
+                        }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
                             if (err) {
                                 callback({
                                     value: false
@@ -145,7 +145,7 @@ module.exports = {
                             } else {
                                 callback({
                                     value: false,
-                                    comment: "Count of null"
+                                    comment: "No data found"
                                 });
                                 db.close();
                             }
@@ -156,7 +156,7 @@ module.exports = {
                         name: {
                             '$regex': check
                         }
-                    }, function (err, number) {
+                    }, function(err, number) {
                         if (number) {
                             newreturns.total = number;
                             newreturns.totalpages = Math.ceil(number / data.pagesize);
@@ -181,7 +181,7 @@ module.exports = {
                             name: {
                                 '$regex': check
                             }
-                        }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
+                        }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
                             if (err) {
                                 callback({
                                     value: false
@@ -205,7 +205,7 @@ module.exports = {
             }
         });
     },
-    find: function (data, callback) {
+    find: function(data, callback) {
         var returns = [];
         var exit = 0;
         var exitup = 1;
@@ -216,7 +216,7 @@ module.exports = {
                 callback(data);
             }
         }
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -230,7 +230,7 @@ module.exports = {
                         '$regex': check
                     },
                     category: data.category
-                }).limit(10).toArray(function (err, found) {
+                }).limit(10).toArray(function(err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -241,9 +241,9 @@ module.exports = {
                         exit++;
                         if (data.artmedium.length != 0) {
                             var nedata;
-                            nedata = _.remove(found, function (n) {
+                            nedata = _.remove(found, function(n) {
                                 var flag = false;
-                                _.each(data.artmedium, function (n1) {
+                                _.each(data.artmedium, function(n1) {
                                     if (n1.name == n.name) {
                                         flag = true;
                                     }
@@ -264,8 +264,8 @@ module.exports = {
             }
         });
     },
-    findone: function (data, callback) {
-        sails.query(function (err, db) {
+    findone: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -275,7 +275,7 @@ module.exports = {
             if (db) {
                 db.collection("artmedium").find({
                     _id: sails.ObjectID(data._id)
-                }, {}).toArray(function (err, data2) {
+                }, {}).toArray(function(err, data2) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -296,8 +296,8 @@ module.exports = {
             }
         });
     },
-    delete: function (data, callback) {
-        sails.query(function (err, db) {
+    delete: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -306,7 +306,7 @@ module.exports = {
             }
             var cartmedium = db.collection('artmedium').remove({
                 _id: sails.ObjectID(data._id)
-            }, function (err, deleted) {
+            }, function(err, deleted) {
                 if (deleted) {
                     callback({
                         value: true
@@ -328,12 +328,12 @@ module.exports = {
             });
         });
     },
-    savemediumexcel: function (data, callback) {
+    savemediumexcel: function(data, callback) {
         var newdata = {};
         newdata.name = data.mediumname;
         newdata._id = sails.ObjectID();
-        newdata.category=data.type;
-        sails.query(function (err, db) {
+        newdata.category = data.type;
+        sails.query(function(err, db) {
             var exit = 0;
             var exitup = 0;
             if (err) {
@@ -346,7 +346,7 @@ module.exports = {
                 exit++;
                 db.collection("artmedium").find({
                     name: data.mediumname
-                }).each(function (err, data2) {
+                }).each(function(err, data2) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -359,7 +359,7 @@ module.exports = {
                         db.close();
                     } else {
                         if (exit != exitup) {
-                            db.collection('artmedium').insert(newdata, function (err, created) {
+                            db.collection('artmedium').insert(newdata, function(err, created) {
                                 if (err) {
                                     console.log(err);
                                     callback({
@@ -371,7 +371,8 @@ module.exports = {
                                     db.close();
                                 } else {
                                     callback({
-                                        value: false
+                                        value: false,
+                                        comment: "No data found"
                                     });
                                     db.close();
                                 }

@@ -5,9 +5,9 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 module.exports = {
-    save: function (data, callback) {
+    save: function(data, callback) {
         data._id = sails.ObjectID();
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             var exit = 0;
             var exitup = 0;
             if (err) {
@@ -17,7 +17,7 @@ module.exports = {
                 });
             } else if (db) {
                 if (!data._id) {
-                    db.collection('htmlpage').insert(data, function (err, created) {
+                    db.collection('htmlpage').insert(data, function(err, created) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -42,7 +42,7 @@ module.exports = {
                         _id: htmlpage
                     }, {
                         $set: data
-                    }, function (err, updated) {
+                    }, function(err, updated) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -57,7 +57,7 @@ module.exports = {
                         } else {
                             callback({
                                 value: false,
-                                comment: "Not updated"
+                                comment: "No data found"
                             });
                             db.close();
                         }
@@ -66,14 +66,14 @@ module.exports = {
             }
         });
     },
-    findlimited: function (data, callback) {
+    findlimited: function(data, callback) {
         var newcallback = 0;
         var newreturns = {};
         newreturns.data = [];
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -85,7 +85,7 @@ module.exports = {
                     title: {
                         '$regex': check
                     }
-                }, function (err, number) {
+                }, function(err, number) {
                     if (number) {
                         newreturns.total = number;
                         newreturns.totalpages = Math.ceil(number / data.pagesize);
@@ -109,7 +109,7 @@ module.exports = {
                         title: {
                             '$regex': check
                         }
-                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
+                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
                         if (found && found[0]) {
                             newreturns.data = found;
                             callback(newreturns);
@@ -122,7 +122,7 @@ module.exports = {
                         } else {
                             callback({
                                 value: false,
-                                comment: "Count of null"
+                                comment: "No data found"
                             });
                             db.close();
                         }
@@ -131,9 +131,9 @@ module.exports = {
             }
         });
     },
-    find: function (data, callback) {
+    find: function(data, callback) {
         var returns = [];
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -141,7 +141,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("htmlpage").find({}, {}).toArray(function (err, found) {
+                db.collection("htmlpage").find({}, {}).toArray(function(err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -163,8 +163,8 @@ module.exports = {
             }
         });
     },
-    findone: function (data, callback) {
-        sails.query(function (err, db) {
+    findone: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -174,7 +174,7 @@ module.exports = {
             if (db) {
                 db.collection("htmlpage").find({
                     "_id": sails.ObjectID(data._id)
-                }, {}).toArray(function (err, data2) {
+                }, {}).toArray(function(err, data2) {
                     if (data2 && data2[0]) {
                         callback(data2);
                         db.close();
@@ -194,8 +194,8 @@ module.exports = {
             }
         });
     },
-    delete: function (data, callback) {
-        sails.query(function (err, db) {
+    delete: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -204,7 +204,7 @@ module.exports = {
             }
             var chtmlpage = db.collection('htmlpage').remove({
                 _id: sails.ObjectID(data._id)
-            }, function (err, deleted) {
+            }, function(err, deleted) {
                 if (deleted) {
                     callback({
                         value: true
@@ -219,15 +219,15 @@ module.exports = {
                 } else {
                     callback({
                         value: false,
-                        comment: "Not deleted"
+                        comment: "No data found"
                     });
                     db.close();
                 }
             });
         });
     },
-    counthtmlpage: function (data, callback) {
-        sails.query(function (err, db) {
+    counthtmlpage: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -235,7 +235,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("htmlpage").count({}, function (err, number) {
+                db.collection("htmlpage").count({}, function(err, number) {
                     if (number != null) {
                         callback(number);
                         db.close();

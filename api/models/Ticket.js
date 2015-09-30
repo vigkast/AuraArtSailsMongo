@@ -5,13 +5,13 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 module.exports = {
-    save: function (data, callback) {
+    save: function(data, callback) {
         if (data.user) {
             for (var i = 0; i < data.user.length; i++) {
                 data.user[i] = sails.ObjectID(data.user[i]);
             }
         }
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             var exit = 0;
             var exitup = 0;
             if (err) {
@@ -23,7 +23,7 @@ module.exports = {
             if (db) {
                 if (!data._id) {
                     data._id = sails.ObjectID();
-                    db.collection('ticket').insert(data, function (err, created) {
+                    db.collection('ticket').insert(data, function(err, created) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -51,7 +51,7 @@ module.exports = {
                         _id: ticket
                     }, {
                         $set: data
-                    }, function (err, updated) {
+                    }, function(err, updated) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -67,7 +67,7 @@ module.exports = {
                         } else {
                             callback({
                                 value: false,
-                                comment: "Not updated"
+                                comment: "No data found"
                             });
                             db.close();
                         }
@@ -76,14 +76,14 @@ module.exports = {
             }
         });
     },
-    findlimited: function (data, callback) {
+    findlimited: function(data, callback) {
         var newcallback = 0;
         var newreturns = {};
         newreturns.data = [];
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -95,7 +95,7 @@ module.exports = {
                     artist: {
                         '$regex': check
                     }
-                }, function (err, number) {
+                }, function(err, number) {
                     if (number) {
                         newreturns.total = number;
                         newreturns.totalpages = Math.ceil(number / data.pagesize);
@@ -120,7 +120,7 @@ module.exports = {
                         artist: {
                             '$regex': check
                         }
-                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
+                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
                         if (err) {
                             callback({
                                 value: false
@@ -134,7 +134,7 @@ module.exports = {
                         } else {
                             callback({
                                 value: false,
-                                comment: "Data not found"
+                                comment: "No data found"
                             });
                             db.close();
                         }
@@ -143,9 +143,9 @@ module.exports = {
             }
         });
     },
-    find: function (data, callback) {
+    find: function(data, callback) {
         var returns = [];
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -153,7 +153,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("ticket").find({}, {}).toArray(function (err, found) {
+                db.collection("ticket").find({}, {}).toArray(function(err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -174,8 +174,8 @@ module.exports = {
             }
         });
     },
-    findone: function (data, callback) {
-        sails.query(function (err, db) {
+    findone: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -185,7 +185,7 @@ module.exports = {
             if (db) {
                 db.collection("ticket").find({
                     "_id": sails.ObjectID(data._id)
-                }, {}).toArray(function (err, data) {
+                }, {}).toArray(function(err, data) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -206,8 +206,8 @@ module.exports = {
             }
         });
     },
-    delete: function (data, callback) {
-        sails.query(function (err, db) {
+    delete: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -216,7 +216,7 @@ module.exports = {
             }
             var cticket = db.collection('ticket').remove({
                 _id: sails.ObjectID(data._id)
-            }, function (err, deleted) {
+            }, function(err, deleted) {
                 if (deleted) {
                     callback({
                         value: true
@@ -231,15 +231,15 @@ module.exports = {
                 } else {
                     callback({
                         value: false,
-                        comment: "Not deleted"
+                        comment: "No data found"
                     });
                     db.close();
                 }
             });
         });
     },
-    countticket: function (data, callback) {
-        sails.query(function (err, db) {
+    countticket: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -247,7 +247,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("ticket").count({}, function (err, number) {
+                db.collection("ticket").count({}, function(err, number) {
                     if (number) {
                         callback(number);
                         db.close();
@@ -260,7 +260,7 @@ module.exports = {
                     } else {
                         callback({
                             value: false,
-                            comment: "Not deleted"
+                            comment: "No data found"
                         });
                         db.close();
                     }

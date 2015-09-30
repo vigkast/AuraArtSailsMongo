@@ -5,8 +5,8 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 module.exports = {
-    save: function (data, callback) {
-        sails.query(function (err, db) {
+    save: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -15,7 +15,7 @@ module.exports = {
             } else if (db) {
                 if (!data._id) {
                     data._id = sails.ObjectID();
-                    db.collection('discountcoupon').insert(data, function (err, created) {
+                    db.collection('discountcoupon').insert(data, function(err, created) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -41,7 +41,7 @@ module.exports = {
                         _id: discountcoupon
                     }, {
                         $set: data
-                    }, function (err, updated) {
+                    }, function(err, updated) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -56,7 +56,7 @@ module.exports = {
                         } else {
                             callback({
                                 value: false,
-                                comment: "Not Updated"
+                                comment: "No data found"
                             });
                             db.close();
                         }
@@ -65,14 +65,14 @@ module.exports = {
             }
         });
     },
-    findlimited: function (data, callback) {
+    findlimited: function(data, callback) {
         var newcallback = 0;
         var newreturns = {};
         newreturns.data = [];
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -84,7 +84,7 @@ module.exports = {
                     name: {
                         '$regex': check
                     }
-                }, function (err, number) {
+                }, function(err, number) {
                     if (number) {
                         newreturns.total = number;
                         newreturns.totalpages = Math.ceil(number / data.pagesize);
@@ -108,7 +108,7 @@ module.exports = {
                         name: {
                             '$regex': check
                         }
-                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
+                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
                         if (err) {
                             callback({
                                 value: false
@@ -131,9 +131,9 @@ module.exports = {
             }
         });
     },
-    find: function (data, callback) {
+    find: function(data, callback) {
         var returns = [];
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -141,7 +141,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("discountcoupon").find({}, {}).toArray(function (err, found) {
+                db.collection("discountcoupon").find({}, {}).toArray(function(err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -162,8 +162,8 @@ module.exports = {
             }
         });
     },
-    findone: function (data, callback) {
-        sails.query(function (err, db) {
+    findone: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -173,7 +173,7 @@ module.exports = {
             if (db) {
                 db.collection("discountcoupon").find({
                     "_id": sails.ObjectID(data._id)
-                }, {}).toArray(function (err, found) {
+                }, {}).toArray(function(err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -194,8 +194,8 @@ module.exports = {
             }
         });
     },
-    delete: function (data, callback) {
-        sails.query(function (err, db) {
+    delete: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -204,7 +204,7 @@ module.exports = {
             }
             db.collection('discountcoupon').remove({
                 _id: sails.ObjectID(data._id)
-            }, function (err, deleted) {
+            }, function(err, deleted) {
                 if (deleted) {
                     callback({
                         value: true
@@ -219,15 +219,15 @@ module.exports = {
                 } else {
                     callback({
                         value: false,
-                        comment: "Not deleted"
+                        comment: "No data found"
                     });
                     db.close();
                 }
             });
         });
     },
-    countdiscountcoupon: function (data, callback) {
-        sails.query(function (err, db) {
+    countdiscountcoupon: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -235,7 +235,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("discountcoupon").count({}, function (err, number) {
+                db.collection("discountcoupon").count({}, function(err, number) {
                     if (number != null) {
                         callback(number);
                         db.close();

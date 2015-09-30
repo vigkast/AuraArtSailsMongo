@@ -5,8 +5,8 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 module.exports = {
-    save: function (data, callback) {
-        sails.query(function (err, db) {
+    save: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -16,7 +16,7 @@ module.exports = {
 
                 if (!data._id) {
                     data._id = sails.ObjectID();
-                    db.collection('event').insert(data, function (err, created) {
+                    db.collection('event').insert(data, function(err, created) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -43,7 +43,7 @@ module.exports = {
                         _id: event
                     }, {
                         $set: data
-                    }, function (err, updated) {
+                    }, function(err, updated) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -58,7 +58,7 @@ module.exports = {
                         } else {
                             callback({
                                 value: false,
-                                commment: "Not updated"
+                                comment: "No data found"
                             });
                             db.close();
                         }
@@ -67,7 +67,7 @@ module.exports = {
             }
         });
     },
-    findlimited: function (data, callback) {
+    findlimited: function(data, callback) {
         var newcallback = 0;
         var newreturns = {};
         newreturns.data = [];
@@ -122,14 +122,14 @@ module.exports = {
         }
 
         function callbackfunc() {
-            sails.query(function (err, db) {
+            sails.query(function(err, db) {
                 if (err) {
                     console.log(err);
                     callback({
                         value: false
                     });
                 } else if (db) {
-                    db.collection("event").count(matchobj, function (err, number) {
+                    db.collection("event").count(matchobj, function(err, number) {
                         if (number && number != "") {
                             newreturns.total = number;
                             newreturns.totalpages = Math.ceil(number / data.pagesize);
@@ -152,7 +152,7 @@ module.exports = {
                     function callbackfunc1() {
                         db.collection("event").find(matchobj).skip(pagesize * (pagenumber - 1)).sort({
                             year: -1
-                        }).limit(pagesize).toArray(function (err, found) {
+                        }).limit(pagesize).toArray(function(err, found) {
                             if (err) {
                                 callback({
                                     value: false
@@ -176,15 +176,15 @@ module.exports = {
             });
         }
     },
-    find: function (data, callback) {
-        sails.query(function (err, db) {
+    find: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
                     value: false
                 });
             } else if (db) {
-                db.collection("event").find({}, {}).toArray(function (err, found) {
+                db.collection("event").find({}, {}).toArray(function(err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -205,9 +205,9 @@ module.exports = {
             }
         });
     },
-    findone: function (data, callback) {
+    findone: function(data, callback) {
         console.log(data);
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -216,7 +216,7 @@ module.exports = {
             } else if (db) {
                 db.collection("event").find({
                     _id: sails.ObjectID(data._id)
-                }, {}).toArray(function (err, found) {
+                }, {}).toArray(function(err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -237,8 +237,8 @@ module.exports = {
             }
         });
     },
-    delete: function (data, callback) {
-        sails.query(function (err, db) {
+    delete: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -247,7 +247,7 @@ module.exports = {
             } else if (db) {
                 db.collection('event').remove({
                     _id: sails.ObjectID(data._id)
-                }, function (err, deleted) {
+                }, function(err, deleted) {
                     if (err) {
                         callback({
                             value: false
@@ -270,7 +270,7 @@ module.exports = {
             }
         });
     },
-    findevents: function (data, callback) {
+    findevents: function(data, callback) {
         if (data.year && data.year != "") {
             if (data.year == "past") {
                 var matchobj = {
@@ -312,7 +312,7 @@ module.exports = {
         }
 
         function callbackfunc() {
-            sails.query(function (err, db) {
+            sails.query(function(err, db) {
                 if (err) {
                     console.log(err);
                     callback({
@@ -321,7 +321,7 @@ module.exports = {
                 } else if (db) {
                     db.collection('event').find(matchobj).sort({
                         year: -1
-                    }).toArray(function (err, data2) {
+                    }).toArray(function(err, data2) {
                         if (err) {
                             console.log(err);
                             callback({

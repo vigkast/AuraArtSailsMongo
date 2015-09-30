@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-    save: function (data, callback) {
+    save: function(data, callback) {
         var user = sails.ObjectID(data.user);
         if (data.wishlistfolder) {
             data.wishlistfolder = sails.ObjectID(data.wishlistfolder);
@@ -15,7 +15,7 @@ module.exports = {
             data.artwork = sails.ObjectID(data.artwork);
         }
         delete data.user;
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -30,7 +30,7 @@ module.exports = {
                         "wishlist.artwork": sails.ObjectID(data.artwork)
                     }, {
                         "wishlist.$": 1
-                    }).toArray(function (err, data2) {
+                    }).toArray(function(err, data2) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -40,7 +40,7 @@ module.exports = {
                             db.close();
                         } else if (data2 && data2[0]) {
                             data.user = user;
-                            Wishlist.delete(data, function (data3) {
+                            Wishlist.delete(data, function(data3) {
                                 if (data3.value == true) {
                                     data._id = user;
                                     User.findone(data, callback);
@@ -55,7 +55,7 @@ module.exports = {
                                 $push: {
                                     wishlist: data
                                 }
-                            }, function (err, updated) {
+                            }, function(err, updated) {
                                 if (err) {
                                     console.log(err);
                                     callback({
@@ -68,7 +68,7 @@ module.exports = {
                                 } else {
                                     callback({
                                         value: false,
-                                        comment: "Not created"
+                                        comment: "No data found"
                                     });
                                     db.close();
                                 }
@@ -79,10 +79,10 @@ module.exports = {
             }
         });
     },
-    delete: function (data, callback) {
+    delete: function(data, callback) {
         var user = sails.ObjectID(data.user);
         delete data.user;
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -98,7 +98,7 @@ module.exports = {
                             "artwork": sails.ObjectID(data.artwork)
                         }
                     }
-                }, function (err, updated) {
+                }, function(err, updated) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -113,7 +113,7 @@ module.exports = {
                     } else {
                         callback({
                             value: false,
-                            comment: "Not deleted"
+                            comment: "No data found"
                         });
                         db.close();
                     }
@@ -121,9 +121,9 @@ module.exports = {
             }
         });
     },
-    findOne: function (data, callback) {
+    findOne: function(data, callback) {
         var user = sails.ObjectID(data.user);
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -136,7 +136,7 @@ module.exports = {
                     "wishlist._id": sails.ObjectID(data._id)
                 }, {
                     "wishlist.$": 1
-                }).toArray(function (err, data2) {
+                }).toArray(function(err, data2) {
                     if (data2 && data2[0] && data2[0].wishlist && data2[0].wishlist[0]) {
                         callback(data2[0].wishlist[0]);
                         db.close();
@@ -157,9 +157,9 @@ module.exports = {
             }
         });
     },
-    find: function (data, callback) {
+    find: function(data, callback) {
         var user = sails.ObjectID(data.user);
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -167,21 +167,17 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("user").aggregate([
-                    {
-                        $match: {
-                            _id: user
-                        }
-                    },
-                    {
-                        $unwind: "$wishlist"
-                    },
-                    {
-                        $project: {
-                            wishlist: 1
-                        }
+                db.collection("user").aggregate([{
+                    $match: {
+                        _id: user
                     }
-                ]).toArray(function (err, data2) {
+                }, {
+                    $unwind: "$wishlist"
+                }, {
+                    $project: {
+                        wishlist: 1
+                    }
+                }]).toArray(function(err, data2) {
                     if (data2 && data2[0]) {
                         callback(data2);
                         db.close();
@@ -202,14 +198,14 @@ module.exports = {
             }
         });
     },
-    findlimited: function (data, callback) {
+    findlimited: function(data, callback) {
         var newcallback = 0;
         var newreturns = {};
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
         var user = sails.ObjectID(data.user);
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -221,20 +217,20 @@ module.exports = {
                     $match: {
                         _id: user
                     }
-                    }, {
+                }, {
                     $unwind: "$wishlist"
-                    }, {
+                }, {
                     $group: {
                         _id: user,
                         count: {
                             $sum: 1
                         }
                     }
-                    }, {
+                }, {
                     $project: {
                         count: 1
                     }
-                    }]).toArray(function (err, result) {
+                }]).toArray(function(err, result) {
                     if (result && result[0]) {
                         newreturns.total = result[0].count;
                         newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
@@ -266,7 +262,7 @@ module.exports = {
                             wishlist: 1
                         }
                     }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
-                        function (err, found) {
+                        function(err, found) {
                             if (found != null) {
                                 newreturns.data = found;
                                 callback(newreturns);
@@ -286,67 +282,6 @@ module.exports = {
                             }
                         });
                 }
-            }
-        });
-    },
-    localtoserver: function (data, callback) {
-        if (data.creationtime) {
-            wishlist.save(data, callback);
-        } else if (!data._id && !data.creationtime) {
-            callback({
-                value: false
-            });
-        } else if (data.id && !data.creationtime) {
-            wishlist.delete(data, callback)
-        }
-    },
-    servertolocal: function (data, callback) {
-        var d = new Date(data.modifytime);
-        var user = sails.ObjectID(data.user);
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("user").aggregate([
-                    {
-                        $match: {
-                            _id: user,
-                            "wishlist.modifytime": {
-                                $gt: d
-                            }
-                        }
-                    },
-                    {
-                        $unwind: "$wishlist"
-                    },
-                    {
-                        $match: {
-                            "wishlist.modifytime": {
-                                $gt: d
-                            }
-                        }
-                    },
-                    {
-                        $project: {
-                            wishlist: 1
-                        }
-                    }
-                ]).toArray(
-                    function (err, data) {
-                        if (data != null) {
-                            callback(data);
-                        }
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                        }
-                    });
             }
         });
     }

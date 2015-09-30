@@ -6,10 +6,10 @@
  */
 
 module.exports = {
-    save: function (data, callback) {
+    save: function(data, callback) {
         var htmlpage = sails.ObjectID(data.htmlpage);
         delete data.htmlpage;
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -26,7 +26,7 @@ module.exports = {
                             $push: {
                                 metadata: data
                             }
-                        }, function (err, updated) {
+                        }, function(err, updated) {
                             if (err) {
                                 console.log(err);
                                 callback({
@@ -50,7 +50,7 @@ module.exports = {
                         data._id = sails.ObjectID(data._id);
                         var tobechanged = {};
                         var attribute = "metadata.$.";
-                        _.forIn(data, function (value, key) {
+                        _.forIn(data, function(value, key) {
                             tobechanged[attribute + key] = value;
                         });
                         db.collection("htmlpage").update({
@@ -58,7 +58,7 @@ module.exports = {
                             "metadata._id": data._id
                         }, {
                             $set: tobechanged
-                        }, function (err, updated) {
+                        }, function(err, updated) {
                             if (err) {
                                 console.log(err);
                                 callback({
@@ -73,7 +73,7 @@ module.exports = {
                             } else {
                                 callback({
                                     value: false,
-                                    comment: "Not updated"
+                                    comment: "No data found"
                                 });
                                 db.close();
                             }
@@ -83,11 +83,11 @@ module.exports = {
             }
         });
     },
-    delete: function (data, callback) {
+    delete: function(data, callback) {
         var htmlpage = sails.ObjectID(data.htmlpage);
         delete data.htmlpage;
         data._id = sails.ObjectID(data._id);
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -102,7 +102,7 @@ module.exports = {
                             "_id": sails.ObjectID(data._id)
                         }
                     }
-                }, function (err, updated) {
+                }, function(err, updated) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -117,7 +117,7 @@ module.exports = {
                     } else {
                         callback({
                             value: false,
-                            comment: "Not deleted"
+                            comment: "No data found"
                         });
                         db.close();
                     }
@@ -125,9 +125,9 @@ module.exports = {
             }
         });
     },
-    findOne: function (data, callback) {
+    findOne: function(data, callback) {
         var htmlpage = sails.ObjectID(data.htmlpage);
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -139,7 +139,7 @@ module.exports = {
                     "metadata._id": sails.ObjectID(data._id)
                 }, {
                     "metadata.$": 1
-                }).toArray(function (err, data2) {
+                }).toArray(function(err, data2) {
                     if (data2 && data2[0] && data2[0].metadata && data2[0].metadata[0]) {
                         callback(data2[0].metadata[0]);
                     } else if (err) {
@@ -151,7 +151,7 @@ module.exports = {
                     } else {
                         callback({
                             value: false,
-                            comment: "Not data found"
+                            comment: "No data found"
                         });
                         db.close();
                     }
@@ -159,9 +159,9 @@ module.exports = {
             }
         });
     },
-    find: function (data, callback) {
+    find: function(data, callback) {
         var htmlpage = sails.ObjectID(data.htmlpage);
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -188,7 +188,7 @@ module.exports = {
                     $project: {
                         metadata: 1
                     }
-                }]).toArray(function (err, data2) {
+                }]).toArray(function(err, data2) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -209,14 +209,14 @@ module.exports = {
             }
         });
     },
-    findlimited: function (data, callback) {
+    findlimited: function(data, callback) {
         var newcallback = 0;
         var newreturns = {};
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
         var htmlpage = sails.ObjectID(data.htmlpage);
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -256,7 +256,7 @@ module.exports = {
                     $project: {
                         count: 1
                     }
-                }]).toArray(function (err, result) {
+                }]).toArray(function(err, result) {
                     if (result && result[0]) {
                         newreturns.total = result[0].count;
                         newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
@@ -286,9 +286,9 @@ module.exports = {
                                 $regex: check
                             }
                         }
-                }, {
+                    }, {
                         $unwind: "$metadata"
-                }, {
+                    }, {
                         $match: {
                             "metadata.keyword": {
                                 $exists: true
@@ -297,11 +297,11 @@ module.exports = {
                                 $regex: check
                             }
                         }
-                }, {
+                    }, {
                         $project: {
                             metadata: 1
                         }
-                }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
+                    }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
                         if (found && found[0]) {
                             newreturns.data = found;
                             callback(newreturns);
@@ -324,7 +324,7 @@ module.exports = {
             }
         });
     },
-    localtoserver: function (data, callback) {
+    localtoserver: function(data, callback) {
         if (data.creationtime) {
             metadata.save(data, callback);
         } else if (!data._id && !data.creationtime) {
@@ -335,10 +335,10 @@ module.exports = {
             metadata.delete(data, callback)
         }
     },
-    servertolocal: function (data, callback) {
+    servertolocal: function(data, callback) {
         var d = new Date(data.modifytime);
         var htmlpage = sails.ObjectID(data.htmlpage);
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -365,14 +365,15 @@ module.exports = {
                     $project: {
                         metadata: 1
                     }
-                }]).toArray(function (err, data) {
+                }]).toArray(function(err, data) {
                     if (data != null) {
                         callback(data);
                     }
                     if (err) {
                         console.log(err);
                         callback({
-                            value: false
+                            value: false,
+                            comment: "No data found"
                         });
                     }
                 });

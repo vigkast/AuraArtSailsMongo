@@ -5,7 +5,7 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 module.exports = {
-    save: function (data, callback) {
+    save: function(data, callback) {
         data.discountcoupon = sails.ObjectID(data.discountcoupon);
         if (data.artwork) {
             for (var i = 0; i < data.artwork.length; i++) {
@@ -13,7 +13,7 @@ module.exports = {
             }
         }
         data._id = sails.ObjectID();
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             var exit = 0;
             var exitup = 0;
             if (err) {
@@ -24,7 +24,7 @@ module.exports = {
             }
             if (db) {
                 if (!data._id) {
-                    db.collection('order').insert(data, function (err, created) {
+                    db.collection('order').insert(data, function(err, created) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -51,7 +51,7 @@ module.exports = {
                         _id: order
                     }, {
                         $set: data
-                    }, function (err, updated) {
+                    }, function(err, updated) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -66,7 +66,7 @@ module.exports = {
                         } else {
                             callback({
                                 value: false,
-                                comment: "Not updated"
+                                comment: "No data found"
                             });
                             db.close();
                         }
@@ -75,14 +75,14 @@ module.exports = {
             }
         });
     },
-    findlimited: function (data, callback) {
+    findlimited: function(data, callback) {
         var newcallback = 0;
         var newreturns = {};
         newreturns.data = [];
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -94,7 +94,7 @@ module.exports = {
                     artist: {
                         '$regex': check
                     }
-                }, function (err, number) {
+                }, function(err, number) {
                     if (number && number != "") {
                         newreturns.total = number;
                         newreturns.totalpages = Math.ceil(number / data.pagesize);
@@ -119,7 +119,7 @@ module.exports = {
                         artist: {
                             '$regex': check
                         }
-                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
+                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
                         if (err) {
                             callback({
                                 value: false
@@ -142,9 +142,9 @@ module.exports = {
             }
         });
     },
-    find: function (data, callback) {
+    find: function(data, callback) {
         var returns = [];
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -152,7 +152,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("order").find({}, {}).toArray(function (err, found) {
+                db.collection("order").find({}, {}).toArray(function(err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -173,8 +173,8 @@ module.exports = {
             }
         });
     },
-    findone: function (data, callback) {
-        sails.query(function (err, db) {
+    findone: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -184,7 +184,7 @@ module.exports = {
             if (db) {
                 db.collection("order").find({
                     "_id": sails.ObjectID(data._id)
-                }, {}).toArray(function (err, data2) {
+                }, {}).toArray(function(err, data2) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -205,8 +205,8 @@ module.exports = {
             }
         });
     },
-    delete: function (data, callback) {
-        sails.query(function (err, db) {
+    delete: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -215,7 +215,7 @@ module.exports = {
             }
             db.collection('order').remove({
                 _id: sails.ObjectID(data._id)
-            }, function (err, deleted) {
+            }, function(err, deleted) {
                 if (deleted) {
                     callback({
                         value: true
@@ -230,15 +230,15 @@ module.exports = {
                 } else {
                     callback({
                         value: false,
-                        comment: "Not deleted"
+                        comment: "No data found"
                     });
                     db.close();
                 }
             });
         });
     },
-    countorders: function (data, callback) {
-        sails.query(function (err, db) {
+    countorders: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -246,7 +246,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("order").count({}, function (err, number) {
+                db.collection("order").count({}, function(err, number) {
                     if (nummber && number != null) {
                         callback(number);
                         db.close();
