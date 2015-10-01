@@ -51,18 +51,18 @@ module.exports = {
                             });
                         } else if (updated.result.nModified != 0 && updated.result.n != 0) {
                             callback({
-                                value: "true"
+                                value: true
                             });
                             db.close();
                         } else if (updated.result.nModified == 0 && updated.result.n != 0) {
                             callback({
-                                value: "true",
+                                value: true,
                                 comment: "Data already updated"
                             });
                             db.close();
                         } else {
                             callback({
-                                value: "false",
+                                value: false,
                                 comment: "No data found"
                             });
                             db.close();
