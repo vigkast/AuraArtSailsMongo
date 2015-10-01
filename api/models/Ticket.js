@@ -58,15 +58,20 @@ module.exports = {
                                 value: false
                             });
                             db.close();
-                        } else if (updated) {
+                        } else if (updated.result.nModified != 0 && updated.result.n != 0) {
                             callback({
-                                value: true,
-                                id: data._id
+                                value: "true"
+                            });
+                            db.close();
+                        } else if (updated.result.nModified == 0 && updated.result.n != 0) {
+                            callback({
+                                value: "true",
+                                comment: "Data already updated"
                             });
                             db.close();
                         } else {
                             callback({
-                                value: false,
+                                value: "false",
                                 comment: "No data found"
                             });
                             db.close();
