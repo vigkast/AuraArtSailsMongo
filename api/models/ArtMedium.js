@@ -132,7 +132,7 @@ module.exports = {
 
                     function callbackfunc() {
                         db.collection("artmedium").find({
-                            name: {
+                            name: {
                                 '$regex': check
                             },
                             category: data.category
