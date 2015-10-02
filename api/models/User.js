@@ -657,8 +657,8 @@ module.exports = {
                                     "content": "aura-art"
                                 }]
                                 var message = {
-                                    "from_email": "vigneshkasthuri2009@gmail.com",
-                                    "from_name": "Wohlig",
+                                    "from_email": sails.fromEmail,
+                                    "from_name": sails.fromName,
                                     "to": [{
                                         "email": data.email,
                                         "type": "to"
