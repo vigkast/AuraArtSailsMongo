@@ -549,67 +549,59 @@ module.exports = {
         });
     },
     changepassword: function(data, callback) {
-        data.password = sails.md5(data.password);
-        var user = sails.ObjectID(data._id);
-        var newpass = sails.md5(data.editpassword);
-        sails.query(function(err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                if (data.editpassword && data.editpassword == "") {
+        if (data.password && data.password != "" && data.editpassword && data.editpassword != "" && data.email && data.email != "") {
+            data.password = sails.md5(data.password);
+            var user = sails.ObjectID(data._id);
+            var newpass = sails.md5(data.editpassword);
+            sails.query(function(err, db) {
+                if (err) {
+                    console.log(err);
                     callback({
-                        value: false
+                        value: "false"
                     });
-                    db.close();
-                } else if (data.editpassword && data.editpassword != "") {
+                } else if (db) {
                     db.collection('user').update({
-                        _id: user,
-                        email: data.email,
-                        password: data.password
+                        "_id": user,
+                        "email": data.email,
+                        "password": data.password
                     }, {
                         $set: {
-                            password: newpass
+                            "password": newpass
                         }
                     }, function(err, updated) {
                         if (err) {
                             console.log(err);
                             callback({
-                                value: false
+                                value: "false"
                             });
                             db.close();
-                        } else if (updated) {
-                            if (updated.result.nModified && updated.result.nModified == 1) {
-                                callback({
-                                    value: true
-                                });
-                                db.close();
-                            } else {
-                                callback({
-                                    value: false
-                                });
-                                db.close();
-                            }
+                        } else if (updated.result.nModified == 1 && updated.result.n == 1) {
+                            callback({
+                                value: "true"
+                            });
+                            db.close();
+                        } else if (updated.result.nModified != 1 && updated.result.n == 1) {
+                            callback({
+                                value: "false",
+                                comment: "Same password. Please try different password"
+                            });
+                            db.close();
                         } else {
                             callback({
-                                value: false,
+                                value: "false",
                                 comment: "No data found"
                             });
                             db.close();
                         }
                     });
-                } else {
-                    callback({
-                        value: false,
-                        comment: "No Edit Password"
-                    });
-                    db.close();
                 }
-            }
-        });
+            });
+        } else {
+            callback({
+                value: "false",
+                comment: "Please provide all parameters"
+            });
+        }
     },
     forgotpassword: function(data, callback) {
         sails.query(function(err, db) {
