@@ -651,7 +651,7 @@ module.exports = {
                                 });
                                 db.close();
                             } else if (updated) {
-                                var template_name = "Aura Art";
+                                var template_name = "aura-art";
                                 var template_content = [{
                                     "name": "aura-art",
                                     "content": "aura-art"
