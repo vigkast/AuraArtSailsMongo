@@ -194,7 +194,6 @@ module.exports = {
         } else {
             var isfile2 = sails.fs.existsSync(output);
             if (isfile2 == false) {
-                console.log("in if");
                 var slide = new sails.PDFImagePack();
                 slide.output(imgs, output, function(err, doc) {
                     if (err) {
@@ -205,7 +204,6 @@ module.exports = {
                     }
                 });
             } else {
-                console.log("in else");
                 showpdf();
             }
         }
