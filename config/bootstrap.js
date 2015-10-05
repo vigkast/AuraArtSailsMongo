@@ -32,6 +32,7 @@ module.exports.bootstrap = function(cb) {
     sails.lwip = require('lwip'),
     sails.mandrill = require('mandrill-api/mandrill'),
     sails.mandrill_client = new sails.mandrill.Mandrill('dzbY2mySNE_Zsqr3hsK70A'),
+    sails.PDFImagePack = require("pdf-image-pack");
     sails.fromName = "Aura Art",
     sails.fromEmail = "vigneshkasthuri2009@gmail.com",
 
@@ -39,7 +40,7 @@ module.exports.bootstrap = function(cb) {
     sails.url = 'mongodb://localhost:27017/auraart';
     sails.query = function(myfunc) {
         sails.MongoClient.connect(sails.url, myfunc);
-    }
+    };
     // It's very important to trigger this callback method when you are finished
     // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
     cb();

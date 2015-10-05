@@ -4,27 +4,22 @@
  * @description :: Server-side logic for managing User
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-
-var request = require("request").defaults({
-    encoding: null
-});
-var writedata = "";
 module.exports = {
-    uploadfile: function (req, res) {
-        req.file("file").upload(function (err, uploadedFiles) {
+    uploadfile: function(req, res) {
+        req.file("file").upload(function(err, uploadedFiles) {
             if (err) return res.send(500, err);
-            _.each(uploadedFiles, function (n) {
+            _.each(uploadedFiles, function(n) {
                 var oldpath = n.fd;
                 var source = sails.fs.createReadStream(n.fd);
                 n.fd = n.fd.split('\\').pop().split('/').pop();
                 var dest = sails.fs.createWriteStream('./auraimg/' + n.fd);
                 source.pipe(dest);
-                source.on('end', function () {
-                    sails.fs.unlink(oldpath, function (data) {
+                source.on('end', function() {
+                    sails.fs.unlink(oldpath, function(data) {
                         console.log(data);
                     });
                 });
-                source.on('error', function (err) {
+                source.on('error', function(err) {
                     console.log(err);
                 });
             });
@@ -34,13 +29,13 @@ module.exports = {
             });
         });
     },
-    excelobject: function (req, res) {
-        sails.query(function (err, db) {
+    excelobject: function(req, res) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
             }
             if (db) {
-                db.open(function (err, db) {
+                db.open(function(err, db) {
                     if (err) {
                         console.log(err);
                     }
@@ -49,11 +44,11 @@ module.exports = {
                         req.connection.setTimeout(200000);
                         var extension = "";
                         var excelimages = [];
-                        req.file("file").upload(function (err, uploadedFiles) {
+                        req.file("file").upload(function(err, uploadedFiles) {
                             if (err) {
                                 console.log(err);
                             }
-                            _.each(uploadedFiles, function (n) {
+                            _.each(uploadedFiles, function(n) {
                                 writedata = n.fd;
                                 excelcall(writedata);
                             });
@@ -64,21 +59,21 @@ module.exports = {
                             sails.xlsxj({
                                 input: datapath,
                                 output: outputpath
-                            }, function (err, result) {
+                            }, function(err, result) {
                                 if (err) {
                                     console.error(err);
                                 }
                                 if (result) {
-                                    sails.fs.unlink(datapath, function (data) {
+                                    sails.fs.unlink(datapath, function(data) {
                                         if (data) {
-                                            sails.fs.unlink(outputpath, function (data2) {});
+                                            sails.fs.unlink(outputpath, function(data2) {});
                                         }
                                     });
 
                                     function createart(num) {
                                         excelimages = [];
                                         m = result[num];
-                                        User.saveforexcel(m, function (print) {
+                                        User.saveforexcel(m, function(print) {
                                             m.subtype = [];
                                             if (!print.value && print.value != false) {
                                                 createartwork();
@@ -87,7 +82,7 @@ module.exports = {
                                             function createartwork() {
                                                 m.user = print;
                                                 delete m.username;
-                                                ArtMedium.savemediumexcel(m, function (mediumid) {
+                                                ArtMedium.savemediumexcel(m, function(mediumid) {
                                                     var mediumdata = {};
                                                     mediumdata._id = mediumid;
                                                     mediumdata.name = m.mediumname;
@@ -97,7 +92,7 @@ module.exports = {
                                                     if (m.gprice != "") {
                                                         var gprice = m.gprice.split(",");
                                                         m.gprice = "";
-                                                        _.each(gprice, function (gp) {
+                                                        _.each(gprice, function(gp) {
                                                             m.gprice += gp;
                                                         });
                                                         m.gprice = parseInt(m.gprice);
@@ -107,7 +102,7 @@ module.exports = {
                                                     if (m.pricesq != "") {
                                                         var pricesq = m.pricesq.split(",");
                                                         m.pricesq = "";
-                                                        _.each(pricesq, function (ps) {
+                                                        _.each(pricesq, function(ps) {
                                                             m.pricesq += ps;
                                                         });
                                                         m.pricesq = parseInt(m.pricesq);
@@ -117,7 +112,7 @@ module.exports = {
                                                     if (m.price != "") {
                                                         var price = m.price.split(",");
                                                         m.price = "";
-                                                        _.each(price, function (p) {
+                                                        _.each(price, function(p) {
                                                             m.price += p;
                                                         });
                                                         m.price = parseInt(m.price);
@@ -143,7 +138,7 @@ module.exports = {
                                                         m.yoc = "N/A";
                                                     }
                                                     m.imageno = m.imageno.split(";");
-                                                    _.each(m.imageno, function (z) {
+                                                    _.each(m.imageno, function(z) {
                                                         excelimages.push(z.trim() + '.jpg');
                                                         if (m.imageno.length == excelimages.length) {
                                                             m.image = excelimages;
@@ -152,7 +147,7 @@ module.exports = {
                                                             console.log(num);
                                                             num++;
                                                             if (num < result.length) {
-                                                                setTimeout(function () {
+                                                                setTimeout(function() {
                                                                     createart(num);
                                                                 }, 15);
                                                             } else {
@@ -173,7 +168,7 @@ module.exports = {
             }
         });
     },
-    jsontoexcel: function (req, res) {
+    jsontoexcel: function(req, res) {
         console.log("in json function");
         var json = {
             foo: 'bar',
@@ -185,7 +180,44 @@ module.exports = {
         res.json("created");
         sails.fs.writeFileSync('./uploads/data.xlsx', xls, 'binary');
     },
-    resize: function (req, res) {
+    pdfgene: function(req, res) {
+        var file = req.query.file;
+        var filepath = './auraimg/' + file;
+        var imagename = file.split('.');
+        var imgs = ["./auraimg/" + file];
+        var output = "./auraimg/" + imagename[0] + ".pdf";
+        var isfile = sails.fs.existsSync(filepath);
+        if (isfile == false) {
+            res.json({
+                comment: "No Such Image Found."
+            });
+        } else {
+            var isfile2 = sails.fs.existsSync(output);
+            if (isfile2 == false) {
+                console.log("in if");
+                var slide = new sails.PDFImagePack();
+                slide.output(imgs, output, function(err, doc) {
+                    if (err) {
+                        console.log(err);
+                        res.json("Error");
+                    } else if (doc) {
+                        showpdf();
+                    }
+                });
+            } else {
+                console.log("in else");
+                showpdf();
+            }
+        }
+
+        function showpdf() {
+            var pdf = sails.fs.readFileSync(output);
+            var mimetype = sails.mime.lookup(output);
+            res.set('Content-Type', mimetype);
+            res.send(pdf);
+        }
+    },
+    resize: function(req, res) {
         function showimage(path) {
             var image = sails.fs.readFileSync(path);
             var mimetype = sails.mime.lookup(path);
@@ -205,7 +237,7 @@ module.exports = {
             var isfile2 = sails.fs.existsSync(newfilename);
             if (!isfile2) {
                 console.log("in if");
-                sails.lwip.open(newfilepath, function (err, image) {
+                sails.lwip.open(newfilepath, function(err, image) {
                     var dimensions = {};
                     dimensions.width = image.width();
                     dimensions.height = image.height();
@@ -215,8 +247,8 @@ module.exports = {
                     if (height == 0) {
                         height = dimensions.height / dimensions.width * width;
                     }
-                    image.resize(width, height, "lanczos", function (err, image) {
-                        image.toBuffer(extension, function (err, buffer) {
+                    image.resize(width, height, "lanczos", function(err, image) {
+                        image.toBuffer(extension, function(err, buffer) {
                             sails.fs.writeFileSync(newfilename, buffer);
                             showimage(newfilename);
                         });
@@ -251,99 +283,99 @@ module.exports = {
             }
         }
     },
-    save: function (req, res) {
-        var print = function (data) {
+    save: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.save(req.body, print);
     },
-    find: function (req, res) {
-        var print = function (data) {
+    find: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.find(req.body, print);
     },
-    findbyletter: function (req, res) {
-        var print = function (data) {
+    findbyletter: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.findbyletter(req.body, print);
     },
-    findlimited: function (req, res) {
-        var print = function (data) {
+    findlimited: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.findlimited(req.body, print);
     },
-    findone: function (req, res) {
-        var print = function (data) {
+    findone: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.findone(req.body, print);
     },
-    findbyaccess: function (req, res) {
-        var print = function (data) {
+    findbyaccess: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.findbyaccess(req.body, print);
     },
-    searchmail: function (req, res) {
+    searchmail: function(req, res) {
         console.log(req.body);
-        var print = function (data) {
+        var print = function(data) {
             res.json(data);
         }
         User.searchmail(req.body, print);
     },
-    delete: function (req, res) {
-        var print = function (data) {
+    delete: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.delete(req.body, print);
     },
-    login: function (req, res) {
-        var print = function (data) {
+    login: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.login(req.body, print);
     },
-    adminlogin: function (req, res) {
-        var print = function (data) {
+    adminlogin: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.adminlogin(req.body, print);
     },
-    changepassword: function (req, res) {
-        var print = function (data) {
+    changepassword: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.changepassword(req.body, print);
     },
-    forgotpassword: function (req, res) {
-        var print = function (data) {
+    forgotpassword: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.forgotpassword(req.body, print);
     },
-    countusers: function (req, res) {
-        var print = function (data) {
+    countusers: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.countusers(req.body, print);
     },
-    countartwork: function (req, res) {
-        var print = function (data) {
+    countartwork: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.countartwork(req.body, print);
     },
-    saveforexcel: function (req, res) {
-        var print = function (data) {
+    saveforexcel: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.saveforexcel(req.body, print);
     },
-    deletedata: function (req, res) {
-        var print = function (data) {
+    deletedata: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.deletedata(req.body, print);
