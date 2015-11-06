@@ -283,6 +283,16 @@ module.exports = {
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
         if (data.type && data.type != "") {
+            var firstmatch = {
+                $and: [{
+                    name: check
+                }, {
+                    name: checkname
+                }],
+                accesslevel: "artist",
+                "artwork.type": data.type,
+                focused: "focused"
+            };
             var matchobj = {
                 $and: [{
                     name: check
@@ -294,6 +304,15 @@ module.exports = {
             };
             callbackfunc1();
         } else {
+            var firstmatch = {
+                $and: [{
+                    name: check
+                }, {
+                    name: checkname
+                }],
+                accesslevel: "artist",
+                focused: "focused"
+            };
             var matchobj = {
                 $and: [{
                     name: check
@@ -335,7 +354,7 @@ module.exports = {
                     });
 
                     function callbackfunc() {
-                        db.collection("user").find(matchobj, {
+                        db.collection("user").find(firstmatch, {
                             password: 0,
                             forgotpassword: 0
                         }).sort({
@@ -346,19 +365,42 @@ module.exports = {
                                     value: false
                                 });
                                 console.log(err);
-                                db.close();
                             } else if (found && found[0]) {
                                 newreturns.data = found;
-                                callback(newreturns);
-                                db.close();
+                                secondcall();
                             } else {
-                                callback({
-                                    value: false,
-                                    comment: "No data found"
-                                });
-                                db.close();
+                                secondcall();
                             }
                         });
+
+                        function secondcall() {
+                            db.collection("user").find(matchobj, {
+                                password: 0,
+                                forgotpassword: 0
+                            }).sort({
+                                name: 1
+                            }).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                                if (err) {
+                                    callback({
+                                        value: false
+                                    });
+                                    console.log(err);
+                                    db.close();
+                                } else if (found && found[0]) {
+                                    _.each(found, function(n) {
+                                        newreturns.data.push(n);
+                                    });
+                                    callback(newreturns);
+                                    db.close();
+                                } else {
+                                    callback({
+                                        value: false,
+                                        comment: "No data found"
+                                    });
+                                    db.close();
+                                }
+                            });
+                        }
                     }
                 }
             });
