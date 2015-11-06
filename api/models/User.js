@@ -20,7 +20,7 @@ module.exports = {
                     }).toArray(function(err, found) {
                         if (err) {
                             callback({
-                                value: "false"
+                                value: false
                             });
                             console.log(err);
                             db.close();
@@ -29,7 +29,7 @@ module.exports = {
                             db.close();
                         } else {
                             callback({
-                                value: "false",
+                                value: false,
                                 comment: "No data found"
                             });
                             db.close();
@@ -39,7 +39,7 @@ module.exports = {
                 if (err) {
                     console.log(err);
                     callback({
-                        value: "false"
+                        value: false
                     });
                 }
             });
@@ -91,7 +91,7 @@ module.exports = {
                                 } else if (created) {
                                     callback({
                                         value: true,
-                                        id: data._id
+                                        id: data
                                     });
                                     db.close();
                                 } else {
@@ -557,7 +557,7 @@ module.exports = {
                 if (err) {
                     console.log(err);
                     callback({
-                        value: "false"
+                        value: false
                     });
                 } else if (db) {
                     db.collection('user').update({
@@ -572,23 +572,23 @@ module.exports = {
                         if (err) {
                             console.log(err);
                             callback({
-                                value: "false"
+                                value: false
                             });
                             db.close();
                         } else if (updated.result.nModified == 1 && updated.result.n == 1) {
                             callback({
-                                value: "true"
+                                value: true
                             });
                             db.close();
                         } else if (updated.result.nModified != 1 && updated.result.n == 1) {
                             callback({
-                                value: "false",
+                                value: false,
                                 comment: "Same password. Please try different password"
                             });
                             db.close();
                         } else {
                             callback({
-                                value: "false",
+                                value: false,
                                 comment: "No data found"
                             });
                             db.close();
@@ -598,7 +598,7 @@ module.exports = {
             });
         } else {
             callback({
-                value: "false",
+                value: false,
                 comment: "Please provide all parameters"
             });
         }
