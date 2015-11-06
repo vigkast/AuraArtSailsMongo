@@ -213,7 +213,7 @@ module.exports = {
     find: function(data, callback) {
         var returns = [];
         var exit = 0;
-        var exitup = 1;
+        var exitup = 2;
         var check = new RegExp(data.search, "i");
 
         function callback2(exit, exitup, data) {
@@ -256,16 +256,50 @@ module.exports = {
                                 return flag;
                             });
                         }
-                        returns = returns.concat(found);
-                        callback2(exit, exitup, returns);
+                        returns = found;
+                        newcallback();
                     } else {
-                        callback({
-                            value: false,
-                            comment: "No data found"
-                        });
-                        db.close();
+                        exit++;
+                        newcallback();
                     }
                 });
+
+                function newcallback() {
+                    db.collection("tag").find({
+                        name: {
+                            '$regex': check
+                        }
+                    }).limit(10).toArray(function(err, found) {
+                        if (err) {
+                            callback({
+                                value: false
+                            });
+                            console.log(err);
+                            db.close();
+                        } else if (found != null) {
+                            exit++;
+                            if (data.tag.length != 0) {
+                                var nedata;
+                                nedata = _.remove(found, function(n) {
+                                    var flag = false;
+                                    _.each(data.tag, function(n1) {
+                                        if (n1.name == n.name) {
+                                            flag = true;
+                                        }
+                                    })
+                                    return flag;
+                                });
+                            }
+                            _.each(found, function(m) {
+                                returns.push(m);
+                            });
+                            callback2(exit, exitup, returns);
+                        } else {
+                            exit++;
+                            callback2(exit, exitup, returns);
+                        }
+                    });
+                }
             }
         });
     },
