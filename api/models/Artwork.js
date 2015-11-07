@@ -944,6 +944,371 @@ module.exports = {
             }
         });
     },
+    searchartwork: function(data, callback) {
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false,
+                    comment: "Error"
+                });
+            } else if (db) {
+                var i = 0;
+                var newreturns = {};
+                newreturns.data = [];
+                var checkname = new RegExp(data.search, "i");
+                var pagesize = data.pagesize;
+                var pagenumber = data.pagenumber;
+                var user = sails.ObjectID(data.user);
+                db.collection("user").aggregate([{
+                    $match: {
+                        name: {
+                            $regex: checkname
+                        },
+                        accesslevel: "artist"
+                    }
+                }, {
+                    $group: {
+                        _id: user,
+                        count: {
+                            $sum: 1
+                        }
+                    }
+                }, {
+                    $project: {
+                        count: 1
+                    }
+                }]).toArray(function(err, result) {
+                    if (result && result[0]) {
+                        newreturns.total = result[0].count;
+                        newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                        callbackfunc();
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callbackfunc();
+                    }
+                });
+
+                function callbackfunc() {
+                    db.collection("user").aggregate([{
+                        $match: {
+                            name: {
+                                $regex: checkname
+                            },
+                            accesslevel: "artist"
+                        }
+                    }, {
+                        $project: {
+                            name: 1,
+                            artwork: 1
+                        }
+                    }, {
+                        $sort: {
+                            name: 1
+                        }
+                    }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                        if (found && found[0]) {
+                            _.each(found, function(user) {
+                                newreturns.data.push(user);
+                            });
+                            i++;
+                            if (i == 4) {
+                                callback(newreturns);
+                                db.close();
+                            }
+                        } else if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else {
+                            i++;
+                            if (i == 4) {
+                                callback(newreturns);
+                                db.close();
+                            }
+                        }
+                    });
+                }
+                db.collection("user").aggregate([{
+                    $unwind: "$artwork"
+                }, {
+                    $match: {
+                        "artwork.name": {
+                            $regex: checkname
+                        }
+                    }
+                }, {
+                    $group: {
+                        _id: user,
+                        count: {
+                            $sum: 1
+                        }
+                    }
+                }, {
+                    $project: {
+                        count: 1
+                    }
+                }]).toArray(function(err, result) {
+                    if (result && result[0]) {
+                        newreturns.total = result[0].count;
+                        newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                        callbackfunc1();
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callbackfunc1();
+                    }
+                });
+
+                function callbackfunc1() {
+                    db.collection("user").aggregate([{
+                        $unwind: "$artwork"
+                    }, {
+                        $match: {
+                            "artwork.name": {
+                                $regex: checkname
+                            }
+                        }
+                    }, {
+                        $group: {
+                            _id: "$_id",
+                            name: {
+                                $addToSet: "$name"
+                            },
+                            artwork: {
+                                $addToSet: "$artwork"
+                            }
+                        }
+                    }, {
+                        $project: {
+                            name: 1,
+                            artwork: 1
+                        }
+                    }, {
+                        $unwind: "$name"
+                    }, {
+                        $sort: {
+                            name: 1
+                        }
+                    }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                        if (found && found[0]) {
+                            _.each(found, function(user) {
+                                newreturns.data.push(user);
+                            });
+                            i++;
+                            if (i == 4) {
+                                callback(newreturns);
+                                db.close();
+                            }
+                        } else if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else {
+                            i++;
+                            if (i == 4) {
+                                callback(newreturns);
+                                db.close();
+                            }
+                        }
+                    });
+                }
+                db.collection("user").aggregate([{
+                    $unwind: "$artwork"
+                }, {
+                    $match: {
+                        "artwork.subtype.name": {
+                            $regex: checkname
+                        }
+                    }
+                }, {
+                    $group: {
+                        _id: user,
+                        count: {
+                            $sum: 1
+                        }
+                    }
+                }, {
+                    $project: {
+                        count: 1
+                    }
+                }]).toArray(function(err, result) {
+                    if (result && result[0]) {
+                        newreturns.total = result[0].count;
+                        newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                        callbackfunc2();
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callbackfunc2();
+                    }
+                });
+
+                function callbackfunc2() {
+                    db.collection("user").aggregate([{
+                        $unwind: "$artwork"
+                    }, {
+                        $match: {
+                            "artwork.subtype.name": {
+                                $regex: checkname
+                            }
+                        }
+                    }, {
+                        $group: {
+                            _id: "$_id",
+                            name: {
+                                $addToSet: "$name"
+                            },
+                            artwork: {
+                                $addToSet: "$artwork"
+                            }
+                        }
+                    }, {
+                        $project: {
+                            name: 1,
+                            artwork: 1
+                        }
+                    }, {
+                        $unwind: "$name"
+                    }, {
+                        $sort: {
+                            name: 1
+                        }
+                    }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                        if (found && found[0]) {
+                            _.each(found, function(user) {
+                                newreturns.data.push(user);
+                            });
+                            i++;
+                            if (i == 4) {
+                                callback(newreturns);
+                                db.close();
+                            }
+                        } else if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else {
+                            i++;
+                            if (i == 4) {
+                                callback(newreturns);
+                                db.close();
+                            }
+                        }
+                    });
+                }
+                db.collection("user").aggregate([{
+                    $unwind: "$artwork"
+                }, {
+                    $match: {
+                        "artwork.tag.name": {
+                            $regex: checkname
+                        }
+                    }
+                }, {
+                    $group: {
+                        _id: user,
+                        count: {
+                            $sum: 1
+                        }
+                    }
+                }, {
+                    $project: {
+                        count: 1
+                    }
+                }]).toArray(function(err, result) {
+                    if (result && result[0]) {
+                        newreturns.total = result[0].count;
+                        newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                        callbackfunc3();
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callbackfunc3();
+                    }
+                });
+
+                function callbackfunc3() {
+                    db.collection("user").aggregate([{
+                        $unwind: "$artwork"
+                    }, {
+                        $match: {
+                            "artwork.tag.name": {
+                                $regex: checkname
+                            }
+                        }
+                    }, {
+                        $group: {
+                            _id: "$_id",
+                            name: {
+                                $addToSet: "$name"
+                            },
+                            artwork: {
+                                $addToSet: "$artwork"
+                            }
+                        }
+                    }, {
+                        $project: {
+                            name: 1,
+                            artwork: 1
+                        }
+                    }, {
+                        $unwind: "$name"
+                    }, {
+                        $sort: {
+                            name: 1
+                        }
+                    }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                        if (found && found[0]) {
+                            _.each(found, function(user) {
+                                newreturns.data.push(user);
+                            });
+                            i++;
+                            if (i == 4) {
+                                callback(newreturns);
+                                db.close();
+                            }
+                        } else if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else {
+                            i++;
+                            if (i == 4) {
+                                callback(newreturns);
+                                db.close();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    },
     favoriteartwork: function(data, callback) {
         var i = 0;
         var returnData = [];

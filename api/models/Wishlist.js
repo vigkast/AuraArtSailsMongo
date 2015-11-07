@@ -39,6 +39,7 @@ module.exports = {
                             });
                             db.close();
                         } else if (data2 && data2[0]) {
+
                             data.user = user;
                             Wishlist.delete(data, function(data3) {
                                 if (data3.value == true) {
@@ -63,9 +64,8 @@ module.exports = {
                                     });
                                     db.close();
                                 } else if (updated.result.nModified != 0 && updated.result.n != 0) {
-                                    callback({
-                                        value: true
-                                    });
+                                    data._id = user;
+                                    User.findone(data, callback);
                                     db.close();
                                 } else if (updated.result.nModified == 0 && updated.result.n != 0) {
                                     callback({
@@ -114,9 +114,8 @@ module.exports = {
                         });
                         db.close();
                     } else if (updated) {
-                        callback({
-                            value: true
-                        });
+                        data._id = user;
+                        User.findone(data, callback);
                         db.close();
                     } else {
                         callback({

@@ -89,10 +89,8 @@ module.exports = {
                                     });
                                     db.close();
                                 } else if (created) {
-                                    callback({
-                                        value: true,
-                                        id: data
-                                    });
+                                    delete data.password;
+                                    callback(data);
                                     db.close();
                                 } else {
                                     callback({
@@ -835,6 +833,8 @@ module.exports = {
                 }, {
                     password: 0,
                     forgotpassword: 0
+                }).sort({
+                    name: 1
                 }).toArray(function(err, found) {
                     if (err) {
                         callback({

@@ -101,5 +101,11 @@ module.exports = {
             res.json(data);
         };
         Artwork.favoriteartwork(req.body, callback);
+    },
+    searchartwork:function(req,res){
+        function callback(data) {
+            res.json(data);
+        };
+        Artwork.searchartwork(req.body, callback);
     }
 };
