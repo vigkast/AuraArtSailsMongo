@@ -377,5 +377,11 @@ module.exports = {
             res.json(data);
         }
         User.deletedata(req.body, print);
-    }
+    },
+    findUser: function(req, res) {
+        var print = function(data) {
+            res.json(data);
+        }
+        User.findUser(req.body, print);
+    },
 };

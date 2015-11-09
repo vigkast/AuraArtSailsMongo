@@ -987,5 +987,57 @@ module.exports = {
                 }
             });
         });
+    },
+    findUser: function(data, callback) {
+        var spacedata = data.search;
+        spacedata = "\\s" + spacedata;
+        var check = new RegExp(spacedata, "i");
+        console.log(check);
+        data.search = "^" + data.search;
+        var checkname = new RegExp(data.search, "i");
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").find({
+                    $or: [{
+                        name: {
+                            '$regex': checkname
+                        }
+                    }, {
+                        name: {
+                            '$regex': check
+                        }
+                    }],
+                    accesslevel: "artist"
+                }, {
+                    _id: 1,
+                    name: 1
+                }).sort({
+                    name: 1
+                }).toArray(function(err, found) {
+                    if (err) {
+                        callback({
+                            value: false
+                        });
+                        console.log(err);
+                        db.close();
+                    } else if (found && found[0]) {
+                        callback(found);
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
     }
 };
