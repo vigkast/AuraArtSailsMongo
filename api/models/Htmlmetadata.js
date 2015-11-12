@@ -131,7 +131,7 @@ module.exports = {
             }
         });
     },
-    findOne: function(data, callback) {
+    findone: function(data, callback) {
         var htmlpage = sails.ObjectID(data.htmlpage);
         sails.query(function(err, db) {
             if (err) {
@@ -327,62 +327,6 @@ module.exports = {
                         }
                     });
                 }
-            }
-        });
-    },
-    localtoserver: function(data, callback) {
-        if (data.creationtime) {
-            metadata.save(data, callback);
-        } else if (!data._id && !data.creationtime) {
-            callback({
-                value: false
-            });
-        } else if (data.id && !data.creationtime) {
-            metadata.delete(data, callback)
-        }
-    },
-    servertolocal: function(data, callback) {
-        var d = new Date(data.modifytime);
-        var htmlpage = sails.ObjectID(data.htmlpage);
-        sails.query(function(err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("htmlpage").aggregate([{
-                    $match: {
-                        _id: htmlpage,
-                        "metadata.modifytime": {
-                            $gt: d
-                        }
-                    }
-                }, {
-                    $unwind: "$metadata"
-                }, {
-                    $match: {
-                        "metadata.modifytime": {
-                            $gt: d
-                        }
-                    }
-                }, {
-                    $project: {
-                        metadata: 1
-                    }
-                }]).toArray(function(err, data) {
-                    if (data != null) {
-                        callback(data);
-                    }
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false,
-                            comment: "No data found"
-                        });
-                    }
-                });
             }
         });
     }

@@ -230,35 +230,5 @@ module.exports = {
                 }
             });
         });
-    },
-    countenquiry: function(data, callback) {
-        sails.query(function(err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("enquiry").count({}, function(err, number) {
-                    if (number != null) {
-                        callback(number);
-                        db.close();
-                    } else if (err) {
-                        callback({
-                            value: false
-                        });
-                        console.log(err);
-                        db.close();
-                    } else {
-                        callback({
-                            value: false,
-                            callback: "No data found"
-                        });
-                        db.close();
-                    }
-                });
-            }
-        });
     }
 };

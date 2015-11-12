@@ -6,40 +6,98 @@
  */
 
 module.exports = {
-    save: function (req, res) {
-        var print = function (data) {
-            res.json(data);
+    save: function(req, res) {
+        if (req.body) {
+            if (req.body._id) {
+                if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                    dc();
+                } else {
+                    res.json({
+                        value: "false",
+                        comment: "Discountcoupon-id is incorrect"
+                    });
+                }
+            } else {
+                dc();
+            }
+
+            function dc() {
+                var print = function(data) {
+                    res.json(data);
+                }
+                Discountcoupon.save(req.body, print);
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        Discountcoupon.save(req.body, print);
     },
-    find: function (req, res) {
-        var print = function (data) {
+    find: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         Discountcoupon.find(req.body, print);
     },
-    findlimited: function (req, res) {
-        var print = function (data) {
-            res.json(data);
+    findlimited: function(req, res) {
+        if (req.body) {
+            if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
+                function callback(data) {
+                    res.json(data);
+                };
+                Discountcoupon.findlimited(req.body, callback);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        Discountcoupon.findlimited(req.body, print);
     },
-    findone: function (req, res) {
-        var print = function (data) {
-            res.json(data);
+    findone: function(req, res) {
+        if (req.body) {
+            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                var print = function(data) {
+                    res.json(data);
+                }
+                Discountcoupon.findone(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Discountcoupon-id is incorrect"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        Discountcoupon.findone(req.body, print);
     },
-    delete: function (req, res) {
-        var print = function (data) {
-            res.json(data);
+    delete: function(req, res) {
+        if (req.body) {
+            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                var print = function(data) {
+                    res.json(data);
+                }
+                Discountcoupon.delete(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Discountcoupon-id is incorrect"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        Discountcoupon.delete(req.body, print);
-    },
-    countdiscountcoupon: function (req, res) {
-        var print = function (data) {
-            res.json(data);
-        }
-        Discountcoupon.countdiscountcoupon(req.body, print);
     }
 };

@@ -1,47 +1,123 @@
 /**
- * EventController
+ * UserController
  *
- * @description :: Server-side logic for managing Events
+ * @description :: Server-side logic for managing users
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
 module.exports = {
-    save: function (req, res) {
-        function callback(data) {
-            res.json(data);
-        };
-        Event.save(req.body, callback);
-    },
-    delete: function (req, res) {
-        function callback(data) {
-            res.json(data);
-        };
-        Event.delete(req.body, callback);
-    },
-    find: function (req, res) {
-        function callback(data) {
-            res.json(data);
-        };
-        Event.find(req.body, callback);
+    save: function(req, res) {
+        if (req.body) {
+            if (req.body._id) {
+                if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                    user();
+                } else {
+                    res.json({
+                        value: "false",
+                        comment: "User-id is incorrect"
+                    });
+                }
+            } else {
+                user();
+            }
 
+            function user() {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.save(req.body, print);
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
     },
-    findlimited: function (req, res) {
+    delete: function(req, res) {
+        if (req.body) {
+            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.delete(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "User-id is incorrect"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    find: function(req, res) {
         function callback(data) {
             res.json(data);
         };
-        Event.findlimited(req.body, callback);
-
+        User.find(req.body, callback);
     },
-    findone: function (req, res) {
-        function callback(data) {
-            res.json(data);
-        };
-        Event.findone(req.body, callback);
+    findone: function(req, res) {
+        if (req.body) {
+            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.findone(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "User-id is incorrect"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
     },
-    findevents: function (req, res) {
-        function callback(data) {
-            res.json(data);
-        };
-        Event.findevents(req.body, callback);
+    findlimited: function(req, res) {
+        if (req.body) {
+            if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
+                function callback(data) {
+                    res.json(data);
+                };
+                User.findlimited(req.body, callback);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    findevents: function(req, res) {
+        if (req.body) {
+            if (req.body.year && req.body.year != "") {
+                function callback(data) {
+                    res.json(data);
+                };
+                User.findevents(req.body, callback);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
     }
 };

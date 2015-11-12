@@ -439,7 +439,8 @@ module.exports = {
         });
     },
     deleteout: function(data, callback) {
-        data._id = sails.ObjectID(data._id);
+        var user = sails.ObjectID(data.user);
+        delete data.user;
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -449,6 +450,8 @@ module.exports = {
             }
             if (db) {
                 db.collection("user").update({
+                    _id: user
+                }, {
                     $pull: {
                         "artwork": {
                             "_id": sails.ObjectID(data._id)

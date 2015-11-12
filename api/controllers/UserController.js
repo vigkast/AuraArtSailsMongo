@@ -169,7 +169,6 @@ module.exports = {
         });
     },
     jsontoexcel: function(req, res) {
-        console.log("in json function");
         var json = {
             foo: 'bar',
             qux: 'moo',
@@ -282,10 +281,32 @@ module.exports = {
         }
     },
     save: function(req, res) {
-        var print = function(data) {
-            res.json(data);
+        if (req.body) {
+            if (req.body._id) {
+                if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                    user();
+                } else {
+                    res.json({
+                        value: "false",
+                        comment: "User-id is incorrect"
+                    });
+                }
+            } else {
+                user();
+            }
+
+            function user() {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.save(req.body, print);
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        User.save(req.body, print);
     },
     find: function(req, res) {
         var print = function(data) {
@@ -294,76 +315,230 @@ module.exports = {
         User.find(req.body, print);
     },
     findbyletter: function(req, res) {
-        var print = function(data) {
-            res.json(data);
+        if (req.body) {
+            if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.findbyletter(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "user-id is incorrect "
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
         }
-        User.findbyletter(req.body, print);
     },
     findlimited: function(req, res) {
-        var print = function(data) {
-            res.json(data);
+        if (req.body) {
+            if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
+                function callback(data) {
+                    res.json(data);
+                };
+                User.findlimited(req.body, callback);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        User.findlimited(req.body, print);
     },
     findone: function(req, res) {
-        var print = function(data) {
-            res.json(data);
+        if (req.body) {
+            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.findone(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "User-id is incorrect"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        User.findone(req.body, print);
     },
     findbyaccess: function(req, res) {
-        var print = function(data) {
-            res.json(data);
+        if (req.body) {
+            if (req.body.accesslevel && req.body.accesslevel != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.findbyaccess(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        User.findbyaccess(req.body, print);
     },
     searchmail: function(req, res) {
-        var print = function(data) {
-            res.json(data);
+        if (req.body) {
+            if (req.body.email && req.body.email != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.searchmail(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        User.searchmail(req.body, print);
     },
     delete: function(req, res) {
-        var print = function(data) {
-            res.json(data);
+        if (req.body) {
+            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.delete(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "User-id is incorrect"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        User.delete(req.body, print);
     },
     login: function(req, res) {
-        var print = function(data) {
-            res.json(data);
+        if (req.body) {
+            if (req.body.email && req.body.email != "" && req.body.password && req.body.password != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.login(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        User.login(req.body, print);
     },
     adminlogin: function(req, res) {
-        var print = function(data) {
-            res.json(data);
+        if (req.body) {
+            if (req.body.email && req.body.email != "" && req.body.password && req.body.password != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.adminlogin(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        User.adminlogin(req.body, print);
     },
     changepassword: function(req, res) {
-        var print = function(data) {
-            res.json(data);
+        if (req.body) {
+            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.changepassword(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "User-id is incorrect"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        User.changepassword(req.body, print);
     },
     forgotpassword: function(req, res) {
-        var print = function(data) {
-            res.json(data);
+        if (req.body) {
+            if (req.body.email && req.body.email != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.forgotpassword(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        User.forgotpassword(req.body, print);
     },
     countusers: function(req, res) {
-        var print = function(data) {
-            res.json(data);
+        if (req.body) {
+            var print = function(data) {
+                res.json(data);
+            }
+            User.countusers(req.body, print);
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        User.countusers(req.body, print);
     },
     countartwork: function(req, res) {
-        var print = function(data) {
-            res.json(data);
+        if (req.body) {
+            var print = function(data) {
+                res.json(data);
+            }
+            User.countartwork(req.body, print);
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        User.countartwork(req.body, print);
     },
     saveforexcel: function(req, res) {
         var print = function(data) {
@@ -378,9 +553,23 @@ module.exports = {
         User.deletedata(req.body, print);
     },
     findUser: function(req, res) {
-        var print = function(data) {
-            res.json(data);
+        if (req.body) {
+            if (req.body.search && req.body.search != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.findUser(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
         }
-        User.findUser(req.body, print);
     },
 };

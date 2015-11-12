@@ -233,34 +233,5 @@ module.exports = {
                 }
             });
         });
-    },
-    counthtmlpage: function(data, callback) {
-        sails.query(function(err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("htmlpage").count({}, function(err, number) {
-                    if (number != null) {
-                        callback(number);
-                        db.close();
-                    } else if (err) {
-                        callback({
-                            value: false
-                        });
-                        db.close();
-                    } else {
-                        callback({
-                            value: false,
-                            comment: "No data found"
-                        });
-                        db.close();
-                    }
-                });
-            }
-        });
     }
 };

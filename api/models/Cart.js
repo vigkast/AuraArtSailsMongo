@@ -131,7 +131,7 @@ module.exports = {
             }
         });
     },
-    findOne: function(data, callback) {
+    findone: function(data, callback) {
         var user = sails.ObjectID(data.user);
         sails.query(function(err, db) {
             if (err) {
@@ -331,63 +331,6 @@ module.exports = {
                             }
                         });
                 }
-            }
-        });
-    },
-    localtoserver: function(data, callback) {
-        if (data.creationtime) {
-            cart.save(data, callback);
-        } else if (!data._id && !data.creationtime) {
-            callback({
-                value: false
-            });
-        } else if (data.id && !data.creationtime) {
-            cart.delete(data, callback)
-        }
-    },
-    servertolocal: function(data, callback) {
-        var d = new Date(data.modifytime);
-        var user = sails.ObjectID(data.user);
-        sails.query(function(err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("user").aggregate([{
-                    $match: {
-                        _id: user,
-                        "cart.modifytime": {
-                            $gt: d
-                        }
-                    }
-                }, {
-                    $unwind: "$cart"
-                }, {
-                    $match: {
-                        "cart.modifytime": {
-                            $gt: d
-                        }
-                    }
-                }, {
-                    $project: {
-                        cart: 1
-                    }
-                }]).toArray(
-                    function(err, data) {
-                        if (data != null) {
-                            callback(data);
-                        }
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false,
-                                comment: "No data found"
-                            });
-                        }
-                    });
             }
         });
     }

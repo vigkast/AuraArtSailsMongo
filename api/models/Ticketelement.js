@@ -131,7 +131,7 @@ module.exports = {
             }
         });
     },
-    findOne: function(data, callback) {
+    findone: function(data, callback) {
         var ticket = sails.ObjectID(data.ticket);
         sails.query(function(err, db) {
             if (err) {
