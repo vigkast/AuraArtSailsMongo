@@ -237,12 +237,6 @@ module.exports = {
             }
             if (db) {
                 db.collection("user").aggregate([{
-                    $match: {
-                        "artwork.name": {
-                            $exists: true
-                        }
-                    }
-                }, {
                     $unwind: "$artwork"
                 }, {
                     $match: {
@@ -255,7 +249,7 @@ module.exports = {
                         artwork: 1
                     }
                 }]).toArray(function(err, data2) {
-                    if (data2 && data2[0] && data2[0].artwork && data2[0].artwork[0]) {
+                    if (data2 && data2[0]) {
                         callback(data2);
                         db.close();
                     } else if (err) {
