@@ -36,15 +36,10 @@ module.exports = {
                                         value: false
                                     });
                                     db.close();
-                                } else if (updated.result.nModified != 0 && updated.result.n != 0) {
-                                    callback({
-                                        value: true
-                                    });
-                                    db.close();
-                                } else if (updated.result.nModified == 0 && updated.result.n != 0) {
+                                } else if (created) {
                                     callback({
                                         value: true,
-                                        comment: "Data already updated"
+                                        id: data._id
                                     });
                                     db.close();
                                 } else {
@@ -71,10 +66,15 @@ module.exports = {
                                 value: false
                             });
                             db.close();
-                        } else if (updated) {
+                        } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+                            callback({
+                                value: true
+                            });
+                            db.close();
+                        } else if (updated.result.nModified == 0 && updated.result.n != 0) {
                             callback({
                                 value: true,
-                                id: data._id
+                                comment: "Data already updated"
                             });
                             db.close();
                         } else {
