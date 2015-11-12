@@ -318,7 +318,6 @@ module.exports = {
         User.findbyaccess(req.body, print);
     },
     searchmail: function(req, res) {
-        console.log(req.body);
         var print = function(data) {
             res.json(data);
         }

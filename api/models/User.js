@@ -992,7 +992,6 @@ module.exports = {
         var spacedata = data.search;
         spacedata = "\\s" + spacedata;
         var check = new RegExp(spacedata, "i");
-        console.log(check);
         data.search = "^" + data.search;
         var checkname = new RegExp(data.search, "i");
         sails.query(function(err, db) {
