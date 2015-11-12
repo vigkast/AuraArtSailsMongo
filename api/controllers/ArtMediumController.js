@@ -35,10 +35,24 @@ module.exports = {
         }
     },
     find: function(req, res) {
-        var print = function(data) {
-            res.json(data);
+        if (req.body) {
+            if (req.body.artmedium && req.body.artmedium.length > 0) {
+                var print = function(data) {
+                    res.json(data);
+                }
+                ArtMedium.find(req.body, print);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
         }
-        ArtMedium.find(req.body, print);
     },
     findlimited: function(req, res) {
         if (req.body) {

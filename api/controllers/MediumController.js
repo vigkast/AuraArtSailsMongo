@@ -55,10 +55,24 @@ module.exports = {
         }
     },
     find: function(req, res) {
-        function callback(data) {
-            res.json(data);
-        };
-        Medium.find(req.body, callback);
+        if (req.body) {
+            if (req.body.medium && req.body.medium.length > 0) {
+                var print = function(data) {
+                    res.json(data);
+                }
+                Medium.find(req.body, print);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
     },
     findone: function(req, res) {
         if (req.body) {
