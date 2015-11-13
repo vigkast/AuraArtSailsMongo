@@ -515,30 +515,16 @@ module.exports = {
         }
     },
     countusers: function(req, res) {
-        if (req.body) {
-            var print = function(data) {
-                res.json(data);
-            }
-            User.countusers(req.body, print);
-        } else {
-            res.json({
-                value: "false",
-                comment: "Please provide parameters"
-            });
+        var print = function(data) {
+            res.json(data);
         }
+        User.countusers(req.body, print);
     },
     countartwork: function(req, res) {
-        if (req.body) {
-            var print = function(data) {
-                res.json(data);
-            }
-            User.countartwork(req.body, print);
-        } else {
-            res.json({
-                value: "false",
-                comment: "Please provide parameters"
-            });
+        var print = function(data) {
+            res.json(data);
         }
+        User.countartwork(req.body, print);
     },
     saveforexcel: function(req, res) {
         var print = function(data) {
