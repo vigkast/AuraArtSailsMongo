@@ -558,4 +558,24 @@ module.exports = {
             });
         }
     },
+    userbytype: function(req, res) {
+        if (req.body) {
+            if (req.body.type && req.body.type != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.userbytype(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
 };

@@ -387,5 +387,43 @@ module.exports = {
                 });
             }
         });
+    },
+    getmedium: function(data, callback) {
+        if (data.type && data.type != "") {
+            var matchobj = {
+                category: data.type
+            };
+        } else {
+            var matchobj = {};
+        }
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("artmedium").find(matchobj).toArray(function(err, data2) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false,
+                            comment: "Error"
+                        });
+                        db.close();
+                    } else if (data2 && data2[0]) {
+                        callback(data2);
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
     }
 };

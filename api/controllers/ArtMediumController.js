@@ -36,7 +36,7 @@ module.exports = {
     },
     find: function(req, res) {
         if (req.body) {
-            if (req.body.artmedium && req.body.artmedium.length > 0) {
+            if (req.body.artmedium && Array.isArray(req.body.artmedium)) {
                 var print = function(data) {
                     res.json(data);
                 }
@@ -119,5 +119,11 @@ module.exports = {
             res.json(data);
         }
         ArtMedium.savemediumexcel(req.body, print);
+    },
+    getmedium: function(req, res) {
+        var print = function(data) {
+            res.json(data);
+        }
+        ArtMedium.getmedium(req.body, print);
     }
 };

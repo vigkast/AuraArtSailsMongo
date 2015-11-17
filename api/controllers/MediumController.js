@@ -56,7 +56,7 @@ module.exports = {
     },
     find: function(req, res) {
         if (req.body) {
-            if (req.body.medium && req.body.medium.length > 0) {
+            if (req.body.medium && Array.isArray(req.body.medium)) {
                 var print = function(data) {
                     res.json(data);
                 }

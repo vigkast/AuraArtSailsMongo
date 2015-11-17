@@ -61,11 +61,9 @@ module.exports = {
                 if (data.password) {
                     data.password = sails.md5(data.password);
                 }
-                if (!data._id) {
-                    data._id = sails.ObjectID();
-                    db.collection("user").find({
-                        email: data.email
-                    }).toArray(function(err, data2) {
+
+                function saveuser(data) {
+                    db.collection('user').insert(data, function(err, created) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -73,14 +71,28 @@ module.exports = {
                                 comment: "Error"
                             });
                             db.close();
-                        } else if (data2 && data2[0]) {
-                            callback({
-                                value: false,
-                                comment: "User already exists"
-                            });
+                        } else if (created) {
+                            delete data.password;
+                            callback(data);
                             db.close();
                         } else {
-                            db.collection('user').insert(data, function(err, created) {
+                            callback({
+                                value: false,
+                                comment: "Not created"
+                            });
+                            db.close();
+                        }
+                    });
+                }
+                if (!data._id) {
+                    if (data.accesslevel == "artist") {
+                        saveuser(data);
+                    } else {
+                        data._id = sails.ObjectID();
+                        if (data.email && data.email != "") {
+                            db.collection("user").find({
+                                email: data.email
+                            }).toArray(function(err, data2) {
                                 if (err) {
                                     console.log(err);
                                     callback({
@@ -88,20 +100,24 @@ module.exports = {
                                         comment: "Error"
                                     });
                                     db.close();
-                                } else if (created) {
-                                    delete data.password;
-                                    callback(data);
-                                    db.close();
-                                } else {
+                                } else if (data2 && data2[0]) {
                                     callback({
                                         value: false,
-                                        comment: "Not created"
+                                        comment: "User already exists"
                                     });
                                     db.close();
+                                } else {
+                                    saveuser(data);
                                 }
                             });
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "Please provide parmeters"
+                            });
+                            db.close();
                         }
-                    });
+                    }
                 } else {
                     var user = sails.ObjectID(data._id);
                     delete data._id
@@ -597,7 +613,8 @@ module.exports = {
                 if (err) {
                     console.log(err);
                     callback({
-                        value: false
+                        value: false,
+                        comment: "Error"
                     });
                 } else if (db) {
                     db.collection('user').update({
@@ -612,7 +629,8 @@ module.exports = {
                         if (err) {
                             console.log(err);
                             callback({
-                                value: false
+                                value: false,
+                                comment: "Error"
                             });
                             db.close();
                         } else if (updated.result.nModified == 1 && updated.result.n == 1) {
@@ -623,7 +641,7 @@ module.exports = {
                         } else if (updated.result.nModified != 1 && updated.result.n == 1) {
                             callback({
                                 value: false,
-                                comment: "Same password. Please try different password"
+                                comment: "Same password"
                             });
                             db.close();
                         } else {
@@ -1031,6 +1049,61 @@ module.exports = {
                     } else {
                         callback({
                             value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    },
+    userbytype: function(data, callback) {
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    vaalue: false,
+                    comment: "Error"
+                });
+            } else if (db) {
+                db.collection('user').aggregate([{
+                    $unwind: "$artwork"
+                }, {
+                    $match: {
+                        "artwork.type": data.category
+                    }
+                }, {
+                    $group: {
+                        _id: "$_id",
+                        name: {
+                            $addToSet: "$name"
+                        },
+                    }
+                }, {
+                    $project: {
+                        _id: 1,
+                        name: 1
+                    }
+                }, {
+                    $unwind: "$name"
+                }, {
+                    $sort: {
+                        name: 1
+                    }
+                }]).toArray(function(err, data2) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            vaalue: false,
+                            comment: "Error"
+                        });
+                        db.close();
+                    } else if (data2 && data2[0]) {
+                        callback(data2);
+                        db.close();
+                    } else {
+                        callback({
+                            vaalue: false,
                             comment: "No data found"
                         });
                         db.close();
