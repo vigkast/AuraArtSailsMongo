@@ -1012,6 +1012,34 @@ module.exports = {
         var check = new RegExp(spacedata, "i");
         data.search = "^" + data.search;
         var checkname = new RegExp(data.search, "i");
+        if (data.type && data.type != "") {
+            var matchobj = {
+                $or: [{
+                    name: {
+                        '$regex': checkname
+                    }
+                }, {
+                    name: {
+                        '$regex': check
+                    }
+                }],
+                "artwork.type": data.type,
+                accesslevel: "artist"
+            };
+        } else {
+            var matchobj = {
+                $or: [{
+                    name: {
+                        '$regex': checkname
+                    }
+                }, {
+                    name: {
+                        '$regex': check
+                    }
+                }],
+                accesslevel: "artist"
+            };
+        }
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -1020,18 +1048,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("user").find({
-                    $or: [{
-                        name: {
-                            '$regex': checkname
-                        }
-                    }, {
-                        name: {
-                            '$regex': check
-                        }
-                    }],
-                    accesslevel: "artist"
-                }, {
+                db.collection("user").find(matchobj, {
                     _id: 1,
                     name: 1
                 }).sort({
@@ -1062,7 +1079,7 @@ module.exports = {
             if (err) {
                 console.log(err);
                 callback({
-                    vaalue: false,
+                    value: false,
                     comment: "Error"
                 });
             } else if (db) {
@@ -1070,7 +1087,7 @@ module.exports = {
                     $unwind: "$artwork"
                 }, {
                     $match: {
-                        "artwork.type": data.category
+                        "artwork.type": data.type
                     }
                 }, {
                     $group: {
@@ -1094,7 +1111,7 @@ module.exports = {
                     if (err) {
                         console.log(err);
                         callback({
-                            vaalue: false,
+                            value: false,
                             comment: "Error"
                         });
                         db.close();
@@ -1103,7 +1120,7 @@ module.exports = {
                         db.close();
                     } else {
                         callback({
-                            vaalue: false,
+                            value: false,
                             comment: "No data found"
                         });
                         db.close();

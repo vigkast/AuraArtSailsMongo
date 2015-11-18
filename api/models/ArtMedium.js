@@ -389,11 +389,46 @@ module.exports = {
         });
     },
     getmedium: function(data, callback) {
-        if (data.type && data.type != "") {
+        if (data.type && data.type != "" && data.search && data.search != "") {
+            var spacedata = data.search;
+            spacedata = "\\s" + spacedata;
+            var check = new RegExp(spacedata, "i");
+            data.search = "^" + data.search;
+            var checkname = new RegExp(data.search, "i");
+            var matchobj = {
+                $or: [{
+                    name: {
+                        '$regex': checkname
+                    }
+                }, {
+                    name: {
+                        '$regex': check
+                    }
+                }],
+                category: data.type
+            };
+        } else if (!data.type && data.search && data.search != "") {
+            var spacedata = data.search;
+            spacedata = "\\s" + spacedata;
+            var check = new RegExp(spacedata, "i");
+            data.search = "^" + data.search;
+            var checkname = new RegExp(data.search, "i");
+            var matchobj = {
+                $or: [{
+                    name: {
+                        '$regex': checkname
+                    }
+                }, {
+                    name: {
+                        '$regex': check
+                    }
+                }]
+            };
+        } else if (data.type && data.type != "" && (!data.search || data.search && data.ssearch == "")) {
             var matchobj = {
                 category: data.type
             };
-        } else {
+        } else if (!data.type && !data.search) {
             var matchobj = {};
         }
         sails.query(function(err, db) {
@@ -404,7 +439,9 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("artmedium").find(matchobj).toArray(function(err, data2) {
+                db.collection("artmedium").find(matchobj).sort({
+                    name: 1
+                }).toArray(function(err, data2) {
                     if (err) {
                         console.log(err);
                         callback({
