@@ -307,5 +307,45 @@ module.exports = {
                 comment: "Please provide parameters"
             });
         }
+    },
+    searchdrop: function(req, res) {
+        if (req.body) {
+            if (req.body.search && req.body.search != "") {
+                function callback(data) {
+                    res.json(data);
+                };
+                Artwork.searchdrop(req.body, callback);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    nextartwork: function(req, res) {
+        if (req.body) {
+            if (req.body.srno && req.body.srno != "" && req.body.type && req.body.type != "") {
+                function callback(data) {
+                    res.json(data);
+                };
+                Artwork.nextartwork(req.body, callback);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
     }
 };

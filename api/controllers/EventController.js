@@ -1,7 +1,7 @@
 /**
- * UserController
+ * EventController
  *
- * @description :: Server-side logic for managing users
+ * @description :: Server-side logic for managing events
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
@@ -10,22 +10,22 @@ module.exports = {
         if (req.body) {
             if (req.body._id) {
                 if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                    user();
+                    event();
                 } else {
                     res.json({
                         value: "false",
-                        comment: "User-id is incorrect"
+                        comment: "Event-id is incorrect"
                     });
                 }
             } else {
-                user();
+                event();
             }
 
-            function user() {
+            function event() {
                 var print = function(data) {
                     res.json(data);
                 }
-                User.save(req.body, print);
+                Event.save(req.body, print);
             }
         } else {
             res.json({
@@ -40,11 +40,11 @@ module.exports = {
                 var print = function(data) {
                     res.json(data);
                 }
-                User.delete(req.body, print);
+                Event.delete(req.body, print);
             } else {
                 res.json({
                     value: "false",
-                    comment: "User-id is incorrect"
+                    comment: "Event-id is incorrect"
                 });
             }
         } else {
@@ -58,7 +58,7 @@ module.exports = {
         function callback(data) {
             res.json(data);
         };
-        User.find(req.body, callback);
+        Event.find(req.body, callback);
     },
     findone: function(req, res) {
         if (req.body) {
@@ -66,11 +66,11 @@ module.exports = {
                 var print = function(data) {
                     res.json(data);
                 }
-                User.findone(req.body, print);
+                Event.findone(req.body, print);
             } else {
                 res.json({
                     value: "false",
-                    comment: "User-id is incorrect"
+                    comment: "Event-id is incorrect"
                 });
             }
         } else {
@@ -86,7 +86,7 @@ module.exports = {
                 function callback(data) {
                     res.json(data);
                 };
-                User.findlimited(req.body, callback);
+                Event.findlimited(req.body, callback);
             } else {
                 res.json({
                     value: false,
@@ -106,7 +106,7 @@ module.exports = {
                 function callback(data) {
                     res.json(data);
                 };
-                User.findevents(req.body, callback);
+                Event.findevents(req.body, callback);
             } else {
                 res.json({
                     value: false,

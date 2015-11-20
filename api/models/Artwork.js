@@ -1305,6 +1305,195 @@ module.exports = {
             }
         });
     },
+    searchdrop: function(data, callback) {
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false,
+                    comment: "Error"
+                });
+            } else if (db) {
+                var i = 0;
+                var newreturns = [];
+                var spacedata = data.search;
+                spacedata = "\\s" + spacedata;
+                var check = new RegExp(spacedata, "i");
+                data.search = "^" + data.search;
+                var checkname = new RegExp(data.search, "i");
+                var user = sails.ObjectID(data.user);
+                db.collection("user").find({
+                    $or: [{
+                        name: {
+                            '$regex': checkname
+                        }
+                    }, {
+                        name: {
+                            '$regex': check
+                        }
+                    }],
+                    accesslevel: "artist"
+                }, {
+                    _id: 0,
+                    name: 1
+                }).sort({
+                    name: 1
+                }).limit(10).toArray(function(err, found) {
+                    if (found && found[0]) {
+                        _.each(found, function(user) {
+                            user.type = "Artist";
+                            newreturns.push(user);
+                        });
+                        i++;
+                        callbackfunc1();
+                    } else if (err) {
+                        i++;
+                        callbackfunc1();
+                        console.log(err);
+                    } else {
+                        i++;
+                        callbackfunc1();
+                    }
+                });
+
+                function callbackfunc1() {
+                    db.collection("user").aggregate([{
+                        $unwind: "$artwork"
+                    }, {
+                        $match: {
+                            $or: [{
+                                "artwork.name": {
+                                    '$regex': checkname
+                                }
+                            }, {
+                                "artwork.name": {
+                                    '$regex': check
+                                }
+                            }]
+                        }
+                    }, {
+                        $group: {
+                            _id: "$_id",
+                            name: {
+                                $addToSet: "$artwork.name"
+                            },
+                            type: {
+                                $addToSet: "$artwork.type"
+                            }
+                        }
+                    }, {
+                        $project: {
+                            _id: 0,
+                            name: 1,
+                            type: 1
+                        }
+                    }, {
+                        $unwind: "$name"
+                    }, {
+                        $unwind: "$type"
+                    }, {
+                        $sort: {
+                            name: 1
+                        }
+                    }]).limit(10).toArray(function(err, found) {
+                        if (found && found[0]) {
+                            _.each(found, function(user) {
+                                newreturns.push(user);
+                            });
+                            i++;
+                            callbackfunc2();
+                        } else if (err) {
+                            i++;
+                            callbackfunc2();
+                            console.log(err);
+                        } else {
+                            i++;
+                            callbackfunc2();
+                        }
+                    });
+                }
+
+                function callbackfunc2() {
+                    db.collection("artmedium").find({
+                        $or: [{
+                            name: {
+                                '$regex': checkname
+                            }
+                        }, {
+                            name: {
+                                '$regex': check
+                            }
+                        }],
+                    }, {
+                        _id: 0,
+                        name: 1
+                    }).sort({
+                        name: 1
+                    }).limit(10).toArray(function(err, found) {
+                        if (found && found[0]) {
+                            _.each(found, function(user) {
+                                user.type = "Art-medium";
+                                newreturns.push(user);
+                            });
+                            i++;
+                            callbackfunc3();
+                        } else if (err) {
+                            i++;
+                            callbackfunc3();
+                            console.log(err);
+                        } else {
+                            i++;
+                            callbackfunc3();
+                        }
+                    });
+                }
+
+                function callbackfunc3() {
+                    db.collection("tag").find({
+                        $or: [{
+                            name: {
+                                '$regex': checkname
+                            }
+                        }, {
+                            name: {
+                                '$regex': check
+                            }
+                        }],
+                    }, {
+                        _id: 0,
+                        name: 1
+                    }).sort({
+                        name: 1
+                    }).limit(10).toArray(function(err, found) {
+                        if (found && found[0]) {
+                            _.each(found, function(user) {
+                                user.type = "Tag";
+                                newreturns.push(user);
+                            });
+                            i++;
+                            if (i == 4) {
+                                callback(newreturns);
+                                db.close();
+                            }
+                        } else if (err) {
+                            console.log(err);
+                            i++;
+                            if (i == 4) {
+                                callback(newreturns);
+                                db.close();
+                            }
+                        } else {
+                            i++;
+                            if (i == 4) {
+                                callback(newreturns);
+                                db.close();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    },
     favoriteartwork: function(data, callback) {
         var i = 0;
         var returnData = [];
@@ -1329,6 +1518,58 @@ module.exports = {
                             }
                         }
                     });
+                });
+            }
+        });
+    },
+    nextartwork: function(data, callback) {
+        if (data.type && data.type == "prev") {
+            var mysr = parseInt(data.srno) - 1;
+        } else {
+            var mysr = parseInt(data.srno) + 1;
+        }
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false,
+                    comment: "Error"
+                });
+            } else if (db) {
+                db.collection('user').aggregate([{
+                    $match: {
+                        accesslevel: "artist"
+                    }
+                }, {
+                    $unwind: "$artwork"
+                }, {
+                    $match: {
+                        "artwork.srno": mysr
+                    }
+                }, {
+                    $project: {
+                        _id: 1,
+                        name: 1,
+                        artwork: 1
+                    }
+                }]).toArray(function(err, found) {
+                    if (found && found[0]) {
+                        callback(found[0]);
+                        db.close();
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false,
+                            comment: "Error"
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
                 });
             }
         });
