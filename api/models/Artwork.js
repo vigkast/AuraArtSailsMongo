@@ -952,15 +952,25 @@ module.exports = {
                 var i = 0;
                 var newreturns = {};
                 newreturns.data = [];
+                var spacedata = data.search;
+                spacedata = "\\s" + spacedata;
+                var check = new RegExp(spacedata, "i");
+                data.search = "^" + data.search;
                 var checkname = new RegExp(data.search, "i");
                 var pagesize = data.pagesize;
                 var pagenumber = data.pagenumber;
                 var user = sails.ObjectID(data.user);
                 db.collection("user").aggregate([{
                     $match: {
-                        name: {
-                            $regex: checkname
-                        },
+                        $or: [{
+                            name: {
+                                '$regex': checkname
+                            }
+                        }, {
+                            name: {
+                                '$regex': check
+                            }
+                        }],
                         accesslevel: "artist"
                     }
                 }, {
@@ -993,9 +1003,15 @@ module.exports = {
                 function callbackfunc() {
                     db.collection("user").aggregate([{
                         $match: {
-                            name: {
-                                $regex: checkname
-                            },
+                            $or: [{
+                                name: {
+                                    '$regex': checkname
+                                }
+                            }, {
+                                name: {
+                                    '$regex': check
+                                }
+                            }],
                             accesslevel: "artist"
                         }
                     }, {
@@ -1036,9 +1052,15 @@ module.exports = {
                     $unwind: "$artwork"
                 }, {
                     $match: {
-                        "artwork.name": {
-                            $regex: checkname
-                        }
+                        $or: [{
+                            "artwork.name": {
+                                '$regex': checkname
+                            }
+                        }, {
+                            "artwork.name": {
+                                '$regex': check
+                            }
+                        }]
                     }
                 }, {
                     $group: {
@@ -1072,9 +1094,15 @@ module.exports = {
                         $unwind: "$artwork"
                     }, {
                         $match: {
-                            "artwork.name": {
-                                $regex: checkname
-                            }
+                            $or: [{
+                                "artwork.name": {
+                                    '$regex': checkname
+                                }
+                            }, {
+                                "artwork.name": {
+                                    '$regex': check
+                                }
+                            }]
                         }
                     }, {
                         $group: {
@@ -1126,9 +1154,16 @@ module.exports = {
                     $unwind: "$artwork"
                 }, {
                     $match: {
-                        "artwork.subtype.name": {
-                            $regex: checkname
-                        }
+
+                        $or: [{
+                            "artwork.subtype.name": {
+                                '$regex': checkname
+                            }
+                        }, {
+                            "artwork.subtype.name": {
+                                '$regex': check
+                            }
+                        }]
                     }
                 }, {
                     $group: {
@@ -1162,9 +1197,15 @@ module.exports = {
                         $unwind: "$artwork"
                     }, {
                         $match: {
-                            "artwork.subtype.name": {
-                                $regex: checkname
-                            }
+                            $or: [{
+                                "artwork.subtype.name": {
+                                    '$regex': checkname
+                                }
+                            }, {
+                                "artwork.subtype.name": {
+                                    '$regex': check
+                                }
+                            }]
                         }
                     }, {
                         $group: {
@@ -1216,9 +1257,15 @@ module.exports = {
                     $unwind: "$artwork"
                 }, {
                     $match: {
-                        "artwork.tag.name": {
-                            $regex: checkname
-                        }
+                        $or: [{
+                            "artwork.tag.name": {
+                                '$regex': checkname
+                            }
+                        }, {
+                            "artwork.tag.name": {
+                                '$regex': check
+                            }
+                        }]
                     }
                 }, {
                     $group: {
@@ -1252,9 +1299,15 @@ module.exports = {
                         $unwind: "$artwork"
                     }, {
                         $match: {
-                            "artwork.tag.name": {
-                                $regex: checkname
-                            }
+                            $or: [{
+                                "artwork.tag.name": {
+                                    '$regex': checkname
+                                }
+                            }, {
+                                "artwork.tag.name": {
+                                    '$regex': check
+                                }
+                            }]
                         }
                     }, {
                         $group: {
