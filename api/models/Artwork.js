@@ -398,18 +398,12 @@ module.exports = {
             if (db) {
                 db.collection("user").aggregate([{
                     $match: {
-                        "artwork.name": {
-                            $exists: true
-                        },
                         "artwork._id": sails.ObjectID(data._id)
                     }
                 }, {
                     $unwind: "$artwork"
                 }, {
                     $match: {
-                        "artwork.name": {
-                            $exists: true
-                        },
                         "artwork._id": sails.ObjectID(data._id)
                     }
                 }, {
