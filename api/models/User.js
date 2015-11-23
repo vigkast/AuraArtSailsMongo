@@ -936,7 +936,9 @@ module.exports = {
                     value: false
                 });
             }
-            db.collection('user').remove({}, function(err, data) {
+            db.collection('user').remove({
+                accesslevel:"artist"
+            }, function(err, data) {
                 if (err) {
                     console.log(err);
                     callback({
