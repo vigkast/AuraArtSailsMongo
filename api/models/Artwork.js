@@ -686,14 +686,13 @@ module.exports = {
                 callback({
                     value: false
                 });
-            }
-            if (db) {
+            }else if (db) {
                 var newreturns = {};
                 var check = new RegExp(data.search, "i");
                 var checkmedium = new RegExp(data.medium, "i");
-                // var checkcolor = new RegExp(data.color, "i");
-                // var checkstyle = new RegExp(data.style, "i");
-                // var checkelement = new RegExp(data.element, "i");
+                var checkcolor = new RegExp(data.color, "i");
+                var checkstyle = new RegExp(data.style, "i");
+                var checkelement = new RegExp(data.element, "i");
                 var pagesize = data.pagesize;
                 var pagenumber = data.pagenumber;
                 var user = sails.ObjectID(data.user);
@@ -714,15 +713,15 @@ module.exports = {
                                 "artwork.subtype.name": {
                                     $regex: checkmedium
                                 },
-                                // "artwork.tag.name": {
-                                //     $regex: checkcolor
-                                // },
-                                // "artwork.tag.name": {
-                                //     $regex: checkstyle
-                                // },
-                                // "artwork.tag.name": {
-                                //     $regex: checkelement
-                                // }
+                                "artwork.tag.name": {
+                                    $regex: checkcolor
+                                },
+                                "artwork.tag.name": {
+                                    $regex: checkstyle
+                                },
+                                "artwork.tag.name": {
+                                    $regex: checkelement
+                                }
                             };
                             callbackfunc1();
                         } else {
@@ -748,15 +747,15 @@ module.exports = {
                                 "artwork.subtype.name": {
                                     $regex: checkmedium
                                 },
-                                // "artwork.tag.name": {
-                                //     $regex: checkcolor
-                                // },
-                                // "artwork.tag.name": {
-                                //     $regex: checkstyle
-                                // },
-                                // "artwork.tag.name": {
-                                //     $regex: checkelement
-                                // }
+                                "artwork.tag.name": {
+                                    $regex: checkcolor
+                                },
+                                "artwork.tag.name": {
+                                    $regex: checkstyle
+                                },
+                                "artwork.tag.name": {
+                                    $regex: checkelement
+                                }
                             };
                             callbackfunc1();
                         }
@@ -787,15 +786,15 @@ module.exports = {
                             "artwork.subtype.name": {
                                 $regex: checkmedium
                             },
-                            // "artwork.tag.name": {
-                            //     $regex: checkcolor
-                            // },
-                            // "artwork.tag.name": {
-                            //     $regex: checkstyle
-                            // },
-                            // "artwork.tag.name": {
-                            //     $regex: checkelement
-                            // }
+                            "artwork.tag.name": {
+                                $regex: checkcolor
+                            },
+                            "artwork.tag.name": {
+                                $regex: checkstyle
+                            },
+                            "artwork.tag.name": {
+                                $regex: checkelement
+                            }
                         };
                         callbackfunc1();
                     }
@@ -812,15 +811,15 @@ module.exports = {
                             "artwork.subtype.name": {
                                 $regex: checkmedium
                             },
-                            // "artwork.tag.name": {
-                            //     $regex: checkcolor
-                            // },
-                            // "artwork.tag.name": {
-                            //     $regex: checkstyle
-                            // },
-                            // "artwork.tag.name": {
-                            //     $regex: checkelement
-                            // }
+                            "artwork.tag.name": {
+                                $regex: checkcolor
+                            },
+                            "artwork.tag.name": {
+                                $regex: checkstyle
+                            },
+                            "artwork.tag.name": {
+                                $regex: checkelement
+                            }
                         };
                         callbackfunc1();
                     } else {
@@ -847,15 +846,15 @@ module.exports = {
                             "artwork.subtype.name": {
                                 $regex: checkmedium
                             },
-                            // "artwork.tag.name": {
-                            //     $regex: checkcolor
-                            // },
-                            // "artwork.tag.name": {
-                            //     $regex: checkstyle
-                            // },
-                            // "artwork.tag.name": {
-                            //     $regex: checkelement
-                            // }
+                            "artwork.tag.name": {
+                                $regex: checkcolor
+                            },
+                            "artwork.tag.name": {
+                                $regex: checkstyle
+                            },
+                            "artwork.tag.name": {
+                                $regex: checkelement
+                            }
                         };
                         callbackfunc1();
                     }
@@ -872,15 +871,15 @@ module.exports = {
                             "artwork.subtype.name": {
                                 $regex: checkmedium
                             },
-                            // "artwork.tag.name": {
-                            //     $regex: checkcolor
-                            // },
-                            // "artwork.tag.name": {
-                            //     $regex: checkstyle
-                            // },
-                            // "artwork.tag.name": {
-                            //     $regex: checkelement
-                            // }
+                            "artwork.tag.name": {
+                                $regex: checkcolor
+                            },
+                            "artwork.tag.name": {
+                                $regex: checkstyle
+                            },
+                            "artwork.tag.name": {
+                                $regex: checkelement
+                            }
                         };
                         callbackfunc1();
                     } else {
@@ -911,15 +910,15 @@ module.exports = {
                             "artwork.subtype.name": {
                                 $regex: checkmedium
                             },
-                            // "artwork.tag.name": {
-                            //     $regex: checkcolor
-                            // },
-                            // "artwork.tag.name": {
-                            //     $regex: checkstyle
-                            // },
-                            // "artwork.tag.name": {
-                            //     $regex: checkelement
-                            // }
+                            "artwork.tag.name": {
+                                $regex: checkcolor
+                            },
+                            "artwork.tag.name": {
+                                $regex: checkstyle
+                            },
+                            "artwork.tag.name": {
+                                $regex: checkelement
+                            }
                         };
                         callbackfunc1();
                     }
