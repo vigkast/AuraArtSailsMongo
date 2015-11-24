@@ -407,7 +407,7 @@ module.exports = {
                 }],
                 category: data.type
             };
-        } else if (!data.type && data.search && data.search != "") {
+        } else if ((!data.type || data.type && data.type == "") && data.search && data.search != "") {
             var spacedata = data.search;
             spacedata = "\\s" + spacedata;
             var check = new RegExp(spacedata, "i");
@@ -424,7 +424,7 @@ module.exports = {
                     }
                 }]
             };
-        } else if (data.type && data.type != "" && (!data.search || data.search && data.ssearch == "")) {
+        } else if (data.type && data.type != "" && (!data.search || data.search && data.search == "")) {
             var matchobj = {
                 category: data.type
             };

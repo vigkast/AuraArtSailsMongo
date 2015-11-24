@@ -113,5 +113,11 @@ module.exports = {
                 comment: "Please provide parameters"
             });
         }
+    },
+    gettag: function(req, res) {
+        var print = function(data) {
+            res.json(data);
+        }
+        Tag.gettag(req.body, print);
     }
 };
