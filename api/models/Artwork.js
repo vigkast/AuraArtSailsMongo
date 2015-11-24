@@ -680,13 +680,14 @@ module.exports = {
         });
     },
     artworktype: function(data, callback) {
+        var matcharray = [];
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
                     value: false
                 });
-            }else if (db) {
+            } else if (db) {
                 var newreturns = {};
                 var check = new RegExp(data.search, "i");
                 var checkmedium = new RegExp(data.medium, "i");
@@ -697,9 +698,21 @@ module.exports = {
                 var pagenumber = data.pagenumber;
                 var user = sails.ObjectID(data.user);
                 var sortnum = parseInt(data.sort);
+                if (data.color) {
+                    matcharray.push(data.color);
+                }
+                if (data.style) {
+                    matcharray.push(data.style);
+                }
+                if (data.element) {
+                    matcharray.push(data.element);
+                }
+                if (matcharray && !matcharray[0]) {
+                    matcharray = [''];
+                }
+                console.log(matcharray);
                 var sort = {};
                 sort['artwork.' + data.filter] = sortnum;
-
                 if (data.type == "") {
                     if (data.minbreadth == 0 && data.maxbreadth == 10000) {
                         if (data.minwidth == 0 && data.maxwidth == 10000 && data.minprice == 0 && data.maxprice == 10000000 && data.minheight == 0 && data.maxheight == 10000) {
@@ -714,13 +727,7 @@ module.exports = {
                                     $regex: checkmedium
                                 },
                                 "artwork.tag.name": {
-                                    $regex: checkcolor
-                                },
-                                "artwork.tag.name": {
-                                    $regex: checkstyle
-                                },
-                                "artwork.tag.name": {
-                                    $regex: checkelement
+                                    $in: matcharray
                                 }
                             };
                             callbackfunc1();
@@ -748,13 +755,7 @@ module.exports = {
                                     $regex: checkmedium
                                 },
                                 "artwork.tag.name": {
-                                    $regex: checkcolor
-                                },
-                                "artwork.tag.name": {
-                                    $regex: checkstyle
-                                },
-                                "artwork.tag.name": {
-                                    $regex: checkelement
+                                    $in: matcharray
                                 }
                             };
                             callbackfunc1();
@@ -787,13 +788,7 @@ module.exports = {
                                 $regex: checkmedium
                             },
                             "artwork.tag.name": {
-                                $regex: checkcolor
-                            },
-                            "artwork.tag.name": {
-                                $regex: checkstyle
-                            },
-                            "artwork.tag.name": {
-                                $regex: checkelement
+                                $in: matcharray
                             }
                         };
                         callbackfunc1();
@@ -812,13 +807,7 @@ module.exports = {
                                 $regex: checkmedium
                             },
                             "artwork.tag.name": {
-                                $regex: checkcolor
-                            },
-                            "artwork.tag.name": {
-                                $regex: checkstyle
-                            },
-                            "artwork.tag.name": {
-                                $regex: checkelement
+                                $in: matcharray
                             }
                         };
                         callbackfunc1();
@@ -847,13 +836,7 @@ module.exports = {
                                 $regex: checkmedium
                             },
                             "artwork.tag.name": {
-                                $regex: checkcolor
-                            },
-                            "artwork.tag.name": {
-                                $regex: checkstyle
-                            },
-                            "artwork.tag.name": {
-                                $regex: checkelement
+                                $in: matcharray
                             }
                         };
                         callbackfunc1();
@@ -872,13 +855,7 @@ module.exports = {
                                 $regex: checkmedium
                             },
                             "artwork.tag.name": {
-                                $regex: checkcolor
-                            },
-                            "artwork.tag.name": {
-                                $regex: checkstyle
-                            },
-                            "artwork.tag.name": {
-                                $regex: checkelement
+                                $in: matcharray
                             }
                         };
                         callbackfunc1();
@@ -911,13 +888,7 @@ module.exports = {
                                 $regex: checkmedium
                             },
                             "artwork.tag.name": {
-                                $regex: checkcolor
-                            },
-                            "artwork.tag.name": {
-                                $regex: checkstyle
-                            },
-                            "artwork.tag.name": {
-                                $regex: checkelement
+                                $in: matcharray
                             }
                         };
                         callbackfunc1();

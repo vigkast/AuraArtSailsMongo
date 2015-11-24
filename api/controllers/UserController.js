@@ -75,6 +75,12 @@ module.exports = {
                                         m = result[num];
                                         User.saveforexcel(m, function(print) {
                                             m.subtype = [];
+                                            m.tag = [];
+                                            var dummy = {};
+                                            dummy._id = "";
+                                            dummy.name = "";
+                                            dummy.category = "";
+                                            m.tag.push(dummy);
                                             if (!print.value && print.value != false) {
                                                 createartwork();
                                             }
