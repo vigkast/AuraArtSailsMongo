@@ -989,7 +989,7 @@ module.exports = {
                 var pagenumber = data.pagenumber;
                 var user = sails.ObjectID(data.user);
                 console.log(data);
-                if (data.type = "Artist") {
+                if (data.type == "Artist") {
                     console.log("in artist");
                     db.collection("user").aggregate([{
                         $match: {
