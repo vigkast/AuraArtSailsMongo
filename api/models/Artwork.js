@@ -989,6 +989,7 @@ module.exports = {
                 var pagenumber = data.pagenumber;
                 var user = sails.ObjectID(data.user);
                 if (data.type = "Artist") {
+                    console.log("in artist");
                     db.collection("user").aggregate([{
                         $match: {
                             $or: [{
@@ -1074,6 +1075,7 @@ module.exports = {
                         });
                     }
                 } else if (data.type == "Paintings" || data.type == "Sculptures" || data.type == "Photographs" || data.type == "Prints") {
+                    console.log("in artwork");
                     db.collection("user").aggregate([{
                         $unwind: "$artwork"
                     }, {
@@ -1174,6 +1176,7 @@ module.exports = {
                         });
                     }
                 } else if (data.type == "Medium") {
+                    console.log("in medium");
                     db.collection("user").aggregate([{
                         $unwind: "$artwork"
                     }, {
@@ -1273,6 +1276,7 @@ module.exports = {
                         });
                     }
                 } else if (data.type == "Tag") {
+                    console.log("in tag");
                     db.collection("user").aggregate([{
                         $unwind: "$artwork"
                     }, {
