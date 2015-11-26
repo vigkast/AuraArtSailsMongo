@@ -988,6 +988,7 @@ module.exports = {
                 var pagesize = data.pagesize;
                 var pagenumber = data.pagenumber;
                 var user = sails.ObjectID(data.user);
+                console.log(data);
                 if (data.type = "Artist") {
                     console.log("in artist");
                     db.collection("user").aggregate([{
