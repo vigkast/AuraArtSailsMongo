@@ -895,13 +895,11 @@ module.exports = {
                 }
 
                 function callbackfunc1() {
-
-
                     if(matchobj["artwork.tag.name"].$in.length == 0)
                     {
                         delete matchobj["artwork.tag.name"];
                     }
-
+                    console.log(matchobj);
                     db.collection("user").aggregate([{
                         $match: matchobj
                     }, {
