@@ -459,7 +459,7 @@ module.exports = {
     },
     savetagexcel: function(data, callback) {
         var newdata = {};
-        newdata.name = data.tagname;
+        newdata.name = data.name;
         newdata._id = sails.ObjectID();
         newdata.category = data.type;
         sails.query(function(err, db) {
@@ -474,7 +474,7 @@ module.exports = {
             if (db) {
                 exit++;
                 db.collection("tag").find({
-                    name: data.tagname
+                    name: data.name
                 }).each(function(err, data2) {
                     if (err) {
                         console.log(err);

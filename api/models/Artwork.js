@@ -899,7 +899,6 @@ module.exports = {
                     {
                         delete matchobj["artwork.tag.name"];
                     }
-                    console.log(matchobj);
                     db.collection("user").aggregate([{
                         $match: matchobj
                     }, {

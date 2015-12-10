@@ -275,7 +275,7 @@ module.exports = {
                                                         _.each(tagsplit, function(q) {
                                                             q = q.trim();
                                                             var tagdata = {};
-                                                            tagdata.tagname = q;
+                                                            tagdata.name = q;
                                                             tagdata.type = m.type;
                                                             Tag.savetagexcel(tagdata, function(tagid) {
                                                                 tagdata._id = tagid;
