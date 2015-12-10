@@ -1144,10 +1144,26 @@ module.exports = {
                                             });
                                             db.close();
                                         } else if (data4) {
-                                            callback({
-                                                value: true
+                                            db.collection("tag").remove({}, function(err, data5) {
+                                                if (err) {
+                                                    console.log(err);
+                                                    callback({
+                                                        value: false
+                                                    });
+                                                    db.close();
+                                                } else if (data5) {
+                                                    callback({
+                                                        value: true
+                                                    });
+                                                    db.close();
+                                                } else {
+                                                    callback({
+                                                        value: false,
+                                                        comment: "No data found"
+                                                    });
+                                                    db.close();
+                                                }
                                             });
-                                            db.close();
                                         } else {
                                             callback({
                                                 value: false,
