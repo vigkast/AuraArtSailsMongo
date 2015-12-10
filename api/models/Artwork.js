@@ -1276,7 +1276,7 @@ module.exports = {
                             }
                         });
                     }
-                } else if (data.type == "Tag") {
+                } else if (data.type == "Tags") {
                     db.collection("user").aggregate([{
                         $unwind: "$artwork"
                     }, {
