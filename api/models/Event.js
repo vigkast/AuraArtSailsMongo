@@ -212,7 +212,6 @@ module.exports = {
         });
     },
     findone: function(data, callback) {
-        console.log(data);
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -335,8 +334,24 @@ module.exports = {
                             });
                             db.close();
                         } else if (data2 && data2[0]) {
-                            callback(data2);
-                            db.close()
+                            db.collection("press").find({
+                                event: data2[0].name
+                            }, {}).toArray(function(err, found) {
+                                if (err) {
+                                    callback({
+                                        value: false
+                                    });
+                                    console.log(err);
+                                    db.close();
+                                } else if (found && found[0]) {
+                                    data2[0].pressphoto = found[0].photos;
+                                    callback(data2[0]);
+                                    db.close();
+                                } else {
+                                    callback(data2[0]);
+                                    db.close();
+                                }
+                            });
                         } else {
                             callback({
                                 value: false,

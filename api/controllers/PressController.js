@@ -1,7 +1,7 @@
 /**
- * TagController
+ * PressController
  *
- * @description :: Server-side logic for managing themes
+ * @description :: Server-side logic for managing events
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
@@ -10,26 +10,26 @@ module.exports = {
         if (req.body) {
             if (req.body._id) {
                 if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                    theme();
+                    event();
                 } else {
                     res.json({
                         value: "false",
-                        comment: "Tag-id is incorrect"
+                        comment: "Press-id is incorrect"
                     });
                 }
             } else {
-                theme();
+                event();
             }
 
-            function theme() {
+            function event() {
                 var print = function(data) {
                     res.json(data);
                 }
-                Tag.save(req.body, print);
+                Press.save(req.body, print);
             }
         } else {
             res.json({
-                value: false,
+                value: "false",
                 comment: "Please provide parameters"
             });
         }
@@ -40,39 +40,25 @@ module.exports = {
                 var print = function(data) {
                     res.json(data);
                 }
-                Tag.delete(req.body, print);
+                Press.delete(req.body, print);
             } else {
                 res.json({
                     value: "false",
-                    comment: "Tag-id is incorrect"
+                    comment: "Press-id is incorrect"
                 });
             }
         } else {
             res.json({
-                value: false,
+                value: "false",
                 comment: "Please provide parameters"
             });
         }
     },
     find: function(req, res) {
-        if (req.body) {
-            if (req.body.tag && Array.isArray(req.body.tag)) {
-                var print = function(data) {
-                    res.json(data);
-                }
-                Tag.find(req.body, print);
-            } else {
-                res.json({
-                    value: false,
-                    comment: "Please provide parameters"
-                });
-            }
-        } else {
-            res.json({
-                value: false,
-                comment: "Please provide parameters"
-            });
-        }
+        function callback(data) {
+            res.json(data);
+        };
+        Press.find(req.body, callback);
     },
     findone: function(req, res) {
         if (req.body) {
@@ -80,16 +66,16 @@ module.exports = {
                 var print = function(data) {
                     res.json(data);
                 }
-                Tag.findone(req.body, print);
+                Press.findone(req.body, print);
             } else {
                 res.json({
                     value: "false",
-                    comment: "Tag-id is incorrect"
+                    comment: "Press-id is incorrect"
                 });
             }
         } else {
             res.json({
-                value: false,
+                value: "false",
                 comment: "Please provide parameters"
             });
         }
@@ -100,7 +86,7 @@ module.exports = {
                 function callback(data) {
                     res.json(data);
                 };
-                Tag.findlimited(req.body, callback);
+                Press.findlimited(req.body, callback);
             } else {
                 res.json({
                     value: false,
@@ -109,21 +95,9 @@ module.exports = {
             }
         } else {
             res.json({
-                value: false,
+                value: "false",
                 comment: "Please provide parameters"
             });
         }
-    },
-    gettag: function(req, res) {
-        var print = function(data) {
-            res.json(data);
-        }
-        Tag.gettag(req.body, print);
-    },
-    savetagexcel: function(req, res) {
-        var print = function(data) {
-            res.json(data);
-        }
-        Tag.savetagexcel(req.body, print);
-    },
+    }
 };

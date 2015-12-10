@@ -670,7 +670,9 @@ module.exports = {
                 email: data.email,
                 password: data.password
             }, {
-                password: 0
+                password: 0,
+                forgotpassword: 0,
+                wishlist: 0
             }).toArray(function(err, found) {
                 if (err) {
                     callback({
@@ -680,7 +682,6 @@ module.exports = {
                     db.close();
                 }
                 if (found && found[0]) {
-                    console.log(found[0]);
                     if (found[0].forgotpassword) {
                         db.collection('user').update({
                             email: data.email,
@@ -706,7 +707,8 @@ module.exports = {
                         forgotpassword: data.password
                     }, {
                         password: 0,
-                        forgotpassword: 0
+                        forgotpassword: 0,
+                        wishlist: 0
                     }).toArray(function(err, found) {
                         if (err) {
                             callback({
@@ -1063,6 +1065,38 @@ module.exports = {
                                 }
                             });
                         }
+                    }
+                });
+            }
+        });
+    },
+    findforexcel: function(data, callback) {
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            } else if (db) {
+                db.collection("user").find({
+                    name: data.username,
+                    accesslevel: "artist"
+                }).toArray(function(err, data2) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else if (data2 && data2[0]) {
+                        callback(data2[0]);
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
                     }
                 });
             }
