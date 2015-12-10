@@ -1276,7 +1276,7 @@ module.exports = {
                             }
                         });
                     }
-                } else if (data.type == "Tags") {
+                } else if (data.type == "Tag") {
                     db.collection("user").aggregate([{
                         $unwind: "$artwork"
                     }, {
@@ -1356,7 +1356,7 @@ module.exports = {
                             }
                         }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
                             if (found && found[0]) {
-                                newreturns.data = user;
+                                newreturns.data = found;
                                 callback(newreturns);
                                 db.close();
                             } else if (err) {
