@@ -407,10 +407,7 @@ module.exports = {
                     name: {
                         '$regex': check
                     }
-                }],
-                category: {
-                    $exists: false
-                }
+                }]
             };
         } else if (data.type && data.type != "" && (!data.search || data.search && data.search == "")) {
             var matchobj = {
