@@ -708,7 +708,7 @@ module.exports = {
                     matcharray.push(data.element);
                 }
                 if (matcharray && !matcharray[0]) {
-                    matcharray = [''];
+                    matcharray = [];
                 }
                 var sort = {};
                 sort['artwork.' + data.filter] = sortnum;
@@ -895,6 +895,13 @@ module.exports = {
                 }
 
                 function callbackfunc1() {
+
+
+                    if(matchobj["artwork.tag.name"].$in.length == 0)
+                    {
+                        delete matchobj["artwork.tag.name"];
+                    }
+
                     db.collection("user").aggregate([{
                         $match: matchobj
                     }, {
