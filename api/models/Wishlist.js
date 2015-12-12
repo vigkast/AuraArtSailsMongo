@@ -184,15 +184,15 @@ module.exports = {
                         wishlist: 1
                     }
                 }]).toArray(function(err, data2) {
-                    if (data2 && data2[0]) {
-                        delete data2[0]._id;
-                        callback(data2);
-                        db.close();
-                    } else if (err) {
+                    if (err) {
                         console.log(err);
                         callback({
-                            value: false
+                            value: false,
+                            comment: "Error"
                         });
+                        db.close();
+                    } else if (data2 && data2[0]) {
+                        callback(data2);
                         db.close();
                     } else {
                         callback({
