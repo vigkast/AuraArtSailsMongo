@@ -186,7 +186,7 @@ module.exports = {
                     }
                 }]).toArray(function(err, data2) {
                     if (data2 && data2[0]) {
-                        callback(data2[0].wishlist);
+                        callback(data2[0]);
                         db.close();
                     } else if (err) {
                         console.log(err);
