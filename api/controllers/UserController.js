@@ -11,44 +11,44 @@ var passport = require('passport'),
     FacebookStrategy = require('passport-facebook').Strategy,
     GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
-// passport.use(new TwitterStrategy({
-//         consumerKey: "LPazfO26oP6KrjYCWlQJfUZq1",
-//         consumerSecret: "SJ8tuzeiGvM7YZvRoHqXSk8LLThpn6DPg2BMtuBrgR9n01DQBD",
-//         callbackURL: sails.myurl + "user/callbackt"
-//     },
-//     function(token, tokenSecret, profile, done) {
-//         profile.token = token;
-//         profile.tokenSecret = tokenSecret;
-//         profile.provider = "Twitter";
-//         User.findorcreate(profile, done);
-//     }
-// ));
-// passport.use(new FacebookStrategy({
-//         clientID: "1475701386072240",
-//         clientSecret: "6e46460c7bb3fb4f06182d89eb7514b9",
-//         callbackURL: sails.myurl + "user/callbackf"
-//     },
-//     function(accessToken, refreshToken, profile, done) {
-//         profile.accessToken = accessToken;
-//         profile.refreshToken = refreshToken;
-//         profile.provider = "Facebook";
-//         User.findorcreate(profile, done);
-//     }
-// ));
+passport.use(new TwitterStrategy({
+        consumerKey: "LPazfO26oP6KrjYCWlQJfUZq1",
+        consumerSecret: "SJ8tuzeiGvM7YZvRoHqXSk8LLThpn6DPg2BMtuBrgR9n01DQBD",
+        callbackURL: sails.myurl + "user/callbackt"
+    },
+    function(token, tokenSecret, profile, done) {
+        profile.token = token;
+        profile.tokenSecret = tokenSecret;
+        profile.provider = "Twitter";
+        User.findorcreate(profile, done);
+    }
+));
+passport.use(new FacebookStrategy({
+        clientID: "1475701386072240",
+        clientSecret: "6e46460c7bb3fb4f06182d89eb7514b9",
+        callbackURL: sails.myurl + "user/callbackf"
+    },
+    function(accessToken, refreshToken, profile, done) {
+        profile.accessToken = accessToken;
+        profile.refreshToken = refreshToken;
+        profile.provider = "Facebook";
+        User.findorcreate(profile, done);
+    }
+));
 
-// passport.use(new GoogleStrategy({
-//         clientID: "265970827010-6cd2gg8psketq39smq2bsfueksgceu4c.apps.googleusercontent.com",
-//         clientSecret: "BYCjnvwCyassATSS444z8_Ok",
-//         callbackURL: "callbackg"
-//     },
-//     function(token, tokenSecret, profile, done) {
-//         profile.token = token;
-//         profile.tokenSecret = tokenSecret;
-//         profile.provider = "Google";
-//         // console.log(profile);
-//         User.findorcreate(profile, done);
-//     }
-// ));
+passport.use(new GoogleStrategy({
+        clientID: "265970827010-6cd2gg8psketq39smq2bsfueksgceu4c.apps.googleusercontent.com",
+        clientSecret: "BYCjnvwCyassATSS444z8_Ok",
+        callbackURL: "callbackg"
+    },
+    function(token, tokenSecret, profile, done) {
+        profile.token = token;
+        profile.tokenSecret = tokenSecret;
+        profile.provider = "Google";
+        // console.log(profile);
+        User.findorcreate(profile, done);
+    }
+));
 
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -60,87 +60,87 @@ passport.deserializeUser(function(id, done) {
 module.exports = {
     //////////////////////////////
     // LOGIN FUNCTIONS
-    // logint: function(req, res) {
-    //     var user = req.param("user");
+    logint: function(req, res) {
+        var user = req.param("user");
 
-    //     passport.use(new TwitterStrategy({
-    //             consumerKey: "LPazfO26oP6KrjYCWlQJfUZq1",
-    //             consumerSecret: "SJ8tuzeiGvM7YZvRoHqXSk8LLThpn6DPg2BMtuBrgR9n01DQBD",
-    //             callbackURL: sails.myurl + "user/callbackt"
-    //         },
-    //         function(token, tokenSecret, profile, done) {
-    //             profile.token = token;
-    //             profile.tokenSecret = tokenSecret;
-    //             profile.provider = "Twitter";
-    //             if (user && sails.ObjectID.isValid(user)) {
-    //                 profile._id = user;
-    //             }
-    //             User.findorcreate(profile, done);
-    //         }
-    //     ));
+        passport.use(new TwitterStrategy({
+                consumerKey: "LPazfO26oP6KrjYCWlQJfUZq1",
+                consumerSecret: "SJ8tuzeiGvM7YZvRoHqXSk8LLThpn6DPg2BMtuBrgR9n01DQBD",
+                callbackURL: sails.myurl + "user/callbackt"
+            },
+            function(token, tokenSecret, profile, done) {
+                profile.token = token;
+                profile.tokenSecret = tokenSecret;
+                profile.provider = "Twitter";
+                if (user && sails.ObjectID.isValid(user)) {
+                    profile._id = user;
+                }
+                User.findorcreate(profile, done);
+            }
+        ));
 
-    //     var loginid = req.param("loginid");
-    //     req.session.loginid = loginid;
-    //     passport.authenticate('twitter')(req, res);
-    // },
-    // loginf: function(req, res) {
-    //     var user = req.param("user");
+        var loginid = req.param("loginid");
+        req.session.loginid = loginid;
+        passport.authenticate('twitter')(req, res);
+    },
+    loginf: function(req, res) {
+        var user = req.param("user");
 
-    //     passport.use(new FacebookStrategy({
-    //             clientID: "1475701386072240",
-    //             clientSecret: "6e46460c7bb3fb4f06182d89eb7514b9",
-    //             callbackURL: sails.myurl + "user/callbackf"
-    //         },
-    //         function(accessToken, refreshToken, profile, done) {
-    //             profile.accessToken = accessToken;
-    //             profile.refreshToken = refreshToken;
-    //             profile.provider = "Facebook";
-    //             if (user && sails.ObjectID.isValid(user)) {
-    //                 profile._id = user;
-    //             }
-    //             User.findorcreate(profile, done);
-    //         }
-    //     ));
+        passport.use(new FacebookStrategy({
+                clientID: "1475701386072240",
+                clientSecret: "6e46460c7bb3fb4f06182d89eb7514b9",
+                callbackURL: sails.myurl + "user/callbackf"
+            },
+            function(accessToken, refreshToken, profile, done) {
+                profile.accessToken = accessToken;
+                profile.refreshToken = refreshToken;
+                profile.provider = "Facebook";
+                if (user && sails.ObjectID.isValid(user)) {
+                    profile._id = user;
+                }
+                User.findorcreate(profile, done);
+            }
+        ));
 
-    //     var loginid = req.param("loginid");
-    //     req.session.loginid = loginid;
-    //     passport.authenticate('facebook', {
-    //         scope: 'email,public_profile,publish_actions'
-    //     })(req, res);
-    // },
-    // loging: function(req, res) {
-    //     var user = req.param("user");
+        var loginid = req.param("loginid");
+        req.session.loginid = loginid;
+        passport.authenticate('facebook', {
+            scope: 'email,public_profile,publish_actions'
+        })(req, res);
+    },
+    loging: function(req, res) {
+        var user = req.param("user");
 
-    //     passport.use(new GoogleStrategy({
-    //             clientID: "265970827010-6cd2gg8psketq39smq2bsfueksgceu4c.apps.googleusercontent.com",
-    //             clientSecret: "BYCjnvwCyassATSS444z8_Ok",
-    //             callbackURL: "callbackg"
-    //         },
-    //         function(token, tokenSecret, profile, done) {
-    //             profile.token = token;
-    //             profile.provider = "Google";
-    //             User.findorcreate(profile, done);
-    //         }
-    //     ));
+        passport.use(new GoogleStrategy({
+                clientID: "265970827010-6cd2gg8psketq39smq2bsfueksgceu4c.apps.googleusercontent.com",
+                clientSecret: "BYCjnvwCyassATSS444z8_Ok",
+                callbackURL: "callbackg"
+            },
+            function(token, tokenSecret, profile, done) {
+                profile.token = token;
+                profile.provider = "Google";
+                User.findorcreate(profile, done);
+            }
+        ));
 
-    //     var loginid = req.param("loginid");
-    //     req.session.loginid = loginid;
-    //     passport.authenticate('google', {
-    //         scope: "openid profile email"
-    //     })(req, res);
-    // },
-    // callbackt: passport.authenticate('twitter', {
-    //     successRedirect: frontend,
-    //     failureRedirect: '/user/fail'
-    // }),
-    // callbackg: passport.authenticate('google', {
-    //     successRedirect: frontend,
-    //     failureRedirect: '/user/fail'
-    // }),
-    // callbackf: passport.authenticate('facebook', {
-    //     successRedirect: frontend,
-    //     failureRedirect: '/user/fail'
-    // }),
+        var loginid = req.param("loginid");
+        req.session.loginid = loginid;
+        passport.authenticate('google', {
+            scope: "openid profile email"
+        })(req, res);
+    },
+    callbackt: passport.authenticate('twitter', {
+        successRedirect: frontend,
+        failureRedirect: '/user/fail'
+    }),
+    callbackg: passport.authenticate('google', {
+        successRedirect: frontend,
+        failureRedirect: '/user/fail'
+    }),
+    callbackf: passport.authenticate('facebook', {
+        successRedirect: frontend,
+        failureRedirect: '/user/fail'
+    }),
     success: function(req, res, data) {
         if (req.session.passport) {
             sails.sockets.blast("login", {
@@ -170,12 +170,12 @@ module.exports = {
             res.send(req.session);
         });
     },
-    // findorcreate: function(req, res) {
-    //     var print = function(data) {
-    //         res.json(data);
-    //     }
-    //     User.findorcreate(req.body, print);
-    // },
+    findorcreate: function(req, res) {
+        var print = function(data) {
+            res.json(data);
+        }
+        User.findorcreate(req.body, print);
+    },
     //////////////////////////////
     uploadfile: function(req, res) {
         req.file("file").upload(function(err, uploadedFiles) {
