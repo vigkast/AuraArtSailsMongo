@@ -158,13 +158,13 @@ module.exports = {
     //     });
     //     res.view("fail");
     // },
-    // profile: function(req, res) {
-    //     if (req.session.passport) {
-    //         res.json(req.session.passport.user);
-    //     } else {
-    //         res.json({});
-    //     }
-    // },
+    profile: function(req, res) {
+        if (req.session.passport) {
+            res.json(req.session.passport.user);
+        } else {
+            res.json({});
+        }
+    },
     // logout: function(req, res) {
     //     req.session.destroy(function(err) {
     //         res.send(req.session);
