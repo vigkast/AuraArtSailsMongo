@@ -50,13 +50,13 @@ var passport = require('passport'),
 //     }
 // ));
 
-// passport.serializeUser(function(user, done) {
-//     done(null, user);
-// });
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
 
-// passport.deserializeUser(function(id, done) {
-//     done(null, id);
-// });
+passport.deserializeUser(function(id, done) {
+    done(null, id);
+});
 module.exports = {
     //////////////////////////////
     // LOGIN FUNCTIONS
@@ -141,23 +141,23 @@ module.exports = {
     //     successRedirect: frontend,
     //     failureRedirect: '/user/fail'
     // }),
-    // success: function(req, res, data) {
-    //     if (req.session.passport) {
-    //         sails.sockets.blast("login", {
-    //             loginid: req.session.loginid,
-    //             status: "success",
-    //             user: req.session.passport.user
-    //         });
-    //     }
-    //     res.view("success");
-    // },
-    // fail: function(req, res) {
-    //     sails.sockets.blast("login", {
-    //         loginid: req.session.loginid,
-    //         status: "fail"
-    //     });
-    //     res.view("fail");
-    // },
+    success: function(req, res, data) {
+        if (req.session.passport) {
+            sails.sockets.blast("login", {
+                loginid: req.session.loginid,
+                status: "success",
+                user: req.session.passport.user
+            });
+        }
+        res.view("success");
+    },
+    fail: function(req, res) {
+        sails.sockets.blast("login", {
+            loginid: req.session.loginid,
+            status: "fail"
+        });
+        res.view("fail");
+    },
     profile: function(req, res) {
         if (req.session.passport) {
             res.json(req.session.passport.user);
@@ -165,11 +165,11 @@ module.exports = {
             res.json({});
         }
     },
-    // logout: function(req, res) {
-    //     req.session.destroy(function(err) {
-    //         res.send(req.session);
-    //     });
-    // },
+    logout: function(req, res) {
+        req.session.destroy(function(err) {
+            res.send(req.session);
+        });
+    },
     // findorcreate: function(req, res) {
     //     var print = function(data) {
     //         res.json(data);
