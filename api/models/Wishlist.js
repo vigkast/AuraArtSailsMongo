@@ -181,11 +181,12 @@ module.exports = {
                     $unwind: "$wishlist"
                 }, {
                     $project: {
+                        _id:0,
                         wishlist: 1
                     }
                 }]).toArray(function(err, data2) {
-                    if (data2 && data2[0]) {
-                        callback(data2);
+                    if (data2 && data2[0] && data2[0].wishlist && data2[0].wishlist[0]) {
+                        callback(data2[0].wishlist);
                         db.close();
                     } else if (err) {
                         console.log(err);
