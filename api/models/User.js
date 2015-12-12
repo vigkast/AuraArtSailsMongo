@@ -700,6 +700,8 @@ module.exports = {
                         });
                     }
                     delete found[0].forgotpassword;
+                    found[0].id = found[0]._id;
+                    delete found[0]._id;
                     callback(found[0]);
                 } else {
                     db.collection('user').find({
@@ -734,6 +736,8 @@ module.exports = {
                                     db.close();
                                 }
                             });
+                            found[0].id = found[0]._id;
+                            delete found[0]._id;
                             callback(found[0]);
                         } else {
                             callback({
