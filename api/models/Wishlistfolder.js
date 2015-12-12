@@ -168,6 +168,8 @@ module.exports = {
         });
     },
     find: function(data, callback) {
+        var lastresult = [];
+        var i = 0;
         var user = sails.ObjectID(data.user);
         sails.query(function(err, db) {
             if (err) {
@@ -179,27 +181,34 @@ module.exports = {
             if (db) {
                 db.collection("user").aggregate([{
                     $match: {
-                        _id: user,
-                        "wishlistfolder.name": {
-                            $exists: true
-                        }
+                        _id: user
                     }
                 }, {
                     $unwind: "$wishlistfolder"
                 }, {
-                    $match: {
-                        "wishlistfolder.name": {
-                            $exists: true
+                    $group: {
+                        _id: "$_id",
+                        wishlistfolder: {
+                            $addToSet: "$wishlistfolder"
                         }
                     }
                 }, {
                     $project: {
+                        _id: 0,
                         wishlistfolder: 1
                     }
+                }, {
+                    $unwind: "$wishlistfolder"
                 }]).toArray(function(err, data2) {
                     if (data2 && data2[0]) {
-                        callback(data2);
-                        db.close();
+                        _.each(data2, function(z) {
+                            lastresult.push(z.wishlistfolder);
+                            i++;
+                            if (i == data2.length) {
+                                callback(lastresult);
+                                db.close();
+                            }
+                        });
                     } else if (err) {
                         console.log(err);
                         callback({
