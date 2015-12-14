@@ -4,8 +4,8 @@
  * @description :: Server-side logic for managing User
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-var frontend = "http://localhost/manjhi/";
-// var frontend = "http://wohlig.co.in/auraart/";
+// var frontend = "http://localhost/manjhi/";
+var frontend = "http://wohlig.co.in/auraart/";
 
 var passport = require('passport'),
     TwitterStrategy = require('passport-twitter').Strategy,

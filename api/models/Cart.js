@@ -1,5 +1,5 @@
 /**
- * Cart.js
+ * Wishlist.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/#!documentation/models
@@ -8,9 +8,10 @@
 module.exports = {
     save: function(data, callback) {
         var user = sails.ObjectID(data.user);
+        if (data.artwork && data.artwork.length > 0) {
+            data.artwork = sails.ObjectID(data.artwork);
+        }
         delete data.user;
-
-        data._id = sails.ObjectID();
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -20,68 +21,62 @@ module.exports = {
             }
             if (db) {
                 if (!data._id) {
-                    db.collection("user").update({
-                        _id: user
+                    data._id = sails.ObjectID();
+                    db.collection("user").find({
+                        _id: user,
+                        "cart.artwork": sails.ObjectID(data.artwork)
                     }, {
-                        $push: {
-                            cart: data
-                        }
-                    }, function(err, updated) {
+                        "cart.$": 1
+                    }).toArray(function(err, data2) {
                         if (err) {
                             console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (updated) {
-                            callback({
-                                value: true
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                vaalue: false,
-                                comment: "Not Created"
-                            });
-                            db.close();
-                        }
-                    });
-                } else {
-                    data._id = sails.ObjectID(data._id);
-                    var tobechanged = {};
-                    var attribute = "cart.$.";
-                    _.forIn(data, function(value, key) {
-                        tobechanged[attribute + key] = value;
-                    });
-                    db.collection("user").update({
-                        "_id": user,
-                        "cart._id": data._id
-                    }, {
-                        $set: tobechanged
-                    }, function(err, updated) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (updated.result.nModified != 0 && updated.result.n != 0) {
-                            callback({
-                                value: true
-                            });
-                            db.close();
-                        } else if (updated.result.nModified == 0 && updated.result.n != 0) {
-                            callback({
-                                value: true,
-                                comment: "Data already updated"
-                            });
-                            db.close();
-                        } else {
                             callback({
                                 value: false,
-                                comment: "No data found"
+                                comment: "Error"
                             });
                             db.close();
+                        } else if (data2 && data2[0]) {
+                            data.user = user;
+                            Wishlist.delete(data, function(data3) {
+                                if (data3.value == true) {
+                                    data._id = user;
+                                    User.findone(data, callback);
+                                } else {
+                                    callback(data3);
+                                }
+                            });
+                        } else {
+                            db.collection("user").update({
+                                _id: user
+                            }, {
+                                $push: {
+                                    cart: data
+                                }
+                            }, function(err, updated) {
+                                if (err) {
+                                    console.log(err);
+                                    callback({
+                                        value: false
+                                    });
+                                    db.close();
+                                } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+                                    data._id = user;
+                                    User.findone(data, callback);
+                                    db.close();
+                                } else if (updated.result.nModified == 0 && updated.result.n != 0) {
+                                    callback({
+                                        value: true,
+                                        comment: "Data already updated"
+                                    });
+                                    db.close();
+                                } else {
+                                    callback({
+                                        value: false,
+                                        comment: "No data found"
+                                    });
+                                    db.close();
+                                }
+                            });
                         }
                     });
                 }
@@ -91,7 +86,6 @@ module.exports = {
     delete: function(data, callback) {
         var user = sails.ObjectID(data.user);
         delete data.user;
-        data._id = sails.ObjectID(data._id);
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -105,7 +99,7 @@ module.exports = {
                 }, {
                     $pull: {
                         "cart": {
-                            "_id": sails.ObjectID(data._id)
+                            "artwork": sails.ObjectID(data.artwork)
                         }
                     }
                 }, function(err, updated) {
@@ -116,13 +110,12 @@ module.exports = {
                         });
                         db.close();
                     } else if (updated) {
-                        callback({
-                            value: true
-                        });
+                        data._id = user;
+                        User.findone(data, callback);
                         db.close();
                     } else {
                         callback({
-                            vaalue: false,
+                            value: false,
                             comment: "No data found"
                         });
                         db.close();
@@ -155,7 +148,7 @@ module.exports = {
                         callback({
                             value: false
                         });
-                        db.close()
+                        db.close();
                     } else {
                         callback({
                             value: false,
@@ -168,6 +161,8 @@ module.exports = {
         });
     },
     find: function(data, callback) {
+        var lastresult = [];
+        var i = 0;
         var user = sails.ObjectID(data.user);
         sails.query(function(err, db) {
             if (err) {
@@ -179,27 +174,34 @@ module.exports = {
             if (db) {
                 db.collection("user").aggregate([{
                     $match: {
-                        _id: user,
-                        "cart.name": {
-                            $exists: true
-                        }
+                        _id: user
                     }
                 }, {
                     $unwind: "$cart"
                 }, {
-                    $match: {
-                        "cart.name": {
-                            $exists: true
+                    $group: {
+                        _id: "$_id",
+                        cart: {
+                            $addToSet: "$cart"
                         }
                     }
                 }, {
                     $project: {
+                        _id: 0,
                         cart: 1
                     }
+                }, {
+                    $unwind: "$cart"
                 }]).toArray(function(err, data2) {
                     if (data2 && data2[0]) {
-                        callback(data);
-                        db.close();
+                        _.each(data2, function(z) {
+                            lastresult.push(z.cart);
+                            i++;
+                            if (i == data2.length) {
+                                callback(lastresult);
+                                db.close();
+                            }
+                        });
                     } else if (err) {
                         console.log(err);
                         callback({
@@ -234,25 +236,10 @@ module.exports = {
             if (db) {
                 db.collection("user").aggregate([{
                     $match: {
-                        _id: user,
-                        "cart.price": {
-                            $exists: true
-                        },
-                        "cart.price": {
-                            $regex: check
-                        }
+                        _id: user
                     }
                 }, {
                     $unwind: "$cart"
-                }, {
-                    $match: {
-                        "cart.price": {
-                            $exists: true
-                        },
-                        "cart.price": {
-                            $regex: check
-                        }
-                    }
                 }, {
                     $group: {
                         _id: user,
@@ -277,8 +264,8 @@ module.exports = {
                         db.close();
                     } else {
                         callback({
-                            vaalue: false,
-                            comment: "Count of null"
+                            value: false,
+                            comment: "count of null"
                         });
                         db.close();
                     }
@@ -287,49 +274,33 @@ module.exports = {
                 function callbackfunc() {
                     db.collection("user").aggregate([{
                         $match: {
-                            _id: user,
-                            "cart.price": {
-                                $exists: true
-                            },
-                            "cart.price": {
-                                $regex: check
-                            }
+                            _id: user
                         }
                     }, {
                         $unwind: "$cart"
                     }, {
-                        $match: {
-                            "cart.price": {
-                                $exists: true
-                            },
-                            "cart.price": {
-                                $regex: check
-                            }
-                        }
-                    }, {
                         $project: {
                             cart: 1
                         }
-                    }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
-                        function(err, found) {
-                            if (found && found[0]) {
-                                newreturns.data = found;
-                                callback(newreturns);
-                                db.close();
-                            } else if (err) {
-                                console.log(err);
-                                callback({
-                                    value: false
-                                });
-                                db.close();
-                            } else {
-                                callback({
-                                    value: false,
-                                    comment: "No data found"
-                                });
-                                db.close();
-                            }
-                        });
+                    }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                        if (found != null) {
+                            newreturns.data = found;
+                            callback(newreturns);
+                            db.close();
+                        } else if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "No data found"
+                            });
+                            db.close();
+                        }
+                    });
                 }
             }
         });

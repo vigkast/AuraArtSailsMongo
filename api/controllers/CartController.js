@@ -1,7 +1,7 @@
 /**
  * CartController
  *
- * @description :: Server-side logic for managing Cart
+ * @description :: Server-side logic for managing carts
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
@@ -44,7 +44,7 @@ module.exports = {
     delete: function(req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
-                if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                if (req.body.artwork && req.body.artwork != "" && sails.ObjectID.isValid(req.body.artwork)) {
                     var print = function(data) {
                         res.json(data);
                     }
@@ -52,7 +52,7 @@ module.exports = {
                 } else {
                     res.json({
                         value: "false",
-                        comment: "Cart-id is incorrect"
+                        comment: "Artwork-id is incorrect"
                     });
                 }
             } else {
@@ -88,18 +88,18 @@ module.exports = {
             });
         }
     },
-    findlimited: function(req, res) {
+    findone: function(req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
-                if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
-                    function callback(data) {
+                if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                    var print = function(data) {
                         res.json(data);
-                    };
-                    Cart.findlimited(req.body, callback);
+                    }
+                    Cart.findone(req.body, print);
                 } else {
                     res.json({
-                        value: false,
-                        comment: "Please provide parameters"
+                        value: "false",
+                        comment: "Cart-id is incorrect"
                     });
                 }
             } else {
@@ -115,18 +115,18 @@ module.exports = {
             });
         }
     },
-    findone: function(req, res) {
+    findlimited: function(req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
-                if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                    var print = function(data) {
+                if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
+                    function callback(data) {
                         res.json(data);
-                    }
-                    Cart.findone(req.body, print);
+                    };
+                    Cart.findlimited(req.body, callback);
                 } else {
                     res.json({
-                        value: "false",
-                        comment: "Cart-id is incorrect"
+                        value: false,
+                        comment: "Please provide parameters"
                     });
                 }
             } else {
