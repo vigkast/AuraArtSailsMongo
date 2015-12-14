@@ -710,6 +710,30 @@ module.exports = {
                 if (matcharray && !matcharray[0]) {
                     matcharray = [];
                 }
+                if (data.minprice == "") {
+                    data.minprice = 0;
+                }
+                if (data.minwidth == "") {
+                    data.minwidth = 0;
+                }
+                if (data.minheight == "") {
+                    data.minheight = 0;
+                }
+                if (data.minbreadth == "") {
+                    data.minbreadth = 0;
+                }
+                if (data.maxbreadth == "") {
+                    data.maxbreadth = 10000;
+                }
+                if (data.maxwidth == "") {
+                    data.maxwidth = 10000;
+                }
+                if (data.maxheight == "") {
+                    data.maxheight = 10000;
+                }
+                if (data.maxprice == "") {
+                    data.maxprice = 10000000;
+                }
                 var sort = {};
                 sort['artwork.' + data.filter] = sortnum;
                 if (data.type == "") {
@@ -895,8 +919,7 @@ module.exports = {
                 }
 
                 function callbackfunc1() {
-                    if(matchobj["artwork.tag.name"].$in.length == 0)
-                    {
+                    if (matchobj["artwork.tag.name"].$in.length == 0) {
                         delete matchobj["artwork.tag.name"];
                     }
                     db.collection("user").aggregate([{
