@@ -7,6 +7,9 @@
 
 module.exports = {
     save: function(data, callback) {
+        if (data.resellerid && data.resellerid != "") {
+            data.resellerid = sails.ObjectID(data.resellerid);
+        }
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);

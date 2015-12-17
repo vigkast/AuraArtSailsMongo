@@ -7,11 +7,11 @@
 
 module.exports = {
     save: function(data, callback) {
-        var user = sails.ObjectID(data.user);
-        if (data.artwork && data.artwork.length > 0) {
+        var user = sails.ObjectID(data.id);
+        delete data.id;
+        if (data.artwork && data.artwork != "") {
             data.artwork = sails.ObjectID(data.artwork);
         }
-        delete data.user;
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -21,12 +21,9 @@ module.exports = {
             }
             if (db) {
                 if (!data._id) {
-                    data._id = sails.ObjectID();
                     db.collection("user").find({
                         _id: user,
                         "cart.artwork": sails.ObjectID(data.artwork)
-                    }, {
-                        "cart.$": 1
                     }).toArray(function(err, data2) {
                         if (err) {
                             console.log(err);
@@ -36,15 +33,10 @@ module.exports = {
                             });
                             db.close();
                         } else if (data2 && data2[0]) {
-                            data.user = user;
-                            Wishlist.delete(data, function(data3) {
-                                if (data3.value == true) {
-                                    data._id = user;
-                                    User.findone(data, callback);
-                                } else {
-                                    callback(data3);
-                                }
+                            callback({
+                                value: false
                             });
+                            db.close();
                         } else {
                             db.collection("user").update({
                                 _id: user
@@ -60,8 +52,9 @@ module.exports = {
                                     });
                                     db.close();
                                 } else if (updated.result.nModified != 0 && updated.result.n != 0) {
-                                    data._id = user;
-                                    User.findone(data, callback);
+                                    callback({
+                                        value: true
+                                    });
                                     db.close();
                                 } else if (updated.result.nModified == 0 && updated.result.n != 0) {
                                     callback({
@@ -84,8 +77,6 @@ module.exports = {
         });
     },
     delete: function(data, callback) {
-        var user = sails.ObjectID(data.user);
-        delete data.user;
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -95,7 +86,7 @@ module.exports = {
             }
             if (db) {
                 db.collection("user").update({
-                    _id: user
+                    _id: sails.ObjectID(data.id)
                 }, {
                     $pull: {
                         "cart": {
@@ -110,8 +101,9 @@ module.exports = {
                         });
                         db.close();
                     } else if (updated) {
-                        data._id = user;
-                        User.findone(data, callback);
+                        callback({
+                            value: true
+                        });
                         db.close();
                     } else {
                         callback({
@@ -163,7 +155,9 @@ module.exports = {
     find: function(data, callback) {
         var lastresult = [];
         var i = 0;
-        var user = sails.ObjectID(data.user);
+        var j = 0;
+        var returnData = [];
+        var user = sails.ObjectID(data.id);
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -198,8 +192,22 @@ module.exports = {
                             lastresult.push(z.cart);
                             i++;
                             if (i == data2.length) {
-                                callback(lastresult);
-                                db.close();
+                                _.each(lastresult, function(art) {
+                                    Artwork.findbyid({
+                                        _id: art.artwork
+                                    }, function(respo) {
+                                        if (respo.value && respo.value != false) {
+                                            j++;
+                                        } else {
+                                            j++;
+                                            returnData.push(respo[0]);
+                                            if (j == lastresult.length) {
+                                                callback(returnData);
+                                                db.close();
+                                            }
+                                        }
+                                    });
+                                });
                             }
                         });
                     } else if (err) {
@@ -209,10 +217,7 @@ module.exports = {
                         });
                         db.close();
                     } else {
-                        callback({
-                            value: false,
-                            comment: "No data found"
-                        });
+                        callback([]);
                         db.close();
                     }
                 });

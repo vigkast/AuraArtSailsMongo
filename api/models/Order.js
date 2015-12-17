@@ -6,13 +6,17 @@
  */
 module.exports = {
     save: function(data, callback) {
-        data.discountcoupon = sails.ObjectID(data.discountcoupon);
-        if (data.artwork) {
-            for (var i = 0; i < data.artwork.length; i++) {
-                data.artwork[i] = sails.ObjectID(data.artwork[i]);
-            }
+        if (data.discountcoupon && data.discountcoupon != "") {
+            data.discountcoupon = sails.ObjectID(data.discountcoupon);
         }
-        data._id = sails.ObjectID();
+        if (data.cart && data.cart.length > 0) {
+            _.each(data.cart, function(art) {
+                art.artwork = sails.ObjectID(art.artwork);
+            });
+        }
+        if (data.user) {
+            data.user = sails.ObjectID(data.user);
+        }
         sails.query(function(err, db) {
             var exit = 0;
             var exitup = 0;
@@ -24,7 +28,12 @@ module.exports = {
             }
             if (db) {
                 if (!data._id) {
-                    db.collection('order').insert(data, function(err, created) {
+                    var newdata = {};
+                    newdata.status = "pending";
+                    newdata._id = sails.ObjectID();
+                    newdata.cart = data.cart;
+                    newdata.user = data.user;
+                    db.collection('order').insert(newdata, function(err, created) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -32,10 +41,19 @@ module.exports = {
                             });
                             db.close();
                         } else if (created) {
-                            callback({
-                                value: true
-                            });
-                            db.close();
+                            if (data.orderid && data.orderid.length > 0) {
+                                data.orderid.push({
+                                    _id: newdata._id
+                                });
+                            } else {
+                                data.orderid = [];
+                                data.orderid.push({
+                                    _id: newdata._id
+                                });
+                            }
+                            data._id = data.user;
+                            data.cart = [];
+                            User.save(data, callback);
                         } else {
                             callback({
                                 value: false,
@@ -149,37 +167,74 @@ module.exports = {
         });
     },
     find: function(data, callback) {
-        var returns = [];
+        var newreturns = {};
+        newreturns.data = [];
+        var pagesize = data.pagesize;
+        var pagenumber = data.pagenumber;
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
                     value: false
                 });
-            }
-            if (db) {
-                db.collection("order").find({}, {}).toArray(function(err, found) {
-                    if (err) {
+            } else if (db) {
+                db.collection("order").count({
+                    cart: {
+                        $exists: true
+                    }
+                }, function(err, number) {
+                    if (number && number != "") {
+                        newreturns.totalpages = Math.ceil(number / data.pagesize);
+                        dbcall();
+                    } else if (err) {
                         callback({
                             value: false
                         });
                         console.log(err);
                         db.close();
-                    } else if (found && found[0]) {
-                        callback(found);
-                        db.close();
                     } else {
                         callback({
                             value: false,
-                            comment: "No data found"
+                            comment: "Count of null"
                         });
                         db.close();
                     }
                 });
+
+                function dbcall() {
+                    db.collection("order").find({
+                        cart: {
+                            $exists: true
+                        }
+                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                        if (err) {
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else if (found && found[0]) {
+                            newreturns.total = found.length;
+                            newreturns.data = found;
+                            callback(newreturns);
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "No data found"
+                            });
+                            db.close();
+                        }
+                    });
+                }
             }
         });
     },
     findone: function(data, callback) {
+        var lastresult = [];
+        var i = 0;
+        var j = 0;
+        var returnData = [];
+        var order = sails.ObjectID(data._id);
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -188,23 +243,58 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("order").find({
-                    "_id": sails.ObjectID(data._id)
-                }, {}).toArray(function(err, data2) {
-                    if (err) {
+                db.collection("order").aggregate([{
+                    $match: {
+                        _id: order
+                    }
+                }, {
+                    $unwind: "$cart"
+                }, {
+                    $group: {
+                        _id: "$_id",
+                        cart: {
+                            $addToSet: "$cart"
+                        }
+                    }
+                }, {
+                    $project: {
+                        _id: 0,
+                        cart: 1
+                    }
+                }, {
+                    $unwind: "$cart"
+                }]).toArray(function(err, data2) {
+                    if (data2 && data2[0]) {
+                        _.each(data2, function(z) {
+                            lastresult.push(z.cart);
+                            i++;
+                            if (i == data2.length) {
+                                _.each(lastresult, function(art) {
+                                    Artwork.findbyid({
+                                        _id: art.artwork
+                                    }, function(respo) {
+                                        if (respo.value && respo.value != false) {
+                                            j++;
+                                        } else {
+                                            j++;
+                                            returnData.push(respo[0]);
+                                            if (j == lastresult.length) {
+                                                callback(returnData);
+                                                db.close();
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+                        });
+                    } else if (err) {
                         console.log(err);
                         callback({
                             value: false
                         });
                         db.close();
-                    } else if (data2 && data2[0]) {
-                        callback(data2[0]);
-                        db.close();
                     } else {
-                        callback({
-                            value: false,
-                            comment: "No data found"
-                        });
+                        callback([]);
                         db.close();
                     }
                 });

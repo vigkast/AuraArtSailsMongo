@@ -8,25 +8,17 @@
 module.exports = {
     save: function(req, res) {
         if (req.body) {
-            if (req.body._id) {
-                if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                    user();
-                } else {
-                    res.json({
-                        value: "false",
-                        comment: "Order-id is incorrect"
-                    });
-                }
-            } else {
-                user();
+            if (req.session.passport.user) {
+                req.body._id = req.session.passport.user.id;
             }
-
-            function user() {
-                var print = function(data) {
-                    res.json(data);
-                }
-                Order.save(req.body, print);
+            var print = function(data) {
+                res.json(data);
             }
+            User.findone(req.body, function(respo) {
+                respo.user = respo._id;
+                delete respo._id;
+                Order.save(respo, print);
+            });
         } else {
             res.json({
                 value: "false",
@@ -55,10 +47,10 @@ module.exports = {
         }
     },
     find: function(req, res) {
-        function callback(data) {
+        var print = function(data) {
             res.json(data);
-        };
-        Order.find(req.body, callback);
+        }
+        Order.find(req.body, print);
     },
     findone: function(req, res) {
         if (req.body) {

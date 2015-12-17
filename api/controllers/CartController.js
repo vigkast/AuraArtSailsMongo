@@ -8,7 +8,8 @@
 module.exports = {
     save: function(req, res) {
         if (req.body) {
-            if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
+            if (req.session.passport) {
+                req.body.id = req.session.passport.user.id;
                 if (req.body._id) {
                     if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
                         cart();
@@ -22,10 +23,32 @@ module.exports = {
                     cart();
                 }
             } else {
-                res.json({
-                    value: "false",
-                    comment: "user-id is incorrect "
-                });
+                if (req.session.cart && req.session.cart.items.length > 0) {
+                    var findindex = sails._.findIndex(req.session.cart.items, {
+                        "artwork": req.body.artwork
+                    });
+                    if (findindex == -1) {
+                        req.session.cart.items.push({
+                            artwork: req.body.artwork
+                        });
+                        res.json({
+                            value: true
+                        });
+                    } else {
+                        res.json({
+                            value: false
+                        });
+                    }
+                } else {
+                    req.session.cart = {};
+                    req.session.cart.items = [];
+                    req.session.cart.items.push({
+                        artwork: req.body.artwork
+                    });
+                    res.json({
+                        value: true
+                    });
+                }
             }
 
             function cart() {
@@ -43,7 +66,8 @@ module.exports = {
     },
     delete: function(req, res) {
         if (req.body) {
-            if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
+            if (req.session.passport) {
+                req.body.id = req.session.passport.user.id;
                 if (req.body.artwork && req.body.artwork != "" && sails.ObjectID.isValid(req.body.artwork)) {
                     var print = function(data) {
                         res.json(data);
@@ -56,10 +80,17 @@ module.exports = {
                     });
                 }
             } else {
-                res.json({
-                    value: "false",
-                    comment: "user-id is incorrect "
-                });
+                if (req.session.cart && req.session.cart.items.length > 0) {
+                    var findindex = sails._.findIndex(req.session.cart.items, {
+                        "artwork": req.body.artwork
+                    });
+                    if (findindex != -1) {
+                        req.session.cart.items.splice(findindex, 1);
+                        res.json({
+                            value: true
+                        });
+                    }
+                }
             }
         } else {
             res.json({
@@ -69,17 +100,36 @@ module.exports = {
         }
     },
     find: function(req, res) {
+        var i = 0;
+        var returnData = [];
         if (req.body) {
-            if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
+            if (req.session.passport) {
+                req.body.id = req.session.passport.user.id;
+
                 function callback(data) {
                     res.json(data);
                 };
                 Cart.find(req.body, callback);
             } else {
-                res.json({
-                    value: "false",
-                    comment: "user-id is incorrect "
-                });
+                if (req.session.cart && req.session.cart.items.length > 0) {
+                    _.each(req.session.cart.items, function(art) {
+                        Artwork.findbyid({
+                            _id: art.artwork
+                        }, function(respo) {
+                            if (respo.value && respo.value != false) {
+                                i++;
+                            } else {
+                                i++;
+                                returnData.push(respo[0]);
+                                if (i == req.session.cart.items.length) {
+                                    res.json(returnData);
+                                }
+                            }
+                        });
+                    });
+                } else {
+                    res.json([]);
+                }
             }
         } else {
             res.json({

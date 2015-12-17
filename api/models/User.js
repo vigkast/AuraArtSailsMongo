@@ -198,7 +198,7 @@ module.exports = {
                 });
             }
             if (db) {
-                if (data.password) {
+                if (data.password && data.password != "") {
                     data.password = sails.md5(data.password);
                 }
 
@@ -260,7 +260,7 @@ module.exports = {
                     }
                 } else {
                     var user = sails.ObjectID(data._id);
-                    delete data._id
+                    delete data._id;
                     db.collection('user').update({
                         _id: user
                     }, {
@@ -274,8 +274,10 @@ module.exports = {
                             });
                             db.close();
                         } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+                            data.id = user;
                             callback({
-                                value: true
+                                value: true,
+                                data: data
                             });
                             db.close();
                         } else if (updated.result.nModified == 0 && updated.result.n != 0) {
@@ -1220,6 +1222,58 @@ module.exports = {
                 accesslevel: "artist"
             };
         }
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").find(matchobj, {
+                    _id: 1,
+                    name: 1
+                }).sort({
+                    name: 1
+                }).toArray(function(err, found) {
+                    if (err) {
+                        callback({
+                            value: false
+                        });
+                        console.log(err);
+                        db.close();
+                    } else if (found && found[0]) {
+                        callback(found);
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    },
+    findCust: function(data, callback) {
+        var spacedata = data.search;
+        spacedata = "\\s" + spacedata;
+        var check = new RegExp(spacedata, "i");
+        data.search = "^" + data.search;
+        var checkname = new RegExp(data.search, "i");
+            var matchobj = {
+                $or: [{
+                    name: {
+                        '$regex': checkname
+                    }
+                }, {
+                    name: {
+                        '$regex': check
+                    }
+                }],
+                accesslevel: "customer"
+            };
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);

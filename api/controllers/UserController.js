@@ -839,7 +839,9 @@ module.exports = {
 
             function user() {
                 var print = function(data) {
+
                     res.json(data);
+
                 }
                 User.save(req.body, print);
             }
@@ -980,14 +982,27 @@ module.exports = {
         if (req.body) {
             if (req.body.email && req.body.email != "" && req.body.password && req.body.password != "") {
                 var print = function(data) {
-                    if (!data.value) {
+                    if (data.value != false) {
                         req.session.passport = {
                             user: data
                         };
-                        req.session.save();
-                        res.send(frontend);
+                        if (req.session.cart && req.session.cart.items.length > 0) {
+                            var i = 0;
+                            _.each(req.session.cart.items, function(art) {
+                                art.id = req.session.passport.user.id;
+                                Cart.save(art, function(cartrespo) {
+                                    i++;
+                                    if (i == req.session.cart.items.length) {
+                                        req.session.cart = {};
+                                        res.send(frontend);
+                                    }
+                                });
+                            });
+                        } else {
+                            res.send(frontend);
+                        }
                     } else {
-                        res.send(frontend);
+                        res.json(data);
                     }
                 }
                 User.login(req.body, print);
@@ -1095,6 +1110,26 @@ module.exports = {
                     res.json(data);
                 }
                 User.findUser(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    findCust: function(req, res) {
+        if (req.body) {
+            if (req.body.search && req.body.search != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.findCust(req.body, print);
             } else {
                 res.json({
                     value: "false",
