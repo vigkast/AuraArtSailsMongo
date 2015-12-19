@@ -31,7 +31,7 @@ module.exports = {
                     var newdata = {};
                     newdata.discount = data.discount;
                     newdata.price = data.price;
-                    newdata.status = "pending";
+                    newdata.status = "Pending";
                     newdata._id = sails.ObjectID();
                     newdata.cart = data.cart;
                     newdata.orderid = "#O";
@@ -186,7 +186,9 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("order").find({}).toArray(function(err, data2) {
+                db.collection("order").find({
+                    user: sails.ObjectID(data.user)
+                }).toArray(function(err, data2) {
                     if (data2 && data2[0]) {
                         callback(data2);
                         db.close();
@@ -246,7 +248,7 @@ module.exports = {
                                                     lastresult.push({
                                                         orderid: y.orderid,
                                                         price: y.price,
-                                                        status:y.status,
+                                                        status: y.status,
                                                         discount: y.discount,
                                                         timestamp: y.timestamp,
                                                         artwork: artwork

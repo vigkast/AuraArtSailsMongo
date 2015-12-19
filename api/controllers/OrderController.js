@@ -8,7 +8,7 @@
 module.exports = {
     save: function(req, res) {
         if (req.body) {
-            if (req.session.passport.user) {
+            if (req.session.passport) {
                 req.body._id = req.session.passport.user.id;
             }
             var print = function(data) {
@@ -55,10 +55,15 @@ module.exports = {
         Order.find(req.body, print);
     },
     findOrders: function(req, res) {
-        var print = function(data) {
-            res.json(data);
+        if (req.session.passport) {
+            req.body.user = req.session.passport.user.id;
+            var print = function(data) {
+                res.json(data);
+            }
+            Order.findOrders(req.body, print);
+        } else {
+            res.json([]);
         }
-        Order.findOrders(req.body, print);
     },
     findlimited: function(req, res) {
         if (req.body) {
