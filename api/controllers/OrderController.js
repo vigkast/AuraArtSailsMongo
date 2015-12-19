@@ -16,6 +16,8 @@ module.exports = {
             }
             User.findone(req.body, function(respo) {
                 respo.user = respo._id;
+                respo.discount = req.body.discount;
+                respo.price = req.body.price;
                 delete respo._id;
                 Order.save(respo, print);
             });
@@ -52,25 +54,11 @@ module.exports = {
         }
         Order.find(req.body, print);
     },
-    findone: function(req, res) {
-        if (req.body) {
-            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function(data) {
-                    res.json(data);
-                }
-                Order.findone(req.body, print);
-            } else {
-                res.json({
-                    value: "false",
-                    comment: "Order-id is incorrect"
-                });
-            }
-        } else {
-            res.json({
-                value: "false",
-                comment: "Please provide parameters"
-            });
+    findOrders: function(req, res) {
+        var print = function(data) {
+            res.json(data);
         }
+        Order.findOrders(req.body, print);
     },
     findlimited: function(req, res) {
         if (req.body) {

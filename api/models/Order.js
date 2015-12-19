@@ -29,9 +29,17 @@ module.exports = {
             if (db) {
                 if (!data._id) {
                     var newdata = {};
+                    newdata.discount = data.discount;
+                    newdata.price = data.price;
                     newdata.status = "pending";
                     newdata._id = sails.ObjectID();
                     newdata.cart = data.cart;
+                    newdata.orderid = "#O";
+                    newdata.timestamp = new Date();
+                    var possible = "0123456789";
+                    for (var i = 0; i < 8; i++) {
+                        newdata.orderid += possible.charAt(Math.floor(Math.random() * possible.length));
+                    }
                     newdata.user = data.user;
                     db.collection('order').insert(newdata, function(err, created) {
                         if (err) {
@@ -53,6 +61,9 @@ module.exports = {
                             }
                             data._id = data.user;
                             data.cart = [];
+                            delete data.user;
+                            delete data.discount;
+                            delete data.price;
                             User.save(data, callback);
                         } else {
                             callback({
@@ -167,74 +178,6 @@ module.exports = {
         });
     },
     find: function(data, callback) {
-        var newreturns = {};
-        newreturns.data = [];
-        var pagesize = data.pagesize;
-        var pagenumber = data.pagenumber;
-        sails.query(function(err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            } else if (db) {
-                db.collection("order").count({
-                    cart: {
-                        $exists: true
-                    }
-                }, function(err, number) {
-                    if (number && number != "") {
-                        newreturns.totalpages = Math.ceil(number / data.pagesize);
-                        dbcall();
-                    } else if (err) {
-                        callback({
-                            value: false
-                        });
-                        console.log(err);
-                        db.close();
-                    } else {
-                        callback({
-                            value: false,
-                            comment: "Count of null"
-                        });
-                        db.close();
-                    }
-                });
-
-                function dbcall() {
-                    db.collection("order").find({
-                        cart: {
-                            $exists: true
-                        }
-                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
-                        if (err) {
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (found && found[0]) {
-                            newreturns.total = found.length;
-                            newreturns.data = found;
-                            callback(newreturns);
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "No data found"
-                            });
-                            db.close();
-                        }
-                    });
-                }
-            }
-        });
-    },
-    findone: function(data, callback) {
-        var lastresult = [];
-        var i = 0;
-        var j = 0;
-        var returnData = [];
-        var order = sails.ObjectID(data._id);
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -243,50 +186,10 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("order").aggregate([{
-                    $match: {
-                        _id: order
-                    }
-                }, {
-                    $unwind: "$cart"
-                }, {
-                    $group: {
-                        _id: "$_id",
-                        cart: {
-                            $addToSet: "$cart"
-                        }
-                    }
-                }, {
-                    $project: {
-                        _id: 0,
-                        cart: 1
-                    }
-                }, {
-                    $unwind: "$cart"
-                }]).toArray(function(err, data2) {
+                db.collection("order").find({}).toArray(function(err, data2) {
                     if (data2 && data2[0]) {
-                        _.each(data2, function(z) {
-                            lastresult.push(z.cart);
-                            i++;
-                            if (i == data2.length) {
-                                _.each(lastresult, function(art) {
-                                    Artwork.findbyid({
-                                        _id: art.artwork
-                                    }, function(respo) {
-                                        if (respo.value && respo.value != false) {
-                                            j++;
-                                        } else {
-                                            j++;
-                                            returnData.push(respo[0]);
-                                            if (j == lastresult.length) {
-                                                callback(returnData);
-                                                db.close();
-                                            }
-                                        }
-                                    });
-                                });
-                            }
-                        });
+                        callback(data2);
+                        db.close();
                     } else if (err) {
                         console.log(err);
                         callback({
@@ -298,6 +201,76 @@ module.exports = {
                         db.close();
                     }
                 });
+            }
+        });
+    },
+    findOrders: function(data, callback) {
+        var lastresult = [];
+        var i = 0;
+        var j = 0;
+        var returnData = [];
+        Order.find(data, function(orderRespo) {
+            if (orderRespo && orderRespo.length > 0) {
+                _.each(orderRespo, function(y) {
+                    sails.query(function(err, db) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                        }
+                        if (db) {
+                            db.collection("order").aggregate([{
+                                $match: {
+                                    _id: sails.ObjectID(y._id)
+                                }
+                            }, {
+                                $project: {
+                                    _id: 0,
+                                    cart: 1
+                                }
+                            }]).toArray(function(err, data2) {
+                                if (data2 && data2[0]) {
+                                    var artwork = [];
+                                    i++;
+                                    _.each(data2[0].cart, function(art) {
+                                        Artwork.findbyid({
+                                            _id: art.artwork
+                                        }, function(respo) {
+                                            if (respo.value && respo.value != false) {
+                                                j++;
+                                            } else {
+                                                artwork.push(respo[0]);
+                                                j++;
+                                                if (j == data2[0].cart.length) {
+                                                    lastresult.push({
+                                                        orderid: y.orderid,
+                                                        price: y.price,
+                                                        discount: y.discount,
+                                                        timestamp: y.timestamp,
+                                                        artwork: artwork
+                                                    });
+                                                    if (i == orderRespo.length) {
+                                                        callback(lastresult);
+                                                        db.close();
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    });
+                                } else if (err) {
+                                    console.log(err);
+                                    callback({
+                                        value: false
+                                    });
+                                    db.close();
+                                }
+                            });
+                        }
+                    });
+                });
+            } else {
+                callback([]);
             }
         });
     },
