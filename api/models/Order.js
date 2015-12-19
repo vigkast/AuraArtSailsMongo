@@ -209,7 +209,6 @@ module.exports = {
     findOrders: function(data, callback) {
         var lastresult = [];
         var i = 0;
-        var j = 0;
         var returnData = [];
         Order.find(data, function(orderRespo) {
             if (orderRespo && orderRespo.length > 0) {
@@ -234,6 +233,7 @@ module.exports = {
                             }]).toArray(function(err, data2) {
                                 if (data2 && data2[0]) {
                                     var artwork = [];
+                                    var j = 0;
                                     i++;
                                     _.each(data2[0].cart, function(art) {
                                         Artwork.findbyid({
@@ -253,7 +253,7 @@ module.exports = {
                                                         timestamp: y.timestamp,
                                                         artwork: artwork
                                                     });
-                                                    if (i == orderRespo.length) {
+                                                    if (i == lastresult.length) {
                                                         callback(lastresult);
                                                         db.close();
                                                     }
