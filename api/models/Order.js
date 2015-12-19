@@ -246,6 +246,7 @@ module.exports = {
                                                     lastresult.push({
                                                         orderid: y.orderid,
                                                         price: y.price,
+                                                        status:y.status,
                                                         discount: y.discount,
                                                         timestamp: y.timestamp,
                                                         artwork: artwork
