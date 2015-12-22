@@ -6,6 +6,12 @@
  */
 module.exports = {
     save: function(data, callback) {
+        if (data.startdate) {
+            data.startdate = new Date(data.startdate);
+        }
+        if (data.enddate) {
+            data.enddate = new Date(data.enddate);
+        }
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
