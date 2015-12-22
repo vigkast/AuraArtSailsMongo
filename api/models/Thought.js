@@ -156,7 +156,7 @@ module.exports = {
                         console.log(err);
                         db.close();
                     } else if (found && found[0]) {
-                        callback(found[0]);
+                        callback(found);
                         db.close();
                     } else {
                         callback({
