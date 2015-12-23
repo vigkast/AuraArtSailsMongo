@@ -446,15 +446,17 @@ module.exports = {
             var firstmatch = {
                 $and: [{
                     name: check
-                }, $or: [{
-                    name: {
-                        '$regex': checkname
-                    }
                 }, {
-                    name: {
-                        '$regex': checkspace
-                    }
-                }]],
+                    $or: [{
+                        name: {
+                            '$regex': checkname
+                        }
+                    }, {
+                        name: {
+                            '$regex': checkspace
+                        }
+                    }]
+                }],
                 accesslevel: "artist",
                 "artwork.type": data.type,
                 focused: "focused"
@@ -462,15 +464,17 @@ module.exports = {
             var matchobj = {
                 $and: [{
                     name: check
-                }, $or: [{
-                    name: {
-                        '$regex': checkname
-                    }
                 }, {
-                    name: {
-                        '$regex': checkspace
-                    }
-                }]],
+                    $or: [{
+                        name: {
+                            '$regex': checkname
+                        }
+                    }, {
+                        name: {
+                            '$regex': checkspace
+                        }
+                    }]
+                }],
                 accesslevel: "artist",
                 "artwork.type": data.type
             };
@@ -480,7 +484,15 @@ module.exports = {
                 $and: [{
                     name: check
                 }, {
-                    name: checkname
+                    $or: [{
+                        name: {
+                            '$regex': checkname
+                        }
+                    }, {
+                        name: {
+                            '$regex': checkspace
+                        }
+                    }]
                 }],
                 accesslevel: "artist",
                 focused: "focused"
@@ -489,7 +501,15 @@ module.exports = {
                 $and: [{
                     name: check
                 }, {
-                    name: checkname
+                    $or: [{
+                        name: {
+                            '$regex': checkname
+                        }
+                    }, {
+                        name: {
+                            '$regex': checkspace
+                        }
+                    }]
                 }],
                 accesslevel: "artist"
             };
@@ -497,6 +517,8 @@ module.exports = {
         }
 
         function callbackfunc1() {
+            console.log(firstmatch);
+            console.log(matchobj);
             sails.query(function(err, db) {
                 if (err) {
                     console.log(err);
