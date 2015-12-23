@@ -517,8 +517,6 @@ module.exports = {
         }
 
         function callbackfunc1() {
-            console.log(firstmatch);
-            console.log(matchobj);
             sails.query(function(err, db) {
                 if (err) {
                     console.log(err);
