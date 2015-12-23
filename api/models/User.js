@@ -433,18 +433,28 @@ module.exports = {
     findbyletter: function(data, callback) {
         var newreturns = {};
         newreturns.data = [];
+        var spacedata = data.searchname;
+        spacedata = "\\s" + spacedata;
+        var checkname = new RegExp(spacedata, "i");
+        data.searchname = "^" + data.searchname;
+        var checkspace = new RegExp(data.searchname, "i");
         data.search = "^" + data.search;
         var check = new RegExp(data.search, "i");
-        var checkname = new RegExp(data.searchname, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
         if (data.type && data.type != "") {
             var firstmatch = {
                 $and: [{
                     name: check
+                }, $or: [{
+                    name: {
+                        '$regex': checkname
+                    }
                 }, {
-                    name: checkname
-                }],
+                    name: {
+                        '$regex': checkspace
+                    }
+                }]],
                 accesslevel: "artist",
                 "artwork.type": data.type,
                 focused: "focused"
@@ -452,9 +462,15 @@ module.exports = {
             var matchobj = {
                 $and: [{
                     name: check
+                }, $or: [{
+                    name: {
+                        '$regex': checkname
+                    }
                 }, {
-                    name: checkname
-                }],
+                    name: {
+                        '$regex': checkspace
+                    }
+                }]],
                 accesslevel: "artist",
                 "artwork.type": data.type
             };
@@ -1262,18 +1278,18 @@ module.exports = {
         var check = new RegExp(spacedata, "i");
         data.search = "^" + data.search;
         var checkname = new RegExp(data.search, "i");
-            var matchobj = {
-                $or: [{
-                    name: {
-                        '$regex': checkname
-                    }
-                }, {
-                    name: {
-                        '$regex': check
-                    }
-                }],
-                accesslevel: "customer"
-            };
+        var matchobj = {
+            $or: [{
+                name: {
+                    '$regex': checkname
+                }
+            }, {
+                name: {
+                    '$regex': check
+                }
+            }],
+            accesslevel: "customer"
+        };
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
