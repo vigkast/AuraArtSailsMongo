@@ -248,7 +248,7 @@ module.exports = {
                                         m = result[num];
                                         User.saveforexcel(m, function(print) {
                                             m.subtype = [];
-                                            m.srno = parseInt(m.srno);
+                                            // m.srno = parseInt(m.srno);
                                             m.tag = [];
                                             if (m.tagname == "") {
                                                 var dummy = {};
@@ -257,112 +257,115 @@ module.exports = {
                                                 dummy.category = "";
                                                 m.tag.push(dummy);
                                             }
-                                            if (!print.value && print.value != false) {
-                                                createartwork();
-                                            }
+                                            User.saveCustomer(m, function(printcust) {
+                                                if (printcust.value != false) {
+                                                    createartwork();
+                                                }
 
-                                            function createartwork() {
-                                                m.user = print;
-                                                delete m.username;
-                                                ArtMedium.savemediumexcel(m, function(mediumid) {
-                                                    var mediumdata = {};
-                                                    mediumdata._id = mediumid;
-                                                    mediumdata.name = m.mediumname;
-                                                    mediumdata.category = m.type;
-                                                    m.subtype.push(mediumdata);
-                                                    delete m.mediumname;
-                                                    if (m.tagname != "") {
-                                                        var tagsplit = m.tagname.split(",");
-                                                        var count = 0;
-                                                        _.each(tagsplit, function(q) {
-                                                            q = q.trim();
-                                                            var tagdata = {};
-                                                            tagdata.name = q;
-                                                            tagdata.type = m.type;
-                                                            Tag.savetagexcel(tagdata, function(tagid) {
-                                                                tagdata._id = tagid;
-                                                                m.tag.push(tagdata);
-                                                                count++;
-                                                                if (count == tagsplit.length) {
-                                                                    creator();
-                                                                }
+                                                function createartwork() {
+                                                    m.reseller = printcust;
+                                                    m.user = print;
+                                                    delete m.username;
+                                                    ArtMedium.savemediumexcel(m, function(mediumid) {
+                                                        var mediumdata = {};
+                                                        mediumdata._id = mediumid;
+                                                        mediumdata.name = m.mediumname;
+                                                        mediumdata.category = m.type;
+                                                        m.subtype.push(mediumdata);
+                                                        delete m.mediumname;
+                                                        if (m.tagname != "") {
+                                                            var tagsplit = m.tagname.split(",");
+                                                            var count = 0;
+                                                            _.each(tagsplit, function(q) {
+                                                                q = q.trim();
+                                                                var tagdata = {};
+                                                                tagdata.name = q;
+                                                                tagdata.type = m.type;
+                                                                Tag.savetagexcel(tagdata, function(tagid) {
+                                                                    tagdata._id = tagid;
+                                                                    m.tag.push(tagdata);
+                                                                    count++;
+                                                                    if (count == tagsplit.length) {
+                                                                        creator();
+                                                                    }
+                                                                });
                                                             });
-                                                        });
-                                                    } else {
-                                                        creator();
-                                                    }
+                                                        } else {
+                                                            creator();
+                                                        }
 
-                                                    function creator() {
-                                                        delete m.tagname;
-                                                        if (m.gprice && m.gprice != "") {
-                                                            var gprice = m.gprice.split(",");
-                                                            m.gprice = "";
-                                                            _.each(gprice, function(gp) {
-                                                                m.gprice += gp;
-                                                            });
-                                                            m.gprice = parseInt(m.gprice);
-                                                        } else {
-                                                            m.gprice = "N/A";
-                                                        }
-                                                        if (m.pricesq && m.pricesq != "") {
-                                                            var pricesq = m.pricesq.split(",");
-                                                            m.pricesq = "";
-                                                            _.each(pricesq, function(ps) {
-                                                                m.pricesq += ps;
-                                                            });
-                                                            m.pricesq = parseInt(m.pricesq);
-                                                        } else {
-                                                            m.pricesq = "N/A";
-                                                        }
-                                                        if (m.price && m.price != "") {
-                                                            var price = m.price.split(",");
-                                                            m.price = "";
-                                                            _.each(price, function(p) {
-                                                                m.price += p;
-                                                            });
-                                                            m.price = parseInt(m.price);
-                                                        } else {
-                                                            m.price = "N/A";
-                                                        }
-                                                        if (m.height && m.height != "") {
-                                                            m.height = parseFloat(m.height);
-                                                        } else {
-                                                            m.height = "N/A";
-                                                        }
-                                                        if (m.breadth && m.breadth != "") {
-                                                            m.breadth = parseFloat(m.breadth);
-                                                        } else {
-                                                            m.breadth = "N/A";
-                                                        }
-                                                        if (m.width && m.width != "") {
-                                                            m.width = parseFloat(m.width);
-                                                        } else {
-                                                            m.width = "N/A";
-                                                        }
-                                                        if (m.yoc && m.yoc == "") {
-                                                            m.yoc = "N/A";
-                                                        }
-                                                        m.imageno = m.imageno.split(";");
-                                                        _.each(m.imageno, function(z) {
-                                                            excelimages.push(z.trim() + '.jpg');
-                                                            if (m.imageno.length == excelimages.length) {
-                                                                m.image = excelimages;
-                                                                // m.srno = num + 1;
-                                                                Artwork.saveartwork(m);
-                                                                console.log(num);
-                                                                num++;
-                                                                if (num < result.length) {
-                                                                    setTimeout(function() {
-                                                                        createart(num);
-                                                                    }, 15);
-                                                                } else {
-                                                                    console.log("Done");
-                                                                }
+                                                        function creator() {
+                                                            delete m.tagname;
+                                                            if (m.gprice && m.gprice != "") {
+                                                                var gprice = m.gprice.split(",");
+                                                                m.gprice = "";
+                                                                _.each(gprice, function(gp) {
+                                                                    m.gprice += gp;
+                                                                });
+                                                                m.gprice = parseInt(m.gprice);
+                                                            } else {
+                                                                m.gprice = "N/A";
                                                             }
-                                                        });
-                                                    }
-                                                });
-                                            }
+                                                            if (m.pricesq && m.pricesq != "") {
+                                                                var pricesq = m.pricesq.split(",");
+                                                                m.pricesq = "";
+                                                                _.each(pricesq, function(ps) {
+                                                                    m.pricesq += ps;
+                                                                });
+                                                                m.pricesq = parseInt(m.pricesq);
+                                                            } else {
+                                                                m.pricesq = "N/A";
+                                                            }
+                                                            if (m.price && m.price != "") {
+                                                                var price = m.price.split(",");
+                                                                m.price = "";
+                                                                _.each(price, function(p) {
+                                                                    m.price += p;
+                                                                });
+                                                                m.price = parseInt(m.price);
+                                                            } else {
+                                                                m.price = "N/A";
+                                                            }
+                                                            if (m.height && m.height != "") {
+                                                                m.height = parseFloat(m.height);
+                                                            } else {
+                                                                m.height = "N/A";
+                                                            }
+                                                            if (m.breadth && m.breadth != "") {
+                                                                m.breadth = parseFloat(m.breadth);
+                                                            } else {
+                                                                m.breadth = "N/A";
+                                                            }
+                                                            if (m.width && m.width != "") {
+                                                                m.width = parseFloat(m.width);
+                                                            } else {
+                                                                m.width = "N/A";
+                                                            }
+                                                            if (m.yoc && m.yoc == "") {
+                                                                m.yoc = "N/A";
+                                                            }
+                                                            m.imageno = m.imageno.split(";");
+                                                            _.each(m.imageno, function(z) {
+                                                                excelimages.push(z.trim() + '.jpg');
+                                                                if (m.imageno.length == excelimages.length) {
+                                                                    m.image = excelimages;
+                                                                    m.srno = num + 1;
+                                                                    Artwork.saveartwork(m);
+                                                                    console.log(num);
+                                                                    num++;
+                                                                    if (num < result.length) {
+                                                                        setTimeout(function() {
+                                                                            createart(num);
+                                                                        }, 15);
+                                                                    } else {
+                                                                        console.log("Done");
+                                                                    }
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                            });
                                         });
                                     }
                                     createart(0);

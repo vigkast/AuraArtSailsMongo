@@ -1112,6 +1112,63 @@ module.exports = {
             }
         });
     },
+    saveCustomer: function(data, callback) {
+        var newdata = {};
+        newdata.name = data.reseller;
+        newdata._id = sails.ObjectID();
+        newdata.accesslevel = "customer";
+        sails.query(function(err, db) {
+            var exit = 0;
+            var exitup = 0;
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                exit++;
+                db.collection("user").find({
+                    name: data.reseller
+                }).each(function(err, data2) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else if (data2 && data2 != null) {
+                        exitup++;
+                        delete data2.accesslevel;
+                        callback(data2);
+                        db.close();
+                    } else {
+                        if (exit != exitup) {
+                            db.collection('user').insert(newdata, function(err, created) {
+                                if (err) {
+                                    console.log(err);
+                                    callback({
+                                        value: false
+                                    });
+                                    db.close();
+                                } else if (created) {
+                                    delete newdata.accesslevel;
+                                    callback(newdata);
+                                    db.close();
+                                } else {
+                                    callback({
+                                        value: false,
+                                        comment: "No data found"
+                                    });
+                                    db.close();
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    },
     findforexcel: function(data, callback) {
         sails.query(function(err, db) {
             if (err) {
