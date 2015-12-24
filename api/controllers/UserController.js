@@ -843,8 +843,28 @@ module.exports = {
 
             function user() {
                 var print = function(data) {
-
-                    res.json(data);
+                    if (data.accesslevel && data.accesslevel == "customer") {
+                        req.session.passport = {
+                            user: data
+                        };
+                        if (req.session.cart && req.session.cart.items.length > 0) {
+                            var i = 0;
+                            _.each(req.session.cart.items, function(art) {
+                                art.id = req.session.passport.user.id;
+                                Cart.save(art, function(cartrespo) {
+                                    i++;
+                                    if (i == req.session.cart.items.length) {
+                                        req.session.cart = {};
+                                        res.json(data);
+                                    }
+                                });
+                            });
+                        } else {
+                            res.json(data);
+                        }
+                    } else {
+                        res.json(data);
+                    }
 
                 }
                 User.save(req.body, print);
