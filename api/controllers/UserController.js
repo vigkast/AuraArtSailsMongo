@@ -248,6 +248,7 @@ module.exports = {
                                         m = result[num];
                                         User.saveforexcel(m, function(print) {
                                             m.subtype = [];
+                                            m.srno = parseInt(m.srno);
                                             m.tag = [];
                                             if (m.tagname == "") {
                                                 var dummy = {};
@@ -346,7 +347,7 @@ module.exports = {
                                                             excelimages.push(z.trim() + '.jpg');
                                                             if (m.imageno.length == excelimages.length) {
                                                                 m.image = excelimages;
-                                                                m.srno = num + 1;
+                                                                // m.srno = num + 1;
                                                                 Artwork.saveartwork(m);
                                                                 console.log(num);
                                                                 num++;
