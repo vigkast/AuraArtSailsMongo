@@ -1162,58 +1162,11 @@ module.exports = {
                     });
                     db.close();
                 } else if (data) {
-                    db.collection('artmedium').remove({}, function(err, data2) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (data2) {
-                            db.collection("fs.files").remove({}, function(err, data3) {
-                                if (err) {
-                                    console.log(err);
-                                    callback({
-                                        value: false
-                                    });
-                                    db.close();
-                                } else if (data3) {
-                                    db.collection("fs.chunks").remove({}, function(err, data4) {
-                                        if (err) {
-                                            console.log(err);
-                                            callback({
-                                                value: false
-                                            });
-                                            db.close();
-                                        } else if (data4) {
-                                            callback({
-                                                value: true
-                                            });
-                                            db.close();
-                                        } else {
-                                            callback({
-                                                value: false,
-                                                comment: "No data found"
-                                            });
-                                            db.close();
-                                        }
-                                    });
-                                } else {
-                                    callback({
-                                        value: false,
-                                        comment: "No data found"
-                                    });
-                                    db.close();
-                                }
-                            });
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "No data found"
-                            });
-                            db.close();
-                        }
+                    callback({
+                        value: true,
+                        comment: "Deleted"
                     });
+                    db.close();
                 } else {
                     callback({
                         value: false,
