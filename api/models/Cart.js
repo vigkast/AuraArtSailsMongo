@@ -8,6 +8,7 @@
 module.exports = {
     save: function(data, callback) {
         var user = sails.ObjectID(data.id);
+        console.log(user);
         delete data.id;
         if (data.artwork && data.artwork != "") {
             data.artwork = sails.ObjectID(data.artwork);
