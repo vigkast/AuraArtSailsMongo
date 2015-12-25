@@ -213,6 +213,8 @@ module.exports = {
                             db.close();
                         } else if (created) {
                             delete data.password;
+                            data.id = data._id;
+                            delete data._id;
                             callback(data);
                             db.close();
                         } else {
