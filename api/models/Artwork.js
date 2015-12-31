@@ -1466,9 +1466,8 @@ module.exports = {
                             }
                         }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
                             if (found && found[0]) {
-                                newreturns.data = found;
+                                newreturns.data.push(found);
                                 callbackfunc1();
-                                db.close();
                             } else if (err) {
                                 console.log(err);
                                 callback({
@@ -1476,12 +1475,7 @@ module.exports = {
                                 });
                                 db.close();
                             } else {
-                                console.log(err);
-                                callback({
-                                    value: false,
-                                    comment: "No data found"
-                                });
-                                db.close();
+                                callbackfunc1();
                             }
                         });
                     }
@@ -1564,11 +1558,10 @@ module.exports = {
                                 $sort: {
                                     name: 1
                                 }
-                            }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
-                                if (found && found[0]) {
-                                    newreturns.data = found;
+                            }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found1) {
+                                if (found1 && found1[0]) {
+                                    newreturns.data.push(found1);
                                     callbackfunc3();
-                                    db.close();
                                 } else if (err) {
                                     console.log(err);
                                     callback({
@@ -1577,7 +1570,6 @@ module.exports = {
                                     db.close();
                                 } else {
                                     callbackfunc3();
-                                    db.close();
                                 }
                             });
                         }
@@ -1662,11 +1654,10 @@ module.exports = {
                                 $sort: {
                                     name: 1
                                 }
-                            }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
-                                if (found && found[0]) {
-                                    newreturns.data = found;
+                            }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found2) {
+                                if (found2 && found2[0]) {
+                                    newreturns.data.push(found2);
                                     callbackfunc5();
-                                    db.close();
                                 } else if (err) {
                                     console.log(err);
                                     callback({
@@ -1675,7 +1666,6 @@ module.exports = {
                                     db.close();
                                 } else {
                                     callbackfunc5();
-                                    db.close();
                                 }
                             });
                         }
@@ -1759,9 +1749,9 @@ module.exports = {
                                 $sort: {
                                     name: 1
                                 }
-                            }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
-                                if (found && found[0]) {
-                                    newreturns.data = found;
+                            }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found3) {
+                                if (found3 && found3[0]) {
+                                    newreturns.data.push(found3);
                                     callback(newreturns);
                                     db.close();
                                 } else if (err) {
@@ -1771,10 +1761,7 @@ module.exports = {
                                     });
                                     db.close();
                                 } else {
-                                    callback({
-                                        value: false,
-                                        comment: "No data found"
-                                    });
+                                    callback(newreturns);
                                     db.close();
                                 }
                             });
