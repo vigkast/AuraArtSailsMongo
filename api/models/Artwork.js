@@ -1018,7 +1018,7 @@ module.exports = {
                 var pagesize = data.pagesize;
                 var pagenumber = data.pagenumber;
                 var user = sails.ObjectID(data.user);
-                if (data.type == "Artist") {
+                if (data.type && data.type == "Artist") {
                     db.collection("user").aggregate([{
                         $match: {
                             $or: [{
@@ -1437,7 +1437,7 @@ module.exports = {
                             });
                             db.close();
                         } else {
-                            callbackfunc();
+                            callbackfunc1();
                         }
                     });
 
@@ -1466,7 +1466,9 @@ module.exports = {
                             }
                         }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
                             if (found && found[0]) {
-                                newreturns.data.push(found);
+                                _.each(found, function(x) {
+                                    newreturns.data.push(x);
+                                });
                                 callbackfunc1();
                             } else if (err) {
                                 console.log(err);
@@ -1518,7 +1520,7 @@ module.exports = {
                                 });
                                 db.close();
                             } else {
-                                callbackfunc2();
+                                callbackfunc3();
                             }
                         });
 
@@ -1560,7 +1562,9 @@ module.exports = {
                                 }
                             }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found1) {
                                 if (found1 && found1[0]) {
-                                    newreturns.data.push(found1);
+                                    _.each(found1, function(y) {
+                                        newreturns.data.push(y);
+                                    });
                                     callbackfunc3();
                                 } else if (err) {
                                     console.log(err);
@@ -1656,7 +1660,9 @@ module.exports = {
                                 }
                             }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found2) {
                                 if (found2 && found2[0]) {
-                                    newreturns.data.push(found2);
+                                    _.each(found2, function(z) {
+                                        newreturns.data.push(z);
+                                    });
                                     callbackfunc5();
                                 } else if (err) {
                                     console.log(err);
@@ -1751,7 +1757,9 @@ module.exports = {
                                 }
                             }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found3) {
                                 if (found3 && found3[0]) {
-                                    newreturns.data.push(found3);
+                                    _.each(found3, function(a) {
+                                        newreturns.data.push(a);
+                                    });
                                     callback(newreturns);
                                     db.close();
                                 } else if (err) {
@@ -1761,6 +1769,9 @@ module.exports = {
                                     });
                                     db.close();
                                 } else {
+                                    _.each(found3, function(a) {
+                                        newreturns.data.push(a);
+                                    });
                                     callback(newreturns);
                                     db.close();
                                 }
