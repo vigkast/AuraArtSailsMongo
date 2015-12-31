@@ -102,17 +102,10 @@ module.exports = {
     },
     findevents: function(req, res) {
         if (req.body) {
-            if (req.body.year && req.body.year != "") {
-                function callback(data) {
-                    res.json(data);
-                };
-                Event.findevents(req.body, callback);
-            } else {
-                res.json({
-                    value: false,
-                    comment: "Please provide parameters"
-                });
-            }
+            function callback(data) {
+                res.json(data);
+            };
+            Event.findevents(req.body, callback);
         } else {
             res.json({
                 value: "false",

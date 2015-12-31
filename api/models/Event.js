@@ -12,6 +12,8 @@ module.exports = {
         if (data.enddate) {
             data.enddate = new Date(data.enddate);
         }
+
+
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -19,21 +21,20 @@ module.exports = {
                     value: false
                 });
             } else if (db) {
-
-                if (!data._id) {
-                    data._id = sails.ObjectID();
-                    db.collection('event').insert(data, function(err, created) {
+                if (data.onhome && data.onhome == "yes") {
+                    db.collection('event').update({}, {
+                        $unset: {
+                            onhome: ""
+                        }
+                    }, function(err, data2) {
                         if (err) {
                             console.log(err);
                             callback({
                                 value: false
                             });
                             db.close();
-                        } else if (created) {
-                            callback({
-                                value: true
-                            });
-                            db.close();
+                        } else if (data2) {
+                            callme();
                         } else {
                             callback({
                                 value: false,
@@ -43,38 +44,66 @@ module.exports = {
                         }
                     });
                 } else {
-                    var event = sails.ObjectID(data._id);
-                    delete data._id;
-                    db.collection('event').update({
-                        _id: event
-                    }, {
-                        $set: data
-                    }, function(err, updated) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (updated.result.nModified != 0 && updated.result.n != 0) {
-                            callback({
-                                value: true
-                            });
-                            db.close();
-                        } else if (updated.result.nModified == 0 && updated.result.n != 0) {
-                            callback({
-                                value: true,
-                                comment: "Data already updated"
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "No data found"
-                            });
-                            db.close();
-                        }
-                    });
+                    callme();
+                }
+
+                function callme() {
+                    if (!data._id) {
+                        data._id = sails.ObjectID();
+                        db.collection('event').insert(data, function(err, created) {
+                            if (err) {
+                                console.log(err);
+                                callback({
+                                    value: false
+                                });
+                                db.close();
+                            } else if (created) {
+                                callback({
+                                    value: true
+                                });
+                                db.close();
+                            } else {
+                                callback({
+                                    value: false,
+                                    commment: "Not created"
+                                });
+                                db.close();
+                            }
+                        });
+                    } else {
+                        var event = sails.ObjectID(data._id);
+                        delete data._id;
+                        db.collection('event').update({
+                            _id: event
+                        }, {
+                            $set: data
+                        }, function(err, updated) {
+                            if (err) {
+                                console.log(err);
+                                callback({
+                                    value: false
+                                });
+                                db.close();
+                            } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+                                callback({
+                                    value: true
+                                });
+                                db.close();
+                            } else if (updated.result.nModified == 0 && updated.result.n != 0) {
+                                callback({
+                                    value: true,
+                                    comment: "Data already updated"
+                                });
+                                db.close();
+                            } else {
+                                callback({
+                                    value: false,
+                                    comment: "No data found"
+                                });
+                                db.close();
+                            }
+                        });
+                    }
                 }
             }
         });
@@ -282,92 +311,57 @@ module.exports = {
         });
     },
     findevents: function(data, callback) {
-        if (data.year && data.year != "") {
-            if (data.year == "past") {
-                var matchobj = {
-                    year: {
-                        $exists: true,
-                        $lt: parseInt(sails.moment().format("YYYY"))
-                    }
-                };
-                callbackfunc();
-            } else if (data.year == "present") {
-                var matchobj = {
-                    year: {
-                        $exists: true,
-                        $eq: parseInt(sails.moment().format("YYYY"))
-                    }
-                };
-                callbackfunc();
-            } else if (data.year == "upcoming") {
-                var matchobj = {
-                    year: {
-                        $exists: true,
-                        $gt: parseInt(sails.moment().format("YYYY"))
-                    }
-                };
-                callbackfunc();
-            } else {
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
                 callback({
-                    value: false,
-                    comment: "Year cannot be empty"
+                    value: false
+                });
+            } else if (db) {
+                db.collection('event').find({
+                    year: {
+                        $exists: true
+                    },
+                    onhome: {
+                        $exists: true
+                    }
+                }).sort({
+                    year: -1
+                }).toArray(function(err, data2) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else if (data2 && data2[0]) {
+                        db.collection("press").find({
+                            event: data2[0].name
+                        }, {}).toArray(function(err, found) {
+                            if (err) {
+                                callback({
+                                    value: false
+                                });
+                                console.log(err);
+                                db.close();
+                            } else if (found && found[0]) {
+                                data2[0].pressphoto = found[0].photos;
+                                callback(data2[0]);
+                                db.close();
+                            } else {
+                                callback(data2[0]);
+                                db.close();
+                            }
+                        });
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
                 });
             }
-        } else {
-            var matchobj = {
-                year: {
-                    $exists: true
-                }
-            };
-            callbackfunc();
-        }
-
-        function callbackfunc() {
-            sails.query(function(err, db) {
-                if (err) {
-                    console.log(err);
-                    callback({
-                        value: false
-                    });
-                } else if (db) {
-                    db.collection('event').find(matchobj).sort({
-                        year: -1
-                    }).toArray(function(err, data2) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (data2 && data2[0]) {
-                            db.collection("press").find({
-                                event: data2[0].name
-                            }, {}).toArray(function(err, found) {
-                                if (err) {
-                                    callback({
-                                        value: false
-                                    });
-                                    console.log(err);
-                                    db.close();
-                                } else if (found && found[0]) {
-                                    data2[0].pressphoto = found[0].photos;
-                                    callback(data2[0]);
-                                    db.close();
-                                } else {
-                                    callback(data2[0]);
-                                    db.close();
-                                }
-                            });
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "No data found"
-                            });
-                            db.close();
-                        }
-                    });
-                }
-            });
-        }
+        });
     }
 };
