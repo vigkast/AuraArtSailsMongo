@@ -830,7 +830,7 @@ module.exports = {
         var isfile = sails.fs.existsSync(filepath);
         if (isfile == false) {
             var image = sails.fs.readFileSync('./auraimg/noimage.jpg');
-            var mimetype = sails.mime.lookup(path);
+            var mimetype = sails.mime.lookup(image);
             res.set('Content-Type', mimetype);
             res.send(image);
         } else {
