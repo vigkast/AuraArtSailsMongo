@@ -832,7 +832,7 @@ module.exports = {
             var path = './auraimg/noimage.jpg';
             var split = path.substr(path.length - 3);
             var image = sails.fs.readFileSync(path);
-            var mimetype = sails.mime.lookup(image);
+            var mimetype = sails.mime.lookup(split);
             res.set('Content-Type', mimetype);
             res.send(image);
         } else {
