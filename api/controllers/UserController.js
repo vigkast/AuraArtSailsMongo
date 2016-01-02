@@ -829,9 +829,10 @@ module.exports = {
         var newwidth = req.query.width;
         var isfile = sails.fs.existsSync(filepath);
         if (isfile == false) {
-            res.json({
-                comment: "No Such Image Found."
-            });
+            var image = sails.fs.readFileSync('./auraimg/noimage.jpg');
+            var mimetype = sails.mime.lookup(path);
+            res.set('Content-Type', mimetype);
+            res.send(image);
         } else {
             if (!newwidth && !newheight) {
                 showimage(filepath);
