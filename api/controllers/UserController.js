@@ -350,6 +350,9 @@ module.exports = {
                                                                     m.image = excelimages;
                                                                     m.srno = num + 1;
                                                                     m.srno = parseInt(m.srno);
+                                                                    delete m.style;
+                                                                    delete m.elements;
+                                                                    delete m.color;
                                                                     Artwork.saveartwork(m);
                                                                     console.log(num);
                                                                     num++;
