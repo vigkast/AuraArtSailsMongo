@@ -349,7 +349,7 @@ module.exports = {
                                                                 excelimages.push(z.trim() + '.jpg');
                                                                 if (m.imageno.length == excelimages.length) {
                                                                     m.image = excelimages;
-                                                                    // m.srno = num + 1;
+                                                                    m.srno = num + 1;
                                                                     Artwork.saveartwork(m);
                                                                     console.log(num);
                                                                     num++;
