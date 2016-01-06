@@ -323,7 +323,7 @@ module.exports = {
                         $exists: true
                     },
                     onhome: {
-                        $exists: true
+                        $eq: "yes"
                     }
                 }).sort({
                     year: -1
