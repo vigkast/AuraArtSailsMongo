@@ -119,7 +119,7 @@ module.exports = {
             _.each(everespo, function(z) {
                 var i = 0;
                 if (z.invitation && z.invitation != "") {
-                    var invite = z.invitation.split("jpg").replace(".jpg");
+                    var invite = z.invitation.split("jpg").join(".jpg");
                     // z.invitation = invite[0] + "." + invite[1].toLowerCase();
                     i++;
                     if (i == 5) {
@@ -132,7 +132,7 @@ module.exports = {
                     }
                 }
                 if (z.catalogue && z.catalogue != "") {
-                    var cata = z.catalogue.split("jpg").replace(".jpg");
+                    var cata = z.catalogue.split("jpg").join(".jpg");
                     // z.catalogue = cata[0] + "." + cata[1].toLowerCase();
                     i++;
                     if (i == 5) {
@@ -145,7 +145,7 @@ module.exports = {
                     }
                 }
                 if (z.exhibitor && z.exhibitor != "") {
-                    var exhi = z.exhibitor.split("jpg").replace(".jpg");
+                    var exhi = z.exhibitor.split("jpg").join(".jpg");
                     // z.exhibitor = exhi[0] + "." + exhi[1].toLowerCase();
                     i++;
                     if (i == 5) {
@@ -158,7 +158,7 @@ module.exports = {
                     }
                 }
                 if (z.stall && z.stall != "") {
-                    var stall = z.stall.split("jpg").replace(".jpg");
+                    var stall = z.stall.split("jpg").join(".jpg");
                     // z.stall = stall[0] + "." + stall[1].toLowerCase();
                     i++;
                     if (i == 5) {
@@ -175,7 +175,7 @@ module.exports = {
                     var pics = [];
                     _.each(z.photos, function(y) {
                         // var phot=y.split(".");
-                        var phot = y.split("jpg").replace(".jpg");
+                        var phot = y.split("jpg").join(".jpg");
                         // y = phot[0] + "." + phot[1].toLowerCase();
                         pics.push(y);
                         j++;
