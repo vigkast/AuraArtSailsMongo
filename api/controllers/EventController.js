@@ -112,5 +112,104 @@ module.exports = {
                 comment: "Please provide parameters"
             });
         }
+    },
+    changeExt: function(req, res) {
+        var k = 0;
+        Event.find(req.body, function(everespo) {
+            _.each(everespo, function(z) {
+                var i = 0;
+                if (z.invitation && z.invitation != "") {
+                    var invite = z.invitation.split(".");
+                    z.invitation = invite[0] + "." + invite[1].toLowerCase();
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                } else {
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                }
+                if (z.catalogue && z.catalogue != "") {
+                    var cata = z.catalogue.split(".");
+                    z.catalogue = cata[0] + "." + cata[1].toLowerCase();
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                } else {
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                }
+                if (z.exhibitor && z.exhibitor != "") {
+                    var exhi = z.exhibitor.split(".");
+                    z.exhibitor = exhi[0] + "." + exhi[1].toLowerCase();
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                } else {
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                }
+                if (z.stall && z.stall != "") {
+                    var stall = z.stall.split(".");
+                    z.stall = stall[0] + "." + stall[1].toLowerCase();
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                } else {
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                }
+                if (z.photos && z.photos.length > 0) {
+                    var j = 0;
+                    var pics = [];
+                    _.each(z.photos, function(y) {
+                        var phot = y.split(".");
+                        y = phot[0] + "." + phot[1].toLowerCase();
+                        pics.push(y);
+                        j++;
+                        if (j == z.photos.length) {
+                            z.photos = pics;
+                            firstcall();
+                        }
+                    });
+
+                    function firstcall() {
+                        i++;
+                        if (i == 5) {
+                            dbcall();
+                        }
+                    }
+                } else {
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                }
+
+                function dbcall() {
+                    z._id = sails.ObjectID(z._id);
+                    Event.save(z, function(respo) {
+                        k++;
+                        if (k == everespo.length) {
+                            res.json({
+                                value: true,
+                                comment: "Extension saved"
+                            });
+                        }
+                    });
+                }
+            });
+        });
     }
 };
