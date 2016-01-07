@@ -99,5 +99,34 @@ module.exports = {
                 comment: "Please provide parameters"
             });
         }
+    },
+    changeExt: function(req, res) {
+        var k = 0;
+        Press.find(req.body, function(everespo) {
+            _.each(everespo, function(z) {
+                var i = 0;
+                if (z.photos && z.photos != "" && z.photos.indexOf(".") == -1) {
+                    z.photos = z.photos.split("jpg").join(".jpg");
+                    dbcall();
+                } else {
+                    var invite = z.photos.split(".");
+                    z.photos = invite[0] + "." + invite[1].toLowerCase();
+                    dbcall();
+                }
+
+                function dbcall() {
+                    z._id = sails.ObjectID(z._id);
+                    Press.save(z, function(respo) {
+                        k++;
+                        if (k == everespo.length) {
+                            res.json({
+                                value: true,
+                                comment: "Extension saved"
+                            });
+                        }
+                    });
+                }
+            });
+        });
     }
 };
