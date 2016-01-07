@@ -119,8 +119,8 @@ module.exports = {
             _.each(everespo, function(z) {
                 var i = 0;
                 if (z.invitation && z.invitation != "") {
-                    var invite = z.invitation.split(".");
-                    z.invitation = invite[0] + "." + invite[1].toLowerCase();
+                    var invite = z.invitation.split("jpg").replace(".jpg");
+                    // z.invitation = invite[0] + "." + invite[1].toLowerCase();
                     i++;
                     if (i == 5) {
                         dbcall();
@@ -132,8 +132,8 @@ module.exports = {
                     }
                 }
                 if (z.catalogue && z.catalogue != "") {
-                    var cata = z.catalogue.split(".");
-                    z.catalogue = cata[0] + "." + cata[1].toLowerCase();
+                    var cata = z.catalogue.split("jpg").replace(".jpg");
+                    // z.catalogue = cata[0] + "." + cata[1].toLowerCase();
                     i++;
                     if (i == 5) {
                         dbcall();
@@ -145,8 +145,8 @@ module.exports = {
                     }
                 }
                 if (z.exhibitor && z.exhibitor != "") {
-                    var exhi = z.exhibitor.split(".");
-                    z.exhibitor = exhi[0] + "." + exhi[1].toLowerCase();
+                    var exhi = z.exhibitor.split("jpg").replace(".jpg");
+                    // z.exhibitor = exhi[0] + "." + exhi[1].toLowerCase();
                     i++;
                     if (i == 5) {
                         dbcall();
@@ -158,8 +158,8 @@ module.exports = {
                     }
                 }
                 if (z.stall && z.stall != "") {
-                    var stall = z.stall.split(".");
-                    z.stall = stall[0] + "." + stall[1].toLowerCase();
+                    var stall = z.stall.split("jpg").replace(".jpg");
+                    // z.stall = stall[0] + "." + stall[1].toLowerCase();
                     i++;
                     if (i == 5) {
                         dbcall();
@@ -174,8 +174,9 @@ module.exports = {
                     var j = 0;
                     var pics = [];
                     _.each(z.photos, function(y) {
-                        var phot = y.split(".");
-                        y = phot[0] + "." + phot[1].toLowerCase();
+                        // var phot=y.split(".");
+                        var phot = y.split("jpg").replace(".jpg");
+                        // y = phot[0] + "." + phot[1].toLowerCase();
                         pics.push(y);
                         j++;
                         if (j == z.photos.length) {
