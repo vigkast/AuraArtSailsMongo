@@ -105,13 +105,15 @@ module.exports = {
         Press.find(req.body, function(everespo) {
             _.each(everespo, function(z) {
                 var i = 0;
-                if (z.photos && z.photos != "" && z.photos.indexOf(".") == -1) {
-                    z.photos = z.photos.split("jpg").join(".jpg");
-                    dbcall();
-                } else {
-                    var invite = z.photos.split(".");
-                    z.photos = invite[0] + "." + invite[1].toLowerCase();
-                    dbcall();
+                if (z.photos && z.photos != "") {
+                    if (z.photos.indexOf(".") == -1) {
+                        z.photos = z.photos.split("jpg").join(".jpg");
+                        dbcall();
+                    } else {
+                        var invite = z.photos.split(".");
+                        z.photos = invite[0] + "." + invite[1].toLowerCase();
+                        dbcall();
+                    }
                 }
 
                 function dbcall() {
