@@ -186,7 +186,7 @@ module.exports = {
                 var source = sails.fs.createReadStream(n.fd);
                 n.fd = n.fd.split('\\').pop().split('/').pop();
                 var split = n.fd.split('.');
-                n.fd = split[0] + split[1].toLowerCase();
+                n.fd = split[0] + "." + split[1].toLowerCase();
                 var dest = sails.fs.createWriteStream('./auraimg/' + n.fd);
                 source.pipe(dest);
                 source.on('end', function() {
