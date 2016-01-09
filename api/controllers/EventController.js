@@ -211,5 +211,110 @@ module.exports = {
                 }
             });
         });
+    },
+    changesome: function(req, res) {
+        var k = 0;
+        Event.find(req.body, function(everespo) {
+            _.each(everespo, function(z) {
+                var i = 0;
+                if (z.invitation && z.invitation != "") {
+                    if (z.invitation.indexOf(".jpg") == -1) {
+                        z.invitation = z.invitation.split("jpg").join(".jpg");
+                    }
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                } else {
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                }
+                if (z.catalogue && z.catalogue != "") {
+                    if (z.catalogue.indexOf(".jpg") == -1) {
+                        z.catalogue = z.catalogue.split("jpg").join(".jpg");
+                    }
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                } else {
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                }
+                if (z.exhibitor && z.exhibitor != "") {
+                    if (z.exhibitor.indexOf(".jpg") == -1) {
+                        z.exhibitor = z.exhibitor.split("jpg").join(".jpg");
+                    }
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                } else {
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                }
+                if (z.stall && z.stall != "") {
+                    if (z.stall.indexOf(".jpg") == -1) {
+                        z.stall = z.stall.split("jpg").join(".jpg");
+                    }
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                } else {
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                }
+                if (z.photos && z.photos.length > 0) {
+                    var j = 0;
+                    var pics = [];
+                    _.each(z.photos, function(y) {
+                        if (y.indexOf(".jpg") == -1) {
+                            y = y.split("jpg").join(".jpg");
+                        }
+                        pics.push(y);
+                        j++;
+                        if (j == z.photos.length) {
+                            z.photos = pics;
+                            firstcall();
+                        }
+                    });
+
+                    function firstcall() {
+                        i++;
+                        if (i == 5) {
+                            dbcall();
+                        }
+                    }
+                } else {
+                    i++;
+                    if (i == 5) {
+                        dbcall();
+                    }
+                }
+
+                function dbcall() {
+                    z._id = sails.ObjectID(z._id);
+                    Event.save(z, function(respo) {
+                        k++;
+                        if (k == everespo.length) {
+                            res.json({
+                                value: true,
+                                comment: "Extension saved"
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
     }
 };
