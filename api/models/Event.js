@@ -26,6 +26,8 @@ module.exports = {
                         $unset: {
                             onhome: ""
                         }
+                    }, {
+                        multi: true
                     }, function(err, data2) {
                         if (err) {
                             console.log(err);
