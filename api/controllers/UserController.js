@@ -355,7 +355,7 @@ module.exports = {
                                                                     delete m.style;
                                                                     delete m.elements;
                                                                     delete m.color;
-                                                                    newdata.status = "approve";
+                                                                    m.status = "approve";
                                                                     Artwork.saveartwork(m);
                                                                     console.log(num);
                                                                     num++;
