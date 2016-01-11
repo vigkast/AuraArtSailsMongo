@@ -1064,6 +1064,7 @@ module.exports = {
         newdata.name = data.username;
         newdata._id = sails.ObjectID();
         newdata.accesslevel = "artist";
+        newdata.status = "approve";
         sails.query(function(err, db) {
             var exit = 0;
             var exitup = 0;

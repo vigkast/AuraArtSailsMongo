@@ -350,11 +350,12 @@ module.exports = {
                                                                 excelimages.push(z.trim() + '.jpg');
                                                                 if (m.imageno.length == excelimages.length) {
                                                                     m.image = excelimages;
-                                                                    // m.srno = num + 1;
+                                                                    m.srno = num + 1;
                                                                     m.srno = parseInt(m.srno);
-                                                                    // delete m.style;
-                                                                    // delete m.elements;
-                                                                    // delete m.color;
+                                                                    delete m.style;
+                                                                    delete m.elements;
+                                                                    delete m.color;
+                                                                    newdata.status = "approve";
                                                                     Artwork.saveartwork(m);
                                                                     console.log(num);
                                                                     num++;
