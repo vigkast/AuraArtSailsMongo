@@ -7,8 +7,22 @@
 
 module.exports = {
     save: function(data, callback) {
-        if (data.resellerid && data.resellerid != "") {
-            data.resellerid = sails.ObjectID(data.resellerid);
+        if (data.reseller._id && data.reseller._id != "") {
+            data.reseller._id = sails.ObjectID(data.reseller._id);
+        }
+        if (data.subtype && data.subtype.length > 0) {
+            _.each(data.subtype, function(x) {
+                if (x._id && x._id != "") {
+                    x._id = sails.ObjectID(x._id);
+                }
+            });
+        }
+        if (data.tag && data.tag.length > 0) {
+            _.each(data.tag, function(y) {
+                if (y._id && y._id != "") {
+                    y._id = sails.ObjectID(y._id);
+                }
+            });
         }
         sails.query(function(err, db) {
             if (err) {
@@ -41,7 +55,8 @@ module.exports = {
                             db.close();
                         } else if (updated) {
                             callback({
-                                value: true
+                                value: true,
+                                comment: "Artwork"
                             });
                             db.close();
                         } else {
@@ -603,38 +618,24 @@ module.exports = {
             }
             if (db) {
                 db.collection("user").aggregate([{
-                    $match: {
-                        "artwork.name": {
-                            $exists: true
-                        }
-                    }
-                }, {
                     $unwind: "$artwork"
                 }, {
-                    $match: {
-                        "artwork.name": {
-                            $exists: true
-                        }
-                    }
-                }, {
-                    $group: {
-                        _id: user,
-                        count: {
-                            $last: "$artwork.srno"
-                        }
-                    }
-                }, {
                     $project: {
-                        count: 1
+                        _id: 0,
+                        "artwork.srno": 1
                     }
-                }]).toArray(function(err, result) {
+                }, {
+                    $sort: {
+                        "artwork.srno": -1
+                    }
+                }]).limit(1).toArray(function(err, result) {
                     if (result && result[0]) {
-                        callback(result);
+                        callback(result[0].artwork);
                         db.close();
                     } else if (!result[0]) {
-                        callback([{
-                            count: 0
-                        }]);
+                        var artwork = {};
+                        artwork.srno = 0
+                        callback(artwork);
                         db.close();
                     } else if (err) {
                         console.log(err);
