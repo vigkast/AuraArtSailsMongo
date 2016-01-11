@@ -872,7 +872,7 @@ module.exports = {
 
             function user() {
                 var print = function(data) {
-                    if (data.accesslevel && data.accesslevel == "customer") {
+                    if (data.accesslevel && data.accesslevel == "customer" || data.accesslevel && data.accesslevel == "customer") {
                         req.session.passport = {
                             user: data
                         };

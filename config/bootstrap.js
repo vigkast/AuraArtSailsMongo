@@ -30,14 +30,13 @@ module.exports.bootstrap = function(cb) {
         sails.sha512 = require('sha512'),
         sails.md5 = require('MD5'),
         sails._ = require('lodash'),
+        sails.request = require('request'),
         sails.lwip = require('lwip'),
         sails.myurl = "http://smartsnap.in/",
-        // sails.myurl = "http://vignesh.com:82/",
-        sails.mandrill = require('mandrill-api/mandrill'),
-        sails.mandrill_client = new sails.mandrill.Mandrill('dzbY2mySNE_Zsqr3hsK70A'),
         sails.PDFImagePack = require("pdf-image-pack"),
-        sails.fromName = "Aura Art",
-        sails.fromEmail = "vigneshkasthuri2009@gmail.com",
+        sails.fromEmail = "rishiraj@auraart.in",
+        sails.fromName = "Aura-Art",
+        // sails.myurl = "http://vignesh.com:82/"
 
         // Connection URL
         sails.url = 'mongodb://localhost:27017/auraart';
