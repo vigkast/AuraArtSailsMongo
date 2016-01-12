@@ -24,6 +24,7 @@ module.exports = {
                 }
             });
         }
+        data.srno = parseInt(data.srno);
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
