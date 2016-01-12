@@ -1308,7 +1308,7 @@ module.exports = {
                     '$regex': check
                 }
             }],
-            accesslevel: "customer"
+            accesslevel: "reseller"
         };
         sails.query(function(err, db) {
             if (err) {
