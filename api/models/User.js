@@ -394,9 +394,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("user").find({
-                    status: "approve"
-                }, {
+                db.collection("user").find({}, {
                     password: 0,
                     forgotpassword: 0
                 }).toArray(function(err, found) {
@@ -1095,7 +1093,6 @@ module.exports = {
         });
     },
     saveCustomer: function(data, callback) {
-        console.log("in cust");
         var newdata = {};
         newdata.name = data.reseller;
         newdata._id = sails.ObjectID();
