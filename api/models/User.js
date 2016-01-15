@@ -332,7 +332,7 @@ module.exports = {
                 }
 
                 function callbackfunc1() {
-                    if (data.status && data.status != "") {
+                    if (!data.status || data.status == "" || data.status == "All") {
                         delete matchobj.status;
                     }
                     db.collection("user").count(matchobj, function(err, number) {

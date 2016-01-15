@@ -336,9 +336,10 @@ module.exports = {
                 }
 
                 function callbackfunc1() {
-                    if (data.status && data.status != "") {
+                    if (!data.status || data.status == "" || data.status == "All") {
                         delete matchobj["artwork.status"];
                     }
+                    console.log(matchobj);
                     db.collection("user").aggregate([{
                         $match: matchobj
                     }, {
@@ -544,7 +545,7 @@ module.exports = {
                 }
 
                 function callbackfunc1() {
-                    if (data.status && data.status != "") {
+                    if (!data.status || data.status == "" || data.status == "All") {
                         delete matchobj["artwork.status"];
                     }
                     db.collection("user").aggregate([{
