@@ -339,7 +339,6 @@ module.exports = {
                     if (!data.status || data.status == "" || data.status == "All") {
                         delete matchobj["artwork.status"];
                     }
-                    console.log(matchobj);
                     db.collection("user").aggregate([{
                         $match: matchobj
                     }, {
