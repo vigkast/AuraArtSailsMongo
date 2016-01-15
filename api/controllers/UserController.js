@@ -350,6 +350,8 @@ module.exports = {
                             userdata._id = req.session.passport.user.id;
                             User.findone(userdata, function(respo) {
                                 if (respo.value != false) {
+                                    respo.id = respo._id;
+                                    delete respo._id;
                                     req.session.passport = {
                                         user: respo
                                     };
