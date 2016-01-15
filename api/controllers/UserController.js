@@ -761,7 +761,6 @@ module.exports = {
                                                 }
 
                                                 function createartwork() {
-                                                    m.reseller = printcust;
                                                     m.user = print;
                                                     delete m.username;
                                                     ArtMedium.savemediumexcel(m, function(mediumid) {
