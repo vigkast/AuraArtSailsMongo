@@ -140,7 +140,6 @@ module.exports = {
         failureRedirect: '/user/fail'
     }),
     success: function(req, res, data) {
-        console.log("in success");
         if (req.session.cart && req.session.cart.items.length > 0) {
             var i = 0;
             _.each(req.session.cart.items, function(art) {
@@ -1240,5 +1239,33 @@ module.exports = {
                 });
             }
         });
+    },
+    saveArtist: function(req, res) {
+        if (req.body) {
+            if (req.body._id) {
+                if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                    user();
+                } else {
+                    res.json({
+                        value: "false",
+                        comment: "User-id is incorrect"
+                    });
+                }
+            } else {
+                user();
+            }
+
+            function user() {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.saveArtist(req.body, print);
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
     }
 };
