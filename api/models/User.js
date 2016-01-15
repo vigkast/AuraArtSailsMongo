@@ -1095,6 +1095,7 @@ module.exports = {
         });
     },
     saveCustomer: function(data, callback) {
+        console.log("in cust");
         var newdata = {};
         newdata.name = data.reseller;
         newdata._id = sails.ObjectID();
