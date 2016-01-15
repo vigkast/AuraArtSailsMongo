@@ -7,8 +7,12 @@
 
 module.exports = {
     save: function(data, callback) {
-        if (data.reseller._id && data.reseller._id != "") {
-            data.reseller._id = sails.ObjectID(data.reseller._id);
+        if (data.reseller && data.reseller.length > 0) {
+            _.each(data.reseller, function(x) {
+                if (x._id && x._id != "") {
+                    x._id = sails.ObjectID(x._id);
+                }
+            });
         }
         if (data.subtype && data.subtype.length > 0) {
             _.each(data.subtype, function(x) {
@@ -207,10 +211,7 @@ module.exports = {
             if (db) {
                 db.collection("user").aggregate([{
                     $match: {
-                        _id: user,
-                        "artwork.name": {
-                            $exists: true
-                        }
+                        _id: user
                     }
                 }, {
                     $unwind: "$artwork"
@@ -218,7 +219,8 @@ module.exports = {
                     $match: {
                         "artwork.name": {
                             $exists: true
-                        }
+                        },
+                        "artwork.status": "approve"
                     }
                 }, {
                     $project: {
@@ -261,7 +263,8 @@ module.exports = {
                     $match: {
                         "artwork.name": {
                             $exists: true
-                        }
+                        },
+                        "artwork.status": "approve"
                     }
                 }, {
                     $project: {
@@ -314,7 +317,8 @@ module.exports = {
                         "artwork.type": data.type,
                         "artwork.name": {
                             $regex: check
-                        }
+                        },
+                        "artwork.status": data.status
                     };
                     callbackfunc1();
                 } else {
@@ -325,12 +329,16 @@ module.exports = {
                         },
                         "artwork.name": {
                             $regex: check
-                        }
+                        },
+                        "artwork.status": data.status
                     };
                     callbackfunc1();
                 }
 
                 function callbackfunc1() {
+                    if (data.status && data.status != "") {
+                        delete matchobj["artwork.status"];
+                    }
                     db.collection("user").aggregate([{
                         $match: matchobj
                     }, {
@@ -518,7 +526,8 @@ module.exports = {
                         "artwork.name": {
                             $regex: check
                         },
-                        "artwork.type": data.type
+                        "artwork.type": data.type,
+                        "artwork.status": data.status
                     };
                     callbackfunc1();
                 } else {
@@ -528,12 +537,16 @@ module.exports = {
                         },
                         "artwork.name": {
                             $regex: check
-                        }
+                        },
+                        "artwork.status": data.status
                     };
                     callbackfunc1();
                 }
 
                 function callbackfunc1() {
+                    if (data.status && data.status != "") {
+                        delete matchobj["artwork.status"];
+                    }
                     db.collection("user").aggregate([{
                         $match: matchobj
                     }, {
@@ -748,6 +761,8 @@ module.exports = {
                                 name: {
                                     $regex: check
                                 },
+                                status: "approve",
+                                "artwork.status": "approve",
                                 "artwork.name": {
                                     $exists: true
                                 },
@@ -764,6 +779,8 @@ module.exports = {
                                 name: {
                                     $regex: check
                                 },
+                                status: "approve",
+                                "artwork.status": "approve",
                                 "artwork.name": {
                                     $exists: true
                                 },
@@ -793,6 +810,8 @@ module.exports = {
                             name: {
                                 $regex: check
                             },
+                            status: "approve",
+                            "artwork.status": "approve",
                             "artwork.name": {
                                 $exists: true
                             },
@@ -827,6 +846,8 @@ module.exports = {
                             name: {
                                 $regex: check
                             },
+                            status: "approve",
+                            "artwork.status": "approve",
                             "artwork.name": {
                                 $exists: true
                             },
@@ -844,6 +865,8 @@ module.exports = {
                             name: {
                                 $regex: check
                             },
+                            status: "approve",
+                            "artwork.status": "approve",
                             "artwork.name": {
                                 $exists: true
                             },
@@ -875,6 +898,8 @@ module.exports = {
                             name: {
                                 $regex: check
                             },
+                            status: "approve",
+                            "artwork.status": "approve",
                             "artwork.name": {
                                 $exists: true
                             },
@@ -892,6 +917,8 @@ module.exports = {
                             name: {
                                 $regex: check
                             },
+                            status: "approve",
+                            "artwork.status": "approve",
                             "artwork.name": {
                                 $exists: true
                             },
@@ -1032,6 +1059,7 @@ module.exports = {
                                     $regex: check
                                 }
                             }],
+                            status: "approve",
                             accesslevel: "artist"
                         }
                     }, {
@@ -1073,6 +1101,7 @@ module.exports = {
                                         $regex: check
                                     }
                                 }],
+                                status: "approve",
                                 accesslevel: "artist"
                             }
                         }, {
@@ -1119,6 +1148,7 @@ module.exports = {
                                     $regex: check
                                 }
                             }],
+                            "artwork.status": "approve",
                             "artwork.type": data.type
                         }
                     }, {
@@ -1162,6 +1192,7 @@ module.exports = {
                                         $regex: check
                                     }
                                 }],
+                                "artwork.status": "approve",
                                 "artwork.type": data.type
                             }
                         }, {
@@ -1210,7 +1241,6 @@ module.exports = {
                         $unwind: "$artwork"
                     }, {
                         $match: {
-
                             $or: [{
                                 "artwork.subtype.name": {
                                     $regex: checkname
@@ -1414,6 +1444,7 @@ module.exports = {
                                     $regex: check
                                 }
                             }],
+                            status: "approve",
                             accesslevel: "artist"
                         }
                     }, {
@@ -1455,6 +1486,7 @@ module.exports = {
                                         $regex: check
                                     }
                                 }],
+                                status: "approve",
                                 accesslevel: "artist"
                             }
                         }, {
@@ -1497,7 +1529,8 @@ module.exports = {
                                     "artwork.name": {
                                         $regex: check
                                     }
-                                }]
+                                }],
+                                "artwork.status": "approve"
                             }
                         }, {
                             $group: {
@@ -1539,7 +1572,8 @@ module.exports = {
                                         "artwork.name": {
                                             $regex: check
                                         }
-                                    }]
+                                    }],
+                                    "artwork.status": "approve"
                                 }
                             }, {
                                 $group: {
@@ -1811,6 +1845,7 @@ module.exports = {
                             $regex: check
                         }
                     }],
+                    status: "approve",
                     accesslevel: "artist"
                 }, {
                     _id: 0,
@@ -1848,7 +1883,8 @@ module.exports = {
                                 "artwork.name": {
                                     $regex: check
                                 }
-                            }]
+                            }],
+                            "artwork.status": "approve"
                         }
                     }, {
                         $group: {
@@ -2041,6 +2077,50 @@ module.exports = {
                             value: false,
                             comment: "Error"
                         });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    },
+    findMyArtwork: function(data, callback) {
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false,
+                    comment: "Error"
+                });
+            } else if (db) {
+                db.collection('user').aggregate([{
+                    $unwind: "$artwork"
+                }, {
+                    $unwind: "$artwork.reseller"
+                }, {
+                    $match: {
+                        "artwork.reseller._id": sails.ObjectID(data.user)
+                    }
+                }, {
+                    $project: {
+                        name: 1,
+                        artwork: 1
+                    }
+                }]).toArray(function(err, found) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false,
+                            comment: "Error"
+                        });
+                        db.close();
+                    } else if (found && found[0]) {
+                        callback(found);
                         db.close();
                     } else {
                         callback({

@@ -14,7 +14,7 @@ module.exports = {
                         artwork();
                     } else {
                         res.json({
-                            value: "false",
+                            value: false,
                             comment: "Artwork-id is incorrect"
                         });
                     }
@@ -23,7 +23,7 @@ module.exports = {
                 }
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "user-id is incorrect "
                 });
             }
@@ -51,13 +51,13 @@ module.exports = {
                     Artwork.delete(req.body, print);
                 } else {
                     res.json({
-                        value: "false",
+                        value: false,
                         comment: "Artwork-id is incorrect"
                     });
                 }
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "user-id is incorrect "
                 });
             }
@@ -77,7 +77,7 @@ module.exports = {
                 Artwork.find(req.body, callback);
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "user-id is incorrect "
                 });
             }
@@ -87,7 +87,6 @@ module.exports = {
                 comment: "Please provide parameters"
             });
         }
-
     },
     findbyid: function(req, res) {
         if (req.body) {
@@ -98,7 +97,7 @@ module.exports = {
                 Artwork.findbyid(req.body, print);
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "Artwork-id is incorrect"
                 });
             }
@@ -138,7 +137,7 @@ module.exports = {
                 }
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "user-id is incorrect "
                 });
             }
@@ -179,13 +178,13 @@ module.exports = {
                     Artwork.findone(req.body, print);
                 } else {
                     res.json({
-                        value: "false",
+                        value: false,
                         comment: "Artwork-id is incorrect"
                     });
                 }
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "user-id is incorrect "
                 });
             }
@@ -218,13 +217,13 @@ module.exports = {
                     Artwork.deleteout(req.body, print);
                 } else {
                     res.json({
-                        value: "false",
+                        value: false,
                         comment: "Artwork-id is incorrect"
                     });
                 }
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "user-id is incorrect "
                 });
             }
@@ -339,6 +338,28 @@ module.exports = {
                 res.json({
                     value: false,
                     comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    findMyArtwork: function(req, res) {
+        if (req.body) {
+            if (req.session.passport && req.session.passport.user) {
+                req.body.user = req.session.passport.user.id;
+
+                function callback(data) {
+                    res.json(data);
+                };
+                Artwork.findMyArtwork(req.body, callback);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "user-id is incorrect "
                 });
             }
         } else {

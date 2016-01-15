@@ -4,8 +4,8 @@
  * @description :: Server-side logic for managing User
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-// var frontend = "http://localhost/manjhi/";
-var frontend = "http://wohlig.co.in/auraart/";
+var frontend = "http://192.168.0.114/manjhi/";
+// var frontend = "http://wohlig.co.in/auraart/";
 
 var passport = require('passport'),
     TwitterStrategy = require('passport-twitter').Strategy,
@@ -62,8 +62,9 @@ module.exports = {
     //////////////////////////////
     // LOGIN FUNCTIONS
     logint: function(req, res) {
-        var user = req.param("user");
-
+        if (req.param("url") && req.param("url") != "") {
+            frontend = req.param("url");
+        }
         passport.use(new TwitterStrategy({
                 consumerKey: "LPazfO26oP6KrjYCWlQJfUZq1",
                 consumerSecret: "SJ8tuzeiGvM7YZvRoHqXSk8LLThpn6DPg2BMtuBrgR9n01DQBD",
@@ -73,9 +74,6 @@ module.exports = {
                 profile.token = token;
                 profile.tokenSecret = tokenSecret;
                 profile.provider = "Twitter";
-                if (user && sails.ObjectID.isValid(user)) {
-                    profile._id = user;
-                }
                 User.findorcreate(profile, done);
             }
         ));
@@ -85,8 +83,9 @@ module.exports = {
         passport.authenticate('twitter')(req, res);
     },
     loginf: function(req, res) {
-        var user = req.param("user");
-
+        if (req.param("url") && req.param("url") != "") {
+            frontend = req.param("url");
+        }
         passport.use(new FacebookStrategy({
                 clientID: "1475701386072240",
                 clientSecret: "6e46460c7bb3fb4f06182d89eb7514b9",
@@ -96,9 +95,6 @@ module.exports = {
                 profile.accessToken = accessToken;
                 profile.refreshToken = refreshToken;
                 profile.provider = "Facebook";
-                if (user && sails.ObjectID.isValid(user)) {
-                    profile._id = user;
-                }
                 User.findorcreate(profile, done);
             }
         ));
@@ -110,8 +106,9 @@ module.exports = {
         })(req, res);
     },
     loging: function(req, res) {
-        var user = req.param("user");
-
+        if (req.param("url") && req.param("url") != "") {
+            frontend = req.param("url");
+        }
         passport.use(new GoogleStrategy({
                 clientID: "265970827010-6cd2gg8psketq39smq2bsfueksgceu4c.apps.googleusercontent.com",
                 clientSecret: "BYCjnvwCyassATSS444z8_Ok",
@@ -131,26 +128,34 @@ module.exports = {
         })(req, res);
     },
     callbackt: passport.authenticate('twitter', {
-        successRedirect: frontend,
+        successRedirect: '/user/success',
         failureRedirect: '/user/fail'
     }),
     callbackg: passport.authenticate('google', {
-        successRedirect: frontend,
+        successRedirect: '/user/success',
         failureRedirect: '/user/fail'
     }),
     callbackf: passport.authenticate('facebook', {
-        successRedirect: frontend,
+        successRedirect: '/user/success',
         failureRedirect: '/user/fail'
     }),
     success: function(req, res, data) {
-        if (req.session.passport) {
-            sails.sockets.blast("login", {
-                loginid: req.session.loginid,
-                status: "success",
-                user: req.session.passport.user
+        console.log("in success");
+        if (req.session.cart && req.session.cart.items.length > 0) {
+            var i = 0;
+            _.each(req.session.cart.items, function(art) {
+                art.id = req.session.passport.user.id;
+                Cart.save(art, function(cartrespo) {
+                    i++;
+                    if (i == req.session.cart.items.length) {
+                        req.session.cart = {};
+                        res.redirect(frontend);
+                    }
+                });
             });
+        } else {
+            res.redirect(frontend);
         }
-        res.view("success");
     },
     fail: function(req, res) {
         sails.sockets.blast("login", {
@@ -203,6 +208,496 @@ module.exports = {
                 files: uploadedFiles
             });
         });
+    },
+    jsontoexcel: function(req, res) {
+        var json = {
+            foo: 'bar',
+            qux: 'moo',
+            poo: 123,
+            stux: moment().format('MMMM Do YYYY, h:mm:ss a')
+        }
+        var xls = sails.json2xls(json);
+        res.json("created");
+        sails.fs.writeFileSync('./uploads/data.xlsx', xls, 'binary');
+    },
+    pdfgene: function(req, res) {
+        var file = req.query.file;
+        var filepath = './auraimg/' + file;
+        var imagename = file.split('.');
+        var imgs = ["./auraimg/" + file];
+        var output = "./auraimg/" + imagename[0] + ".pdf";
+        var isfile = sails.fs.existsSync(filepath);
+        if (isfile == false) {
+            res.json({
+                comment: "No Such Image Found."
+            });
+        } else {
+            var isfile2 = sails.fs.existsSync(output);
+            if (isfile2 == false) {
+                var slide = new sails.PDFImagePack();
+                slide.output(imgs, output, function(err, doc) {
+                    if (err) {
+                        console.log(err);
+                        res.json("Error");
+                    } else if (doc) {
+                        showpdf();
+                    }
+                });
+            } else {
+                showpdf();
+            }
+        }
+
+        function showpdf() {
+            var pdf = sails.fs.readFileSync(output);
+            var mimetype = sails.mime.lookup(output);
+            res.set('Content-Type', mimetype);
+            res.send(pdf);
+        }
+    },
+    resize: function(req, res) {
+        function showimage(path) {
+            var image = sails.fs.readFileSync(path);
+            var mimetype = sails.mime.lookup(path);
+            res.set('Content-Type', mimetype);
+            res.send(image);
+        }
+
+        function checknewfile(newfilepath, width, height) {
+            width = parseInt(width);
+            height = parseInt(height);
+            newfilenamearr = newfilepath.split(".");
+            extension = newfilenamearr.pop();
+            var indexno = newfilepath.search("." + extension);
+            var newfilestart = newfilepath.substr(0, indexno);
+            var newfileend = newfilepath.substr(indexno, newfilepath.length);
+            var newfilename = newfilestart + "_" + width + "_" + height + newfileend;
+            var isfile2 = sails.fs.existsSync(newfilename);
+            if (!isfile2) {
+                console.log("in if");
+                sails.lwip.open(newfilepath, function(err, image) {
+                    var dimensions = {};
+                    dimensions.width = image.width();
+                    dimensions.height = image.height();
+                    if (width == 0) {
+                        width = dimensions.width / dimensions.height * height;
+                    }
+                    if (height == 0) {
+                        height = dimensions.height / dimensions.width * width;
+                    }
+                    image.resize(width, height, "lanczos", function(err, image) {
+                        image.toBuffer(extension, function(err, buffer) {
+                            sails.fs.writeFileSync(newfilename, buffer);
+                            showimage(newfilename);
+                        });
+                    });
+                });
+            } else {
+                console.log("in else");
+                showimage(newfilename);
+            }
+        }
+
+        var file = req.query.file;
+        var filepath = './auraimg/' + file;
+        var newheight = req.query.height;
+        var newwidth = req.query.width;
+        var isfile = sails.fs.existsSync(filepath);
+        if (isfile == false) {
+            var path = './auraimg/noimage.jpg';
+            var split = path.substr(path.length - 3);
+            var image = sails.fs.readFileSync(path);
+            var mimetype = sails.mime.lookup(split);
+            res.set('Content-Type', mimetype);
+            res.send(image);
+        } else {
+            if (!newwidth && !newheight) {
+                showimage(filepath);
+            } else if (!newwidth && newheight) {
+                newheight = parseInt(newheight);
+                checknewfile(filepath, 0, newheight);
+            } else if (newwidth && !newheight) {
+                newwidth = parseInt(newwidth);
+                checknewfile(filepath, newwidth, 0);
+            } else {
+                checknewfile(filepath, newwidth, newheight);
+            }
+        }
+    },
+    save: function(req, res) {
+        if (req.body) {
+            if (req.body._id) {
+                if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                    user();
+                } else {
+                    res.json({
+                        value: "false",
+                        comment: "User-id is incorrect"
+                    });
+                }
+            } else {
+                user();
+            }
+
+            function user() {
+                var print = function(data) {
+                    if (data.value != false) {
+                        if (data.accesslevel == "customer" || data.accesslevel == "reseller") {
+                            var userdata = {};
+                            userdata._id = req.session.passport.user.id;
+                            User.findone(userdata, function(respo) {
+                                if (respo.value != false) {
+                                    req.session.passport = {
+                                        user: respo
+                                    };
+                                    if (req.session.cart && req.session.cart.items.length > 0) {
+                                        var i = 0;
+                                        _.each(req.session.cart.items, function(art) {
+                                            art.id = req.session.passport.user.id;
+                                            Cart.save(art, function(cartrespo) {
+                                                i++;
+                                                if (i == req.session.cart.items.length) {
+                                                    req.session.cart = {};
+                                                    res.json(data);
+                                                }
+                                            });
+                                        });
+                                    } else {
+                                        res.json(data);
+                                    }
+                                } else {
+                                    res.json({
+                                        value: false,
+                                        comment: "No data found"
+                                    });
+                                }
+                            });
+                        } else {
+                            res.json(data);
+                        }
+                    } else {
+                        res.json(data);
+                    }
+                }
+                User.save(req.body, print);
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    find: function(req, res) {
+        var print = function(data) {
+            res.json(data);
+        }
+        User.find(req.body, print);
+    },
+    findbyletter: function(req, res) {
+        if (req.body) {
+            if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.findbyletter(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "user-id is incorrect "
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    findlimited: function(req, res) {
+        if (req.body) {
+            if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
+                function callback(data) {
+                    res.json(data);
+                };
+                User.findlimited(req.body, callback);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    findone: function(req, res) {
+        if (req.body) {
+            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.findone(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "User-id is incorrect"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    findbyaccess: function(req, res) {
+        if (req.body) {
+            if (req.body.accesslevel && req.body.accesslevel != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.findbyaccess(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    searchmail: function(req, res) {
+        if (req.body) {
+            if (req.body.email && req.body.email != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.searchmail(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    delete: function(req, res) {
+        if (req.body) {
+            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.delete(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "User-id is incorrect"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    login: function(req, res) {
+        if (req.body) {
+            if (req.body.email && req.body.email != "" && req.body.password && req.body.password != "") {
+                var print = function(data) {
+                    if (data.value != false) {
+                        req.session.passport = {
+                            user: data
+                        };
+                        if (req.session.cart && req.session.cart.items.length > 0) {
+                            var i = 0;
+                            _.each(req.session.cart.items, function(art) {
+                                art.id = req.session.passport.user.id;
+                                Cart.save(art, function(cartrespo) {
+                                    i++;
+                                    if (i == req.session.cart.items.length) {
+                                        req.session.cart = {};
+                                        res.send(frontend);
+                                    }
+                                });
+                            });
+                        } else {
+                            res.send(frontend);
+                        }
+                    } else {
+                        res.json(data);
+                    }
+                }
+                User.login(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    adminlogin: function(req, res) {
+        if (req.body) {
+            if (req.body.email && req.body.email != "" && req.body.password && req.body.password != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.adminlogin(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    changepassword: function(req, res) {
+        if (req.body) {
+            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.changepassword(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "User-id is incorrect"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    forgotpassword: function(req, res) {
+        if (req.body) {
+            if (req.body.email && req.body.email != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.forgotpassword(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    countusers: function(req, res) {
+        var print = function(data) {
+            res.json(data);
+        }
+        User.countusers(req.body, print);
+    },
+    countartwork: function(req, res) {
+        var print = function(data) {
+            res.json(data);
+        }
+        User.countartwork(req.body, print);
+    },
+    saveforexcel: function(req, res) {
+        var print = function(data) {
+            res.json(data);
+        }
+        User.saveforexcel(req.body, print);
+    },
+    deletedata: function(req, res) {
+        var print = function(data) {
+            res.json(data);
+        }
+        User.deletedata(req.body, print);
+    },
+    findUser: function(req, res) {
+        if (req.body) {
+            if (req.body.search && req.body.search != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.findUser(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    findCust: function(req, res) {
+        if (req.body) {
+            if (req.body.search && req.body.search != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.findCust(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    userbytype: function(req, res) {
+        if (req.body) {
+            if (req.body.type && req.body.type != "") {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.userbytype(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
     },
     excelobject: function(req, res) {
         sails.query(function(err, db) {
@@ -260,6 +755,8 @@ module.exports = {
                                             }
                                             User.saveCustomer(m, function(printcust) {
                                                 if (printcust.value != false) {
+                                                    m.reseller = [];
+                                                    m.reseller.push(printcust);
                                                     createartwork();
                                                 }
 
@@ -350,11 +847,11 @@ module.exports = {
                                                                 excelimages.push(z.trim() + '.jpg');
                                                                 if (m.imageno.length == excelimages.length) {
                                                                     m.image = excelimages;
-                                                                    // m.srno = num + 1;
+                                                                    m.srno = num + 1;
+                                                                    delete m.style;
+                                                                    delete m.elements;
+                                                                    delete m.color;
                                                                     m.srno = parseInt(m.srno);
-                                                                    // delete m.style;
-                                                                    // delete m.elements;
-                                                                    // delete m.color;
                                                                     m.status = "approve";
                                                                     Artwork.saveartwork(m);
                                                                     console.log(num);
@@ -739,481 +1236,5 @@ module.exports = {
                 });
             }
         });
-    },
-    jsontoexcel: function(req, res) {
-        var json = {
-            foo: 'bar',
-            qux: 'moo',
-            poo: 123,
-            stux: moment().format('MMMM Do YYYY, h:mm:ss a')
-        }
-        var xls = sails.json2xls(json);
-        res.json("created");
-        sails.fs.writeFileSync('./uploads/data.xlsx', xls, 'binary');
-    },
-    pdfgene: function(req, res) {
-        var file = req.query.file;
-        var filepath = './auraimg/' + file;
-        var imagename = file.split('.');
-        var imgs = ["./auraimg/" + file];
-        var output = "./auraimg/" + imagename[0] + ".pdf";
-        var isfile = sails.fs.existsSync(filepath);
-        if (isfile == false) {
-            res.json({
-                comment: "No Such Image Found."
-            });
-        } else {
-            var isfile2 = sails.fs.existsSync(output);
-            if (isfile2 == false) {
-                var slide = new sails.PDFImagePack();
-                slide.output(imgs, output, function(err, doc) {
-                    if (err) {
-                        console.log(err);
-                        res.json("Error");
-                    } else if (doc) {
-                        showpdf();
-                    }
-                });
-            } else {
-                showpdf();
-            }
-        }
-
-        function showpdf() {
-            var pdf = sails.fs.readFileSync(output);
-            var mimetype = sails.mime.lookup(output);
-            res.set('Content-Type', mimetype);
-            res.send(pdf);
-        }
-    },
-    resize: function(req, res) {
-        function showimage(path) {
-            var image = sails.fs.readFileSync(path);
-            var mimetype = sails.mime.lookup(path);
-            res.set('Content-Type', mimetype);
-            res.send(image);
-        }
-
-        function checknewfile(newfilepath, width, height) {
-            width = parseInt(width);
-            height = parseInt(height);
-            newfilenamearr = newfilepath.split(".");
-            extension = newfilenamearr.pop();
-            var indexno = newfilepath.search("." + extension);
-            var newfilestart = newfilepath.substr(0, indexno);
-            var newfileend = newfilepath.substr(indexno, newfilepath.length);
-            var newfilename = newfilestart + "_" + width + "_" + height + newfileend;
-            var isfile2 = sails.fs.existsSync(newfilename);
-            if (!isfile2) {
-                console.log("in if");
-                sails.lwip.open(newfilepath, function(err, image) {
-                    var dimensions = {};
-                    dimensions.width = image.width();
-                    dimensions.height = image.height();
-                    if (width == 0) {
-                        width = dimensions.width / dimensions.height * height;
-                    }
-                    if (height == 0) {
-                        height = dimensions.height / dimensions.width * width;
-                    }
-                    image.resize(width, height, "lanczos", function(err, image) {
-                        image.toBuffer(extension, function(err, buffer) {
-                            sails.fs.writeFileSync(newfilename, buffer);
-                            showimage(newfilename);
-                        });
-                    });
-                });
-            } else {
-                console.log("in else");
-                showimage(newfilename);
-            }
-        }
-
-        var file = req.query.file;
-        var filepath = './auraimg/' + file;
-        var newheight = req.query.height;
-        var newwidth = req.query.width;
-        var isfile = sails.fs.existsSync(filepath);
-        if (isfile == false) {
-            var path = './auraimg/noimage.jpg';
-            var split = path.substr(path.length - 3);
-            var image = sails.fs.readFileSync(path);
-            var mimetype = sails.mime.lookup(split);
-            res.set('Content-Type', mimetype);
-            res.send(image);
-        } else {
-            if (!newwidth && !newheight) {
-                showimage(filepath);
-            } else if (!newwidth && newheight) {
-                newheight = parseInt(newheight);
-                checknewfile(filepath, 0, newheight);
-            } else if (newwidth && !newheight) {
-                newwidth = parseInt(newwidth);
-                checknewfile(filepath, newwidth, 0);
-            } else {
-                checknewfile(filepath, newwidth, newheight);
-            }
-        }
-    },
-    save: function(req, res) {
-        if (req.body) {
-            if (req.body._id) {
-                if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                    user();
-                } else {
-                    res.json({
-                        value: "false",
-                        comment: "User-id is incorrect"
-                    });
-                }
-            } else {
-                user();
-            }
-
-            function user() {
-                var print = function(data) {
-                    if (data.accesslevel && data.accesslevel == "customer" || data.accesslevel && data.accesslevel == "reseller") {
-                        req.session.passport = {
-                            user: data
-                        };
-                        if (req.session.cart && req.session.cart.items.length > 0) {
-                            var i = 0;
-                            _.each(req.session.cart.items, function(art) {
-                                art.id = req.session.passport.user.id;
-                                Cart.save(art, function(cartrespo) {
-                                    i++;
-                                    if (i == req.session.cart.items.length) {
-                                        req.session.cart = {};
-                                        res.json(data);
-                                    }
-                                });
-                            });
-                        } else {
-                            res.json(data);
-                        }
-                    } else {
-                        res.json(data);
-                    }
-
-                }
-                User.save(req.body, print);
-            }
-        } else {
-            res.json({
-                value: "false",
-                comment: "Please provide parameters"
-            });
-        }
-    },
-    find: function(req, res) {
-        var print = function(data) {
-            res.json(data);
-        }
-        User.find(req.body, print);
-    },
-    findbyletter: function(req, res) {
-        if (req.body) {
-            if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
-                var print = function(data) {
-                    res.json(data);
-                }
-                User.findbyletter(req.body, print);
-            } else {
-                res.json({
-                    value: "false",
-                    comment: "user-id is incorrect "
-                });
-            }
-        } else {
-            res.json({
-                value: false,
-                comment: "Please provide parameters"
-            });
-        }
-    },
-    findlimited: function(req, res) {
-        if (req.body) {
-            if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
-                function callback(data) {
-                    res.json(data);
-                };
-                User.findlimited(req.body, callback);
-            } else {
-                res.json({
-                    value: false,
-                    comment: "Please provide parameters"
-                });
-            }
-        } else {
-            res.json({
-                value: "false",
-                comment: "Please provide parameters"
-            });
-        }
-    },
-    findone: function(req, res) {
-        if (req.body) {
-            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function(data) {
-                    res.json(data);
-                }
-                User.findone(req.body, print);
-            } else {
-                res.json({
-                    value: "false",
-                    comment: "User-id is incorrect"
-                });
-            }
-        } else {
-            res.json({
-                value: "false",
-                comment: "Please provide parameters"
-            });
-        }
-    },
-    findbyaccess: function(req, res) {
-        if (req.body) {
-            if (req.body.accesslevel && req.body.accesslevel != "") {
-                var print = function(data) {
-                    res.json(data);
-                }
-                User.findbyaccess(req.body, print);
-            } else {
-                res.json({
-                    value: "false",
-                    comment: "Please provide parameters"
-                });
-            }
-        } else {
-            res.json({
-                value: "false",
-                comment: "Please provide parameters"
-            });
-        }
-    },
-    searchmail: function(req, res) {
-        if (req.body) {
-            if (req.body.email && req.body.email != "") {
-                var print = function(data) {
-                    res.json(data);
-                }
-                User.searchmail(req.body, print);
-            } else {
-                res.json({
-                    value: "false",
-                    comment: "Please provide parameters"
-                });
-            }
-        } else {
-            res.json({
-                value: "false",
-                comment: "Please provide parameters"
-            });
-        }
-    },
-    delete: function(req, res) {
-        if (req.body) {
-            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function(data) {
-                    res.json(data);
-                }
-                User.delete(req.body, print);
-            } else {
-                res.json({
-                    value: "false",
-                    comment: "User-id is incorrect"
-                });
-            }
-        } else {
-            res.json({
-                value: "false",
-                comment: "Please provide parameters"
-            });
-        }
-    },
-    login: function(req, res) {
-        if (req.body) {
-            if (req.body.email && req.body.email != "" && req.body.password && req.body.password != "") {
-                var print = function(data) {
-                    if (data.value != false) {
-                        req.session.passport = {
-                            user: data
-                        };
-                        if (req.session.cart && req.session.cart.items.length > 0) {
-                            var i = 0;
-                            _.each(req.session.cart.items, function(art) {
-                                art.id = req.session.passport.user.id;
-                                Cart.save(art, function(cartrespo) {
-                                    i++;
-                                    if (i == req.session.cart.items.length) {
-                                        req.session.cart = {};
-                                        res.send(frontend);
-                                    }
-                                });
-                            });
-                        } else {
-                            res.send(frontend);
-                        }
-                    } else {
-                        res.json(data);
-                    }
-                }
-                User.login(req.body, print);
-            } else {
-                res.json({
-                    value: "false",
-                    comment: "Please provide parameters"
-                });
-            }
-        } else {
-            res.json({
-                value: "false",
-                comment: "Please provide parameters"
-            });
-        }
-    },
-    adminlogin: function(req, res) {
-        if (req.body) {
-            if (req.body.email && req.body.email != "" && req.body.password && req.body.password != "") {
-                var print = function(data) {
-                    res.json(data);
-                }
-                User.adminlogin(req.body, print);
-            } else {
-                res.json({
-                    value: "false",
-                    comment: "Please provide parameters"
-                });
-            }
-        } else {
-            res.json({
-                value: "false",
-                comment: "Please provide parameters"
-            });
-        }
-    },
-    changepassword: function(req, res) {
-        if (req.body) {
-            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function(data) {
-                    res.json(data);
-                }
-                User.changepassword(req.body, print);
-            } else {
-                res.json({
-                    value: "false",
-                    comment: "User-id is incorrect"
-                });
-            }
-        } else {
-            res.json({
-                value: "false",
-                comment: "Please provide parameters"
-            });
-        }
-    },
-    forgotpassword: function(req, res) {
-        if (req.body) {
-            if (req.body.email && req.body.email != "") {
-                var print = function(data) {
-                    res.json(data);
-                }
-                User.forgotpassword(req.body, print);
-            } else {
-                res.json({
-                    value: "false",
-                    comment: "Please provide parameters"
-                });
-            }
-        } else {
-            res.json({
-                value: "false",
-                comment: "Please provide parameters"
-            });
-        }
-    },
-    countusers: function(req, res) {
-        var print = function(data) {
-            res.json(data);
-        }
-        User.countusers(req.body, print);
-    },
-    countartwork: function(req, res) {
-        var print = function(data) {
-            res.json(data);
-        }
-        User.countartwork(req.body, print);
-    },
-    saveforexcel: function(req, res) {
-        var print = function(data) {
-            res.json(data);
-        }
-        User.saveforexcel(req.body, print);
-    },
-    deletedata: function(req, res) {
-        var print = function(data) {
-            res.json(data);
-        }
-        User.deletedata(req.body, print);
-    },
-    findUser: function(req, res) {
-        if (req.body) {
-            if (req.body.search && req.body.search != "") {
-                var print = function(data) {
-                    res.json(data);
-                }
-                User.findUser(req.body, print);
-            } else {
-                res.json({
-                    value: "false",
-                    comment: "Please provide parameters"
-                });
-            }
-        } else {
-            res.json({
-                value: "false",
-                comment: "Please provide parameters"
-            });
-        }
-    },
-    findCust: function(req, res) {
-        if (req.body) {
-            if (req.body.search && req.body.search != "") {
-                var print = function(data) {
-                    res.json(data);
-                }
-                User.findCust(req.body, print);
-            } else {
-                res.json({
-                    value: "false",
-                    comment: "Please provide parameters"
-                });
-            }
-        } else {
-            res.json({
-                value: "false",
-                comment: "Please provide parameters"
-            });
-        }
-    },
-    userbytype: function(req, res) {
-        if (req.body) {
-            if (req.body.type && req.body.type != "") {
-                var print = function(data) {
-                    res.json(data);
-                }
-                User.userbytype(req.body, print);
-            } else {
-                res.json({
-                    value: "false",
-                    comment: "Please provide parameters"
-                });
-            }
-        } else {
-            res.json({
-                value: "false",
-                comment: "Please provide parameters"
-            });
-        }
     }
 };

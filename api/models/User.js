@@ -8,14 +8,7 @@ module.exports = {
     findorcreate: function(data, callback) {
         var orfunc = {};
         var insertdata = {};
-        var updatedata = {
-            _id: data._id
-        };
         if (data.provider == "Twitter") {
-            updatedata.tweetid = data.id;
-            updatedata.token = data.token;
-            updatedata.tokenSecret = data.tokenSecret;
-
             insertdata.tweetid = data.id;
             insertdata.accesslevel = "customer";
             insertdata.provider = data.provider;
@@ -27,12 +20,8 @@ module.exports = {
             insertdata.token = data.token;
             insertdata.tokenSecret = data.tokenSecret;
             orfunc.tweetid = data.id;
-            dbcall(insertdata, updatedata);
+            dbcall(insertdata);
         } else if (data.provider == "Facebook") {
-            updatedata.fbid = data.id;
-            updatedata.accessToken = data.accessToken;
-            updatedata.refreshToken = data.refreshToken;
-
             insertdata.fbid = data.id;
             insertdata.accesslevel = "customer";
             insertdata.provider = data.provider;
@@ -47,11 +36,8 @@ module.exports = {
             insertdata.accessToken = data.accessToken;
             insertdata.refreshToken = data.refreshToken;
             orfunc.fbid = data.id;
-            dbcall(insertdata, updatedata);
+            dbcall(insertdata);
         } else {
-            updatedata.googleid = data.id;
-            updatedata.token = data.token;
-
             insertdata.googleid = data.id;
             insertdata.accesslevel = "customer";
             insertdata.provider = data.provider;
@@ -64,84 +50,60 @@ module.exports = {
             }
             insertdata.token = data.token;
             orfunc.googleid = data.id;
-            dbcall(insertdata, updatedata);
+            console.log(insertdata);
+            dbcall(insertdata);
         }
 
-        function dbcall(data, updatedata) {
+        function dbcall(data) {
             sails.query(function(err, db) {
                 if (err) {
                     callback({
                         value: false
                     });
                 }
-                if (!updatedata._id) {
-                    data._id = sails.ObjectID();
-                    db.collection('user').find(orfunc).toArray(function(err, found) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (found.length != 0 && found[0]) {
-                            var data2 = found[0];
-                            data2.id = found[0]._id;
-                            delete data2.accessToken;
-                            delete data2.token;
-                            delete data2.tokenSecret;
-                            delete data2.gallery;
-                            delete data2.post;
-                            callback(null, data2);
-                            db.close();
-                        } else {
-                            db.collection('user').insert(data, function(err, created) {
-                                if (err) {
-                                    console.log(err);
-                                    callback({
-                                        value: false
-                                    });
-                                    db.close();
-                                } else if (created) {
-                                    data.id = created.ops[0]._id;
-                                    delete data.accessToken;
-                                    delete data.token;
-                                    delete data.tokenSecret;
-                                    callback(null, data);
-                                    db.close();
-                                } else {
-                                    callback({
-                                        value: false,
-                                        comment: "Not created"
-                                    });
-                                    db.close();
-                                }
-                            });
-                        }
-                    });
-                } else {
-                    var user = updatedata._id;
-                    delete updatedata._id;
-
-                    db.collection('user').update({
-                        "_id": sails.ObjectID(user)
-                    }, {
-                        $set: updatedata
-                    }, function(err, updated) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                        }
-                        if (updatedata) {
-                            updatedata.id = user;
-                            delete updatedata.accessToken;
-                            delete updatedata.token;
-                            delete updatedata.tokenSecret;
-                            callback(null, updated);
-                        }
-                    });
-                }
+                data._id = sails.ObjectID();
+                db.collection('user').find(orfunc).toArray(function(err, found) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else if (found.length != 0 && found[0]) {
+                        var data2 = found[0];
+                        data2.id = found[0]._id;
+                        delete data2.accessToken;
+                        delete data2.token;
+                        delete data2.tokenSecret;
+                        delete data2.gallery;
+                        delete data2.post;
+                        callback(null, data2);
+                        db.close();
+                    } else {
+                        db.collection('user').insert(data, function(err, created) {
+                            if (err) {
+                                console.log(err);
+                                callback({
+                                    value: false
+                                });
+                                db.close();
+                            } else if (created) {
+                                data.id = created.ops[0]._id;
+                                delete data.accessToken;
+                                delete data.token;
+                                delete data.tokenSecret;
+                                callback(null, data);
+                                db.close();
+                            } else {
+                                callback({
+                                    value: false,
+                                    comment: "Not created"
+                                });
+                                db.close();
+                            }
+                        });
+                    }
+                });
             });
         }
     },
@@ -190,6 +152,27 @@ module.exports = {
         }
     },
     save: function(data, callback) {
+        if (data.medium && data.medium.length > 0) {
+            _.each(data.medium, function(e) {
+                if (e._id && e._id != "") {
+                    e._id = sails.ObjectID(e._id);
+                }
+            });
+        }
+        if (data.theme && data.theme.length > 0) {
+            _.each(data.theme, function(e) {
+                if (e._id && e._id != "") {
+                    e._id = sails.ObjectID(e._id);
+                }
+            });
+        }
+        if (data.reseller && data.reseller.length > 0) {
+            _.each(data.reseller, function(e) {
+                if (e._id && e._id != "") {
+                    e._id = sails.ObjectID(e._id);
+                }
+            });
+        }
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -277,10 +260,7 @@ module.exports = {
                             db.close();
                         } else if (updated.result.nModified != 0 && updated.result.n != 0) {
                             data.id = user;
-                            callback({
-                                value: true,
-                                data: data
-                            });
+                            callback(data);
                             db.close();
                         } else if (updated.result.nModified == 0 && updated.result.n != 0) {
                             callback({
@@ -329,6 +309,7 @@ module.exports = {
                                 '$regex': check
                             }
                         }],
+                        status: data.status,
                         accesslevel: accesslevel,
                         "artwork.type": data.type
                     };
@@ -344,12 +325,16 @@ module.exports = {
                                 '$regex': check
                             }
                         }],
+                        status: data.status,
                         accesslevel: accesslevel
                     };
                     callbackfunc1();
                 }
 
                 function callbackfunc1() {
+                    if (data.status && data.status != "") {
+                        delete matchobj.status;
+                    }
                     db.collection("user").count(matchobj, function(err, number) {
                         if (number && number != "") {
                             newreturns.total = number;
@@ -409,7 +394,9 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("user").find({}, {
+                db.collection("user").find({
+                    status: "approve"
+                }, {
                     password: 0,
                     forgotpassword: 0
                 }).toArray(function(err, found) {
@@ -459,6 +446,7 @@ module.exports = {
                         }
                     }]
                 }],
+                status: "approve",
                 accesslevel: "artist",
                 "artwork.type": data.type,
                 focused: "focused"
@@ -477,6 +465,7 @@ module.exports = {
                         }
                     }]
                 }],
+                status: "approve",
                 accesslevel: "artist",
                 "artwork.type": data.type
             };
@@ -496,6 +485,7 @@ module.exports = {
                         }
                     }]
                 }],
+                status: "approve",
                 accesslevel: "artist",
                 focused: "focused"
             };
@@ -513,6 +503,7 @@ module.exports = {
                         }
                     }]
                 }],
+                status: "approve",
                 accesslevel: "artist"
             };
             callbackfunc1();
@@ -1020,6 +1011,7 @@ module.exports = {
             }
             if (db) {
                 db.collection("user").find({
+                    status: "approve",
                     accesslevel: data.accesslevel
                 }, {
                     password: 0,
@@ -1241,6 +1233,7 @@ module.exports = {
                         '$regex': check
                     }
                 }],
+                status: "approve",
                 "artwork.type": data.type,
                 accesslevel: "artist"
             };
@@ -1255,6 +1248,7 @@ module.exports = {
                         '$regex': check
                     }
                 }],
+                status: "approve",
                 accesslevel: "artist"
             };
         }
@@ -1354,6 +1348,10 @@ module.exports = {
                 });
             } else if (db) {
                 db.collection('user').aggregate([{
+                    $match: {
+                        status: "approve"
+                    }
+                }, {
                     $unwind: "$artwork"
                 }, {
                     $match: {
