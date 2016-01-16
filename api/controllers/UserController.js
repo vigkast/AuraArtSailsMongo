@@ -458,6 +458,26 @@ module.exports = {
             });
         }
     },
+    findoneArtist: function(req, res) {
+        if (req.body) {
+            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                var print = function(data) {
+                    res.json(data);
+                }
+                User.findoneArtist(req.body, print);
+            } else {
+                res.json({
+                    value: "false",
+                    comment: "User-id is incorrect"
+                });
+            }
+        } else {
+            res.json({
+                value: "false",
+                comment: "Please provide parameters"
+            });
+        }
+    },
     findbyaccess: function(req, res) {
         if (req.body) {
             if (req.body.accesslevel && req.body.accesslevel != "") {

@@ -1090,11 +1090,11 @@ module.exports = {
               status: "approve",
               accesslevel: "artist"
             }
-          },{
-            $unwind:"$artwork"
-          },{
-            $match:{
-              "artwork.status":"approve"
+          }, {
+            $unwind: "$artwork"
+          }, {
+            $match: {
+              "artwork.status": "approve"
             }
           }, {
             $group: {
@@ -1138,17 +1138,17 @@ module.exports = {
                 status: "approve",
                 accesslevel: "artist"
               }
-            },{
-              $unwind:"$artwork"
-            },{
-              $match:{
-                "artwork.status":"approve"
+            }, {
+              $unwind: "$artwork"
+            }, {
+              $match: {
+                "artwork.status": "approve"
               }
-            },{
-              $group:{
-                _id:user,
-                artwork:{
-                  $addToSet:"$artwork"
+            }, {
+              $group: {
+                _id: user,
+                artwork: {
+                  $addToSet: "$artwork"
                 }
               }
             }, {
