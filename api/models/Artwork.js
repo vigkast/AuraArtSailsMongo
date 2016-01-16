@@ -445,14 +445,11 @@ module.exports = {
             }
             if (db) {
                 db.collection("user").aggregate([{
-                    $match: {
-                        "artwork._id": sails.ObjectID(data._id)
-                    }
-                }, {
                     $unwind: "$artwork"
                 }, {
                     $match: {
-                        "artwork._id": sails.ObjectID(data._id)
+                        "artwork._id": sails.ObjectID(data._id),
+                        "artwork.status":"approve"
                     }
                 }, {
                     $project: {
@@ -1083,7 +1080,11 @@ module.exports = {
                             status: "approve",
                             accesslevel: "artist"
                         }
-                    }, {
+                    },{
+                      $unwind:"$artwork"
+                    },{
+                      "artwork.status":"approve"
+                    },{
                         $group: {
                             _id: user,
                             count: {
@@ -1125,6 +1126,10 @@ module.exports = {
                                 status: "approve",
                                 accesslevel: "artist"
                             }
+                        },{
+                          $unwind:"$artwork"
+                        },{
+                          "artwork.status":"approve"
                         }, {
                             $project: {
                                 name: 1,

@@ -68,7 +68,7 @@ module.exports = {
                             value: false
                         });
                         db.close();
-                    } else if (found.length != 0 && found[0]) {
+                    } else if (found && found.length > 0) {
                         var data2 = found[0];
                         data2.id = found[0]._id;
                         delete data2.accessToken;

@@ -50,12 +50,12 @@ module.exports = {
                                 value: false
                             });
                             db.close();
-                        } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+                        } else if (updated.result.nModified > 0 && updated.result.n > 0) {
                             callback({
                                 value: true
                             });
                             db.close();
-                        } else if (updated.result.nModified == 0 && updated.result.n != 0) {
+                        } else if (updated.result.nModified <= 0 && updated.result.n > 0) {
                             callback({
                                 value: true,
                                 comment: "Data updated"
@@ -123,7 +123,7 @@ module.exports = {
                                 value: false
                             });
                             console.log(err);
-                            db.close()
+                            db.close();
                         } else if (found && found[0]) {
                             newreturns.data = found;
                             callback(newreturns);
