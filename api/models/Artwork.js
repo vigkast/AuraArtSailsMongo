@@ -1090,6 +1090,12 @@ module.exports = {
               status: "approve",
               accesslevel: "artist"
             }
+          },{
+            $unwind:"$artwork"
+          },{
+            $match:{
+              "artwork.status":"approve"
+            }
           }, {
             $group: {
               _id: user,
@@ -1131,6 +1137,12 @@ module.exports = {
                 }],
                 status: "approve",
                 accesslevel: "artist"
+              }
+            },{
+              $unwind:"$artwork"
+            },{
+              $match:{
+                "artwork.status":"approve"
               }
             }, {
               $project: {
