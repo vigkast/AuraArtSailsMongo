@@ -1144,6 +1144,13 @@ module.exports = {
               $match:{
                 "artwork.status":"approve"
               }
+            },{
+              $group:{
+                _id:user,
+                artwork:{
+                  $addToSet:"$artwork"
+                }
+              }
             }, {
               $project: {
                 name: 1,
