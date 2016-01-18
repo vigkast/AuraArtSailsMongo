@@ -874,6 +874,7 @@ module.exports = {
                                                                     // delete m.style;
                                                                     // delete m.elements;
                                                                     // delete m.color;
+                                                                    delete m[""];
                                                                     m.srno = parseInt(m.srno);
                                                                     m.status = "approve";
                                                                     Artwork.saveartwork(m);

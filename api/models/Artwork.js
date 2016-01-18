@@ -60,16 +60,16 @@ module.exports = {
                 comment: "Mail sent"
               });
               db.close();
-              } else {
-                callback({
-                  value: true,
-                  comment: "Mail sent"
-                });
+            } else {
+              callback({
+                value: true,
+                comment: "Mail sent"
+              });
             }
           });
         } else {
           data._id = sails.ObjectID(data._id);
-          bechanged = {};
+          tobechanged = {};
           var attribute = "artwork.$.";
           _.forIn(data, function(value, key) {
             tobechanged[attribute + key] = value;
@@ -703,6 +703,8 @@ module.exports = {
         var pagenumber = data.pagenumber;
         var user = sails.ObjectID(data.user);
         var sortnum = parseInt(data.sort);
+        var sort = {};
+        sort['artwork.' + data.filter] = sortnum;
         if (data.color) {
           matcharray.push(data.color);
         }
@@ -715,232 +717,93 @@ module.exports = {
         if (matcharray && !matcharray[0]) {
           matcharray = [];
         }
+
         if (data.minprice == "") {
           data.minprice = 0;
+        }
+        if (data.maxprice == "") {
+          data.maxprice = 0;
+        }
+        if (data.minheight == "") {
+          data.minheight = 0;
+        }
+        if (data.maxheight == "") {
+          data.maxheight = 0;
         }
         if (data.minwidth == "") {
           data.minwidth = 0;
         }
-        if (data.minheight == "") {
-          data.minheight = 0;
+        if (data.maxwidth == "") {
+          data.maxwidth = 0;
         }
         if (data.minbreadth == "") {
           data.minbreadth = 0;
         }
         if (data.maxbreadth == "") {
-          data.maxbreadth = 10000;
+          data.maxbreadth = 0;
         }
-        if (data.maxwidth == "") {
-          data.maxwidth = 10000;
-        }
-        if (data.maxheight == "") {
-          data.maxheight = 10000;
-        }
-        if (data.maxprice == "") {
-          data.maxprice = 10000000;
-        }
-        var sort = {};
-        sort['artwork.' + data.filter] = sortnum;
+        var matchobj = {
+          "artwork.type": data.type,
+          "artwork.subtype.name": {
+            $regex: checkmedium
+          },
+          "artwork.tag.name": {
+            $in: matcharray
+          },
+          status: "approve",
+          "artwork.status": "approve",
+          name: {
+            $regex: check
+          },
+          "artwork.gprice": {
+            $gte: data.minprice,
+            $lte: data.maxprice
+          },
+          "artwork.height": {
+            $gte: data.minheight,
+            $lte: data.maxheight
+          },
+          "artwork.width": {
+            $gte: data.minwidth,
+            $lte: data.maxwidth
+          },
+          "artwork.breadth": {
+            $gte: data.minbreadth,
+            $lte: data.maxbreadth
+          }
+        };
         if (data.type == "") {
-          if (data.minbreadth == 0 && data.maxbreadth == 10000) {
-            if (data.minwidth == 0 && data.maxwidth == 10000 && data.minprice == 0 && data.maxprice == 10000000 && data.minheight == 0 && data.maxheight == 10000) {
-              var matchobj = {
-                name: {
-                  $regex: check
-                },
-                status: "approve",
-                "artwork.status": "approve",
-                "artwork.name": {
-                  $exists: true
-                },
-                "artwork.subtype.name": {
-                  $regex: checkmedium
-                },
-                "artwork.tag.name": {
-                  $in: matcharray
-                }
-              };
-              callbackfunc1();
-            } else {
-              var matchobj = {
-                name: {
-                  $regex: check
-                },
-                status: "approve",
-                "artwork.status": "approve",
-                "artwork.name": {
-                  $exists: true
-                },
-                "artwork.gprice": {
-                  $gte: data.minprice,
-                  $lte: data.maxprice
-                },
-                "artwork.height": {
-                  $gte: data.minheight,
-                  $lte: data.maxheight
-                },
-                "artwork.width": {
-                  $gte: data.minwidth,
-                  $lte: data.maxwidth
-                },
-                "artwork.subtype.name": {
-                  $regex: checkmedium
-                },
-                "artwork.tag.name": {
-                  $in: matcharray
-                }
-              };
-              callbackfunc1();
-            }
-          } else {
-            var matchobj = {
-              name: {
-                $regex: check
-              },
-              status: "approve",
-              "artwork.status": "approve",
-              "artwork.name": {
-                $exists: true
-              },
-              "artwork.gprice": {
-                $gte: data.minprice,
-                $lte: data.maxprice
-              },
-              "artwork.height": {
-                $gte: data.minheight,
-                $lte: data.maxheight
-              },
-              "artwork.width": {
-                $gte: data.minwidth,
-                $lte: data.maxwidth
-              },
-              "artwork.breadth": {
-                $gte: data.minbreadth,
-                $lte: data.maxbreadth
-              },
-              "artwork.subtype.name": {
-                $regex: checkmedium
-              },
-              "artwork.tag.name": {
-                $in: matcharray
-              }
-            };
-            callbackfunc1();
-          }
-        } else if (data.type != "Sculptures") {
-          if (data.minwidth == 0 && data.maxwidth == 10000 && data.minprice == 0 && data.maxprice == 10000000 && data.minheight == 0 && data.maxheight == 10000) {
-            var matchobj = {
-              name: {
-                $regex: check
-              },
-              status: "approve",
-              "artwork.status": "approve",
-              "artwork.name": {
-                $exists: true
-              },
-              "artwork.type": data.type,
-              "artwork.subtype.name": {
-                $regex: checkmedium
-              },
-              "artwork.tag.name": {
-                $in: matcharray
-              }
-            };
-            callbackfunc1();
-          } else {
-            var matchobj = {
-              name: {
-                $regex: check
-              },
-              status: "approve",
-              "artwork.status": "approve",
-              "artwork.name": {
-                $exists: true
-              },
-              "artwork.type": data.type,
-              "artwork.gprice": {
-                $gte: data.minprice,
-                $lte: data.maxprice
-              },
-              "artwork.height": {
-                $gte: data.minheight,
-                $lte: data.maxheight
-              },
-              "artwork.width": {
-                $gte: data.minwidth,
-                $lte: data.maxwidth
-              },
-              "artwork.subtype.name": {
-                $regex: checkmedium
-              },
-              "artwork.tag.name": {
-                $in: matcharray
-              }
-            };
-            callbackfunc1();
-          }
-        } else if (data.type == "Sculptures") {
-          if (data.minwidth == 0 && data.maxwidth == 10000 && data.minprice == 0 && data.maxprice == 10000000 && data.minheight == 0 && data.maxheight == 10000 && data.minbreadth == 0 && data.maxbreadth == 10000) {
-            var matchobj = {
-              name: {
-                $regex: check
-              },
-              status: "approve",
-              "artwork.status": "approve",
-              "artwork.name": {
-                $exists: true
-              },
-              "artwork.type": data.type,
-              "artwork.subtype.name": {
-                $regex: checkmedium
-              },
-              "artwork.tag.name": {
-                $in: matcharray
-              }
-            };
-            callbackfunc1();
-          } else {
-            var matchobj = {
-              name: {
-                $regex: check
-              },
-              status: "approve",
-              "artwork.status": "approve",
-              "artwork.name": {
-                $exists: true
-              },
-              "artwork.type": data.type,
-              "artwork.gprice": {
-                $gte: data.minprice,
-                $lte: data.maxprice
-              },
-              "artwork.height": {
-                $gte: data.minheight,
-                $lte: data.maxheight
-              },
-              "artwork.width": {
-                $gte: data.minwidth,
-                $lte: data.maxwidth
-              },
-              "artwork.breadth": {
-                $gte: data.minbreadth,
-                $lte: data.maxbreadth
-              },
-              "artwork.subtype.name": {
-                $regex: checkmedium
-              },
-              "artwork.tag.name": {
-                $in: matcharray
-              }
-            };
-            callbackfunc1();
-          }
+          delete matchobj["artwork.type"];
+        }
+        if (matchobj["artwork.tag.name"].$in.length == 0) {
+          delete matchobj["artwork.tag.name"];
+        }
+        if (data.search == "") {
+          delete matchobj.name;
+        }
+        if (data.medium == "") {
+          delete matchobj["artwork.subtype.name"];
+        }
+        if (data.minprice == 0 && data.maxprice == 0) {
+          delete matchobj["artwork.gprice"];
         }
 
-        function callbackfunc1() {
-          if (matchobj["artwork.tag.name"].$in.length == 0) {
-            delete matchobj["artwork.tag.name"];
-          }
+        if (data.minheight == 0 && data.maxheight == 0) {
+          delete matchobj["artwork.height"];
+        }
+
+        if (data.minwidth == 0 && data.maxwidth == 0) {
+          delete matchobj["artwork.width"];
+        }
+
+        if (data.minbreadth == 0 && data.maxbreadth == 0) {
+          delete matchobj["artwork.breadth"];
+        }
+
+        callme();
+
+        function callme() {
+          console.log(matchobj);
           db.collection("user").aggregate([{
             $match: matchobj
           }, {
