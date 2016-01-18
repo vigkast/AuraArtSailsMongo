@@ -7,6 +7,8 @@
 
 module.exports = {
   save: function(data, callback) {
+    var user = sails.ObjectID(data.user);
+    delete data.user;
     if (data.reseller && data.reseller.length > 0) {
       _.each(data.reseller, function(x) {
         if (x._id && x._id != "") {
@@ -37,8 +39,6 @@ module.exports = {
         });
       }
       if (db) {
-        var user = sails.ObjectID(data.user);
-        delete data.user;
         if (!data._id) {
           data._id = sails.ObjectID();
           db.collection("user").update({
@@ -209,7 +209,7 @@ module.exports = {
         }).toArray(function(err, data2) {
           console.log(data2);
           if (data2 && data2[0] && data2[0].artwork && data2[0].artwork[0]) {
-            callback(data2[0]);
+            callback(data2[0].artwork[0]);
             db.close();
           } else if (err) {
             console.log(err);
