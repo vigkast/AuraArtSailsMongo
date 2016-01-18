@@ -207,7 +207,7 @@ module.exports = {
         }, {
           "artwork.$": 1
         }).toArray(function(err, data2) {
-          if (data2 && data2.length > 0 && data2[0].artwork && data2[0].artwork.length > 0) {
+          if (data2 && data2[0] && data2[0].artwork && data2[0].artwork[0]) {
             callback(data2[0]);
             db.close();
           } else if (err) {
