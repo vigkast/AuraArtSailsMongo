@@ -55,25 +55,31 @@ module.exports = {
               });
               db.close();
             } else if (updated) {
+              callback({
+                value: true,
+                comment: "Mail sent"
+              });
+              db.close();
               if (data.email && data.email != "") {
-                data._id = data._id.toString();
-                sails.request.get({
-                    url: "https://api.falconide.com/falconapi/web.send.rest?api_key=47e02d2b10604fc81304a5837577e286&subject=Artwork %23" + data._id.substring(data._id.length - 5) + " &fromname=" + sails.fromName + "&from=" + sails.fromEmail + "&replytoid=" + email + "&content=Artwork Data&recipients=" + email + "&footer=0&template=2211&clicktrack=0&ATT_STATUS=" + data.status.toUpperCase() + "&ATT_NAME=" + data.name.toUpperCase()
-                  },
-                  function(err, httpResponse, body) {
-                    if (err) {
-                      callback({
-                        value: false
-                      });
-                      db.close();
-                    } else {
-                      callback({
-                        value: true,
-                        comment: "Mail sent"
-                      });
-                      db.close();
-                    }
-                  });
+
+                // data._id = data._id.toString();
+                // sails.request.get({
+                //     url: "https://api.falconide.com/falconapi/web.send.rest?api_key=47e02d2b10604fc81304a5837577e286&subject=Artwork %23" + data._id.substring(data._id.length - 5) + " &fromname=" + sails.fromName + "&from=" + sails.fromEmail + "&replytoid=" + email + "&content=Artwork Data&recipients=" + email + "&footer=0&template=2211&clicktrack=0&ATT_STATUS=" + data.status.toUpperCase() + "&ATT_NAME=" + data.name.toUpperCase()
+                //   },
+                //   function(err, httpResponse, body) {
+                //     if (err) {
+                //       callback({
+                //         value: false
+                //       });
+                //       db.close();
+                //     } else {
+                //       callback({
+                //         value: true,
+                //         comment: "Mail sent"
+                //       });
+                //       db.close();
+                //     }
+                //   });
               } else {
                 callback({
                   value: true,
@@ -108,25 +114,30 @@ module.exports = {
               });
               db.close();
             } else if (updated) {
+              callback({
+                value: true,
+                comment: "Mail sent"
+              });
+              db.close();
               if (data.email && data.email != "") {
-                data._id = data._id.toString();
-                sails.request.get({
-                    url: "https://api.falconide.com/falconapi/web.send.rest?api_key=47e02d2b10604fc81304a5837577e286&subject=Artwork %23" + data._id.substring(data._id.length - 5) + " &fromname=" + sails.fromName + "&from=" + sails.fromEmail + "&replytoid=" + email + "&content=Artwork Data&recipients=" + email + "&footer=0&template=2211&clicktrack=0&ATT_STATUS=" + data.status.toUpperCase() + "&ATT_NAME=" + data.name.toUpperCase()
-                  },
-                  function(err, httpResponse, body) {
-                    if (err) {
-                      callback({
-                        value: false
-                      });
-                      db.close();
-                    } else {
-                      callback({
-                        value: true,
-                        comment: "Mail sent"
-                      });
-                      db.close();
-                    }
-                  });
+                // data._id = data._id.toString();
+                // sails.request.get({
+                //     url: "https://api.falconide.com/falconapi/web.send.rest?api_key=47e02d2b10604fc81304a5837577e286&subject=Artwork %23" + data._id.substring(data._id.length - 5) + " &fromname=" + sails.fromName + "&from=" + sails.fromEmail + "&replytoid=" + email + "&content=Artwork Data&recipients=" + email + "&footer=0&template=2211&clicktrack=0&ATT_STATUS=" + data.status.toUpperCase() + "&ATT_NAME=" + data.name.toUpperCase()
+                //   },
+                //   function(err, httpResponse, body) {
+                //     if (err) {
+                //       callback({
+                //         value: false
+                //       });
+                //       db.close();
+                //     } else {
+                //       callback({
+                //         value: true,
+                //         comment: "Mail sent"
+                //       });
+                //       db.close();
+                //     }
+                //   });
               } else {
                 callback({
                   value: true,

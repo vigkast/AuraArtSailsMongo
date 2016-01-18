@@ -172,6 +172,13 @@ module.exports = {
         }
       });
     }
+    if (data.artwork && data.artwork.length > 0) {
+      _.each(data.artwork, function(e) {
+        if (e._id && e._id != "") {
+          e._id = sails.ObjectID(e._id);
+        }
+      });
+    }
     sails.query(function(err, db) {
       if (err) {
         console.log(err);
