@@ -70,7 +70,7 @@ module.exports = {
           });
         } else {
           data._id = sails.ObjectID(data._id);
-          bechanged = {};
+          tobechanged = {};
           var attribute = "artwork.$.";
           _.forIn(data, function(value, key) {
             tobechanged[attribute + key] = value;
