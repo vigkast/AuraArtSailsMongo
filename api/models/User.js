@@ -435,85 +435,51 @@ module.exports = {
     var check = new RegExp(data.search, "i");
     var pagesize = data.pagesize;
     var pagenumber = data.pagenumber;
-    if (data.type && data.type != "") {
-      var firstmatch = {
-        $and: [{
-          name: check
+    var firstmatch = {
+      $and: [{
+        name: check
+      }, {
+        $or: [{
+          name: {
+            '$regex': checkname
+          }
         }, {
-          $or: [{
-            name: {
-              '$regex': checkname
-            }
-          }, {
-            name: {
-              '$regex': checkspace
-            }
-          }]
-        }],
-        status: "approve",
-        accesslevel: "artist",
-        "artwork.type": data.type,
-        focused: "focused"
-      };
-      var matchobj = {
-        $and: [{
-          name: check
+          name: {
+            '$regex': checkspace
+          }
+        }]
+      }],
+      status: "approve",
+      accesslevel: "artist",
+      "artwork.type": data.type,
+      focused: "focused"
+    };
+    var matchobj = {
+      $and: [{
+        name: check
+      }, {
+        $or: [{
+          name: {
+            '$regex': checkname
+          }
         }, {
-          $or: [{
-            name: {
-              '$regex': checkname
-            }
-          }, {
-            name: {
-              '$regex': checkspace
-            }
-          }]
-        }],
-        status: "approve",
-        accesslevel: "artist",
-        "artwork.type": data.type
-      };
-      callbackfunc1();
-    } else {
-      var firstmatch = {
-        $and: [{
-          name: check
-        }, {
-          $or: [{
-            name: {
-              '$regex': checkname
-            }
-          }, {
-            name: {
-              '$regex': checkspace
-            }
-          }]
-        }],
-        status: "approve",
-        accesslevel: "artist",
-        focused: "focused"
-      };
-      var matchobj = {
-        $and: [{
-          name: check
-        }, {
-          $or: [{
-            name: {
-              '$regex': checkname
-            }
-          }, {
-            name: {
-              '$regex': checkspace
-            }
-          }]
-        }],
-        status: "approve",
-        accesslevel: "artist"
-      };
-      callbackfunc1();
-    }
+          name: {
+            '$regex': checkspace
+          }
+        }]
+      }],
+      status: "approve",
+      accesslevel: "artist",
+      "artwork.type": data.type
+    };
+    callbackfunc1();
 
     function callbackfunc1() {
+      if (!data.type || data.type == "") {
+        delete firstmatch["artwork.type"];
+        delete matchobj["artwork.type"];
+      }
+
       sails.query(function(err, db) {
         if (err) {
           console.log(err);
@@ -656,8 +622,19 @@ module.exports = {
             _id: sails.ObjectID(data._id),
             artwork: {
               $addToSet: "$artwork"
+            },
+            name: {
+              $addToSet: "$name"
+            },
+            soloshow: {
+              $addToSet: "$soloshow"
+            },
+            address: {
+              $addToSet: "$address"
             }
           }
+        }, {
+          $unwind: "$name"
         }]).toArray(function(err, data2) {
           if (err) {
             console.log(err);
