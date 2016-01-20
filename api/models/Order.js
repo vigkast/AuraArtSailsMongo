@@ -143,7 +143,7 @@ module.exports = {
           data._id = sails.ObjectID();
           data.orderid = "#O";
           data.timestamp = new Date();
-          var possible = "0123456789";
+          var possible = "0123456789"; 
           for (var i = 0; i < 8; i++) {
             data.orderid += possible.charAt(Math.floor(Math.random() * possible.length));
           }
