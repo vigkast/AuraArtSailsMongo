@@ -10,11 +10,14 @@ module.exports = {
     if (req.body) {
       if (req.session.passport) {
         req.body._id = req.session.passport.user.id;
+        save();
       } else {
         Order.saveGuest(req.body, function(orderRespo) {
-          res.json(data);
+          res.json(orderRespo);
         });
       }
+
+      function save() {
         User.findone(req.body, function(respo) {
           respo.user = respo._id;
           respo.packing = req.body.packing;
@@ -28,6 +31,7 @@ module.exports = {
             res.json(data2);
           });
         });
+      }
     } else {
       res.json({
         value: "false",
@@ -73,24 +77,24 @@ module.exports = {
     }
   },
   findone: function(req, res) {
-      if (req.body) {
-          if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-              var print = function(data) {
-                  res.json(data);
-              }
-              Order.findone(req.body, print);
-          } else {
-              res.json({
-                  value: "false",
-                  comment: "Slider-id is incorrect"
-              });
-          }
+    if (req.body) {
+      if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+        var print = function(data) {
+          res.json(data);
+        }
+        Order.findone(req.body, print);
       } else {
-          res.json({
-              value: "false",
-              comment: "Please provide parameters"
-          });
+        res.json({
+          value: "false",
+          comment: "Slider-id is incorrect"
+        });
       }
+    } else {
+      res.json({
+        value: "false",
+        comment: "Please provide parameters"
+      });
+    }
   },
   findlimited: function(req, res) {
     if (req.body) {
@@ -103,6 +107,26 @@ module.exports = {
         res.json({
           value: false,
           comment: "Please provide parameters"
+        });
+      }
+    } else {
+      res.json({
+        value: "false",
+        comment: "Please provide parameters"
+      });
+    }
+  },
+  editOrder: function(req, res) {
+    if (req.body) {
+      if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+        var print = function(data) {
+          res.json(data);
+        }
+        Order.editOrder(req.body, print);
+      } else {
+        res.json({
+          value: "false",
+          comment: "Order-id is incorrect"
         });
       }
     } else {

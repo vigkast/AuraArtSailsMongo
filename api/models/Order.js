@@ -139,7 +139,7 @@ module.exports = {
       }
       if (db) {
         if (!data._id) {
-          newdata.status = "Pending";
+          data.status = "Pending";
           data._id = sails.ObjectID();
           data.orderid = "#O";
           data.timestamp = new Date();
@@ -147,7 +147,12 @@ module.exports = {
           for (var i = 0; i < 8; i++) {
             data.orderid += possible.charAt(Math.floor(Math.random() * possible.length));
           }
-          db.collection('order').insert(newdata, function(err, created) {
+          data.name = data.billing.name;
+          data.email = data.billing.email;
+          data.mobileno = data.billing.mobileno;
+          callme();
+          function callme(){
+          db.collection('order').insert(data, function(err, created) {
             if (err) {
               console.log(err);
               callback({
@@ -167,6 +172,7 @@ module.exports = {
               db.close();
             }
           });
+        }
         } else {
           var order = sails.ObjectID(data._id);
           delete data._id;
@@ -384,6 +390,49 @@ module.exports = {
           db.close();
         }
       });
+    });
+  },
+  editOrder: function(data, callback) {
+    sails.query(function(err, db) {
+      if (err) {
+        console.log(err);
+        callback({
+          value: false
+        });
+      } else if (db) {
+        var order = sails.ObjectID(data._id);
+        delete data._id;
+        db.collection('order').update({
+          _id: order
+        }, {
+          $set: data
+        }, function(err, updated) {
+          if (err) {
+            console.log(err);
+            callback({
+              value: false
+            });
+            db.close();
+          } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+            callback({
+              value: true
+            });
+            db.close();
+          } else if (updated.result.nModified == 0 && updated.result.n != 0) {
+            callback({
+              value: true,
+              comment: "Data already updated"
+            });
+            db.close();
+          } else {
+            callback({
+              value: false,
+              comment: "No data found"
+            });
+            db.close();
+          }
+        });
+      }
     });
   }
 };
