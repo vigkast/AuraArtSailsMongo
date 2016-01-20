@@ -143,7 +143,7 @@ module.exports = {
           data._id = sails.ObjectID();
           data.orderid = "#O";
           data.timestamp = new Date();
-          var possible = "0123456789"; 
+          var possible = "0123456789";
           for (var i = 0; i < 8; i++) {
             data.orderid += possible.charAt(Math.floor(Math.random() * possible.length));
           }
@@ -286,9 +286,7 @@ module.exports = {
         });
       }
       if (db) {
-        db.collection("order").find({
-          user: sails.ObjectID(data.user)
-        }).toArray(function(err, data2) {
+        db.collection("order").find().toArray(function(err, data2) {
           if (data2 && data2[0]) {
             callback(data2);
             db.close();
@@ -299,7 +297,10 @@ module.exports = {
             });
             db.close();
           } else {
-            callback([]);
+            callback({
+              value:false,
+              comment:"No data found"
+            });
             db.close();
           }
         });
