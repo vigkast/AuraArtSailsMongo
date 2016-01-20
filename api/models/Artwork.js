@@ -803,7 +803,6 @@ module.exports = {
         callme();
 
         function callme() {
-          console.log(matchobj);
           db.collection("user").aggregate([{
             $match: matchobj
           }, {
