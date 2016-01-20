@@ -135,5 +135,35 @@ module.exports = {
         comment: "Please provide parameters"
       });
     }
-  }
+  },
+  deleteall: function(req, res) {
+    sails.query(function(err, db) {
+      if (err) {
+        console.log(err);
+        res.json({
+          value: false
+        });
+      }
+      db.collection('order').remove({}, function(err, deleted) {
+        if (deleted) {
+          res.json({
+            value: true
+          });
+          db.close();
+        } else if (err) {
+          console.log(err);
+          res.json({
+            value: false
+          });
+          db.close();
+        } else {
+          res.json({
+            value: false,
+            comment: "No data found"
+          });
+          db.close();
+        }
+      });
+    });
+  },
 };
