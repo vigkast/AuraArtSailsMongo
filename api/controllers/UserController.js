@@ -444,7 +444,8 @@ module.exports = {
   },
   findone: function(req, res) {
     if (req.body) {
-      if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+      if (req.session.passport) {
+        req.body._id=req.session.passport.user.id;
         var print = function(data) {
           res.json(data);
         }
@@ -452,7 +453,7 @@ module.exports = {
       } else {
         res.json({
           value: "false",
-          comment: "User-id is incorrect"
+          comment: "User not logged in"
         });
       }
     } else {

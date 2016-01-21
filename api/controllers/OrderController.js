@@ -13,7 +13,12 @@ module.exports = {
         save();
       } else {
         Order.saveGuest(req.body, function(orderRespo) {
-          res.json(orderRespo);
+          if (orderRespo.value != false) {
+            req.session.cart = {};
+            res.json(orderRespo);
+          } else {
+            res.json(orderRespo);
+          }
         });
       }
 
