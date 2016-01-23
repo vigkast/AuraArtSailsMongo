@@ -13,7 +13,7 @@ module.exports = {
                     dc();
                 } else {
                     res.json({
-                        value: "false",
+                        value: false,
                         comment: "Discountcoupon-id is incorrect"
                     });
                 }
@@ -29,7 +29,7 @@ module.exports = {
             }
         } else {
             res.json({
-                value: "false",
+                value: false,
                 comment: "Please provide parameters"
             });
         }
@@ -55,7 +55,7 @@ module.exports = {
             }
         } else {
             res.json({
-                value: "false",
+                value: false,
                 comment: "Please provide parameters"
             });
         }
@@ -69,13 +69,13 @@ module.exports = {
                 Discountcoupon.findone(req.body, print);
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "Discountcoupon-id is incorrect"
                 });
             }
         } else {
             res.json({
-                value: "false",
+                value: false,
                 comment: "Please provide parameters"
             });
         }
@@ -89,13 +89,13 @@ module.exports = {
                 Discountcoupon.delete(req.body, print);
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "Discountcoupon-id is incorrect"
                 });
             }
         } else {
             res.json({
-                value: "false",
+                value: false,
                 comment: "Please provide parameters"
             });
         }

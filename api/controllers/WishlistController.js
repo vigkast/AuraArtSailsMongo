@@ -14,7 +14,7 @@ module.exports = {
                         feed();
                     } else {
                         res.json({
-                            value: "false",
+                            value: false,
                             comment: "Wishlist-id is incorrect"
                         });
                     }
@@ -23,7 +23,7 @@ module.exports = {
                 }
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "user-id is incorrect "
                 });
             }
@@ -51,13 +51,13 @@ module.exports = {
                     Wishlist.delete(req.body, print);
                 } else {
                     res.json({
-                        value: "false",
+                        value: false,
                         comment: "Artwork-id is incorrect"
                     });
                 }
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "user-id is incorrect "
                 });
             }
@@ -77,7 +77,7 @@ module.exports = {
                 Wishlist.find(req.body, callback);
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "user-id is incorrect "
                 });
             }
@@ -98,13 +98,13 @@ module.exports = {
                     Wishlist.findone(req.body, print);
                 } else {
                     res.json({
-                        value: "false",
+                        value: false,
                         comment: "Wishlist-id is incorrect"
                     });
                 }
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "user-id is incorrect "
                 });
             }
@@ -131,7 +131,7 @@ module.exports = {
                 }
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "user-id is incorrect "
                 });
             }

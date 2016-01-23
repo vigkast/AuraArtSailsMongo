@@ -140,7 +140,7 @@ module.exports = {
     failureRedirect: '/user/fail'
   }),
   success: function(req, res, data) {
-    if (req.session.cart && req.session.cart.items.length > 0) {
+    if (req.session.cart && req.session.cart.items && req.session.cart.items.length > 0) {
       var i = 0;
       _.each(req.session.cart.items, function(art) {
         art.id = req.session.passport.user.id;
@@ -330,7 +330,7 @@ module.exports = {
           user();
         } else {
           res.json({
-            value: "false",
+            value: false,
             comment: "User-id is incorrect"
           });
         }
@@ -354,7 +354,7 @@ module.exports = {
                   req.session.passport = {
                     user: respo
                   };
-                  if (req.session.cart && req.session.cart.items.length > 0) {
+                  if (req.session.cart && req.session.cart.items && req.session.cart.items.length > 0) {
                     var i = 0;
                     _.each(req.session.cart.items, function(art) {
                       art.id = req.session.passport.user.id;
@@ -391,7 +391,7 @@ module.exports = {
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -411,7 +411,7 @@ module.exports = {
         User.findbyletter(req.body, print);
       } else {
         res.json({
-          value: "false",
+          value: false,
           comment: "user-id is incorrect "
         });
       }
@@ -437,7 +437,7 @@ module.exports = {
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -445,20 +445,20 @@ module.exports = {
   findone: function(req, res) {
     if (req.body) {
       if (req.session.passport) {
-        req.body._id=req.session.passport.user.id;
+        req.body._id = req.session.passport.user.id;
         var print = function(data) {
           res.json(data);
         }
         User.findone(req.body, print);
       } else {
         res.json({
-          value: "false",
+          value: false,
           comment: "User not logged in"
         });
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -472,13 +472,13 @@ module.exports = {
         User.findoneArtist(req.body, print);
       } else {
         res.json({
-          value: "false",
+          value: false,
           comment: "User-id is incorrect"
         });
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -492,13 +492,13 @@ module.exports = {
         User.findbyaccess(req.body, print);
       } else {
         res.json({
-          value: "false",
+          value: false,
           comment: "Please provide parameters"
         });
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -512,13 +512,13 @@ module.exports = {
         User.searchmail(req.body, print);
       } else {
         res.json({
-          value: "false",
+          value: false,
           comment: "Please provide parameters"
         });
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -532,13 +532,13 @@ module.exports = {
         User.delete(req.body, print);
       } else {
         res.json({
-          value: "false",
+          value: false,
           comment: "User-id is incorrect"
         });
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -551,7 +551,7 @@ module.exports = {
             req.session.passport = {
               user: data
             };
-            if (req.session.cart && req.session.cart.items.length > 0) {
+            if (req.session.cart && req.session.cart.items && req.session.cart.items.length > 0) {
               var i = 0;
               _.each(req.session.cart.items, function(art) {
                 art.id = req.session.passport.user.id;
@@ -577,13 +577,13 @@ module.exports = {
         User.login(req.body, print);
       } else {
         res.json({
-          value: "false",
+          value: false,
           comment: "Please provide parameters"
         });
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -597,13 +597,13 @@ module.exports = {
         User.adminlogin(req.body, print);
       } else {
         res.json({
-          value: "false",
+          value: false,
           comment: "Please provide parameters"
         });
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -617,13 +617,13 @@ module.exports = {
         User.changepassword(req.body, print);
       } else {
         res.json({
-          value: "false",
+          value: false,
           comment: "User-id is incorrect"
         });
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -637,13 +637,13 @@ module.exports = {
         User.forgotpassword(req.body, print);
       } else {
         res.json({
-          value: "false",
+          value: false,
           comment: "Please provide parameters"
         });
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -681,13 +681,13 @@ module.exports = {
         User.findUser(req.body, print);
       } else {
         res.json({
-          value: "false",
+          value: false,
           comment: "Please provide parameters"
         });
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -701,13 +701,13 @@ module.exports = {
         User.findCust(req.body, print);
       } else {
         res.json({
-          value: "false",
+          value: false,
           comment: "Please provide parameters"
         });
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -721,13 +721,13 @@ module.exports = {
         User.userbytype(req.body, print);
       } else {
         res.json({
-          value: "false",
+          value: false,
           comment: "Please provide parameters"
         });
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -1277,7 +1277,7 @@ module.exports = {
           user();
         } else {
           res.json({
-            value: "false",
+            value: false,
             comment: "User-id is incorrect"
           });
         }
@@ -1293,9 +1293,52 @@ module.exports = {
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
+  },
+  sendMail: function(req, res) {
+    sails.query(function(err, db) {
+      if (err) {
+        console.log(err);
+        res.json({
+          value: false
+        });
+      } else {
+        var obj = {
+          "api_key": "47e02d2b10604fc81304a5837577e286",
+          "email_details": {
+            "fromname": sails.fromName,
+            "subject": "Welcome %23",
+            "from": sails.fromEmail,
+            "replytoid": "vigwohlig@gmail.com"
+          },
+          "settings": {
+            "template": "2210",
+          },
+          "recipients": ["vigwohlig@gmail.com","dhaval@wohlig.com"],
+          "attributes": {
+            "NAME": ["SION1"]
+          }
+        };
+        sails.request.get({
+          url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+        }, function(err, httpResponse, body) {
+          if (err) {
+            res.json({
+              value: false
+            });
+            db.close();
+          } else {
+            res.json({
+              value: true,
+              comment: "Mail sent"
+            });
+            db.close();
+          }
+        });
+      }
+    });
   }
 };

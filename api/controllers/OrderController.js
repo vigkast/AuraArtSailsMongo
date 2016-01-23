@@ -39,7 +39,7 @@ module.exports = {
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -53,13 +53,13 @@ module.exports = {
         Order.delete(req.body, print);
       } else {
         res.json({
-          value: "false",
+          value: false,
           comment: "Order-id is incorrect"
         });
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -90,13 +90,13 @@ module.exports = {
         Order.findone(req.body, print);
       } else {
         res.json({
-          value: "false",
+          value: false,
           comment: "Slider-id is incorrect"
         });
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -116,7 +116,7 @@ module.exports = {
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }
@@ -130,13 +130,13 @@ module.exports = {
         Order.editOrder(req.body, print);
       } else {
         res.json({
-          value: "false",
+          value: false,
           comment: "Order-id is incorrect"
         });
       }
     } else {
       res.json({
-        value: "false",
+        value: false,
         comment: "Please provide parameters"
       });
     }

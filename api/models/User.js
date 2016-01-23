@@ -1628,36 +1628,20 @@
       var check = new RegExp(spacedata, "i");
       data.search = "^" + data.search;
       var checkname = new RegExp(data.search, "i");
-      if (data.type && data.type != "") {
-        var matchobj = {
-          $or: [{
-            name: {
-              '$regex': checkname
-            }
-          }, {
-            name: {
-              '$regex': check
-            }
-          }],
-          status: "approve",
-          "artwork.type": data.type,
-          accesslevel: "artist"
-        };
-      } else {
-        var matchobj = {
-          $or: [{
-            name: {
-              '$regex': checkname
-            }
-          }, {
-            name: {
-              '$regex': check
-            }
-          }],
-          status: "approve",
-          accesslevel: "artist"
-        };
-      }
+      var matchobj = {
+        $or: [{
+          name: {
+            '$regex': checkname
+          }
+        }, {
+          name: {
+            '$regex': check
+          }
+        }],
+        status: "approve",
+        "artwork.type": data.type,
+        accesslevel: "artist"
+      };
       sails.query(function(err, db) {
         if (err) {
           console.log(err);
@@ -1666,9 +1650,13 @@
           });
         }
         if (db) {
+          if (!data.type && data.type == "") {
+            delete matchobj["artwork.type"];
+          }
           db.collection("user").find(matchobj, {
             _id: 1,
-            name: 1
+            name: 1,
+            email:1
           }).sort({
             name: 1
           }).toArray(function(err, found) {
@@ -1833,8 +1821,8 @@
           });
         }
         if (db) {
-          var email = data.email;
-          delete data.email;
+          var selleremail = data.selleremail;
+          delete data.selleremail;
           if (!data._id) {
             data._id = sails.ObjectID();
             db.collection('user').insert(data, function(err, created) {
@@ -1847,23 +1835,77 @@
                 db.close();
               } else if (created) {
                 data._id = data._id.toString();
-                sails.request.get({
-                    url: "https://api.falconide.com/falconapi/web.send.rest?api_key=47e02d2b10604fc81304a5837577e286&subject=Artist %23" + data._id.substring(data._id.length - 5) + " &fromname=" + sails.fromName + "&from=" + sails.fromEmail + "&replytoid=" + email + "&content=Artist Data&recipients=" + email + "&footer=0&template=2210&clicktrack=0&ATT_STATUS=" + data.status.toUpperCase() + "&ATT_NAME=" + data.name.toUpperCase()
+                var residence = "";
+                var studio = "";
+                if (data.residence) {
+                  residence = data.residence.flatno + ", " + data.residence.bldgname + ", " + data.residence.landmark + ", " + data.residence.street + ", " + data.residence.locality + ", " + data.residence.city + ", " + data.residence.pincode + ", " + data.residence.state + ", " + data.residence.country;
+                } else {
+                  residence = "N/A";
+                }
+                if (data.work) {
+                  studio = data.work.flatno + ", " + data.work.bldgname + ", " + data.work.landmark + ", " + data.work.street + ", " + data.work.locality + ", " + data.work.city + ", " + data.work.pincode + ", " + data.work.state + ", " + data.work.country;
+                } else {
+                  studio = "N/A";
+                }
+                var obj = {
+                  "api_key": "47e02d2b10604fc81304a5837577e286",
+                  "email_details": {
+                    "fromname": sails.fromName,
+                    "subject": "Artist %23" + data._id.substring(data._id.length - 5),
+                    "from": sails.fromEmail,
+                    "replytoid": selleremail
                   },
-                  function(err, httpResponse, body) {
-                    if (err) {
-                      callback({
-                        value: false
-                      });
-                      db.close();
-                    } else {
-                      callback({
-                        value: true,
-                        comment: "Mail sent"
-                      });
-                      db.close();
-                    }
-                  });
+                  "settings": {
+                    "template": "2210",
+                  },
+                  "recipients": [data.email, selleremail],
+                  "attributes": {
+                    "NAME": [data.name],
+                    "SELLEREMAIL": [selleremail],
+                    "GENDER": [data.gender],
+                    "EMAIL": [data.email],
+                    "CCM": [data.personal.countrycode],
+                    "MOB": [data.personal.mob],
+                    "CCW": [data.work.countrycode],
+                    "CICW": [data.work.citycode],
+                    "WNO": [data.work.work],
+                    "CCR": [data.residence.countrycode],
+                    "CICR": [data.residence.citycode],
+                    "RNO": [data.residence.home],
+                    "RADD": [residence],
+                    "SADD": [studio],
+                    "DOB": [data.dob],
+                    "SOB": [data.stateofb],
+                    "WOA": [data.woa],
+                    "GALLERY": [data.galleries],
+                    "CLINK": [data.clink],
+                    "EBOOK": [data.eblink],
+                    "STATUS": [data.status],
+                    "COMMENT": [data.comment[0]]
+                  }
+                };
+                sails.request.get({
+                  url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                }, function(err, httpResponse, body) {
+                  if (err) {
+                    callback({
+                      value: false
+                    });
+                    db.close();
+                  } else if (body && body == "success") {
+                    callback({
+                      value: true,
+                      comment: "Mail sent"
+                    });
+                    db.close();
+                  } else {
+                    callback({
+                      value: false,
+                      comment: "Error"
+                    });
+                    db.close();
+                  }
+                });
               } else {
                 callback({
                   value: false,
@@ -1875,93 +1917,101 @@
           } else {
             var user = sails.ObjectID(data._id);
             delete data._id;
-            var userdata = {};
-            userdata._id = sails.ObjectID(user);
-
-            function editcall() {
-              db.collection('user').update({
-                _id: user
-              }, {
-                $set: data
-              }, function(err, updated) {
-                if (err) {
-                  console.log(err);
-                  callback({
-                    value: false,
-                    comment: "Error"
-                  });
-                  db.close();
-                } else if (updated) {
-                  callback({
-                    value: true
-                  });
-                  db.close();
+            var mydata = {};
+            mydata.comment = data.comment;
+            db.collection('user').update({
+              _id: user
+            }, {
+              $set: mydata
+            }, function(err, updated) {
+              if (err) {
+                console.log(err);
+                callback({
+                  value: false,
+                  comment: "Error"
+                });
+                db.close();
+              } else if (updated) {
+                user = user.toString();
+                var residence = "";
+                var studio = "";
+                if (data.residence) {
+                  residence = data.residence.flatno + ", " + data.residence.bldgname + ", " + data.residence.landmark + ", " + data.residence.street + ", " + data.residence.locality + ", " + data.residence.city + ", " + data.residence.pincode + ", " + data.residence.state + ", " + data.residence.country;
                 } else {
-                  callback({
-                    value: false,
-                    comment: "No data found"
-                  });
-                  db.close();
+                  residence = "N/A";
                 }
-              });
-            }
-            if (data.status && data.status != "") {
-              User.findone(userdata, function(respo) {
-                if (respo.value != false) {
-                  if (respo.status == data.status) {
-                    editcall();
-                  } else {
-                    db.collection('user').update({
-                      _id: user
-                    }, {
-                      $set: data
-                    }, function(err, updated) {
-                      if (err) {
-                        console.log(err);
-                        callback({
-                          value: false,
-                          comment: "Error"
-                        });
-                        db.close();
-                      } else if (updated) {
-                        user = user.toString();
-                        sails.request.get({
-                            url: "https://api.falconide.com/falconapi/web.send.rest?api_key=47e02d2b10604fc81304a5837577e286&subject=Artist %23" + user.substring(user.length - 5) + " &fromname=" + sails.fromName + "&from=" + sails.fromEmail + "&replytoid=" + email + "&content=Artist Data&recipients=" + email + "&footer=0&template=2210&clicktrack=0&ATT_STATUS=" + data.status.toUpperCase() + "&ATT_NAME=" + respo.name.toUpperCase()
-                          },
-                          function(err, httpResponse, body) {
-                            if (err) {
-                              callback({
-                                value: false
-                              });
-                              db.close();
-                            } else {
-                              callback({
-                                value: true,
-                                comment: "Mail sent"
-                              });
-                              db.close();
-                            }
-                          });
-                      } else {
-                        callback({
-                          value: false,
-                          comment: "No data found"
-                        });
-                        db.close();
-                      }
-                    });
+                if (data.work) {
+                  studio = data.work.flatno + ", " + data.work.bldgname + ", " + data.work.landmark + ", " + data.work.street + ", " + data.work.locality + ", " + data.work.city + ", " + data.work.pincode + ", " + data.work.state + ", " + data.work.country;
+                } else {
+                  studio = "N/A";
+                }
+                var obj = {
+                  "api_key": "47e02d2b10604fc81304a5837577e286",
+                  "email_details": {
+                    "fromname": sails.fromName,
+                    "subject": "Artist %23" + user.substring(user.length - 5),
+                    "from": sails.fromEmail,
+                    "replytoid": selleremail
+                  },
+                  "settings": {
+                    "template": "2210",
+                  },
+                  "recipients": [selleremail],
+                  "attributes": {
+                    "NAME": [data.name],
+                    "SELLEREMAIL": [selleremail],
+                    "GENDER": [data.gender],
+                    "EMAIL": [data.email],
+                    "CCM": [data.personal.countrycode],
+                    "MOB": [data.personal.mob],
+                    "CCW": [data.work.countrycode],
+                    "CICW": [data.work.citycode],
+                    "WNO": [data.work.work],
+                    "CCR": [data.residence.countrycode],
+                    "CICR": [data.residence.citycode],
+                    "RNO": [data.residence.home],
+                    "RADD": [residence],
+                    "SADD": [studio],
+                    "DOB": [data.dob],
+                    "SOB": [data.stateofb],
+                    "WOA": [data.woa],
+                    "GALLERY": [data.galleries],
+                    "CLINK": [data.clink],
+                    "EBOOK": [data.eblink],
+                    "STATUS": [data.status],
+                    "COMMENT": [data.comment[data.comment.length - 1]]
                   }
-                } else {
-                  callback({
-                    value: false,
-                    comment: "No data found"
-                  });
-                  db.close();
-                }
-              });
-            } else {
-              editcall();
-            }
+                };
+                sails.request.get({
+                  url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                }, function(err, httpResponse, body) {
+                  if (err) {
+                    callback({
+                      value: false
+                    });
+                    db.close();
+                  } else if (body && body == "success") {
+                    callback({
+                      value: true,
+                      comment: "Mail sent"
+                    });
+                    db.close();
+                  } else {
+                    callback({
+                      value: false,
+                      comment: "Error"
+                    });
+                    db.close();
+                  }
+                });
+              } else {
+                callback({
+                  value: false,
+                  comment: "No data found"
+                });
+                db.close();
+              }
+            });
           }
         }
       });

@@ -13,7 +13,7 @@ module.exports = {
                     thought();
                 } else {
                     res.json({
-                        value: "false",
+                        value: false,
                         comment: "Thought-id is incorrect"
                     });
                 }
@@ -29,7 +29,7 @@ module.exports = {
             }
         } else {
             res.json({
-                value: "false",
+                value: false,
                 comment: "Please provide parameters"
             });
         }
@@ -43,13 +43,13 @@ module.exports = {
                 Thought.delete(req.body, print);
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "Thought-id is incorrect"
                 });
             }
         } else {
             res.json({
-                value: "false",
+                value: false,
                 comment: "Please provide parameters"
             });
         }
@@ -69,13 +69,13 @@ module.exports = {
                 Thought.findone(req.body, print);
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "Thought-id is incorrect"
                 });
             }
         } else {
             res.json({
-                value: "false",
+                value: false,
                 comment: "Please provide parameters"
             });
         }
@@ -95,7 +95,7 @@ module.exports = {
             }
         } else {
             res.json({
-                value: "false",
+                value: false,
                 comment: "Please provide parameters"
             });
         }

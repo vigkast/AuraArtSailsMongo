@@ -13,7 +13,7 @@ module.exports = {
                     artmedium();
                 } else {
                     res.json({
-                        value: "false",
+                        value: false,
                         comment: "ArtMedium-id is incorrect"
                     });
                 }
@@ -83,7 +83,7 @@ module.exports = {
                 ArtMedium.findone(req.body, print);
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "ArtMedium-id is incorrect"
                 });
             }
@@ -103,7 +103,7 @@ module.exports = {
                 ArtMedium.delete(req.body, print);
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "ArtMedium-id is incorrect"
                 });
             }

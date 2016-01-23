@@ -13,7 +13,7 @@ module.exports = {
                     event();
                 } else {
                     res.json({
-                        value: "false",
+                        value: false,
                         comment: "Press-id is incorrect"
                     });
                 }
@@ -29,7 +29,7 @@ module.exports = {
             }
         } else {
             res.json({
-                value: "false",
+                value: false,
                 comment: "Please provide parameters"
             });
         }
@@ -43,13 +43,13 @@ module.exports = {
                 Press.delete(req.body, print);
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "Press-id is incorrect"
                 });
             }
         } else {
             res.json({
-                value: "false",
+                value: false,
                 comment: "Please provide parameters"
             });
         }
@@ -69,13 +69,13 @@ module.exports = {
                 Press.findone(req.body, print);
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "Press-id is incorrect"
                 });
             }
         } else {
             res.json({
-                value: "false",
+                value: false,
                 comment: "Please provide parameters"
             });
         }
@@ -95,7 +95,7 @@ module.exports = {
             }
         } else {
             res.json({
-                value: "false",
+                value: false,
                 comment: "Please provide parameters"
             });
         }

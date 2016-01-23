@@ -13,7 +13,7 @@ module.exports = {
                     user();
                 } else {
                     res.json({
-                        value: "false",
+                        value: false,
                         comment: "Slider-id is incorrect"
                     });
                 }
@@ -29,7 +29,7 @@ module.exports = {
             }
         } else {
             res.json({
-                value: "false",
+                value: false,
                 comment: "Please provide parameters"
             });
         }
@@ -43,13 +43,13 @@ module.exports = {
                 Slider.delete(req.body, print);
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "Slider-id is incorrect"
                 });
             }
         } else {
             res.json({
-                value: "false",
+                value: false,
                 comment: "Please provide parameters"
             });
         }
@@ -69,13 +69,13 @@ module.exports = {
                 Slider.findone(req.body, print);
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "Slider-id is incorrect"
                 });
             }
         } else {
             res.json({
-                value: "false",
+                value: false,
                 comment: "Please provide parameters"
             });
         }
@@ -95,7 +95,7 @@ module.exports = {
             }
         } else {
             res.json({
-                value: "false",
+                value: false,
                 comment: "Please provide parameters"
             });
         }

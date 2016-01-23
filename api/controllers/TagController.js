@@ -13,7 +13,7 @@ module.exports = {
                     theme();
                 } else {
                     res.json({
-                        value: "false",
+                        value: false,
                         comment: "Tag-id is incorrect"
                     });
                 }
@@ -43,7 +43,7 @@ module.exports = {
                 Tag.delete(req.body, print);
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "Tag-id is incorrect"
                 });
             }
@@ -83,7 +83,7 @@ module.exports = {
                 Tag.findone(req.body, print);
             } else {
                 res.json({
-                    value: "false",
+                    value: false,
                     comment: "Tag-id is incorrect"
                 });
             }

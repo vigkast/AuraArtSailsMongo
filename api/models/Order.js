@@ -32,7 +32,7 @@ module.exports = {
           newdata.packing = data.packing;
           newdata.vat = data.vat;
           newdata.comment = data.comment;
-          newdata.status = "Pending";
+          newdata.status = "pending";
           newdata._id = sails.ObjectID();
           newdata.cart = data.cart;
           newdata.orderid = "#O";
@@ -406,36 +406,79 @@ module.exports = {
       } else if (db) {
         var order = sails.ObjectID(data._id);
         delete data._id;
-        db.collection('order').update({
-          _id: order
-        }, {
-          $set: data
-        }, function(err, updated) {
-          if (err) {
-            console.log(err);
-            callback({
-              value: false
-            });
-            db.close();
-          } else if (updated.result.nModified != 0 && updated.result.n != 0) {
-            callback({
-              value: true
-            });
-            db.close();
-          } else if (updated.result.nModified == 0 && updated.result.n != 0) {
-            callback({
-              value: true,
-              comment: "Data already updated"
-            });
-            db.close();
-          } else {
-            callback({
-              value: false,
-              comment: "No data found"
-            });
-            db.close();
-          }
-        });
+        if (data.value == true) {
+          db.collection('order').update({
+            _id: order
+          }, {
+            $set: {
+              status : "payment"
+            }
+          }, function(err, updated) {
+            if (err) {
+              console.log(err);
+              callback({
+                value: false
+              });
+              db.close();
+            } else if (updated) {
+              var i=0;
+              _.each(data.cart, function(z) {
+                z._id = sails.ObjectID(z._id);
+                Artwork.save({
+                  _id: sails.ObjectID(z._id),
+                  status: "sold"
+                }, function(artRespo) {
+                  i++;
+                  if (i == data.cart.length) {
+                    callback({
+                      value: true,
+                      comment: "Updated"
+                    });
+                  }
+                });
+              });
+            } else {
+              callback({
+                value: false,
+                comment: "No data found"
+              });
+              db.close();
+            }
+          });
+        } else {
+          db.collection('order').update({
+            _id: order
+          }, {
+            $set: {
+              status : "cancel"
+            }
+          }, function(err, updated) {
+            if (err) {
+              console.log(err);
+              callback({
+                value: false
+              });
+              db.close();
+            } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+              callback({
+                value: true
+              });
+              db.close();
+            } else if (updated.result.nModified == 0 && updated.result.n != 0) {
+              callback({
+                value: true,
+                comment: "Data already updated"
+              });
+              db.close();
+            } else {
+              callback({
+                value: false,
+                comment: "No data found"
+              });
+              db.close();
+            }
+          });
+        }
       }
     });
   }
