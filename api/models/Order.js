@@ -147,32 +147,35 @@ module.exports = {
           for (var i = 0; i < 8; i++) {
             data.orderid += possible.charAt(Math.floor(Math.random() * possible.length));
           }
-          data.name = data.billing.name;
-          data.email = data.billing.email;
-          data.mobileno = data.billing.mobileno;
+          if (data.billing) {
+            data.name = data.billing.name;
+            data.email = data.billing.email;
+            data.mobileno = data.billing.mobileno;
+          }
           callme();
-          function callme(){
-          db.collection('order').insert(data, function(err, created) {
-            if (err) {
-              console.log(err);
-              callback({
-                value: false
-              });
-              db.close();
-            } else if (created) {
-              callback({
-                id: data._id
-              });
-              db.close();
-            } else {
-              callback({
-                value: false,
-                comment: "Not created"
-              });
-              db.close();
-            }
-          });
-        }
+
+          function callme() {
+            db.collection('order').insert(data, function(err, created) {
+              if (err) {
+                console.log(err);
+                callback({
+                  value: false
+                });
+                db.close();
+              } else if (created) {
+                callback({
+                  id: data._id
+                });
+                db.close();
+              } else {
+                callback({
+                  value: false,
+                  comment: "Not created"
+                });
+                db.close();
+              }
+            });
+          }
         } else {
           var order = sails.ObjectID(data._id);
           delete data._id;
@@ -298,8 +301,8 @@ module.exports = {
             db.close();
           } else {
             callback({
-              value:false,
-              comment:"No data found"
+              value: false,
+              comment: "No data found"
             });
             db.close();
           }
