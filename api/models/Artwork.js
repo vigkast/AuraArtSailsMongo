@@ -7,6 +7,7 @@
 
 module.exports = {
   save: function(data, callback) {
+    data.srno = parseInt(data.srno);
     var user = sails.ObjectID(data.user);
     delete data.user;
     if (data.reseller && data.reseller.length > 0) {
@@ -108,6 +109,7 @@ module.exports = {
     var user = sails.ObjectID(data.user);
     delete data.user;
     data.reseller[0].email = data.selleremail;
+    data.srno = parseInt(data.srno);
     var email = data.email;
     var selleremail = data.selleremail;
     var sellername = data.sellername;
@@ -256,6 +258,7 @@ module.exports = {
             }
           });
         } else {
+          data.srno = parseInt(data.srno);
           data._id = sails.ObjectID(data._id);
           tobechanged = {};
           var attribute = "artwork.$.";
@@ -307,7 +310,7 @@ module.exports = {
                 "settings": {
                   "template": "2211",
                 },
-                "recipients": [selleremail,email],
+                "recipients": [selleremail, email],
                 "attributes": {
                   "NAME": [data.name],
                   "ANAME": [artistname],
@@ -385,7 +388,7 @@ module.exports = {
     delete data.selleremail;
     delete data.sellername;
     delete data.artistname;
-    console.log(data);
+    data.srno = parseInt(data.srno);
     sails.query(function(err, db) {
       if (err) {
         console.log(err);
@@ -1067,6 +1070,7 @@ module.exports = {
     var user = sails.ObjectID(data.user);
     delete data.user;
     data._id = sails.ObjectID();
+    data.srno = parseInt(data.srno);
     sails.query(function(err, db) {
       if (err) {
         console.log(err);
@@ -2316,54 +2320,139 @@ module.exports = {
   nextartwork: function(data, callback) {
     if (data.type && data.type == "prev") {
       var mysr = parseInt(data.srno) - 1;
-    } else {
-      var mysr = parseInt(data.srno) + 1;
-    }
-    sails.query(function(err, db) {
-      if (err) {
-        console.log(err);
-        callback({
-          value: false,
-          comment: "Error"
-        });
-      } else if (db) {
-        db.collection('user').aggregate([{
-          $match: {
-            accesslevel: "artist"
-          }
-        }, {
-          $unwind: "$artwork"
-        }, {
-          $match: {
-            "artwork.srno": mysr
-          }
-        }, {
-          $project: {
-            _id: 1,
-            name: 1,
-            artwork: 1
-          }
-        }]).toArray(function(err, found) {
-          if (found && found[0]) {
-            callback(found[0]);
-            db.close();
-          } else if (err) {
+
+      function callminus() {
+        sails.query(function(err, db) {
+          if (err) {
             console.log(err);
             callback({
               value: false,
               comment: "Error"
             });
-            db.close();
-          } else {
-            callback({
-              value: false,
-              comment: "No data found"
+          } else if (db) {
+            db.collection('user').aggregate([{
+              $match: {
+                accesslevel: "artist"
+              }
+            }, {
+              $unwind: "$artwork"
+            }, {
+              $match: {
+                "artwork.srno": mysr,
+                "artwork.status": "approve"
+              }
+            }, {
+              $project: {
+                _id: 1,
+                name: 1,
+                artwork: 1
+              }
+            }]).toArray(function(err, found) {
+              if (found && found[0]) {
+                callback(found[0]);
+                db.close();
+              } else if (err) {
+                console.log(err);
+                callback({
+                  value: false,
+                  comment: "Error"
+                });
+                db.close();
+              } else {
+                mysr = mysr - 1;
+                Artwork.lastsr(data, function(srespo) {
+                  if (mysr < srespo.srno && mysr > 0) {
+                    callminus();
+                  } else {
+                    callback({
+                      value: false,
+                      comment: "No data found"
+                    });
+                  }
+                });
+              }
             });
-            db.close();
           }
         });
       }
-    });
+      Artwork.lastsr(data, function(srespo) {
+        if (mysr < srespo.srno && mysr > 0) {
+          callminus();
+        } else {
+          callback({
+            value: false,
+            comment: "No data found"
+          });
+        }
+      });
+    } else {
+      var mysr = parseInt(data.srno) + 1;
+
+      function callplus() {
+        sails.query(function(err, db) {
+          if (err) {
+            console.log(err);
+            callback({
+              value: false,
+              comment: "Error"
+            });
+          } else if (db) {
+            db.collection('user').aggregate([{
+              $match: {
+                accesslevel: "artist"
+              }
+            }, {
+              $unwind: "$artwork"
+            }, {
+              $match: {
+                "artwork.srno": mysr,
+                "artwork.status": "approve"
+              }
+            }, {
+              $project: {
+                _id: 1,
+                name: 1,
+                artwork: 1
+              }
+            }]).toArray(function(err, found) {
+              if (found && found[0]) {
+                callback(found[0]);
+                db.close();
+              } else if (err) {
+                console.log(err);
+                callback({
+                  value: false,
+                  comment: "Error"
+                });
+                db.close();
+              } else {
+                mysr = mysr + 1;
+                Artwork.lastsr(data, function(srespo) {
+                  if (mysr < srespo.srno && mysr > 0) {
+                    callplus();
+                  } else {
+                    callback({
+                      value: false,
+                      comment: "No data found"
+                    });
+                  }
+                });
+              }
+            });
+          }
+        });
+      }
+      Artwork.lastsr(data, function(srespo) {
+        if (mysr < srespo.srno && mysr > 0) {
+          callplus();
+        } else {
+          callback({
+            value: false,
+            comment: "No data found"
+          });
+        }
+      });
+    }
   },
   findMyArtwork: function(data, callback) {
     sails.query(function(err, db) {
