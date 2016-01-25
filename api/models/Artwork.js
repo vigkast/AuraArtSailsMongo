@@ -107,6 +107,7 @@ module.exports = {
   saveFront: function(data, callback) {
     var user = sails.ObjectID(data.user);
     delete data.user;
+    data.reseller[0].email = data.selleremail;
     var email = data.email;
     var selleremail = data.selleremail;
     var sellername = data.sellername;
@@ -180,6 +181,7 @@ module.exports = {
               } else {
                 other = "N/A";
               }
+              data._id = data._id.toString();
               var obj = {
                 "api_key": "47e02d2b10604fc81304a5837577e286",
                 "email_details": {
@@ -224,7 +226,6 @@ module.exports = {
                   "COMMENT": [data.chat[0].comment]
                 }
               };
-              console.log(obj);
               sails.request.get({
                 url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
               }, function(err, httpResponse, body) {
@@ -259,7 +260,7 @@ module.exports = {
           tobechanged = {};
           var attribute = "artwork.$.";
           _.forIn({
-            comment: data.comment
+            chat: data.chat
           }, function(value, key) {
             tobechanged[attribute + key] = value;
           });
@@ -294,6 +295,7 @@ module.exports = {
               } else {
                 other = "N/A";
               }
+              data._id = data._id.toString();
               var obj = {
                 "api_key": "47e02d2b10604fc81304a5837577e286",
                 "email_details": {
@@ -305,7 +307,7 @@ module.exports = {
                 "settings": {
                   "template": "2211",
                 },
-                "recipients": [email, selleremail],
+                "recipients": [selleremail,email],
                 "attributes": {
                   "NAME": [data.name],
                   "ANAME": [artistname],
@@ -373,6 +375,8 @@ module.exports = {
     });
   },
   saveBack: function(data, callback) {
+    var user = sails.ObjectID(data.user);
+    delete data.user;
     var email = data.email;
     var selleremail = data.selleremail;
     var sellername = data.sellername;
@@ -381,6 +385,7 @@ module.exports = {
     delete data.selleremail;
     delete data.sellername;
     delete data.artistname;
+    console.log(data);
     sails.query(function(err, db) {
       if (err) {
         console.log(err);
@@ -426,6 +431,7 @@ module.exports = {
             } else {
               other = "N/A";
             }
+            data._id = data._id.toString();
             var obj = {
               "api_key": "47e02d2b10604fc81304a5837577e286",
               "email_details": {
@@ -562,10 +568,13 @@ module.exports = {
           _id: user,
           "artwork._id": sails.ObjectID(data._id)
         }, {
+          email: 1,
+          name: 1,
           "artwork.$": 1
         }).toArray(function(err, data2) {
-          console.log(data2);
           if (data2 && data2[0] && data2[0].artwork && data2[0].artwork[0]) {
+            data2[0].artwork[0].email = data2[0].email;
+            data2[0].artwork[0].artistname = data2[0].name;
             callback(data2[0].artwork[0]);
             db.close();
           } else if (err) {

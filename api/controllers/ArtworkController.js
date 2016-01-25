@@ -67,6 +67,33 @@ module.exports = {
       });
     }
   },
+  saveBack: function(req, res) {
+    if (req.body) {
+      if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
+        if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+          var print = function(data) {
+            res.json(data);
+          }
+          Artwork.saveBack(req.body, print);
+        } else {
+          res.json({
+            value: false,
+            comment: "Artwork-id is incorrect"
+          });
+        }
+      } else {
+        res.json({
+          value: false,
+          comment: "user-id is incorrect "
+        });
+      }
+    } else {
+      res.json({
+        value: false,
+        comment: "Please provide parameters"
+      });
+    }
+  },
   delete: function(req, res) {
     if (req.body) {
       if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {

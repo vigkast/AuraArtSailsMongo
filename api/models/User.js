@@ -332,7 +332,11 @@
                 }
               }],
               status: data.status,
-              accesslevel: accesslevel
+              $or: [{
+                accesslevel: "customer"
+              }, {
+                accesslevel: "reseller"
+              }]
             };
             callbackfunc1();
           }
@@ -1650,13 +1654,67 @@
           });
         }
         if (db) {
-          if (!data.type && data.type == "") {
+          if (!data.type || data.type == "") {
             delete matchobj["artwork.type"];
           }
           db.collection("user").find(matchobj, {
             _id: 1,
             name: 1,
-            email:1
+            email: 1
+          }).sort({
+            name: 1
+          }).toArray(function(err, found) {
+            if (err) {
+              callback({
+                value: false
+              });
+              console.log(err);
+              db.close();
+            } else if (found && found[0]) {
+              callback(found);
+              db.close();
+            } else {
+              callback({
+                value: false,
+                comment: "No data found"
+              });
+              db.close();
+            }
+          });
+        }
+      });
+    },
+    findforart: function(data, callback) {
+      var spacedata = data.search;
+      spacedata = "\\s" + spacedata;
+      var check = new RegExp(spacedata, "i");
+      data.search = "^" + data.search;
+      var checkname = new RegExp(data.search, "i");
+      var matchobj = {
+        $or: [{
+          name: {
+            '$regex': checkname
+          }
+        }, {
+          name: {
+            '$regex': check
+          }
+        }],
+        status: "approve",
+        accesslevel: "artist"
+      };
+      sails.query(function(err, db) {
+        if (err) {
+          console.log(err);
+          callback({
+            value: false
+          });
+        }
+        if (db) {
+          db.collection("user").find(matchobj, {
+            _id: 1,
+            name: 1,
+            email: 1
           }).sort({
             name: 1
           }).toArray(function(err, found) {
@@ -1708,7 +1766,8 @@
         if (db) {
           db.collection("user").find(matchobj, {
             _id: 1,
-            name: 1
+            name: 1,
+            email: 1
           }).sort({
             name: 1
           }).toArray(function(err, found) {
@@ -1881,7 +1940,7 @@
                     "CLINK": [data.clink],
                     "EBOOK": [data.eblink],
                     "STATUS": [data.status],
-                    "COMMENT": [data.comment[0]]
+                    "COMMENT": [data.chat[0].comment]
                   }
                 };
                 sails.request.get({
@@ -1979,7 +2038,7 @@
                     "CLINK": [data.clink],
                     "EBOOK": [data.eblink],
                     "STATUS": [data.status],
-                    "COMMENT": [data.comment[data.comment.length - 1]]
+                    "COMMENT": [data.chat[data.chat.length - 1].comment]
                   }
                 };
                 sails.request.get({

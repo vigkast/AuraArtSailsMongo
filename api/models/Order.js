@@ -407,11 +407,12 @@ module.exports = {
         var order = sails.ObjectID(data._id);
         delete data._id;
         if (data.value == true) {
+
           db.collection('order').update({
             _id: order
           }, {
             $set: {
-              status : "payment"
+              status: data.status
             }
           }, function(err, updated) {
             if (err) {
@@ -421,11 +422,11 @@ module.exports = {
               });
               db.close();
             } else if (updated) {
-              var i=0;
+              var i = 0;
               _.each(data.cart, function(z) {
-                z._id = sails.ObjectID(z._id);
                 Artwork.save({
-                  _id: sails.ObjectID(z._id),
+                  user: sails.ObjectID(z._id),
+                  _id: sails.ObjectID(z.artwork._id),
                   status: "sold"
                 }, function(artRespo) {
                   i++;
@@ -450,7 +451,7 @@ module.exports = {
             _id: order
           }, {
             $set: {
-              status : "cancel"
+              status: data.status
             }
           }, function(err, updated) {
             if (err) {
@@ -459,17 +460,23 @@ module.exports = {
                 value: false
               });
               db.close();
-            } else if (updated.result.nModified != 0 && updated.result.n != 0) {
-              callback({
-                value: true
+            } else if (updated) {
+              var i = 0;
+              _.each(data.cart, function(z) {
+                Artwork.save({
+                  user: sails.ObjectID(z._id),
+                  _id: sails.ObjectID(z.artwork._id),
+                  status: "approve"
+                }, function(artRespo) {
+                  i++;
+                  if (i == data.cart.length) {
+                    callback({
+                      value: true,
+                      comment: "Updated"
+                    });
+                  }
+                });
               });
-              db.close();
-            } else if (updated.result.nModified == 0 && updated.result.n != 0) {
-              callback({
-                value: true,
-                comment: "Data already updated"
-              });
-              db.close();
             } else {
               callback({
                 value: false,

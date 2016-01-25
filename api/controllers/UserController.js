@@ -545,7 +545,7 @@ module.exports = {
   },
   login: function(req, res) {
     if (req.body) {
-      if (req.body.email && req.body.email != "" && req.body.password && req.body.password != "") {
+      if (req.body.email && req.body.email != "" && req.body.email != "wohlig@wohlig.com" && req.body.password && req.body.password != "") {
         var print = function(data) {
           if (data.value != false) {
             req.session.passport = {
@@ -679,6 +679,26 @@ module.exports = {
           res.json(data);
         }
         User.findUser(req.body, print);
+      } else {
+        res.json({
+          value: false,
+          comment: "Please provide parameters"
+        });
+      }
+    } else {
+      res.json({
+        value: false,
+        comment: "Please provide parameters"
+      });
+    }
+  },
+  findforart: function(req, res) {
+    if (req.body) {
+      if (req.body.search && req.body.search != "") {
+        var print = function(data) {
+          res.json(data);
+        }
+        User.findforart(req.body, print);
       } else {
         res.json({
           value: false,
@@ -1317,7 +1337,7 @@ module.exports = {
           "settings": {
             "template": "2210",
           },
-          "recipients": ["vigwohlig@gmail.com","dhaval@wohlig.com"],
+          "recipients": ["vigwohlig@gmail.com", "dhaval@wohlig.com"],
           "attributes": {
             "NAME": ["SION1"]
           }
