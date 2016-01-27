@@ -1292,6 +1292,30 @@ module.exports = {
   },
   saveArtist: function(req, res) {
     if (req.body) {
+      if (req.session.passport) {
+        req.body.selleremail = req.session.passport.user.email;
+      } else {
+        res.json({
+          value: false,
+          comment: "User not logged in"
+        });
+      }
+
+      function user() {
+        var print = function(data) {
+          res.json(data);
+        }
+        User.saveArtist(req.body, print);
+      }
+    } else {
+      res.json({
+        value: false,
+        comment: "Please provide parameters"
+      });
+    }
+  },
+  saveBack: function(req, res) {
+    if (req.body) {
       if (req.body._id) {
         if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
           user();
@@ -1309,7 +1333,7 @@ module.exports = {
         var print = function(data) {
           res.json(data);
         }
-        User.saveArtist(req.body, print);
+        User.saveBack(req.body, print);
       }
     } else {
       res.json({
