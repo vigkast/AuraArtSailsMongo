@@ -1294,6 +1294,7 @@ module.exports = {
     if (req.body) {
       if (req.session.passport) {
         req.body.selleremail = req.session.passport.user.email;
+        user();
       } else {
         res.json({
           value: false,
