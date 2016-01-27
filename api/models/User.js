@@ -1940,7 +1940,7 @@
                     "CLINK": [data.clink],
                     "EBOOK": [data.eblink],
                     "STATUS": [data.status],
-                    "COMMENT": [data.chat[0].comment]
+                    "COMMENT": [data.comment]
                   }
                 };
                 sails.request.get({
@@ -2038,7 +2038,7 @@
                     "CLINK": [data.clink],
                     "EBOOK": [data.eblink],
                     "STATUS": [data.status],
-                    "COMMENT": [data.chat[data.chat.length - 1].comment]
+                    "COMMENT": [data.comment]
                   }
                 };
                 sails.request.get({
