@@ -937,34 +937,24 @@ module.exports = {
         var sortnum = parseInt(data.sort);
         var sort = {};
         sort['artwork.' + data.filter] = sortnum;
-        if (data.type && data.type != "") {
-          var matchobj = {
-            "artwork.name": {
-              $exists: true
-            },
-            "artwork.name": {
-              $regex: check
-            },
-            "artwork.type": data.type,
-            "artwork.status": data.status
-          };
-          callbackfunc1();
-        } else {
-          var matchobj = {
-            "artwork.name": {
-              $exists: true
-            },
-            "artwork.name": {
-              $regex: check
-            },
-            "artwork.status": data.status
-          };
-          callbackfunc1();
-        }
+        var matchobj = {
+          "artwork.name": {
+            $exists: true
+          },
+          "artwork.name": {
+            $regex: check
+          },
+          "artwork.type": data.type,
+          "artwork.status": data.status
+        };
+        callbackfunc1();
 
         function callbackfunc1() {
           if (!data.status || data.status == "" || data.status == "All") {
             delete matchobj["artwork.status"];
+          }
+          if (!data.type || data.type == "") {
+            delete matchobj["artwork.type"];
           }
           db.collection("user").aggregate([{
             $match: matchobj
