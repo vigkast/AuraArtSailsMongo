@@ -172,13 +172,7 @@
           }
         });
       }
-      if (data.artwork && data.artwork.length > 0) {
-        _.each(data.artwork, function(e) {
-          if (e._id && e._id != "") {
-            e._id = sails.ObjectID(e._id);
-          }
-        });
-      }
+      delete data.artwork;
       sails.query(function(err, db) {
         if (err) {
           console.log(err);
@@ -2113,6 +2107,7 @@
         if (db) {
           var user = sails.ObjectID(data._id);
           delete data._id;
+          delete data.artwork;
           db.collection('user').update({
             _id: user
           }, {

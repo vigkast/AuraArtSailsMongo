@@ -168,6 +168,7 @@ module.exports = {
               var residence = "";
               var studio = "";
               var other = "";
+              var comment = "";
               if (data.residence) {
                 residence = data.residence.flatno + ", " + data.residence.bldgname + ", " + data.residence.landmark + ", " + data.residence.street + ", " + data.residence.locality + ", " + data.residence.city + ", " + data.residence.pincode + ", " + data.residence.state + ", " + data.residence.country;
               } else {
@@ -182,6 +183,11 @@ module.exports = {
                 other = data.other.flatno + ", " + data.other.bldgname + ", " + data.other.landmark + ", " + data.other.street + ", " + data.other.locality + ", " + data.other.city + ", " + data.other.pincode + ", " + data.other.state + ", " + data.other.country;
               } else {
                 other = "N/A";
+              }
+              if (data.chat && data.chat.length > 0) {
+                comment = data.chat[0].comment;
+              } else {
+                comment = "N/A";
               }
               data._id = data._id.toString();
               var obj = {
@@ -225,7 +231,7 @@ module.exports = {
                   "RADD": [residence],
                   "SADD": [studio],
                   "OADD": [other],
-                  "COMMENT": [data.chat[0].comment]
+                  "COMMENT": [comment]
                 }
               };
               sails.request.get({
@@ -283,6 +289,7 @@ module.exports = {
               var residence = "";
               var studio = "";
               var other = "";
+              var comment = "";
               if (data.residence) {
                 residence = data.residence.flatno + ", " + data.residence.bldgname + ", " + data.residence.landmark + ", " + data.residence.street + ", " + data.residence.locality + ", " + data.residence.city + ", " + data.residence.pincode + ", " + data.residence.state + ", " + data.residence.country;
               } else {
@@ -297,6 +304,11 @@ module.exports = {
                 other = data.other.flatno + ", " + data.other.bldgname + ", " + data.other.landmark + ", " + data.other.street + ", " + data.other.locality + ", " + data.other.city + ", " + data.other.pincode + ", " + data.other.state + ", " + data.other.country;
               } else {
                 other = "N/A";
+              }
+              if (data.chat && data.chat.length > 0) {
+                comment = data.chat[data.chat.length - 1].comment;
+              } else {
+                comment = "N/A";
               }
               data._id = data._id.toString();
               var obj = {
@@ -340,7 +352,7 @@ module.exports = {
                   "RADD": [residence],
                   "SADD": [studio],
                   "OADD": [other],
-                  "COMMENT": [data.chat[data.chat.length - 1].comment]
+                  "COMMENT": [comment]
                 }
               };
               sails.request.get({
@@ -440,6 +452,7 @@ module.exports = {
             var residence = "";
             var studio = "";
             var other = "";
+            var comment = "";
             if (data.residence) {
               residence = data.residence.flatno + ", " + data.residence.bldgname + ", " + data.residence.landmark + ", " + data.residence.street + ", " + data.residence.locality + ", " + data.residence.city + ", " + data.residence.pincode + ", " + data.residence.state + ", " + data.residence.country;
             } else {
@@ -454,6 +467,11 @@ module.exports = {
               other = data.other.flatno + ", " + data.other.bldgname + ", " + data.other.landmark + ", " + data.other.street + ", " + data.other.locality + ", " + data.other.city + ", " + data.other.pincode + ", " + data.other.state + ", " + data.other.country;
             } else {
               other = "N/A";
+            }
+            if (data.chat && data.chat.length > 0) {
+              comment = data.chat[data.chat.length - 1].comment;
+            } else {
+              comment = "N/A";
             }
             data._id = data._id.toString();
             var obj = {
@@ -497,7 +515,7 @@ module.exports = {
                 "RADD": [residence],
                 "SADD": [studio],
                 "OADD": [other],
-                "COMMENT": [data.chat[data.chat.length - 1].comment]
+                "COMMENT": [comment]
               }
             };
             sails.request.get({
