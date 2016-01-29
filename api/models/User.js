@@ -1870,6 +1870,27 @@
           }
         });
       }
+      if (data.artwork && data.artwork.length > 0) {
+        _.each(data.artwork, function(e) {
+          e._id = sails.ObjectID(e._id);
+          if (e.subtype && e.subtype.length > 0) {
+            _.each(e.subtype, function(s) {
+              s._id = sails.ObjectID(s._id);
+            });
+          }
+          if (e.tag && e.tag.length > 0) {
+            _.each(e.tag, function(t) {
+              if (t._id)
+                t._id = sails.ObjectID(t._id);
+            });
+          }
+          if (e.reseller && e.reseller.length > 0) {
+            _.each(e.reseller, function(r) {
+              r._id = sails.ObjectID(r._id);
+            });
+          }
+        });
+      }
       sails.query(function(err, db) {
         if (err) {
           console.log(err);
@@ -2094,6 +2115,27 @@
         _.each(data.reseller, function(e) {
           if (e._id && e._id != "") {
             e._id = sails.ObjectID(e._id);
+          }
+        });
+      }
+      if (data.artwork && data.artwork.length > 0) {
+        _.each(data.artwork, function(e) {
+          e._id = sails.ObjectID(e._id);
+          if (e.subtype && e.subtype.length > 0) {
+            _.each(e.subtype, function(s) {
+              s._id = sails.ObjectID(s._id);
+            });
+          }
+          if (e.tag && e.tag.length > 0) {
+            _.each(e.tag, function(t) {
+              if (t._id)
+                t._id = sails.ObjectID(t._id);
+            });
+          }
+          if (e.reseller && e.reseller.length > 0) {
+            _.each(e.reseller, function(r) {
+              r._id = sails.ObjectID(r._id);
+            });
           }
         });
       }

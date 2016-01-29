@@ -552,6 +552,27 @@ module.exports = {
     });
   },
   delete: function(data, callback) {
+    if (data.reseller && data.reseller.length > 0) {
+      _.each(data.reseller, function(x) {
+        if (x._id && x._id != "") {
+          x._id = sails.ObjectID(x._id);
+        }
+      });
+    }
+    if (data.subtype && data.subtype.length > 0) {
+      _.each(data.subtype, function(x) {
+        if (x._id && x._id != "") {
+          x._id = sails.ObjectID(x._id);
+        }
+      });
+    }
+    if (data.tag && data.tag.length > 0) {
+      _.each(data.tag, function(y) {
+        if (y._id && y._id != "") {
+          y._id = sails.ObjectID(y._id);
+        }
+      });
+    }
     var user = sails.ObjectID(data.user);
     delete data.user;
     data._id = sails.ObjectID(data._id);
@@ -897,6 +918,27 @@ module.exports = {
     });
   },
   deleteout: function(data, callback) {
+    if (data.reseller && data.reseller.length > 0) {
+      _.each(data.reseller, function(x) {
+        if (x._id && x._id != "") {
+          x._id = sails.ObjectID(x._id);
+        }
+      });
+    }
+    if (data.subtype && data.subtype.length > 0) {
+      _.each(data.subtype, function(x) {
+        if (x._id && x._id != "") {
+          x._id = sails.ObjectID(x._id);
+        }
+      });
+    }
+    if (data.tag && data.tag.length > 0) {
+      _.each(data.tag, function(y) {
+        if (y._id && y._id != "") {
+          y._id = sails.ObjectID(y._id);
+        }
+      });
+    }
     var user = sails.ObjectID(data.user);
     delete data.user;
     sails.query(function(err, db) {
