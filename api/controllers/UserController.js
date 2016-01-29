@@ -1385,5 +1385,26 @@ module.exports = {
         });
       }
     });
+  },
+  updateId: function(req, res) {
+    // var i = 0;
+    User.findArtist(req.body, function(respo) {
+      // res.json(respo);
+      function abc(num) {
+        more = respo[num];
+        User.updateId(more, function(use) {
+          num++;
+          console.log(num);
+          if (num == respo.length) {
+            res.json({
+              value: true
+            });
+          } else {
+            abc(num);
+          }
+        });
+      }
+      abc(0);
+    });
   }
 };

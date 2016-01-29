@@ -246,7 +246,7 @@
           } else {
             var user = sails.ObjectID(data._id);
             delete data._id;
-            db.collection('user').update({
+            db.collection("user").update({
               _id: user
             }, {
               $set: data
@@ -1122,7 +1122,7 @@
           }
           if (found && found[0]) {
             if (found[0].forgotpassword) {
-              db.collection('user').update({
+              db.collection("user").update({
                 email: data.email,
                 password: data.password
               }, {
@@ -1160,7 +1160,7 @@
               }
               if (found && found[0]) {
                 sails.ObjectID(data._id);
-                db.collection('user').update({
+                db.collection("user").update({
                   email: data.email
                 }, {
                   $set: {
@@ -1202,7 +1202,7 @@
               comment: "Error"
             });
           } else if (db) {
-            db.collection('user').update({
+            db.collection("user").update({
               "_id": user,
               "email": data.email,
               "password": data.password
@@ -1272,7 +1272,7 @@
               }
               var encrypttext = sails.md5(text);
               var user = sails.ObjectID(data2[0]._id);
-              db.collection('user').update({
+              db.collection("user").update({
                 email: data.email
               }, {
                 $set: {
@@ -1976,7 +1976,7 @@
             delete data._id;
             var mydata = {};
             mydata.comment = data.comment;
-            db.collection('user').update({
+            db.collection("user").update({
               _id: user
             }, {
               $set: mydata
@@ -2108,7 +2108,7 @@
           var user = sails.ObjectID(data._id);
           delete data._id;
           delete data.artwork;
-          db.collection('user').update({
+          db.collection("user").update({
             _id: user
           }, {
             $set: data
@@ -2203,5 +2203,120 @@
           });
         }
       });
-    }
+    },
+    updateId: function(data, callback) {
+      if (data.medium && data.medium.length > 0) {
+        _.each(data.medium, function(g) {
+          g._id = sails.ObjectID(g._id);
+        });
+      }
+      if (data.theme && data.theme.length > 0) {
+        _.each(data.theme, function(b) {
+          b._id = sails.ObjectID(b._id);
+        });
+      }
+      if (data.reseller && data.reseller.length > 0) {
+        _.each(data.reseller, function(a) {
+          a._id = sails.ObjectID(a._id);
+        });
+      }
+      if (data.artwork && data.artwork.length > 0) {
+        _.each(data.artwork, function(e) {
+          e._id = sails.ObjectID(e._id);
+          if (e.subtype && e.subtype.length > 0) {
+            _.each(e.subtype, function(s) {
+              s._id = sails.ObjectID(s._id);
+            });
+          }
+          if (e.tag && e.tag.length > 0) {
+            _.each(e.tag, function(t) {
+              if (t._id)
+                t._id = sails.ObjectID(t._id);
+            });
+          }
+          if (e.reseller && e.reseller.length > 0) {
+            _.each(e.reseller, function(r) {
+              r._id = sails.ObjectID(r._id);
+            });
+          }
+        });
+      }
+      if (1 == 1) {
+        sails.query(function(err, db) {
+          if (err) {
+            console.log(err);
+            callback({
+              value: false,
+              comment: "Error"
+            });
+          } else {
+            var user = sails.ObjectID(data._id);
+            delete data._id;
+            db.collection("user").update({
+              _id: user
+            }, {
+              $set: data
+            }, function(err, updated) {
+              if (err) {
+                console.log(err);
+                callback({
+                  value: false,
+                  comment: "Error"
+                });
+                db.close();
+              } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+                data.id = user;
+                callback(data);
+                db.close();
+              } else if (updated.result.nModified == 0 && updated.result.n != 0) {
+                callback({
+                  value: true,
+                  comment: "Data already updated"
+                });
+                db.close();
+              } else {
+                callback({
+                  value: false,
+                  comment: "No data found"
+                });
+                db.close();
+              }
+            });
+          }
+        });
+      }
+    },
+    findArtist: function(data, callback) {
+      sails.query(function(err, db) {
+        if (err) {
+          console.log(err);
+          callback({
+            value: false
+          });
+        }
+        if (db) {
+          db.collection("user").find({
+            accesslevel: "artist"
+          }).sort({
+            name: 1
+          }).toArray(function(err, found) {
+            if (err) {
+              callback({
+                value: false
+              });
+              db.close();
+            } else if (found && found[0]) {
+              callback(found);
+              db.close();
+            } else {
+              callback({
+                value: false,
+                comment: "No data found"
+              });
+              db.close();
+            }
+          });
+        }
+      });
+    },
   };
