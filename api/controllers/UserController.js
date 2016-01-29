@@ -5,7 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 // var frontend = "http://192.168.0.114/manjhi/";
-var frontend = "http://wohlig.co.in/auraart/";
+var frontend = "http://auraart.in/";
 
 var passport = require('passport'),
   TwitterStrategy = require('passport-twitter').Strategy,
