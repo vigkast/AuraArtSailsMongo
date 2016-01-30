@@ -1015,10 +1015,10 @@ module.exports = {
                                                         if (m.qualification != "") {
                                                             newdata.quali = m.qualification;
                                                         }
-                                                        if (m.institution) {
+                                                        if (m.institution != "") {
                                                             newdata.institu = m.institution;
                                                         }
-                                                        if (m.city) {
+                                                        if (m.city != "") {
                                                             newdata.city = m.city;
                                                         }
                                                         donated.edu.push(newdata);
@@ -1034,10 +1034,10 @@ module.exports = {
                                                         if (m.qualification != "") {
                                                             newdata.quali = m.qualification;
                                                         }
-                                                        if (m.institution) {
+                                                        if (m.institution != "") {
                                                             newdata.institu = m.institution;
                                                         }
-                                                        if (m.city) {
+                                                        if (m.city != "") {
                                                             newdata.city = m.city;
                                                         }
                                                         donated.edu.push(newdata);
@@ -1053,13 +1053,13 @@ module.exports = {
                                                         if (m.solotitle != "") {
                                                             solodata.title = m.solotitle;
                                                         }
-                                                        if (m.sologallery) {
+                                                        if (m.sologallery != "") {
                                                             solodata.gallery = m.sologallery;
                                                         }
-                                                        if (m.solovenue) {
+                                                        if (m.solovenue != "") {
                                                             solodata.venue = m.solovenue;
                                                         }
-                                                        if (m.solocc) {
+                                                        if (m.solocc != "") {
                                                             solodata.city = m.solocc;
                                                         }
                                                         donated.soloshow.push(solodata);
@@ -1074,13 +1074,13 @@ module.exports = {
                                                         if (m.solotitle != "") {
                                                             solodata.title = m.solotitle;
                                                         }
-                                                        if (m.sologallery) {
+                                                        if (m.sologallery != "") {
                                                             solodata.gallery = m.sologallery;
                                                         }
-                                                        if (m.solovenue) {
+                                                        if (m.solovenue != "") {
                                                             solodata.venue = m.solovenue;
                                                         }
-                                                        if (m.solocc) {
+                                                        if (m.solocc != "") {
                                                             solodata.city = m.solocc;
                                                         }
                                                         donated.soloshow.push(solodata);
@@ -1096,13 +1096,13 @@ module.exports = {
                                                         if (m.grptitle != "") {
                                                             grpdata.title = m.grptitle;
                                                         }
-                                                        if (m.grpgallery) {
+                                                        if (m.grpgallery != "") {
                                                             grpdata.gallery = m.grpgallery;
                                                         }
-                                                        if (m.grpvenue) {
+                                                        if (m.grpvenue != "") {
                                                             grpdata.venue = m.grpvenue;
                                                         }
-                                                        if (m.grpcc) {
+                                                        if (m.grpcc != "") {
                                                             grpdata.city = m.grpcc;
                                                         }
                                                         donated.groupshow.push(grpdata);
@@ -1117,13 +1117,13 @@ module.exports = {
                                                         if (m.grptitle != "") {
                                                             grpdata.title = m.grptitle;
                                                         }
-                                                        if (m.grpgallery) {
+                                                        if (m.grpgallery != "") {
                                                             grpdata.gallery = m.grpgallery;
                                                         }
-                                                        if (m.grpvenue) {
+                                                        if (m.grpvenue != "") {
                                                             grpdata.venue = m.grpvenue;
                                                         }
-                                                        if (m.grpcc) {
+                                                        if (m.grpcc != "") {
                                                             grpdata.city = m.grpcc;
                                                         }
                                                         donated.groupshow.push(grpdata);
@@ -1139,7 +1139,7 @@ module.exports = {
                                                         if (m.awardtitle != "") {
                                                             awardData.title = m.awardtitle;
                                                         }
-                                                        if (m.awardinstitution) {
+                                                        if (m.awardinstitution != "") {
                                                             awardData.institution = m.awardinstitution;
                                                         }
                                                         donated.award.push(awardData);
@@ -1154,7 +1154,7 @@ module.exports = {
                                                         if (m.awardtitle != "") {
                                                             awardData.title = m.awardtitle;
                                                         }
-                                                        if (m.awardinstitution) {
+                                                        if (m.awardinstitution != "") {
                                                             awardData.institution = m.awardinstitution;
                                                         }
                                                         donated.award.push(awardData);
@@ -1170,10 +1170,10 @@ module.exports = {
                                                         if (m.auctionhouse != "") {
                                                             auctiondata.auctionhouse = m.auctionhouse;
                                                         }
-                                                        if (m.location) {
+                                                        if (m.location != "") {
                                                             auctiondata.location = m.location;
                                                         }
-                                                        if (m.details) {
+                                                        if (m.details != "") {
                                                             auctiondata.details = m.details;
                                                         }
                                                         donated.auction.push(auctiondata);
@@ -1188,10 +1188,10 @@ module.exports = {
                                                         if (m.auctionhouse != "") {
                                                             auctiondata.auctionhouse = m.auctionhouse;
                                                         }
-                                                        if (m.location) {
+                                                        if (m.location != "") {
                                                             auctiondata.location = m.location;
                                                         }
-                                                        if (m.details) {
+                                                        if (m.details != "") {
                                                             auctiondata.details = m.details;
                                                         }
                                                         donated.auction.push(auctiondata);
