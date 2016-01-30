@@ -314,6 +314,20 @@
                           "artwork.type": data.type
                       };
                       callbackfunc1();
+                  } else if (accesslevel == "admin") {
+                      var matchobj = {
+                          $or: [{
+                              name: {
+                                  '$regex': check
+                              }
+              }, {
+                              email: {
+                                  '$regex': check
+                              }
+              }],
+                          accesslevel: accesslevel
+                      };
+                      callbackfunc1();
                   } else {
                       var matchobj = {
                           $or: [{
@@ -496,6 +510,42 @@
           }
       },
       findone: function (data, callback) {
+          sails.query(function (err, db) {
+              if (err) {
+                  console.log(err);
+                  callback({
+                      value: false
+                  });
+              }
+              if (db) {
+                  db.collection("user").find({
+                      _id: sails.ObjectID(data._id)
+                  }, {
+                      password: 0,
+                      forgotpassword: 0
+                  }).toArray(function (err, data2) {
+                      if (err) {
+                          console.log(err);
+                          callback({
+                              value: false
+                          });
+                          db.close();
+                      } else if (data2 && data2[0]) {
+                          delete data2[0].password;
+                          callback(data2[0]);
+                          db.close();
+                      } else {
+                          callback({
+                              value: false,
+                              comment: "No data found"
+                          });
+                          db.close();
+                      }
+                  });
+              }
+          });
+      },
+      findoneBack: function (data, callback) {
           sails.query(function (err, db) {
               if (err) {
                   console.log(err);
@@ -2238,14 +2288,10 @@
                                   comment: "Error"
                               });
                               db.close();
-                          } else if (updated.result.nModified != 0 && updated.result.n != 0) {
-                              data.id = user;
-                              callback(data);
-                              db.close();
-                          } else if (updated.result.nModified == 0 && updated.result.n != 0) {
+                          } else if (updated) {
                               callback({
                                   value: true,
-                                  comment: "Data already updated"
+                                  comment: "Updated"
                               });
                               db.close();
                           } else {

@@ -456,6 +456,26 @@ module.exports = {
             });
         }
     },
+    findoneBack: function (req, res) {
+        if (req.body) {
+            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                var print = function (data) {
+                    res.json(data);
+                }
+                User.findoneBack(req.body, print);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "User-id is incorrect"
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
     findoneArtist: function (req, res) {
         if (req.body) {
             if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
@@ -991,23 +1011,15 @@ module.exports = {
                                                         donated.edu = dorespo.edu;
                                                         if (m.eduyear != "") {
                                                             newdata.year = m.eduyear;
-                                                        } else {
-                                                            newdata.year = "";
                                                         }
                                                         if (m.qualification != "") {
                                                             newdata.quali = m.qualification;
-                                                        } else {
-                                                            newdata.quali = "";
                                                         }
                                                         if (m.institution) {
                                                             newdata.institu = m.institution;
-                                                        } else {
-                                                            newdata.institu = "";
                                                         }
                                                         if (m.city) {
                                                             newdata.city = m.city;
-                                                        } else {
-                                                            newdata.city = "";
                                                         }
                                                         donated.edu.push(newdata);
                                                         i++;
@@ -1018,23 +1030,15 @@ module.exports = {
                                                         donated.edu = [];
                                                         if (m.eduyear != "") {
                                                             newdata.year = m.eduyear;
-                                                        } else {
-                                                            newdata.year = "";
                                                         }
                                                         if (m.qualification != "") {
                                                             newdata.quali = m.qualification;
-                                                        } else {
-                                                            newdata.quali = "";
                                                         }
                                                         if (m.institution) {
                                                             newdata.institu = m.institution;
-                                                        } else {
-                                                            newdata.institu = "";
                                                         }
                                                         if (m.city) {
                                                             newdata.city = m.city;
-                                                        } else {
-                                                            newdata.city = "";
                                                         }
                                                         donated.edu.push(newdata);
                                                         i++;
@@ -1045,23 +1049,18 @@ module.exports = {
                                                         donated.soloshow = dorespo.soloshow;
                                                         if (m.soloyear != "") {
                                                             solodata.year = m.soloyear;
-                                                        } else {
-                                                            solodata.year = "";
                                                         }
                                                         if (m.solotitle != "") {
                                                             solodata.title = m.solotitle;
-                                                        } else {
-                                                            solodata.title = "";
                                                         }
                                                         if (m.sologallery) {
                                                             solodata.gallery = m.sologallery;
-                                                        } else {
-                                                            solodata.gallery = "";
                                                         }
                                                         if (m.solovenue) {
-                                                            solodata.city = m.solovenue;
-                                                        } else {
-                                                            solodata.city = "";
+                                                            solodata.venue = m.solovenue;
+                                                        }
+                                                        if (m.solocc) {
+                                                            solodata.city = m.solocc;
                                                         }
                                                         donated.soloshow.push(solodata);
                                                         i++;
@@ -1071,23 +1070,18 @@ module.exports = {
                                                         var solodata = {};
                                                         if (m.soloyear != "") {
                                                             solodata.year = m.soloyear;
-                                                        } else {
-                                                            solodata.year = "";
                                                         }
                                                         if (m.solotitle != "") {
                                                             solodata.title = m.solotitle;
-                                                        } else {
-                                                            solodata.title = "";
                                                         }
                                                         if (m.sologallery) {
                                                             solodata.gallery = m.sologallery;
-                                                        } else {
-                                                            solodata.gallery = "";
                                                         }
                                                         if (m.solovenue) {
-                                                            solodata.city = m.solovenue;
-                                                        } else {
-                                                            solodata.city = "";
+                                                            solodata.venue = m.solovenue;
+                                                        }
+                                                        if (m.solocc) {
+                                                            solodata.city = m.solocc;
                                                         }
                                                         donated.soloshow.push(solodata);
                                                         i++;
@@ -1098,23 +1092,18 @@ module.exports = {
                                                         donated.groupshow = dorespo.groupshow;
                                                         if (m.grpyear != "") {
                                                             grpdata.year = m.grpyear;
-                                                        } else {
-                                                            grpdata.year = "";
                                                         }
-                                                        if (m.solotitle != "") {
+                                                        if (m.grptitle != "") {
                                                             grpdata.title = m.grptitle;
-                                                        } else {
-                                                            grpdata.title = "";
                                                         }
                                                         if (m.grpgallery) {
                                                             grpdata.gallery = m.grpgallery;
-                                                        } else {
-                                                            grpdata.gallery = "";
                                                         }
                                                         if (m.grpvenue) {
                                                             grpdata.venue = m.grpvenue;
-                                                        } else {
-                                                            grpdata.venue = "";
+                                                        }
+                                                        if (m.grpcc) {
+                                                            grpdata.city = m.grpcc;
                                                         }
                                                         donated.groupshow.push(grpdata);
                                                         i++;
@@ -1124,23 +1113,18 @@ module.exports = {
                                                         var grpdata = {};
                                                         if (m.grpyear != "") {
                                                             grpdata.year = m.grpyear;
-                                                        } else {
-                                                            grpdata.year = "";
                                                         }
-                                                        if (m.solotitle != "") {
+                                                        if (m.grptitle != "") {
                                                             grpdata.title = m.grptitle;
-                                                        } else {
-                                                            grpdata.title = "";
                                                         }
                                                         if (m.grpgallery) {
                                                             grpdata.gallery = m.grpgallery;
-                                                        } else {
-                                                            grpdata.gallery = "";
                                                         }
                                                         if (m.grpvenue) {
                                                             grpdata.venue = m.grpvenue;
-                                                        } else {
-                                                            grpdata.venue = "";
+                                                        }
+                                                        if (m.grpcc) {
+                                                            grpdata.city = m.grpcc;
                                                         }
                                                         donated.groupshow.push(grpdata);
                                                         i++;
@@ -1151,18 +1135,12 @@ module.exports = {
                                                         donated.award = dorespo.award;
                                                         if (m.awardyear != "") {
                                                             awardData.year = m.awardyear;
-                                                        } else {
-                                                            awardData.year = "";
                                                         }
                                                         if (m.awardtitle != "") {
                                                             awardData.title = m.awardtitle;
-                                                        } else {
-                                                            awardData.title = "";
                                                         }
                                                         if (m.awardinstitution) {
                                                             awardData.institution = m.awardinstitution;
-                                                        } else {
-                                                            awardData.institution = "";
                                                         }
                                                         donated.award.push(awardData);
                                                         i++;
@@ -1172,18 +1150,12 @@ module.exports = {
                                                         var awardData = {};
                                                         if (m.awardyear != "") {
                                                             awardData.year = m.awardyear;
-                                                        } else {
-                                                            awardData.year = "";
                                                         }
                                                         if (m.awardtitle != "") {
                                                             awardData.title = m.awardtitle;
-                                                        } else {
-                                                            awardData.title = "";
                                                         }
                                                         if (m.awardinstitution) {
                                                             awardData.institution = m.awardinstitution;
-                                                        } else {
-                                                            awardData.institution = "";
                                                         }
                                                         donated.award.push(awardData);
                                                         i++;
@@ -1194,18 +1166,15 @@ module.exports = {
                                                         donated.auction = dorespo.auction;
                                                         if (m.aucyear != "") {
                                                             auctiondata.year = m.aucyear;
-                                                        } else {
-                                                            auctiondata.year = "";
                                                         }
                                                         if (m.auctionhouse != "") {
                                                             auctiondata.auctionhouse = m.auctionhouse;
-                                                        } else {
-                                                            auctiondata.auctionhouse = "";
                                                         }
                                                         if (m.location) {
                                                             auctiondata.location = m.location;
-                                                        } else {
-                                                            auctiondata.location = "";
+                                                        }
+                                                        if (m.details) {
+                                                            auctiondata.details = m.details;
                                                         }
                                                         donated.auction.push(auctiondata);
                                                         i++;
@@ -1215,18 +1184,15 @@ module.exports = {
                                                         var auctiondata = {};
                                                         if (m.aucyear != "") {
                                                             auctiondata.year = m.aucyear;
-                                                        } else {
-                                                            auctiondata.year = "";
                                                         }
                                                         if (m.auctionhouse != "") {
                                                             auctiondata.auctionhouse = m.auctionhouse;
-                                                        } else {
-                                                            auctiondata.auctionhouse = "";
                                                         }
                                                         if (m.location) {
                                                             auctiondata.location = m.location;
-                                                        } else {
-                                                            auctiondata.location = "";
+                                                        }
+                                                        if (m.details) {
+                                                            auctiondata.details = m.details;
                                                         }
                                                         donated.auction.push(auctiondata);
                                                         i++;
@@ -1234,9 +1200,21 @@ module.exports = {
                                                     }
 
                                                     function saveupdate() {
+
                                                         if (i == 5) {
-                                                            User.save(donated, function (respo) {
+                                                            User.updateId(donated, function (respo) {
+                                                                console.log(respo);
                                                                 if (respo.value && respo.value == true) {
+                                                                    num++;
+                                                                    console.log(num);
+                                                                    if (num < result.length) {
+                                                                        setTimeout(function () {
+                                                                            createteam(num);
+                                                                        }, 15);
+                                                                    } else {
+                                                                        res.json("Done");
+                                                                    }
+                                                                } else {
                                                                     num++;
                                                                     console.log(num);
                                                                     if (num < result.length) {
@@ -1281,6 +1259,40 @@ module.exports = {
                     }
                 });
             }
+        });
+    },
+    deleteDetails: function (req, res) {
+        User.findArtist(req.body, function (respo) {
+            function abc(num) {
+                more = respo[num];
+                if (more.soloshow && more.soloshow.length > 0) {
+                    more.soloshow = [];
+                }
+                if (more.groupshow && more.groupshow.length > 0) {
+                    more.groupshow = [];
+                }
+                if (more.edu && more.edu.length > 0) {
+                    more.edu = [];
+                }
+                if (more.award && more.award.length > 0) {
+                    more.award = [];
+                }
+                if (more.auction && more.auction.length > 0) {
+                    more.auction = [];
+                }
+                User.updateId(more, function (use) {
+                    num++;
+                    console.log(num);
+                    if (num == respo.length) {
+                        res.json({
+                            value: true
+                        });
+                    } else {
+                        abc(num);
+                    }
+                });
+            }
+            abc(0);
         });
     },
     saveArtist: function (req, res) {
