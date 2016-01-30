@@ -2077,7 +2077,12 @@
           });
       },
       saveBack: function (data, callback) {
-          var selleremail = data.selleremail;
+          var selleremail = "";
+          if (data.selleremail) {
+              selleremail = data.selleremail;
+          } else {
+              selleremail = "";
+          }
           delete data.selleremail;
           if (data.medium && data.medium.length > 0) {
               _.each(data.medium, function (e) {
