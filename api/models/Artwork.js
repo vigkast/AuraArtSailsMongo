@@ -485,7 +485,7 @@ module.exports = {
                             "settings": {
                                 "template": "2211",
                             },
-                            "recipients": ["connect@aurart.in", sellermail],
+                            "recipients": ["connect@aurart.in", selleremail],
                             "attributes": {
                                 "NAME": [data.name],
                                 "ANAME": [artistname],
