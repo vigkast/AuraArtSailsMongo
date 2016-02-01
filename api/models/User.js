@@ -339,13 +339,11 @@
                                   '$regex': check
                               }
               }],
-                          status: data.status,
                           $or: [{
                               accesslevel: "customer"
               }, {
                               accesslevel: "reseller"
-              }],
-                          "artwork.type": data.type
+              }]
                       };
                       callbackfunc1();
                   }
@@ -1918,7 +1916,7 @@
                                   "settings": {
                                       "template": "2210",
                                   },
-                                  "recipients": [data.email, selleremail],
+                                  "recipients": ["connect@aurart.in", data.email, selleremail],
                                   "attributes": {
                                       "NAME": [data.name],
                                       "SELLEREMAIL": [selleremail],
@@ -2016,7 +2014,7 @@
                                   "settings": {
                                       "template": "2210",
                                   },
-                                  "recipients": [selleremail],
+                                  "recipients": ["connect@aurart.in", selleremail],
                                   "attributes": {
                                       "NAME": [data.name],
                                       "SELLEREMAIL": [selleremail],
@@ -2174,7 +2172,7 @@
                               "settings": {
                                   "template": "2210",
                               },
-                              "recipients": [selleremail],
+                              "recipients": ["connect@aurart.in", selleremail],
                               "attributes": {
                                   "NAME": [data.name],
                                   "SELLEREMAIL": [selleremail],
