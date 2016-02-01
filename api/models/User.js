@@ -339,11 +339,7 @@
                                   '$regex': check
                               }
               }],
-                          $or: [{
-                              accesslevel: "customer"
-              }, {
-                              accesslevel: "reseller"
-              }]
+                          accesslevel: "customer"
                       };
                       callbackfunc1();
                   }
