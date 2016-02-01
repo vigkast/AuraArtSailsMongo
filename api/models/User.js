@@ -283,7 +283,7 @@
       findlimited: function (data, callback) {
           var newreturns = {};
           newreturns.data = [];
-          var check = new RegExp(data.search, "i");
+          var checkfor = new RegExp(data.search, "i");
           var accesslevel = data.accesslevel;
           var pagesize = parseInt(data.pagesize);
           var pagenumber = parseInt(data.pagenumber);
@@ -302,11 +302,11 @@
                       var matchobj = {
                           $or: [{
                               name: {
-                                  '$regex': check
+                                  '$regex': checkfor
                               }
               }, {
                               email: {
-                                  '$regex': check
+                                  '$regex': checkfor
                               }
               }],
                           status: data.status,
@@ -318,32 +318,36 @@
                       var matchobj = {
                           $or: [{
                               name: {
-                                  '$regex': check
+                                  '$regex': checkfor
                               }
               }, {
                               email: {
-                                  '$regex': check
+                                  '$regex': checkfor
                               }
               }],
                           accesslevel: accesslevel
                       };
                       callbackfunc1();
                   } else {
+                      console.log(checkfor);
                       var matchobj = {
-                          $or: [{
-                              name: {
-                                  '$regex': check
-                              }
+                          $and: [{
+                              $or: [{
+                                  name: {
+                                      '$regex': checkfor
+                                  }
               }, {
-                              email: {
-                                  '$regex': check
-                              }
-              }],
-                          $or: [{
-                              accesslevel: "customer"
-              }, {
-                              accesslevel: "reseller"
+                                  email: {
+                                      '$regex': checkfor
+                                  }
               }]
+                          }, {
+                              $or: [{
+                                  accesslevel: "customer"
+              }, {
+                                  accesslevel: "reseller"
+              }]
+                          }]
                       };
                       callbackfunc1();
                   }
@@ -355,7 +359,6 @@
                       if (!data.type || data.type == "") {
                           delete matchobj["artwork.type"];
                       }
-                      console.log(matchobj);
                       db.collection("user").count(matchobj, function (err, number) {
                           if (number && number != "") {
                               newreturns.total = number;
