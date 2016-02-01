@@ -329,7 +329,6 @@
                       };
                       callbackfunc1();
                   } else {
-                      console.log(checkfor);
                       var matchobj = {
                           $and: [{
                               $or: [{
