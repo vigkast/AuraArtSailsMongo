@@ -339,7 +339,11 @@
                                   '$regex': check
                               }
               }],
-                          accesslevel: "customer"
+                          $or: [{
+                              accesslevel: "customer"
+              }, {
+                              accesslevel: "reseller"
+              }]
                       };
                       callbackfunc1();
                   }
@@ -351,6 +355,7 @@
                       if (!data.type || data.type == "") {
                           delete matchobj["artwork.type"];
                       }
+                      console.log(matchobj);
                       db.collection("user").count(matchobj, function (err, number) {
                           if (number && number != "") {
                               newreturns.total = number;
