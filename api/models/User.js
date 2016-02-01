@@ -195,11 +195,53 @@
                               });
                               db.close();
                           } else if (created) {
-                              delete data.password;
-                              data.id = data._id;
-                              delete data._id;
-                              callback(data);
-                              db.close();
+                              if (data.accesslevel == "artist") {
+                                  delete data.password;
+                                  data.id = data._id;
+                                  delete data._id;
+                                  callback(data);
+                                  db.close();
+                              } else {
+                                  var obj = {
+                                      "api_key": "47e02d2b10604fc81304a5837577e286",
+                                      "email_details": {
+                                          "fromname": sails.fromName,
+                                          "subject": "Registration at www.auraart.in",
+                                          "from": sails.fromEmail,
+                                          "replytoid": data.email
+                                      },
+                                      "settings": {
+                                          "template": "2336",
+                                      },
+                                      "recipients": [data.email],
+                                      "attributes": {
+                                          "NAME": [data.name],
+                                          "EMAIL": [data.email]
+                                      }
+                                  };
+                                  sails.request.get({
+                                      url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                                  }, function (err, httpResponse, body) {
+                                      if (err) {
+                                          callback({
+                                              value: false
+                                          });
+                                          db.close();
+                                      } else if (body && body == "success") {
+                                          delete data.password;
+                                          data.id = data._id;
+                                          delete data._id;
+                                          callback(data);
+                                          db.close();
+                                      } else {
+                                          callback({
+                                              value: false,
+                                              comment: "Error"
+                                          });
+                                          db.close();
+                                      }
+                                  });
+                              }
                           } else {
                               callback({
                                   value: false,
