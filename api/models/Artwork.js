@@ -7,6 +7,7 @@
 
 module.exports = {
     save: function (data, callback) {
+        data.srno = parseInt(data.srno);
         var user = sails.ObjectID(data.user);
         delete data.user;
         if (data.reseller && data.reseller.length > 0) {
@@ -30,7 +31,6 @@ module.exports = {
                 }
             });
         }
-        data.srno = parseInt(data.srno);
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -105,10 +105,10 @@ module.exports = {
         });
     },
     saveFront: function (data, callback) {
+        data.srno = parseInt(data.srno);
         var user = sails.ObjectID(data.user);
         delete data.user;
         data.reseller[0].email = data.selleremail;
-        data.srno = parseInt(data.srno);
         var email = data.email;
         var selleremail = data.selleremail;
         var sellername = data.sellername;
@@ -138,7 +138,6 @@ module.exports = {
                 }
             });
         }
-        data.srno = parseInt(data.srno);
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -195,12 +194,12 @@ module.exports = {
                                     "fromname": sails.fromName,
                                     "subject": "Artwork %23" + data._id.substring(data._id.length - 5),
                                     "from": sails.fromEmail,
-                                    "replytoid": selleremail
+                                    "replytoid": "connect@aurart.in"
                                 },
                                 "settings": {
                                     "template": "2211",
                                 },
-                                "recipients": [email, selleremail],
+                                "recipients": ["connect@aurart.in", email, selleremail],
                                 "attributes": {
                                     "NAME": [data.name],
                                     "ANAME": [artistname],
@@ -263,7 +262,6 @@ module.exports = {
                         }
                     });
                 } else {
-                    data.srno = parseInt(data.srno);
                     data._id = sails.ObjectID(data._id);
                     tobechanged = {};
                     var attribute = "artwork.$.";
@@ -316,12 +314,12 @@ module.exports = {
                                     "fromname": sails.fromName,
                                     "subject": "Artwork %23" + data._id.substring(data._id.length - 5),
                                     "from": sails.fromEmail,
-                                    "replytoid": selleremail
+                                    "replytoid": "connect@aurart.in"
                                 },
                                 "settings": {
                                     "template": "2211",
                                 },
-                                "recipients": [selleremail, email],
+                                "recipients": ["connect@aurart.in", selleremail, email],
                                 "attributes": {
                                     "NAME": [data.name],
                                     "ANAME": [artistname],
@@ -389,6 +387,7 @@ module.exports = {
         });
     },
     saveBack: function (data, callback) {
+        data.srno = parseInt(data.srno);
         if (data.reseller && data.reseller.length > 0) {
             _.each(data.reseller, function (x) {
                 if (x._id && x._id != "") {
@@ -413,14 +412,16 @@ module.exports = {
         var user = sails.ObjectID(data.user);
         delete data.user;
         var email = data.email;
-        var selleremail = data.selleremail;
+        var selleremail = "";
+        if (data.selleremail) {
+            selleremail = data.selleremail;
+        }
         var sellername = data.sellername;
         var artistname = data.artistname;
         delete data.email;
         delete data.selleremail;
         delete data.sellername;
         delete data.artistname;
-        data.srno = parseInt(data.srno);
         sails.query(function (err, db) {
             if (err) {
                 console.log(err);
@@ -479,12 +480,12 @@ module.exports = {
                                 "fromname": sails.fromName,
                                 "subject": "Artwork %23" + data._id.substring(data._id.length - 5),
                                 "from": sails.fromEmail,
-                                "replytoid": selleremail
+                                "replytoid": "connect@aurart.in"
                             },
                             "settings": {
                                 "template": "2211",
                             },
-                            "recipients": [selleremail],
+                            "recipients": ["dhaval@wohlig.com", "vigwohlig@gmail.com"],
                             "attributes": {
                                 "NAME": [data.name],
                                 "ANAME": [artistname],
@@ -676,8 +677,7 @@ module.exports = {
                     $match: {
                         "artwork.name": {
                             $exists: true
-                        },
-                        "artwork.status": "approve"
+                        }
                     }
         }, {
                     $project: {
@@ -720,8 +720,7 @@ module.exports = {
                     $match: {
                         "artwork.name": {
                             $exists: true
-                        },
-                        "artwork.status": "approve"
+                        }
                     }
         }, {
                     $project: {
@@ -1167,7 +1166,6 @@ module.exports = {
         });
     },
     artworktype: function (data, callback) {
-
         var matcharray = [];
         sails.query(function (err, db) {
             if (err) {
@@ -1188,12 +1186,15 @@ module.exports = {
                 var sortnum = parseInt(data.sort);
                 var sort = {};
                 if (data.filter && data.filter == "srno") {
-                    data.filter = "name";
-                    sort[data.filter] = sortnum;
+                    sort = {};
+                    sort.focused = 1;
+                    sort.name = 1;
                 } else {
+                    sort = {};
+                    sort.focused = 1;
                     sort['artwork.' + data.filter] = sortnum;
+                    sort.name = 1;
                 }
-                console.log(sort);
                 if (data.color) {
                     matcharray.push(data.color);
                 }
@@ -1240,7 +1241,11 @@ module.exports = {
                         $in: matcharray
                     },
                     status: "approve",
-                    "artwork.status": "approve",
+                    $or: [{
+                        "artwork.status": "approve"
+                                      }, {
+                        "artwork.status": "sold"
+                    }],
                     name: {
                         $regex: check
                     },
@@ -1339,11 +1344,10 @@ module.exports = {
             }, {
                             $project: {
                                 name: 1,
-                                artwork: 1
+                                artwork: 1,
+                                focused: 1
                             }
-            }, {
-                            $sort: sort
-            }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
+            }]).sort(sort).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
                             if (found && found[0]) {
                                 newreturns.data = found;
                                 callback(newreturns);
@@ -1404,7 +1408,11 @@ module.exports = {
                         $unwind: "$artwork"
           }, {
                         $match: {
-                            "artwork.status": "approve"
+                            $or: [{
+                                "artwork.status": "approve"
+                                      }, {
+                                "artwork.status": "sold"
+                            }]
                         }
           }, {
                         $group: {
@@ -1452,7 +1460,11 @@ module.exports = {
                             $unwind: "$artwork"
             }, {
                             $match: {
-                                "artwork.status": "approve"
+                                $or: [{
+                                    "artwork.status": "approve"
+                                      }, {
+                                    "artwork.status": "sold"
+                    }]
                             }
             }, {
                             $group: {
@@ -1505,7 +1517,11 @@ module.exports = {
                                     $regex: check
                                 }
               }],
-                            "artwork.status": "approve",
+                            $or: [{
+                                "artwork.status": "approve"
+                                      }, {
+                                "artwork.status": "sold"
+                    }],
                             "artwork.type": data.type
                         }
           }, {
@@ -1549,7 +1565,11 @@ module.exports = {
                                         $regex: check
                                     }
                 }],
-                                "artwork.status": "approve",
+                                $or: [{
+                                    "artwork.status": "approve"
+                                      }, {
+                                    "artwork.status": "sold"
+                    }],
                                 "artwork.type": data.type
                             }
             }, {
@@ -1887,7 +1907,11 @@ module.exports = {
                                         $regex: check
                                     }
                 }],
-                                "artwork.status": "approve"
+                                $or: [{
+                                    "artwork.status": "approve"
+                                      }, {
+                                    "artwork.status": "sold"
+                    }]
                             }
             }, {
                             $group: {
@@ -1930,7 +1954,11 @@ module.exports = {
                                             $regex: check
                                         }
                   }],
-                                    "artwork.status": "approve"
+                                    $or: [{
+                                        "artwork.status": "approve"
+                                      }, {
+                                        "artwork.status": "sold"
+                    }]
                                 }
               }, {
                                 $group: {
@@ -2241,7 +2269,11 @@ module.exports = {
                                     $regex: check
                                 }
               }],
-                            "artwork.status": "approve"
+                            $or: [{
+                                "artwork.status": "approve"
+                                      }, {
+                                "artwork.status": "sold"
+                    }]
                         }
           }, {
                         $group: {
@@ -2416,7 +2448,11 @@ module.exports = {
             }, {
                             $match: {
                                 "artwork.srno": mysr,
-                                "artwork.status": "approve"
+                                $or: [{
+                                    "artwork.status": "approve"
+                                      }, {
+                                    "artwork.status": "sold"
+                    }]
                             }
             }, {
                             $project: {
@@ -2483,7 +2519,11 @@ module.exports = {
             }, {
                             $match: {
                                 "artwork.srno": mysr,
-                                "artwork.status": "approve"
+                                $or: [{
+                                    "artwork.status": "approve"
+                                      }, {
+                                    "artwork.status": "sold"
+                    }]
                             }
             }, {
                             $project: {

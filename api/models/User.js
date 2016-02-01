@@ -602,7 +602,11 @@
                                   $unwind: "$artwork"
                 }, {
                                   $match: {
-                                      "artwork.status": "approve"
+                                      $or: [{
+                                          "artwork.status": "approve"
+                                      }, {
+                                          "artwork.status": "sold"
+                                      }]
                                   }
                 }, {
                                   $group: {
@@ -1914,7 +1918,7 @@
                                       "fromname": sails.fromName,
                                       "subject": "Artist %23" + data._id.substring(data._id.length - 5),
                                       "from": sails.fromEmail,
-                                      "replytoid": selleremail
+                                      "replytoid": "connect@aurart.in"
                                   },
                                   "settings": {
                                       "template": "2210",
@@ -2012,7 +2016,7 @@
                                       "fromname": sails.fromName,
                                       "subject": "Artist %23" + user.substring(user.length - 5),
                                       "from": sails.fromEmail,
-                                      "replytoid": selleremail
+                                      "replytoid": "connect@aurart.in"
                                   },
                                   "settings": {
                                       "template": "2210",
@@ -2170,7 +2174,7 @@
                                   "fromname": sails.fromName,
                                   "subject": "Artist %23" + user.substring(user.length - 5),
                                   "from": sails.fromEmail,
-                                  "replytoid": selleremail
+                                  "replytoid": "connect@aurart.in"
                               },
                               "settings": {
                                   "template": "2210",
