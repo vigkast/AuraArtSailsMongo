@@ -87,12 +87,55 @@
                                   });
                                   db.close();
                               } else if (created) {
-                                  data.id = created.ops[0]._id;
-                                  delete data.accessToken;
-                                  delete data.token;
-                                  delete data.tokenSecret;
-                                  callback(null, data);
-                                  db.close();
+                                  if (data.email && data.email != "") {
+                                      var obj = {
+                                          "api_key": "47e02d2b10604fc81304a5837577e286",
+                                          "email_details": {
+                                              "fromname": sails.fromName,
+                                              "subject": "Registration at www.auraart.in",
+                                              "from": sails.fromEmail,
+                                              "replytoid": data.email
+                                          },
+                                          "settings": {
+                                              "template": "2336",
+                                          },
+                                          "recipients": [data.email],
+                                          "attributes": {
+                                              "NAME": [data.name],
+                                              "EMAIL": [data.email]
+                                          }
+                                      };
+                                      sails.request.get({
+                                          url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                                      }, function (err, httpResponse, body) {
+                                          if (err) {
+                                              callback({
+                                                  value: false
+                                              });
+                                              db.close();
+                                          } else if (body && body == "success") {
+                                              data.id = created.ops[0]._id;
+                                              delete data.accessToken;
+                                              delete data.token;
+                                              delete data.tokenSecret;
+                                              callback(null, data);
+                                              db.close();
+                                          } else {
+                                              callback({
+                                                  value: false,
+                                                  comment: "Error"
+                                              });
+                                              db.close();
+                                          }
+                                      });
+                                  } else {
+                                      data.id = created.ops[0]._id;
+                                      delete data.accessToken;
+                                      delete data.token;
+                                      delete data.tokenSecret;
+                                      callback(null, data);
+                                      db.close();
+                                  }
                               } else {
                                   callback({
                                       value: false,
@@ -151,6 +194,8 @@
           }
       },
       save: function (data, callback) {
+          delete data.cart;
+          delete data.wishlist;
           if (data.medium && data.medium.length > 0) {
               _.each(data.medium, function (e) {
                   if (e._id && e._id != "") {
@@ -516,7 +561,6 @@
               if (!data.type || data.type == "") {
                   delete firstmatch["artwork.type"];
               }
-
               sails.query(function (err, db) {
                   if (err) {
                       console.log(err);
@@ -1132,6 +1176,8 @@
           });
       },
       login: function (data, callback) {
+          delete data.cart;
+          delete data.wishlist;
           data.password = sails.md5(data.password);
           sails.query(function (err, db) {
               db.collection('user').find({
@@ -1219,6 +1265,8 @@
           });
       },
       changepassword: function (data, callback) {
+          delete data.cart;
+          delete data.wishlist;
           if (data.password && data.password != "" && data.editpassword && data.editpassword != "" && data.email && data.email != "") {
               data.password = sails.md5(data.password);
               var user = sails.ObjectID(data._id);
@@ -1276,6 +1324,8 @@
           }
       },
       forgotpassword: function (data, callback) {
+          delete data.cart;
+          delete data.wishlist;
           sails.query(function (err, db) {
               if (err) {
                   console.log(err);
@@ -1878,6 +1928,8 @@
           });
       },
       saveArtist: function (data, callback) {
+          delete data.cart;
+          delete data.wishlist;
           if (data.medium && data.medium.length > 0) {
               _.each(data.medium, function (e) {
                   if (e._id && e._id != "") {
@@ -2124,6 +2176,8 @@
           });
       },
       saveBack: function (data, callback) {
+          delete data.cart;
+          delete data.wishlist;
           var selleremail = "";
           if (data.selleremail) {
               selleremail = data.selleremail;
@@ -2315,6 +2369,18 @@
                           r._id = sails.ObjectID(r._id);
                       });
                   }
+              });
+          }
+          if (data.cart && data.cart.length > 0) {
+              _.each(data.cart, function (q) {
+                  q.artwork = sails.ObjectID(q.artwork);
+                  q._id = sails.ObjectID(q._id);
+              });
+          }
+          if (data.wishlist && data.wishlist.length > 0) {
+              _.each(data.wishlist, function (n) {
+                  n.artwork = sails.ObjectID(n.artwork);
+                  n._id = sails.ObjectID(n._id);
               });
           }
           if (1 == 1) {

@@ -992,17 +992,15 @@ module.exports = {
                                             var donated = {};
                                             var i = 0;
                                             m = result[num];
-                                            if (m.dob && m.dob != "") {
-                                                if (m.dob.indexOf("-") != -1 || m.dob.indexOf("/") != -1) {
-                                                    donated.dob = new Date(m.dob);
-                                                } else {
-                                                    donated.dob = m.dob;
-                                                }
-                                            } else {
-                                                delete m.dob;
+                                            if (m.dob) {
+                                                donated.dob = m.dob;
                                             }
-                                            donated.passedaway = m.passedaway;
-                                            donated.stateofb = m.stateofb;
+                                            if (m.passedaway) {
+                                                donated.passedaway = m.passedaway;
+                                            }
+                                            if (m.stateofb) {
+                                                donated.stateofb = m.stateofb;
+                                            }
                                             User.findforexcel(m, function (dorespo) {
                                                 if (dorespo.value != false) {
                                                     if (dorespo.edu && dorespo.edu[0]) {
@@ -1265,6 +1263,15 @@ module.exports = {
         User.findArtist(req.body, function (respo) {
             function abc(num) {
                 more = respo[num];
+                if (more.dob) {
+                    more.dob = "";
+                }
+                if (more.stateofb) {
+                    more.stateofb = "";
+                }
+                if (more.passedaway) {
+                    more.passedaway = "";
+                }
                 if (more.soloshow && more.soloshow.length > 0) {
                     more.soloshow = [];
                 }
@@ -1463,5 +1470,26 @@ module.exports = {
                 });
             }
         });
-    }
+    },
+    updateCart: function (req, res) {
+        // var i = 0;
+        User.find(req.body, function (respo) {
+            // res.json(respo);
+            function abc(num) {
+                more = respo[num];
+                User.updateId(more, function (use) {
+                    num++;
+                    console.log(num);
+                    if (num == respo.length) {
+                        res.json({
+                            value: true
+                        });
+                    } else {
+                        abc(num);
+                    }
+                });
+            }
+            abc(0);
+        });
+    },
 };

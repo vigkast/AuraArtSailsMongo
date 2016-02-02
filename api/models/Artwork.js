@@ -10,6 +10,8 @@ module.exports = {
         data.srno = parseInt(data.srno);
         var user = sails.ObjectID(data.user);
         delete data.user;
+        delete data.cart;
+        delete data.wishlist;
         if (data.reseller && data.reseller.length > 0) {
             _.each(data.reseller, function (x) {
                 if (x._id && x._id != "") {
@@ -105,6 +107,8 @@ module.exports = {
         });
     },
     saveFront: function (data, callback) {
+        delete data.cart;
+        delete data.wishlist;
         data.srno = parseInt(data.srno);
         var user = sails.ObjectID(data.user);
         delete data.user;
@@ -387,6 +391,8 @@ module.exports = {
         });
     },
     saveBack: function (data, callback) {
+        delete data.cart;
+        delete data.wishlist;
         data.srno = parseInt(data.srno);
         if (data.reseller && data.reseller.length > 0) {
             _.each(data.reseller, function (x) {
@@ -552,6 +558,8 @@ module.exports = {
         });
     },
     delete: function (data, callback) {
+        delete data.cart;
+        delete data.wishlist;
         if (data.reseller && data.reseller.length > 0) {
             _.each(data.reseller, function (x) {
                 if (x._id && x._id != "") {
@@ -916,6 +924,8 @@ module.exports = {
         });
     },
     deleteout: function (data, callback) {
+        delete data.cart;
+        delete data.wishlist;
         if (data.reseller && data.reseller.length > 0) {
             _.each(data.reseller, function (x) {
                 if (x._id && x._id != "") {
