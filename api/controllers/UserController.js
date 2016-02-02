@@ -342,12 +342,7 @@ module.exports = {
                 var print = function (data) {
                     if (data.value != false) {
                         if (data.accesslevel == "customer" || data.accesslevel == "reseller") {
-                            req.session.passport = {
-                                user: data
-                            };
-                            var userdata = {};
-                            userdata._id = req.session.passport.user.id;
-                            User.findone(userdata, function (respo) {
+                            User.findone(data, function (respo) {
                                 if (respo.value != false) {
                                     respo.id = respo._id;
                                     delete respo._id;

@@ -345,15 +345,10 @@
                                   comment: "Error"
                               });
                               db.close();
-                          } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+                          } else if (updated) {
                               data.id = user;
+                              data._id = user;
                               callback(data);
-                              db.close();
-                          } else if (updated.result.nModified == 0 && updated.result.n != 0) {
-                              callback({
-                                  value: true,
-                                  comment: "Data already updated"
-                              });
                               db.close();
                           } else {
                               callback({
