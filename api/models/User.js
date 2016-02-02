@@ -194,8 +194,18 @@
           }
       },
       save: function (data, callback) {
-          delete data.cart;
-          delete data.wishlist;
+          if (data.cart && data.cart.length > 0) {
+              _.each(data.cart, function (q) {
+                  q.artwork = sails.ObjectID(q.artwork);
+                  q._id = sails.ObjectID(q._id);
+              });
+          }
+          if (data.wishlist && data.wishlist.length > 0) {
+              _.each(data.wishlist, function (n) {
+                  n.artwork = sails.ObjectID(n.artwork);
+                  n._id = sails.ObjectID(n._id);
+              });
+          }
           if (data.medium && data.medium.length > 0) {
               _.each(data.medium, function (e) {
                   if (e._id && e._id != "") {

@@ -39,6 +39,8 @@ module.exports = {
                     newdata.timestamp = new Date();
                     newdata.name = data.name;
                     newdata.email = data.email;
+                    newdata.billing = data.billing;
+                    newdata.shipping = data.shipping;
                     var possible = "0123456789";
                     for (var i = 0; i < 8; i++) {
                         newdata.orderid += possible.charAt(Math.floor(Math.random() * possible.length));
@@ -69,6 +71,8 @@ module.exports = {
                             delete data.subTotal;
                             delete data.grantTotal;
                             delete data.packing;
+                            delete data.billing;
+                            delete data.shipping;
                             delete data.vat;
                             delete data.comment;
                             User.save(data, function (userespo) {
@@ -146,11 +150,6 @@ module.exports = {
                     var possible = "0123456789";
                     for (var i = 0; i < 8; i++) {
                         data.orderid += possible.charAt(Math.floor(Math.random() * possible.length));
-                    }
-                    if (data.billing) {
-                        data.name = data.billing.name;
-                        data.email = data.billing.email;
-                        data.mobileno = data.billing.mobileno;
                     }
                     callme();
 
