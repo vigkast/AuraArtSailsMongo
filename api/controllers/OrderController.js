@@ -4,7 +4,8 @@
  * @description :: Server-side logic for managing users
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-
+var frontend = "http://www.auraart.in/#";
+//var frontend = "http://www.auraart.in/manjhi/#";
 module.exports = {
     save: function (req, res) {
         if (req.body) {
@@ -157,6 +158,22 @@ module.exports = {
                     comment: "Order-id is incorrect"
                 });
             }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    payU: function (req, res) {
+        if (req.body) {
+            Order.payU(req.body, function (respo) {
+                if (respo.value != false) {
+                    res.redirect(frontend + "/thankyou");
+                } else {
+                    res.redirect(frontend + "/sorry/" + respo.orderid);
+                }
+            });
         } else {
             res.json({
                 value: false,

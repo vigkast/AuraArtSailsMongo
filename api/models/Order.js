@@ -77,7 +77,8 @@ module.exports = {
                             delete data.comment;
                             User.save(data, function (userespo) {
                                 callback({
-                                    id: newdata._id
+                                    id: newdata._id,
+                                    orderid: newdata.orderid
                                 });
                             });
                         } else {
@@ -163,7 +164,8 @@ module.exports = {
                                 db.close();
                             } else if (created) {
                                 callback({
-                                    id: data._id
+                                    id: data._id,
+                                    orderid: data.orderid
                                 });
                                 db.close();
                             } else {
@@ -484,6 +486,74 @@ module.exports = {
                             db.close();
                         }
                     });
+                }
+            }
+        });
+    },
+    payU: function (data, callback) {
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false,
+                    orderid: data.udf1
+                });
+            } else if (db) {
+                var order = sails.ObjectID(data.txnid);
+                data.udf1 = data.udf1.substr(1);
+                data.net_amount_debit = parseInt(data.net_amount_debit);
+                delete data.txnid;
+                if (data.status && data.status == "success") {
+                    db.collection('order').update({
+                        _id: order,
+                        grantTotal: data.net_amount_debit
+                    }, {
+                        $set: {
+                            status: "payment"
+                        }
+                    }, function (err, updated) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false,
+                                orderid: data.udf1
+                            });
+                            db.close();
+                        } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+                            var i = 0;
+                            Order.findone({
+                                _id: order
+                            }, function (respo) {
+                                _.each(respo.cart, function (z) {
+                                    Artwork.save({
+                                        user: sails.ObjectID(z._id),
+                                        _id: sails.ObjectID(z.artwork._id),
+                                        status: "sold"
+                                    }, function (artRespo) {
+                                        i++;
+                                        if (i == respo.cart.length) {
+                                            callback({
+                                                value: true,
+                                                comment: "Updated"
+                                            });
+                                        }
+                                    });
+                                });
+                            });
+                        } else {
+                            callback({
+                                value: false,
+                                orderid: data.udf1
+                            });
+                            db.close();
+                        }
+                    });
+                } else {
+                    callback({
+                        value: false,
+                        orderid: data.udf1
+                    });
+                    db.close();
                 }
             }
         });
