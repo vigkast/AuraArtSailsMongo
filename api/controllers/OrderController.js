@@ -4,7 +4,7 @@
  * @description :: Server-side logic for managing users
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-var frontend = "http://www.auraart.in/#";
+var frontend = "http://auraart.in/#";
 //var frontend = "http://www.auraart.in/manjhi/#";
 module.exports = {
     save: function (req, res) {
