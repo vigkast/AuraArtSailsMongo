@@ -2429,6 +2429,71 @@
               });
           }
       },
+      saveArtOrder: function (data, callback) {
+          if (data.artwork && data.artwork.length > 0) {
+              _.each(data.artwork, function (e) {
+                  e._id = sails.ObjectID(e._id);
+                  if (e.subtype && e.subtype.length > 0) {
+                      _.each(e.subtype, function (s) {
+                          s._id = sails.ObjectID(s._id);
+                      });
+                  }
+                  if (e.tag && e.tag.length > 0) {
+                      _.each(e.tag, function (t) {
+                          if (t._id)
+                              t._id = sails.ObjectID(t._id);
+                      });
+                  }
+                  if (e.reseller && e.reseller.length > 0) {
+                      _.each(e.reseller, function (r) {
+                          r._id = sails.ObjectID(r._id);
+                      });
+                  }
+              });
+          }
+          if (1 == 1) {
+              sails.query(function (err, db) {
+                  if (err) {
+                      console.log(err);
+                      callback({
+                          value: false,
+                          comment: "Error"
+                      });
+                  } else {
+                      var user = sails.ObjectID(data._id);
+                      delete data._id;
+                      db.collection("user").update({
+                          _id: user
+                      }, {
+                          $set: {
+                              artwork: data.artwork
+                          }
+                      }, function (err, updated) {
+                          if (err) {
+                              console.log(err);
+                              callback({
+                                  value: false,
+                                  comment: "Error"
+                              });
+                              db.close();
+                          } else if (updated) {
+                              callback({
+                                  value: true,
+                                  comment: "Updated"
+                              });
+                              db.close();
+                          } else {
+                              callback({
+                                  value: false,
+                                  comment: "No data found"
+                              });
+                              db.close();
+                          }
+                      });
+                  }
+              });
+          }
+      },
       findArtist: function (data, callback) {
           sails.query(function (err, db) {
               if (err) {

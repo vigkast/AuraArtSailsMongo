@@ -1398,10 +1398,27 @@ module.exports = {
             }
         });
     },
+    saveArtOrder: function (req, res) {
+        if (req.body) {
+            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                User.saveArtOrder(req.body, function (use) {
+                    res.json(use);
+                });
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Artist id is incorrect"
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
     updateId: function (req, res) {
-        // var i = 0;
         User.findArtist(req.body, function (respo) {
-            // res.json(respo);
             function abc(num) {
                 more = respo[num];
                 User.updateId(more, function (use) {
