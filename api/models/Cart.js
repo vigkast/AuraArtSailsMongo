@@ -6,13 +6,13 @@
  */
 
 module.exports = {
-    save: function (data, callback) {
+    save: function(data, callback) {
         var user = sails.ObjectID(data.id);
         delete data.id;
         if (data.artwork && data.artwork != "") {
             data.artwork = sails.ObjectID(data.artwork);
         }
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -24,7 +24,7 @@ module.exports = {
                     db.collection("user").find({
                         _id: user,
                         "cart.artwork": sails.ObjectID(data.artwork)
-                    }).toArray(function (err, data2) {
+                    }).toArray(function(err, data2) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -44,7 +44,7 @@ module.exports = {
                                 $push: {
                                     cart: data
                                 }
-                            }, function (err, updated) {
+                            }, function(err, updated) {
                                 if (err) {
                                     console.log(err);
                                     callback({
@@ -76,8 +76,8 @@ module.exports = {
             }
         });
     },
-    delete: function (data, callback) {
-        sails.query(function (err, db) {
+    delete: function(data, callback) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -93,7 +93,7 @@ module.exports = {
                             "artwork": sails.ObjectID(data.artwork)
                         }
                     }
-                }, function (err, updated) {
+                }, function(err, updated) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -116,9 +116,9 @@ module.exports = {
             }
         });
     },
-    findone: function (data, callback) {
+    findone: function(data, callback) {
         var user = sails.ObjectID(data.user);
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -131,7 +131,7 @@ module.exports = {
                     "cart._id": sails.ObjectID(data._id)
                 }, {
                     "cart.$": 1
-                }).toArray(function (err, data2) {
+                }).toArray(function(err, data2) {
                     if (data2 && data2[0] && data2[0].cart && data2[0].cart[0]) {
                         callback(data2[0].cart[0]);
                         db.close();
@@ -152,13 +152,13 @@ module.exports = {
             }
         });
     },
-    find: function (data, callback) {
+    find: function(data, callback) {
         var lastresult = [];
         var i = 0;
         var j = 0;
         var returnData = [];
         var user = sails.ObjectID(data.id);
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -186,25 +186,25 @@ module.exports = {
                     }
                 }, {
                     $unwind: "$cart"
-                }]).toArray(function (err, data2) {
+                }]).toArray(function(err, data2) {
                     if (data2 && data2[0]) {
-                        _.each(data2, function (z) {
+                        _.each(data2, function(z) {
                             lastresult.push(z.cart);
                             i++;
                             if (i == data2.length) {
-                                _.each(lastresult, function (art) {
+                                _.each(lastresult, function(art) {
                                     Artwork.findbyid({
                                         _id: art.artwork
-                                    }, function (respo) {
-                                        if (respo.value && respo.value != false) {
-                                            j++;
-                                        } else {
+                                    }, function(respo) {
+                                        if (respo.value != false) {
                                             j++;
                                             returnData.push(respo[0]);
                                             if (j == lastresult.length) {
                                                 callback(returnData);
                                                 db.close();
                                             }
+                                        } else {
+                                            j++;
                                         }
                                     });
                                 });
@@ -224,14 +224,14 @@ module.exports = {
             }
         });
     },
-    findlimited: function (data, callback) {
+    findlimited: function(data, callback) {
         var newcallback = 0;
         var newreturns = {};
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
         var user = sails.ObjectID(data.user);
-        sails.query(function (err, db) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -256,7 +256,7 @@ module.exports = {
                     $project: {
                         count: 1
                     }
-                }]).toArray(function (err, result) {
+                }]).toArray(function(err, result) {
                     if (result && result[0]) {
                         newreturns.total = result[0].count;
                         newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
@@ -287,7 +287,7 @@ module.exports = {
                         $project: {
                             cart: 1
                         }
-                    }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
+                    }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
                         if (found != null) {
                             newreturns.data = found;
                             callback(newreturns);

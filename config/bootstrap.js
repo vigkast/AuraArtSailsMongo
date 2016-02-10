@@ -29,6 +29,7 @@ module.exports.bootstrap = function(cb) {
         sails.json2xls = require('json2xls'),
         sails.sha512 = require('sha512'),
         sails.md5 = require('MD5'),
+        sails.webshot = require('webshot'),
         sails._ = require('lodash'),
         sails.request = require('request'),
         sails.lwip = require('lwip'),

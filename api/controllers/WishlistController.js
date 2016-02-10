@@ -8,7 +8,8 @@
 module.exports = {
     save: function(req, res) {
         if (req.body) {
-            if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
+            if (req.session.passport) {
+                req.body.user = req.session.passport.user.id;
                 if (req.body._id) {
                     if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
                         feed();
@@ -24,7 +25,7 @@ module.exports = {
             } else {
                 res.json({
                     value: false,
-                    comment: "user-id is incorrect "
+                    comment: "User not logged in"
                 });
             }
 
@@ -43,7 +44,8 @@ module.exports = {
     },
     delete: function(req, res) {
         if (req.body) {
-            if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
+            if (req.session.passport) {
+                req.body.user = req.session.passport.user.id;
                 if (req.body.artwork && req.body.artwork != "" && sails.ObjectID.isValid(req.body.artwork)) {
                     var print = function(data) {
                         res.json(data);
@@ -70,7 +72,9 @@ module.exports = {
     },
     find: function(req, res) {
         if (req.body) {
-            if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
+            if (req.session.passport) {
+                req.body.user = req.session.passport.user.id;
+
                 function callback(data) {
                     res.json(data);
                 };

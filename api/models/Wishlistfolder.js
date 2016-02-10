@@ -6,375 +6,375 @@
  */
 
 module.exports = {
-//    save: function (data, callback) {
-        //        var user = sails.ObjectID(data.user);
-        //        delete data.user;
-        //        sails.query(function(err, db) {
-        //            if (err) {
-        //                console.log(err);
-        //                callback({
-        //                    value: false
-        //                });
-        //            }
-        //            if (db) {
-        //                if (!data._id) {
-        //                    data._id = sails.ObjectID();
-        //                    db.collection("user").update({
-        //                        _id: user
-        //                    }, {
-        //                        $push: {
-        //                            wishlistfolder: data
-        //                        }
-        //                    }, function(err, updated) {
-        //                        if (err) {
-        //                            console.log(err);
-        //                            callback({
-        //                                value: false
-        //                            });
-        //                            db.close();
-        //                        } else if (updated) {
-        //                            callback({
-        //                                value: true,
-        //                                id: data._id
-        //                            });
-        //                            db.close();
-        //                        } else {
-        //                            callback({
-        //                                value: false,
-        //                                comment: "Not created"
-        //                            });
-        //                            db.close();
-        //                        }
-        //                    });
-        //                } else {
-        //                    data._id = sails.ObjectID(data._id);
-        //                    var tobechanged = {};
-        //                    var attribute = "wishlistfolder.$.";
-        //                    _.forIn(data, function(value, key) {
-        //                        tobechanged[attribute + key] = value;
-        //                    });
-        //                    db.collection("user").update({
-        //                        "_id": user,
-        //                        "wishlistfolder._id": data._id
-        //                    }, {
-        //                        $set: tobechanged
-        //                    }, function(err, updated) {
-        //                        if (err) {
-        //                            console.log(err);
-        //                            callback({
-        //                                value: false
-        //                            });
-        //                            db.close();
-        //                        } else if (updated.result.nModified != 0 && updated.result.n != 0) {
-        //                            callback({
-        //                                value: true
-        //                            });
-        //                            db.close();
-        //                        } else if (updated.result.nModified == 0 && updated.result.n != 0) {
-        //                            callback({
-        //                                value: true,
-        //                                comment: "Data already updated"
-        //                            });
-        //                            db.close();
-        //                        } else {
-        //                            callback({
-        //                                value: false,
-        //                                comment: "No data found"
-        //                            });
-        //                            db.close();
-        //                        }
-        //                    });
-        //                }
-        //            }
-        //        });
-        //    },
-        //    delete: function(data, callback) {
-        //        var user = sails.ObjectID(data.user);
-        //        delete data.user;
-        //        data._id = sails.ObjectID(data._id);
-        //        sails.query(function(err, db) {
-        //            if (err) {
-        //                console.log(err);
-        //                callback({
-        //                    value: false
-        //                });
-        //            }
-        //            if (db) {
-        //                db.collection("user").update({
-        //                    _id: user
-        //                }, {
-        //                    $pull: {
-        //                        "wishlistfolder": {
-        //                            "_id": sails.ObjectID(data._id)
-        //                        }
-        //                    }
-        //                }, function(err, updated) {
-        //                    if (err) {
-        //                        console.log(err);
-        //                        callback({
-        //                            value: false
-        //                        });
-        //                        db.close();
-        //                    } else if (updated) {
-        //                        callback({
-        //                            value: true
-        //                        });
-        //                        db.close();
-        //                    } else {
-        //                        callback({
-        //                            value: false,
-        //                            comment: "No data found"
-        //                        });
-        //                        db.close();
-        //                    }
-        //                });
-        //            }
-        //        });
-        //    },
-        //    findone: function(data, callback) {
-        //        var user = sails.ObjectID(data.user);
-        //        sails.query(function(err, db) {
-        //            if (err) {
-        //                console.log(err);
-        //                callback({
-        //                    value: false
-        //                });
-        //            }
-        //            if (db) {
-        //                db.collection("user").find({
-        //                    "_id": user,
-        //                    "wishlistfolder._id": sails.ObjectID(data._id)
-        //                }, {
-        //                    "wishlistfolder.$": 1
-        //                }).toArray(function(err, data2) {
-        //                    if (data2 && data2[0] && data2[0].wishlistfolder && data2[0].wishlistfolder[0]) {
-        //                        callback(data2[0].wishlistfolder[0]);
-        //                        db.close();
-        //                    } else if (err) {
-        //                        console.log(err);
-        //                        callback({
-        //                            value: false
-        //                        });
-        //                        db.close();
-        //                    } else {
-        //                        callback({
-        //                            value: false,
-        //                            comment: "No data found"
-        //                        });
-        //                        db.close();
-        //                    }
-        //                });
-        //            }
-        //        });
-        //    },
-        //    find: function(data, callback) {
-        //        var lastresult = [];
-        //        var i = 0;
-        //        var user = sails.ObjectID(data.user);
-        //        sails.query(function(err, db) {
-        //            if (err) {
-        //                console.log(err);
-        //                callback({
-        //                    value: false
-        //                });
-        //            }
-        //            if (db) {
-        //                db.collection("user").aggregate([{
-        //                    $match: {
-        //                        _id: user
-        //                    }
-        //                }, {
-        //                    $unwind: "$wishlistfolder"
-        //                }, {
-        //                    $group: {
-        //                        _id: "$_id",
-        //                        wishlistfolder: {
-        //                            $addToSet: "$wishlistfolder"
-        //                        }
-        //                    }
-        //                }, {
-        //                    $project: {
-        //                        _id: 0,
-        //                        wishlistfolder: 1
-        //                    }
-        //                }, {
-        //                    $unwind: "$wishlistfolder"
-        //                }]).toArray(function(err, data2) {
-        //                    if (data2 && data2[0]) {
-        //                        _.each(data2, function(z) {
-        //                            lastresult.push(z.wishlistfolder);
-        //                            i++;
-        //                            if (i == data2.length) {
-        //                                callback(lastresult);
-        //                                db.close();
-        //                            }
-        //                        });
-        //                    } else if (err) {
-        //                        console.log(err);
-        //                        callback({
-        //                            value: false
-        //                        });
-        //                        db.close();
-        //                    } else {
-        //                        callback({
-        //                            value: false,
-        //                            comment: "No data found"
-        //                        });
-        //                        db.close();
-        //                    }
-        //                });
-        //            }
-        //        });
-        //    },
-        //    findlimited: function(data, callback) {
-        //        var newcallback = 0;
-        //        var newreturns = {};
-        //        var check = new RegExp(data.search, "i");
-        //        var pagesize = data.pagesize;
-        //        var pagenumber = data.pagenumber;
-        //        var user = sails.ObjectID(data.user);
-        //        sails.query(function(err, db) {
-        //            if (err) {
-        //                console.log(err);
-        //                callback({
-        //                    value: false
-        //                });
-        //            }
-        //            if (db) {
-        //                db.collection("user").aggregate([{
-        //                    $match: {
-        //                        _id: user,
-        //                        "wishlistfolder.name": {
-        //                            $exists: true
-        //                        },
-        //                        "wishlistfolder.name": {
-        //                            $regex: check
-        //                        }
-        //                    }
-        //                }, {
-        //                    $unwind: "$wishlistfolder"
-        //                }, {
-        //                    $match: {
-        //                        "wishlistfolder.name": {
-        //                            $exists: true
-        //                        },
-        //                        "wishlistfolder.name": {
-        //                            $regex: check
-        //                        }
-        //                    }
-        //                }, {
-        //                    $group: {
-        //                        _id: user,
-        //                        count: {
-        //                            $sum: 1
-        //                        }
-        //                    }
-        //                }, {
-        //                    $project: {
-        //                        count: 1
-        //                    }
-        //                }]).toArray(function(err, result) {
-        //                    if (result && result[0]) {
-        //                        newreturns.total = result[0].count;
-        //                        newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
-        //                        callbackfunc();
-        //                    } else if (err) {
-        //                        console.log(err);
-        //                        callback({
-        //                            value: false
-        //                        });
-        //                        db.close();
-        //                    } else {
-        //                        callback({
-        //                            value: false,
-        //                            comment: "Count of null"
-        //                        });
-        //                        db.close();
-        //                    }
-        //                });
-        //                db.collection("user").aggregate([{
-        //                    $match: {
-        //                        _id: user,
-        //                        "wishlistfolder.name": {
-        //                            $exists: true
-        //                        },
-        //                        "wishlistfolder.name": {
-        //                            $regex: check
-        //                        }
-        //                    }
-        //                }, {
-        //                    $unwind: "$wishlistfolder"
-        //                }, {
-        //                    $match: {
-        //                        "wishlistfolder.name": {
-        //                            $exists: true
-        //                        },
-        //                        "wishlistfolder.name": {
-        //                            $regex: check
-        //                        }
-        //                    }
-        //                }, {
-        //                    $project: {
-        //                        wishlistfolder: 1
-        //                    }
-        //                }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
-        //                    function(err, found) {
-        //                        if (found && found[0]) {
-        //                            newreturns.data = found;
-        //                            callback(newreturns);
-        //                            db.close();
-        //                        } else if (err) {
-        //                            console.log(err);
-        //                            callback({
-        //                                value: false
-        //                            });
-        //                            db.close();
-        //                        } else {
-        //                            callback({
-        //                                value: false,
-        //                                comment: "No data found"
-        //                            });
-        //                            db.close();
-        //                        }
-        //                    });
-        //            }
-        //        });
-        //    },
-        //    accessfolder: function(data, callback) {
-        //        var user = sails.ObjectID(data.user);
-        //        sails.query(function(err, db) {
-        //            if (err) {
-        //                console.log(err);
-        //                callback({
-        //                    value: false
-        //                });
-        //            }
-        //            if (db) {
-        //                db.collection("user").find({
-        //                    "_id": user,
-        //                    "wishlistfolder._id": sails.ObjectID(data._id),
-        //                    "wishlistfolder.password": data.password
-        //                }, {
-        //                    "wishlistfolder.$": 1
-        //                }).toArray(function(err, data2) {
-        //                    if (data2 && data2[0]) {
-        //                        callback(data2[0].wishlistfolder[0]);
-        //                        db.close();
-        //                    } else if (err) {
-        //                        console.log(err);
-        //                        callback({
-        //                            value: false
-        //                        });
-        //                        db.close();
-        //                    } else {
-        //                        callback({
-        //                            value: false,
-        //                            comment: "No data found"
-        //                        });
-        //                        db.close();
-        //                    }
-        //                });
-        //            }
-        //        });
-        //    }
+    save: function(data, callback) {
+        var user = sails.ObjectID(data.user);
+        delete data.user;
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                if (!data._id) {
+                    data._id = sails.ObjectID();
+                    db.collection("user").update({
+                        _id: user
+                    }, {
+                        $push: {
+                            wishlistfolder: data
+                        }
+                    }, function(err, updated) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else if (updated) {
+                            callback({
+                                value: true,
+                                id: data._id
+                            });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "Not created"
+                            });
+                            db.close();
+                        }
+                    });
+                } else {
+                    data._id = sails.ObjectID(data._id);
+                    var tobechanged = {};
+                    var attribute = "wishlistfolder.$.";
+                    _.forIn(data, function(value, key) {
+                        tobechanged[attribute + key] = value;
+                    });
+                    db.collection("user").update({
+                        "_id": user,
+                        "wishlistfolder._id": data._id
+                    }, {
+                        $set: tobechanged
+                    }, function(err, updated) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+                            callback({
+                                value: true
+                            });
+                            db.close();
+                        } else if (updated.result.nModified == 0 && updated.result.n != 0) {
+                            callback({
+                                value: true,
+                                comment: "Data already updated"
+                            });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "No data found"
+                            });
+                            db.close();
+                        }
+                    });
+                }
+            }
+        });
+    },
+    delete: function(data, callback) {
+        var user = sails.ObjectID(data.user);
+        delete data.user;
+        data._id = sails.ObjectID(data._id);
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").update({
+                    _id: user
+                }, {
+                    $pull: {
+                        "wishlistfolder": {
+                            "_id": sails.ObjectID(data._id)
+                        }
+                    }
+                }, function(err, updated) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else if (updated) {
+                        callback({
+                            value: true
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    },
+    findone: function(data, callback) {
+        var user = sails.ObjectID(data.user);
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").find({
+                    "_id": user,
+                    "wishlistfolder._id": sails.ObjectID(data._id)
+                }, {
+                    "wishlistfolder.$": 1
+                }).toArray(function(err, data2) {
+                    if (data2 && data2[0] && data2[0].wishlistfolder && data2[0].wishlistfolder[0]) {
+                        callback(data2[0].wishlistfolder[0]);
+                        db.close();
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    },
+    find: function(data, callback) {
+        var lastresult = [];
+        var i = 0;
+        var user = sails.ObjectID(data.user);
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").aggregate([{
+                    $match: {
+                        _id: user
+                    }
+                }, {
+                    $unwind: "$wishlistfolder"
+                }, {
+                    $group: {
+                        _id: "$_id",
+                        wishlistfolder: {
+                            $addToSet: "$wishlistfolder"
+                        }
+                    }
+                }, {
+                    $project: {
+                        _id: 0,
+                        wishlistfolder: 1
+                    }
+                }, {
+                    $unwind: "$wishlistfolder"
+                }]).toArray(function(err, data2) {
+                    if (data2 && data2[0]) {
+                        _.each(data2, function(z) {
+                            lastresult.push(z.wishlistfolder);
+                            i++;
+                            if (i == data2.length) {
+                                callback(lastresult);
+                                db.close();
+                            }
+                        });
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    },
+    findlimited: function(data, callback) {
+        var newcallback = 0;
+        var newreturns = {};
+        var check = new RegExp(data.search, "i");
+        var pagesize = data.pagesize;
+        var pagenumber = data.pagenumber;
+        var user = sails.ObjectID(data.user);
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").aggregate([{
+                    $match: {
+                        _id: user,
+                        "wishlistfolder.name": {
+                            $exists: true
+                        },
+                        "wishlistfolder.name": {
+                            $regex: check
+                        }
+                    }
+                }, {
+                    $unwind: "$wishlistfolder"
+                }, {
+                    $match: {
+                        "wishlistfolder.name": {
+                            $exists: true
+                        },
+                        "wishlistfolder.name": {
+                            $regex: check
+                        }
+                    }
+                }, {
+                    $group: {
+                        _id: user,
+                        count: {
+                            $sum: 1
+                        }
+                    }
+                }, {
+                    $project: {
+                        count: 1
+                    }
+                }]).toArray(function(err, result) {
+                    if (result && result[0]) {
+                        newreturns.total = result[0].count;
+                        newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                        callbackfunc();
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "Count of null"
+                        });
+                        db.close();
+                    }
+                });
+                db.collection("user").aggregate([{
+                    $match: {
+                        _id: user,
+                        "wishlistfolder.name": {
+                            $exists: true
+                        },
+                        "wishlistfolder.name": {
+                            $regex: check
+                        }
+                    }
+                }, {
+                    $unwind: "$wishlistfolder"
+                }, {
+                    $match: {
+                        "wishlistfolder.name": {
+                            $exists: true
+                        },
+                        "wishlistfolder.name": {
+                            $regex: check
+                        }
+                    }
+                }, {
+                    $project: {
+                        wishlistfolder: 1
+                    }
+                }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(
+                    function(err, found) {
+                        if (found && found[0]) {
+                            newreturns.data = found;
+                            callback(newreturns);
+                            db.close();
+                        } else if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "No data found"
+                            });
+                            db.close();
+                        }
+                    });
+            }
+        });
+    },
+    accessfolder: function(data, callback) {
+        var user = sails.ObjectID(data.user);
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").find({
+                    "_id": user,
+                    "wishlistfolder._id": sails.ObjectID(data._id),
+                    "wishlistfolder.password": data.password
+                }, {
+                    "wishlistfolder.$": 1
+                }).toArray(function(err, data2) {
+                    if (data2 && data2[0]) {
+                        callback(data2[0].wishlistfolder[0]);
+                        db.close();
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    }
 };
