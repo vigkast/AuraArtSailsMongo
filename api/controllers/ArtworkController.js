@@ -442,6 +442,7 @@ module.exports = {
                 if (html && html != "") {
                     sails.webshot(html, req.query.image, options,
                         function(err) {
+                            console.log(err);
                             var path = req.query.image;
                             var image = sails.fs.readFileSync(path);
                             var mimetype = sails.mime.lookup(path);
@@ -453,7 +454,7 @@ module.exports = {
                                 sails.fs.unlink(path, function(data) {
                                     console.log(data);
                                 });
-                            }, 5000);
+                            }, 10000);
                         });
                 }
             });
