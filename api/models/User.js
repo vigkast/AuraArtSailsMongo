@@ -2356,6 +2356,9 @@
           if (data.artwork && data.artwork.length > 0) {
               _.each(data.artwork, function(e) {
                   e._id = sails.ObjectID(e._id);
+                  if (e.srno && e.srno != "") {
+                      e.srno = parseInt(e.srno);
+                  }
                   if (e.subtype && e.subtype.length > 0) {
                       _.each(e.subtype, function(s) {
                           s._id = sails.ObjectID(s._id);
@@ -2436,6 +2439,9 @@
           if (data.artwork && data.artwork.length > 0) {
               _.each(data.artwork, function(e) {
                   e._id = sails.ObjectID(e._id);
+                  if (e.srno && e.srno != "") {
+                      e.srno = parseInt(e.srno);
+                  }
                   if (e.subtype && e.subtype.length > 0) {
                       _.each(e.subtype, function(s) {
                           s._id = sails.ObjectID(s._id);

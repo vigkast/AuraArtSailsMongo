@@ -14,6 +14,9 @@ module.exports = {
         if (data.artwork) {
             data.artwork = sails.ObjectID(data.artwork);
         }
+        if (data.srno && data.srno != "") {
+            data.srno = parseInt(data.srno);
+        }
         delete data.user;
         sails.query(function(err, db) {
             if (err) {
@@ -89,6 +92,9 @@ module.exports = {
     delete: function(data, callback) {
         var user = sails.ObjectID(data.user);
         delete data.user;
+        if (data.srno && data.srno != "") {
+            data.srno = parseInt(data.srno);
+        }
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);

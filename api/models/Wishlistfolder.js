@@ -9,6 +9,9 @@ module.exports = {
     save: function(data, callback) {
         var user = sails.ObjectID(data.user);
         delete data.user;
+        if (data.srno && data.srno != "") {
+            data.srno = parseInt(data.srno);
+        }
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -92,6 +95,9 @@ module.exports = {
         var user = sails.ObjectID(data.user);
         delete data.user;
         data._id = sails.ObjectID(data._id);
+        if (data.srno && data.srno != "") {
+            data.srno = parseInt(data.srno);
+        }
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);

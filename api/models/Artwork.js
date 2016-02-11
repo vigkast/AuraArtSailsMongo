@@ -584,6 +584,9 @@ module.exports = {
         var user = sails.ObjectID(data.user);
         delete data.user;
         data._id = sails.ObjectID(data._id);
+        if (data.srno && data.srno != "") {
+            data.srno = parseInt(data.srno);
+        }
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -900,7 +903,8 @@ module.exports = {
                 }, {
                     $project: {
                         name: 1,
-                        artwork: 1
+                        artwork: 1,
+                        focused: 1
                     }
                 }]).toArray(function(err, found) {
                     if (found && found[0]) {
@@ -949,6 +953,9 @@ module.exports = {
         }
         var user = sails.ObjectID(data.user);
         delete data.user;
+        if (data.srno && data.srno != "") {
+            data.srno = parseInt(data.srno);
+        }
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -1199,6 +1206,7 @@ module.exports = {
                     sort = {};
                     sort.focused = 1;
                     sort.name = 1;
+                    sort['artwork.srno'] = 1;
                 } else {
                     sort = {};
                     sort.focused = 1;
@@ -2471,9 +2479,14 @@ module.exports = {
                             $project: {
                                 _id: 1,
                                 name: 1,
-                                artwork: 1
+                                artwork: 1,
+                                focused: 1
                             }
-                        }]).toArray(function(err, found) {
+                        }]).sort({
+                            focused: 1,
+                            name: 1,
+                            "artwork.srno": 1
+                        }).toArray(function(err, found) {
                             if (found && found[0]) {
                                 callback(found[0]);
                                 db.close();
@@ -2542,9 +2555,14 @@ module.exports = {
                             $project: {
                                 _id: 1,
                                 name: 1,
-                                artwork: 1
+                                artwork: 1,
+                                focused: 1
                             }
-                        }]).toArray(function(err, found) {
+                        }]).sort({
+                            focused: 1,
+                            name: 1,
+                            "artwork.srno": 1
+                        }).toArray(function(err, found) {
                             if (found && found[0]) {
                                 callback(found[0]);
                                 db.close();
