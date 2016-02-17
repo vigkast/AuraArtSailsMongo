@@ -1526,19 +1526,22 @@ module.exports = {
                         $unwind: "$artwork"
                     }, {
                         $match: {
-                            $or: [{
-                                "artwork.name": {
-                                    $regex: checkname
-                                }
+                            $and: [{
+                                $or: [{
+                                    "artwork.name": {
+                                        $regex: checkname
+                                    }
+                                }, {
+                                    "artwork.name": {
+                                        $regex: check
+                                    }
+                                }]
                             }, {
-                                "artwork.name": {
-                                    $regex: check
-                                }
-                            }],
-                            $or: [{
-                                "artwork.status": "approve"
-                            }, {
-                                "artwork.status": "sold"
+                                $or: [{
+                                    "artwork.status": "approve"
+                                }, {
+                                    "artwork.status": "sold"
+                                }]
                             }],
                             "artwork.type": data.type
                         }
@@ -1574,19 +1577,22 @@ module.exports = {
                             $unwind: "$artwork"
                         }, {
                             $match: {
-                                $or: [{
-                                    "artwork.name": {
-                                        $regex: checkname
-                                    }
+                                $and: [{
+                                    $or: [{
+                                        "artwork.name": {
+                                            $regex: checkname
+                                        }
+                                    }, {
+                                        "artwork.name": {
+                                            $regex: check
+                                        }
+                                    }]
                                 }, {
-                                    "artwork.name": {
-                                        $regex: check
-                                    }
-                                }],
-                                $or: [{
-                                    "artwork.status": "approve"
-                                }, {
-                                    "artwork.status": "sold"
+                                    $or: [{
+                                        "artwork.status": "approve"
+                                    }, {
+                                        "artwork.status": "sold"
+                                    }]
                                 }],
                                 "artwork.type": data.type
                             }
@@ -1916,20 +1922,23 @@ module.exports = {
                             $unwind: "$artwork"
                         }, {
                             $match: {
-                                $or: [{
-                                    "artwork.name": {
-                                        $regex: checkname
-                                    }
+                                $and: [{
+                                    $or: [{
+                                        "artwork.name": {
+                                            $regex: checkname
+                                        }
+                                    }, {
+                                        "artwork.name": {
+                                            $regex: check
+                                        }
+                                    }]
                                 }, {
-                                    "artwork.name": {
-                                        $regex: check
-                                    }
+                                    $or: [{
+                                        "artwork.status": "approve"
+                                    }, {
+                                        "artwork.status": "sold"
+                                    }]
                                 }],
-                                $or: [{
-                                    "artwork.status": "approve"
-                                }, {
-                                    "artwork.status": "sold"
-                                }]
                             }
                         }, {
                             $group: {
@@ -1963,20 +1972,23 @@ module.exports = {
                                 $unwind: "$artwork"
                             }, {
                                 $match: {
-                                    $or: [{
-                                        "artwork.name": {
-                                            $regex: checkname
-                                        }
+                                    $and: [{
+                                        $or: [{
+                                            "artwork.name": {
+                                                $regex: checkname
+                                            }
+                                        }, {
+                                            "artwork.name": {
+                                                $regex: check
+                                            }
+                                        }]
                                     }, {
-                                        "artwork.name": {
-                                            $regex: check
-                                        }
+                                        $or: [{
+                                            "artwork.status": "approve"
+                                        }, {
+                                            "artwork.status": "sold"
+                                        }]
                                     }],
-                                    $or: [{
-                                        "artwork.status": "approve"
-                                    }, {
-                                        "artwork.status": "sold"
-                                    }]
                                 }
                             }, {
                                 $group: {
@@ -2023,7 +2035,6 @@ module.exports = {
                             $unwind: "$artwork"
                         }, {
                             $match: {
-
                                 $or: [{
                                     "artwork.subtype.name": {
                                         $regex: checkname
@@ -2238,181 +2249,183 @@ module.exports = {
                 data.search = "^" + data.search;
                 var checkname = new RegExp(data.search, "i");
                 var user = sails.ObjectID(data.user);
-                db.collection("user").find({
-                    $or: [{
-                        name: {
-                            $regex: checkname
-                        }
-                    }, {
-                        name: {
-                            $regex: check
-                        }
-                    }],
-                    status: "approve",
-                    accesslevel: "artist"
-                }, {
-                    _id: 0,
-                    name: 1
-                }).sort({
-                    name: 1
-                }).limit(10).toArray(function(err, found) {
-                    if (found && found[0]) {
-                        _.each(found, function(user) {
-                            user.type = "Artist";
-                            newreturns.push(user);
-                        });
-                        i++;
-                        callbackfunc1();
-                    } else if (err) {
-                        i++;
-                        callbackfunc1();
-                        console.log(err);
-                    } else {
-                        i++;
-                        callbackfunc1();
-                    }
-                });
-
-                function callbackfunc1() {
-                    db.collection("user").aggregate([{
-                        $unwind: "$artwork"
-                    }, {
-                        $match: {
+                async.parallel([
+                    function(callback) {
+                        db.collection("user").find({
                             $or: [{
-                                "artwork.name": {
+                                name: {
                                     $regex: checkname
                                 }
                             }, {
-                                "artwork.name": {
+                                name: {
                                     $regex: check
                                 }
                             }],
-                            $or: [{
-                                "artwork.status": "approve"
-                            }, {
-                                "artwork.status": "sold"
-                            }]
-                        }
-                    }, {
-                        $group: {
-                            _id: "$_id",
-                            name: {
-                                $addToSet: "$artwork.name"
-                            },
-                            type: {
-                                $addToSet: "$artwork.type"
-                            }
-                        }
-                    }, {
-                        $project: {
+                            status: "approve",
+                            accesslevel: "artist"
+                        }, {
                             _id: 0,
-                            name: 1,
-                            type: 1
-                        }
-                    }, {
-                        $unwind: "$name"
-                    }, {
-                        $unwind: "$type"
-                    }, {
-                        $sort: {
                             name: 1
-                        }
-                    }]).limit(10).toArray(function(err, found) {
-                        if (found && found[0]) {
-                            _.each(found, function(user) {
-                                newreturns.push(user);
-                            });
-                            i++;
-                            callbackfunc2();
-                        } else if (err) {
-                            i++;
-                            callbackfunc2();
-                            console.log(err);
-                        } else {
-                            i++;
-                            callbackfunc2();
-                        }
-                    });
-                }
-
-                function callbackfunc2() {
-                    db.collection("artmedium").find({
-                        $or: [{
-                            name: {
-                                $regex: checkname
+                        }).sort({
+                            name: 1
+                        }).limit(10).toArray(function(err, data2) {
+                            if (data2 && data2[0]) {
+                                _.each(data2, function(user) {
+                                    user.type = "Artist";
+                                    newreturns.push(user);
+                                });
+                                callback(null, newreturns);
+                            } else if (err) {
+                                console.log(err);
+                                callback(err, null);
+                            } else {
+                                callback(null, newreturns);
+                            }
+                        });
+                    },
+                    function(callback) {
+                        db.collection("user").aggregate([{
+                            $unwind: "$artwork"
+                        }, {
+                            $match: {
+                                $and: [{
+                                    $or: [{
+                                        "artwork.name": {
+                                            "$regex": checkname
+                                        }
+                                    }, {
+                                        "artwork.name": {
+                                            "$regex": check
+                                        }
+                                    }]
+                                }, {
+                                    $or: [{
+                                        "artwork.status": "approve"
+                                    }, {
+                                        "artwork.status": "sold"
+                                    }]
+                                }]
                             }
                         }, {
-                            name: {
-                                $regex: check
-                            }
-                        }],
-                    }, {
-                        _id: 0,
-                        name: 1
-                    }).sort({
-                        name: 1
-                    }).limit(10).toArray(function(err, found) {
-                        if (found && found[0]) {
-                            _.each(found, function(user) {
-                                user.type = "Art-medium";
-                                newreturns.push(user);
-                            });
-                            i++;
-                            callbackfunc3();
-                        } else if (err) {
-                            i++;
-                            callbackfunc3();
-                            console.log(err);
-                        } else {
-                            i++;
-                            callbackfunc3();
-                        }
-                    });
-                }
-
-                function callbackfunc3() {
-                    db.collection("tag").find({
-                        $or: [{
-                            name: {
-                                $regex: checkname
+                            $group: {
+                                _id: "$_id",
+                                name: {
+                                    $addToSet: "$artwork.name"
+                                },
+                                type: {
+                                    $addToSet: "$artwork.type"
+                                }
                             }
                         }, {
-                            name: {
-                                $regex: check
+                            $project: {
+                                _id: 0,
+                                name: 1,
+                                type: 1
                             }
-                        }],
-                    }, {
-                        _id: 0,
-                        name: 1
-                    }).sort({
-                        name: 1
-                    }).limit(10).toArray(function(err, found) {
-                        if (found && found[0]) {
-                            _.each(found, function(user) {
-                                user.type = "Tag";
-                                newreturns.push(user);
-                            });
-                            i++;
-                            if (i == 4) {
-                                callback(newreturns);
-                                db.close();
+                        }, {
+                            $unwind: "$name"
+                        }, {
+                            $unwind: "$type"
+                        }, {
+                            $sort: {
+                                name: 1
                             }
-                        } else if (err) {
-                            console.log(err);
-                            i++;
-                            if (i == 4) {
-                                callback(newreturns);
-                                db.close();
+                        }]).limit(10).toArray(function(err, data3) {
+                            console.log(data3);
+                            if (data3 && data3[0]) {
+                                _.each(data3, function(user) {
+                                    newreturns.push(user);
+                                });
+                                callback(null, newreturns);
+                            } else if (err) {
+                                console.log(err);
+                                callback(err, null);
+                            } else {
+                                callback(null, newreturns);
                             }
-                        } else {
-                            i++;
-                            if (i == 4) {
-                                callback(newreturns);
-                                db.close();
+                        });
+                    },
+                    function(callback) {
+                        db.collection("artmedium").find({
+                            $or: [{
+                                name: {
+                                    $regex: checkname
+                                }
+                            }, {
+                                name: {
+                                    $regex: check
+                                }
+                            }],
+                        }, {
+                            _id: 0,
+                            name: 1
+                        }).sort({
+                            name: 1
+                        }).limit(10).toArray(function(err, data4) {
+                            if (data4 && data4[0]) {
+                                _.each(data4, function(user) {
+                                    user.type = "Art-medium";
+                                    newreturns.push(user);
+                                });
+                                callback(null, newreturns);
+                            } else if (err) {
+                                console.log(err);
+                                callback(err, null);
+                            } else {
+                                callback(null, newreturns);
                             }
-                        }
-                    });
-                }
+                        });
+                    },
+                    function(callback) {
+                        db.collection("tag").find({
+                            $or: [{
+                                name: {
+                                    $regex: checkname
+                                }
+                            }, {
+                                name: {
+                                    $regex: check
+                                }
+                            }],
+                        }, {
+                            _id: 0,
+                            name: 1
+                        }).sort({
+                            name: 1
+                        }).limit(10).toArray(function(err, data5) {
+                            if (data5 && data5[0]) {
+                                _.each(data5, function(user) {
+                                    user.type = "Tag";
+                                    newreturns.push(user);
+                                });
+                                callback(null, newreturns);
+                            } else if (err) {
+                                console.log(err);
+                                callback(err, null);
+                            } else {
+                                callback(null, newreturns);
+                            }
+                        });
+                    },
+                ], function(err, data6) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false,
+                            comment: "Error"
+                        });
+                        db.close();
+                    } else if (data6) {
+                        callback(newreturns);
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
             }
         });
     },
