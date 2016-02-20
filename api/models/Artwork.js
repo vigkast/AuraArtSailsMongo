@@ -4,7 +4,6 @@
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
-
 module.exports = {
     save: function(data, callback) {
         data.srno = parseInt(data.srno);
@@ -166,98 +165,103 @@ module.exports = {
                             });
                             db.close();
                         } else if (updated) {
-                            data._id = data._id.toString();
-                            var residence = "";
-                            var studio = "";
-                            var other = "";
-                            var comment = "";
-                            if (data.residence) {
-                                residence = data.residence.flatno + ", " + data.residence.bldgname + ", " + data.residence.landmark + ", " + data.residence.street + ", " + data.residence.locality + ", " + data.residence.city + ", " + data.residence.pincode + ", " + data.residence.state + ", " + data.residence.country;
-                            } else {
-                                residence = "N/A";
-                            }
-                            if (data.work) {
-                                studio = data.work.flatno + ", " + data.work.bldgname + ", " + data.work.landmark + ", " + data.work.street + ", " + data.work.locality + ", " + data.work.city + ", " + data.work.pincode + ", " + data.work.state + ", " + data.work.country;
-                            } else {
-                                studio = "N/A";
-                            }
-                            if (data.other) {
-                                other = data.other.flatno + ", " + data.other.bldgname + ", " + data.other.landmark + ", " + data.other.street + ", " + data.other.locality + ", " + data.other.city + ", " + data.other.pincode + ", " + data.other.state + ", " + data.other.country;
-                            } else {
-                                other = "N/A";
-                            }
-                            if (data.chat && data.chat.length > 0) {
-                                comment = data.chat[0].comment;
-                            } else {
-                                comment = "N/A";
-                            }
-                            data._id = data._id.toString();
-                            var obj = {
-                                "api_key": "47e02d2b10604fc81304a5837577e286",
-                                "email_details": {
-                                    "fromname": sails.fromName,
-                                    "subject": "Artwork %23" + data._id.substring(data._id.length - 5),
-                                    "from": sails.fromEmail,
-                                    "replytoid": "connect@aurart.in"
-                                },
-                                "settings": {
-                                    "template": "2211",
-                                },
-                                "recipients": ["connect@aurart.in", email, selleremail],
-                                "attributes": {
-                                    "NAME": [data.name],
-                                    "ANAME": [artistname],
-                                    "SNAME": [sellername],
-                                    "SELLEREMAIL": [selleremail],
-                                    "AEMAIL": [email],
-                                    "SRNO": [data.srno],
-                                    "TYPE": [data.type],
-                                    "HEIGHT": [data.height],
-                                    "WIDTH": [data.width],
-                                    "BREADTH": [data.breadth],
-                                    "YOC": [data.yoc],
-                                    "DIM": [data.dim],
-                                    "PRICE": [data.price],
-                                    "COMM": [data.comm],
-                                    "GPRICE": [data.gprice],
-                                    "AREA": [data.area],
-                                    "PEDESTAL": [data.pedestal],
-                                    "PHEIGHT": [data.pedestalheight],
-                                    "PWIDTH": [data.pedestalwidth],
-                                    "PBREADTH": [data.pedestalbreadth],
-                                    "PWEIGHT": [data.pedestalweight],
-                                    "FSTATUS": [data.fstatus],
-                                    "FHEIGHT": [data.framedheight],
-                                    "FWIDTH": [data.framedwidth],
-                                    "DESC": [data.description],
-                                    "RADD": [residence],
-                                    "SADD": [studio],
-                                    "OADD": [other],
-                                    "COMMENT": [comment]
-                                }
-                            };
-                            sails.request.get({
-                                url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
-                            }, function(err, httpResponse, body) {
-                                if (err) {
-                                    callback({
-                                        value: false
-                                    });
-                                    db.close();
-                                } else if (body && body == "success") {
-                                    callback({
-                                        value: true,
-                                        comment: "Mail sent"
-                                    });
-                                    db.close();
-                                } else {
-                                    callback({
-                                        value: false,
-                                        comment: "Error"
-                                    });
-                                    db.close();
-                                }
+                            callback({
+                                value: true,
+                                comment: "Mail sent"
                             });
+                            db.close();
+                            // data._id = data._id.toString();
+                            // var residence = "";
+                            // var studio = "";
+                            // var other = "";
+                            // var comment = "";
+                            // if (data.residence) {
+                            //     residence = data.residence.flatno + ", " + data.residence.bldgname + ", " + data.residence.landmark + ", " + data.residence.street + ", " + data.residence.locality + ", " + data.residence.city + ", " + data.residence.pincode + ", " + data.residence.state + ", " + data.residence.country;
+                            // } else {
+                            //     residence = "N/A";
+                            // }
+                            // if (data.work) {
+                            //     studio = data.work.flatno + ", " + data.work.bldgname + ", " + data.work.landmark + ", " + data.work.street + ", " + data.work.locality + ", " + data.work.city + ", " + data.work.pincode + ", " + data.work.state + ", " + data.work.country;
+                            // } else {
+                            //     studio = "N/A";
+                            // }
+                            // if (data.other) {
+                            //     other = data.other.flatno + ", " + data.other.bldgname + ", " + data.other.landmark + ", " + data.other.street + ", " + data.other.locality + ", " + data.other.city + ", " + data.other.pincode + ", " + data.other.state + ", " + data.other.country;
+                            // } else {
+                            //     other = "N/A";
+                            // }
+                            // if (data.chat && data.chat.length > 0) {
+                            //     comment = data.chat[0].comment;
+                            // } else {
+                            //     comment = "N/A";
+                            // }
+                            // data._id = data._id.toString();
+                            // var obj = {
+                            //     "api_key": "47e02d2b10604fc81304a5837577e286",
+                            //     "email_details": {
+                            //         "fromname": sails.fromName,
+                            //         "subject": "Artwork %23" + data._id.substring(data._id.length - 5),
+                            //         "from": sails.fromEmail,
+                            //         "replytoid": "connect@aurart.in"
+                            //     },
+                            //     "settings": {
+                            //         "template": "2211",
+                            //     },
+                            //     "recipients": ["connect@aurart.in", email, selleremail],
+                            //     "attributes": {
+                            //         "NAME": [data.name],
+                            //         "ANAME": [artistname],
+                            //         "SNAME": [sellername],
+                            //         "SELLEREMAIL": [selleremail],
+                            //         "AEMAIL": [email],
+                            //         "SRNO": [data.srno],
+                            //         "TYPE": [data.type],
+                            //         "HEIGHT": [data.height],
+                            //         "WIDTH": [data.width],
+                            //         "BREADTH": [data.breadth],
+                            //         "YOC": [data.yoc],
+                            //         "DIM": [data.dim],
+                            //         "PRICE": [data.price],
+                            //         "COMM": [data.comm],
+                            //         "GPRICE": [data.gprice],
+                            //         "AREA": [data.area],
+                            //         "PEDESTAL": [data.pedestal],
+                            //         "PHEIGHT": [data.pedestalheight],
+                            //         "PWIDTH": [data.pedestalwidth],
+                            //         "PBREADTH": [data.pedestalbreadth],
+                            //         "PWEIGHT": [data.pedestalweight],
+                            //         "FSTATUS": [data.fstatus],
+                            //         "FHEIGHT": [data.framedheight],
+                            //         "FWIDTH": [data.framedwidth],
+                            //         "DESC": [data.description],
+                            //         "RADD": [residence],
+                            //         "SADD": [studio],
+                            //         "OADD": [other],
+                            //         "COMMENT": [comment]
+                            //     }
+                            // };
+                            // sails.request.get({
+                            //     url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                            // }, function(err, httpResponse, body) {
+                            //     if (err) {
+                            //         callback({
+                            //             value: false
+                            //         });
+                            //         db.close();
+                            //     } else if (body && body == "success") {
+                            //         callback({
+                            //             value: true,
+                            //             comment: "Mail sent"
+                            //         });
+                            //         db.close();
+                            //     } else {
+                            //         callback({
+                            //             value: false,
+                            //             comment: "Error"
+                            //         });
+                            //         db.close();
+                            //     }
+                            // });
                         } else {
                             callback({
                                 value: false,
@@ -287,97 +291,102 @@ module.exports = {
                             });
                             db.close();
                         } else if (updated) {
-                            var residence = "";
-                            var studio = "";
-                            var other = "";
-                            var comment = "";
-                            if (data.residence) {
-                                residence = data.residence.flatno + ", " + data.residence.bldgname + ", " + data.residence.landmark + ", " + data.residence.street + ", " + data.residence.locality + ", " + data.residence.city + ", " + data.residence.pincode + ", " + data.residence.state + ", " + data.residence.country;
-                            } else {
-                                residence = "N/A";
-                            }
-                            if (data.work) {
-                                studio = data.work.flatno + ", " + data.work.bldgname + ", " + data.work.landmark + ", " + data.work.street + ", " + data.work.locality + ", " + data.work.city + ", " + data.work.pincode + ", " + data.work.state + ", " + data.work.country;
-                            } else {
-                                studio = "N/A";
-                            }
-                            if (data.other) {
-                                other = data.other.flatno + ", " + data.other.bldgname + ", " + data.other.landmark + ", " + data.other.street + ", " + data.other.locality + ", " + data.other.city + ", " + data.other.pincode + ", " + data.other.state + ", " + data.other.country;
-                            } else {
-                                other = "N/A";
-                            }
-                            if (data.chat && data.chat.length > 0) {
-                                comment = data.chat[data.chat.length - 1].comment;
-                            } else {
-                                comment = "N/A";
-                            }
-                            data._id = data._id.toString();
-                            var obj = {
-                                "api_key": "47e02d2b10604fc81304a5837577e286",
-                                "email_details": {
-                                    "fromname": sails.fromName,
-                                    "subject": "Artwork %23" + data._id.substring(data._id.length - 5),
-                                    "from": sails.fromEmail,
-                                    "replytoid": "connect@aurart.in"
-                                },
-                                "settings": {
-                                    "template": "2211",
-                                },
-                                "recipients": ["connect@aurart.in", selleremail, email],
-                                "attributes": {
-                                    "NAME": [data.name],
-                                    "ANAME": [artistname],
-                                    "SNAME": [sellername],
-                                    "SELLEREMAIL": [selleremail],
-                                    "AEMAIL": [email],
-                                    "SRNO": [data.srno],
-                                    "TYPE": [data.type],
-                                    "HEIGHT": [data.height],
-                                    "WIDTH": [data.width],
-                                    "BREADTH": [data.breadth],
-                                    "YOC": [data.yoc],
-                                    "DIM": [data.dim],
-                                    "PRICE": [data.price],
-                                    "COMM": [data.comm],
-                                    "GPRICE": [data.gprice],
-                                    "AREA": [data.area],
-                                    "PEDESTAL": [data.pedestal],
-                                    "PHEIGHT": [data.pedestalheight],
-                                    "PWIDTH": [data.pedestalwidth],
-                                    "PBREADTH": [data.pedestalbreadth],
-                                    "PWEIGHT": [data.pedestalweight],
-                                    "FSTATUS": [data.fstatus],
-                                    "FHEIGHT": [data.framedheight],
-                                    "FWIDTH": [data.framedwidth],
-                                    "DESC": [data.description],
-                                    "RADD": [residence],
-                                    "SADD": [studio],
-                                    "OADD": [other],
-                                    "COMMENT": [comment]
-                                }
-                            };
-                            sails.request.get({
-                                url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
-                            }, function(err, httpResponse, body) {
-                                if (err) {
-                                    callback({
-                                        value: false
-                                    });
-                                    db.close();
-                                } else if (body && body == "success") {
-                                    callback({
-                                        value: true,
-                                        comment: "Mail sent"
-                                    });
-                                    db.close();
-                                } else {
-                                    callback({
-                                        value: false,
-                                        comment: "Error"
-                                    });
-                                    db.close();
-                                }
+                            callback({
+                                value: true,
+                                comment: "Mail sent"
                             });
+                            db.close();
+                            // var residence = "";
+                            // var studio = "";
+                            // var other = "";
+                            // var comment = "";
+                            // if (data.residence) {
+                            //     residence = data.residence.flatno + ", " + data.residence.bldgname + ", " + data.residence.landmark + ", " + data.residence.street + ", " + data.residence.locality + ", " + data.residence.city + ", " + data.residence.pincode + ", " + data.residence.state + ", " + data.residence.country;
+                            // } else {
+                            //     residence = "N/A";
+                            // }
+                            // if (data.work) {
+                            //     studio = data.work.flatno + ", " + data.work.bldgname + ", " + data.work.landmark + ", " + data.work.street + ", " + data.work.locality + ", " + data.work.city + ", " + data.work.pincode + ", " + data.work.state + ", " + data.work.country;
+                            // } else {
+                            //     studio = "N/A";
+                            // }
+                            // if (data.other) {
+                            //     other = data.other.flatno + ", " + data.other.bldgname + ", " + data.other.landmark + ", " + data.other.street + ", " + data.other.locality + ", " + data.other.city + ", " + data.other.pincode + ", " + data.other.state + ", " + data.other.country;
+                            // } else {
+                            //     other = "N/A";
+                            // }
+                            // if (data.chat && data.chat.length > 0) {
+                            //     comment = data.chat[data.chat.length - 1].comment;
+                            // } else {
+                            //     comment = "N/A";
+                            // }
+                            // data._id = data._id.toString();
+                            // var obj = {
+                            //     "api_key": "47e02d2b10604fc81304a5837577e286",
+                            //     "email_details": {
+                            //         "fromname": sails.fromName,
+                            //         "subject": "Artwork %23" + data._id.substring(data._id.length - 5),
+                            //         "from": sails.fromEmail,
+                            //         "replytoid": "connect@aurart.in"
+                            //     },
+                            //     "settings": {
+                            //         "template": "2211",
+                            //     },
+                            //     "recipients": ["connect@aurart.in", selleremail, email],
+                            //     "attributes": {
+                            //         "NAME": [data.name],
+                            //         "ANAME": [artistname],
+                            //         "SNAME": [sellername],
+                            //         "SELLEREMAIL": [selleremail],
+                            //         "AEMAIL": [email],
+                            //         "SRNO": [data.srno],
+                            //         "TYPE": [data.type],
+                            //         "HEIGHT": [data.height],
+                            //         "WIDTH": [data.width],
+                            //         "BREADTH": [data.breadth],
+                            //         "YOC": [data.yoc],
+                            //         "DIM": [data.dim],
+                            //         "PRICE": [data.price],
+                            //         "COMM": [data.comm],
+                            //         "GPRICE": [data.gprice],
+                            //         "AREA": [data.area],
+                            //         "PEDESTAL": [data.pedestal],
+                            //         "PHEIGHT": [data.pedestalheight],
+                            //         "PWIDTH": [data.pedestalwidth],
+                            //         "PBREADTH": [data.pedestalbreadth],
+                            //         "PWEIGHT": [data.pedestalweight],
+                            //         "FSTATUS": [data.fstatus],
+                            //         "FHEIGHT": [data.framedheight],
+                            //         "FWIDTH": [data.framedwidth],
+                            //         "DESC": [data.description],
+                            //         "RADD": [residence],
+                            //         "SADD": [studio],
+                            //         "OADD": [other],
+                            //         "COMMENT": [comment]
+                            //     }
+                            // };
+                            // sails.request.get({
+                            //     url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                            // }, function(err, httpResponse, body) {
+                            //     if (err) {
+                            //         callback({
+                            //             value: false
+                            //         });
+                            //         db.close();
+                            //     } else if (body && body == "success") {
+                            //         callback({
+                            //             value: true,
+                            //             comment: "Mail sent"
+                            //         });
+                            //         db.close();
+                            //     } else {
+                            //         callback({
+                            //             value: false,
+                            //             comment: "Error"
+                            //         });
+                            //         db.close();
+                            //     }
+                            // });
                         } else {
                             callback({
                                 value: false,
@@ -455,97 +464,102 @@ module.exports = {
                         });
                         db.close();
                     } else if (updated) {
-                        var residence = "";
-                        var studio = "";
-                        var other = "";
-                        var comment = "";
-                        if (data.residence) {
-                            residence = data.residence.flatno + ", " + data.residence.bldgname + ", " + data.residence.landmark + ", " + data.residence.street + ", " + data.residence.locality + ", " + data.residence.city + ", " + data.residence.pincode + ", " + data.residence.state + ", " + data.residence.country;
-                        } else {
-                            residence = "N/A";
-                        }
-                        if (data.work) {
-                            studio = data.work.flatno + ", " + data.work.bldgname + ", " + data.work.landmark + ", " + data.work.street + ", " + data.work.locality + ", " + data.work.city + ", " + data.work.pincode + ", " + data.work.state + ", " + data.work.country;
-                        } else {
-                            studio = "N/A";
-                        }
-                        if (data.other) {
-                            other = data.other.flatno + ", " + data.other.bldgname + ", " + data.other.landmark + ", " + data.other.street + ", " + data.other.locality + ", " + data.other.city + ", " + data.other.pincode + ", " + data.other.state + ", " + data.other.country;
-                        } else {
-                            other = "N/A";
-                        }
-                        if (data.chat && data.chat.length > 0) {
-                            comment = data.chat[data.chat.length - 1].comment;
-                        } else {
-                            comment = "N/A";
-                        }
-                        data._id = data._id.toString();
-                        var obj = {
-                            "api_key": "47e02d2b10604fc81304a5837577e286",
-                            "email_details": {
-                                "fromname": sails.fromName,
-                                "subject": "Artwork %23" + data._id.substring(data._id.length - 5),
-                                "from": sails.fromEmail,
-                                "replytoid": "connect@aurart.in"
-                            },
-                            "settings": {
-                                "template": "2211",
-                            },
-                            "recipients": ["connect@aurart.in", selleremail],
-                            "attributes": {
-                                "NAME": [data.name],
-                                "ANAME": [artistname],
-                                "SNAME": [sellername],
-                                "SELLEREMAIL": [selleremail],
-                                "AEMAIL": [email],
-                                "SRNO": [data.srno],
-                                "TYPE": [data.type],
-                                "HEIGHT": [data.height],
-                                "WIDTH": [data.width],
-                                "BREADTH": [data.breadth],
-                                "YOC": [data.yoc],
-                                "DIM": [data.dim],
-                                "PRICE": [data.price],
-                                "COMM": [data.comm],
-                                "GPRICE": [data.gprice],
-                                "AREA": [data.area],
-                                "PEDESTAL": [data.pedestal],
-                                "PHEIGHT": [data.pedestalheight],
-                                "PWIDTH": [data.pedestalwidth],
-                                "PBREADTH": [data.pedestalbreadth],
-                                "PWEIGHT": [data.pedestalweight],
-                                "FSTATUS": [data.fstatus],
-                                "FHEIGHT": [data.framedheight],
-                                "FWIDTH": [data.framedwidth],
-                                "DESC": [data.description],
-                                "RADD": [residence],
-                                "SADD": [studio],
-                                "OADD": [other],
-                                "COMMENT": [comment]
-                            }
-                        };
-                        sails.request.get({
-                            url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
-                        }, function(err, httpResponse, body) {
-                            if (err) {
-                                callback({
-                                    value: false
-                                });
-                                db.close();
-                            } else if (body && body == "success") {
-                                callback({
-                                    value: true,
-                                    comment: "Mail sent"
-                                });
-                                db.close();
-                            } else {
-                                callback({
-                                    value: false,
-                                    comment: "Error"
-                                });
-                                db.close();
-                            }
+                        callback({
+                            value: true,
+                            comment: "Mail sent"
                         });
+                        db.close();
+                        // var residence = "";
+                        // var studio = "";
+                        // var other = "";
+                        // var comment = "";
+                        // if (data.residence) {
+                        //     residence = data.residence.flatno + ", " + data.residence.bldgname + ", " + data.residence.landmark + ", " + data.residence.street + ", " + data.residence.locality + ", " + data.residence.city + ", " + data.residence.pincode + ", " + data.residence.state + ", " + data.residence.country;
+                        // } else {
+                        //     residence = "N/A";
+                        // }
+                        // if (data.work) {
+                        //     studio = data.work.flatno + ", " + data.work.bldgname + ", " + data.work.landmark + ", " + data.work.street + ", " + data.work.locality + ", " + data.work.city + ", " + data.work.pincode + ", " + data.work.state + ", " + data.work.country;
+                        // } else {
+                        //     studio = "N/A";
+                        // }
+                        // if (data.other) {
+                        //     other = data.other.flatno + ", " + data.other.bldgname + ", " + data.other.landmark + ", " + data.other.street + ", " + data.other.locality + ", " + data.other.city + ", " + data.other.pincode + ", " + data.other.state + ", " + data.other.country;
+                        // } else {
+                        //     other = "N/A";
+                        // }
+                        // if (data.chat && data.chat.length > 0) {
+                        //     comment = data.chat[data.chat.length - 1].comment;
+                        // } else {
+                        //     comment = "N/A";
+                        // }
+                        // data._id = data._id.toString();
+                        // var obj = {
+                        //     "api_key": "47e02d2b10604fc81304a5837577e286",
+                        //     "email_details": {
+                        //         "fromname": sails.fromName,
+                        //         "subject": "Artwork %23" + data._id.substring(data._id.length - 5),
+                        //         "from": sails.fromEmail,
+                        //         "replytoid": "connect@aurart.in"
+                        //     },
+                        //     "settings": {
+                        //         "template": "2211",
+                        //     },
+                        //     "recipients": ["connect@aurart.in", selleremail],
+                        //     "attributes": {
+                        //         "NAME": [data.name],
+                        //         "ANAME": [artistname],
+                        //         "SNAME": [sellername],
+                        //         "SELLEREMAIL": [selleremail],
+                        //         "AEMAIL": [email],
+                        //         "SRNO": [data.srno],
+                        //         "TYPE": [data.type],
+                        //         "HEIGHT": [data.height],
+                        //         "WIDTH": [data.width],
+                        //         "BREADTH": [data.breadth],
+                        //         "YOC": [data.yoc],
+                        //         "DIM": [data.dim],
+                        //         "PRICE": [data.price],
+                        //         "COMM": [data.comm],
+                        //         "GPRICE": [data.gprice],
+                        //         "AREA": [data.area],
+                        //         "PEDESTAL": [data.pedestal],
+                        //         "PHEIGHT": [data.pedestalheight],
+                        //         "PWIDTH": [data.pedestalwidth],
+                        //         "PBREADTH": [data.pedestalbreadth],
+                        //         "PWEIGHT": [data.pedestalweight],
+                        //         "FSTATUS": [data.fstatus],
+                        //         "FHEIGHT": [data.framedheight],
+                        //         "FWIDTH": [data.framedwidth],
+                        //         "DESC": [data.description],
+                        //         "RADD": [residence],
+                        //         "SADD": [studio],
+                        //         "OADD": [other],
+                        //         "COMMENT": [comment]
+                        //     }
+                        // };
+                        // sails.request.get({
+                        //     url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                        // }, function(err, httpResponse, body) {
+                        //     if (err) {
+                        //         callback({
+                        //             value: false
+                        //         });
+                        //         db.close();
+                        //     } else if (body && body == "success") {
+                        //         callback({
+                        //             value: true,
+                        //             comment: "Mail sent"
+                        //         });
+                        //         db.close();
+                        //     } else {
+                        //         callback({
+                        //             value: false,
+                        //             comment: "Error"
+                        //         });
+                        //         db.close();
+                        //     }
+                        // });
                     } else {
                         callback({
                             value: false,
@@ -722,7 +736,6 @@ module.exports = {
                 callback({
                     value: false
                 });
-
             }
             if (db) {
                 db.collection("user").aggregate([{
@@ -887,7 +900,6 @@ module.exports = {
                 callback({
                     value: false
                 });
-
             }
             if (db) {
                 db.collection("user").aggregate([{
@@ -1112,7 +1124,6 @@ module.exports = {
                 callback({
                     value: false
                 });
-
             }
             if (db) {
                 db.collection("user").aggregate([{
@@ -1225,7 +1236,6 @@ module.exports = {
                 if (matcharray && !matcharray[0]) {
                     matcharray = [];
                 }
-
                 if (data.minprice == "") {
                     data.minprice = 0;
                 }
@@ -1299,19 +1309,15 @@ module.exports = {
                 if (data.minprice == 0 && data.maxprice == 0) {
                     delete matchobj["artwork.gprice"];
                 }
-
                 if (data.minheight == 0 && data.maxheight == 0) {
                     delete matchobj["artwork.height"];
                 }
-
                 if (data.minwidth == 0 && data.maxwidth == 0) {
                     delete matchobj["artwork.width"];
                 }
-
                 if (data.minbreadth == 0 && data.maxbreadth == 0) {
                     delete matchobj["artwork.breadth"];
                 }
-
                 callme();
 
                 function callme() {
