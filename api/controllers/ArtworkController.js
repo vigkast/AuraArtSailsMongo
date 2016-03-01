@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-    save: function(req, res) {
+    save: function (req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
                 if (req.body._id) {
@@ -29,7 +29,7 @@ module.exports = {
             }
 
             function artwork() {
-                var print = function(data) {
+                var print = function (data) {
                     res.json(data);
                 }
                 Artwork.save(req.body, print);
@@ -41,7 +41,7 @@ module.exports = {
             });
         }
     },
-    saveFront: function(req, res) {
+    saveFront: function (req, res) {
         if (req.body) {
             if (req.session.passport) {
                 req.body.selleremail = req.session.passport.user.email;
@@ -55,7 +55,7 @@ module.exports = {
             }
 
             function artwork() {
-                var print = function(data) {
+                var print = function (data) {
                     res.json(data);
                 }
                 Artwork.saveFront(req.body, print);
@@ -67,11 +67,11 @@ module.exports = {
             });
         }
     },
-    saveBack: function(req, res) {
+    saveBack: function (req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
                 if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                    var print = function(data) {
+                    var print = function (data) {
                         res.json(data);
                     }
                     Artwork.saveBack(req.body, print);
@@ -94,11 +94,11 @@ module.exports = {
             });
         }
     },
-    delete: function(req, res) {
+    delete: function (req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
                 if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                    var print = function(data) {
+                    var print = function (data) {
                         res.json(data);
                     }
                     Artwork.delete(req.body, print);
@@ -121,7 +121,7 @@ module.exports = {
             });
         }
     },
-    find: function(req, res) {
+    find: function (req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
                 function callback(data) {
@@ -141,10 +141,10 @@ module.exports = {
             });
         }
     },
-    findbyid: function(req, res) {
+    findbyid: function (req, res) {
         if (req.body) {
             if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function(data) {
+                var print = function (data) {
                     res.json(data);
                 }
                 Artwork.findbyid(req.body, print);
@@ -161,7 +161,7 @@ module.exports = {
             });
         }
     },
-    findall: function(req, res) {
+    findall: function (req, res) {
         if (req.body) {
             function callback(data) {
                 res.json(data);
@@ -174,7 +174,7 @@ module.exports = {
             });
         }
     },
-    findlimited: function(req, res) {
+    findlimited: function (req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
                 if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
@@ -201,7 +201,7 @@ module.exports = {
             });
         }
     },
-    findlimitedout: function(req, res) {
+    findlimitedout: function (req, res) {
         if (req.body) {
             if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
                 function callback(data) {
@@ -221,11 +221,11 @@ module.exports = {
             });
         }
     },
-    findone: function(req, res) {
+    findone: function (req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
                 if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                    var print = function(data) {
+                    var print = function (data) {
                         res.json(data);
                     }
                     Artwork.findone(req.body, print);
@@ -248,23 +248,11 @@ module.exports = {
             });
         }
     },
-    localtoserver: function(req, res) {
-        function callback(data) {
-            res.json(data);
-        };
-        Artwork.localtoserver(req.body, callback);
-    },
-    servertolocal: function(req, res) {
-        function callback(data) {
-            res.json(data);
-        };
-        Artwork.servertolocal(req.body, callback);
-    },
-    deleteout: function(req, res) {
+    deleteout: function (req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
                 if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                    var print = function(data) {
+                    var print = function (data) {
                         res.json(data);
                     }
                     Artwork.deleteout(req.body, print);
@@ -287,7 +275,7 @@ module.exports = {
             });
         }
     },
-    lastsr: function(req, res) {
+    lastsr: function (req, res) {
         if (req.body) {
             function callback(data) {
                 res.json(data);
@@ -300,7 +288,7 @@ module.exports = {
             });
         }
     },
-    artworktype: function(req, res) {
+    artworktype: function (req, res) {
         if (req.body) {
             if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
                 function callback(data) {
@@ -320,7 +308,7 @@ module.exports = {
             });
         }
     },
-    favoriteartwork: function(req, res) {
+    favoriteartwork: function (req, res) {
         if (req.body) {
             if (req.body.artwork && req.body.artwork.length > 0) {
                 function callback(data) {
@@ -340,7 +328,7 @@ module.exports = {
             });
         }
     },
-    searchartwork: function(req, res) {
+    searchartwork: function (req, res) {
         if (req.body) {
             if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
                 function callback(data) {
@@ -360,7 +348,7 @@ module.exports = {
             });
         }
     },
-    searchdrop: function(req, res) {
+    searchdrop: function (req, res) {
         if (req.body) {
             if (req.body.search && req.body.search != "") {
                 function callback(data) {
@@ -380,27 +368,7 @@ module.exports = {
             });
         }
     },
-    nextartwork: function(req, res) {
-        if (req.body) {
-            if (req.body.srno && req.body.srno != "" && req.body.type && req.body.type != "") {
-                function callback(data) {
-                    res.json(data);
-                };
-                Artwork.nextartwork(req.body, callback);
-            } else {
-                res.json({
-                    value: false,
-                    comment: "Please provide parameters"
-                });
-            }
-        } else {
-            res.json({
-                value: false,
-                comment: "Please provide parameters"
-            });
-        }
-    },
-    findMyArtwork: function(req, res) {
+    findMyArtwork: function (req, res) {
         if (req.body) {
             if (req.session.passport && req.session.passport.user) {
                 req.body.user = req.session.passport.user.id;
@@ -422,11 +390,11 @@ module.exports = {
             });
         }
     },
-    downloadImage: function(req, res) {
+    downloadImage: function (req, res) {
         var dimension = {};
         var isfile = sails.fs.existsSync('./auraimg/' + req.query.image);
         if (isfile == true) {
-            sails.lwip.open('./auraimg/' + req.query.image, function(err, image) {
+            sails.lwip.open('./auraimg/' + req.query.image, function (err, image) {
                 dimension.width = image.width() + 20;
                 dimension.height = image.height() + 130;
                 var html = sails.fs.readFileSync('auraart.html', 'utf-8');
@@ -441,7 +409,7 @@ module.exports = {
                 };
                 if (html && html != "") {
                     sails.webshot(html, req.query.image, options,
-                        function(err) {
+                        function (err) {
                             console.log(err);
                             var path = req.query.image;
                             var image = sails.fs.readFileSync(path);
@@ -450,8 +418,8 @@ module.exports = {
                             res.set('Content-Type', "application/octet-stream");
                             res.set('Content-Disposition', "attachment;filename=" + path);
                             res.send(image);
-                            setTimeout(function() {
-                                sails.fs.unlink(path, function(data) {
+                            setTimeout(function () {
+                                sails.fs.unlink(path, function (data) {
                                     console.log(data);
                                 });
                             }, 10000);
@@ -465,5 +433,80 @@ module.exports = {
             res.set('Content-Type', mimetype);
             res.send(image);
         }
-    }
+    },
+    nextartwork: function (req, res) {
+        if (req.body) {
+            if (req.body.srno && req.body.srno != "" && req.body.type && req.body.type != "") {
+                function callback(data) {
+                    res.json(data);
+                };
+                Artwork.nextartwork(req.body, callback);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    excelobject: function (req, res) {
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+            }
+            if (db) {
+                db.open(function (err, db) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    if (db) {
+                        res.connection.setTimeout(200000);
+                        req.connection.setTimeout(200000);
+                        var extension = "";
+                        var excelimages = [];
+                        req.file("file").upload(function (err, uploadedFiles) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            _.each(uploadedFiles, function (n) {
+                                writedata = n.fd;
+                                excelcall(writedata);
+                            });
+                        });
+
+                        function excelcall(datapath) {
+                            var outputpath = "./.tmp/output.json";
+                            sails.xlsxj({
+                                input: datapath,
+                                output: outputpath
+                            }, function (err, result) {
+                                if (err) {
+                                    console.error(err);
+                                }
+                                if (result) {
+                                    sails.fs.unlink(datapath, function (data) {
+                                        if (data) {
+                                            sails.fs.unlink(outputpath, function (data2) {});
+                                        }
+                                    });
+
+                                    function createart(num) {
+                                        excelimages = [];
+                                        m = result[num];
+                                        Artwork.update();
+                                    }
+                                    createart(0);
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    },
 };

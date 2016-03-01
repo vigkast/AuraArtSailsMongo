@@ -5,7 +5,7 @@
    * @docs        :: http://sailsjs.org/#!documentation/models
    */
   module.exports = {
-      findorcreate: function(data, callback) {
+      findorcreate: function (data, callback) {
           var orfunc = {};
           var insertdata = {};
           if (data.provider == "Twitter") {
@@ -54,14 +54,14 @@
           }
 
           function dbcall(data) {
-              sails.query(function(err, db) {
+              sails.query(function (err, db) {
                   if (err) {
                       callback({
                           value: false
                       });
                   }
                   data._id = sails.ObjectID();
-                  db.collection('user').find(orfunc).toArray(function(err, found) {
+                  db.collection('user').find(orfunc).toArray(function (err, found) {
                       if (err) {
                           console.log(err);
                           callback({
@@ -79,7 +79,7 @@
                           callback(null, data2);
                           db.close();
                       } else {
-                          db.collection('user').insert(data, function(err, created) {
+                          db.collection('user').insert(data, function (err, created) {
                               if (err) {
                                   console.log(err);
                                   callback({
@@ -107,7 +107,7 @@
                                       };
                                       sails.request.get({
                                           url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
-                                      }, function(err, httpResponse, body) {
+                                      }, function (err, httpResponse, body) {
                                           if (err) {
                                               callback({
                                                   value: false
@@ -149,10 +149,10 @@
               });
           }
       },
-      adminlogin: function(data, callback) {
+      adminlogin: function (data, callback) {
           if (data.password) {
               data.password = sails.md5(data.password);
-              sails.query(function(err, db) {
+              sails.query(function (err, db) {
                   if (db) {
                       db.collection('user').find({
                           email: data.email,
@@ -161,7 +161,7 @@
                       }, {
                           password: 0,
                           forgotpassword: 0
-                      }).toArray(function(err, found) {
+                      }).toArray(function (err, found) {
                           if (err) {
                               callback({
                                   value: false
@@ -193,47 +193,47 @@
               });
           }
       },
-      save: function(data, callback) {
+      save: function (data, callback) {
           if (data.cart && data.cart.length > 0) {
-              _.each(data.cart, function(q) {
+              _.each(data.cart, function (q) {
                   q.artwork = sails.ObjectID(q.artwork);
                   q._id = sails.ObjectID(q._id);
               });
           }
           if (data.wishlist && data.wishlist.length > 0) {
-              _.each(data.wishlist, function(n) {
+              _.each(data.wishlist, function (n) {
                   n.artwork = sails.ObjectID(n.artwork);
                   n._id = sails.ObjectID(n._id);
               });
           }
           if (data.wishlistfolder && data.wishlistfolder.length > 0) {
-              _.each(data.wishlistfolder, function(f) {
+              _.each(data.wishlistfolder, function (f) {
                   f._id = sails.ObjectID(f._id);
               });
           }
           if (data.medium && data.medium.length > 0) {
-              _.each(data.medium, function(e) {
+              _.each(data.medium, function (e) {
                   if (e._id && e._id != "") {
                       e._id = sails.ObjectID(e._id);
                   }
               });
           }
           if (data.theme && data.theme.length > 0) {
-              _.each(data.theme, function(e) {
+              _.each(data.theme, function (e) {
                   if (e._id && e._id != "") {
                       e._id = sails.ObjectID(e._id);
                   }
               });
           }
           if (data.reseller && data.reseller.length > 0) {
-              _.each(data.reseller, function(e) {
+              _.each(data.reseller, function (e) {
                   if (e._id && e._id != "") {
                       e._id = sails.ObjectID(e._id);
                   }
               });
           }
           delete data.artwork;
-          sails.query(function(err, db) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -246,7 +246,7 @@
                   }
 
                   function saveuser(data) {
-                      db.collection('user').insert(data, function(err, created) {
+                      db.collection('user').insert(data, function (err, created) {
                           if (err) {
                               console.log(err);
                               callback({
@@ -279,7 +279,7 @@
                                   };
                                   sails.request.get({
                                       url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
-                                  }, function(err, httpResponse, body) {
+                                  }, function (err, httpResponse, body) {
                                       if (err) {
                                           callback({
                                               value: false
@@ -316,7 +316,7 @@
                           if (data.email && data.email != "") {
                               db.collection("user").find({
                                   email: data.email
-                              }).toArray(function(err, data2) {
+                              }).toArray(function (err, data2) {
                                   if (err) {
                                       console.log(err);
                                       callback({
@@ -349,7 +349,7 @@
                           _id: user
                       }, {
                           $set: data
-                      }, function(err, updated) {
+                      }, function (err, updated) {
                           if (err) {
                               console.log(err);
                               callback({
@@ -374,7 +374,7 @@
               }
           });
       },
-      findlimited: function(data, callback) {
+      findlimited: function (data, callback) {
           var newreturns = {};
           newreturns.data = [];
           var checkfor = new RegExp(data.search, "i");
@@ -384,7 +384,7 @@
           var sortnum = parseInt(data.sort);
           var sort = {};
           sort[data.filter] = sortnum;
-          sails.query(function(err, db) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -452,7 +452,7 @@
                       if (!data.type || data.type == "") {
                           delete matchobj["artwork.type"];
                       }
-                      db.collection("user").count(matchobj, function(err, number) {
+                      db.collection("user").count(matchobj, function (err, number) {
                           if (number && number != "") {
                               newreturns.total = number;
                               newreturns.totalpages = Math.ceil(number / data.pagesize);
@@ -478,7 +478,7 @@
                               forgotpassword: 0
                           }, {
                               sort: sort
-                          }).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                          }).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
                               if (err) {
                                   callback({
                                       value: false
@@ -502,8 +502,8 @@
               }
           });
       },
-      find: function(data, callback) {
-          sails.query(function(err, db) {
+      find: function (data, callback) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -514,7 +514,7 @@
                   db.collection("user").find({}, {
                       password: 0,
                       forgotpassword: 0
-                  }).toArray(function(err, found) {
+                  }).toArray(function (err, found) {
                       if (err) {
                           callback({
                               value: false
@@ -534,7 +534,7 @@
               }
           });
       },
-      findbyletter: function(data, callback) {
+      findbyletter: function (data, callback) {
           var newreturns = {};
           newreturns.data = [];
           var spacedata = data.searchname;
@@ -568,7 +568,7 @@
               if (!data.type || data.type == "") {
                   delete firstmatch["artwork.type"];
               }
-              sails.query(function(err, db) {
+              sails.query(function (err, db) {
                   if (err) {
                       console.log(err);
                       callback({
@@ -582,7 +582,7 @@
                       }).sort({
                           focused: 1,
                           name: 1
-                      }).toArray(function(err, found) {
+                      }).toArray(function (err, found) {
                           if (err) {
                               callback({
                                   value: false
@@ -603,8 +603,8 @@
               });
           }
       },
-      findone: function(data, callback) {
-          sails.query(function(err, db) {
+      findone: function (data, callback) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -617,7 +617,7 @@
                   }, {
                       password: 0,
                       forgotpassword: 0
-                  }).toArray(function(err, data2) {
+                  }).toArray(function (err, data2) {
                       if (err) {
                           console.log(err);
                           callback({
@@ -639,8 +639,8 @@
               }
           });
       },
-      findoneBack: function(data, callback) {
-          sails.query(function(err, db) {
+      findoneBack: function (data, callback) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -653,7 +653,7 @@
                   }, {
                       password: 0,
                       forgotpassword: 0
-                  }).toArray(function(err, data2) {
+                  }).toArray(function (err, data2) {
                       if (err) {
                           console.log(err);
                           callback({
@@ -675,8 +675,8 @@
               }
           });
       },
-      findoneArtist: function(data, callback) {
-          sails.query(function(err, db) {
+      findoneArtist: function (data, callback) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -684,7 +684,7 @@
                   });
               }
               if (db) {
-                  User.findone(data, function(respo) {
+                  User.findone(data, function (respo) {
                       if (respo.value != false) {
                           if (respo.artwork && respo.artwork.length > 0) {
                               db.collection("user").aggregate([{
@@ -1082,7 +1082,7 @@
                                   $unwind: "$comment"
                               }, {
                                   $unwind: "$image"
-                              }]).toArray(function(err, data2) {
+                              }]).toArray(function (err, data2) {
                                   if (err) {
                                       console.log(err);
                                       callback({
@@ -1115,8 +1115,8 @@
               }
           });
       },
-      searchmail: function(data, callback) {
-          sails.query(function(err, db) {
+      searchmail: function (data, callback) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -1126,7 +1126,7 @@
               if (db) {
                   db.collection("user").find({
                       email: data.email
-                  }).toArray(function(err, data2) {
+                  }).toArray(function (err, data2) {
                       if (err) {
                           console.log(err);
                           callback({
@@ -1150,8 +1150,8 @@
               }
           });
       },
-      delete: function(data, callback) {
-          sails.query(function(err, db) {
+      delete: function (data, callback) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -1160,7 +1160,7 @@
               }
               var cuser = db.collection('user').remove({
                   _id: sails.ObjectID(data._id)
-              }, function(err, deleted) {
+              }, function (err, deleted) {
                   if (deleted) {
                       callback({
                           value: true
@@ -1182,17 +1182,16 @@
               });
           });
       },
-      login: function(data, callback) {
+      login: function (data, callback) {
           data.password = sails.md5(data.password);
-          sails.query(function(err, db) {
+          sails.query(function (err, db) {
               db.collection('user').find({
                   email: data.email,
                   password: data.password
               }, {
                   password: 0,
-                  forgotpassword: 0,
-                  wishlist: 0,
-              }).toArray(function(err, found) {
+                  wishlist: 0
+              }).toArray(function (err, found) {
                   if (err) {
                       callback({
                           value: false
@@ -1209,7 +1208,7 @@
                               $set: {
                                   forgotpassword: ""
                               }
-                          }, function(err, updated) {
+                          }, function (err, updated) {
                               if (err) {
                                   console.log(err);
                                   db.close();
@@ -1230,7 +1229,7 @@
                           password: 0,
                           forgotpassword: 0,
                           wishlist: 0
-                      }).toArray(function(err, found) {
+                      }).toArray(function (err, found) {
                           if (err) {
                               callback({
                                   value: false
@@ -1247,7 +1246,7 @@
                                       forgotpassword: "",
                                       password: data.password
                                   }
-                              }, function(err, updated) {
+                              }, function (err, updated) {
                                   if (err) {
                                       console.log(err);
                                       db.close();
@@ -1269,12 +1268,12 @@
               });
           });
       },
-      changepassword: function(data, callback) {
+      changepassword: function (data, callback) {
           if (data.password && data.password != "" && data.editpassword && data.editpassword != "" && data.email && data.email != "") {
               data.password = sails.md5(data.password);
               var user = sails.ObjectID(data._id);
               var newpass = sails.md5(data.editpassword);
-              sails.query(function(err, db) {
+              sails.query(function (err, db) {
                   if (err) {
                       console.log(err);
                       callback({
@@ -1290,7 +1289,7 @@
                           $set: {
                               "password": newpass
                           }
-                      }, function(err, updated) {
+                      }, function (err, updated) {
                           if (err) {
                               console.log(err);
                               callback({
@@ -1326,8 +1325,8 @@
               });
           }
       },
-      forgotpassword: function(data, callback) {
-          sails.query(function(err, db) {
+      forgotpassword: function (data, callback) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -1337,7 +1336,7 @@
               if (db) {
                   db.collection('user').find({
                       email: data.email
-                  }).toArray(function(err, data2) {
+                  }).toArray(function (err, data2) {
                       if (err) {
                           console.log(err);
                           callback({
@@ -1358,7 +1357,7 @@
                               $set: {
                                   forgotpassword: encrypttext
                               }
-                          }, function(err, updated) {
+                          }, function (err, updated) {
                               if (err) {
                                   console.log(err);
                                   callback({
@@ -1368,7 +1367,7 @@
                               } else if (updated) {
                                   sails.request.get({
                                       url: "https://api.falconide.com/falconapi/web.send.rest?api_key=47e02d2b10604fc81304a5837577e286&subject=New Password for Aura Art Website &fromname=" + sails.fromName + "&from=" + sails.fromEmail + "&replytoid=" + data.email + "&content=&recipients=" + data.email + "&footer=0&template=2175&clicktrack=0&ATT_PASS=" + text
-                                  }, function(err, httpResponse, body) {
+                                  }, function (err, httpResponse, body) {
                                       if (err) {
                                           callback({
                                               value: false
@@ -1400,8 +1399,8 @@
               }
           });
       },
-      countusers: function(data, callback) {
-          sails.query(function(err, db) {
+      countusers: function (data, callback) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -1409,7 +1408,7 @@
                   });
               }
               if (db) {
-                  db.collection("user").count({}, function(err, number) {
+                  db.collection("user").count({}, function (err, number) {
                       if (number != null) {
                           callback(number);
                           db.close();
@@ -1429,9 +1428,9 @@
               }
           });
       },
-      countartwork: function(data, callback) {
+      countartwork: function (data, callback) {
           var user = sails.ObjectID(data.user);
-          sails.query(function(err, db) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -1464,7 +1463,7 @@
                       $project: {
                           count: 1
                       }
-                  }]).toArray(function(err, result) {
+                  }]).toArray(function (err, result) {
                       if (result[0]) {
                           callback(result[0].count);
                           db.close();
@@ -1488,8 +1487,8 @@
               }
           });
       },
-      findbyaccess: function(data, callback) {
-          sails.query(function(err, db) {
+      findbyaccess: function (data, callback) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -1505,7 +1504,7 @@
                       forgotpassword: 0
                   }).sort({
                       name: 1
-                  }).toArray(function(err, found) {
+                  }).toArray(function (err, found) {
                       if (err) {
                           callback({
                               value: false
@@ -1525,13 +1524,13 @@
               }
           });
       },
-      saveforexcel: function(data, callback) {
+      saveforexcel: function (data, callback) {
           var newdata = {};
           newdata.name = data.username;
           newdata._id = sails.ObjectID();
           newdata.accesslevel = "artist";
           newdata.status = "approve";
-          sails.query(function(err, db) {
+          sails.query(function (err, db) {
               var exit = 0;
               var exitup = 0;
               if (err) {
@@ -1544,7 +1543,7 @@
                   exit++;
                   db.collection("user").find({
                       name: data.username
-                  }).each(function(err, data2) {
+                  }).each(function (err, data2) {
                       if (err) {
                           console.log(err);
                           callback({
@@ -1557,7 +1556,7 @@
                           db.close();
                       } else {
                           if (exit != exitup) {
-                              db.collection('user').insert(newdata, function(err, created) {
+                              db.collection('user').insert(newdata, function (err, created) {
                                   if (err) {
                                       console.log(err);
                                       callback({
@@ -1581,12 +1580,12 @@
               }
           });
       },
-      saveCustomer: function(data, callback) {
+      saveCustomer: function (data, callback) {
           var newdata = {};
           newdata.name = data.reseller;
           newdata._id = sails.ObjectID();
           newdata.accesslevel = "customer";
-          sails.query(function(err, db) {
+          sails.query(function (err, db) {
               var exit = 0;
               var exitup = 0;
               if (err) {
@@ -1599,7 +1598,7 @@
                   exit++;
                   db.collection("user").find({
                       name: data.reseller
-                  }).each(function(err, data2) {
+                  }).each(function (err, data2) {
                       if (err) {
                           console.log(err);
                           callback({
@@ -1613,7 +1612,7 @@
                           db.close();
                       } else {
                           if (exit != exitup) {
-                              db.collection('user').insert(newdata, function(err, created) {
+                              db.collection('user').insert(newdata, function (err, created) {
                                   if (err) {
                                       console.log(err);
                                       callback({
@@ -1638,8 +1637,8 @@
               }
           });
       },
-      findforexcel: function(data, callback) {
-          sails.query(function(err, db) {
+      findforexcel: function (data, callback) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -1649,7 +1648,7 @@
                   db.collection("user").find({
                       name: data.username,
                       accesslevel: "artist"
-                  }).toArray(function(err, data2) {
+                  }).toArray(function (err, data2) {
                       if (err) {
                           console.log(err);
                           callback({
@@ -1670,8 +1669,8 @@
               }
           });
       },
-      deletedata: function(data, callback) {
-          sails.query(function(err, db) {
+      deletedata: function (data, callback) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -1680,7 +1679,7 @@
               }
               db.collection('user').remove({
                   accesslevel: "artist"
-              }, function(err, data) {
+              }, function (err, data) {
                   if (err) {
                       console.log(err);
                       callback({
@@ -1703,7 +1702,7 @@
               });
           });
       },
-      findUser: function(data, callback) {
+      findUser: function (data, callback) {
           var spacedata = data.search;
           spacedata = "\\s" + spacedata;
           var check = new RegExp(spacedata, "i");
@@ -1723,7 +1722,7 @@
               "artwork.type": data.type,
               accesslevel: "artist"
           };
-          sails.query(function(err, db) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -1740,7 +1739,7 @@
                       email: 1
                   }).sort({
                       name: 1
-                  }).toArray(function(err, found) {
+                  }).toArray(function (err, found) {
                       if (err) {
                           callback({
                               value: false
@@ -1761,7 +1760,7 @@
               }
           });
       },
-      findforart: function(data, callback) {
+      findforart: function (data, callback) {
           var spacedata = data.search;
           spacedata = "\\s" + spacedata;
           var check = new RegExp(spacedata, "i");
@@ -1780,7 +1779,7 @@
               status: "approve",
               accesslevel: "artist"
           };
-          sails.query(function(err, db) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -1794,7 +1793,7 @@
                       email: 1
                   }).sort({
                       name: 1
-                  }).toArray(function(err, found) {
+                  }).toArray(function (err, found) {
                       if (err) {
                           callback({
                               value: false
@@ -1815,7 +1814,7 @@
               }
           });
       },
-      findCust: function(data, callback) {
+      findCust: function (data, callback) {
           var spacedata = data.search;
           spacedata = "\\s" + spacedata;
           var check = new RegExp(spacedata, "i");
@@ -1833,7 +1832,7 @@
               }],
               accesslevel: "reseller"
           };
-          sails.query(function(err, db) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -1847,7 +1846,7 @@
                       email: 1
                   }).sort({
                       name: 1
-                  }).toArray(function(err, found) {
+                  }).toArray(function (err, found) {
                       if (err) {
                           callback({
                               value: false
@@ -1868,8 +1867,8 @@
               }
           });
       },
-      userbytype: function(data, callback) {
-          sails.query(function(err, db) {
+      userbytype: function (data, callback) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -1905,7 +1904,7 @@
                       $sort: {
                           name: 1
                       }
-                  }]).toArray(function(err, data2) {
+                  }]).toArray(function (err, data2) {
                       if (err) {
                           console.log(err);
                           callback({
@@ -1927,54 +1926,54 @@
               }
           });
       },
-      saveArtist: function(data, callback) {
+      saveArtist: function (data, callback) {
           delete data.cart;
           delete data.wishlist;
           delete data.wishlistfolder;
           if (data.medium && data.medium.length > 0) {
-              _.each(data.medium, function(e) {
+              _.each(data.medium, function (e) {
                   if (e._id && e._id != "") {
                       e._id = sails.ObjectID(e._id);
                   }
               });
           }
           if (data.theme && data.theme.length > 0) {
-              _.each(data.theme, function(e) {
+              _.each(data.theme, function (e) {
                   if (e._id && e._id != "") {
                       e._id = sails.ObjectID(e._id);
                   }
               });
           }
           if (data.reseller && data.reseller.length > 0) {
-              _.each(data.reseller, function(e) {
+              _.each(data.reseller, function (e) {
                   if (e._id && e._id != "") {
                       e._id = sails.ObjectID(e._id);
                   }
               });
           }
           if (data.artwork && data.artwork.length > 0) {
-              _.each(data.artwork, function(e) {
+              _.each(data.artwork, function (e) {
                   e._id = sails.ObjectID(e._id);
                   if (e.subtype && e.subtype.length > 0) {
-                      _.each(e.subtype, function(s) {
+                      _.each(e.subtype, function (s) {
                           s._id = sails.ObjectID(s._id);
                       });
                   }
                   if (e.tag && e.tag.length > 0) {
-                      _.each(e.tag, function(t) {
+                      _.each(e.tag, function (t) {
                           if (t._id) {
                               t._id = sails.ObjectID(t._id);
                           }
                       });
                   }
                   if (e.reseller && e.reseller.length > 0) {
-                      _.each(e.reseller, function(r) {
+                      _.each(e.reseller, function (r) {
                           r._id = sails.ObjectID(r._id);
                       });
                   }
               });
           }
-          sails.query(function(err, db) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -1986,7 +1985,7 @@
                   delete data.selleremail;
                   if (!data._id) {
                       data._id = sails.ObjectID();
-                      db.collection('user').insert(data, function(err, created) {
+                      db.collection('user').insert(data, function (err, created) {
                           if (err) {
                               console.log(err);
                               callback({
@@ -2047,7 +2046,7 @@
                               };
                               sails.request.get({
                                   url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
-                              }, function(err, httpResponse, body) {
+                              }, function (err, httpResponse, body) {
                                   if (err) {
                                       callback({
                                           value: false
@@ -2084,7 +2083,7 @@
                           _id: user
                       }, {
                           $set: mydata
-                      }, function(err, updated) {
+                      }, function (err, updated) {
                           if (err) {
                               console.log(err);
                               callback({
@@ -2145,7 +2144,7 @@
                               };
                               sails.request.get({
                                   url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
-                              }, function(err, httpResponse, body) {
+                              }, function (err, httpResponse, body) {
                                   if (err) {
                                       callback({
                                           value: false
@@ -2177,7 +2176,7 @@
               }
           });
       },
-      saveBack: function(data, callback) {
+      saveBack: function (data, callback) {
           delete data.cart;
           delete data.wishlist;
           delete data.wishlistfolder;
@@ -2189,49 +2188,49 @@
           }
           delete data.selleremail;
           if (data.medium && data.medium.length > 0) {
-              _.each(data.medium, function(e) {
+              _.each(data.medium, function (e) {
                   if (e._id && e._id != "") {
                       e._id = sails.ObjectID(e._id);
                   }
               });
           }
           if (data.theme && data.theme.length > 0) {
-              _.each(data.theme, function(e) {
+              _.each(data.theme, function (e) {
                   if (e._id && e._id != "") {
                       e._id = sails.ObjectID(e._id);
                   }
               });
           }
           if (data.reseller && data.reseller.length > 0) {
-              _.each(data.reseller, function(e) {
+              _.each(data.reseller, function (e) {
                   if (e._id && e._id != "") {
                       e._id = sails.ObjectID(e._id);
                   }
               });
           }
           if (data.artwork && data.artwork.length > 0) {
-              _.each(data.artwork, function(e) {
+              _.each(data.artwork, function (e) {
                   e._id = sails.ObjectID(e._id);
                   if (e.subtype && e.subtype.length > 0) {
-                      _.each(e.subtype, function(s) {
+                      _.each(e.subtype, function (s) {
                           s._id = sails.ObjectID(s._id);
                       });
                   }
                   if (e.tag && e.tag.length > 0) {
-                      _.each(e.tag, function(t) {
+                      _.each(e.tag, function (t) {
                           if (t._id) {
                               t._id = sails.ObjectID(t._id);
                           }
                       });
                   }
                   if (e.reseller && e.reseller.length > 0) {
-                      _.each(e.reseller, function(r) {
+                      _.each(e.reseller, function (r) {
                           r._id = sails.ObjectID(r._id);
                       });
                   }
               });
           }
-          sails.query(function(err, db) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -2246,7 +2245,7 @@
                       _id: user
                   }, {
                       $set: data
-                  }, function(err, updated) {
+                  }, function (err, updated) {
                       if (err) {
                           console.log(err);
                           callback({
@@ -2307,7 +2306,7 @@
                           };
                           sails.request.get({
                               url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
-                          }, function(err, httpResponse, body) {
+                          }, function (err, httpResponse, body) {
                               if (err) {
                                   callback({
                                       value: false
@@ -2338,66 +2337,66 @@
               }
           });
       },
-      updateId: function(data, callback) {
+      updateId: function (data, callback) {
           if (data.medium && data.medium.length > 0) {
-              _.each(data.medium, function(g) {
+              _.each(data.medium, function (g) {
                   g._id = sails.ObjectID(g._id);
               });
           }
           if (data.theme && data.theme.length > 0) {
-              _.each(data.theme, function(b) {
+              _.each(data.theme, function (b) {
                   b._id = sails.ObjectID(b._id);
               });
           }
           if (data.reseller && data.reseller.length > 0) {
-              _.each(data.reseller, function(a) {
+              _.each(data.reseller, function (a) {
                   a._id = sails.ObjectID(a._id);
               });
           }
           if (data.artwork && data.artwork.length > 0) {
-              _.each(data.artwork, function(e) {
+              _.each(data.artwork, function (e) {
                   e._id = sails.ObjectID(e._id);
                   if (e.srno && e.srno != "") {
                       e.srno = parseInt(e.srno);
                   }
                   if (e.subtype && e.subtype.length > 0) {
-                      _.each(e.subtype, function(s) {
+                      _.each(e.subtype, function (s) {
                           s._id = sails.ObjectID(s._id);
                       });
                   }
                   if (e.tag && e.tag.length > 0) {
-                      _.each(e.tag, function(t) {
+                      _.each(e.tag, function (t) {
                           if (t._id) {
                               t._id = sails.ObjectID(t._id);
                           }
                       });
                   }
                   if (e.reseller && e.reseller.length > 0) {
-                      _.each(e.reseller, function(r) {
+                      _.each(e.reseller, function (r) {
                           r._id = sails.ObjectID(r._id);
                       });
                   }
               });
           }
           if (data.cart && data.cart.length > 0) {
-              _.each(data.cart, function(q) {
+              _.each(data.cart, function (q) {
                   q.artwork = sails.ObjectID(q.artwork);
                   q._id = sails.ObjectID(q._id);
               });
           }
           if (data.wishlist && data.wishlist.length > 0) {
-              _.each(data.wishlist, function(n) {
+              _.each(data.wishlist, function (n) {
                   n.artwork = sails.ObjectID(n.artwork);
                   n._id = sails.ObjectID(n._id);
               });
           }
           if (data.wishlistfolder && data.wishlistfolder.length > 0) {
-              _.each(data.wishlistfolder, function(f) {
+              _.each(data.wishlistfolder, function (f) {
                   f._id = sails.ObjectID(f._id);
               });
           }
           if (1 == 1) {
-              sails.query(function(err, db) {
+              sails.query(function (err, db) {
                   if (err) {
                       console.log(err);
                       callback({
@@ -2411,7 +2410,7 @@
                           _id: user
                       }, {
                           $set: data
-                      }, function(err, updated) {
+                      }, function (err, updated) {
                           if (err) {
                               console.log(err);
                               callback({
@@ -2437,34 +2436,34 @@
               });
           }
       },
-      saveArtOrder: function(data, callback) {
+      saveArtOrder: function (data, callback) {
           if (data.artwork && data.artwork.length > 0) {
-              _.each(data.artwork, function(e) {
+              _.each(data.artwork, function (e) {
                   e._id = sails.ObjectID(e._id);
                   if (e.srno && e.srno != "") {
                       e.srno = parseInt(e.srno);
                   }
                   if (e.subtype && e.subtype.length > 0) {
-                      _.each(e.subtype, function(s) {
+                      _.each(e.subtype, function (s) {
                           s._id = sails.ObjectID(s._id);
                       });
                   }
                   if (e.tag && e.tag.length > 0) {
-                      _.each(e.tag, function(t) {
+                      _.each(e.tag, function (t) {
                           if (t._id) {
                               t._id = sails.ObjectID(t._id);
                           }
                       });
                   }
                   if (e.reseller && e.reseller.length > 0) {
-                      _.each(e.reseller, function(r) {
+                      _.each(e.reseller, function (r) {
                           r._id = sails.ObjectID(r._id);
                       });
                   }
               });
           }
           if (1 == 1) {
-              sails.query(function(err, db) {
+              sails.query(function (err, db) {
                   if (err) {
                       console.log(err);
                       callback({
@@ -2480,7 +2479,7 @@
                           $set: {
                               artwork: data.artwork
                           }
-                      }, function(err, updated) {
+                      }, function (err, updated) {
                           if (err) {
                               console.log(err);
                               callback({
@@ -2506,8 +2505,8 @@
               });
           }
       },
-      findArtist: function(data, callback) {
-          sails.query(function(err, db) {
+      findArtist: function (data, callback) {
+          sails.query(function (err, db) {
               if (err) {
                   console.log(err);
                   callback({
@@ -2519,7 +2518,7 @@
                       accesslevel: "artist"
                   }).sort({
                       name: 1
-                  }).toArray(function(err, found) {
+                  }).toArray(function (err, found) {
                       if (err) {
                           callback({
                               value: false

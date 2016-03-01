@@ -2291,6 +2291,50 @@ module.exports = {
             }
         });
     },
+    findMyArtwork: function (data, callback) {
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false,
+                    comment: "Error"
+                });
+            } else if (db) {
+                db.collection('user').aggregate([{
+                    $unwind: "$artwork"
+                }, {
+                    $unwind: "$artwork.reseller"
+                }, {
+                    $match: {
+                        "artwork.reseller._id": sails.ObjectID(data.user)
+                    }
+                }, {
+                    $project: {
+                        name: 1,
+                        artwork: 1
+                    }
+                }]).toArray(function (err, found) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false,
+                            comment: "Error"
+                        });
+                        db.close();
+                    } else if (found && found[0]) {
+                        callback(found);
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    },
     nextartwork: function (data, callback) {
         if (data.type && data.type == "prev") {
             var mysr = parseInt(data.srno) - 1;
@@ -2446,48 +2490,4 @@ module.exports = {
             });
         }
     },
-    findMyArtwork: function (data, callback) {
-        sails.query(function (err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false,
-                    comment: "Error"
-                });
-            } else if (db) {
-                db.collection('user').aggregate([{
-                    $unwind: "$artwork"
-                }, {
-                    $unwind: "$artwork.reseller"
-                }, {
-                    $match: {
-                        "artwork.reseller._id": sails.ObjectID(data.user)
-                    }
-                }, {
-                    $project: {
-                        name: 1,
-                        artwork: 1
-                    }
-                }]).toArray(function (err, found) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false,
-                            comment: "Error"
-                        });
-                        db.close();
-                    } else if (found && found[0]) {
-                        callback(found);
-                        db.close();
-                    } else {
-                        callback({
-                            value: false,
-                            comment: "No data found"
-                        });
-                        db.close();
-                    }
-                });
-            }
-        });
-    }
 };
