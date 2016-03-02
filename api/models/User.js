@@ -1366,7 +1366,7 @@
                                   db.close();
                               } else if (updated) {
                                   sails.request.get({
-                                      url: "https://api.falconide.com/falconapi/web.send.rest?api_key=47e02d2b10604fc81304a5837577e286&subject=New Password for Aura Art Website &fromname=" + sails.fromName + "&from=" + sails.fromEmail + "&replytoid=" + data.email + "&content=&recipients=" + data.email + "&footer=0&template=2175&clicktrack=0&ATT_PASS=" + text
+                                      url: "https://api.falconide.com/falconapi/web.send.rest?api_key=47e02d2b10604fc81304a5837577e286&subject=New Password for Aura Art Website &fromname=" + sails.fromName + "&from=" + sails.fromEmail + "&replytoid=" + data.email + "&content= &recipients=" + data.email + "&footer=0&template=2175&clicktrack=0&ATT_PASS=" + text
                                   }, function (err, httpResponse, body) {
                                       if (err) {
                                           callback({
