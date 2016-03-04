@@ -5,8 +5,8 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 module.exports = {
-    save: function(data, callback) {
-        sails.query(function(err, db) {
+    save: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -15,8 +15,8 @@ module.exports = {
             }
             if (db) {
                 if (!data._id) {
-                	data._id = sails.ObjectID();
-                    db.collection('reachout').insert(data, function(err, created) {
+                    data._id = sails.ObjectID();
+                    db.collection('reachout').insert(data, function (err, created) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -24,10 +24,49 @@ module.exports = {
                             });
                             db.close();
                         } else if (created) {
-                            callback({
-                                value: true
+                            var obj = {
+                                "api_key": "47e02d2b10604fc81304a5837577e286",
+                                "email_details": {
+                                    "fromname": sails.fromName,
+                                    "subject": "Query to Aura-Art Admin",
+                                    "from": sails.fromEmail,
+                                    "replytoid": "connect@aurart.in"
+                                },
+                                "settings": {
+                                    "template": "2599"
+                                },
+                                "recipients": ["connect@aurart.in"],
+                                "attributes": {
+                                    "FROM": [data.person],
+                                    "EMAIL": [data.from],
+                                    "MOB": [data.number],
+                                    "REM": [data.remarks]
+                                }
+                            };
+                            console.log(obj);
+                            sails.request.get({
+                                url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                            }, function (err, httpResponse, body) {
+                                console.log(body);
+                                if (err) {
+                                    callback({
+                                        value: false
+                                    });
+                                    db.close();
+                                } else if (body && body == "success") {
+                                    callback({
+                                        value: true,
+                                        comment: "Mail sent"
+                                    });
+                                    db.close();
+                                } else {
+                                    callback({
+                                        value: false,
+                                        comment: "Error"
+                                    });
+                                    db.close();
+                                }
                             });
-                            db.close();
                         } else {
                             callback({
                                 value: false,
@@ -43,7 +82,7 @@ module.exports = {
                         _id: reachout
                     }, {
                         $set: data
-                    }, function(err, updated) {
+                    }, function (err, updated) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -73,14 +112,14 @@ module.exports = {
             }
         });
     },
-    findlimited: function(data, callback) {
+    findlimited: function (data, callback) {
         var newcallback = 0;
         var newreturns = {};
         newreturns.data = [];
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -92,7 +131,7 @@ module.exports = {
                     person: {
                         '$regex': check
                     }
-                }, function(err, number) {
+                }, function (err, number) {
                     if (number && number != "") {
                         newreturns.total = number;
                         newreturns.totalpages = Math.ceil(number / data.pagesize);
@@ -117,7 +156,7 @@ module.exports = {
                         person: {
                             '$regex': check
                         }
-                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
                         if (err) {
                             callback({
                                 value: false
@@ -140,9 +179,9 @@ module.exports = {
             }
         });
     },
-    find: function(data, callback) {
+    find: function (data, callback) {
         var returns = [];
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -150,7 +189,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("reachout").find({}, {}).toArray(function(err, found) {
+                db.collection("reachout").find({}, {}).toArray(function (err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -171,8 +210,8 @@ module.exports = {
             }
         });
     },
-    findone: function(data, callback) {
-        sails.query(function(err, db) {
+    findone: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -182,7 +221,7 @@ module.exports = {
             if (db) {
                 db.collection("reachout").find({
                     "_id": sails.ObjectID(data._id)
-                }, {}).toArray(function(err, data2) {
+                }, {}).toArray(function (err, data2) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -203,8 +242,8 @@ module.exports = {
             }
         });
     },
-    delete: function(data, callback) {
-        sails.query(function(err, db) {
+    delete: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -213,7 +252,7 @@ module.exports = {
             }
             db.collection('reachout').remove({
                 _id: sails.ObjectID(data._id)
-            }, function(err, deleted) {
+            }, function (err, deleted) {
                 if (deleted) {
                     callback({
                         value: true
