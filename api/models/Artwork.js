@@ -165,44 +165,49 @@ module.exports = {
                             });
                             db.close();
                         } else if (updated) {
-                            var obj = {
-                                "api_key": "47e02d2b10604fc81304a5837577e286",
-                                "email_details": {
-                                    "fromname": sails.fromName,
-                                    "subject": "Data of Artworks submitted on www.auraart.in",
-                                    "from": sails.fromEmail,
-                                    "replytoid": selleremail
-                                },
-                                "settings": {
-                                    "template": "2211",
-                                },
-                                "recipients": [email, selleremail],
-                                "attributes": {
-                                    "ANAME": [artistname],
-                                }
-                            };
-                            sails.request.get({
-                                url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
-                            }, function (err, httpResponse, body) {
-                                if (err) {
-                                    callback({
-                                        value: false
-                                    });
-                                    db.close();
-                                } else if (body && body == "success") {
-                                    callback({
-                                        value: true,
-                                        comment: "Mail sent"
-                                    });
-                                    db.close();
-                                } else {
-                                    callback({
-                                        value: false,
-                                        comment: "Error"
-                                    });
-                                    db.close();
-                                }
+                            callback({
+                                value: true,
+                                comment: "Mail sent"
                             });
+                            db.close();
+                            // var obj = {
+                            //     "api_key": "47e02d2b10604fc81304a5837577e286",
+                            //     "email_details": {
+                            //         "fromname": sails.fromName,
+                            //         "subject": "Data of Artworks submitted on www.auraart.in",
+                            //         "from": sails.fromEmail,
+                            //         "replytoid": selleremail
+                            //     },
+                            //     "settings": {
+                            //         "template": "2211",
+                            //     },
+                            //     "recipients": [email, selleremail],
+                            //     "attributes": {
+                            //         "ANAME": [artistname],
+                            //     }
+                            // };
+                            // sails.request.get({
+                            //     url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                            // }, function (err, httpResponse, body) {
+                            //     if (err) {
+                            //         callback({
+                            //             value: false
+                            //         });
+                            //         db.close();
+                            //     } else if (body && body == "success") {
+                            //         callback({
+                            //             value: true,
+                            //             comment: "Mail sent"
+                            //         });
+                            //         db.close();
+                            //     } else {
+                            //         callback({
+                            //             value: false,
+                            //             comment: "Error"
+                            //         });
+                            //         db.close();
+                            //     }
+                            // });
                         } else {
                             callback({
                                 value: false,
@@ -231,44 +236,49 @@ module.exports = {
                             });
                             db.close();
                         } else if (updated) {
-                            var obj = {
-                                "api_key": "47e02d2b10604fc81304a5837577e286",
-                                "email_details": {
-                                    "fromname": sails.fromName,
-                                    "subject": "Data of Artworks submitted on www.auraart.in",
-                                    "from": sails.fromEmail,
-                                    "replytoid": selleremail
-                                },
-                                "settings": {
-                                    "template": "2211",
-                                },
-                                "recipients": [selleremail, email],
-                                "attributes": {
-                                    "ANAME": [artistname]
-                                }
-                            };
-                            sails.request.get({
-                                url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
-                            }, function (err, httpResponse, body) {
-                                if (err) {
-                                    callback({
-                                        value: false
-                                    });
-                                    db.close();
-                                } else if (body && body == "success") {
-                                    callback({
-                                        value: true,
-                                        comment: "Mail sent"
-                                    });
-                                    db.close();
-                                } else {
-                                    callback({
-                                        value: false,
-                                        comment: "Error"
-                                    });
-                                    db.close();
-                                }
+                            callback({
+                                value: true,
+                                comment: "Mail sent"
                             });
+                            db.close();
+                            // var obj = {
+                            //     "api_key": "47e02d2b10604fc81304a5837577e286",
+                            //     "email_details": {
+                            //         "fromname": sails.fromName,
+                            //         "subject": "Data of Artworks submitted on www.auraart.in",
+                            //         "from": sails.fromEmail,
+                            //         "replytoid": selleremail
+                            //     },
+                            //     "settings": {
+                            //         "template": "2211",
+                            //     },
+                            //     "recipients": [selleremail, email],
+                            //     "attributes": {
+                            //         "ANAME": [artistname]
+                            //     }
+                            // };
+                            // sails.request.get({
+                            //     url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                            // }, function (err, httpResponse, body) {
+                            //     if (err) {
+                            //         callback({
+                            //             value: false
+                            //         });
+                            //         db.close();
+                            //     } else if (body && body == "success") {
+                            //         callback({
+                            //             value: true,
+                            //             comment: "Mail sent"
+                            //         });
+                            //         db.close();
+                            //     } else {
+                            //         callback({
+                            //             value: false,
+                            //             comment: "Error"
+                            //         });
+                            //         db.close();
+                            //     }
+                            // });
                         } else {
                             callback({
                                 value: false,
@@ -346,45 +356,49 @@ module.exports = {
                         });
                         db.close();
                     } else if (updated) {
-                        console.log(artistname);
-                        var obj = {
-                            "api_key": "47e02d2b10604fc81304a5837577e286",
-                            "email_details": {
-                                "fromname": sails.fromName,
-                                "subject": "Data of Artworks submitted on www.auraart.in",
-                                "from": sails.fromEmail,
-                                "replytoid": selleremail
-                            },
-                            "settings": {
-                                "template": "2211",
-                            },
-                            "recipients": [selleremail],
-                            "attributes": {
-                                "ANAME": [artistname]
-                            }
-                        };
-                        sails.request.get({
-                            url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
-                        }, function (err, httpResponse, body) {
-                            if (err) {
-                                callback({
-                                    value: false
-                                });
-                                db.close();
-                            } else if (body && body == "success") {
-                                callback({
-                                    value: true,
-                                    comment: "Mail sent"
-                                });
-                                db.close();
-                            } else {
-                                callback({
-                                    value: false,
-                                    comment: "Error"
-                                });
-                                db.close();
-                            }
+                        callback({
+                            value: true,
+                            comment: "Mail sent"
                         });
+                        db.close();
+                        // var obj = {
+                        //     "api_key": "47e02d2b10604fc81304a5837577e286",
+                        //     "email_details": {
+                        //         "fromname": sails.fromName,
+                        //         "subject": "Data of Artworks submitted on www.auraart.in",
+                        //         "from": sails.fromEmail,
+                        //         "replytoid": selleremail
+                        //     },
+                        //     "settings": {
+                        //         "template": "2211",
+                        //     },
+                        //     "recipients": [selleremail],
+                        //     "attributes": {
+                        //         "ANAME": [artistname]
+                        //     }
+                        // };
+                        // sails.request.get({
+                        //     url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                        // }, function (err, httpResponse, body) {
+                        //     if (err) {
+                        //         callback({
+                        //             value: false
+                        //         });
+                        //         db.close();
+                        //     } else if (body && body == "success") {
+                        //         callback({
+                        //             value: true,
+                        //             comment: "Mail sent"
+                        //         });
+                        //         db.close();
+                        //     } else {
+                        //         callback({
+                        //             value: false,
+                        //             comment: "Error"
+                        //         });
+                        //         db.close();
+                        //     }
+                        // });
                     } else {
                         callback({
                             value: false,
@@ -1199,6 +1213,7 @@ module.exports = {
                         }]).sort(sort).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
                             if (found && found[0]) {
                                 newreturns.data = found;
+                                newreturns.page = pagenumber;
                                 callback(newreturns);
                                 db.close();
                             } else if (err) {
@@ -2336,151 +2351,122 @@ module.exports = {
         });
     },
     nextartwork: function (data, callback) {
-        if (data.type && data.type == "prev") {
-            var mysr = parseInt(data.srno) - 1;
+        data.srno = parseInt(data.srno);
+        data.pageno = parseInt(data.pageno);
+        data.lastpage = parseInt(data.lastpage);
 
-            function callminus() {
-                sails.query(function (err, db) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false,
-                            comment: "Error"
-                        });
-                    } else if (db) {
-                        db.collection('user').aggregate([{
-                            $match: {
-                                accesslevel: "artist"
-                            }
+        function callme() {
+            Artwork.lastsr(data, function (respo) {
+                if (data.srno < respo.srno && data.srno > 0) {
+                    var sort = {};
+                    sort = {};
+                    sort.focused = 1;
+                    sort.name = 1;
+                    sort['artwork.srno'] = 1;
+                    var matchobj = {
+                        status: "approve",
+                        $or: [{
+                            "artwork.status": "approve"
                         }, {
-                            $unwind: "$artwork"
-                        }, {
-                            $match: {
-                                "artwork.srno": mysr,
-                                $or: [{
-                                    "artwork.status": "approve"
-                                }, {
-                                    "artwork.status": "sold"
-                                }]
-                            }
-                        }, {
-                            $project: {
-                                _id: 1,
-                                name: 1,
-                                artwork: 1,
-                                focused: 1
-                            }
-                        }]).sort({
-                            focused: 1,
-                            name: 1,
-                            "artwork.srno": 1
-                        }).toArray(function (err, found) {
-                            if (found && found[0]) {
-                                callback(found[0]);
-                                db.close();
-                            } else if (err) {
-                                console.log(err);
-                                callback({
-                                    value: false,
-                                    comment: "Error"
-                                });
-                                db.close();
-                            } else {
-                                mysr = mysr - 1;
-                                Artwork.lastsr(data, function (srespo) {
-                                    if (mysr < srespo.srno && mysr > 0) {
-                                        callminus();
+                            "artwork.status": "sold"
+                        }]
+                    };
+                    sails.query(function (err, db) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                        } else if (db) {
+                            db.collection("user").aggregate([{
+                                $match: matchobj
+                            }, {
+                                $unwind: "$artwork"
+                            }, {
+                                $match: matchobj
+                            }, {
+                                $project: {
+                                    name: 1,
+                                    artwork: 1,
+                                    focused: 1
+                                }
+                            }]).sort(sort).skip(20 * (data.pageno - 1)).limit(20).toArray(function (err, found) {
+                                if (found && found.length > 0) {
+                                    if (data.num) {
+                                        if (data.num == 1) {
+                                            found[0].pageno = data.pageno;
+                                            callback(found[0]);
+                                            db.close();
+                                        } else {
+                                            found[19].pageno = data.pageno;
+                                            callback(found[19]);
+                                            db.close();
+                                        }
                                     } else {
-                                        callback({
-                                            value: false,
-                                            comment: "No data found"
+                                        var index = sails._.findIndex(found, function (abc) {
+                                            return abc.artwork.srno == data.srno;
                                         });
+                                        if (index != -1) {
+                                            if (data.type == "next") {
+                                                if (index != 19) {
+                                                    found[index + 1].pageno = data.pageno;
+                                                    callback(found[index + 1]);
+                                                    db.close();
+                                                } else {
+                                                    if (data.pageno != data.lastpage) {
+                                                        data.pageno++;
+                                                        data.num = 1;
+                                                        callme();
+                                                    } else {
+                                                        callback({
+                                                            value: false,
+                                                            comment: "No data found"
+                                                        });
+                                                        db.close();
+                                                    }
+                                                }
+                                            } else {
+                                                if (index != 0) {
+                                                    found[index - 1].pageno = data.pageno;
+                                                    callback(found[index - 1]);
+                                                    db.close();
+                                                } else {
+                                                    if (data.pageno != 1) {
+                                                        data.pageno--;
+                                                        data.num = -1;
+                                                        callme();
+                                                    } else {
+                                                        callback({
+                                                            value: false,
+                                                            comment: "No data found"
+                                                        });
+                                                        db.close();
+                                                    }
+                                                }
+                                            }
+                                        } else {
+                                            callback({
+                                                value: false,
+                                                comment: "No data found"
+                                            });
+                                            db.close();
+                                        }
                                     }
-                                });
-                            }
-                        });
-                    }
-                });
-            }
-            Artwork.lastsr(data, function (srespo) {
-                if (mysr < srespo.srno && mysr > 0) {
-                    callminus();
-                } else {
-                    callback({
-                        value: false,
-                        comment: "No data found"
+                                } else if (err) {
+                                    console.log(err);
+                                    callback({
+                                        value: false
+                                    });
+                                    db.close();
+                                } else {
+                                    callback({
+                                        value: false,
+                                        comment: "No data found"
+                                    });
+                                }
+                            });
+                        }
                     });
-                }
-            });
-        } else {
-            var mysr = parseInt(data.srno) + 1;
-
-            function callplus() {
-                sails.query(function (err, db) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false,
-                            comment: "Error"
-                        });
-                    } else if (db) {
-                        db.collection('user').aggregate([{
-                            $match: {
-                                accesslevel: "artist"
-                            }
-                        }, {
-                            $unwind: "$artwork"
-                        }, {
-                            $match: {
-                                "artwork.srno": mysr,
-                                $or: [{
-                                    "artwork.status": "approve"
-                                }, {
-                                    "artwork.status": "sold"
-                                }]
-                            }
-                        }, {
-                            $project: {
-                                _id: 1,
-                                name: 1,
-                                artwork: 1,
-                                focused: 1
-                            }
-                        }]).sort({
-                            focused: 1,
-                            name: 1,
-                            "artwork.srno": 1
-                        }).toArray(function (err, found) {
-                            if (found && found[0]) {
-                                callback(found[0]);
-                                db.close();
-                            } else if (err) {
-                                console.log(err);
-                                callback({
-                                    value: false,
-                                    comment: "Error"
-                                });
-                                db.close();
-                            } else {
-                                mysr = mysr + 1;
-                                Artwork.lastsr(data, function (srespo) {
-                                    if (mysr < srespo.srno && mysr > 0) {
-                                        callplus();
-                                    } else {
-                                        callback({
-                                            value: false,
-                                            comment: "No data found"
-                                        });
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-            }
-            Artwork.lastsr(data, function (srespo) {
-                if (mysr < srespo.srno && mysr > 0) {
-                    callplus();
                 } else {
                     callback({
                         value: false,
@@ -2489,5 +2475,6 @@ module.exports = {
                 }
             });
         }
+        callme();
     },
 };
