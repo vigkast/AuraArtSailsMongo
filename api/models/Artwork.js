@@ -6,7 +6,9 @@
  */
 module.exports = {
     save: function (data, callback) {
-        data.srno = parseInt(data.srno);
+        if (data.srno) {
+            data.srno = parseInt(data.srno);
+        }
         var user = sails.ObjectID(data.user);
         delete data.user;
         delete data.cart;
@@ -983,6 +985,53 @@ module.exports = {
                     } else if (!result[0]) {
                         var artwork = {};
                         artwork.srno = 0
+                        callback(artwork);
+                        db.close();
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    },
+    lastImage: function (data, callback) {
+        var user = sails.ObjectID(data.user);
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("user").aggregate([{
+                    $unwind: "$artwork"
+                }, {
+                    $project: {
+                        _id: 0,
+                        "artwork.imageno": 1
+                    }
+                }, {
+                    $sort: {
+                        "artwork.imageno": -1
+                    }
+                }]).limit(1).toArray(function (err, result) {
+                    if (result && result[0]) {
+                        callback(result[0].artwork);
+                        db.close();
+                    } else if (!result[0]) {
+                        var artwork = {};
+                        artwork.imageno = 0
                         callback(artwork);
                         db.close();
                     } else if (err) {
@@ -2350,131 +2399,178 @@ module.exports = {
             }
         });
     },
-    nextartwork: function (data, callback) {
-        data.srno = parseInt(data.srno);
-        data.pageno = parseInt(data.pageno);
-        data.lastpage = parseInt(data.lastpage);
+    // nextartwork: function (data, callback) {
+    //     data.srno = parseInt(data.srno);
+    //     data.pageno = parseInt(data.pageno);
+    //     data.lastpage = parseInt(data.lastpage);
 
-        function callme() {
-            Artwork.lastsr(data, function (respo) {
-                if (data.srno < respo.srno && data.srno > 0) {
-                    var sort = {};
-                    sort = {};
-                    sort.focused = 1;
-                    sort.name = 1;
-                    sort['artwork.srno'] = 1;
-                    var matchobj = {
-                        status: "approve",
-                        $or: [{
-                            "artwork.status": "approve"
-                        }, {
-                            "artwork.status": "sold"
-                        }]
-                    };
-                    sails.query(function (err, db) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                        } else if (db) {
-                            db.collection("user").aggregate([{
-                                $match: matchobj
-                            }, {
-                                $unwind: "$artwork"
-                            }, {
-                                $match: matchobj
-                            }, {
-                                $project: {
-                                    name: 1,
-                                    artwork: 1,
-                                    focused: 1
-                                }
-                            }]).sort(sort).skip(20 * (data.pageno - 1)).limit(20).toArray(function (err, found) {
-                                if (found && found.length > 0) {
-                                    if (data.num) {
-                                        if (data.num == 1) {
-                                            found[0].pageno = data.pageno;
-                                            callback(found[0]);
-                                            db.close();
-                                        } else {
-                                            found[19].pageno = data.pageno;
-                                            callback(found[19]);
-                                            db.close();
-                                        }
-                                    } else {
-                                        var index = sails._.findIndex(found, function (abc) {
-                                            return abc.artwork.srno == data.srno;
-                                        });
-                                        if (index != -1) {
-                                            if (data.type == "next") {
-                                                if (index != 19) {
-                                                    found[index + 1].pageno = data.pageno;
-                                                    callback(found[index + 1]);
-                                                    db.close();
-                                                } else {
-                                                    if (data.pageno != data.lastpage) {
-                                                        data.pageno++;
-                                                        data.num = 1;
-                                                        callme();
-                                                    } else {
-                                                        callback({
-                                                            value: false,
-                                                            comment: "No data found"
-                                                        });
-                                                        db.close();
-                                                    }
-                                                }
-                                            } else {
-                                                if (index != 0) {
-                                                    found[index - 1].pageno = data.pageno;
-                                                    callback(found[index - 1]);
-                                                    db.close();
-                                                } else {
-                                                    if (data.pageno != 1) {
-                                                        data.pageno--;
-                                                        data.num = -1;
-                                                        callme();
-                                                    } else {
-                                                        callback({
-                                                            value: false,
-                                                            comment: "No data found"
-                                                        });
-                                                        db.close();
-                                                    }
-                                                }
-                                            }
-                                        } else {
-                                            callback({
-                                                value: false,
-                                                comment: "No data found"
-                                            });
-                                            db.close();
-                                        }
-                                    }
-                                } else if (err) {
-                                    console.log(err);
-                                    callback({
-                                        value: false
-                                    });
-                                    db.close();
-                                } else {
-                                    callback({
-                                        value: false,
-                                        comment: "No data found"
-                                    });
-                                }
-                            });
-                        }
-                    });
-                } else {
-                    callback({
-                        value: false,
-                        comment: "No data found"
-                    });
-                }
-            });
+    //     function callme() {
+    //         Artwork.lastsr(data, function (respo) {
+    //             if (data.srno < respo.srno && data.srno > 0) {
+    //                 var sort = {};
+    //                 sort = {};
+    //                 sort.focused = 1;
+    //                 sort.name = 1;
+    //                 sort['artwork.srno'] = 1;
+    //                 var matchobj = {
+    //                     status: "approve",
+    //                     $or: [{
+    //                         "artwork.status": "approve"
+    //                     }, {
+    //                         "artwork.status": "sold"
+    //                     }]
+    //                 };
+    //                 sails.query(function (err, db) {
+    //                     if (err) {
+    //                         console.log(err);
+    //                         callback({
+    //                             value: false
+    //                         });
+    //                     } else if (db) {
+    //                         db.collection("user").aggregate([{
+    //                             $match: matchobj
+    //                         }, {
+    //                             $unwind: "$artwork"
+    //                         }, {
+    //                             $match: matchobj
+    //                         }, {
+    //                             $project: {
+    //                                 name: 1,
+    //                                 artwork: 1,
+    //                                 focused: 1
+    //                             }
+    //                         }]).sort(sort).skip(20 * (data.pageno - 1)).limit(20).toArray(function (err, found) {
+    //                             if (found && found.length > 0) {
+    //                                 if (data.num) {
+    //                                     if (data.num == 1) {
+    //                                         found[0].pageno = data.pageno;
+    //                                         callback(found[0]);
+    //                                         db.close();
+    //                                     } else {
+    //                                         found[19].pageno = data.pageno;
+    //                                         callback(found[19]);
+    //                                         db.close();
+    //                                     }
+    //                                 } else {
+    //                                     var index = sails._.findIndex(found, function (abc) {
+    //                                         return abc.artwork.srno == data.srno;
+    //                                     });
+    //                                     if (index != -1) {
+    //                                         if (data.type == "next") {
+    //                                             if (index != 19) {
+    //                                                 found[index + 1].pageno = data.pageno;
+    //                                                 callback(found[index + 1]);
+    //                                                 db.close();
+    //                                             } else {
+    //                                                 if (data.pageno != data.lastpage) {
+    //                                                     data.pageno++;
+    //                                                     data.num = 1;
+    //                                                     callme();
+    //                                                 } else {
+    //                                                     callback({
+    //                                                         value: false,
+    //                                                         comment: "No data found"
+    //                                                     });
+    //                                                     db.close();
+    //                                                 }
+    //                                             }
+    //                                         } else {
+    //                                             if (index != 0) {
+    //                                                 found[index - 1].pageno = data.pageno;
+    //                                                 callback(found[index - 1]);
+    //                                                 db.close();
+    //                                             } else {
+    //                                                 if (data.pageno != 1) {
+    //                                                     data.pageno--;
+    //                                                     data.num = -1;
+    //                                                     callme();
+    //                                                 } else {
+    //                                                     callback({
+    //                                                         value: false,
+    //                                                         comment: "No data found"
+    //                                                     });
+    //                                                     db.close();
+    //                                                 }
+    //                                             }
+    //                                         }
+    //                                     } else {
+    //                                         callback({
+    //                                             value: false,
+    //                                             comment: "No data found"
+    //                                         });
+    //                                         db.close();
+    //                                     }
+    //                                 }
+    //                             } else if (err) {
+    //                                 console.log(err);
+    //                                 callback({
+    //                                     value: false
+    //                                 });
+    //                                 db.close();
+    //                             } else {
+    //                                 callback({
+    //                                     value: false,
+    //                                     comment: "No data found"
+    //                                 });
+    //                             }
+    //                         });
+    //                     }
+    //                 });
+    //             } else {
+    //                 callback({
+    //                     value: false,
+    //                     comment: "No data found"
+    //                 });
+    //             }
+    //         });
+    //     }
+    //     callme();
+    // },
+    nextartwork: function (data, callback) {
+        var mysr = parseInt(data.srno);
+        if (data.type == "next") {
+            mysr++;
+        } else {
+            mysr--;
         }
-        callme();
-    },
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false,
+                    comment: "Error"
+                });
+            } else {
+                db.collection("user").aggregate([{
+                    $unwind: "$artwork"
+                }, {
+                    $match: {
+                        "artwork.sortsr": mysr
+                    }
+                }, {
+                    $project: {
+                        _id: 0,
+                        "artwork._id": 1
+                    }
+                }]).toArray(function (err, found) {
+                    if (found && found[0]) {
+                        callback(found[0]);
+                        db.close();
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    }
 };

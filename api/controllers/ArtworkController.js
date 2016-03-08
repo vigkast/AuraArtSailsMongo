@@ -162,17 +162,10 @@ module.exports = {
         }
     },
     findall: function (req, res) {
-        if (req.body) {
-            function callback(data) {
-                res.json(data);
-            };
-            Artwork.findall(req.body, callback);
-        } else {
-            res.json({
-                value: false,
-                comment: "Please provide parameters"
-            });
-        }
+        function callback(data) {
+            res.json(data);
+        };
+        Artwork.findall(req.body, callback);
     },
     findlimited: function (req, res) {
         if (req.body) {
@@ -281,6 +274,19 @@ module.exports = {
                 res.json(data);
             };
             Artwork.lastsr(req.body, callback);
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    lastImage: function (req, res) {
+        if (req.body) {
+            function callback(data) {
+                res.json(data);
+            };
+            Artwork.lastImage(req.body, callback);
         } else {
             res.json({
                 value: false,
@@ -494,9 +500,46 @@ module.exports = {
                                     });
 
                                     function createart(num) {
-                                        excelimages = [];
                                         m = result[num];
-                                        Artwork.update();
+                                        db.collection('user').aggregate([{
+                                            $unwind: "$artwork"
+                                        }, {
+                                            $match: {
+                                                "artwork.imageno": m.imageno
+                                            }
+                                        }]).toArray(function (err, data2) {
+                                            if (err) {
+                                                console.log(err);
+                                                res.json({
+                                                    value: false,
+                                                    comment: "Error"
+                                                });
+                                                db.close();
+                                            } else if (data2 && data2.length > 0) {
+                                                Artwork.save({
+                                                    user: data2[0]._id,
+                                                    _id: data2[0].artwork._id,
+                                                    imageno: m.newno
+                                                }, function (respo) {
+                                                    num++;
+                                                    console.log(num);
+                                                    if (num == result.length) {
+                                                        res.json({
+                                                            value: "true",
+                                                            comment: "Done"
+                                                        });
+                                                    } else {
+                                                        createart(num);
+                                                    }
+                                                });
+                                            } else {
+                                                res.json({
+                                                    value: false,
+                                                    comment: "No data found"
+                                                });
+                                                db.close();
+                                            }
+                                        });
                                     }
                                     createart(0);
                                 }
@@ -507,4 +550,143 @@ module.exports = {
             }
         });
     },
+    unwindImage: function (req, res) {
+        res.connection.setTimeout(200000);
+        req.connection.setTimeout(200000);
+        User.findArtist(req.body, function (respo) {
+            function abc(num) {
+                x = respo[num];
+                if (x.artwork && x.artwork.length > 0) {
+                    function artCall(num2) {
+                        y = x.artwork[num2];
+                        if (y.imageno && (typeof y.imageno == 'object' || typeof y.imageno == 'array')) {
+                            Artwork.save({
+                                user: x._id,
+                                _id: y._id,
+                                imageno: y.imageno[0]
+                            }, function (artRespo) {
+                                num2++;
+                                if (num2 == x.artwork.length) {
+                                    num++;
+                                    console.log(num);
+                                    if (num == respo.length) {
+                                        res.json({
+                                            value: "true",
+                                            comment: "Done"
+                                        });
+                                    } else {
+                                        abc(num);
+                                    }
+                                } else {
+                                    artCall(num2);
+                                }
+                            });
+                        } else {
+                            num2++;
+                            if (num2 == x.artwork.length) {
+                                num++;
+                                console.log(num);
+                                if (num == respo.length) {
+                                    res.json({
+                                        value: "true",
+                                        comment: "Done"
+                                    });
+                                } else {
+                                    abc(num);
+                                }
+                            } else {
+                                artCall(num2);
+                            }
+                        }
+                    }
+                    artCall(0);
+                } else {
+                    num++;
+                    console.log(num);
+                    if (num == respo.length) {
+                        res.json({
+                            value: "true",
+                            comment: "Done"
+                        });
+                    } else {
+                        abc(num);
+                    }
+                }
+            }
+            abc(0);
+        });
+    },
+    updateSortSr: function (req, res) {
+        sails.query(function (err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            } else if (db) {
+                var sort = {};
+                sort.focused = 1;
+                sort.name = 1;
+                sort['artwork.srno'] = 1;
+                var matchobj = {
+                    status: "approve",
+                    $or: [{
+                        "artwork.status": "approve"
+                    }, {
+                        "artwork.status": "sold"
+                    }]
+                };
+                db.collection("user").aggregate([{
+                    $match: matchobj
+                }, {
+                    $unwind: "$artwork"
+                }, {
+                    $match: matchobj
+                }, {
+                    $project: {
+                        name: 1,
+                        artwork: 1,
+                        focused: 1
+                    }
+                }]).sort(sort).toArray(function (err, found) {
+                    if (found && found[0]) {
+                        function saveMe(num) {
+                            data3 = found[num];
+                            var num2 = num + 1;
+                            Artwork.save({
+                                _id: data3.artwork._id,
+                                user: data3._id,
+                                sortsr: num2
+                            }, function (respo) {
+                                num++;
+                                console.log(num);
+                                if (num == found.length) {
+                                    res.json({
+                                        value: true,
+                                        comment: "Done"
+                                    });
+                                    db.close();
+                                } else {
+                                    saveMe(num);
+                                }
+                            });
+                        }
+                        saveMe(0);
+                    } else if (err) {
+                        console.log(err);
+                        res.json({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        res.json({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    }
 };
