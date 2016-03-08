@@ -11,8 +11,7 @@ var passport = require('passport'),
     TwitterStrategy = require('passport-twitter').Strategy,
     FacebookStrategy = require('passport-facebook').Strategy,
     GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-
-passport.use(new TwitterStrategy({
+    passport.use(new TwitterStrategy({
         consumerKey: "LPazfO26oP6KrjYCWlQJfUZq1",
         consumerSecret: "SJ8tuzeiGvM7YZvRoHqXSk8LLThpn6DPg2BMtuBrgR9n01DQBD",
         callbackURL: sails.myurl + "user/callbackt"

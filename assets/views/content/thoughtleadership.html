@@ -1,0 +1,30 @@
+<div class="border-top"></div>
+<div class="container leader">
+  <div class="media">
+    <h3 class="font-color3 home-header">Thought Leadership</h3>
+  </div>
+  <div class="media">
+    <div class="leader-detail">
+      <div class="leader-data">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Sr. No.</th>
+              <th>Date</th>
+              <th>Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="tab in thoughts" ui-sref="thoughtleadershipdetail({id:tab._id})" class="pointer">
+              <td>{{$index+1}}</td>
+              <td>{{tab.date|date:'mediumDate'}}</td>
+              <td>
+                {{tab.title}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

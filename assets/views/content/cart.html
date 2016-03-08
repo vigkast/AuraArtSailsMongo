@@ -1,0 +1,86 @@
+<div class="border-top"></div>
+<div class="cart">
+  <div class="container">
+    <h4 class="head-team">Shopping Cart</h4>
+    <div class="text-center" ng-show="noCartItems">
+      <p>No Artwork in your Cart.</p>
+      <a href="#/artwork/All" class="btn btn-sucesses margin-btm">Shop Now</a>
+    </div>
+    <div class="table-cart" ng-hide="noCartItems">
+      <table class="table table-hover cart-table">
+        <thead>
+          <tr>
+            <th>Artwork Image</th>
+            <th>Artwork No</th>
+            <th>Artist Name</th>
+            <th>Title</th>
+            <th>Size</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="cart-details" ng-repeat="artwork in cartItems | orderBy : 'artwork.srno'">
+            <td class="cart-img">
+              <img ng-src="{{artwork.artwork.image[0] | uploadthumbnail}}" class="img-box">
+              <p style="color: red;padding: 5px;" ng-if="artwork.artwork.status =='sold'">Sold</p>
+            </td>
+            <td>
+              <span class="mobile">Product Id</span>
+              {{artwork.artwork.imageno[0]}}
+            </td>
+            <td>
+              <span class="mobile">Artist Name</span>
+              {{artwork.name}}
+            </td>
+            <td>
+              <span class="mobile">Title</span>
+              {{artwork.artwork.name}}
+            </td>
+            <td>
+              <span class="mobile">Size</span>
+              {{artwork.artwork|makesizestr}}
+              <!-- {{artwork.artwork.dim}} inches -->
+            </td>
+            <td>
+              <span class="mobile">Price</span>
+              Rs {{artwork.artwork.gprice|number:0}}
+              / ${{artwork.artwork.gprice|indollars}}
+              <span>(excluding VAT)</span>
+            </td>
+
+            <td>
+              <span class="mobile">Action</span>
+              <i class="fa fa-trash-o" ng-click="removeFromCart(artwork.artwork._id);"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="border-top"></div>
+
+    <div class="table-box checkout" ng-hide="noCartItems">
+      <div class="row">
+        <div class="col-md-offset-8 col-md-4">
+
+          <div class="padding-bottom">
+            <div class="row">
+              <div class="col-xs-6 font-color2 text-right bold">
+                <p>Sub Total:</p>
+                <p>VAT:</p>
+                <p>Grand Total:</p>
+              </div>
+              <div class="col-xs-6">
+                <p>Rs {{totalCartPrice | number:0}} / ${{totalCartPrice|indollars}}</p>
+                <p>Rs {{vat | number:0}} / ${{vat|indollars}}</p>
+                <p>Rs {{totalCartPrice + vat | number:0 }} / ${{totalCartPrice + vat|indollars}}</p>
+              </div>
+            </div>
+          </div>
+
+          <a class="btn btn-cont pull-right btn-mobile" ng-click="toCheckout()">Proceed to checkout</a>
+        </div>
+      </div>
+    </div>
+  </div>

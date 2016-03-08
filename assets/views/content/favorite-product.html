@@ -1,0 +1,125 @@
+<div class="image-detail">
+    <div class="border-top"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrums">
+                    <p>Home / Favourite </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="aboveimage" fixit>
+                    <a class="light-make light-shade" fancybox-box href="{{artistDetailImg.artwork.image[0]|uploadpath}}">Enlarge<i class="fa fa-arrows-alt"></i>
+                    </a>
+                    <img elevate-zoom image="artistDetailImg" ng-if="artistDetailImg && artistDetailImg.artwork" class="fix-img" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cont-imagedetail">
+                    <div class="artist-cont-detail">
+                        <div class="painting-details">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span ng-if="artistDetailImg.artwork.srno && artistDetailImg.artwork.srno!=''">{{artistDetailImg.artwork.srno}}
+                                            </span>
+                                            <i class="fa fa-heart font-color3"></i>
+                                        </td>
+                                    </tr>
+                                    <tr class="font-color3">
+                                        <td class="labels">Artist:</td>
+                                        <td ng-if="artistDetailImg.name && artistDetailImg.name!=''">
+                                            {{artistDetailImg.name}}
+                                        </td>
+                                        <td ng-if="!artistDetailImg.name || artistDetailImg.name==''">
+                                            N/A
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="labels">Title:</td>
+                                        <td ng-if="artistDetailImg.artwork.name && artistDetailImg.artwork.name!=''">
+                                            {{artistDetailImg.artwork.name}}
+                                        </td>
+                                        <td ng-if="!artistDetailImg.artwork.name || artistDetailImg.artwork.name==''">
+                                            N/A
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="labels">Medium: </td>
+                                        <td ng-if="artistDetailImg.artwork.subtype.length>0 && artistDetailImg.artwork.subtype[0].name!=''">
+                                            {{artistDetailImg.artwork.subtype[0].name}}
+                                        </td>
+                                        <td ng-if="!artistDetailImg.artwork.subtype || artistDetailImg.artwork.subtype.length==0">
+                                            N/A
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="labels">Size:</td>
+                                        <td>{{artistDetailImg.artwork|makesizestr}}</td>
+                                    </tr>
+                                    <tr ng-if="artistDetailImg.artwork.yoc && artistDetailImg.artwork.yoc!=''">
+                                        <td class="labels">Year: </td>
+                                        <td ng-if="artistDetailImg.artwork.yoc && artistDetailImg.artwork.yoc!=''">
+                                            {{artistDetailImg.artwork.yoc}}
+                                        </td>
+                                        <td ng-if="!artistDetailImg.artwork.yoc || artistDetailImg.artwork.yoc==''">
+                                            N/A
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="labels">Price: </td>
+                                        <td ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A'">
+                                            {{artistDetailImg.artwork.gprice|currency:"Rs "}} / ${{artistDetailImg.artwork.gprice|indollars}}
+                                        </td>
+                                        <td ng-if="!artistDetailImg.artwork.gprice || artistDetailImg.artwork.gprice=='N/A'">
+                                            N/A
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-block uppercase">
+                        VIEW ARTWORK IN YOUR ROOM
+                    </button>
+                    <a type="button" class="btn btn-primarys btn-block uppercase" ng-click="addToCart(artistDetailImg);">
+                        ADD TO CART
+                    </a>
+                    <div type="button" class="soldout uppercase font-color3" ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A'">
+                    Sold
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="padding-more">
+                <h4 class="head-team">Comments</h4>
+                <div class="input-id comt-box">
+                    <textarea class="form-control" rows="2" id="comment" placeholder="Comment"></textarea>
+                    <button type="submit" class="btn btn-sucesses btn-comt pull-right"> Submit</button>
+                </div>
+                <div class="text-cont">
+                    <p class="bold head-name">Tushar Sachde <span class="pull-right light-shade dates">12/8/15</span></p>
+                    <div class="commt">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vestibulum turpis sit amet dui convallis, id dictum tortor consequat. Aenean tincidunt, orci at fringilla dignissim, risus metus mollis magna, et iaculis purus lorem eget quam.</p>
+                    </div>
+                </div>
+                <div class="text-cont">
+                    <p class="bold head-name">Tushar Sachde <span class="pull-right light-shade dates">12/8/15</span></p>
+                    <div class="commt">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vestibulum turpis sit amet dui convallis, id dictum tortor consequat. Aenean tincidunt, orci at fringilla dignissim, risus metus mollis magna, et iaculis purus lorem eget quam.</p>
+                    </div>
+                </div>
+                <div class="text-cont">
+                    <p class="bold head-name">Tushar Sachde <span class="pull-right light-shade dates">12/8/15</span></p>
+                    <div class="commt">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vestibulum turpis sit amet dui convallis, id dictum tortor consequat. Aenean tincidunt, orci at fringilla dignissim, risus metus mollis magna, et iaculis purus lorem eget quam.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

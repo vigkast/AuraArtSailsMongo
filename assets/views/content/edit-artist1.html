@@ -1,0 +1,526 @@
+<div class="create-user cont-create compact-form">
+    <div class="container">
+        <div class="page">
+            <h2 class="title">
+         </h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <section class="panel panel-default" style="border-radius:0px;">
+                        <div class="panel-heading panel-hdr">Edit Artist</div>
+                        <div class="panel-heading panel-hdr" ng-if="disableSubmit==true">In Review</div>
+                        <div class="panel-body">
+                            <form name="form_constraints" class="form-validation" data-ng-submit="submitForm()">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Full Name</label>
+                                                    <input type="text" class="form-control" ng-model="user.name" placeholder="Full Name" required capitalize-first>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Gender</label>
+                                                    <div>
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="gender" ng-model="user.gender" value="male" required>Male
+                                                        </label>
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="gender" ng-model="user.gender" value="female" required>Female
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Email Address</label>
+                                                    <input type="email" class="form-control" ng-model="user.email" ng-change="email(user.email)" placeholder="Enter email address" required>
+                                                    <span ng-if="isValidEmail==0" style="color:red;">Email id already exists.</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Image</label>
+                                                    <div class="photo-holder">
+                                                        <span ng-if="!user.image">Artist Photo</span>
+                                                        <div class="image-contain" style="background-image:url('{{user.image | uploadpath}}');" ng-if="user.image"></div>
+                                                    </div>
+                                                    <input type="button" ng-click="removeimage();" value="Delete" class="btn btn-danger" ng-if="user.image">
+                                                </div>
+                                                <div class="upload-div">
+                                                    <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
+                                                    <div class="upload-buttons">
+                                                        <input type="file" name="file" ng-file-select="onFileSelect($files,1)" onclick="this.value=null">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="comment-box">
+                                            <div class="comment-head">Comments</div>
+                                            <div class="comment-area">
+                                                <!--Aura arts comment  -->
+                                                <div class="style1-bg bubble">
+                                                    <div class="name">AADPL (Aura Art):</div>
+                                                    <div class="comment-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                                                </div>
+                                                <!--Aura arts comment-->
+                                                <!--Artists comment-->
+                                                <div class="bubble">
+                                                    <div class="name">DJ Bagga (You):</div>
+                                                    <div class="comment-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                                                </div>
+                                                <!--Artists comment-->
+                                            </div>
+                                            <div class="send-box">
+                                                <!-- <form ng-submit=""> -->
+                                                <textarea rows="2"></textarea>
+                                                <button class="btn btn-default" type="button">Send</button>
+                                                <!-- </form> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Mobile Number</label>
+                                            <div class="tel-box">
+                                                <input type="tel" class="form-control tel-country" ng-model="user.personal.countrycode" required placeholder="eg. +91" value="+91">
+                                                <input type="text" class="form-control tel-number" ng-model="user.personal.mob" placeholder="Mobile Number" maxlength="10" only-digits ng-trim="false">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Work Number</label>
+                                            <div class="tel-box">
+                                                <input type="tel" class="form-control tel-country" ng-model="user.work.countrycode" placeholder="eg. +91" value="+91">
+                                                <input type="tel" class="form-control tel-city" ng-model="user.work.citycode" placeholder="eg. 22 (Mumbai)" only-digits ng-trim="false">
+                                                <input type="tel" class="form-control tel-numbers" ng-model="user.work.work" placeholder="Work Number" maxlength="8" only-digits ng-trim="false">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Residence Number</label>
+                                            <div class="tel-box">
+                                                <input type="tel" class="form-control tel-country" ng-model="user.residence.countrycode" placeholder="eg. +91" value="+91">
+                                                <input type="tel" class="form-control tel-city" ng-model="user.residence.citycode" placeholder="eg. 22 (Mumbai)" only-digits ng-trim="false">
+                                                <input type="tel" class="form-control tel-numbers" ng-model="user.residence.home" placeholder="Residence Number" maxlength="8" only-digits ng-trim="false">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Date / Year of Birth</label>
+                                            <input type="text" onfocus="(this.type='date')" class="form-control" ng-model="user.dob" placeholder="Date of Birth" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Place / City / State of Birth</label>
+                                            <input type="text" class="form-control" ng-model="user.stateofb" placeholder="State of Birth">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Year of Demise (if applicable)</label>
+                                            <input type="text" class="form-control" ng-model="user.passedaway" placeholder="Year of Demise (if applicable)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <h4 class="title-color">Address</h4>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Residence</label>
+                                            <div class="tel-box">
+                                                <input type="text" class="form-control tel-country" ng-model="user.residence.flatno" placeholder="House No" required>
+                                                <input type="text" class="form-control tel-number" ng-model="user.residence.bldgname" placeholder="Name of Building / Society" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.residence.landmark" placeholder="Landmark" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.residence.street" placeholder="Street" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.residence.locality" placeholder="Locality" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.residence.city" placeholder="City" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.residence.pincode" placeholder="Pincode" maxlength="6" only-digits ng-trim="false" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.residence.state" placeholder="State" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.residence.country" placeholder="Country" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Studio</label>
+                                            <div class="tel-box">
+                                                <input type="text" class="form-control tel-country" ng-model="user.work.flatno" placeholder="House No">
+                                                <input type="text" class="form-control tel-number" ng-model="user.work.bldgname" placeholder="Name of Building / Society">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.work.landmark" placeholder="Landmark">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.work.street" placeholder="Street">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.work.locality" placeholder="Locality">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.work.city" placeholder="City">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.work.pincode" placeholder="Pincode" maxlength="6" only-digits ng-trim="false">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.work.state" placeholder="State">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.work.country" placeholder="Country">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Any Other</label>
+                                            <div class="tel-box">
+                                                <input type="text" class="form-control tel-country" ng-model="user.other.flatno" placeholder="House No">
+                                                <input type="text" class="form-control tel-number" ng-model="user.other.bldgname" placeholder="Name of Building / Society">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.other.landmark" placeholder="Landmark">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.other.street" placeholder="Street">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.other.locality" placeholder="Locality">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.other.city" placeholder="City">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.other.pincode" placeholder="Pincode" maxlength="6" only-digits ng-trim="false">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.other.state" placeholder="State">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.other.country" placeholder="Country">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Upload Address Certificate</label>
+                                            <!-- ngIf: user.adcer -->
+                                            <!-- ngIf: user.adcer -->
+                                        </div>
+                                        <div class="form-group">
+                                            <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
+                                            <div class="upload-buttons">
+                                                <input type="file" name="file" ng-file-select="onFileSelect($files,3)" onclick="this.value=null">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Overview of Artist's concepts / thought process (Limited to 200 words)</label>
+                                            <textarea rows="3" class="form-control ng-pristine ng-untouched ng-valid" ng-model="user.artistdesc" maxlength="200" placeholder="Overview of Artist's concepts / thought process (Limited to 200 words)"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <h4 class="title-color">Education, Shows, Awards and Auctions (Each limited to 3)</h4>
+                                <hr class="hr-color">
+                                <div class="form-group">
+                                    <label>Educational Qualifications</label>
+                                    <a ng-click="addedu(user);" class="btn btn-success pull-right">Add Qualification</a>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <td>Year of Completion</td>
+                                                <td>Qualification</td>
+                                                <td>Name of Institution</td>
+                                                <td>City of Institution</td>
+                                                <td>Action</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="edu in user.edu">
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="edu.year" placeholder="Year Of Passing" maxlength="4" only-digits>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="edu.quali" placeholder="Qualification" maxlength="40">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="edu.institu" placeholder="Organisation" maxlength="40">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="edu.city" placeholder="City" maxlength="40">
+                                                </td>
+                                                <td>
+                                                    <input class="btn btn-danger" type="button" ng-click="removeedu(user.edu.indexOf(edu),user.edu);" value="Delete">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="form-group">
+                                    <label>Solo Shows</label>
+                                    <a ng-click="addsolo(user);" class="btn btn-success pull-right">Add Solo Show</a>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <td>Year</td>
+                                                <td>Title of Show</td>
+                                                <td>Gallery</td>
+                                                <td>Venue</td>
+                                                <td>City / Country</td>
+                                                <td>Action</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="solo in user.soloshow">
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="solo.year" placeholder="Year">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="solo.title" placeholder="Title">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="solo.gallery" placeholder="Gallery">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="solo.venue" placeholder="Venue">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="solo.city" placeholder="City">
+                                                </td>
+                                                <td>
+                                                    <input class="btn btn-danger" type="button" ng-click="removesolo(user.soloshow.indexOf(solo),user.soloshow);" value="Delete">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="form-group">
+                                    <label>Group Shows</label>
+                                    <a ng-click="addgroup(user);" class="btn btn-success pull-right">Add Group Show</a>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <td>Year</td>
+                                                <td>Title of Show</td>
+                                                <td>Gallery</td>
+                                                <td>Venue</td>
+                                                <td>City / Country</td>
+                                                <td>Action</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="group in user.groupshow">
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="group.year" placeholder="Year">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="group.title" placeholder="Title">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="group.gallery" placeholder="Gallery">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="group.venue" placeholder="Venue">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="solo.city" placeholder="City">
+                                                </td>
+                                                <td>
+                                                    <input class="btn btn-danger" type="button" ng-click="removegroup(user.groupshow.indexOf(group),user.groupshow);" value="Delete">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="form-group">
+                                    <label>Awards / Recognitions / Honors</label>
+                                    <a ng-click="addaward(user);" class="btn btn-success pull-right">Add Award</a>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <td>Year</td>
+                                                <td>Title</td>
+                                                <td>Institution Giving Award</td>
+                                                <td>Action</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="award in user.award">
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="award.year" placeholder="Year">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="award.title" placeholder="Title">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="award.institution" placeholder="Institution">
+                                                </td>
+                                                <td>
+                                                    <input class="btn btn-danger" type="button" ng-click="removeaward(user.award.indexOf(award),user.award);" value="Delete">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="form-group">
+                                    <label>Auctions</label>
+                                    <a ng-click="addauction(user);" class="btn btn-success pull-right">Add Auction</a>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <td>Year</td>
+                                                <td>Auction House</td>
+                                                <td>City / Country</td>
+                                                <td>Price and Details of Work</td>
+                                                <td>Action</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="auction in user.auction">
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="auction.year" placeholder="Year">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="auction.auctionhouse" placeholder="Auction House">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="auction.location" placeholder="Location">
+                                                </td>
+                                                <td>
+                                                    <input class="btn btn-danger" type="button" ng-click="removeauction(user.auction.indexOf(auction),user.auction);" value="Delete">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Upload Resume</label>
+                                            <!-- ngIf: user.resume -->
+                                            <!-- ngIf: user.resume -->
+                                        </div>
+                                        <div class="form-group">
+                                            <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
+                                            <div class="upload-buttons">
+                                                <input type="file" name="file" ng-file-select="onFileSelect($files,2)" onclick="this.value=null">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <h4 class="title-color">Artist's Artwork Details</h4>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group ui-selecter">
+                                            <label for="exampleInputEmail1">Typical Style</label>
+                                            <div class="form-group">
+                                                <ui-select multiple tagging tagging-label="false" ng-model="user.theme" on-select="ismatch(user.theme,$select);">
+                                                    <ui-select-match placeholder="Select Style">{{$item.name}}</ui-select-match>
+                                                    <ui-select-choices repeat="person in theme track by person._id" refresh="refreshTheme($select.search,$select.selected)" refresh-delay="0">
+                                                        <div ng-bind-html="person.name"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group ui-selecter">
+                                            <label for="exampleInputEmail1">Typical Medium</label>
+                                            <div class="form-group">
+                                                <ui-select tagging tagging-label="false" multiple ng-model="user.medium" ng-change="ismatchmed(user.medium,$select);">
+                                                    <ui-select-match placeholder="Select Medium">{{$item.name}}</ui-select-match>
+                                                    <ui-select-choices repeat="person in medium track by person._id" refresh="refreshMedium($select.search,$select.selected)" refresh-delay="0">
+                                                        <div ng-bind-html="person.name"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Website of Artist</label>
+                                            <input type="text" class="form-control ng-pristine ng-untouched ng-valid" ng-model="user.woa" placeholder="Website of Artist">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Per square feet Gallery Price of representative body of works
+                                            </label>
+                                            <input type="text" class="form-control ng-pristine ng-untouched ng-valid" ng-model="user.pricing" placeholder="Per square feet Gallery Price of representative body of works">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Galleries / Websites where works are typically displayed</label>
+                                            <input type="text" class="form-control" ng-model="user.galleries" placeholder="Galleries / Websites where works are typically displayed">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Online Catalogue Link</label>
+                                            <input type="text" class="form-control" ng-model="user.clink" placeholder="Online Catalogue Link">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">eBook Link</label>
+                                            <input type="text" class="form-control" ng-model="user.eblink" placeholder="eBook Link">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <!-- <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-model="user.checkboxModel" ng-change="checking();">I have clicked on the check box after having read all the <a href="#/terms" class="font-color2" target="_blank">Terms and Conditions</a> and agreeing to abide by them.
+                                            <span ng-if="checked==1" style="color:red;">Please accept the terms.</span>
+                                        </label>
+                                    </div>
+                                </div> -->
+                                <div class="text-center" style="padding-bottom:20px;">
+                                    <button type="submit" class="btn btn-primary all-btn" ng-if="disableSubmit==false">Submit</button>
+                                    <button type="submit" class="btn btn-primary all-btn" ng-if="disableSubmit==true" ng-disabled="true">Submit</button>
+                                </div>
+                            </form>
+                    </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

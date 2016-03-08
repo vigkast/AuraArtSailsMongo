@@ -1,0 +1,44 @@
+<div class="artist">
+    <div class="border-top"></div>
+    <div class="container">
+        <div class="row" style="position:relative;">
+            <div class="painting">
+                <div class="col-md-12">
+                    <h4 class="head-team">Search Results</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row" infinite-scroll='addMoreItems();' infinite-scroll-distance="0" infinite-scroll-disabled="shouldscroll">
+            <div class="col-xs-20" ng-repeat="totalartconts in totalartcont track by $index | orderBy : 'artwork.srno'">
+                <div class="aristimg-grp1">
+                    <div class="relative">
+                        <a ng-click="goToDetailPage(totalartconts.artwork);">
+                            <div class="image-holders fixit">
+                                <img class="fix-img" ng-src='{{totalartconts.artwork.image[0]|uploadthumbnail}}'>
+                            </div>
+                        </a>
+                        <div class="hover-look">
+                            <button type="submit" class="btn btn-sucesses button-small text-center" ng-click="showDetails(totalartconts);">Quick View</button>
+                            <a type="submit" class="btn btn-sucesses button-small text-center" ng-click="goToDetailPage(totalartconts.artwork);">Details</a>
+                        </div>
+                    </div>
+                    <div class="artist-cont-detail">
+                        <p>
+                            <!-- {{totalartconts.artwork.srno}} -->
+                            {{totalartconts.artwork.imageno[0]}}
+                            <i class="{{totalartconts.heartClass = (totalartconts.artwork._id | showheart)}}" ng-click="makeFav(totalartconts);"></i>
+                            <i class="fa fa-shopping-cart" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A'"></i>
+                            <span class="font-color3 bold pd5" ng-if="totalartconts.artwork.status=='sold'">Sold</span>
+                        </p>
+                        <p>
+                            {{totalartconts.name}}
+                        </p>
+                        <p>
+                            {{totalartconts.artwork|makesizestr}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

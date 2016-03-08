@@ -1,0 +1,45 @@
+<div ng-controller="headerctrl">
+    <header class="stickyheader" scroll>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 nopad-right text-center">
+                    <a href="#/home">
+                        <img src="img/logofixed.jpg" alt="logo" class="img-responsive logo">
+                    </a>
+                </div>
+                <div class="col-md-9  nopad-left">
+                  <div ng-include="template.headerBar"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 nopad-right text-center">
+                    <a href="#/home">
+                        <img src="img/logo.jpg" alt="logo" class="img-responsive logo">
+                    </a>
+                </div>
+                <div class="col-md-9  nopad-left">
+                    <div ng-include="template.headerBar"></div>
+                    <!--Nav bar-->
+                    <nav class="navbar">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse" aria-expanded="false">
+                                <span class="sr-only">Menu</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse nopad" id="nav-collapse">
+                            <div ng-include="template.menu" class="template menu"></div>
+                        </div>
+                    </nav>
+                    <!--Nav bar-->
+                </div>
+            </div>
+        </div>
+    </header>
+</div>

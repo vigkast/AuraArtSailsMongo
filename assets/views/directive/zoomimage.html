@@ -1,0 +1,7 @@
+<div class="image">
+    <!--    <a ng-click="previousImage(zoomposition);" class="btn btn-primary">PREV</a>-->
+    <img src="img/arrow.png" class="imagebrowser" noloading="true" ng-click="previousImage(zoomposition);">
+    <img ng-src="{{eventDetail.photos[zoomposition]|uploadpath}}" class="balckbak" alt="" />
+    <!--    <a ng-click="nextImage(zoomposition);" class="btn btn-primary">NEXT</a>-->
+    <img src="img/arrowr.png" noloading="true" ng-click="nextImage(zoomposition);" class="imagebrowser2">
+</div>

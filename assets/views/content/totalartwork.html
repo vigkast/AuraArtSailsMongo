@@ -1,0 +1,69 @@
+<div class="artist">
+    <div class="border-top"></div>
+    <div class="container" infinite-scroll='addMoreItems();' infinite-scroll-distance="0" infinite-scroll-disabled="shouldscroll">
+        <div class="row" ng-controller="filterctrl" style="position:relative;">
+            <div class="painting">
+                <div class="col-md-12">
+                    <h4 class="head-team">Total ArtWorks</h4>
+                </div>
+                <div class="col-md-5">
+                    <ul class="artist-crisp pad-less">
+                        <li class="" ng-click="makeactive(type.name);" ng-repeat="type in typejson">
+                            <a href="" class="{{type.class}}">{{type.name}}
+                            <hr class="hover-see">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-5 full-mega">
+                  <div class="text-uppercase filter-padding" ng-click="showfilter(0)" ng-mouseleave="hidefilter(0)">
+                    <i class="fa fa-filter"></i> Filter by Artist / Price / Size / Medium
+                    <div class="megamenu" ng-include src="filterval[0]" ng-show="filters[0]">
+                  </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="sort-by" ng-click="showfilter(1)" ng-mouseleave="hidefilter(1)">
+                        <i class="fa fa-sort-amount-asc"></i> Sort By
+                        <div class="megamenu" ng-include src="filterval[1]" ng-show="filters[1]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-20" ng-repeat="totalartconts in totalartcont">
+                <div class="aristimg-grp1">
+                    <div class="relative">
+                        <a ng-click="goToDetailPage(totalartconts.artwork);">
+                            <div class="image-holders fixit">
+                                <img class="fix-img" ng-src='{{totalartconts.artwork.image[0]|uploadthumbnail}}'>
+                            </div>
+                        </a>
+                        <div class="hover-look">
+                            <button type="submit" class="btn btn-sucesses button-small text-center" ng-click="showDetails(totalartconts);">Quick View</button>
+                            <a type="submit" class="btn btn-sucesses button-small text-center" ng-click="goToDetailPage(totalartconts.artwork);">Details</a>
+                        </div>
+                    </div>
+                    <div class="artist-cont-detail">
+                        <p>
+                            <!-- {{totalartconts.artwork.srno}} -->
+                            {{totalartconts.artwork.imageno[0]}}
+                            <i class="{{totalartconts.heartClass = (totalartconts.artwork._id | showheart)}}" ng-click="makeFav(totalartconts);"></i>
+                            <i class="fa fa-shopping-cart" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A'"></i>
+                            <span class="font-color3 bold pd5" ng-if="totalartconts.artwork.status=='sold'">Sold</span>
+                        </p>
+                        <p>
+                            {{totalartconts.name}}
+                        </p>
+                        <p>
+                            {{totalartconts.artwork|makesizestr}}
+                            <!-- {{totalartconts.artwork.dim}} inches -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+              <div class="clear-fix"></div>
+        </div>
+    </div>
+</div>

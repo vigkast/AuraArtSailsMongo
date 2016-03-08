@@ -1,0 +1,217 @@
+<div class="border-top"></div>
+<div class="container event-set">
+    <!--
+    <div class="row">
+        <div class="col-md-3">
+
+            <a href="#/eventdetail">
+                <div class="event-img">
+                    <img src="img/event.jpg" class="img-responsive">
+                </div>
+            </a>
+        </div>
+        <div class="col-md-9">
+            <div class="event">
+                <h5 class="font-color3">Inviting participation for The Art Enclave at UBM Index Fairs 2015</h5>
+                <p>Oct 15, 2015 - Oct 18, 2015</p>
+                <p>10.30 am to 7.00 pm </p>
+                <p>MMRDA Exhibition Centre, BKC, Mumbai</p>
+            </div>
+        </div>
+    </div>
+-->
+    <!--
+    <div class="row">
+        <div class="all-events search-box">
+            <h3 class="font-color3 home-header padtop">Upcoming Events</h3>
+            <accordion close-others="true">
+                <accordion-group heading="2016">
+                    <div class="row">
+                        <div class="col-md-3" ng-repeat="event in event2016">
+                            <div class="event-detail ">
+                                <div class="data">
+                                    <h6 class="font-color2">{{event.name}}</h6>
+                                    <p>{{event.detail}}</p>
+                                </div>
+                                <a href="#/eventdetail">
+                                    <div class="event-img text-center">
+                                        <figure>
+                                            <img ng-src="{{event.img}}" class="img-responsive">
+                                        </figure>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
+    <div class="row">
+        <div class="all-events search-box">
+            <h3 class="font-color3 home-header padtop">Present Events</h3>
+            <accordion close-others="true">
+                <accordion-group heading="2015">
+                    <div class="row">
+                        <div class="col-md-3" ng-repeat="event in event2015">
+                            <div class="event-detail ">
+                                <div class="data">
+                                    <h6 class="font-color2">{{event.name}}</h6>
+                                    <p>{{event.detail}}</p>
+                                </div>
+                                <div class="event-img text-center">
+                                    <figure>
+                                        <img ng-src="{{event.img}}" class="img-responsive">
+                                    </figure>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
+    <div class="row">
+        <div class="all-events search-box">
+            <h3 class="font-color3 home-header padtop">Past Events</h3>
+            <accordion close-others="true">
+                <accordion-group heading="2014">
+                    <div class="row">
+                        <div class="col-md-3" ng-repeat="event in event2014">
+                            <div class="event-detail ">
+                                <div class="data">
+                                    <h6 class="font-color2">{{event.name}}</h6>
+                                    <p>{{event.detail}}</p>
+                                </div>
+                                <div class="event-img text-center">
+                                    <figure>
+                                        <img ng-src="{{event.img}}" class="img-responsive">
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </accordion-group>
+                <accordion-group heading="2013">
+                    <div class="col-md-3" ng-repeat="event in event2014">
+                        <div class="event-detail ">
+                            <div class="data">
+                                <h6 class="font-color2">{{event.name}}</h6>
+                                <p>{{event.detail}}</p>
+                            </div>
+                            <div class="event-img text-center">
+                                <figure>
+                                    <img ng-src="{{event.img}}" class="img-responsive">
+                                </figure>
+                            </div>
+
+                        </div>
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
+-->
+    <!-- <div class="row" ng-if="events.upcoming && events.upcoming.length>0">
+        <div class="all-events search-box">
+            <h3 class="font-color3 home-header padtop">Upcoming Events</h3>
+            <p class="head">{{currentYear+1}}</p>
+            <div class="row">
+                <div class="col-md-3" ng-repeat="event in events.upcoming">
+                    <div class="event-detail ">
+                        <div class="data">
+                            <h6 class="font-color2">{{event[0].name}}</h6>
+                            <p>{{event[0].details}}</p>
+                        </div>
+                        <a ui-sref="eventdetail({id:event[0]._id})">
+                            <div class="event-img text-center">
+                                <figure>
+                                    <img ng-src="{{event[0].photos[0]|uploadthumbnail}}" class="img-responsive">
+                                </figure>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="row" ng-if="events.upcoming && events.upcoming.length>0">
+        <div class="all-events search-box">
+            <h3 class="font-color3 home-header padtop">Upcoming Events</h3>
+            <accordion close-others="true">
+                <accordion-group heading="{{event1[0].year}}" ng-repeat="event1 in events.upcoming">
+                    <div class="row">
+                        <div class="col-md-3" ng-repeat="event in event1">
+                            <div class="event-detail ">
+                                <div class="data">
+                                    <h6 class="font-color2">{{event.name}}</h6>
+                                    <p>{{event.detail}}</p>
+                                </div>
+                                <a ui-sref="eventdetail({id:event._id})">
+                                  <!-- {{event}} -->
+                                    <div class="event-img text-center">
+                                        <figure>
+                                            <img ng-src="{{event.photos[0]|uploadthumbnail}}" class="img-responsive">
+                                        </figure>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
+    <div class="row" ng-if="events.present && events.present.length>0">
+        <div class="all-events search-box">
+            <h3 class="font-color3 home-header padtop">Present Events</h3>
+            <p class="head">{{currentYear}}</p>
+            <div class="row">
+                <div class="col-md-3" ng-repeat="event in events.present[0]">
+                    <div class="event-detail ">
+                        <div class="data">
+                            <h6 class="font-color2">{{event.name}}</h6>
+                            <p>{{event.detail}}</p>
+                        </div>
+                        <a ui-sref="eventdetail({id:event._id})">
+                            <div class="event-img text-center">
+                                <figure>
+                                    <img ng-src="{{event.photos[0]|uploadthumbnail}}" class="img-responsive">
+                                </figure>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="events.past && events.past.length>0">
+        <div class="all-events search-box">
+            <h3 class="font-color3 home-header padtop">Past Events</h3>
+            <accordion close-others="true">
+                <accordion-group heading="{{event1[0].year}}" ng-repeat="event1 in events.past">
+                    <div class="row">
+                        <div class="col-md-3" ng-repeat="event in event1">
+                            <div class="event-detail ">
+                                <div class="data">
+                                    <h6 class="font-color2">{{event.name}}</h6>
+                                    <p>{{event.detail}}</p>
+                                </div>
+                                <a ui-sref="eventdetail({id:event._id})">
+                                  <!-- {{event}} -->
+                                    <div class="event-img text-center">
+                                        <figure>
+                                            <img ng-src="{{event.photos[0]|uploadthumbnail}}" class="img-responsive">
+                                        </figure>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
+</div>

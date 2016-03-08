@@ -1,0 +1,77 @@
+<section class="favorites cart">
+	<div class="container">
+		<div class="ngdialog-close close"></div>
+		<form>
+			<div class="media min-cont">
+				<h4 class="head-team">Reach Out For Artworks</h4>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<div class="input-id">
+								<input class="form-control" ng-model="reachOutForm.from" placeholder="Your Email Address*" type="email" ng-class="allvalidation[1].validation">
+							</div>
+							<div class="input-id">
+								<input class="form-control" ng-model="reachOutForm.artist" placeholder="Artist Name" type="text">
+								<!-- <div class="form-group">
+									<ui-select uiselect-autofocus demo="{{onfock}}" ng-model="reachOutForm.artist" on-select="setSearch($select);" tagging tagging-label="false">
+										<ui-select-match class="text-capitalize" placeholder="Select Artist">{{reachOutForm.artist}}</ui-select-match>
+										<ui-select-choices refresh-delay="0" refresh="getDropdown($select.search)" repeat="person in allartist track by person._id">
+											<div ng-bind-html="person.name| highlight: $select.search"></div>
+										</ui-select-choices>
+									</ui-select>
+								</div> -->
+							</div>
+							<div class="input-id">
+								<input class="form-control" ng-model="reachOutForm.srno" placeholder="Artwork No." type="text">
+								<!-- <div class="form-group">
+									<ui-select uiselect-autofocus ng-model="reachOutForm.srno" on-select="setSearchSrno($select);" tagging tagging-label="false">
+										<ui-select-match class="text-capitalize" placeholder="Select Srno.">{{reachOutForm.srno}}</ui-select-match>
+										<ui-select-choices refresh-delay="0" refresh="getDropdown($select.search)" repeat="person in artworkInterested track by person._id">
+											<div ng-bind-html="person.srno| highlight: $select.search"></div>
+										</ui-select-choices>
+									</ui-select>
+								</div> -->
+							</div>
+							<div class="input-id">
+								<div class="radio">
+									<label>
+										<input type="radio" name="action" ng-model="reachOutForm.action" value="1" checked="true" ng-class="allvalidation[2].validation"> Request for Price
+									</label>
+								</div>
+								<div class="radio">
+									<label>
+										<input type="radio" ng-model="reachOutForm.action" value="2" name="action" ng-class="allvalidation[2].validation"> Shoud we call or come to meet you
+									</label>
+
+								</div>
+								<div class="radio">
+									<label>
+										<input type="radio" ng-model="reachOutForm.action" value="3" name="action" ng-class="allvalidation[2].validation"> Would you like to schedule a visit to our Gallery
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<div class="input-id">
+								<input class="form-control" placeholder="Contact Name" ng-model="reachOutForm.person" type="text">
+							</div>
+							<div class="input-id">
+								<input class="form-control" placeholder="Contact Number" ng-model="reachOutForm.number" type="tel">
+							</div>
+							<div class="input-id">
+								<input class="form-control" placeholder="Address (Office / Residence)" ng-model="reachOutForm.address" type="text">
+							</div>
+							<div class="input-id">
+								<textarea class="form-control" placeholder="Remarks / Comments" ng-model="reachOutForm.remarks" rows="4"></textarea>
+							</div>
+							<button class="btn btn-sucesses" type="Submit" ng-click="submitReachOut()">Submit</button>
+							<button class="btn btn-primarys" ng-click="resetReachOut()">Reset</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</section>

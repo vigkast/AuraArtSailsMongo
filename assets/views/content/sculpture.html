@@ -1,0 +1,215 @@
+<div class="image-detail">
+  <div class="border-top"></div>
+  <div class="container">
+    <div class="row">
+      <div class="breadcrums">
+        <div class="col-md-12">
+          <p>Home / Sculpture
+          </p>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="aboveimage" fixit>
+          <a class="light-make light-shade" fancybox-box href="{{artistDetailImg.artwork.image[0]|uploadpath}}">Enlarge
+            <i class="fa fa-arrows-alt"></i>
+          </a>
+          <img elevate-zoom image="artistDetailImg" ng-if="artistDetailImg && artistDetailImg.artwork" class="fix-img" />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="cont-imagedetail">
+          <div class="artist-cont-detail pading-less-bottom">
+            <div class="painting-details pading-less-bottom">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>
+                      <span ng-if="artistDetailImg.artwork.imageno && artistDetailImg.artwork.imageno[0]">
+                        {{artistDetailImg.artwork.imageno[0]}}
+                      </span>
+                      <i class="{{artistDetailImg.heartClass}}" ng-click="addToFav(artistDetailImg);"></i>
+                    </td>
+                    <td>
+                      <div class="pull-right">
+                        <button class="btn btn-sucesses btn-xs" ng-click="artPrev()">Prev</button>
+                        <button class="btn btn-sucesses btn-xs" ng-click="artNext()">Next</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="font-color3">
+                    <td class="labels">Artist:</td>
+                    <td ng-if="artistDetailImg.name && artistDetailImg.name!=''">
+                      {{artistDetailImg.name}}
+                    </td>
+                    <td ng-if="!artistDetailImg.name || artistDetailImg.name==''">
+                      NA
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="labels">Title:</td>
+                    <td ng-if="artistDetailImg.artwork.name && artistDetailImg.artwork.name!=''">
+                      {{artistDetailImg.artwork.name}}
+                    </td>
+                    <td ng-if="!artistDetailImg.artwork.name || artistDetailImg.artwork.name==''">
+                      NA
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="labels">Medium:
+                    </td>
+                    <td ng-if="artistDetailImg.artwork.subtype.length>0 && artistDetailImg.artwork.subtype[0].name!=''">
+                      {{artistDetailImg.artwork.subtype[0].name}}
+                    </td>
+                    <td ng-if="!artistDetailImg.artwork.subtype || artistDetailImg.artwork.subtype.length==0">
+                      NA
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="labels">Size:</td>
+                    <td>{{artistDetailImg.artwork|makesizestr}}</td>
+                    <!-- <td>{{artistDetailImg.artwork.dim}}</td> -->
+                  </tr>
+                  <tr ng-if="artistDetailImg.artwork.yoc && artistDetailImg.artwork.yoc!=''">
+                    <td class="labels">Year:</td>
+                    <td ng-if="artistDetailImg.artwork.yoc && artistDetailImg.artwork.yoc!=''">
+                      {{artistDetailImg.artwork.yoc}}
+                    </td>
+                    <td ng-if="!artistDetailImg.artwork.yoc || artistDetailImg.artwork.yoc==''">
+                      NA
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="labels">Price:
+                    </td>
+                    <td ng-if="artistDetailImg.artwork.gprice || artistDetailImg.artwork.gprice=='N/A'">
+                      {{artistDetailImg.artwork.gprice|currency:"Rs "}} / $ {{artistDetailImg.artwork.gprice|indollars}}
+                      <span>(excluding VAT)</span>
+                    </td>
+                    <td ng-if="!artistDetailImg.artwork.gprice || artistDetailImg.artwork.gprice=='N/A'">
+                      Available on request
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" class="btn btn-block uppercase" ng-click="openReachout();" ng-if="!artistDetailImg.artwork.gprice || artistDetailImg.artwork.gprice=='N/A'">
+            REQUEST FOR PRICE
+          </button>
+          <button type="button" class="btn btn-block uppercase" ng-click="lauchedSoon();">
+            VIEW ARTWORK IN YOUR ROOM
+          </button>
+          <button type="button" class="btn btn-block uppercase" ng-click="lauchedSoon();" ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A' && artistDetailImg.artwork.status!='sold'">
+            Rent sculpture
+          </button>
+          <button type="button" class="btn btn-primarys btn-block uppercase" ng-click="addToCart(artistDetailImg);" ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A' && artistDetailImg.artwork.status!='sold'">
+            ADD TO CART
+          </button>
+          <div type="button" class="soldout uppercase font-color3" ng-if="artistDetailImg.artwork.status=='sold'">
+             Sold
+          </div>
+          <h5 class="alt" ng-if="artistDetailImg.artwork.image.length>1">Alternate Views</h5>
+          <div class="row-flex row-flex row-unflex sweet-box box-more text-center margin-less">
+            <div class="col-flex" ng-repeat="moreviews in artistDetailImg.artwork.image track by $index" ng-if="artistDetailImg.artwork.image.length>1 && $index!=0" ng-click="activeImage(moreviews);">
+              <div class="view-box image-box">
+                <img ng-src='{{moreviews|uploadpath}}' alt="" class="img-responsive">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="style1-bg margin-btm-top">
+    <div class="container">
+      <div class="padding-more">
+        <div class="row">
+          <div class="col-md-12">
+            <h4 class="head-more">MORE WORKS BY THIS ARTIST
+              <a ui-sref="artistdetail({artistid:artistDetailImg._id})" class="link-viewall">VIEW ALL</a>
+              <a class="link-viewall" ng-click="status.open = !status.open">VIEW PROFILE</a>
+            </h4>
+            <div class="cont-artist">
+              <accordion>
+                <accordion-group is-open="status.open">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p>
+                        <span class="bold" ng-if="artistdetail.dob && artistdetail.dob!=''">Born </span>
+                        <span class="bold" ng-if="artistdetail.dob && artistdetail.dob!=''">in </span> {{artistdetail.dob}}
+                        <span class="bold" ng-if="artistdetail.stateofb && artistdetail.stateofb!=''">at</span> {{artistdetail.stateofb}}</p>
+                      <p ng-if="artistdetail.passedaway && artistdetail.passedaway!=''">
+                        <span class="bold">Passed away</span>
+                      </p>
+                      <p ng-if="artistdetail.edu">
+                        <span class="bold">Education</span>
+                        <span ng-repeat="edu in artistdetail.edu">
+                          <br>{{edu.year}}, {{edu.quali}}, {{edu.institu}}, {{edu.city}}
+                        </span>
+                        <!--<br>2008, Master of Fine Arts, Jamia Milia Islamia University, New Delhi-->
+                      </p>
+                      <p ng-if="artistdetail.award">
+                        <span class="bold">Awards / Recognitions / Honors
+                        </span>
+                        <span ng-repeat="awards in artistdetail.award">
+                          <br>{{awards.year}}, {{awards.title}}, {{awards.institution}}
+                        </span>
+                        <!--
+                                                            <br>2006, H R D National Scholarship
+                            <br>2006, H R D National Scholarship
+                            -->
+                      </p>
+                    </div>
+                    <div class="col-md-6">
+                      <p ng-if="artistdetail.auction">
+                        <span class="bold">Auctions</span>
+                        <span ng-repeat="auction in artistdetail.auction">
+                          <br>{{auction.year}}, {{auction.auctionhouse}}, {{auction.location}}
+                        </span>
+                        <!--
+                                                            <br>2011, High Street Phoenix, Aura Art, Lower Parel, Mumbai
+                                                            <br>2011, High Street Phoenix, Aura Art, Lower Parel, Mumbai
+                            -->
+                      </p>
+                      <p ng-if="artistdetail.soloshow">
+                        <span class="bold">Solo Shows</span>
+                        <span ng-repeat="solo in artistdetail.soloshow">
+                          <br>{{solo.year}}, {{solo.title}}, {{solo.gallery}}, {{solo.venue}}
+                        </span>
+                        <!--
+                                                            <br>2011, High Street Phoenix, Aura Art, Lower Parel, Mumbai
+                                                            <br>2011, High Street Phoenix, Aura Art, Lower Parel, Mumbai
+                            -->
+                      </p>
+                      <p ng-if="artistdetail.groupshow">
+                        <span class="bold">Group Shows</span>
+                        <span ng-repeat="group in artistdetail.groupshow">
+                          <br>{{group.year}}, {{group.title}}, {{group.gallery}}, {{group.venue}}
+                        </span>
+                        <!--
+                                                            <br>2012, United Art Fair, Pragati Maidan, New Delhi
+                                                            <br>2013, The Aura Art Show 2013, Aura Art, Jehangir Art Gallery, Mumbai
+                            -->
+                      </p>
+                    </div>
+                  </div>
+                </accordion-group>
+              </accordion>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-2 col-sm-4" ng-repeat="aristimages in aristImages">
+              <div class="aristimg-grp1">
+                <a ng-click="showitabove(aristimages);">
+                  <div class="image-holder" fixit>
+                    <img class="fix-img" ng-src='{{aristimages.image[0]|uploadthumbnail}}'>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<ul class="nav row-flex row-unflex">
+    <li ng-repeat="menu in navigation" class="{{menu.classis}} nav-menus text-center">
+        <a ng-href="{{menu.link}}">
+{{menu.name}}
+        </a>
+        <ul class="dropdown-menu" ng-if="menu.subnav!='';">
+            <li ng-repeat="submenu in menu.subnav">
+                <a ng-href="{{submenu.link}}" ng-if="submenu.link">{{submenu.name}}</a>
+                <a ng-click="submenu.function();" ng-if="submenu.function">{{submenu.name}}</a>
+            </li>
+        </ul>
+    </li>
+</ul>

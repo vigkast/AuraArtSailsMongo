@@ -1,0 +1,84 @@
+<div class="artist">
+  <div class="border-top"></div>
+  <div class="container">
+    <div class="row">
+      <div class="painting">
+        <div class="col-md-12">
+          <h4 class="head-team">Artist Index</h4>
+        </div>
+        <div class="col-md-5">
+          <div class="artist-scroll">
+            <ul class="artist-crisp">
+              <li class="" ng-click="makeactive(type.name);" ng-repeat="type in typejson">
+                <a class="{{type.class}}" href="">{{type.name}}
+                <hr class="hover-see">
+              </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-4 col-md-offset-3">
+          <div class="search-form">
+            <input class="form-control" ng-keypress="$event.which === 13 && getartistbysearch();" ng-model="pagedata.searchname" placeholder="Search Artist" type="search">
+            <span class="search-line">
+              <button class="btn-line" ng-click="getartistbysearch();" type="submit">
+                <i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <nav class="pagination-artist">
+            <ul class="pagination">
+              <li class="{{alphabet.class}}" ng-repeat="alphabet in alphabetjson">
+                <a ng-click="getartistbyletter(alphabet.name);">
+                  {{alphabet.name}}
+                </a>
+              </li>
+            </ul>
+            <label class="grid-view">
+              <select ng-model="tab">
+                <option value="grid">Grid View</option>
+                <option value="list">List View</option>
+              </select>
+            </label>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRID VIEW -->
+    <div class="row" ng-if="tab=='grid'">
+      <div class="col-md-2 col-sm-3" ng-repeat="artistimages in artistimage">
+        <div class="aristimg-grp1">
+          <h4 class="text-center">
+            {{artistimages.name}}
+          </h4>
+          <a ui-sref="artistdetail({artistid:artistimages._id})">
+            <div class="image-holder">
+              <img class="fix-img" ng-src='{{artistimages.artwork[0].image[0]|uploadthumbnail}}'>
+            </div>
+          </a>
+          <div class="hover-look">
+            <button class="btn btn-sucesses button-small text-center" ng-click="showDetail(artistimages);" type="submit">Quick View</button>
+            <a class="btn btn-sucesses button-small text-center" ui-sref="artistdetail({artistid:artistimages._id})" type="submit">All Works</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIST VIEW -->
+    <div class="holder1" ng-if="tab=='list'">
+      <div class="ulblock">
+        <ul class="lineul">
+          <li ng-repeat="artist in listview">
+            <a ui-sref="artistdetail({artistid:artist._id})">{{artist.name}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="text-center" ng-if="listview == [] && artistimage == [];">
+      Sorry! No Artist found.
+    </div>
+  </div>

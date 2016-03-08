@@ -1,0 +1,31 @@
+<div class="drop-cart">
+    <!-- ngRepeat: cat in cart -->
+    <div class="scroll-cart" ng-if="cartItems.length>0">
+        <ul class="img-namess" ng-repeat="artwork in cartItems">
+            <li class="cart-img">
+                <img ng-src="{{artwork.artwork.image[0] | uploadthumbnail}}">
+            </li>
+            <li>
+                <h5>{{artwork.artwork.type}}</h5>
+            </li>
+            <li>
+                <p>Artist:<span> {{artwork.name}}</span>
+                </p>
+            </li>
+            <li>
+                <p>Title:<span> {{artwork.artwork.name}}</span></p>
+            </li>
+            <li>
+                <p>Price:<span> Rs {{artwork.artwork.gprice|number:0}} / ${{artwork.artwork.gprice|indollars}}</span></p>
+            </li>
+        </ul>
+    </div>
+    <div class="text-center" ng-if="cartItems.length==0">
+            <p>No items in cart</p>
+        </div>
+    <div class="link-cart" ng-if="cartItems.length>0">
+        <a href="#/cart">
+            <button class="btn btn-sucesses button-small pull-right">View Cart</button>
+        </a>
+    </div>
+</div>

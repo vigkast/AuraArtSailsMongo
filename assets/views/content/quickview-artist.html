@@ -1,0 +1,74 @@
+<div class="artist-detail">
+    <div class="container">
+        <div class="ngdialog-close close"></div>
+        <div class="cont-artist padd-mores">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="head-team">{{artistdetail.name}}</h4></div>
+                <div class="col-md-3 col-sm-6" ng-repeat="artistdetails in artistdetail.artwork">
+                    <div class="artist-details">
+                        <div class="image-holder" fixit>
+                            <img class="fix-img" ng-src='{{artistdetails.image[0]|uploadthumbnail}}'>
+                        </div>
+                        <div class="artist-cont-detail">
+                            <p>
+                                <!-- <span ng-if="artistdetails.srno && artistdetails.srno!=''">
+                                    {{artistdetails.srno}}
+                                </span>
+                                <span ng-if="!artistdetails.srno || artistdetails.srno==''">
+                                    N/A
+                                </span> -->
+                                <span ng-if="artistdetails.imageno && artistdetails.imageno[0]">
+                                        {{artistdetails.imageno[0]}}
+                                    </span>
+                                <span ng-if="!artistdetails.imageno || !artistdetails.imageno[0]">
+                                        N/A
+                                    </span>
+                                <i class="{{artistdetails.heartClass = (artistdetails._id | showheart)}}" ng-click="addToFav(artistdetails);"></i>
+                                <i class="fa fa-shopping-cart" ng-click="addToCart(artistdetails);" ng-if="artistdetails.status!='sold'"></i>
+                                <span class="font-color3 bold pd5" ng-if="artistdetails.status=='sold'">Sold</span>
+                            </p>
+                            <p>
+                                <span ng-if="artistdetails.name && artistdetails.name!=''">
+                                    {{artistdetails.name}}
+                                </span>
+                                <span ng-if="!artistdetails.name || artistdetails.name==''">
+                                    N/A
+                                </span>
+                            </p>
+                            <p>
+                                <span ng-if="artistdetails.subtype.length>0 && artistdetails.subtype[0].name!=''">
+                                    {{artistdetails.subtype[0].name}}
+                                </span>
+                                <span ng-if="!artistdetails.subtype || artistdetails.subtype.length==0">
+                                    N/A
+                                </span>
+                            </p>
+                            <p>
+                                {{artistdetails|makesizestr}}
+                                <!-- {{artistdetails.dim}} inches -->
+                            </p>
+                            <p ng-if="artistdetails.yoc && artistdetails.yoc!=''">
+                                <span ng-if="artistdetails.yoc && artistdetails.yoc!=''">
+                                    {{artistdetails.yoc}}
+                                </span>
+                                <span ng-if="!artistdetails.yoc || artistdetails.yoc==''">
+                                    N/A
+                                </span>
+                            </p>
+                            <p>
+                                <span ng-if="artistdetails.gprice && artistdetails.gprice!='N/A'">
+                                    Rs {{artistdetails.gprice|number:0}} / ${{artistdetails.gprice|indollars}}
+                                </span>
+                                <span ng-if="!artistdetails.gprice || artistdetails.gprice=='N/A'">
+                                    Available on request
+                                </span>
+                            </p>
+                            <!--                            <button type="submit" class="btn btn-sucesses btn-small text-center">Add to cart</button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

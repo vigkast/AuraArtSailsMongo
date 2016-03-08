@@ -1,0 +1,73 @@
+<section class="container">
+
+    <h1>Features</h1>
+
+    <h2>Angular Loading bar</h2>
+    <button class="btn btn-success" ng-click="showLoader();">Start</button>
+    <button class="btn btn-danger" ng-click="hideLoader();">Complete</button>
+
+    <h2>Angular Bootstrap</h2>
+    <a class="btn btn-primary" href="https://angular-ui.github.io/bootstrap/" target="_blank">Go to their website!</a>
+
+    <h2>Angular Toaster</h2>
+    <button class="btn btn-success" ng-click="showToaster();">Success!</button>
+    <toaster-container></toaster-container>
+
+    <h2>ng-Autocomplete</h2>
+    <form class="form-inline">
+        <div class="form-group">
+            <input type="text" class="form-control" ng-autocomplete ng-model="autocomplete" options="options" details="details" />
+
+        </div>
+    </form>
+
+    <h2>ng Tags Input</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <tags-input ng-model="tags"></tags-input>
+            <a href="http://mbenford.github.io/ngTagsInput/demos" target="_blank">More demos</a>
+        </div>
+    </div>
+
+    <h2>ngDialog</h2>
+    <button class="btn btn-success" ng-click="showPopup();">Demo</button>
+    <script type="text/ng-template" id="demopop">
+        Hello World!
+    </script>
+
+    <h2>Angular Social</h2>
+    <ul ng-social-buttons data-url="'http://www.wohlig.com/'" data-title="'Welcome'" data-description="'This is wohlig.'" data-image="'http://www.thewiire.com/wp-content/uploads/2015/07/bajrangi-bhaijaan2.jpg'">
+        <li>Share on:</li>
+        <li class="ng-social-facebook">Facebook</li>
+        <li class="ng-social-google-plus">Google+</li>
+        <li class="ng-social-twitter">Twitter</li>
+        <li class="ng-social-pinterest">Pinterest</li>
+        <li class="ng-social-github" user="WohligTechnology" repository="AngularFrameworkFrontend">GitHub</li>
+        <li class="ng-social-github-forks" user="WohligTechnology" repository="AngularFrameworkFrontend">Forks</li>
+    </ul>
+
+
+    <h2>Valdr</h2>
+    <div class="form-inline">
+        <form valdr-type="Person" class="form-group">
+            <label for="firstName">First Name</label>
+            <input class="form-control" type="text" id="firstName" name="firstName" ng-model="person.firstName">
+            <span class="valdr" valdr-message="firstName"></span>
+        </form>
+    </div>
+
+    <h2>UI Select</h2>
+    <ui-select multiple ng-model="multipleDemo.colors" theme="select2" ng-disabled="disabled" style="width: 300px;">
+        <ui-select-match placeholder="Select colors...">{{$item}}</ui-select-match>
+        <ui-select-choices repeat="color in availableColors | filter:$select.search">
+            {{color}}
+        </ui-select-choices>
+    </ui-select>
+    
+    <h2>CamanJS</h2>
+    <p>Coming soon.</p>
+    
+    <h2>MomentJS</h2>
+    <p>Date: {{today|date:dateformat}}</p>
+    <button class="btn btn-default" ng-click='dateformat="fullDate";'>Option 1</button>
+</section>

@@ -1,0 +1,221 @@
+<div class="image-detail">
+   <div class="border-top"></div>
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="breadcrums">
+               <p>Home / Painting</p>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-9">
+            <div class="aboveimage fixit">
+               <!--
+                   <a class="light-make light-shade" fancybox-box href="{{images[0].large}}">Enlarge<i class="fa fa-arrows-alt"></i>
+                    </a>
+                    <img elevate-zoom small-image="{{images[0].small}}" big-image="{{images[0].large}}" class="fix-img" />
+-->
+               <a class="light-make light-shade" fancybox-box href="{{artistDetailImg.artwork.image[0]|uploadpath}}">Enlarge<i class="fa fa-arrows-alt"></i>
+                    </a>
+               <img elevate-zoom image="artistDetailImg" ng-if="artistDetailImg && artistDetailImg.artwork" class="fix-img" />
+            </div>
+         </div>
+         <div class="col-md-3">
+            <div class="cont-imagedetail">
+               <div class="artist-cont-detail">
+                  <div class="painting-details">
+                     <table class="table">
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <!-- <span ng-if="artistDetailImg.artwork.srno && artistDetailImg.artwork.srno!=''">{{artistDetailImg.artwork.srno}}
+                                            </span> -->
+                                 <span ng-if="artistDetailImg.artwork.imageno && artistDetailImg.artwork.imageno[0]">
+                                    {{artistDetailImg.artwork.imageno[0]}}</span>
+                                 <i class="{{artistDetailImg.heartClass}}" ng-click="addToFav(artistDetailImg);"></i>
+                              </td>
+                              <td>
+                                 <div class="pull-right">
+                                    <button class="btn btn-sucesses btn-xs" ng-click="artPrev()" ng-if="prevButton">Prev</button>
+                                    <button class="btn btn-sucesses btn-xs" ng-click="artNext()" ng-if="nextButton">Next</button>
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr class="font-color3">
+                              <td class="labels">Artist:</td>
+                              <td ng-if="artistDetailImg.name && artistDetailImg.name!=''">
+                                 {{artistDetailImg.name}}
+                              </td>
+                              <td ng-if="!artistDetailImg.name || artistDetailImg.name==''">
+                                 N/A
+                              </td>
+                           </tr>
+                           <tr>
+                              <td class="labels">Title:</td>
+                              <td ng-if="artistDetailImg.artwork.name && artistDetailImg.artwork.name!=''">
+                                 {{artistDetailImg.artwork.name}}
+                              </td>
+                              <td ng-if="!artistDetailImg.artwork.name || artistDetailImg.artwork.name==''">
+                                 N/A
+                              </td>
+                           </tr>
+                           <tr>
+                              <td class="labels">Medium: </td>
+                              <td ng-if="artistDetailImg.artwork.subtype.length>0 && artistDetailImg.artwork.subtype[0].name!=''">
+                                 {{artistDetailImg.artwork.subtype[0].name}}
+                              </td>
+                              <td ng-if="!artistDetailImg.artwork.subtype || artistDetailImg.artwork.subtype.length==0">
+                                 N/A
+                              </td>
+                           </tr>
+                           <tr>
+                              <td class="labels">Size:</td>
+                              <td>{{artistDetailImg.artwork|makesizestr}}</td>
+                              <!-- <td>{{artistDetailImg.artwork.dim}}</td> -->
+                           </tr>
+                           <tr ng-if="artistDetailImg.artwork.yoc && artistDetailImg.artwork.yoc!=''">
+                              <td class="labels">Year:</td>
+                              <td ng-if="artistDetailImg.artwork.yoc && artistDetailImg.artwork.yoc!=''">
+                                 {{artistDetailImg.artwork.yoc}}
+                              </td>
+                              <td ng-if="!artistDetailImg.artwork.yoc || artistDetailImg.artwork.yoc==''">
+                                 N/A
+                              </td>
+                           </tr>
+                           <tr>
+                              <td class="labels">Price: </td>
+                              <td ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A'">
+                                 Rs {{artistDetailImg.artwork.gprice|number:0}} / ${{artistDetailImg.artwork.gprice|indollars}} <span>(excluding VAT)</span>
+                              </td>
+                              <td ng-if="!artistDetailImg.artwork.gprice || artistDetailImg.artwork.gprice=='N/A'">
+                                 Available on request
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <button type="button" class="btn btn-block uppercase" ng-click="openReachout();" ng-if="!artistDetailImg.artwork.gprice || artistDetailImg.artwork.gprice=='N/A'">
+                  REQUEST FOR PRICE
+               </button>
+               <button type="button" class="btn btn-block uppercase" ng-click="lauchedSoon();">
+                  VIEW ARTWORK IN YOUR ROOM
+               </button>
+               <a type="button" class="btn btn-primarys btn-block uppercase" ng-click="addToCart(artistDetailImg);" ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A' && artistDetailImg.artwork.status!='sold'">
+                        ADD TO CART
+                    </a>
+               <div type="button" class="soldout uppercase font-color3" ng-if="artistDetailImg.artwork.status=='sold'">
+                  Sold
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="style1-bg margin-btm-top">
+      <div class="container">
+         <div class="padding-more">
+            <div class="row">
+               <div class="col-md-12">
+                  <h4 class="head-more">
+                     MORE WORKS BY THIS ARTIST
+                     <a ui-sref="artistdetail({artistid:artid})" class="link-viewall">VIEW ALL</a>
+                     <a class="link-viewall" ng-click="status.open = !status.open;checkForEmpty();">VIEW PROFILE</a>
+                  </h4>
+                  <div class="cont-artist" id="divh">
+                     <accordion>
+                        <accordion-group is-open="status.open">
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <p>
+                                    <span class="bold" ng-if="artistdetail.dob || artistdetail.stateofb">Born </span>
+                                    <span class="bold" ng-if="artistdetail.dob && artistdetail.dob!=''">in </span> {{artistdetail.dob}}
+                                    <span class="bold" ng-if="artistdetail.stateofb && artistdetail.stateofb!=''">at</span> {{artistdetail.stateofb}}
+                                 </p>
+                                 <p ng-if="artistdetail.passedaway">
+                                    <span class="bold">Passed away in {{artistdetail.passedaway}}</span>
+                                 </p>
+                                 <p ng-if="artistdetail.edu && artistdetail.edu.length>0 && (artistdetail.edu[0].year || artistdetail.edu[0].quali || artistdetail.edu[0].institu || artistdetail.edu[0].city)">
+                                    <span class="bold">Education</span>
+                                    <span ng-repeat="edu in artistdetail.edu">
+                             <br>
+                             <span ng-if="edu.year">{{edu.year}}</span>
+                                    <span class="negmargin" ng-if="edu.year && edu.quali">, </span>
+                                    <span ng-if="edu.quali">{{edu.quali}}</span>
+                                    <span class="negmargin" ng-if="edu.quali && edu.institu">, </span>
+                                    <span ng-if="edu.institu">{{edu.institu}}</span>
+                                    <span class="negmargin" ng-if="edu.institu && edu.city">, </span>
+                                    <span ng-if="edu.city">{{edu.city}}</span>
+                                    </span>
+                                    <!--<br>2008, Master of Fine Arts, Jamia Milia Islamia University, New Delhi-->
+                                 </p>
+                                 <p ng-if="artistdetail.award && artistdetail.award.length>0 && (artistdetail.award[0].year || artistdetail.award[0].title || artistdetail.award[0].institution)">
+                                    <span class="bold">Awards / Recognitions / Honors </span>
+                                    <span ng-repeat="awards in artistdetail.award">
+                             <br>
+                             <span ng-if="awards.year">{{awards.year}}</span>
+                                    <span class="negmargin" ng-if="awards.year && awards.title">, </span>
+                                    <span ng-if="awards.title">{{awards.title}}</span>
+                                    <span class="negmargin" ng-if="awards.title && awards.institution">, </span>
+                                    <span ng-if="awards.institution">{{awards.institution}}</span>
+                                    </span>
+                                 </p>
+                              </div>
+                              <div class="col-md-6">
+                                 <p ng-if="artistdetail.auction && artistdetail.auction.length>0 && (artistdetail.auction[0].year || artistdetail.auction[0].auctionhouse || artistdetail.auction[0].location || artistdetail.auction[0].details)">
+                                    <span class="bold">Auctions</span>
+                                    <span ng-repeat="auction in artistdetail.auction">
+                             <br>
+                             <span ng-if="auction.year">{{auction.year}}</span>
+                                    <span class="negmargin" ng-if="auction.year && auction.auctionhouse">, </span>
+                                    <span ng-if="auction.auctionhouse">{{auction.auctionhouse}}</span>
+                                    <span class="negmargin" ng-if="auction.auctionhouse && auction.location">, </span>
+                                    <span ng-if="auction.location">{{auction.location}}</span>
+                                    <span class="negmargin" ng-if="auction.location && auction.details">, </span>
+                                    <span ng-if="auction.details">{{auction.details}}</span>
+                                    </span>
+                                 </p>
+                                 <p ng-if="artistdetail.soloshow && artistdetail.soloshow.length>0 && (artistdetail.soloshow[0].year || artistdetail.soloshow[0].title || artistdetail.soloshow[0].gallery || artistdetail.soloshow[0].venue || artistdetail.soloshow[0].city)">
+                                    <span class="bold">Solo Shows</span>
+                                    <span ng-repeat="solo in artistdetail.soloshow">
+                             <br>
+                             <span ng-if="solo.year">{{solo.year}}</span>
+                                    <span class="negmargin" ng-if="solo.title">, {{solo.title}}</span>
+                                    <span class="negmargin" ng-if="solo.gallery">, {{solo.gallery}}</span>
+                                    <span class="negmargin" ng-if="solo.venue">, {{solo.venue}}</span>
+                                    <span class="negmargin" ng-if="solo.city">, {{solo.city}}</span>
+                                    </span>
+                                 </p>
+                                 <p ng-if="artistdetail.groupshow && artistdetail.groupshow.length>0 && (artistdetail.groupshow[0].year || artistdetail.groupshow[0].title || artistdetail.groupshow[0].gallery || artistdetail.groupshow[0].venue || artistdetail.groupshow[0].city)">
+                                    <span class="bold">Group Shows</span>
+                                    <span ng-repeat="group in artistdetail.groupshow">
+                             <br>
+                             <span ng-if="group.year">{{group.year}}</span>
+                                    <span class="negmargin" ng-if="group.title">, {{group.title}}</span>
+                                    <span class="negmargin" ng-if="group.gallery">, {{group.gallery}}</span>
+                                    <span class="negmargin" ng-if="group.venue">, {{group.venue}}</span>
+                                    <span class="negmargin" ng-if="group.city">, {{group.city}}</span>
+                                    </span>
+                                 </p>
+                              </div>
+                           </div>
+                        </accordion-group>
+                     </accordion>
+                  </div>
+               </div>
+               <div class="col-md-12">
+                  <div class="col-md-2 col-sm-4" ng-repeat="aristimages in aristImages">
+                     <div class="aristimg-grp1">
+                        <a ng-click="showitabove(aristimages);">
+                           <div class="image-holder" fixit>
+                              <img class="fix-img" ng-src='{{aristimages.image[0]|uploadthumbnail}}'>
+                           </div>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

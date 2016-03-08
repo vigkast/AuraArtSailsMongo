@@ -1,0 +1,25 @@
+<div class="border-top"></div>
+<div class="container leader">
+   <div class="media leaderdetail-set">
+      <h3 class="font-color3 home-header">Thought Leadership</h3>
+      <!--        <a href="#/thoughtleadership">back</a>-->
+   </div>
+   <div class="margintop media ">
+      <div class="detailname">
+         <h5>{{thoughtdetail.title}}</h5>
+      </div>
+      <div class="leaderdetail">
+         <p>date: <span>{{thoughtdetail.date|date:'mediumDate'}}</span></p>
+         <div class="detailimg" ng-if="thoughtdetail.image[0]">
+            <img ng-src="{{thoughtdetail.image[0]|uploadpath}}">
+         </div>
+         <div class="detailtext">
+            <p ng-bind-html="thoughtdetail.desc | rawHtml"></p>
+         </div>
+         <div class="detailtext" ng-if="thoughtdetail.file">
+            <a class="btn btn-sucesses" href="{{thoughtdetail.file | uploadpath}}" target="_blank">View Ppt or Pdf</a>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="border-top"></div>

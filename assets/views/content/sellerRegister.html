@@ -1,0 +1,112 @@
+<div class="container popup-all" ng-controller="HomeCtrl">
+   <div class="popup-dialogbox">
+
+      <!--       Registration   -->
+
+      <div class="holder1" ng-hide="showLogin">
+         <div class="ngdialog-close close"></div>
+         <h3 class="createtitle">Registration</h3>
+         <div class="row">
+            <div class="col-md-7">
+               <div class="signin">
+                  <div class="">
+                     <form class="form-horizontal" ng-submit="registeruser();">
+                        <div class="form-group">
+                           <div class="col-sm-12">
+                              <input type="email" class="form-control" placeholder="Enter your email *" required="" ng-model="register.email">
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <div class="col-sm-12">
+                              <input type="text" class="form-control" placeholder="Enter your Name *" required="" ng-model="register.name">
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <div class="col-sm-12">
+                              <input type="password" class="form-control" placeholder="Password *" required="" ng-model="register.password">
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <div class="col-sm-12">
+                              <input type="password" class="form-control" placeholder="Confirm Password *" required="" ng-model="register.confirmpassword">
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <div class="col-sm-12">
+                              <button type="submit" class="btn-sucess">Signup</button>
+                           </div>
+                        </div>
+                     </form>
+                     <p class="text-center" style="color:red" ng-show="showAlreadyRegistered">Email id already registered</p>
+                     <p class="text-center" style="color:red" ng-show="passwordNotMatch">Password and confirm password mismatch</p>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-5">
+                <div class="gogbtn">
+
+                    <a class="btnsoc gplus" href="{{adminurl}}user/loging"> <i class="fa fa-google-plus"></i>
+                        <!-- <google-plus-signin clientid="620125449078"> -->
+                        <span>Sign in with Google</span>
+                        <!-- </google-plus-signin> -->
+                    </a>
+                    <a class="btnsoc fbook" href="{{adminurl}}user/loginf"> <i class="fa fa-facebook"></i><span>Sign in with Facebook</span> </a>
+                    <a class="btnsoc twit" href="{{adminurl}}user/logint"> <i class="fa fa-twitter"></i><span>Sign in with Twitter </span></a>
+                </div>
+            </div>
+         </div>
+         <div class="border1">
+             <p class="abc"><span class="already">Already Registered ? Click <a class="forgetlink" ng-class="loginholder" ng-click="changeTab(2)">here</a> to  create one </span>
+             </p>
+         </div>
+      </div>
+      <!--       Login   -->
+
+      <div class="holder1" ng-show="showLogin">
+         <div class="ngdialog-close close"></div>
+         <h3 class="createtitle">Login</h3>
+         <div class="row">
+            <div class="col-md-7">
+               <div class="signin">
+                  <div class="">
+                     <form class="form-horizontal" ng-submit="userlogin();">
+                        <div class="form-group">
+                           <div class="col-sm-12">
+                              <input type="email" class="form-control" placeholder="Enter your email *" required="" ng-model="login.email">
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <div class="col-sm-12">
+                              <input type="password" class="form-control" placeholder="Password *" required="" ng-model="login.password">
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <div class="col-sm-12">
+                              <button type="submit" class="btn-sucess">Login</button>
+                           </div>
+                        </div>
+                     </form>
+                     <p class="text-center" style="color:red" ng-show="showInvalidLogin">Invalid Login Credentials</p>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-5">
+                <div class="gogbtn">
+
+                    <a class="btnsoc gplus" href="{{adminurl}}user/loging"> <i class="fa fa-google-plus"></i>
+                        <!-- <google-plus-signin clientid="620125449078"> -->
+                        <span>Sign in with Google</span>
+                        <!-- </google-plus-signin> -->
+                    </a>
+                    <a class="btnsoc fbook" href="{{adminurl}}user/loginf"> <i class="fa fa-facebook"></i><span>Sign in with Facebook</span> </a>
+                    <a class="btnsoc twit" href="{{adminurl}}user/logint"> <i class="fa fa-twitter"></i><span>Sign in with Twitter </span></a>
+                </div>
+            </div>
+         </div>
+         <div class="border1">
+             <p class="abc"><span class="already">Don't have an account ? Click <a class="forgetlink" ng-class="loginholder" ng-click="changeTab(1)">here</a> to  create one </span>
+             </p>
+         </div>
+      </div>
+   </div>
+</div>

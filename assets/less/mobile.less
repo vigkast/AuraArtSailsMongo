@@ -1,0 +1,418 @@
+@highdensity: ~"only screen and (-webkit-min-device-pixel-ratio: 1.5)", ~"only screen and (min--moz-device-pixel-ratio: 1.5)", ~"only screen and (-o-min-device-pixel-ratio: 3/2)", ~"only screen and (min-device-pixel-ratio: 1.5)";
+@mobile: ~"only screen and (max-width: 767px)";
+@mobileperfect: ~"only screen and (max-width: 480px)";
+@tablet: ~"only screen and (min-width: 768px) and (max-width: 991px)";
+@desktop: ~"only screen and (min-width: 992px) and (max-width: 1128px)";
+@desktop-xl: ~"only screen and (min-width: 1129px)";
+@desktop-fix: ~"only screen and (min-width: 1129px) and (max-width: 1199px)";
+@media @desktop-fix {
+  .nav li a {
+    font-size: 11px;
+    padding: 10px 3px;
+  }
+  .search-box label {
+    font-size: 9px;
+  }
+}
+@media @desktop {
+  .nav li a {
+    font-size: 0.77em;
+    padding: 10px 6px;
+  }
+  .social-icons i {
+    font-size: 20px;
+  }
+  .search-box label {
+    font-size: 9px;
+    vertical-align: middle;
+  }
+  .sweet-box .info-holder h4 {
+    font-size: 14px;
+    min-height: 56px;
+  }
+  .box-style1 h5 {
+    font-size: 11px;
+  }
+}
+@media @tablet {
+  .logo {
+    padding: 5px 0;
+    width: 50%;
+    margin: 0 auto;
+  }
+  .col-xs-20 {
+    width: 50%;
+    float: left;
+  }
+  .nav li a {
+    font-size: 10px;
+    padding: 10px 6px;
+  }
+  .nopad-left {
+    padding-left: 15px;
+  }
+  .nopad-right {
+    padding-right: 15px;
+  }
+  .search-box .absolute-box {
+    position: initial;
+    padding-bottom: 20px;
+  }
+  .search-box .panel {
+    border-right: 1px solid #e6e7e9;
+  }
+  .sweet-box {
+    .text-white {
+      padding: 0;
+    }
+    .info-holder {
+      p {
+        height: 45px;
+        line-height: 115%;
+        font-size: 10px;
+        text-align: justify;
+      }
+      h4 {
+        font-size: 10px;
+        margin: 0 0 5px;
+        min-height: 25px;
+      }
+      .more {
+        font-size: 8px;
+      }
+    }
+    .text-white {
+      font-size: 12px;
+    }
+  }
+  .padding-more .col-md-3 {
+    padding-right: 10px;
+  }
+  .box-style1 h4 {
+    font-size: 16px;
+  }
+  .box-style1 {
+    padding: 0 5px;
+    .img-holder {
+      padding: 0 10px;
+    }
+    h5 {
+      font-size: 11px;
+    }
+    p {
+      font-size: 10px;
+    }
+  }
+}
+@media @mobile {
+  .logo {
+    padding: 5px 0;
+    width: 50%;
+    margin: 0 auto;
+  }
+  .nav li + li {
+    margin-left: 0;
+  }
+  .nav li a {
+    margin-bottom: 1px;
+  }
+  .nav li a:after {
+    position: initial;
+  }
+  header.stickyheader .row-flex.login-head {
+    padding: 8px 0 5px 15px;
+    z-index: 0;
+  }
+  .nopad-left {
+    padding-left: 15px;
+  }
+  .search-box .panel {
+    border-right: 1px solid #e6e7e9;
+  }
+  .social-icons {
+    padding: 0;
+    float: right;
+  }
+  .inline-box {
+    left: 35px;
+  }
+  .row-flex.row-unflex {
+    display: block;
+  }
+  .row-flex.login-head {
+    padding: 35px 0 0 15px;
+    z-index: 9;
+  }
+  nav.navbar {
+    margin: -38px 0 0;
+    .navbar-toggle {
+      float: right;
+    }
+  }
+  .nopad-right {
+    padding-right: 15px;
+  }
+  .search-box .absolute-box {
+    position: initial;
+    padding: 10px 0;
+  }
+  .slider-holder {
+    height: auto;
+  }
+  .sweet-box {
+    .grey-bg {
+      min-height: 235px;
+    }
+    .info-holder {
+      margin: 0;
+      padding: 10px;
+      width: 90%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .col-flex {
+      margin: 10px 5px;
+    }
+  }
+  .artwork-box {
+    h3 {
+      margin: 20px 0;
+      text-align: center;
+    }
+    .col-flex {
+      position: relative;
+      margin: 10px 5px;
+    }
+  }
+  .artwork-box {
+    padding-bottom: 20px;
+  }
+  .padding-more {
+    padding: 20px 0;
+    h3 {
+      text-align: center;
+    }
+  }
+  .box-style1 {
+    margin: 10px 0;
+    height: auto;
+    .img-holder img {
+      height: auto;
+    }
+    h5 {
+      font-size: 13px;
+      height: 30px;
+      font-weight: 700;
+    }
+    .box-style1 p {
+      height: 50px;
+    }
+  }
+  .some-image .col-md-4.col-sm-4 {
+    margin-bottom: 10px;
+  }
+  .white-line {
+    border: 0;
+  }
+  .white-line p {
+    text-align: center;
+  }
+  .padding-more p {
+    text-align: center;
+  }
+  .copy {
+    p {
+      text-align: center;
+    }
+    .pull-right {
+      float: none!important;
+    }
+  }
+  .row-flex.row-unflex.image-box .col-flex {
+    margin-bottom: 10px;
+  }
+  .box-style1 p {
+    text-align: left;
+  }
+  .col-xs-20 {
+    width: 100%;
+    float: left;
+  }
+  .margintop .leaderdetail .detailimg {
+    width: 65%;
+    display: block;
+  }
+  table.table.table-hover.cart-table {
+    thead {
+      display: none;
+    }
+    tr.cart-details {
+      margin: 0 auto;
+      display: table;
+      width: 60%;
+      td.cart-img {
+        text-align: center;
+      }
+      td {
+        display: block;
+        padding: 10px;
+        text-align: left;
+        border: none;
+        .mobile {
+          display: block;
+          width: 85px;
+          height: 30px;
+          float: left;
+          line-height: 120%;
+        }
+      }
+    }
+  }
+  .cart {
+    input.form-control.discountcoupon {
+      width: 40%!important;
+    }
+  }
+  a.btn.btn-cont {
+    padding: 6px 4px;
+  }
+  a.btn.btn-sucesses.btn-mobile {
+    padding: 6px 4px;
+  }
+  .col-flex-20 {
+    .flex(0 0 50%);
+    max-width: 50%;
+    margin: 0 auto;
+  }
+  .ngdialog-open .popup-dialogbox {
+    padding: 25px 20px;
+  }
+  nav li:hover ul.dropdown-menu {
+    width: 100%;
+    position: static;
+    float: none;
+    text-align: center;
+    border: 0;
+    margin: 0;
+  }
+  .navbar-toggle {
+    margin-top: 0;
+  }
+  nav.navbar {
+    margin: -32px 0 0;
+  }
+  .row-headleft.col-2 {
+    -webkit-column-count: 1;
+    li {
+      margin-bottom: 5px;
+    }
+  }
+  nav li:hover ul.dropdown-menu li {
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+  }
+  .event-detail.media-detail {
+    padding-right: 20px;
+}
+.artist .painting .search-form {
+    margin-bottom: 15px;
+}
+.artist .painting .search-form .search-line {
+    vertical-align: middle;;
+}
+}
+@media @mobileperfect {
+  .artist-scroll{
+  width: 320px;
+  overflow-x: scroll;
+  }
+  .artist .painting ul.artist-crisp {
+    width: 400px;
+}
+
+
+  .logo {
+    width: 70%;
+  }
+  tr.cart-details {
+    width: 90%!important;
+  }
+  .social-icons {
+    margin-top: 8px;
+  }
+  .padding-more p {
+    text-align: justify;
+  }
+  .team-style p,
+  .team-style li {
+    text-align: justify;
+  }
+  .cart {
+    .checkout.row {
+      padding: 0 !important;
+    }
+    input.form-control.discountcoupon {
+      width: 60%!important;
+      font-size: 11px;
+    }
+    a.btn.btn-cont {
+      float: none!important;
+      margin: 10px 0;
+      height: 40px;
+    }
+    a.btn.btn-sucesses.btn-mobile {
+      float: none;
+    }
+  }
+  .ngdialog-open .popup-dialogbox .signinor {
+    width: 100%;
+    padding: 0;
+    background: none;
+  }
+  .ngdialog.ngdialog-theme-default .ngdialog-content {
+    width: 100%;
+  }
+  .ngdialog.ngdialog-theme-default {
+    width: 100%;
+  }
+  .ngdialog-open .popup-dialogbox {
+    width: 100%;
+  }
+  .col-flex-20 {
+    .flex (0 0 80%);
+    max-width: 80%;
+    margin: 0 auto;
+  }
+  .inline-box {
+    font-size: 9px;
+    font-weight: 600;
+    position: static;
+    margin-top: 10px;
+  }
+  .box-style1 p {
+    height: 50px!important;
+  }
+  .list-cart .megamenu {
+    width: 280px;
+    right: -100px;
+  }
+  .row-flex.login-head {
+    padding: 35px 0 5px 15px;
+    z-index: 9;
+  }
+  .small-box {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+  }
+  .drop-cart ul li.cart-img {
+    width: 85px !important;
+    height: 85px;
+    margin-right: 10px;
+    padding: 10px 0;
+  }
+  header.stickyheader {
+    padding-bottom: 15px;
+  }
+}
