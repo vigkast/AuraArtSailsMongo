@@ -2389,299 +2389,311 @@ if ( typeof Object.create !== 'function' ) {
 })( jQuery, window, document );
 ;
 /*
- AngularJS v1.4.8
- (c) 2010-2015 Google, Inc. http://angularjs.org
+ AngularJS v1.5.0
+ (c) 2010-2016 Google, Inc. http://angularjs.org
  License: MIT
 */
-(function(S,X,u){'use strict';function G(a){return function(){var b=arguments[0],d;d="["+(a?a+":":"")+b+"] http://errors.angularjs.org/1.4.8/"+(a?a+"/":"")+b;for(b=1;b<arguments.length;b++){d=d+(1==b?"?":"&")+"p"+(b-1)+"=";var c=encodeURIComponent,e;e=arguments[b];e="function"==typeof e?e.toString().replace(/ \{[\s\S]*$/,""):"undefined"==typeof e?"undefined":"string"!=typeof e?JSON.stringify(e):e;d+=c(e)}return Error(d)}}function za(a){if(null==a||Xa(a))return!1;if(I(a)||E(a)||B&&a instanceof B)return!0;
-var b="length"in Object(a)&&a.length;return Q(b)&&(0<=b&&b-1 in a||"function"==typeof a.item)}function n(a,b,d){var c,e;if(a)if(z(a))for(c in a)"prototype"==c||"length"==c||"name"==c||a.hasOwnProperty&&!a.hasOwnProperty(c)||b.call(d,a[c],c,a);else if(I(a)||za(a)){var f="object"!==typeof a;c=0;for(e=a.length;c<e;c++)(f||c in a)&&b.call(d,a[c],c,a)}else if(a.forEach&&a.forEach!==n)a.forEach(b,d,a);else if(nc(a))for(c in a)b.call(d,a[c],c,a);else if("function"===typeof a.hasOwnProperty)for(c in a)a.hasOwnProperty(c)&&
-b.call(d,a[c],c,a);else for(c in a)qa.call(a,c)&&b.call(d,a[c],c,a);return a}function oc(a,b,d){for(var c=Object.keys(a).sort(),e=0;e<c.length;e++)b.call(d,a[c[e]],c[e]);return c}function pc(a){return function(b,d){a(d,b)}}function Td(){return++nb}function Mb(a,b,d){for(var c=a.$$hashKey,e=0,f=b.length;e<f;++e){var g=b[e];if(H(g)||z(g))for(var h=Object.keys(g),k=0,l=h.length;k<l;k++){var m=h[k],r=g[m];d&&H(r)?da(r)?a[m]=new Date(r.valueOf()):Ma(r)?a[m]=new RegExp(r):r.nodeName?a[m]=r.cloneNode(!0):
-Nb(r)?a[m]=r.clone():(H(a[m])||(a[m]=I(r)?[]:{}),Mb(a[m],[r],!0)):a[m]=r}}c?a.$$hashKey=c:delete a.$$hashKey;return a}function M(a){return Mb(a,ra.call(arguments,1),!1)}function Ud(a){return Mb(a,ra.call(arguments,1),!0)}function ea(a){return parseInt(a,10)}function Ob(a,b){return M(Object.create(a),b)}function x(){}function Ya(a){return a}function na(a){return function(){return a}}function qc(a){return z(a.toString)&&a.toString!==sa}function q(a){return"undefined"===typeof a}function y(a){return"undefined"!==
-typeof a}function H(a){return null!==a&&"object"===typeof a}function nc(a){return null!==a&&"object"===typeof a&&!rc(a)}function E(a){return"string"===typeof a}function Q(a){return"number"===typeof a}function da(a){return"[object Date]"===sa.call(a)}function z(a){return"function"===typeof a}function Ma(a){return"[object RegExp]"===sa.call(a)}function Xa(a){return a&&a.window===a}function Za(a){return a&&a.$evalAsync&&a.$watch}function $a(a){return"boolean"===typeof a}function sc(a){return a&&Q(a.length)&&
-Vd.test(sa.call(a))}function Nb(a){return!(!a||!(a.nodeName||a.prop&&a.attr&&a.find))}function Wd(a){var b={};a=a.split(",");var d;for(d=0;d<a.length;d++)b[a[d]]=!0;return b}function ta(a){return F(a.nodeName||a[0]&&a[0].nodeName)}function ab(a,b){var d=a.indexOf(b);0<=d&&a.splice(d,1);return d}function bb(a,b){function d(a,b){var d=b.$$hashKey,e;if(I(a)){e=0;for(var f=a.length;e<f;e++)b.push(c(a[e]))}else if(nc(a))for(e in a)b[e]=c(a[e]);else if(a&&"function"===typeof a.hasOwnProperty)for(e in a)a.hasOwnProperty(e)&&
-(b[e]=c(a[e]));else for(e in a)qa.call(a,e)&&(b[e]=c(a[e]));d?b.$$hashKey=d:delete b.$$hashKey;return b}function c(a){if(!H(a))return a;var b=e.indexOf(a);if(-1!==b)return f[b];if(Xa(a)||Za(a))throw Aa("cpws");var b=!1,c;I(a)?(c=[],b=!0):sc(a)?c=new a.constructor(a):da(a)?c=new Date(a.getTime()):Ma(a)?(c=new RegExp(a.source,a.toString().match(/[^\/]*$/)[0]),c.lastIndex=a.lastIndex):z(a.cloneNode)?c=a.cloneNode(!0):(c=Object.create(rc(a)),b=!0);e.push(a);f.push(c);return b?d(a,c):c}var e=[],f=[];if(b){if(sc(b))throw Aa("cpta");
-if(a===b)throw Aa("cpi");I(b)?b.length=0:n(b,function(a,c){"$$hashKey"!==c&&delete b[c]});e.push(a);f.push(b);return d(a,b)}return c(a)}function ia(a,b){if(I(a)){b=b||[];for(var d=0,c=a.length;d<c;d++)b[d]=a[d]}else if(H(a))for(d in b=b||{},a)if("$"!==d.charAt(0)||"$"!==d.charAt(1))b[d]=a[d];return b||a}function ma(a,b){if(a===b)return!0;if(null===a||null===b)return!1;if(a!==a&&b!==b)return!0;var d=typeof a,c;if(d==typeof b&&"object"==d)if(I(a)){if(!I(b))return!1;if((d=a.length)==b.length){for(c=
-0;c<d;c++)if(!ma(a[c],b[c]))return!1;return!0}}else{if(da(a))return da(b)?ma(a.getTime(),b.getTime()):!1;if(Ma(a))return Ma(b)?a.toString()==b.toString():!1;if(Za(a)||Za(b)||Xa(a)||Xa(b)||I(b)||da(b)||Ma(b))return!1;d=$();for(c in a)if("$"!==c.charAt(0)&&!z(a[c])){if(!ma(a[c],b[c]))return!1;d[c]=!0}for(c in b)if(!(c in d)&&"$"!==c.charAt(0)&&y(b[c])&&!z(b[c]))return!1;return!0}return!1}function cb(a,b,d){return a.concat(ra.call(b,d))}function tc(a,b){var d=2<arguments.length?ra.call(arguments,2):
-[];return!z(b)||b instanceof RegExp?b:d.length?function(){return arguments.length?b.apply(a,cb(d,arguments,0)):b.apply(a,d)}:function(){return arguments.length?b.apply(a,arguments):b.call(a)}}function Xd(a,b){var d=b;"string"===typeof a&&"$"===a.charAt(0)&&"$"===a.charAt(1)?d=u:Xa(b)?d="$WINDOW":b&&X===b?d="$DOCUMENT":Za(b)&&(d="$SCOPE");return d}function db(a,b){if("undefined"===typeof a)return u;Q(b)||(b=b?2:null);return JSON.stringify(a,Xd,b)}function uc(a){return E(a)?JSON.parse(a):a}function vc(a,
-b){var d=Date.parse("Jan 01, 1970 00:00:00 "+a)/6E4;return isNaN(d)?b:d}function Pb(a,b,d){d=d?-1:1;var c=vc(b,a.getTimezoneOffset());b=a;a=d*(c-a.getTimezoneOffset());b=new Date(b.getTime());b.setMinutes(b.getMinutes()+a);return b}function ua(a){a=B(a).clone();try{a.empty()}catch(b){}var d=B("<div>").append(a).html();try{return a[0].nodeType===Na?F(d):d.match(/^(<[^>]+>)/)[1].replace(/^<([\w\-]+)/,function(a,b){return"<"+F(b)})}catch(c){return F(d)}}function wc(a){try{return decodeURIComponent(a)}catch(b){}}
-function xc(a){var b={};n((a||"").split("&"),function(a){var c,e,f;a&&(e=a=a.replace(/\+/g,"%20"),c=a.indexOf("="),-1!==c&&(e=a.substring(0,c),f=a.substring(c+1)),e=wc(e),y(e)&&(f=y(f)?wc(f):!0,qa.call(b,e)?I(b[e])?b[e].push(f):b[e]=[b[e],f]:b[e]=f))});return b}function Qb(a){var b=[];n(a,function(a,c){I(a)?n(a,function(a){b.push(ja(c,!0)+(!0===a?"":"="+ja(a,!0)))}):b.push(ja(c,!0)+(!0===a?"":"="+ja(a,!0)))});return b.length?b.join("&"):""}function ob(a){return ja(a,!0).replace(/%26/gi,"&").replace(/%3D/gi,
-"=").replace(/%2B/gi,"+")}function ja(a,b){return encodeURIComponent(a).replace(/%40/gi,"@").replace(/%3A/gi,":").replace(/%24/g,"$").replace(/%2C/gi,",").replace(/%3B/gi,";").replace(/%20/g,b?"%20":"+")}function Yd(a,b){var d,c,e=Oa.length;for(c=0;c<e;++c)if(d=Oa[c]+b,E(d=a.getAttribute(d)))return d;return null}function Zd(a,b){var d,c,e={};n(Oa,function(b){b+="app";!d&&a.hasAttribute&&a.hasAttribute(b)&&(d=a,c=a.getAttribute(b))});n(Oa,function(b){b+="app";var e;!d&&(e=a.querySelector("["+b.replace(":",
-"\\:")+"]"))&&(d=e,c=e.getAttribute(b))});d&&(e.strictDi=null!==Yd(d,"strict-di"),b(d,c?[c]:[],e))}function yc(a,b,d){H(d)||(d={});d=M({strictDi:!1},d);var c=function(){a=B(a);if(a.injector()){var c=a[0]===X?"document":ua(a);throw Aa("btstrpd",c.replace(/</,"&lt;").replace(/>/,"&gt;"));}b=b||[];b.unshift(["$provide",function(b){b.value("$rootElement",a)}]);d.debugInfoEnabled&&b.push(["$compileProvider",function(a){a.debugInfoEnabled(!0)}]);b.unshift("ng");c=eb(b,d.strictDi);c.invoke(["$rootScope",
-"$rootElement","$compile","$injector",function(a,b,c,d){a.$apply(function(){b.data("$injector",d);c(b)(a)})}]);return c},e=/^NG_ENABLE_DEBUG_INFO!/,f=/^NG_DEFER_BOOTSTRAP!/;S&&e.test(S.name)&&(d.debugInfoEnabled=!0,S.name=S.name.replace(e,""));if(S&&!f.test(S.name))return c();S.name=S.name.replace(f,"");fa.resumeBootstrap=function(a){n(a,function(a){b.push(a)});return c()};z(fa.resumeDeferredBootstrap)&&fa.resumeDeferredBootstrap()}function $d(){S.name="NG_ENABLE_DEBUG_INFO!"+S.name;S.location.reload()}
-function ae(a){a=fa.element(a).injector();if(!a)throw Aa("test");return a.get("$$testability")}function zc(a,b){b=b||"_";return a.replace(be,function(a,c){return(c?b:"")+a.toLowerCase()})}function ce(){var a;if(!Ac){var b=pb();(oa=q(b)?S.jQuery:b?S[b]:u)&&oa.fn.on?(B=oa,M(oa.fn,{scope:Pa.scope,isolateScope:Pa.isolateScope,controller:Pa.controller,injector:Pa.injector,inheritedData:Pa.inheritedData}),a=oa.cleanData,oa.cleanData=function(b){var c;if(Rb)Rb=!1;else for(var e=0,f;null!=(f=b[e]);e++)(c=
-oa._data(f,"events"))&&c.$destroy&&oa(f).triggerHandler("$destroy");a(b)}):B=N;fa.element=B;Ac=!0}}function qb(a,b,d){if(!a)throw Aa("areq",b||"?",d||"required");return a}function Qa(a,b,d){d&&I(a)&&(a=a[a.length-1]);qb(z(a),b,"not a function, got "+(a&&"object"===typeof a?a.constructor.name||"Object":typeof a));return a}function Ra(a,b){if("hasOwnProperty"===a)throw Aa("badname",b);}function Bc(a,b,d){if(!b)return a;b=b.split(".");for(var c,e=a,f=b.length,g=0;g<f;g++)c=b[g],a&&(a=(e=a)[c]);return!d&&
-z(a)?tc(e,a):a}function rb(a){for(var b=a[0],d=a[a.length-1],c,e=1;b!==d&&(b=b.nextSibling);e++)if(c||a[e]!==b)c||(c=B(ra.call(a,0,e))),c.push(b);return c||a}function $(){return Object.create(null)}function de(a){function b(a,b,c){return a[b]||(a[b]=c())}var d=G("$injector"),c=G("ng");a=b(a,"angular",Object);a.$$minErr=a.$$minErr||G;return b(a,"module",function(){var a={};return function(f,g,h){if("hasOwnProperty"===f)throw c("badname","module");g&&a.hasOwnProperty(f)&&(a[f]=null);return b(a,f,function(){function a(b,
-d,e,f){f||(f=c);return function(){f[e||"push"]([b,d,arguments]);return v}}function b(a,d){return function(b,e){e&&z(e)&&(e.$$moduleName=f);c.push([a,d,arguments]);return v}}if(!g)throw d("nomod",f);var c=[],e=[],t=[],A=a("$injector","invoke","push",e),v={_invokeQueue:c,_configBlocks:e,_runBlocks:t,requires:g,name:f,provider:b("$provide","provider"),factory:b("$provide","factory"),service:b("$provide","service"),value:a("$provide","value"),constant:a("$provide","constant","unshift"),decorator:b("$provide",
-"decorator"),animation:b("$animateProvider","register"),filter:b("$filterProvider","register"),controller:b("$controllerProvider","register"),directive:b("$compileProvider","directive"),config:A,run:function(a){t.push(a);return this}};h&&A(h);return v})}})}function ee(a){M(a,{bootstrap:yc,copy:bb,extend:M,merge:Ud,equals:ma,element:B,forEach:n,injector:eb,noop:x,bind:tc,toJson:db,fromJson:uc,identity:Ya,isUndefined:q,isDefined:y,isString:E,isFunction:z,isObject:H,isNumber:Q,isElement:Nb,isArray:I,
-version:fe,isDate:da,lowercase:F,uppercase:sb,callbacks:{counter:0},getTestability:ae,$$minErr:G,$$csp:Ba,reloadWithDebugInfo:$d});Sb=de(S);Sb("ng",["ngLocale"],["$provide",function(a){a.provider({$$sanitizeUri:ge});a.provider("$compile",Cc).directive({a:he,input:Dc,textarea:Dc,form:ie,script:je,select:ke,style:le,option:me,ngBind:ne,ngBindHtml:oe,ngBindTemplate:pe,ngClass:qe,ngClassEven:re,ngClassOdd:se,ngCloak:te,ngController:ue,ngForm:ve,ngHide:we,ngIf:xe,ngInclude:ye,ngInit:ze,ngNonBindable:Ae,
-ngPluralize:Be,ngRepeat:Ce,ngShow:De,ngStyle:Ee,ngSwitch:Fe,ngSwitchWhen:Ge,ngSwitchDefault:He,ngOptions:Ie,ngTransclude:Je,ngModel:Ke,ngList:Le,ngChange:Me,pattern:Ec,ngPattern:Ec,required:Fc,ngRequired:Fc,minlength:Gc,ngMinlength:Gc,maxlength:Hc,ngMaxlength:Hc,ngValue:Ne,ngModelOptions:Oe}).directive({ngInclude:Pe}).directive(tb).directive(Ic);a.provider({$anchorScroll:Qe,$animate:Re,$animateCss:Se,$$animateQueue:Te,$$AnimateRunner:Ue,$browser:Ve,$cacheFactory:We,$controller:Xe,$document:Ye,$exceptionHandler:Ze,
-$filter:Jc,$$forceReflow:$e,$interpolate:af,$interval:bf,$http:cf,$httpParamSerializer:df,$httpParamSerializerJQLike:ef,$httpBackend:ff,$xhrFactory:gf,$location:hf,$log:jf,$parse:kf,$rootScope:lf,$q:mf,$$q:nf,$sce:of,$sceDelegate:pf,$sniffer:qf,$templateCache:rf,$templateRequest:sf,$$testability:tf,$timeout:uf,$window:vf,$$rAF:wf,$$jqLite:xf,$$HashMap:yf,$$cookieReader:zf})}])}function fb(a){return a.replace(Af,function(a,d,c,e){return e?c.toUpperCase():c}).replace(Bf,"Moz$1")}function Kc(a){a=a.nodeType;
-return 1===a||!a||9===a}function Lc(a,b){var d,c,e=b.createDocumentFragment(),f=[];if(Tb.test(a)){d=d||e.appendChild(b.createElement("div"));c=(Cf.exec(a)||["",""])[1].toLowerCase();c=ka[c]||ka._default;d.innerHTML=c[1]+a.replace(Df,"<$1></$2>")+c[2];for(c=c[0];c--;)d=d.lastChild;f=cb(f,d.childNodes);d=e.firstChild;d.textContent=""}else f.push(b.createTextNode(a));e.textContent="";e.innerHTML="";n(f,function(a){e.appendChild(a)});return e}function N(a){if(a instanceof N)return a;var b;E(a)&&(a=U(a),
-b=!0);if(!(this instanceof N)){if(b&&"<"!=a.charAt(0))throw Ub("nosel");return new N(a)}if(b){b=X;var d;a=(d=Ef.exec(a))?[b.createElement(d[1])]:(d=Lc(a,b))?d.childNodes:[]}Mc(this,a)}function Vb(a){return a.cloneNode(!0)}function ub(a,b){b||vb(a);if(a.querySelectorAll)for(var d=a.querySelectorAll("*"),c=0,e=d.length;c<e;c++)vb(d[c])}function Nc(a,b,d,c){if(y(c))throw Ub("offargs");var e=(c=wb(a))&&c.events,f=c&&c.handle;if(f)if(b){var g=function(b){var c=e[b];y(d)&&ab(c||[],d);y(d)&&c&&0<c.length||
-(a.removeEventListener(b,f,!1),delete e[b])};n(b.split(" "),function(a){g(a);xb[a]&&g(xb[a])})}else for(b in e)"$destroy"!==b&&a.removeEventListener(b,f,!1),delete e[b]}function vb(a,b){var d=a.ng339,c=d&&gb[d];c&&(b?delete c.data[b]:(c.handle&&(c.events.$destroy&&c.handle({},"$destroy"),Nc(a)),delete gb[d],a.ng339=u))}function wb(a,b){var d=a.ng339,d=d&&gb[d];b&&!d&&(a.ng339=d=++Ff,d=gb[d]={events:{},data:{},handle:u});return d}function Wb(a,b,d){if(Kc(a)){var c=y(d),e=!c&&b&&!H(b),f=!b;a=(a=wb(a,
-!e))&&a.data;if(c)a[b]=d;else{if(f)return a;if(e)return a&&a[b];M(a,b)}}}function yb(a,b){return a.getAttribute?-1<(" "+(a.getAttribute("class")||"")+" ").replace(/[\n\t]/g," ").indexOf(" "+b+" "):!1}function zb(a,b){b&&a.setAttribute&&n(b.split(" "),function(b){a.setAttribute("class",U((" "+(a.getAttribute("class")||"")+" ").replace(/[\n\t]/g," ").replace(" "+U(b)+" "," ")))})}function Ab(a,b){if(b&&a.setAttribute){var d=(" "+(a.getAttribute("class")||"")+" ").replace(/[\n\t]/g," ");n(b.split(" "),
-function(a){a=U(a);-1===d.indexOf(" "+a+" ")&&(d+=a+" ")});a.setAttribute("class",U(d))}}function Mc(a,b){if(b)if(b.nodeType)a[a.length++]=b;else{var d=b.length;if("number"===typeof d&&b.window!==b){if(d)for(var c=0;c<d;c++)a[a.length++]=b[c]}else a[a.length++]=b}}function Oc(a,b){return Bb(a,"$"+(b||"ngController")+"Controller")}function Bb(a,b,d){9==a.nodeType&&(a=a.documentElement);for(b=I(b)?b:[b];a;){for(var c=0,e=b.length;c<e;c++)if(y(d=B.data(a,b[c])))return d;a=a.parentNode||11===a.nodeType&&
-a.host}}function Pc(a){for(ub(a,!0);a.firstChild;)a.removeChild(a.firstChild)}function Xb(a,b){b||ub(a);var d=a.parentNode;d&&d.removeChild(a)}function Gf(a,b){b=b||S;if("complete"===b.document.readyState)b.setTimeout(a);else B(b).on("load",a)}function Qc(a,b){var d=Cb[b.toLowerCase()];return d&&Rc[ta(a)]&&d}function Hf(a,b){var d=function(c,d){c.isDefaultPrevented=function(){return c.defaultPrevented};var f=b[d||c.type],g=f?f.length:0;if(g){if(q(c.immediatePropagationStopped)){var h=c.stopImmediatePropagation;
-c.stopImmediatePropagation=function(){c.immediatePropagationStopped=!0;c.stopPropagation&&c.stopPropagation();h&&h.call(c)}}c.isImmediatePropagationStopped=function(){return!0===c.immediatePropagationStopped};var k=f.specialHandlerWrapper||If;1<g&&(f=ia(f));for(var l=0;l<g;l++)c.isImmediatePropagationStopped()||k(a,c,f[l])}};d.elem=a;return d}function If(a,b,d){d.call(a,b)}function Jf(a,b,d){var c=b.relatedTarget;c&&(c===a||Kf.call(a,c))||d.call(a,b)}function xf(){this.$get=function(){return M(N,
-{hasClass:function(a,b){a.attr&&(a=a[0]);return yb(a,b)},addClass:function(a,b){a.attr&&(a=a[0]);return Ab(a,b)},removeClass:function(a,b){a.attr&&(a=a[0]);return zb(a,b)}})}}function Ca(a,b){var d=a&&a.$$hashKey;if(d)return"function"===typeof d&&(d=a.$$hashKey()),d;d=typeof a;return d="function"==d||"object"==d&&null!==a?a.$$hashKey=d+":"+(b||Td)():d+":"+a}function Sa(a,b){if(b){var d=0;this.nextUid=function(){return++d}}n(a,this.put,this)}function Lf(a){return(a=a.toString().replace(Sc,"").match(Tc))?
-"function("+(a[1]||"").replace(/[\s\r\n]+/," ")+")":"fn"}function eb(a,b){function d(a){return function(b,c){if(H(b))n(b,pc(a));else return a(b,c)}}function c(a,b){Ra(a,"service");if(z(b)||I(b))b=t.instantiate(b);if(!b.$get)throw Da("pget",a);return r[a+"Provider"]=b}function e(a,b){return function(){var c=v.invoke(b,this);if(q(c))throw Da("undef",a);return c}}function f(a,b,d){return c(a,{$get:!1!==d?e(a,b):b})}function g(a){qb(q(a)||I(a),"modulesToLoad","not an array");var b=[],c;n(a,function(a){function d(a){var b,
-c;b=0;for(c=a.length;b<c;b++){var e=a[b],f=t.get(e[0]);f[e[1]].apply(f,e[2])}}if(!m.get(a)){m.put(a,!0);try{E(a)?(c=Sb(a),b=b.concat(g(c.requires)).concat(c._runBlocks),d(c._invokeQueue),d(c._configBlocks)):z(a)?b.push(t.invoke(a)):I(a)?b.push(t.invoke(a)):Qa(a,"module")}catch(e){throw I(a)&&(a=a[a.length-1]),e.message&&e.stack&&-1==e.stack.indexOf(e.message)&&(e=e.message+"\n"+e.stack),Da("modulerr",a,e.stack||e.message||e);}}});return b}function h(a,c){function d(b,e){if(a.hasOwnProperty(b)){if(a[b]===
-k)throw Da("cdep",b+" <- "+l.join(" <- "));return a[b]}try{return l.unshift(b),a[b]=k,a[b]=c(b,e)}catch(f){throw a[b]===k&&delete a[b],f;}finally{l.shift()}}function e(a,c,f,g){"string"===typeof f&&(g=f,f=null);var h=[],k=eb.$$annotate(a,b,g),l,m,t;m=0;for(l=k.length;m<l;m++){t=k[m];if("string"!==typeof t)throw Da("itkn",t);h.push(f&&f.hasOwnProperty(t)?f[t]:d(t,g))}I(a)&&(a=a[l]);return a.apply(c,h)}return{invoke:e,instantiate:function(a,b,c){var d=Object.create((I(a)?a[a.length-1]:a).prototype||
-null);a=e(a,d,b,c);return H(a)||z(a)?a:d},get:d,annotate:eb.$$annotate,has:function(b){return r.hasOwnProperty(b+"Provider")||a.hasOwnProperty(b)}}}b=!0===b;var k={},l=[],m=new Sa([],!0),r={$provide:{provider:d(c),factory:d(f),service:d(function(a,b){return f(a,["$injector",function(a){return a.instantiate(b)}])}),value:d(function(a,b){return f(a,na(b),!1)}),constant:d(function(a,b){Ra(a,"constant");r[a]=b;A[a]=b}),decorator:function(a,b){var c=t.get(a+"Provider"),d=c.$get;c.$get=function(){var a=
-v.invoke(d,c);return v.invoke(b,null,{$delegate:a})}}}},t=r.$injector=h(r,function(a,b){fa.isString(b)&&l.push(b);throw Da("unpr",l.join(" <- "));}),A={},v=A.$injector=h(A,function(a,b){var c=t.get(a+"Provider",b);return v.invoke(c.$get,c,u,a)});n(g(a),function(a){a&&v.invoke(a)});return v}function Qe(){var a=!0;this.disableAutoScrolling=function(){a=!1};this.$get=["$window","$location","$rootScope",function(b,d,c){function e(a){var b=null;Array.prototype.some.call(a,function(a){if("a"===ta(a))return b=
-a,!0});return b}function f(a){if(a){a.scrollIntoView();var c;c=g.yOffset;z(c)?c=c():Nb(c)?(c=c[0],c="fixed"!==b.getComputedStyle(c).position?0:c.getBoundingClientRect().bottom):Q(c)||(c=0);c&&(a=a.getBoundingClientRect().top,b.scrollBy(0,a-c))}else b.scrollTo(0,0)}function g(a){a=E(a)?a:d.hash();var b;a?(b=h.getElementById(a))?f(b):(b=e(h.getElementsByName(a)))?f(b):"top"===a&&f(null):f(null)}var h=b.document;a&&c.$watch(function(){return d.hash()},function(a,b){a===b&&""===a||Gf(function(){c.$evalAsync(g)})});
-return g}]}function hb(a,b){if(!a&&!b)return"";if(!a)return b;if(!b)return a;I(a)&&(a=a.join(" "));I(b)&&(b=b.join(" "));return a+" "+b}function Mf(a){E(a)&&(a=a.split(" "));var b=$();n(a,function(a){a.length&&(b[a]=!0)});return b}function Ea(a){return H(a)?a:{}}function Nf(a,b,d,c){function e(a){try{a.apply(null,ra.call(arguments,1))}finally{if(v--,0===v)for(;T.length;)try{T.pop()()}catch(b){d.error(b)}}}function f(){L=null;g();h()}function g(){a:{try{p=m.state;break a}catch(a){}p=void 0}p=q(p)?
-null:p;ma(p,J)&&(p=J);J=p}function h(){if(w!==k.url()||C!==p)w=k.url(),C=p,n(aa,function(a){a(k.url(),p)})}var k=this,l=a.location,m=a.history,r=a.setTimeout,t=a.clearTimeout,A={};k.isMock=!1;var v=0,T=[];k.$$completeOutstandingRequest=e;k.$$incOutstandingRequestCount=function(){v++};k.notifyWhenNoOutstandingRequests=function(a){0===v?a():T.push(a)};var p,C,w=l.href,ga=b.find("base"),L=null;g();C=p;k.url=function(b,d,e){q(e)&&(e=null);l!==a.location&&(l=a.location);m!==a.history&&(m=a.history);if(b){var f=
-C===e;if(w===b&&(!c.history||f))return k;var h=w&&Fa(w)===Fa(b);w=b;C=e;if(!c.history||h&&f){if(!h||L)L=b;d?l.replace(b):h?(d=l,e=b.indexOf("#"),e=-1===e?"":b.substr(e),d.hash=e):l.href=b;l.href!==b&&(L=b)}else m[d?"replaceState":"pushState"](e,"",b),g(),C=p;return k}return L||l.href.replace(/%27/g,"'")};k.state=function(){return p};var aa=[],D=!1,J=null;k.onUrlChange=function(b){if(!D){if(c.history)B(a).on("popstate",f);B(a).on("hashchange",f);D=!0}aa.push(b);return b};k.$$applicationDestroyed=function(){B(a).off("hashchange popstate",
-f)};k.$$checkUrlChange=h;k.baseHref=function(){var a=ga.attr("href");return a?a.replace(/^(https?\:)?\/\/[^\/]*/,""):""};k.defer=function(a,b){var c;v++;c=r(function(){delete A[c];e(a)},b||0);A[c]=!0;return c};k.defer.cancel=function(a){return A[a]?(delete A[a],t(a),e(x),!0):!1}}function Ve(){this.$get=["$window","$log","$sniffer","$document",function(a,b,d,c){return new Nf(a,c,b,d)}]}function We(){this.$get=function(){function a(a,c){function e(a){a!=r&&(t?t==a&&(t=a.n):t=a,f(a.n,a.p),f(a,r),r=a,
-r.n=null)}function f(a,b){a!=b&&(a&&(a.p=b),b&&(b.n=a))}if(a in b)throw G("$cacheFactory")("iid",a);var g=0,h=M({},c,{id:a}),k=$(),l=c&&c.capacity||Number.MAX_VALUE,m=$(),r=null,t=null;return b[a]={put:function(a,b){if(!q(b)){if(l<Number.MAX_VALUE){var c=m[a]||(m[a]={key:a});e(c)}a in k||g++;k[a]=b;g>l&&this.remove(t.key);return b}},get:function(a){if(l<Number.MAX_VALUE){var b=m[a];if(!b)return;e(b)}return k[a]},remove:function(a){if(l<Number.MAX_VALUE){var b=m[a];if(!b)return;b==r&&(r=b.p);b==t&&
-(t=b.n);f(b.n,b.p);delete m[a]}a in k&&(delete k[a],g--)},removeAll:function(){k=$();g=0;m=$();r=t=null},destroy:function(){m=h=k=null;delete b[a]},info:function(){return M({},h,{size:g})}}}var b={};a.info=function(){var a={};n(b,function(b,e){a[e]=b.info()});return a};a.get=function(a){return b[a]};return a}}function rf(){this.$get=["$cacheFactory",function(a){return a("templates")}]}function Cc(a,b){function d(a,b,c){var d=/^\s*([@&]|=(\*?))(\??)\s*(\w*)\s*$/,e={};n(a,function(a,f){var g=a.match(d);
-if(!g)throw ha("iscp",b,f,a,c?"controller bindings definition":"isolate scope definition");e[f]={mode:g[1][0],collection:"*"===g[2],optional:"?"===g[3],attrName:g[4]||f}});return e}function c(a){var b=a.charAt(0);if(!b||b!==F(b))throw ha("baddir",a);if(a!==a.trim())throw ha("baddir",a);}var e={},f=/^\s*directive\:\s*([\w\-]+)\s+(.*)$/,g=/(([\w\-]+)(?:\:([^;]+))?;?)/,h=Wd("ngSrc,ngSrcset,src,srcset"),k=/^(?:(\^\^?)?(\?)?(\^\^?)?)?/,l=/^(on[a-z]+|formaction)$/;this.directive=function t(b,f){Ra(b,"directive");
-E(b)?(c(b),qb(f,"directiveFactory"),e.hasOwnProperty(b)||(e[b]=[],a.factory(b+"Directive",["$injector","$exceptionHandler",function(a,c){var f=[];n(e[b],function(e,g){try{var h=a.invoke(e);z(h)?h={compile:na(h)}:!h.compile&&h.link&&(h.compile=na(h.link));h.priority=h.priority||0;h.index=g;h.name=h.name||b;h.require=h.require||h.controller&&h.name;h.restrict=h.restrict||"EA";var k=h,l=h,m=h.name,t={isolateScope:null,bindToController:null};H(l.scope)&&(!0===l.bindToController?(t.bindToController=d(l.scope,
-m,!0),t.isolateScope={}):t.isolateScope=d(l.scope,m,!1));H(l.bindToController)&&(t.bindToController=d(l.bindToController,m,!0));if(H(t.bindToController)){var v=l.controller,R=l.controllerAs;if(!v)throw ha("noctrl",m);var V;a:if(R&&E(R))V=R;else{if(E(v)){var n=Uc.exec(v);if(n){V=n[3];break a}}V=void 0}if(!V)throw ha("noident",m);}var s=k.$$bindings=t;H(s.isolateScope)&&(h.$$isolateBindings=s.isolateScope);h.$$moduleName=e.$$moduleName;f.push(h)}catch(u){c(u)}});return f}])),e[b].push(f)):n(b,pc(t));
-return this};this.aHrefSanitizationWhitelist=function(a){return y(a)?(b.aHrefSanitizationWhitelist(a),this):b.aHrefSanitizationWhitelist()};this.imgSrcSanitizationWhitelist=function(a){return y(a)?(b.imgSrcSanitizationWhitelist(a),this):b.imgSrcSanitizationWhitelist()};var m=!0;this.debugInfoEnabled=function(a){return y(a)?(m=a,this):m};this.$get=["$injector","$interpolate","$exceptionHandler","$templateRequest","$parse","$controller","$rootScope","$document","$sce","$animate","$$sanitizeUri",function(a,
-b,c,d,p,C,w,ga,L,aa,D){function J(a,b){try{a.addClass(b)}catch(c){}}function K(a,b,c,d,e){a instanceof B||(a=B(a));n(a,function(b,c){b.nodeType==Na&&b.nodeValue.match(/\S+/)&&(a[c]=B(b).wrap("<span></span>").parent()[0])});var f=O(a,b,a,c,d,e);K.$$addScopeClass(a);var g=null;return function(b,c,d){qb(b,"scope");e&&e.needsNewScope&&(b=b.$parent.$new());d=d||{};var h=d.parentBoundTranscludeFn,k=d.transcludeControllers;d=d.futureParentElement;h&&h.$$boundTransclude&&(h=h.$$boundTransclude);g||(g=(d=
-d&&d[0])?"foreignobject"!==ta(d)&&d.toString().match(/SVG/)?"svg":"html":"html");d="html"!==g?B(Yb(g,B("<div>").append(a).html())):c?Pa.clone.call(a):a;if(k)for(var l in k)d.data("$"+l+"Controller",k[l].instance);K.$$addScopeInfo(d,b);c&&c(d,b);f&&f(b,d,d,h);return d}}function O(a,b,c,d,e,f){function g(a,c,d,e){var f,k,l,m,t,w,D;if(p)for(D=Array(c.length),m=0;m<h.length;m+=3)f=h[m],D[f]=c[f];else D=c;m=0;for(t=h.length;m<t;)k=D[h[m++]],c=h[m++],f=h[m++],c?(c.scope?(l=a.$new(),K.$$addScopeInfo(B(k),
-l)):l=a,w=c.transcludeOnThisElement?R(a,c.transclude,e):!c.templateOnThisElement&&e?e:!e&&b?R(a,b):null,c(f,l,k,d,w)):f&&f(a,k.childNodes,u,e)}for(var h=[],k,l,m,t,p,w=0;w<a.length;w++){k=new fa;l=V(a[w],[],k,0===w?d:u,e);(f=l.length?Z(l,a[w],k,b,c,null,[],[],f):null)&&f.scope&&K.$$addScopeClass(k.$$element);k=f&&f.terminal||!(m=a[w].childNodes)||!m.length?null:O(m,f?(f.transcludeOnThisElement||!f.templateOnThisElement)&&f.transclude:b);if(f||k)h.push(w,f,k),t=!0,p=p||f;f=null}return t?g:null}function R(a,
-b,c){return function(d,e,f,g,h){d||(d=a.$new(!1,h),d.$$transcluded=!0);return b(d,e,{parentBoundTranscludeFn:c,transcludeControllers:f,futureParentElement:g})}}function V(a,b,c,d,e){var h=c.$attr,k;switch(a.nodeType){case 1:P(b,va(ta(a)),"E",d,e);for(var l,m,t,p=a.attributes,w=0,D=p&&p.length;w<D;w++){var K=!1,A=!1;l=p[w];k=l.name;m=U(l.value);l=va(k);if(t=ka.test(l))k=k.replace(Vc,"").substr(8).replace(/_(.)/g,function(a,b){return b.toUpperCase()});(l=l.match(la))&&G(l[1])&&(K=k,A=k.substr(0,k.length-
-5)+"end",k=k.substr(0,k.length-6));l=va(k.toLowerCase());h[l]=k;if(t||!c.hasOwnProperty(l))c[l]=m,Qc(a,l)&&(c[l]=!0);W(a,b,m,l,t);P(b,l,"A",d,e,K,A)}a=a.className;H(a)&&(a=a.animVal);if(E(a)&&""!==a)for(;k=g.exec(a);)l=va(k[2]),P(b,l,"C",d,e)&&(c[l]=U(k[3])),a=a.substr(k.index+k[0].length);break;case Na:if(11===Ha)for(;a.parentNode&&a.nextSibling&&a.nextSibling.nodeType===Na;)a.nodeValue+=a.nextSibling.nodeValue,a.parentNode.removeChild(a.nextSibling);N(b,a.nodeValue);break;case 8:try{if(k=f.exec(a.nodeValue))l=
-va(k[1]),P(b,l,"M",d,e)&&(c[l]=U(k[2]))}catch(R){}}b.sort(Ia);return b}function Ta(a,b,c){var d=[],e=0;if(b&&a.hasAttribute&&a.hasAttribute(b)){do{if(!a)throw ha("uterdir",b,c);1==a.nodeType&&(a.hasAttribute(b)&&e++,a.hasAttribute(c)&&e--);d.push(a);a=a.nextSibling}while(0<e)}else d.push(a);return B(d)}function s(a,b,c){return function(d,e,f,g,h){e=Ta(e[0],b,c);return a(d,e,f,g,h)}}function Z(a,b,d,e,f,g,h,l,m){function t(a,b,c,d){if(a){c&&(a=s(a,c,d));a.require=q.require;a.directiveName=x;if(O===
-q||q.$$isolateScope)a=ca(a,{isolateScope:!0});h.push(a)}if(b){c&&(b=s(b,c,d));b.require=q.require;b.directiveName=x;if(O===q||q.$$isolateScope)b=ca(b,{isolateScope:!0});l.push(b)}}function p(a,b,c,d){var e;if(E(b)){var f=b.match(k);b=b.substring(f[0].length);var g=f[1]||f[3],f="?"===f[2];"^^"===g?c=c.parent():e=(e=d&&d[b])&&e.instance;e||(d="$"+b+"Controller",e=g?c.inheritedData(d):c.data(d));if(!e&&!f)throw ha("ctreq",b,a);}else if(I(b))for(e=[],g=0,f=b.length;g<f;g++)e[g]=p(a,b[g],c,d);return e||
-null}function w(a,b,c,d,e,f){var g=$(),h;for(h in d){var k=d[h],l={$scope:k===O||k.$$isolateScope?e:f,$element:a,$attrs:b,$transclude:c},m=k.controller;"@"==m&&(m=b[k.name]);l=C(m,l,!0,k.controllerAs);g[k.name]=l;aa||a.data("$"+k.name+"Controller",l.instance)}return g}function D(a,c,e,f,g){function k(a,b,c){var d;Za(a)||(c=b,b=a,a=u);aa&&(d=v);c||(c=aa?V.parent():V);return g(a,b,d,c,Ta)}var m,t,A,v,C,V,Ga;b===e?(f=d,V=d.$$element):(V=B(e),f=new fa(V,d));A=c;O?t=c.$new(!0):R&&(A=c.$parent);g&&(C=k,
-C.$$boundTransclude=g);T&&(v=w(V,f,C,T,t,c));O&&(K.$$addScopeInfo(V,t,!0,!(J&&(J===O||J===O.$$originalDirective))),K.$$addScopeClass(V,!0),t.$$isolateBindings=O.$$isolateBindings,(Ga=ba(c,f,t,t.$$isolateBindings,O))&&t.$on("$destroy",Ga));for(var n in v){Ga=T[n];var ga=v[n],L=Ga.$$bindings.bindToController;ga.identifier&&L&&(m=ba(A,f,ga.instance,L,Ga));var q=ga();q!==ga.instance&&(ga.instance=q,V.data("$"+Ga.name+"Controller",q),m&&m(),m=ba(A,f,ga.instance,L,Ga))}F=0;for(M=h.length;F<M;F++)m=h[F],
-ea(m,m.isolateScope?t:c,V,f,m.require&&p(m.directiveName,m.require,V,v),C);var Ta=c;O&&(O.template||null===O.templateUrl)&&(Ta=t);a&&a(Ta,e.childNodes,u,g);for(F=l.length-1;0<=F;F--)m=l[F],ea(m,m.isolateScope?t:c,V,f,m.require&&p(m.directiveName,m.require,V,v),C)}m=m||{};for(var A=-Number.MAX_VALUE,R=m.newScopeDirective,T=m.controllerDirectives,O=m.newIsolateScopeDirective,J=m.templateDirective,n=m.nonTlbTranscludeDirective,ga=!1,L=!1,aa=m.hasElementTranscludeDirective,Z=d.$$element=B(b),q,x,P,Ia=
-e,G,F=0,M=a.length;F<M;F++){q=a[F];var N=q.$$start,Q=q.$$end;N&&(Z=Ta(b,N,Q));P=u;if(A>q.priority)break;if(P=q.scope)q.templateUrl||(H(P)?(Ua("new/isolated scope",O||R,q,Z),O=q):Ua("new/isolated scope",O,q,Z)),R=R||q;x=q.name;!q.templateUrl&&q.controller&&(P=q.controller,T=T||$(),Ua("'"+x+"' controller",T[x],q,Z),T[x]=q);if(P=q.transclude)ga=!0,q.$$tlb||(Ua("transclusion",n,q,Z),n=q),"element"==P?(aa=!0,A=q.priority,P=Z,Z=d.$$element=B(X.createComment(" "+x+": "+d[x]+" ")),b=Z[0],Y(f,ra.call(P,0),
-b),Ia=K(P,e,A,g&&g.name,{nonTlbTranscludeDirective:n})):(P=B(Vb(b)).contents(),Z.empty(),Ia=K(P,e,u,u,{needsNewScope:q.$$isolateScope||q.$$newScope}));if(q.template)if(L=!0,Ua("template",J,q,Z),J=q,P=z(q.template)?q.template(Z,d):q.template,P=ja(P),q.replace){g=q;P=Tb.test(P)?Xc(Yb(q.templateNamespace,U(P))):[];b=P[0];if(1!=P.length||1!==b.nodeType)throw ha("tplrt",x,"");Y(f,Z,b);P={$attr:{}};var Wc=V(b,[],P),W=a.splice(F+1,a.length-(F+1));(O||R)&&y(Wc,O,R);a=a.concat(Wc).concat(W);S(d,P);M=a.length}else Z.html(P);
-if(q.templateUrl)L=!0,Ua("template",J,q,Z),J=q,q.replace&&(g=q),D=Of(a.splice(F,a.length-F),Z,d,f,ga&&Ia,h,l,{controllerDirectives:T,newScopeDirective:R!==q&&R,newIsolateScopeDirective:O,templateDirective:J,nonTlbTranscludeDirective:n}),M=a.length;else if(q.compile)try{G=q.compile(Z,d,Ia),z(G)?t(null,G,N,Q):G&&t(G.pre,G.post,N,Q)}catch(da){c(da,ua(Z))}q.terminal&&(D.terminal=!0,A=Math.max(A,q.priority))}D.scope=R&&!0===R.scope;D.transcludeOnThisElement=ga;D.templateOnThisElement=L;D.transclude=Ia;
-m.hasElementTranscludeDirective=aa;return D}function y(a,b,c){for(var d=0,e=a.length;d<e;d++)a[d]=Ob(a[d],{$$isolateScope:b,$$newScope:c})}function P(b,d,f,g,h,k,l){if(d===h)return null;h=null;if(e.hasOwnProperty(d)){var m;d=a.get(d+"Directive");for(var p=0,w=d.length;p<w;p++)try{m=d[p],(q(g)||g>m.priority)&&-1!=m.restrict.indexOf(f)&&(k&&(m=Ob(m,{$$start:k,$$end:l})),b.push(m),h=m)}catch(D){c(D)}}return h}function G(b){if(e.hasOwnProperty(b))for(var c=a.get(b+"Directive"),d=0,f=c.length;d<f;d++)if(b=
-c[d],b.multiElement)return!0;return!1}function S(a,b){var c=b.$attr,d=a.$attr,e=a.$$element;n(a,function(d,e){"$"!=e.charAt(0)&&(b[e]&&b[e]!==d&&(d+=("style"===e?";":" ")+b[e]),a.$set(e,d,!0,c[e]))});n(b,function(b,f){"class"==f?(J(e,b),a["class"]=(a["class"]?a["class"]+" ":"")+b):"style"==f?(e.attr("style",e.attr("style")+";"+b),a.style=(a.style?a.style+";":"")+b):"$"==f.charAt(0)||a.hasOwnProperty(f)||(a[f]=b,d[f]=c[f])})}function Of(a,b,c,e,f,g,h,k){var l=[],m,t,p=b[0],w=a.shift(),D=Ob(w,{templateUrl:null,
-transclude:null,replace:null,$$originalDirective:w}),A=z(w.templateUrl)?w.templateUrl(b,c):w.templateUrl,K=w.templateNamespace;b.empty();d(A).then(function(d){var T,v;d=ja(d);if(w.replace){d=Tb.test(d)?Xc(Yb(K,U(d))):[];T=d[0];if(1!=d.length||1!==T.nodeType)throw ha("tplrt",w.name,A);d={$attr:{}};Y(e,b,T);var C=V(T,[],d);H(w.scope)&&y(C,!0);a=C.concat(a);S(c,d)}else T=p,b.html(d);a.unshift(D);m=Z(a,T,c,f,b,w,g,h,k);n(e,function(a,c){a==T&&(e[c]=b[0])});for(t=O(b[0].childNodes,f);l.length;){d=l.shift();
-v=l.shift();var ga=l.shift(),L=l.shift(),C=b[0];if(!d.$$destroyed){if(v!==p){var q=v.className;k.hasElementTranscludeDirective&&w.replace||(C=Vb(T));Y(ga,B(v),C);J(B(C),q)}v=m.transcludeOnThisElement?R(d,m.transclude,L):L;m(t,d,C,e,v)}}l=null});return function(a,b,c,d,e){a=e;b.$$destroyed||(l?l.push(b,c,d,a):(m.transcludeOnThisElement&&(a=R(b,m.transclude,e)),m(t,b,c,d,a)))}}function Ia(a,b){var c=b.priority-a.priority;return 0!==c?c:a.name!==b.name?a.name<b.name?-1:1:a.index-b.index}function Ua(a,
-b,c,d){function e(a){return a?" (module: "+a+")":""}if(b)throw ha("multidir",b.name,e(b.$$moduleName),c.name,e(c.$$moduleName),a,ua(d));}function N(a,c){var d=b(c,!0);d&&a.push({priority:0,compile:function(a){a=a.parent();var b=!!a.length;b&&K.$$addBindingClass(a);return function(a,c){var e=c.parent();b||K.$$addBindingClass(e);K.$$addBindingInfo(e,d.expressions);a.$watch(d,function(a){c[0].nodeValue=a})}}})}function Yb(a,b){a=F(a||"html");switch(a){case "svg":case "math":var c=X.createElement("div");
-c.innerHTML="<"+a+">"+b+"</"+a+">";return c.childNodes[0].childNodes;default:return b}}function Q(a,b){if("srcdoc"==b)return L.HTML;var c=ta(a);if("xlinkHref"==b||"form"==c&&"action"==b||"img"!=c&&("src"==b||"ngSrc"==b))return L.RESOURCE_URL}function W(a,c,d,e,f){var g=Q(a,e);f=h[e]||f;var k=b(d,!0,g,f);if(k){if("multiple"===e&&"select"===ta(a))throw ha("selmulti",ua(a));c.push({priority:100,compile:function(){return{pre:function(a,c,h){c=h.$$observers||(h.$$observers=$());if(l.test(e))throw ha("nodomevents");
-var m=h[e];m!==d&&(k=m&&b(m,!0,g,f),d=m);k&&(h[e]=k(a),(c[e]||(c[e]=[])).$$inter=!0,(h.$$observers&&h.$$observers[e].$$scope||a).$watch(k,function(a,b){"class"===e&&a!=b?h.$updateClass(a,b):h.$set(e,a)}))}}}})}}function Y(a,b,c){var d=b[0],e=b.length,f=d.parentNode,g,h;if(a)for(g=0,h=a.length;g<h;g++)if(a[g]==d){a[g++]=c;h=g+e-1;for(var k=a.length;g<k;g++,h++)h<k?a[g]=a[h]:delete a[g];a.length-=e-1;a.context===d&&(a.context=c);break}f&&f.replaceChild(c,d);a=X.createDocumentFragment();a.appendChild(d);
-B.hasData(d)&&(B.data(c,B.data(d)),oa?(Rb=!0,oa.cleanData([d])):delete B.cache[d[B.expando]]);d=1;for(e=b.length;d<e;d++)f=b[d],B(f).remove(),a.appendChild(f),delete b[d];b[0]=c;b.length=1}function ca(a,b){return M(function(){return a.apply(null,arguments)},a,b)}function ea(a,b,d,e,f,g){try{a(b,d,e,f,g)}catch(h){c(h,ua(d))}}function ba(a,c,d,e,f){var g=[];n(e,function(e,h){var k=e.attrName,l=e.optional,m,t,w,D;switch(e.mode){case "@":l||qa.call(c,k)||(d[h]=c[k]=void 0);c.$observe(k,function(a){E(a)&&
-(d[h]=a)});c.$$observers[k].$$scope=a;E(c[k])&&(d[h]=b(c[k])(a));break;case "=":if(!qa.call(c,k)){if(l)break;c[k]=void 0}if(l&&!c[k])break;t=p(c[k]);D=t.literal?ma:function(a,b){return a===b||a!==a&&b!==b};w=t.assign||function(){m=d[h]=t(a);throw ha("nonassign",c[k],f.name);};m=d[h]=t(a);l=function(b){D(b,d[h])||(D(b,m)?w(a,b=d[h]):d[h]=b);return m=b};l.$stateful=!0;l=e.collection?a.$watchCollection(c[k],l):a.$watch(p(c[k],l),null,t.literal);g.push(l);break;case "&":t=c.hasOwnProperty(k)?p(c[k]):
-x;if(t===x&&l)break;d[h]=function(b){return t(a,b)}}});return g.length&&function(){for(var a=0,b=g.length;a<b;++a)g[a]()}}var fa=function(a,b){if(b){var c=Object.keys(b),d,e,f;d=0;for(e=c.length;d<e;d++)f=c[d],this[f]=b[f]}else this.$attr={};this.$$element=a};fa.prototype={$normalize:va,$addClass:function(a){a&&0<a.length&&aa.addClass(this.$$element,a)},$removeClass:function(a){a&&0<a.length&&aa.removeClass(this.$$element,a)},$updateClass:function(a,b){var c=Yc(a,b);c&&c.length&&aa.addClass(this.$$element,
-c);(c=Yc(b,a))&&c.length&&aa.removeClass(this.$$element,c)},$set:function(a,b,d,e){var f=Qc(this.$$element[0],a),g=Zc[a],h=a;f?(this.$$element.prop(a,b),e=f):g&&(this[g]=b,h=g);this[a]=b;e?this.$attr[a]=e:(e=this.$attr[a])||(this.$attr[a]=e=zc(a,"-"));f=ta(this.$$element);if("a"===f&&"href"===a||"img"===f&&"src"===a)this[a]=b=D(b,"src"===a);else if("img"===f&&"srcset"===a){for(var f="",g=U(b),k=/(\s+\d+x\s*,|\s+\d+w\s*,|\s+,|,\s+)/,k=/\s/.test(g)?k:/(,)/,g=g.split(k),k=Math.floor(g.length/2),l=0;l<
-k;l++)var m=2*l,f=f+D(U(g[m]),!0),f=f+(" "+U(g[m+1]));g=U(g[2*l]).split(/\s/);f+=D(U(g[0]),!0);2===g.length&&(f+=" "+U(g[1]));this[a]=b=f}!1!==d&&(null===b||q(b)?this.$$element.removeAttr(e):this.$$element.attr(e,b));(a=this.$$observers)&&n(a[h],function(a){try{a(b)}catch(d){c(d)}})},$observe:function(a,b){var c=this,d=c.$$observers||(c.$$observers=$()),e=d[a]||(d[a]=[]);e.push(b);w.$evalAsync(function(){e.$$inter||!c.hasOwnProperty(a)||q(c[a])||b(c[a])});return function(){ab(e,b)}}};var da=b.startSymbol(),
-ia=b.endSymbol(),ja="{{"==da||"}}"==ia?Ya:function(a){return a.replace(/\{\{/g,da).replace(/}}/g,ia)},ka=/^ngAttr[A-Z]/,la=/^(.+)Start$/;K.$$addBindingInfo=m?function(a,b){var c=a.data("$binding")||[];I(b)?c=c.concat(b):c.push(b);a.data("$binding",c)}:x;K.$$addBindingClass=m?function(a){J(a,"ng-binding")}:x;K.$$addScopeInfo=m?function(a,b,c,d){a.data(c?d?"$isolateScopeNoTemplate":"$isolateScope":"$scope",b)}:x;K.$$addScopeClass=m?function(a,b){J(a,b?"ng-isolate-scope":"ng-scope")}:x;return K}]}function va(a){return fb(a.replace(Vc,
-""))}function Yc(a,b){var d="",c=a.split(/\s+/),e=b.split(/\s+/),f=0;a:for(;f<c.length;f++){for(var g=c[f],h=0;h<e.length;h++)if(g==e[h])continue a;d+=(0<d.length?" ":"")+g}return d}function Xc(a){a=B(a);var b=a.length;if(1>=b)return a;for(;b--;)8===a[b].nodeType&&Pf.call(a,b,1);return a}function Xe(){var a={},b=!1;this.register=function(b,c){Ra(b,"controller");H(b)?M(a,b):a[b]=c};this.allowGlobals=function(){b=!0};this.$get=["$injector","$window",function(d,c){function e(a,b,c,d){if(!a||!H(a.$scope))throw G("$controller")("noscp",
-d,b);a.$scope[b]=c}return function(f,g,h,k){var l,m,r;h=!0===h;k&&E(k)&&(r=k);if(E(f)){k=f.match(Uc);if(!k)throw Qf("ctrlfmt",f);m=k[1];r=r||k[3];f=a.hasOwnProperty(m)?a[m]:Bc(g.$scope,m,!0)||(b?Bc(c,m,!0):u);Qa(f,m,!0)}if(h)return h=(I(f)?f[f.length-1]:f).prototype,l=Object.create(h||null),r&&e(g,r,l,m||f.name),M(function(){var a=d.invoke(f,l,g,m);a!==l&&(H(a)||z(a))&&(l=a,r&&e(g,r,l,m||f.name));return l},{instance:l,identifier:r});l=d.instantiate(f,g,m);r&&e(g,r,l,m||f.name);return l}}]}function Ye(){this.$get=
-["$window",function(a){return B(a.document)}]}function Ze(){this.$get=["$log",function(a){return function(b,d){a.error.apply(a,arguments)}}]}function Zb(a){return H(a)?da(a)?a.toISOString():db(a):a}function df(){this.$get=function(){return function(a){if(!a)return"";var b=[];oc(a,function(a,c){null===a||q(a)||(I(a)?n(a,function(a,d){b.push(ja(c)+"="+ja(Zb(a)))}):b.push(ja(c)+"="+ja(Zb(a))))});return b.join("&")}}}function ef(){this.$get=function(){return function(a){function b(a,e,f){null===a||q(a)||
-(I(a)?n(a,function(a,c){b(a,e+"["+(H(a)?c:"")+"]")}):H(a)&&!da(a)?oc(a,function(a,c){b(a,e+(f?"":"[")+c+(f?"":"]"))}):d.push(ja(e)+"="+ja(Zb(a))))}if(!a)return"";var d=[];b(a,"",!0);return d.join("&")}}}function $b(a,b){if(E(a)){var d=a.replace(Rf,"").trim();if(d){var c=b("Content-Type");(c=c&&0===c.indexOf($c))||(c=(c=d.match(Sf))&&Tf[c[0]].test(d));c&&(a=uc(d))}}return a}function ad(a){var b=$(),d;E(a)?n(a.split("\n"),function(a){d=a.indexOf(":");var e=F(U(a.substr(0,d)));a=U(a.substr(d+1));e&&
-(b[e]=b[e]?b[e]+", "+a:a)}):H(a)&&n(a,function(a,d){var f=F(d),g=U(a);f&&(b[f]=b[f]?b[f]+", "+g:g)});return b}function bd(a){var b;return function(d){b||(b=ad(a));return d?(d=b[F(d)],void 0===d&&(d=null),d):b}}function cd(a,b,d,c){if(z(c))return c(a,b,d);n(c,function(c){a=c(a,b,d)});return a}function cf(){var a=this.defaults={transformResponse:[$b],transformRequest:[function(a){return H(a)&&"[object File]"!==sa.call(a)&&"[object Blob]"!==sa.call(a)&&"[object FormData]"!==sa.call(a)?db(a):a}],headers:{common:{Accept:"application/json, text/plain, */*"},
-post:ia(ac),put:ia(ac),patch:ia(ac)},xsrfCookieName:"XSRF-TOKEN",xsrfHeaderName:"X-XSRF-TOKEN",paramSerializer:"$httpParamSerializer"},b=!1;this.useApplyAsync=function(a){return y(a)?(b=!!a,this):b};var d=!0;this.useLegacyPromiseExtensions=function(a){return y(a)?(d=!!a,this):d};var c=this.interceptors=[];this.$get=["$httpBackend","$$cookieReader","$cacheFactory","$rootScope","$q","$injector",function(e,f,g,h,k,l){function m(b){function c(a){var b=M({},a);b.data=cd(a.data,a.headers,a.status,f.transformResponse);
-a=a.status;return 200<=a&&300>a?b:k.reject(b)}function e(a,b){var c,d={};n(a,function(a,e){z(a)?(c=a(b),null!=c&&(d[e]=c)):d[e]=a});return d}if(!fa.isObject(b))throw G("$http")("badreq",b);var f=M({method:"get",transformRequest:a.transformRequest,transformResponse:a.transformResponse,paramSerializer:a.paramSerializer},b);f.headers=function(b){var c=a.headers,d=M({},b.headers),f,g,h,c=M({},c.common,c[F(b.method)]);a:for(f in c){g=F(f);for(h in d)if(F(h)===g)continue a;d[f]=c[f]}return e(d,ia(b))}(b);
-f.method=sb(f.method);f.paramSerializer=E(f.paramSerializer)?l.get(f.paramSerializer):f.paramSerializer;var g=[function(b){var d=b.headers,e=cd(b.data,bd(d),u,b.transformRequest);q(e)&&n(d,function(a,b){"content-type"===F(b)&&delete d[b]});q(b.withCredentials)&&!q(a.withCredentials)&&(b.withCredentials=a.withCredentials);return r(b,e).then(c,c)},u],h=k.when(f);for(n(v,function(a){(a.request||a.requestError)&&g.unshift(a.request,a.requestError);(a.response||a.responseError)&&g.push(a.response,a.responseError)});g.length;){b=
-g.shift();var m=g.shift(),h=h.then(b,m)}d?(h.success=function(a){Qa(a,"fn");h.then(function(b){a(b.data,b.status,b.headers,f)});return h},h.error=function(a){Qa(a,"fn");h.then(null,function(b){a(b.data,b.status,b.headers,f)});return h}):(h.success=dd("success"),h.error=dd("error"));return h}function r(c,d){function g(a,c,d,e){function f(){l(c,a,d,e)}J&&(200<=a&&300>a?J.put(R,[a,c,ad(d),e]):J.remove(R));b?h.$applyAsync(f):(f(),h.$$phase||h.$apply())}function l(a,b,d,e){b=-1<=b?b:0;(200<=b&&300>b?n.resolve:
-n.reject)({data:a,status:b,headers:bd(d),config:c,statusText:e})}function r(a){l(a.data,a.status,ia(a.headers()),a.statusText)}function v(){var a=m.pendingRequests.indexOf(c);-1!==a&&m.pendingRequests.splice(a,1)}var n=k.defer(),D=n.promise,J,K,O=c.headers,R=t(c.url,c.paramSerializer(c.params));m.pendingRequests.push(c);D.then(v,v);!c.cache&&!a.cache||!1===c.cache||"GET"!==c.method&&"JSONP"!==c.method||(J=H(c.cache)?c.cache:H(a.cache)?a.cache:A);J&&(K=J.get(R),y(K)?K&&z(K.then)?K.then(r,r):I(K)?l(K[1],
-K[0],ia(K[2]),K[3]):l(K,200,{},"OK"):J.put(R,D));q(K)&&((K=ed(c.url)?f()[c.xsrfCookieName||a.xsrfCookieName]:u)&&(O[c.xsrfHeaderName||a.xsrfHeaderName]=K),e(c.method,R,d,g,O,c.timeout,c.withCredentials,c.responseType));return D}function t(a,b){0<b.length&&(a+=(-1==a.indexOf("?")?"?":"&")+b);return a}var A=g("$http");a.paramSerializer=E(a.paramSerializer)?l.get(a.paramSerializer):a.paramSerializer;var v=[];n(c,function(a){v.unshift(E(a)?l.get(a):l.invoke(a))});m.pendingRequests=[];(function(a){n(arguments,
-function(a){m[a]=function(b,c){return m(M({},c||{},{method:a,url:b}))}})})("get","delete","head","jsonp");(function(a){n(arguments,function(a){m[a]=function(b,c,d){return m(M({},d||{},{method:a,url:b,data:c}))}})})("post","put","patch");m.defaults=a;return m}]}function gf(){this.$get=function(){return function(){return new S.XMLHttpRequest}}}function ff(){this.$get=["$browser","$window","$document","$xhrFactory",function(a,b,d,c){return Uf(a,c,a.defer,b.angular.callbacks,d[0])}]}function Uf(a,b,d,
-c,e){function f(a,b,d){var f=e.createElement("script"),m=null;f.type="text/javascript";f.src=a;f.async=!0;m=function(a){f.removeEventListener("load",m,!1);f.removeEventListener("error",m,!1);e.body.removeChild(f);f=null;var g=-1,A="unknown";a&&("load"!==a.type||c[b].called||(a={type:"error"}),A=a.type,g="error"===a.type?404:200);d&&d(g,A)};f.addEventListener("load",m,!1);f.addEventListener("error",m,!1);e.body.appendChild(f);return m}return function(e,h,k,l,m,r,t,A){function v(){C&&C();w&&w.abort()}
-function T(b,c,e,f,g){y(L)&&d.cancel(L);C=w=null;b(c,e,f,g);a.$$completeOutstandingRequest(x)}a.$$incOutstandingRequestCount();h=h||a.url();if("jsonp"==F(e)){var p="_"+(c.counter++).toString(36);c[p]=function(a){c[p].data=a;c[p].called=!0};var C=f(h.replace("JSON_CALLBACK","angular.callbacks."+p),p,function(a,b){T(l,a,c[p].data,"",b);c[p]=x})}else{var w=b(e,h);w.open(e,h,!0);n(m,function(a,b){y(a)&&w.setRequestHeader(b,a)});w.onload=function(){var a=w.statusText||"",b="response"in w?w.response:w.responseText,
-c=1223===w.status?204:w.status;0===c&&(c=b?200:"file"==wa(h).protocol?404:0);T(l,c,b,w.getAllResponseHeaders(),a)};e=function(){T(l,-1,null,null,"")};w.onerror=e;w.onabort=e;t&&(w.withCredentials=!0);if(A)try{w.responseType=A}catch(ga){if("json"!==A)throw ga;}w.send(q(k)?null:k)}if(0<r)var L=d(v,r);else r&&z(r.then)&&r.then(v)}}function af(){var a="{{",b="}}";this.startSymbol=function(b){return b?(a=b,this):a};this.endSymbol=function(a){return a?(b=a,this):b};this.$get=["$parse","$exceptionHandler",
-"$sce",function(d,c,e){function f(a){return"\\\\\\"+a}function g(c){return c.replace(m,a).replace(r,b)}function h(f,h,m,r){function p(a){try{var b=a;a=m?e.getTrusted(m,b):e.valueOf(b);var d;if(r&&!y(a))d=a;else if(null==a)d="";else{switch(typeof a){case "string":break;case "number":a=""+a;break;default:a=db(a)}d=a}return d}catch(g){c(Ja.interr(f,g))}}r=!!r;for(var C,w,n=0,L=[],s=[],D=f.length,J=[],K=[];n<D;)if(-1!=(C=f.indexOf(a,n))&&-1!=(w=f.indexOf(b,C+k)))n!==C&&J.push(g(f.substring(n,C))),n=f.substring(C+
-k,w),L.push(n),s.push(d(n,p)),n=w+l,K.push(J.length),J.push("");else{n!==D&&J.push(g(f.substring(n)));break}m&&1<J.length&&Ja.throwNoconcat(f);if(!h||L.length){var O=function(a){for(var b=0,c=L.length;b<c;b++){if(r&&q(a[b]))return;J[K[b]]=a[b]}return J.join("")};return M(function(a){var b=0,d=L.length,e=Array(d);try{for(;b<d;b++)e[b]=s[b](a);return O(e)}catch(g){c(Ja.interr(f,g))}},{exp:f,expressions:L,$$watchDelegate:function(a,b){var c;return a.$watchGroup(s,function(d,e){var f=O(d);z(b)&&b.call(this,
-f,d!==e?c:f,a);c=f})}})}}var k=a.length,l=b.length,m=new RegExp(a.replace(/./g,f),"g"),r=new RegExp(b.replace(/./g,f),"g");h.startSymbol=function(){return a};h.endSymbol=function(){return b};return h}]}function bf(){this.$get=["$rootScope","$window","$q","$$q",function(a,b,d,c){function e(e,h,k,l){var m=4<arguments.length,r=m?ra.call(arguments,4):[],t=b.setInterval,A=b.clearInterval,v=0,n=y(l)&&!l,p=(n?c:d).defer(),C=p.promise;k=y(k)?k:0;C.then(null,null,m?function(){e.apply(null,r)}:e);C.$$intervalId=
-t(function(){p.notify(v++);0<k&&v>=k&&(p.resolve(v),A(C.$$intervalId),delete f[C.$$intervalId]);n||a.$apply()},h);f[C.$$intervalId]=p;return C}var f={};e.cancel=function(a){return a&&a.$$intervalId in f?(f[a.$$intervalId].reject("canceled"),b.clearInterval(a.$$intervalId),delete f[a.$$intervalId],!0):!1};return e}]}function bc(a){a=a.split("/");for(var b=a.length;b--;)a[b]=ob(a[b]);return a.join("/")}function fd(a,b){var d=wa(a);b.$$protocol=d.protocol;b.$$host=d.hostname;b.$$port=ea(d.port)||Vf[d.protocol]||
-null}function gd(a,b){var d="/"!==a.charAt(0);d&&(a="/"+a);var c=wa(a);b.$$path=decodeURIComponent(d&&"/"===c.pathname.charAt(0)?c.pathname.substring(1):c.pathname);b.$$search=xc(c.search);b.$$hash=decodeURIComponent(c.hash);b.$$path&&"/"!=b.$$path.charAt(0)&&(b.$$path="/"+b.$$path)}function pa(a,b){if(0===b.indexOf(a))return b.substr(a.length)}function Fa(a){var b=a.indexOf("#");return-1==b?a:a.substr(0,b)}function ib(a){return a.replace(/(#.+)|#$/,"$1")}function cc(a,b,d){this.$$html5=!0;d=d||"";
-fd(a,this);this.$$parse=function(a){var d=pa(b,a);if(!E(d))throw Db("ipthprfx",a,b);gd(d,this);this.$$path||(this.$$path="/");this.$$compose()};this.$$compose=function(){var a=Qb(this.$$search),d=this.$$hash?"#"+ob(this.$$hash):"";this.$$url=bc(this.$$path)+(a?"?"+a:"")+d;this.$$absUrl=b+this.$$url.substr(1)};this.$$parseLinkUrl=function(c,e){if(e&&"#"===e[0])return this.hash(e.slice(1)),!0;var f,g;y(f=pa(a,c))?(g=f,g=y(f=pa(d,f))?b+(pa("/",f)||f):a+g):y(f=pa(b,c))?g=b+f:b==c+"/"&&(g=b);g&&this.$$parse(g);
-return!!g}}function dc(a,b,d){fd(a,this);this.$$parse=function(c){var e=pa(a,c)||pa(b,c),f;q(e)||"#"!==e.charAt(0)?this.$$html5?f=e:(f="",q(e)&&(a=c,this.replace())):(f=pa(d,e),q(f)&&(f=e));gd(f,this);c=this.$$path;var e=a,g=/^\/[A-Z]:(\/.*)/;0===f.indexOf(e)&&(f=f.replace(e,""));g.exec(f)||(c=(f=g.exec(c))?f[1]:c);this.$$path=c;this.$$compose()};this.$$compose=function(){var b=Qb(this.$$search),e=this.$$hash?"#"+ob(this.$$hash):"";this.$$url=bc(this.$$path)+(b?"?"+b:"")+e;this.$$absUrl=a+(this.$$url?
-d+this.$$url:"")};this.$$parseLinkUrl=function(b,d){return Fa(a)==Fa(b)?(this.$$parse(b),!0):!1}}function hd(a,b,d){this.$$html5=!0;dc.apply(this,arguments);this.$$parseLinkUrl=function(c,e){if(e&&"#"===e[0])return this.hash(e.slice(1)),!0;var f,g;a==Fa(c)?f=c:(g=pa(b,c))?f=a+d+g:b===c+"/"&&(f=b);f&&this.$$parse(f);return!!f};this.$$compose=function(){var b=Qb(this.$$search),e=this.$$hash?"#"+ob(this.$$hash):"";this.$$url=bc(this.$$path)+(b?"?"+b:"")+e;this.$$absUrl=a+d+this.$$url}}function Eb(a){return function(){return this[a]}}
-function id(a,b){return function(d){if(q(d))return this[a];this[a]=b(d);this.$$compose();return this}}function hf(){var a="",b={enabled:!1,requireBase:!0,rewriteLinks:!0};this.hashPrefix=function(b){return y(b)?(a=b,this):a};this.html5Mode=function(a){return $a(a)?(b.enabled=a,this):H(a)?($a(a.enabled)&&(b.enabled=a.enabled),$a(a.requireBase)&&(b.requireBase=a.requireBase),$a(a.rewriteLinks)&&(b.rewriteLinks=a.rewriteLinks),this):b};this.$get=["$rootScope","$browser","$sniffer","$rootElement","$window",
-function(d,c,e,f,g){function h(a,b,d){var e=l.url(),f=l.$$state;try{c.url(a,b,d),l.$$state=c.state()}catch(g){throw l.url(e),l.$$state=f,g;}}function k(a,b){d.$broadcast("$locationChangeSuccess",l.absUrl(),a,l.$$state,b)}var l,m;m=c.baseHref();var r=c.url(),t;if(b.enabled){if(!m&&b.requireBase)throw Db("nobase");t=r.substring(0,r.indexOf("/",r.indexOf("//")+2))+(m||"/");m=e.history?cc:hd}else t=Fa(r),m=dc;var A=t.substr(0,Fa(t).lastIndexOf("/")+1);l=new m(t,A,"#"+a);l.$$parseLinkUrl(r,r);l.$$state=
-c.state();var v=/^\s*(javascript|mailto):/i;f.on("click",function(a){if(b.rewriteLinks&&!a.ctrlKey&&!a.metaKey&&!a.shiftKey&&2!=a.which&&2!=a.button){for(var e=B(a.target);"a"!==ta(e[0]);)if(e[0]===f[0]||!(e=e.parent())[0])return;var h=e.prop("href"),k=e.attr("href")||e.attr("xlink:href");H(h)&&"[object SVGAnimatedString]"===h.toString()&&(h=wa(h.animVal).href);v.test(h)||!h||e.attr("target")||a.isDefaultPrevented()||!l.$$parseLinkUrl(h,k)||(a.preventDefault(),l.absUrl()!=c.url()&&(d.$apply(),g.angular["ff-684208-preventDefault"]=
-!0))}});ib(l.absUrl())!=ib(r)&&c.url(l.absUrl(),!0);var n=!0;c.onUrlChange(function(a,b){q(pa(A,a))?g.location.href=a:(d.$evalAsync(function(){var c=l.absUrl(),e=l.$$state,f;a=ib(a);l.$$parse(a);l.$$state=b;f=d.$broadcast("$locationChangeStart",a,c,b,e).defaultPrevented;l.absUrl()===a&&(f?(l.$$parse(c),l.$$state=e,h(c,!1,e)):(n=!1,k(c,e)))}),d.$$phase||d.$digest())});d.$watch(function(){var a=ib(c.url()),b=ib(l.absUrl()),f=c.state(),g=l.$$replace,m=a!==b||l.$$html5&&e.history&&f!==l.$$state;if(n||
-m)n=!1,d.$evalAsync(function(){var b=l.absUrl(),c=d.$broadcast("$locationChangeStart",b,a,l.$$state,f).defaultPrevented;l.absUrl()===b&&(c?(l.$$parse(a),l.$$state=f):(m&&h(b,g,f===l.$$state?null:l.$$state),k(a,f)))});l.$$replace=!1});return l}]}function jf(){var a=!0,b=this;this.debugEnabled=function(b){return y(b)?(a=b,this):a};this.$get=["$window",function(d){function c(a){a instanceof Error&&(a.stack?a=a.message&&-1===a.stack.indexOf(a.message)?"Error: "+a.message+"\n"+a.stack:a.stack:a.sourceURL&&
-(a=a.message+"\n"+a.sourceURL+":"+a.line));return a}function e(a){var b=d.console||{},e=b[a]||b.log||x;a=!1;try{a=!!e.apply}catch(k){}return a?function(){var a=[];n(arguments,function(b){a.push(c(b))});return e.apply(b,a)}:function(a,b){e(a,null==b?"":b)}}return{log:e("log"),info:e("info"),warn:e("warn"),error:e("error"),debug:function(){var c=e("debug");return function(){a&&c.apply(b,arguments)}}()}}]}function Va(a,b){if("__defineGetter__"===a||"__defineSetter__"===a||"__lookupGetter__"===a||"__lookupSetter__"===
-a||"__proto__"===a)throw ba("isecfld",b);return a}function jd(a,b){a+="";if(!E(a))throw ba("iseccst",b);return a}function xa(a,b){if(a){if(a.constructor===a)throw ba("isecfn",b);if(a.window===a)throw ba("isecwindow",b);if(a.children&&(a.nodeName||a.prop&&a.attr&&a.find))throw ba("isecdom",b);if(a===Object)throw ba("isecobj",b);}return a}function kd(a,b){if(a){if(a.constructor===a)throw ba("isecfn",b);if(a===Wf||a===Xf||a===Yf)throw ba("isecff",b);}}function ld(a,b){if(a&&(a===(0).constructor||a===
-(!1).constructor||a==="".constructor||a==={}.constructor||a===[].constructor||a===Function.constructor))throw ba("isecaf",b);}function Zf(a,b){return"undefined"!==typeof a?a:b}function md(a,b){return"undefined"===typeof a?b:"undefined"===typeof b?a:a+b}function W(a,b){var d,c;switch(a.type){case s.Program:d=!0;n(a.body,function(a){W(a.expression,b);d=d&&a.expression.constant});a.constant=d;break;case s.Literal:a.constant=!0;a.toWatch=[];break;case s.UnaryExpression:W(a.argument,b);a.constant=a.argument.constant;
-a.toWatch=a.argument.toWatch;break;case s.BinaryExpression:W(a.left,b);W(a.right,b);a.constant=a.left.constant&&a.right.constant;a.toWatch=a.left.toWatch.concat(a.right.toWatch);break;case s.LogicalExpression:W(a.left,b);W(a.right,b);a.constant=a.left.constant&&a.right.constant;a.toWatch=a.constant?[]:[a];break;case s.ConditionalExpression:W(a.test,b);W(a.alternate,b);W(a.consequent,b);a.constant=a.test.constant&&a.alternate.constant&&a.consequent.constant;a.toWatch=a.constant?[]:[a];break;case s.Identifier:a.constant=
-!1;a.toWatch=[a];break;case s.MemberExpression:W(a.object,b);a.computed&&W(a.property,b);a.constant=a.object.constant&&(!a.computed||a.property.constant);a.toWatch=[a];break;case s.CallExpression:d=a.filter?!b(a.callee.name).$stateful:!1;c=[];n(a.arguments,function(a){W(a,b);d=d&&a.constant;a.constant||c.push.apply(c,a.toWatch)});a.constant=d;a.toWatch=a.filter&&!b(a.callee.name).$stateful?c:[a];break;case s.AssignmentExpression:W(a.left,b);W(a.right,b);a.constant=a.left.constant&&a.right.constant;
-a.toWatch=[a];break;case s.ArrayExpression:d=!0;c=[];n(a.elements,function(a){W(a,b);d=d&&a.constant;a.constant||c.push.apply(c,a.toWatch)});a.constant=d;a.toWatch=c;break;case s.ObjectExpression:d=!0;c=[];n(a.properties,function(a){W(a.value,b);d=d&&a.value.constant;a.value.constant||c.push.apply(c,a.value.toWatch)});a.constant=d;a.toWatch=c;break;case s.ThisExpression:a.constant=!1,a.toWatch=[]}}function nd(a){if(1==a.length){a=a[0].expression;var b=a.toWatch;return 1!==b.length?b:b[0]!==a?b:u}}
-function od(a){return a.type===s.Identifier||a.type===s.MemberExpression}function pd(a){if(1===a.body.length&&od(a.body[0].expression))return{type:s.AssignmentExpression,left:a.body[0].expression,right:{type:s.NGValueParameter},operator:"="}}function qd(a){return 0===a.body.length||1===a.body.length&&(a.body[0].expression.type===s.Literal||a.body[0].expression.type===s.ArrayExpression||a.body[0].expression.type===s.ObjectExpression)}function rd(a,b){this.astBuilder=a;this.$filter=b}function sd(a,
-b){this.astBuilder=a;this.$filter=b}function Fb(a){return"constructor"==a}function ec(a){return z(a.valueOf)?a.valueOf():$f.call(a)}function kf(){var a=$(),b=$();this.$get=["$filter",function(d){function c(a,b){return null==a||null==b?a===b:"object"===typeof a&&(a=ec(a),"object"===typeof a)?!1:a===b||a!==a&&b!==b}function e(a,b,d,e,f){var g=e.inputs,h;if(1===g.length){var k=c,g=g[0];return a.$watch(function(a){var b=g(a);c(b,k)||(h=e(a,u,u,[b]),k=b&&ec(b));return h},b,d,f)}for(var l=[],m=[],r=0,n=
-g.length;r<n;r++)l[r]=c,m[r]=null;return a.$watch(function(a){for(var b=!1,d=0,f=g.length;d<f;d++){var k=g[d](a);if(b||(b=!c(k,l[d])))m[d]=k,l[d]=k&&ec(k)}b&&(h=e(a,u,u,m));return h},b,d,f)}function f(a,b,c,d){var e,f;return e=a.$watch(function(a){return d(a)},function(a,c,d){f=a;z(b)&&b.apply(this,arguments);y(a)&&d.$$postDigest(function(){y(f)&&e()})},c)}function g(a,b,c,d){function e(a){var b=!0;n(a,function(a){y(a)||(b=!1)});return b}var f,g;return f=a.$watch(function(a){return d(a)},function(a,
-c,d){g=a;z(b)&&b.call(this,a,c,d);e(a)&&d.$$postDigest(function(){e(g)&&f()})},c)}function h(a,b,c,d){var e;return e=a.$watch(function(a){return d(a)},function(a,c,d){z(b)&&b.apply(this,arguments);e()},c)}function k(a,b){if(!b)return a;var c=a.$$watchDelegate,d=!1,c=c!==g&&c!==f?function(c,e,f,g){f=d&&g?g[0]:a(c,e,f,g);return b(f,c,e)}:function(c,d,e,f){e=a(c,d,e,f);c=b(e,c,d);return y(e)?c:e};a.$$watchDelegate&&a.$$watchDelegate!==e?c.$$watchDelegate=a.$$watchDelegate:b.$stateful||(c.$$watchDelegate=
-e,d=!a.inputs,c.inputs=a.inputs?a.inputs:[a]);return c}var l=Ba().noUnsafeEval,m={csp:l,expensiveChecks:!1},r={csp:l,expensiveChecks:!0};return function(c,l,v){var n,p,q;switch(typeof c){case "string":q=c=c.trim();var w=v?b:a;n=w[q];n||(":"===c.charAt(0)&&":"===c.charAt(1)&&(p=!0,c=c.substring(2)),v=v?r:m,n=new fc(v),n=(new gc(n,d,v)).parse(c),n.constant?n.$$watchDelegate=h:p?n.$$watchDelegate=n.literal?g:f:n.inputs&&(n.$$watchDelegate=e),w[q]=n);return k(n,l);case "function":return k(c,l);default:return x}}}]}
-function mf(){this.$get=["$rootScope","$exceptionHandler",function(a,b){return td(function(b){a.$evalAsync(b)},b)}]}function nf(){this.$get=["$browser","$exceptionHandler",function(a,b){return td(function(b){a.defer(b)},b)}]}function td(a,b){function d(a,b,c){function d(b){return function(c){e||(e=!0,b.call(a,c))}}var e=!1;return[d(b),d(c)]}function c(){this.$$state={status:0}}function e(a,b){return function(c){b.call(a,c)}}function f(c){!c.processScheduled&&c.pending&&(c.processScheduled=!0,a(function(){var a,
-d,e;e=c.pending;c.processScheduled=!1;c.pending=u;for(var f=0,g=e.length;f<g;++f){d=e[f][0];a=e[f][c.status];try{z(a)?d.resolve(a(c.value)):1===c.status?d.resolve(c.value):d.reject(c.value)}catch(h){d.reject(h),b(h)}}}))}function g(){this.promise=new c;this.resolve=e(this,this.resolve);this.reject=e(this,this.reject);this.notify=e(this,this.notify)}var h=G("$q",TypeError);M(c.prototype,{then:function(a,b,c){if(q(a)&&q(b)&&q(c))return this;var d=new g;this.$$state.pending=this.$$state.pending||[];
-this.$$state.pending.push([d,a,b,c]);0<this.$$state.status&&f(this.$$state);return d.promise},"catch":function(a){return this.then(null,a)},"finally":function(a,b){return this.then(function(b){return l(b,!0,a)},function(b){return l(b,!1,a)},b)}});M(g.prototype,{resolve:function(a){this.promise.$$state.status||(a===this.promise?this.$$reject(h("qcycle",a)):this.$$resolve(a))},$$resolve:function(a){var c,e;e=d(this,this.$$resolve,this.$$reject);try{if(H(a)||z(a))c=a&&a.then;z(c)?(this.promise.$$state.status=
--1,c.call(a,e[0],e[1],this.notify)):(this.promise.$$state.value=a,this.promise.$$state.status=1,f(this.promise.$$state))}catch(g){e[1](g),b(g)}},reject:function(a){this.promise.$$state.status||this.$$reject(a)},$$reject:function(a){this.promise.$$state.value=a;this.promise.$$state.status=2;f(this.promise.$$state)},notify:function(c){var d=this.promise.$$state.pending;0>=this.promise.$$state.status&&d&&d.length&&a(function(){for(var a,e,f=0,g=d.length;f<g;f++){e=d[f][0];a=d[f][3];try{e.notify(z(a)?
-a(c):c)}catch(h){b(h)}}})}});var k=function(a,b){var c=new g;b?c.resolve(a):c.reject(a);return c.promise},l=function(a,b,c){var d=null;try{z(c)&&(d=c())}catch(e){return k(e,!1)}return d&&z(d.then)?d.then(function(){return k(a,b)},function(a){return k(a,!1)}):k(a,b)},m=function(a,b,c,d){var e=new g;e.resolve(a);return e.promise.then(b,c,d)},r=function A(a){if(!z(a))throw h("norslvr",a);if(!(this instanceof A))return new A(a);var b=new g;a(function(a){b.resolve(a)},function(a){b.reject(a)});return b.promise};
-r.defer=function(){return new g};r.reject=function(a){var b=new g;b.reject(a);return b.promise};r.when=m;r.resolve=m;r.all=function(a){var b=new g,c=0,d=I(a)?[]:{};n(a,function(a,e){c++;m(a).then(function(a){d.hasOwnProperty(e)||(d[e]=a,--c||b.resolve(d))},function(a){d.hasOwnProperty(e)||b.reject(a)})});0===c&&b.resolve(d);return b.promise};return r}function wf(){this.$get=["$window","$timeout",function(a,b){var d=a.requestAnimationFrame||a.webkitRequestAnimationFrame,c=a.cancelAnimationFrame||a.webkitCancelAnimationFrame||
-a.webkitCancelRequestAnimationFrame,e=!!d,f=e?function(a){var b=d(a);return function(){c(b)}}:function(a){var c=b(a,16.66,!1);return function(){b.cancel(c)}};f.supported=e;return f}]}function lf(){function a(a){function b(){this.$$watchers=this.$$nextSibling=this.$$childHead=this.$$childTail=null;this.$$listeners={};this.$$listenerCount={};this.$$watchersCount=0;this.$id=++nb;this.$$ChildScope=null}b.prototype=a;return b}var b=10,d=G("$rootScope"),c=null,e=null;this.digestTtl=function(a){arguments.length&&
-(b=a);return b};this.$get=["$injector","$exceptionHandler","$parse","$browser",function(f,g,h,k){function l(a){a.currentScope.$$destroyed=!0}function m(a){9===Ha&&(a.$$childHead&&m(a.$$childHead),a.$$nextSibling&&m(a.$$nextSibling));a.$parent=a.$$nextSibling=a.$$prevSibling=a.$$childHead=a.$$childTail=a.$root=a.$$watchers=null}function r(){this.$id=++nb;this.$$phase=this.$parent=this.$$watchers=this.$$nextSibling=this.$$prevSibling=this.$$childHead=this.$$childTail=null;this.$root=this;this.$$destroyed=
-!1;this.$$listeners={};this.$$listenerCount={};this.$$watchersCount=0;this.$$isolateBindings=null}function t(a){if(w.$$phase)throw d("inprog",w.$$phase);w.$$phase=a}function A(a,b){do a.$$watchersCount+=b;while(a=a.$parent)}function v(a,b,c){do a.$$listenerCount[c]-=b,0===a.$$listenerCount[c]&&delete a.$$listenerCount[c];while(a=a.$parent)}function s(){}function p(){for(;aa.length;)try{aa.shift()()}catch(a){g(a)}e=null}function C(){null===e&&(e=k.defer(function(){w.$apply(p)}))}r.prototype={constructor:r,
-$new:function(b,c){var d;c=c||this;b?(d=new r,d.$root=this.$root):(this.$$ChildScope||(this.$$ChildScope=a(this)),d=new this.$$ChildScope);d.$parent=c;d.$$prevSibling=c.$$childTail;c.$$childHead?(c.$$childTail.$$nextSibling=d,c.$$childTail=d):c.$$childHead=c.$$childTail=d;(b||c!=this)&&d.$on("$destroy",l);return d},$watch:function(a,b,d,e){var f=h(a);if(f.$$watchDelegate)return f.$$watchDelegate(this,b,d,f,a);var g=this,k=g.$$watchers,l={fn:b,last:s,get:f,exp:e||a,eq:!!d};c=null;z(b)||(l.fn=x);k||
-(k=g.$$watchers=[]);k.unshift(l);A(this,1);return function(){0<=ab(k,l)&&A(g,-1);c=null}},$watchGroup:function(a,b){function c(){h=!1;k?(k=!1,b(e,e,g)):b(e,d,g)}var d=Array(a.length),e=Array(a.length),f=[],g=this,h=!1,k=!0;if(!a.length){var l=!0;g.$evalAsync(function(){l&&b(e,e,g)});return function(){l=!1}}if(1===a.length)return this.$watch(a[0],function(a,c,f){e[0]=a;d[0]=c;b(e,a===c?e:d,f)});n(a,function(a,b){var k=g.$watch(a,function(a,f){e[b]=a;d[b]=f;h||(h=!0,g.$evalAsync(c))});f.push(k)});return function(){for(;f.length;)f.shift()()}},
-$watchCollection:function(a,b){function c(a){e=a;var b,d,g,h;if(!q(e)){if(H(e))if(za(e))for(f!==r&&(f=r,n=f.length=0,l++),a=e.length,n!==a&&(l++,f.length=n=a),b=0;b<a;b++)h=f[b],g=e[b],d=h!==h&&g!==g,d||h===g||(l++,f[b]=g);else{f!==t&&(f=t={},n=0,l++);a=0;for(b in e)qa.call(e,b)&&(a++,g=e[b],h=f[b],b in f?(d=h!==h&&g!==g,d||h===g||(l++,f[b]=g)):(n++,f[b]=g,l++));if(n>a)for(b in l++,f)qa.call(e,b)||(n--,delete f[b])}else f!==e&&(f=e,l++);return l}}c.$stateful=!0;var d=this,e,f,g,k=1<b.length,l=0,m=
-h(a,c),r=[],t={},p=!0,n=0;return this.$watch(m,function(){p?(p=!1,b(e,e,d)):b(e,g,d);if(k)if(H(e))if(za(e)){g=Array(e.length);for(var a=0;a<e.length;a++)g[a]=e[a]}else for(a in g={},e)qa.call(e,a)&&(g[a]=e[a]);else g=e})},$digest:function(){var a,f,h,l,m,r,n=b,A,q=[],v,C;t("$digest");k.$$checkUrlChange();this===w&&null!==e&&(k.defer.cancel(e),p());c=null;do{r=!1;for(A=this;u.length;){try{C=u.shift(),C.scope.$eval(C.expression,C.locals)}catch(aa){g(aa)}c=null}a:do{if(l=A.$$watchers)for(m=l.length;m--;)try{if(a=
-l[m])if((f=a.get(A))!==(h=a.last)&&!(a.eq?ma(f,h):"number"===typeof f&&"number"===typeof h&&isNaN(f)&&isNaN(h)))r=!0,c=a,a.last=a.eq?bb(f,null):f,a.fn(f,h===s?f:h,A),5>n&&(v=4-n,q[v]||(q[v]=[]),q[v].push({msg:z(a.exp)?"fn: "+(a.exp.name||a.exp.toString()):a.exp,newVal:f,oldVal:h}));else if(a===c){r=!1;break a}}catch(y){g(y)}if(!(l=A.$$watchersCount&&A.$$childHead||A!==this&&A.$$nextSibling))for(;A!==this&&!(l=A.$$nextSibling);)A=A.$parent}while(A=l);if((r||u.length)&&!n--)throw w.$$phase=null,d("infdig",
-b,q);}while(r||u.length);for(w.$$phase=null;L.length;)try{L.shift()()}catch(x){g(x)}},$destroy:function(){if(!this.$$destroyed){var a=this.$parent;this.$broadcast("$destroy");this.$$destroyed=!0;this===w&&k.$$applicationDestroyed();A(this,-this.$$watchersCount);for(var b in this.$$listenerCount)v(this,this.$$listenerCount[b],b);a&&a.$$childHead==this&&(a.$$childHead=this.$$nextSibling);a&&a.$$childTail==this&&(a.$$childTail=this.$$prevSibling);this.$$prevSibling&&(this.$$prevSibling.$$nextSibling=
-this.$$nextSibling);this.$$nextSibling&&(this.$$nextSibling.$$prevSibling=this.$$prevSibling);this.$destroy=this.$digest=this.$apply=this.$evalAsync=this.$applyAsync=x;this.$on=this.$watch=this.$watchGroup=function(){return x};this.$$listeners={};this.$$nextSibling=null;m(this)}},$eval:function(a,b){return h(a)(this,b)},$evalAsync:function(a,b){w.$$phase||u.length||k.defer(function(){u.length&&w.$digest()});u.push({scope:this,expression:a,locals:b})},$$postDigest:function(a){L.push(a)},$apply:function(a){try{t("$apply");
-try{return this.$eval(a)}finally{w.$$phase=null}}catch(b){g(b)}finally{try{w.$digest()}catch(c){throw g(c),c;}}},$applyAsync:function(a){function b(){c.$eval(a)}var c=this;a&&aa.push(b);C()},$on:function(a,b){var c=this.$$listeners[a];c||(this.$$listeners[a]=c=[]);c.push(b);var d=this;do d.$$listenerCount[a]||(d.$$listenerCount[a]=0),d.$$listenerCount[a]++;while(d=d.$parent);var e=this;return function(){var d=c.indexOf(b);-1!==d&&(c[d]=null,v(e,1,a))}},$emit:function(a,b){var c=[],d,e=this,f=!1,h=
-{name:a,targetScope:e,stopPropagation:function(){f=!0},preventDefault:function(){h.defaultPrevented=!0},defaultPrevented:!1},k=cb([h],arguments,1),l,m;do{d=e.$$listeners[a]||c;h.currentScope=e;l=0;for(m=d.length;l<m;l++)if(d[l])try{d[l].apply(null,k)}catch(r){g(r)}else d.splice(l,1),l--,m--;if(f)return h.currentScope=null,h;e=e.$parent}while(e);h.currentScope=null;return h},$broadcast:function(a,b){var c=this,d=this,e={name:a,targetScope:this,preventDefault:function(){e.defaultPrevented=!0},defaultPrevented:!1};
-if(!this.$$listenerCount[a])return e;for(var f=cb([e],arguments,1),h,k;c=d;){e.currentScope=c;d=c.$$listeners[a]||[];h=0;for(k=d.length;h<k;h++)if(d[h])try{d[h].apply(null,f)}catch(l){g(l)}else d.splice(h,1),h--,k--;if(!(d=c.$$listenerCount[a]&&c.$$childHead||c!==this&&c.$$nextSibling))for(;c!==this&&!(d=c.$$nextSibling);)c=c.$parent}e.currentScope=null;return e}};var w=new r,u=w.$$asyncQueue=[],L=w.$$postDigestQueue=[],aa=w.$$applyAsyncQueue=[];return w}]}function ge(){var a=/^\s*(https?|ftp|mailto|tel|file):/,
-b=/^\s*((https?|ftp|file|blob):|data:image\/)/;this.aHrefSanitizationWhitelist=function(b){return y(b)?(a=b,this):a};this.imgSrcSanitizationWhitelist=function(a){return y(a)?(b=a,this):b};this.$get=function(){return function(d,c){var e=c?b:a,f;f=wa(d).href;return""===f||f.match(e)?d:"unsafe:"+f}}}function ag(a){if("self"===a)return a;if(E(a)){if(-1<a.indexOf("***"))throw ya("iwcard",a);a=ud(a).replace("\\*\\*",".*").replace("\\*","[^:/.?&;]*");return new RegExp("^"+a+"$")}if(Ma(a))return new RegExp("^"+
-a.source+"$");throw ya("imatcher");}function vd(a){var b=[];y(a)&&n(a,function(a){b.push(ag(a))});return b}function pf(){this.SCE_CONTEXTS=la;var a=["self"],b=[];this.resourceUrlWhitelist=function(b){arguments.length&&(a=vd(b));return a};this.resourceUrlBlacklist=function(a){arguments.length&&(b=vd(a));return b};this.$get=["$injector",function(d){function c(a,b){return"self"===a?ed(b):!!a.exec(b.href)}function e(a){var b=function(a){this.$$unwrapTrustedValue=function(){return a}};a&&(b.prototype=
-new a);b.prototype.valueOf=function(){return this.$$unwrapTrustedValue()};b.prototype.toString=function(){return this.$$unwrapTrustedValue().toString()};return b}var f=function(a){throw ya("unsafe");};d.has("$sanitize")&&(f=d.get("$sanitize"));var g=e(),h={};h[la.HTML]=e(g);h[la.CSS]=e(g);h[la.URL]=e(g);h[la.JS]=e(g);h[la.RESOURCE_URL]=e(h[la.URL]);return{trustAs:function(a,b){var c=h.hasOwnProperty(a)?h[a]:null;if(!c)throw ya("icontext",a,b);if(null===b||q(b)||""===b)return b;if("string"!==typeof b)throw ya("itype",
-a);return new c(b)},getTrusted:function(d,e){if(null===e||q(e)||""===e)return e;var g=h.hasOwnProperty(d)?h[d]:null;if(g&&e instanceof g)return e.$$unwrapTrustedValue();if(d===la.RESOURCE_URL){var g=wa(e.toString()),r,t,n=!1;r=0;for(t=a.length;r<t;r++)if(c(a[r],g)){n=!0;break}if(n)for(r=0,t=b.length;r<t;r++)if(c(b[r],g)){n=!1;break}if(n)return e;throw ya("insecurl",e.toString());}if(d===la.HTML)return f(e);throw ya("unsafe");},valueOf:function(a){return a instanceof g?a.$$unwrapTrustedValue():a}}}]}
-function of(){var a=!0;this.enabled=function(b){arguments.length&&(a=!!b);return a};this.$get=["$parse","$sceDelegate",function(b,d){if(a&&8>Ha)throw ya("iequirks");var c=ia(la);c.isEnabled=function(){return a};c.trustAs=d.trustAs;c.getTrusted=d.getTrusted;c.valueOf=d.valueOf;a||(c.trustAs=c.getTrusted=function(a,b){return b},c.valueOf=Ya);c.parseAs=function(a,d){var e=b(d);return e.literal&&e.constant?e:b(d,function(b){return c.getTrusted(a,b)})};var e=c.parseAs,f=c.getTrusted,g=c.trustAs;n(la,function(a,
-b){var d=F(b);c[fb("parse_as_"+d)]=function(b){return e(a,b)};c[fb("get_trusted_"+d)]=function(b){return f(a,b)};c[fb("trust_as_"+d)]=function(b){return g(a,b)}});return c}]}function qf(){this.$get=["$window","$document",function(a,b){var d={},c=ea((/android (\d+)/.exec(F((a.navigator||{}).userAgent))||[])[1]),e=/Boxee/i.test((a.navigator||{}).userAgent),f=b[0]||{},g,h=/^(Moz|webkit|ms)(?=[A-Z])/,k=f.body&&f.body.style,l=!1,m=!1;if(k){for(var r in k)if(l=h.exec(r)){g=l[0];g=g.substr(0,1).toUpperCase()+
-g.substr(1);break}g||(g="WebkitOpacity"in k&&"webkit");l=!!("transition"in k||g+"Transition"in k);m=!!("animation"in k||g+"Animation"in k);!c||l&&m||(l=E(k.webkitTransition),m=E(k.webkitAnimation))}return{history:!(!a.history||!a.history.pushState||4>c||e),hasEvent:function(a){if("input"===a&&11>=Ha)return!1;if(q(d[a])){var b=f.createElement("div");d[a]="on"+a in b}return d[a]},csp:Ba(),vendorPrefix:g,transitions:l,animations:m,android:c}}]}function sf(){this.$get=["$templateCache","$http","$q","$sce",
-function(a,b,d,c){function e(f,g){e.totalPendingRequests++;E(f)&&a.get(f)||(f=c.getTrustedResourceUrl(f));var h=b.defaults&&b.defaults.transformResponse;I(h)?h=h.filter(function(a){return a!==$b}):h===$b&&(h=null);return b.get(f,{cache:a,transformResponse:h})["finally"](function(){e.totalPendingRequests--}).then(function(b){a.put(f,b.data);return b.data},function(a){if(!g)throw ha("tpload",f,a.status,a.statusText);return d.reject(a)})}e.totalPendingRequests=0;return e}]}function tf(){this.$get=["$rootScope",
-"$browser","$location",function(a,b,d){return{findBindings:function(a,b,d){a=a.getElementsByClassName("ng-binding");var g=[];n(a,function(a){var c=fa.element(a).data("$binding");c&&n(c,function(c){d?(new RegExp("(^|\\s)"+ud(b)+"(\\s|\\||$)")).test(c)&&g.push(a):-1!=c.indexOf(b)&&g.push(a)})});return g},findModels:function(a,b,d){for(var g=["ng-","data-ng-","ng\\:"],h=0;h<g.length;++h){var k=a.querySelectorAll("["+g[h]+"model"+(d?"=":"*=")+'"'+b+'"]');if(k.length)return k}},getLocation:function(){return d.url()},
-setLocation:function(b){b!==d.url()&&(d.url(b),a.$digest())},whenStable:function(a){b.notifyWhenNoOutstandingRequests(a)}}}]}function uf(){this.$get=["$rootScope","$browser","$q","$$q","$exceptionHandler",function(a,b,d,c,e){function f(f,k,l){z(f)||(l=k,k=f,f=x);var m=ra.call(arguments,3),r=y(l)&&!l,t=(r?c:d).defer(),n=t.promise,q;q=b.defer(function(){try{t.resolve(f.apply(null,m))}catch(b){t.reject(b),e(b)}finally{delete g[n.$$timeoutId]}r||a.$apply()},k);n.$$timeoutId=q;g[q]=t;return n}var g={};
-f.cancel=function(a){return a&&a.$$timeoutId in g?(g[a.$$timeoutId].reject("canceled"),delete g[a.$$timeoutId],b.defer.cancel(a.$$timeoutId)):!1};return f}]}function wa(a){Ha&&(Y.setAttribute("href",a),a=Y.href);Y.setAttribute("href",a);return{href:Y.href,protocol:Y.protocol?Y.protocol.replace(/:$/,""):"",host:Y.host,search:Y.search?Y.search.replace(/^\?/,""):"",hash:Y.hash?Y.hash.replace(/^#/,""):"",hostname:Y.hostname,port:Y.port,pathname:"/"===Y.pathname.charAt(0)?Y.pathname:"/"+Y.pathname}}function ed(a){a=
-E(a)?wa(a):a;return a.protocol===wd.protocol&&a.host===wd.host}function vf(){this.$get=na(S)}function xd(a){function b(a){try{return decodeURIComponent(a)}catch(b){return a}}var d=a[0]||{},c={},e="";return function(){var a,g,h,k,l;a=d.cookie||"";if(a!==e)for(e=a,a=e.split("; "),c={},h=0;h<a.length;h++)g=a[h],k=g.indexOf("="),0<k&&(l=b(g.substring(0,k)),q(c[l])&&(c[l]=b(g.substring(k+1))));return c}}function zf(){this.$get=xd}function Jc(a){function b(d,c){if(H(d)){var e={};n(d,function(a,c){e[c]=
-b(c,a)});return e}return a.factory(d+"Filter",c)}this.register=b;this.$get=["$injector",function(a){return function(b){return a.get(b+"Filter")}}];b("currency",yd);b("date",zd);b("filter",bg);b("json",cg);b("limitTo",dg);b("lowercase",eg);b("number",Ad);b("orderBy",Bd);b("uppercase",fg)}function bg(){return function(a,b,d){if(!za(a)){if(null==a)return a;throw G("filter")("notarray",a);}var c;switch(hc(b)){case "function":break;case "boolean":case "null":case "number":case "string":c=!0;case "object":b=
-gg(b,d,c);break;default:return a}return Array.prototype.filter.call(a,b)}}function gg(a,b,d){var c=H(a)&&"$"in a;!0===b?b=ma:z(b)||(b=function(a,b){if(q(a))return!1;if(null===a||null===b)return a===b;if(H(b)||H(a)&&!qc(a))return!1;a=F(""+a);b=F(""+b);return-1!==a.indexOf(b)});return function(e){return c&&!H(e)?Ka(e,a.$,b,!1):Ka(e,a,b,d)}}function Ka(a,b,d,c,e){var f=hc(a),g=hc(b);if("string"===g&&"!"===b.charAt(0))return!Ka(a,b.substring(1),d,c);if(I(a))return a.some(function(a){return Ka(a,b,d,c)});
-switch(f){case "object":var h;if(c){for(h in a)if("$"!==h.charAt(0)&&Ka(a[h],b,d,!0))return!0;return e?!1:Ka(a,b,d,!1)}if("object"===g){for(h in b)if(e=b[h],!z(e)&&!q(e)&&(f="$"===h,!Ka(f?a:a[h],e,d,f,f)))return!1;return!0}return d(a,b);case "function":return!1;default:return d(a,b)}}function hc(a){return null===a?"null":typeof a}function yd(a){var b=a.NUMBER_FORMATS;return function(a,c,e){q(c)&&(c=b.CURRENCY_SYM);q(e)&&(e=b.PATTERNS[1].maxFrac);return null==a?a:Cd(a,b.PATTERNS[1],b.GROUP_SEP,b.DECIMAL_SEP,
-e).replace(/\u00A4/g,c)}}function Ad(a){var b=a.NUMBER_FORMATS;return function(a,c){return null==a?a:Cd(a,b.PATTERNS[0],b.GROUP_SEP,b.DECIMAL_SEP,c)}}function Cd(a,b,d,c,e){if(H(a))return"";var f=0>a;a=Math.abs(a);var g=Infinity===a;if(!g&&!isFinite(a))return"";var h=a+"",k="",l=!1,m=[];g&&(k="\u221e");if(!g&&-1!==h.indexOf("e")){var r=h.match(/([\d\.]+)e(-?)(\d+)/);r&&"-"==r[2]&&r[3]>e+1?a=0:(k=h,l=!0)}if(g||l)0<e&&1>a&&(k=a.toFixed(e),a=parseFloat(k),k=k.replace(ic,c));else{g=(h.split(ic)[1]||"").length;
-q(e)&&(e=Math.min(Math.max(b.minFrac,g),b.maxFrac));a=+(Math.round(+(a.toString()+"e"+e)).toString()+"e"+-e);var g=(""+a).split(ic),h=g[0],g=g[1]||"",r=0,t=b.lgSize,n=b.gSize;if(h.length>=t+n)for(r=h.length-t,l=0;l<r;l++)0===(r-l)%n&&0!==l&&(k+=d),k+=h.charAt(l);for(l=r;l<h.length;l++)0===(h.length-l)%t&&0!==l&&(k+=d),k+=h.charAt(l);for(;g.length<e;)g+="0";e&&"0"!==e&&(k+=c+g.substr(0,e))}0===a&&(f=!1);m.push(f?b.negPre:b.posPre,k,f?b.negSuf:b.posSuf);return m.join("")}function Gb(a,b,d){var c="";
-0>a&&(c="-",a=-a);for(a=""+a;a.length<b;)a="0"+a;d&&(a=a.substr(a.length-b));return c+a}function ca(a,b,d,c){d=d||0;return function(e){e=e["get"+a]();if(0<d||e>-d)e+=d;0===e&&-12==d&&(e=12);return Gb(e,b,c)}}function Hb(a,b){return function(d,c){var e=d["get"+a](),f=sb(b?"SHORT"+a:a);return c[f][e]}}function Dd(a){var b=(new Date(a,0,1)).getDay();return new Date(a,0,(4>=b?5:12)-b)}function Ed(a){return function(b){var d=Dd(b.getFullYear());b=+new Date(b.getFullYear(),b.getMonth(),b.getDate()+(4-b.getDay()))-
-+d;b=1+Math.round(b/6048E5);return Gb(b,a)}}function jc(a,b){return 0>=a.getFullYear()?b.ERAS[0]:b.ERAS[1]}function zd(a){function b(a){var b;if(b=a.match(d)){a=new Date(0);var f=0,g=0,h=b[8]?a.setUTCFullYear:a.setFullYear,k=b[8]?a.setUTCHours:a.setHours;b[9]&&(f=ea(b[9]+b[10]),g=ea(b[9]+b[11]));h.call(a,ea(b[1]),ea(b[2])-1,ea(b[3]));f=ea(b[4]||0)-f;g=ea(b[5]||0)-g;h=ea(b[6]||0);b=Math.round(1E3*parseFloat("0."+(b[7]||0)));k.call(a,f,g,h,b)}return a}var d=/^(\d{4})-?(\d\d)-?(\d\d)(?:T(\d\d)(?::?(\d\d)(?::?(\d\d)(?:\.(\d+))?)?)?(Z|([+-])(\d\d):?(\d\d))?)?$/;
-return function(c,d,f){var g="",h=[],k,l;d=d||"mediumDate";d=a.DATETIME_FORMATS[d]||d;E(c)&&(c=hg.test(c)?ea(c):b(c));Q(c)&&(c=new Date(c));if(!da(c)||!isFinite(c.getTime()))return c;for(;d;)(l=ig.exec(d))?(h=cb(h,l,1),d=h.pop()):(h.push(d),d=null);var m=c.getTimezoneOffset();f&&(m=vc(f,c.getTimezoneOffset()),c=Pb(c,f,!0));n(h,function(b){k=jg[b];g+=k?k(c,a.DATETIME_FORMATS,m):b.replace(/(^'|'$)/g,"").replace(/''/g,"'")});return g}}function cg(){return function(a,b){q(b)&&(b=2);return db(a,b)}}function dg(){return function(a,
-b,d){b=Infinity===Math.abs(Number(b))?Number(b):ea(b);if(isNaN(b))return a;Q(a)&&(a=a.toString());if(!I(a)&&!E(a))return a;d=!d||isNaN(d)?0:ea(d);d=0>d?Math.max(0,a.length+d):d;return 0<=b?a.slice(d,d+b):0===d?a.slice(b,a.length):a.slice(Math.max(0,d+b),d)}}function Bd(a){function b(b,d){d=d?-1:1;return b.map(function(b){var c=1,h=Ya;if(z(b))h=b;else if(E(b)){if("+"==b.charAt(0)||"-"==b.charAt(0))c="-"==b.charAt(0)?-1:1,b=b.substring(1);if(""!==b&&(h=a(b),h.constant))var k=h(),h=function(a){return a[k]}}return{get:h,
-descending:c*d}})}function d(a){switch(typeof a){case "number":case "boolean":case "string":return!0;default:return!1}}return function(a,e,f){if(!za(a))return a;I(e)||(e=[e]);0===e.length&&(e=["+"]);var g=b(e,f);g.push({get:function(){return{}},descending:f?-1:1});a=Array.prototype.map.call(a,function(a,b){return{value:a,predicateValues:g.map(function(c){var e=c.get(a);c=typeof e;if(null===e)c="string",e="null";else if("string"===c)e=e.toLowerCase();else if("object"===c)a:{if("function"===typeof e.valueOf&&
-(e=e.valueOf(),d(e)))break a;if(qc(e)&&(e=e.toString(),d(e)))break a;e=b}return{value:e,type:c}})}});a.sort(function(a,b){for(var c=0,d=0,e=g.length;d<e;++d){var c=a.predicateValues[d],f=b.predicateValues[d],n=0;c.type===f.type?c.value!==f.value&&(n=c.value<f.value?-1:1):n=c.type<f.type?-1:1;if(c=n*g[d].descending)break}return c});return a=a.map(function(a){return a.value})}}function La(a){z(a)&&(a={link:a});a.restrict=a.restrict||"AC";return na(a)}function Fd(a,b,d,c,e){var f=this,g=[];f.$error=
-{};f.$$success={};f.$pending=u;f.$name=e(b.name||b.ngForm||"")(d);f.$dirty=!1;f.$pristine=!0;f.$valid=!0;f.$invalid=!1;f.$submitted=!1;f.$$parentForm=Ib;f.$rollbackViewValue=function(){n(g,function(a){a.$rollbackViewValue()})};f.$commitViewValue=function(){n(g,function(a){a.$commitViewValue()})};f.$addControl=function(a){Ra(a.$name,"input");g.push(a);a.$name&&(f[a.$name]=a);a.$$parentForm=f};f.$$renameControl=function(a,b){var c=a.$name;f[c]===a&&delete f[c];f[b]=a;a.$name=b};f.$removeControl=function(a){a.$name&&
-f[a.$name]===a&&delete f[a.$name];n(f.$pending,function(b,c){f.$setValidity(c,null,a)});n(f.$error,function(b,c){f.$setValidity(c,null,a)});n(f.$$success,function(b,c){f.$setValidity(c,null,a)});ab(g,a);a.$$parentForm=Ib};Gd({ctrl:this,$element:a,set:function(a,b,c){var d=a[b];d?-1===d.indexOf(c)&&d.push(c):a[b]=[c]},unset:function(a,b,c){var d=a[b];d&&(ab(d,c),0===d.length&&delete a[b])},$animate:c});f.$setDirty=function(){c.removeClass(a,Wa);c.addClass(a,Jb);f.$dirty=!0;f.$pristine=!1;f.$$parentForm.$setDirty()};
-f.$setPristine=function(){c.setClass(a,Wa,Jb+" ng-submitted");f.$dirty=!1;f.$pristine=!0;f.$submitted=!1;n(g,function(a){a.$setPristine()})};f.$setUntouched=function(){n(g,function(a){a.$setUntouched()})};f.$setSubmitted=function(){c.addClass(a,"ng-submitted");f.$submitted=!0;f.$$parentForm.$setSubmitted()}}function kc(a){a.$formatters.push(function(b){return a.$isEmpty(b)?b:b.toString()})}function jb(a,b,d,c,e,f){var g=F(b[0].type);if(!e.android){var h=!1;b.on("compositionstart",function(a){h=!0});
-b.on("compositionend",function(){h=!1;k()})}var k=function(a){l&&(f.defer.cancel(l),l=null);if(!h){var e=b.val();a=a&&a.type;"password"===g||d.ngTrim&&"false"===d.ngTrim||(e=U(e));(c.$viewValue!==e||""===e&&c.$$hasNativeValidators)&&c.$setViewValue(e,a)}};if(e.hasEvent("input"))b.on("input",k);else{var l,m=function(a,b,c){l||(l=f.defer(function(){l=null;b&&b.value===c||k(a)}))};b.on("keydown",function(a){var b=a.keyCode;91===b||15<b&&19>b||37<=b&&40>=b||m(a,this,this.value)});if(e.hasEvent("paste"))b.on("paste cut",
-m)}b.on("change",k);c.$render=function(){var a=c.$isEmpty(c.$viewValue)?"":c.$viewValue;b.val()!==a&&b.val(a)}}function Kb(a,b){return function(d,c){var e,f;if(da(d))return d;if(E(d)){'"'==d.charAt(0)&&'"'==d.charAt(d.length-1)&&(d=d.substring(1,d.length-1));if(kg.test(d))return new Date(d);a.lastIndex=0;if(e=a.exec(d))return e.shift(),f=c?{yyyy:c.getFullYear(),MM:c.getMonth()+1,dd:c.getDate(),HH:c.getHours(),mm:c.getMinutes(),ss:c.getSeconds(),sss:c.getMilliseconds()/1E3}:{yyyy:1970,MM:1,dd:1,HH:0,
-mm:0,ss:0,sss:0},n(e,function(a,c){c<b.length&&(f[b[c]]=+a)}),new Date(f.yyyy,f.MM-1,f.dd,f.HH,f.mm,f.ss||0,1E3*f.sss||0)}return NaN}}function kb(a,b,d,c){return function(e,f,g,h,k,l,m){function r(a){return a&&!(a.getTime&&a.getTime()!==a.getTime())}function n(a){return y(a)&&!da(a)?d(a)||u:a}Hd(e,f,g,h);jb(e,f,g,h,k,l);var A=h&&h.$options&&h.$options.timezone,v;h.$$parserName=a;h.$parsers.push(function(a){return h.$isEmpty(a)?null:b.test(a)?(a=d(a,v),A&&(a=Pb(a,A)),a):u});h.$formatters.push(function(a){if(a&&
-!da(a))throw lb("datefmt",a);if(r(a))return(v=a)&&A&&(v=Pb(v,A,!0)),m("date")(a,c,A);v=null;return""});if(y(g.min)||g.ngMin){var s;h.$validators.min=function(a){return!r(a)||q(s)||d(a)>=s};g.$observe("min",function(a){s=n(a);h.$validate()})}if(y(g.max)||g.ngMax){var p;h.$validators.max=function(a){return!r(a)||q(p)||d(a)<=p};g.$observe("max",function(a){p=n(a);h.$validate()})}}}function Hd(a,b,d,c){(c.$$hasNativeValidators=H(b[0].validity))&&c.$parsers.push(function(a){var c=b.prop("validity")||{};
-return c.badInput&&!c.typeMismatch?u:a})}function Id(a,b,d,c,e){if(y(c)){a=a(c);if(!a.constant)throw lb("constexpr",d,c);return a(b)}return e}function lc(a,b){a="ngClass"+a;return["$animate",function(d){function c(a,b){var c=[],d=0;a:for(;d<a.length;d++){for(var e=a[d],m=0;m<b.length;m++)if(e==b[m])continue a;c.push(e)}return c}function e(a){var b=[];return I(a)?(n(a,function(a){b=b.concat(e(a))}),b):E(a)?a.split(" "):H(a)?(n(a,function(a,c){a&&(b=b.concat(c.split(" ")))}),b):a}return{restrict:"AC",
-link:function(f,g,h){function k(a,b){var c=g.data("$classCounts")||$(),d=[];n(a,function(a){if(0<b||c[a])c[a]=(c[a]||0)+b,c[a]===+(0<b)&&d.push(a)});g.data("$classCounts",c);return d.join(" ")}function l(a){if(!0===b||f.$index%2===b){var l=e(a||[]);if(!m){var n=k(l,1);h.$addClass(n)}else if(!ma(a,m)){var q=e(m),n=c(l,q),l=c(q,l),n=k(n,1),l=k(l,-1);n&&n.length&&d.addClass(g,n);l&&l.length&&d.removeClass(g,l)}}m=ia(a)}var m;f.$watch(h[a],l,!0);h.$observe("class",function(b){l(f.$eval(h[a]))});"ngClass"!==
-a&&f.$watch("$index",function(c,d){var g=c&1;if(g!==(d&1)){var l=e(f.$eval(h[a]));g===b?(g=k(l,1),h.$addClass(g)):(g=k(l,-1),h.$removeClass(g))}})}}}]}function Gd(a){function b(a,b){b&&!f[a]?(k.addClass(e,a),f[a]=!0):!b&&f[a]&&(k.removeClass(e,a),f[a]=!1)}function d(a,c){a=a?"-"+zc(a,"-"):"";b(mb+a,!0===c);b(Jd+a,!1===c)}var c=a.ctrl,e=a.$element,f={},g=a.set,h=a.unset,k=a.$animate;f[Jd]=!(f[mb]=e.hasClass(mb));c.$setValidity=function(a,e,f){q(e)?(c.$pending||(c.$pending={}),g(c.$pending,a,f)):(c.$pending&&
-h(c.$pending,a,f),Kd(c.$pending)&&(c.$pending=u));$a(e)?e?(h(c.$error,a,f),g(c.$$success,a,f)):(g(c.$error,a,f),h(c.$$success,a,f)):(h(c.$error,a,f),h(c.$$success,a,f));c.$pending?(b(Ld,!0),c.$valid=c.$invalid=u,d("",null)):(b(Ld,!1),c.$valid=Kd(c.$error),c.$invalid=!c.$valid,d("",c.$valid));e=c.$pending&&c.$pending[a]?u:c.$error[a]?!1:c.$$success[a]?!0:null;d(a,e);c.$$parentForm.$setValidity(a,e,c)}}function Kd(a){if(a)for(var b in a)if(a.hasOwnProperty(b))return!1;return!0}var lg=/^\/(.+)\/([a-z]*)$/,
-F=function(a){return E(a)?a.toLowerCase():a},qa=Object.prototype.hasOwnProperty,sb=function(a){return E(a)?a.toUpperCase():a},Ha,B,oa,ra=[].slice,Pf=[].splice,mg=[].push,sa=Object.prototype.toString,rc=Object.getPrototypeOf,Aa=G("ng"),fa=S.angular||(S.angular={}),Sb,nb=0;Ha=X.documentMode;x.$inject=[];Ya.$inject=[];var I=Array.isArray,Vd=/^\[object (?:Uint8|Uint8Clamped|Uint16|Uint32|Int8|Int16|Int32|Float32|Float64)Array\]$/,U=function(a){return E(a)?a.trim():a},ud=function(a){return a.replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g,
-"\\$1").replace(/\x08/g,"\\x08")},Ba=function(){if(!y(Ba.rules)){var a=X.querySelector("[ng-csp]")||X.querySelector("[data-ng-csp]");if(a){var b=a.getAttribute("ng-csp")||a.getAttribute("data-ng-csp");Ba.rules={noUnsafeEval:!b||-1!==b.indexOf("no-unsafe-eval"),noInlineStyle:!b||-1!==b.indexOf("no-inline-style")}}else{a=Ba;try{new Function(""),b=!1}catch(d){b=!0}a.rules={noUnsafeEval:b,noInlineStyle:!1}}}return Ba.rules},pb=function(){if(y(pb.name_))return pb.name_;var a,b,d=Oa.length,c,e;for(b=0;b<
-d;++b)if(c=Oa[b],a=X.querySelector("["+c.replace(":","\\:")+"jq]")){e=a.getAttribute(c+"jq");break}return pb.name_=e},Oa=["ng-","data-ng-","ng:","x-ng-"],be=/[A-Z]/g,Ac=!1,Rb,Na=3,fe={full:"1.4.8",major:1,minor:4,dot:8,codeName:"ice-manipulation"};N.expando="ng339";var gb=N.cache={},Ff=1;N._data=function(a){return this.cache[a[this.expando]]||{}};var Af=/([\:\-\_]+(.))/g,Bf=/^moz([A-Z])/,xb={mouseleave:"mouseout",mouseenter:"mouseover"},Ub=G("jqLite"),Ef=/^<([\w-]+)\s*\/?>(?:<\/\1>|)$/,Tb=/<|&#?\w+;/,
-Cf=/<([\w:-]+)/,Df=/<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:-]+)[^>]*)\/>/gi,ka={option:[1,'<select multiple="multiple">',"</select>"],thead:[1,"<table>","</table>"],col:[2,"<table><colgroup>","</colgroup></table>"],tr:[2,"<table><tbody>","</tbody></table>"],td:[3,"<table><tbody><tr>","</tr></tbody></table>"],_default:[0,"",""]};ka.optgroup=ka.option;ka.tbody=ka.tfoot=ka.colgroup=ka.caption=ka.thead;ka.th=ka.td;var Kf=Node.prototype.contains||function(a){return!!(this.compareDocumentPosition(a)&
-16)},Pa=N.prototype={ready:function(a){function b(){d||(d=!0,a())}var d=!1;"complete"===X.readyState?setTimeout(b):(this.on("DOMContentLoaded",b),N(S).on("load",b))},toString:function(){var a=[];n(this,function(b){a.push(""+b)});return"["+a.join(", ")+"]"},eq:function(a){return 0<=a?B(this[a]):B(this[this.length+a])},length:0,push:mg,sort:[].sort,splice:[].splice},Cb={};n("multiple selected checked disabled readOnly required open".split(" "),function(a){Cb[F(a)]=a});var Rc={};n("input select option textarea button form details".split(" "),
-function(a){Rc[a]=!0});var Zc={ngMinlength:"minlength",ngMaxlength:"maxlength",ngMin:"min",ngMax:"max",ngPattern:"pattern"};n({data:Wb,removeData:vb,hasData:function(a){for(var b in gb[a.ng339])return!0;return!1}},function(a,b){N[b]=a});n({data:Wb,inheritedData:Bb,scope:function(a){return B.data(a,"$scope")||Bb(a.parentNode||a,["$isolateScope","$scope"])},isolateScope:function(a){return B.data(a,"$isolateScope")||B.data(a,"$isolateScopeNoTemplate")},controller:Oc,injector:function(a){return Bb(a,
-"$injector")},removeAttr:function(a,b){a.removeAttribute(b)},hasClass:yb,css:function(a,b,d){b=fb(b);if(y(d))a.style[b]=d;else return a.style[b]},attr:function(a,b,d){var c=a.nodeType;if(c!==Na&&2!==c&&8!==c)if(c=F(b),Cb[c])if(y(d))d?(a[b]=!0,a.setAttribute(b,c)):(a[b]=!1,a.removeAttribute(c));else return a[b]||(a.attributes.getNamedItem(b)||x).specified?c:u;else if(y(d))a.setAttribute(b,d);else if(a.getAttribute)return a=a.getAttribute(b,2),null===a?u:a},prop:function(a,b,d){if(y(d))a[b]=d;else return a[b]},
-text:function(){function a(a,d){if(q(d)){var c=a.nodeType;return 1===c||c===Na?a.textContent:""}a.textContent=d}a.$dv="";return a}(),val:function(a,b){if(q(b)){if(a.multiple&&"select"===ta(a)){var d=[];n(a.options,function(a){a.selected&&d.push(a.value||a.text)});return 0===d.length?null:d}return a.value}a.value=b},html:function(a,b){if(q(b))return a.innerHTML;ub(a,!0);a.innerHTML=b},empty:Pc},function(a,b){N.prototype[b]=function(b,c){var e,f,g=this.length;if(a!==Pc&&q(2==a.length&&a!==yb&&a!==Oc?
-b:c)){if(H(b)){for(e=0;e<g;e++)if(a===Wb)a(this[e],b);else for(f in b)a(this[e],f,b[f]);return this}e=a.$dv;g=q(e)?Math.min(g,1):g;for(f=0;f<g;f++){var h=a(this[f],b,c);e=e?e+h:h}return e}for(e=0;e<g;e++)a(this[e],b,c);return this}});n({removeData:vb,on:function(a,b,d,c){if(y(c))throw Ub("onargs");if(Kc(a)){c=wb(a,!0);var e=c.events,f=c.handle;f||(f=c.handle=Hf(a,e));c=0<=b.indexOf(" ")?b.split(" "):[b];for(var g=c.length,h=function(b,c,g){var h=e[b];h||(h=e[b]=[],h.specialHandlerWrapper=c,"$destroy"===
-b||g||a.addEventListener(b,f,!1));h.push(d)};g--;)b=c[g],xb[b]?(h(xb[b],Jf),h(b,u,!0)):h(b)}},off:Nc,one:function(a,b,d){a=B(a);a.on(b,function e(){a.off(b,d);a.off(b,e)});a.on(b,d)},replaceWith:function(a,b){var d,c=a.parentNode;ub(a);n(new N(b),function(b){d?c.insertBefore(b,d.nextSibling):c.replaceChild(b,a);d=b})},children:function(a){var b=[];n(a.childNodes,function(a){1===a.nodeType&&b.push(a)});return b},contents:function(a){return a.contentDocument||a.childNodes||[]},append:function(a,b){var d=
-a.nodeType;if(1===d||11===d){b=new N(b);for(var d=0,c=b.length;d<c;d++)a.appendChild(b[d])}},prepend:function(a,b){if(1===a.nodeType){var d=a.firstChild;n(new N(b),function(b){a.insertBefore(b,d)})}},wrap:function(a,b){b=B(b).eq(0).clone()[0];var d=a.parentNode;d&&d.replaceChild(b,a);b.appendChild(a)},remove:Xb,detach:function(a){Xb(a,!0)},after:function(a,b){var d=a,c=a.parentNode;b=new N(b);for(var e=0,f=b.length;e<f;e++){var g=b[e];c.insertBefore(g,d.nextSibling);d=g}},addClass:Ab,removeClass:zb,
-toggleClass:function(a,b,d){b&&n(b.split(" "),function(b){var e=d;q(e)&&(e=!yb(a,b));(e?Ab:zb)(a,b)})},parent:function(a){return(a=a.parentNode)&&11!==a.nodeType?a:null},next:function(a){return a.nextElementSibling},find:function(a,b){return a.getElementsByTagName?a.getElementsByTagName(b):[]},clone:Vb,triggerHandler:function(a,b,d){var c,e,f=b.type||b,g=wb(a);if(g=(g=g&&g.events)&&g[f])c={preventDefault:function(){this.defaultPrevented=!0},isDefaultPrevented:function(){return!0===this.defaultPrevented},
-stopImmediatePropagation:function(){this.immediatePropagationStopped=!0},isImmediatePropagationStopped:function(){return!0===this.immediatePropagationStopped},stopPropagation:x,type:f,target:a},b.type&&(c=M(c,b)),b=ia(g),e=d?[c].concat(d):[c],n(b,function(b){c.isImmediatePropagationStopped()||b.apply(a,e)})}},function(a,b){N.prototype[b]=function(b,c,e){for(var f,g=0,h=this.length;g<h;g++)q(f)?(f=a(this[g],b,c,e),y(f)&&(f=B(f))):Mc(f,a(this[g],b,c,e));return y(f)?f:this};N.prototype.bind=N.prototype.on;
-N.prototype.unbind=N.prototype.off});Sa.prototype={put:function(a,b){this[Ca(a,this.nextUid)]=b},get:function(a){return this[Ca(a,this.nextUid)]},remove:function(a){var b=this[a=Ca(a,this.nextUid)];delete this[a];return b}};var yf=[function(){this.$get=[function(){return Sa}]}],Tc=/^[^\(]*\(\s*([^\)]*)\)/m,ng=/,/,og=/^\s*(_?)(\S+?)\1\s*$/,Sc=/((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg,Da=G("$injector");eb.$$annotate=function(a,b,d){var c;if("function"===typeof a){if(!(c=a.$inject)){c=[];if(a.length){if(b)throw E(d)&&
-d||(d=a.name||Lf(a)),Da("strictdi",d);b=a.toString().replace(Sc,"");b=b.match(Tc);n(b[1].split(ng),function(a){a.replace(og,function(a,b,d){c.push(d)})})}a.$inject=c}}else I(a)?(b=a.length-1,Qa(a[b],"fn"),c=a.slice(0,b)):Qa(a,"fn",!0);return c};var Md=G("$animate"),Ue=function(){this.$get=["$q","$$rAF",function(a,b){function d(){}d.all=x;d.chain=x;d.prototype={end:x,cancel:x,resume:x,pause:x,complete:x,then:function(c,d){return a(function(a){b(function(){a()})}).then(c,d)}};return d}]},Te=function(){var a=
-new Sa,b=[];this.$get=["$$AnimateRunner","$rootScope",function(d,c){function e(a,b,c){var d=!1;b&&(b=E(b)?b.split(" "):I(b)?b:[],n(b,function(b){b&&(d=!0,a[b]=c)}));return d}function f(){n(b,function(b){var c=a.get(b);if(c){var d=Mf(b.attr("class")),e="",f="";n(c,function(a,b){a!==!!d[b]&&(a?e+=(e.length?" ":"")+b:f+=(f.length?" ":"")+b)});n(b,function(a){e&&Ab(a,e);f&&zb(a,f)});a.remove(b)}});b.length=0}return{enabled:x,on:x,off:x,pin:x,push:function(g,h,k,l){l&&l();k=k||{};k.from&&g.css(k.from);
-k.to&&g.css(k.to);if(k.addClass||k.removeClass)if(h=k.addClass,l=k.removeClass,k=a.get(g)||{},h=e(k,h,!0),l=e(k,l,!1),h||l)a.put(g,k),b.push(g),1===b.length&&c.$$postDigest(f);return new d}}}]},Re=["$provide",function(a){var b=this;this.$$registeredAnimations=Object.create(null);this.register=function(d,c){if(d&&"."!==d.charAt(0))throw Md("notcsel",d);var e=d+"-animation";b.$$registeredAnimations[d.substr(1)]=e;a.factory(e,c)};this.classNameFilter=function(a){if(1===arguments.length&&(this.$$classNameFilter=
-a instanceof RegExp?a:null)&&/(\s+|\/)ng-animate(\s+|\/)/.test(this.$$classNameFilter.toString()))throw Md("nongcls","ng-animate");return this.$$classNameFilter};this.$get=["$$animateQueue",function(a){function b(a,c,d){if(d){var h;a:{for(h=0;h<d.length;h++){var k=d[h];if(1===k.nodeType){h=k;break a}}h=void 0}!h||h.parentNode||h.previousElementSibling||(d=null)}d?d.after(a):c.prepend(a)}return{on:a.on,off:a.off,pin:a.pin,enabled:a.enabled,cancel:function(a){a.end&&a.end()},enter:function(e,f,g,h){f=
-f&&B(f);g=g&&B(g);f=f||g.parent();b(e,f,g);return a.push(e,"enter",Ea(h))},move:function(e,f,g,h){f=f&&B(f);g=g&&B(g);f=f||g.parent();b(e,f,g);return a.push(e,"move",Ea(h))},leave:function(b,c){return a.push(b,"leave",Ea(c),function(){b.remove()})},addClass:function(b,c,g){g=Ea(g);g.addClass=hb(g.addclass,c);return a.push(b,"addClass",g)},removeClass:function(b,c,g){g=Ea(g);g.removeClass=hb(g.removeClass,c);return a.push(b,"removeClass",g)},setClass:function(b,c,g,h){h=Ea(h);h.addClass=hb(h.addClass,
-c);h.removeClass=hb(h.removeClass,g);return a.push(b,"setClass",h)},animate:function(b,c,g,h,k){k=Ea(k);k.from=k.from?M(k.from,c):c;k.to=k.to?M(k.to,g):g;k.tempClasses=hb(k.tempClasses,h||"ng-inline-animate");return a.push(b,"animate",k)}}}]}],Se=function(){this.$get=["$$rAF","$q",function(a,b){var d=function(){};d.prototype={done:function(a){this.defer&&this.defer[!0===a?"reject":"resolve"]()},end:function(){this.done()},cancel:function(){this.done(!0)},getPromise:function(){this.defer||(this.defer=
-b.defer());return this.defer.promise},then:function(a,b){return this.getPromise().then(a,b)},"catch":function(a){return this.getPromise()["catch"](a)},"finally":function(a){return this.getPromise()["finally"](a)}};return function(b,e){function f(){a(function(){e.addClass&&(b.addClass(e.addClass),e.addClass=null);e.removeClass&&(b.removeClass(e.removeClass),e.removeClass=null);e.to&&(b.css(e.to),e.to=null);g||h.done();g=!0});return h}e.cleanupStyles&&(e.from=e.to=null);e.from&&(b.css(e.from),e.from=
-null);var g,h=new d;return{start:f,end:f}}}]},ha=G("$compile");Cc.$inject=["$provide","$$sanitizeUriProvider"];var Vc=/^((?:x|data)[\:\-_])/i,Qf=G("$controller"),Uc=/^(\S+)(\s+as\s+(\w+))?$/,$e=function(){this.$get=["$document",function(a){return function(b){b?!b.nodeType&&b instanceof B&&(b=b[0]):b=a[0].body;return b.offsetWidth+1}}]},$c="application/json",ac={"Content-Type":$c+";charset=utf-8"},Sf=/^\[|^\{(?!\{)/,Tf={"[":/]$/,"{":/}$/},Rf=/^\)\]\}',?\n/,pg=G("$http"),dd=function(a){return function(){throw pg("legacy",
-a);}},Ja=fa.$interpolateMinErr=G("$interpolate");Ja.throwNoconcat=function(a){throw Ja("noconcat",a);};Ja.interr=function(a,b){return Ja("interr",a,b.toString())};var qg=/^([^\?#]*)(\?([^#]*))?(#(.*))?$/,Vf={http:80,https:443,ftp:21},Db=G("$location"),rg={$$html5:!1,$$replace:!1,absUrl:Eb("$$absUrl"),url:function(a){if(q(a))return this.$$url;var b=qg.exec(a);(b[1]||""===a)&&this.path(decodeURIComponent(b[1]));(b[2]||b[1]||""===a)&&this.search(b[3]||"");this.hash(b[5]||"");return this},protocol:Eb("$$protocol"),
-host:Eb("$$host"),port:Eb("$$port"),path:id("$$path",function(a){a=null!==a?a.toString():"";return"/"==a.charAt(0)?a:"/"+a}),search:function(a,b){switch(arguments.length){case 0:return this.$$search;case 1:if(E(a)||Q(a))a=a.toString(),this.$$search=xc(a);else if(H(a))a=bb(a,{}),n(a,function(b,c){null==b&&delete a[c]}),this.$$search=a;else throw Db("isrcharg");break;default:q(b)||null===b?delete this.$$search[a]:this.$$search[a]=b}this.$$compose();return this},hash:id("$$hash",function(a){return null!==
-a?a.toString():""}),replace:function(){this.$$replace=!0;return this}};n([hd,dc,cc],function(a){a.prototype=Object.create(rg);a.prototype.state=function(b){if(!arguments.length)return this.$$state;if(a!==cc||!this.$$html5)throw Db("nostate");this.$$state=q(b)?null:b;return this}});var ba=G("$parse"),Wf=Function.prototype.call,Xf=Function.prototype.apply,Yf=Function.prototype.bind,Lb=$();n("+ - * / % === !== == != < > <= >= && || ! = |".split(" "),function(a){Lb[a]=!0});var sg={n:"\n",f:"\f",r:"\r",
-t:"\t",v:"\v","'":"'",'"':'"'},fc=function(a){this.options=a};fc.prototype={constructor:fc,lex:function(a){this.text=a;this.index=0;for(this.tokens=[];this.index<this.text.length;)if(a=this.text.charAt(this.index),'"'===a||"'"===a)this.readString(a);else if(this.isNumber(a)||"."===a&&this.isNumber(this.peek()))this.readNumber();else if(this.isIdent(a))this.readIdent();else if(this.is(a,"(){}[].,;:?"))this.tokens.push({index:this.index,text:a}),this.index++;else if(this.isWhitespace(a))this.index++;
-else{var b=a+this.peek(),d=b+this.peek(2),c=Lb[b],e=Lb[d];Lb[a]||c||e?(a=e?d:c?b:a,this.tokens.push({index:this.index,text:a,operator:!0}),this.index+=a.length):this.throwError("Unexpected next character ",this.index,this.index+1)}return this.tokens},is:function(a,b){return-1!==b.indexOf(a)},peek:function(a){a=a||1;return this.index+a<this.text.length?this.text.charAt(this.index+a):!1},isNumber:function(a){return"0"<=a&&"9">=a&&"string"===typeof a},isWhitespace:function(a){return" "===a||"\r"===a||
-"\t"===a||"\n"===a||"\v"===a||"\u00a0"===a},isIdent:function(a){return"a"<=a&&"z">=a||"A"<=a&&"Z">=a||"_"===a||"$"===a},isExpOperator:function(a){return"-"===a||"+"===a||this.isNumber(a)},throwError:function(a,b,d){d=d||this.index;b=y(b)?"s "+b+"-"+this.index+" ["+this.text.substring(b,d)+"]":" "+d;throw ba("lexerr",a,b,this.text);},readNumber:function(){for(var a="",b=this.index;this.index<this.text.length;){var d=F(this.text.charAt(this.index));if("."==d||this.isNumber(d))a+=d;else{var c=this.peek();
-if("e"==d&&this.isExpOperator(c))a+=d;else if(this.isExpOperator(d)&&c&&this.isNumber(c)&&"e"==a.charAt(a.length-1))a+=d;else if(!this.isExpOperator(d)||c&&this.isNumber(c)||"e"!=a.charAt(a.length-1))break;else this.throwError("Invalid exponent")}this.index++}this.tokens.push({index:b,text:a,constant:!0,value:Number(a)})},readIdent:function(){for(var a=this.index;this.index<this.text.length;){var b=this.text.charAt(this.index);if(!this.isIdent(b)&&!this.isNumber(b))break;this.index++}this.tokens.push({index:a,
-text:this.text.slice(a,this.index),identifier:!0})},readString:function(a){var b=this.index;this.index++;for(var d="",c=a,e=!1;this.index<this.text.length;){var f=this.text.charAt(this.index),c=c+f;if(e)"u"===f?(e=this.text.substring(this.index+1,this.index+5),e.match(/[\da-f]{4}/i)||this.throwError("Invalid unicode escape [\\u"+e+"]"),this.index+=4,d+=String.fromCharCode(parseInt(e,16))):d+=sg[f]||f,e=!1;else if("\\"===f)e=!0;else{if(f===a){this.index++;this.tokens.push({index:b,text:c,constant:!0,
-value:d});return}d+=f}this.index++}this.throwError("Unterminated quote",b)}};var s=function(a,b){this.lexer=a;this.options=b};s.Program="Program";s.ExpressionStatement="ExpressionStatement";s.AssignmentExpression="AssignmentExpression";s.ConditionalExpression="ConditionalExpression";s.LogicalExpression="LogicalExpression";s.BinaryExpression="BinaryExpression";s.UnaryExpression="UnaryExpression";s.CallExpression="CallExpression";s.MemberExpression="MemberExpression";s.Identifier="Identifier";s.Literal=
-"Literal";s.ArrayExpression="ArrayExpression";s.Property="Property";s.ObjectExpression="ObjectExpression";s.ThisExpression="ThisExpression";s.NGValueParameter="NGValueParameter";s.prototype={ast:function(a){this.text=a;this.tokens=this.lexer.lex(a);a=this.program();0!==this.tokens.length&&this.throwError("is an unexpected token",this.tokens[0]);return a},program:function(){for(var a=[];;)if(0<this.tokens.length&&!this.peek("}",")",";","]")&&a.push(this.expressionStatement()),!this.expect(";"))return{type:s.Program,
-body:a}},expressionStatement:function(){return{type:s.ExpressionStatement,expression:this.filterChain()}},filterChain:function(){for(var a=this.expression();this.expect("|");)a=this.filter(a);return a},expression:function(){return this.assignment()},assignment:function(){var a=this.ternary();this.expect("=")&&(a={type:s.AssignmentExpression,left:a,right:this.assignment(),operator:"="});return a},ternary:function(){var a=this.logicalOR(),b,d;return this.expect("?")&&(b=this.expression(),this.consume(":"))?
-(d=this.expression(),{type:s.ConditionalExpression,test:a,alternate:b,consequent:d}):a},logicalOR:function(){for(var a=this.logicalAND();this.expect("||");)a={type:s.LogicalExpression,operator:"||",left:a,right:this.logicalAND()};return a},logicalAND:function(){for(var a=this.equality();this.expect("&&");)a={type:s.LogicalExpression,operator:"&&",left:a,right:this.equality()};return a},equality:function(){for(var a=this.relational(),b;b=this.expect("==","!=","===","!==");)a={type:s.BinaryExpression,
-operator:b.text,left:a,right:this.relational()};return a},relational:function(){for(var a=this.additive(),b;b=this.expect("<",">","<=",">=");)a={type:s.BinaryExpression,operator:b.text,left:a,right:this.additive()};return a},additive:function(){for(var a=this.multiplicative(),b;b=this.expect("+","-");)a={type:s.BinaryExpression,operator:b.text,left:a,right:this.multiplicative()};return a},multiplicative:function(){for(var a=this.unary(),b;b=this.expect("*","/","%");)a={type:s.BinaryExpression,operator:b.text,
-left:a,right:this.unary()};return a},unary:function(){var a;return(a=this.expect("+","-","!"))?{type:s.UnaryExpression,operator:a.text,prefix:!0,argument:this.unary()}:this.primary()},primary:function(){var a;this.expect("(")?(a=this.filterChain(),this.consume(")")):this.expect("[")?a=this.arrayDeclaration():this.expect("{")?a=this.object():this.constants.hasOwnProperty(this.peek().text)?a=bb(this.constants[this.consume().text]):this.peek().identifier?a=this.identifier():this.peek().constant?a=this.constant():
-this.throwError("not a primary expression",this.peek());for(var b;b=this.expect("(","[",".");)"("===b.text?(a={type:s.CallExpression,callee:a,arguments:this.parseArguments()},this.consume(")")):"["===b.text?(a={type:s.MemberExpression,object:a,property:this.expression(),computed:!0},this.consume("]")):"."===b.text?a={type:s.MemberExpression,object:a,property:this.identifier(),computed:!1}:this.throwError("IMPOSSIBLE");return a},filter:function(a){a=[a];for(var b={type:s.CallExpression,callee:this.identifier(),
-arguments:a,filter:!0};this.expect(":");)a.push(this.expression());return b},parseArguments:function(){var a=[];if(")"!==this.peekToken().text){do a.push(this.expression());while(this.expect(","))}return a},identifier:function(){var a=this.consume();a.identifier||this.throwError("is not a valid identifier",a);return{type:s.Identifier,name:a.text}},constant:function(){return{type:s.Literal,value:this.consume().value}},arrayDeclaration:function(){var a=[];if("]"!==this.peekToken().text){do{if(this.peek("]"))break;
-a.push(this.expression())}while(this.expect(","))}this.consume("]");return{type:s.ArrayExpression,elements:a}},object:function(){var a=[],b;if("}"!==this.peekToken().text){do{if(this.peek("}"))break;b={type:s.Property,kind:"init"};this.peek().constant?b.key=this.constant():this.peek().identifier?b.key=this.identifier():this.throwError("invalid key",this.peek());this.consume(":");b.value=this.expression();a.push(b)}while(this.expect(","))}this.consume("}");return{type:s.ObjectExpression,properties:a}},
-throwError:function(a,b){throw ba("syntax",b.text,a,b.index+1,this.text,this.text.substring(b.index));},consume:function(a){if(0===this.tokens.length)throw ba("ueoe",this.text);var b=this.expect(a);b||this.throwError("is unexpected, expecting ["+a+"]",this.peek());return b},peekToken:function(){if(0===this.tokens.length)throw ba("ueoe",this.text);return this.tokens[0]},peek:function(a,b,d,c){return this.peekAhead(0,a,b,d,c)},peekAhead:function(a,b,d,c,e){if(this.tokens.length>a){a=this.tokens[a];
-var f=a.text;if(f===b||f===d||f===c||f===e||!(b||d||c||e))return a}return!1},expect:function(a,b,d,c){return(a=this.peek(a,b,d,c))?(this.tokens.shift(),a):!1},constants:{"true":{type:s.Literal,value:!0},"false":{type:s.Literal,value:!1},"null":{type:s.Literal,value:null},undefined:{type:s.Literal,value:u},"this":{type:s.ThisExpression}}};rd.prototype={compile:function(a,b){var d=this,c=this.astBuilder.ast(a);this.state={nextId:0,filters:{},expensiveChecks:b,fn:{vars:[],body:[],own:{}},assign:{vars:[],
-body:[],own:{}},inputs:[]};W(c,d.$filter);var e="",f;this.stage="assign";if(f=pd(c))this.state.computing="assign",e=this.nextId(),this.recurse(f,e),this.return_(e),e="fn.assign="+this.generateFunction("assign","s,v,l");f=nd(c.body);d.stage="inputs";n(f,function(a,b){var c="fn"+b;d.state[c]={vars:[],body:[],own:{}};d.state.computing=c;var e=d.nextId();d.recurse(a,e);d.return_(e);d.state.inputs.push(c);a.watchId=b});this.state.computing="fn";this.stage="main";this.recurse(c);e='"'+this.USE+" "+this.STRICT+
-'";\n'+this.filterPrefix()+"var fn="+this.generateFunction("fn","s,l,a,i")+e+this.watchFns()+"return fn;";e=(new Function("$filter","ensureSafeMemberName","ensureSafeObject","ensureSafeFunction","getStringValue","ensureSafeAssignContext","ifDefined","plus","text",e))(this.$filter,Va,xa,kd,jd,ld,Zf,md,a);this.state=this.stage=u;e.literal=qd(c);e.constant=c.constant;return e},USE:"use",STRICT:"strict",watchFns:function(){var a=[],b=this.state.inputs,d=this;n(b,function(b){a.push("var "+b+"="+d.generateFunction(b,
-"s"))});b.length&&a.push("fn.inputs=["+b.join(",")+"];");return a.join("")},generateFunction:function(a,b){return"function("+b+"){"+this.varsPrefix(a)+this.body(a)+"};"},filterPrefix:function(){var a=[],b=this;n(this.state.filters,function(d,c){a.push(d+"=$filter("+b.escape(c)+")")});return a.length?"var "+a.join(",")+";":""},varsPrefix:function(a){return this.state[a].vars.length?"var "+this.state[a].vars.join(",")+";":""},body:function(a){return this.state[a].body.join("")},recurse:function(a,b,
-d,c,e,f){var g,h,k=this,l,m;c=c||x;if(!f&&y(a.watchId))b=b||this.nextId(),this.if_("i",this.lazyAssign(b,this.computedMember("i",a.watchId)),this.lazyRecurse(a,b,d,c,e,!0));else switch(a.type){case s.Program:n(a.body,function(b,c){k.recurse(b.expression,u,u,function(a){h=a});c!==a.body.length-1?k.current().body.push(h,";"):k.return_(h)});break;case s.Literal:m=this.escape(a.value);this.assign(b,m);c(m);break;case s.UnaryExpression:this.recurse(a.argument,u,u,function(a){h=a});m=a.operator+"("+this.ifDefined(h,
-0)+")";this.assign(b,m);c(m);break;case s.BinaryExpression:this.recurse(a.left,u,u,function(a){g=a});this.recurse(a.right,u,u,function(a){h=a});m="+"===a.operator?this.plus(g,h):"-"===a.operator?this.ifDefined(g,0)+a.operator+this.ifDefined(h,0):"("+g+")"+a.operator+"("+h+")";this.assign(b,m);c(m);break;case s.LogicalExpression:b=b||this.nextId();k.recurse(a.left,b);k.if_("&&"===a.operator?b:k.not(b),k.lazyRecurse(a.right,b));c(b);break;case s.ConditionalExpression:b=b||this.nextId();k.recurse(a.test,
-b);k.if_(b,k.lazyRecurse(a.alternate,b),k.lazyRecurse(a.consequent,b));c(b);break;case s.Identifier:b=b||this.nextId();d&&(d.context="inputs"===k.stage?"s":this.assign(this.nextId(),this.getHasOwnProperty("l",a.name)+"?l:s"),d.computed=!1,d.name=a.name);Va(a.name);k.if_("inputs"===k.stage||k.not(k.getHasOwnProperty("l",a.name)),function(){k.if_("inputs"===k.stage||"s",function(){e&&1!==e&&k.if_(k.not(k.nonComputedMember("s",a.name)),k.lazyAssign(k.nonComputedMember("s",a.name),"{}"));k.assign(b,k.nonComputedMember("s",
-a.name))})},b&&k.lazyAssign(b,k.nonComputedMember("l",a.name)));(k.state.expensiveChecks||Fb(a.name))&&k.addEnsureSafeObject(b);c(b);break;case s.MemberExpression:g=d&&(d.context=this.nextId())||this.nextId();b=b||this.nextId();k.recurse(a.object,g,u,function(){k.if_(k.notNull(g),function(){if(a.computed)h=k.nextId(),k.recurse(a.property,h),k.getStringValue(h),k.addEnsureSafeMemberName(h),e&&1!==e&&k.if_(k.not(k.computedMember(g,h)),k.lazyAssign(k.computedMember(g,h),"{}")),m=k.ensureSafeObject(k.computedMember(g,
-h)),k.assign(b,m),d&&(d.computed=!0,d.name=h);else{Va(a.property.name);e&&1!==e&&k.if_(k.not(k.nonComputedMember(g,a.property.name)),k.lazyAssign(k.nonComputedMember(g,a.property.name),"{}"));m=k.nonComputedMember(g,a.property.name);if(k.state.expensiveChecks||Fb(a.property.name))m=k.ensureSafeObject(m);k.assign(b,m);d&&(d.computed=!1,d.name=a.property.name)}},function(){k.assign(b,"undefined")});c(b)},!!e);break;case s.CallExpression:b=b||this.nextId();a.filter?(h=k.filter(a.callee.name),l=[],n(a.arguments,
-function(a){var b=k.nextId();k.recurse(a,b);l.push(b)}),m=h+"("+l.join(",")+")",k.assign(b,m),c(b)):(h=k.nextId(),g={},l=[],k.recurse(a.callee,h,g,function(){k.if_(k.notNull(h),function(){k.addEnsureSafeFunction(h);n(a.arguments,function(a){k.recurse(a,k.nextId(),u,function(a){l.push(k.ensureSafeObject(a))})});g.name?(k.state.expensiveChecks||k.addEnsureSafeObject(g.context),m=k.member(g.context,g.name,g.computed)+"("+l.join(",")+")"):m=h+"("+l.join(",")+")";m=k.ensureSafeObject(m);k.assign(b,m)},
-function(){k.assign(b,"undefined")});c(b)}));break;case s.AssignmentExpression:h=this.nextId();g={};if(!od(a.left))throw ba("lval");this.recurse(a.left,u,g,function(){k.if_(k.notNull(g.context),function(){k.recurse(a.right,h);k.addEnsureSafeObject(k.member(g.context,g.name,g.computed));k.addEnsureSafeAssignContext(g.context);m=k.member(g.context,g.name,g.computed)+a.operator+h;k.assign(b,m);c(b||m)})},1);break;case s.ArrayExpression:l=[];n(a.elements,function(a){k.recurse(a,k.nextId(),u,function(a){l.push(a)})});
-m="["+l.join(",")+"]";this.assign(b,m);c(m);break;case s.ObjectExpression:l=[];n(a.properties,function(a){k.recurse(a.value,k.nextId(),u,function(b){l.push(k.escape(a.key.type===s.Identifier?a.key.name:""+a.key.value)+":"+b)})});m="{"+l.join(",")+"}";this.assign(b,m);c(m);break;case s.ThisExpression:this.assign(b,"s");c("s");break;case s.NGValueParameter:this.assign(b,"v"),c("v")}},getHasOwnProperty:function(a,b){var d=a+"."+b,c=this.current().own;c.hasOwnProperty(d)||(c[d]=this.nextId(!1,a+"&&("+
-this.escape(b)+" in "+a+")"));return c[d]},assign:function(a,b){if(a)return this.current().body.push(a,"=",b,";"),a},filter:function(a){this.state.filters.hasOwnProperty(a)||(this.state.filters[a]=this.nextId(!0));return this.state.filters[a]},ifDefined:function(a,b){return"ifDefined("+a+","+this.escape(b)+")"},plus:function(a,b){return"plus("+a+","+b+")"},return_:function(a){this.current().body.push("return ",a,";")},if_:function(a,b,d){if(!0===a)b();else{var c=this.current().body;c.push("if(",a,
-"){");b();c.push("}");d&&(c.push("else{"),d(),c.push("}"))}},not:function(a){return"!("+a+")"},notNull:function(a){return a+"!=null"},nonComputedMember:function(a,b){return a+"."+b},computedMember:function(a,b){return a+"["+b+"]"},member:function(a,b,d){return d?this.computedMember(a,b):this.nonComputedMember(a,b)},addEnsureSafeObject:function(a){this.current().body.push(this.ensureSafeObject(a),";")},addEnsureSafeMemberName:function(a){this.current().body.push(this.ensureSafeMemberName(a),";")},
-addEnsureSafeFunction:function(a){this.current().body.push(this.ensureSafeFunction(a),";")},addEnsureSafeAssignContext:function(a){this.current().body.push(this.ensureSafeAssignContext(a),";")},ensureSafeObject:function(a){return"ensureSafeObject("+a+",text)"},ensureSafeMemberName:function(a){return"ensureSafeMemberName("+a+",text)"},ensureSafeFunction:function(a){return"ensureSafeFunction("+a+",text)"},getStringValue:function(a){this.assign(a,"getStringValue("+a+",text)")},ensureSafeAssignContext:function(a){return"ensureSafeAssignContext("+
-a+",text)"},lazyRecurse:function(a,b,d,c,e,f){var g=this;return function(){g.recurse(a,b,d,c,e,f)}},lazyAssign:function(a,b){var d=this;return function(){d.assign(a,b)}},stringEscapeRegex:/[^ a-zA-Z0-9]/g,stringEscapeFn:function(a){return"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)},escape:function(a){if(E(a))return"'"+a.replace(this.stringEscapeRegex,this.stringEscapeFn)+"'";if(Q(a))return a.toString();if(!0===a)return"true";if(!1===a)return"false";if(null===a)return"null";if("undefined"===
-typeof a)return"undefined";throw ba("esc");},nextId:function(a,b){var d="v"+this.state.nextId++;a||this.current().vars.push(d+(b?"="+b:""));return d},current:function(){return this.state[this.state.computing]}};sd.prototype={compile:function(a,b){var d=this,c=this.astBuilder.ast(a);this.expression=a;this.expensiveChecks=b;W(c,d.$filter);var e,f;if(e=pd(c))f=this.recurse(e);e=nd(c.body);var g;e&&(g=[],n(e,function(a,b){var c=d.recurse(a);a.input=c;g.push(c);a.watchId=b}));var h=[];n(c.body,function(a){h.push(d.recurse(a.expression))});
-e=0===c.body.length?function(){}:1===c.body.length?h[0]:function(a,b){var c;n(h,function(d){c=d(a,b)});return c};f&&(e.assign=function(a,b,c){return f(a,c,b)});g&&(e.inputs=g);e.literal=qd(c);e.constant=c.constant;return e},recurse:function(a,b,d){var c,e,f=this,g;if(a.input)return this.inputs(a.input,a.watchId);switch(a.type){case s.Literal:return this.value(a.value,b);case s.UnaryExpression:return e=this.recurse(a.argument),this["unary"+a.operator](e,b);case s.BinaryExpression:return c=this.recurse(a.left),
-e=this.recurse(a.right),this["binary"+a.operator](c,e,b);case s.LogicalExpression:return c=this.recurse(a.left),e=this.recurse(a.right),this["binary"+a.operator](c,e,b);case s.ConditionalExpression:return this["ternary?:"](this.recurse(a.test),this.recurse(a.alternate),this.recurse(a.consequent),b);case s.Identifier:return Va(a.name,f.expression),f.identifier(a.name,f.expensiveChecks||Fb(a.name),b,d,f.expression);case s.MemberExpression:return c=this.recurse(a.object,!1,!!d),a.computed||(Va(a.property.name,
-f.expression),e=a.property.name),a.computed&&(e=this.recurse(a.property)),a.computed?this.computedMember(c,e,b,d,f.expression):this.nonComputedMember(c,e,f.expensiveChecks,b,d,f.expression);case s.CallExpression:return g=[],n(a.arguments,function(a){g.push(f.recurse(a))}),a.filter&&(e=this.$filter(a.callee.name)),a.filter||(e=this.recurse(a.callee,!0)),a.filter?function(a,c,d,f){for(var r=[],n=0;n<g.length;++n)r.push(g[n](a,c,d,f));a=e.apply(u,r,f);return b?{context:u,name:u,value:a}:a}:function(a,
-c,d,m){var r=e(a,c,d,m),n;if(null!=r.value){xa(r.context,f.expression);kd(r.value,f.expression);n=[];for(var q=0;q<g.length;++q)n.push(xa(g[q](a,c,d,m),f.expression));n=xa(r.value.apply(r.context,n),f.expression)}return b?{value:n}:n};case s.AssignmentExpression:return c=this.recurse(a.left,!0,1),e=this.recurse(a.right),function(a,d,g,m){var n=c(a,d,g,m);a=e(a,d,g,m);xa(n.value,f.expression);ld(n.context);n.context[n.name]=a;return b?{value:a}:a};case s.ArrayExpression:return g=[],n(a.elements,function(a){g.push(f.recurse(a))}),
-function(a,c,d,e){for(var f=[],n=0;n<g.length;++n)f.push(g[n](a,c,d,e));return b?{value:f}:f};case s.ObjectExpression:return g=[],n(a.properties,function(a){g.push({key:a.key.type===s.Identifier?a.key.name:""+a.key.value,value:f.recurse(a.value)})}),function(a,c,d,e){for(var f={},n=0;n<g.length;++n)f[g[n].key]=g[n].value(a,c,d,e);return b?{value:f}:f};case s.ThisExpression:return function(a){return b?{value:a}:a};case s.NGValueParameter:return function(a,c,d,e){return b?{value:d}:d}}},"unary+":function(a,
-b){return function(d,c,e,f){d=a(d,c,e,f);d=y(d)?+d:0;return b?{value:d}:d}},"unary-":function(a,b){return function(d,c,e,f){d=a(d,c,e,f);d=y(d)?-d:0;return b?{value:d}:d}},"unary!":function(a,b){return function(d,c,e,f){d=!a(d,c,e,f);return b?{value:d}:d}},"binary+":function(a,b,d){return function(c,e,f,g){var h=a(c,e,f,g);c=b(c,e,f,g);h=md(h,c);return d?{value:h}:h}},"binary-":function(a,b,d){return function(c,e,f,g){var h=a(c,e,f,g);c=b(c,e,f,g);h=(y(h)?h:0)-(y(c)?c:0);return d?{value:h}:h}},"binary*":function(a,
-b,d){return function(c,e,f,g){c=a(c,e,f,g)*b(c,e,f,g);return d?{value:c}:c}},"binary/":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)/b(c,e,f,g);return d?{value:c}:c}},"binary%":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)%b(c,e,f,g);return d?{value:c}:c}},"binary===":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)===b(c,e,f,g);return d?{value:c}:c}},"binary!==":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)!==b(c,e,f,g);return d?{value:c}:c}},"binary==":function(a,b,
-d){return function(c,e,f,g){c=a(c,e,f,g)==b(c,e,f,g);return d?{value:c}:c}},"binary!=":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)!=b(c,e,f,g);return d?{value:c}:c}},"binary<":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)<b(c,e,f,g);return d?{value:c}:c}},"binary>":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)>b(c,e,f,g);return d?{value:c}:c}},"binary<=":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)<=b(c,e,f,g);return d?{value:c}:c}},"binary>=":function(a,b,d){return function(c,
-e,f,g){c=a(c,e,f,g)>=b(c,e,f,g);return d?{value:c}:c}},"binary&&":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)&&b(c,e,f,g);return d?{value:c}:c}},"binary||":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)||b(c,e,f,g);return d?{value:c}:c}},"ternary?:":function(a,b,d,c){return function(e,f,g,h){e=a(e,f,g,h)?b(e,f,g,h):d(e,f,g,h);return c?{value:e}:e}},value:function(a,b){return function(){return b?{context:u,name:u,value:a}:a}},identifier:function(a,b,d,c,e){return function(f,g,h,k){f=
-g&&a in g?g:f;c&&1!==c&&f&&!f[a]&&(f[a]={});g=f?f[a]:u;b&&xa(g,e);return d?{context:f,name:a,value:g}:g}},computedMember:function(a,b,d,c,e){return function(f,g,h,k){var l=a(f,g,h,k),m,n;null!=l&&(m=b(f,g,h,k),m=jd(m),Va(m,e),c&&1!==c&&l&&!l[m]&&(l[m]={}),n=l[m],xa(n,e));return d?{context:l,name:m,value:n}:n}},nonComputedMember:function(a,b,d,c,e,f){return function(g,h,k,l){g=a(g,h,k,l);e&&1!==e&&g&&!g[b]&&(g[b]={});h=null!=g?g[b]:u;(d||Fb(b))&&xa(h,f);return c?{context:g,name:b,value:h}:h}},inputs:function(a,
-b){return function(d,c,e,f){return f?f[b]:a(d,c,e)}}};var gc=function(a,b,d){this.lexer=a;this.$filter=b;this.options=d;this.ast=new s(this.lexer);this.astCompiler=d.csp?new sd(this.ast,b):new rd(this.ast,b)};gc.prototype={constructor:gc,parse:function(a){return this.astCompiler.compile(a,this.options.expensiveChecks)}};$();$();var $f=Object.prototype.valueOf,ya=G("$sce"),la={HTML:"html",CSS:"css",URL:"url",RESOURCE_URL:"resourceUrl",JS:"js"},ha=G("$compile"),Y=X.createElement("a"),wd=wa(S.location.href);
-xd.$inject=["$document"];Jc.$inject=["$provide"];yd.$inject=["$locale"];Ad.$inject=["$locale"];var ic=".",jg={yyyy:ca("FullYear",4),yy:ca("FullYear",2,0,!0),y:ca("FullYear",1),MMMM:Hb("Month"),MMM:Hb("Month",!0),MM:ca("Month",2,1),M:ca("Month",1,1),dd:ca("Date",2),d:ca("Date",1),HH:ca("Hours",2),H:ca("Hours",1),hh:ca("Hours",2,-12),h:ca("Hours",1,-12),mm:ca("Minutes",2),m:ca("Minutes",1),ss:ca("Seconds",2),s:ca("Seconds",1),sss:ca("Milliseconds",3),EEEE:Hb("Day"),EEE:Hb("Day",!0),a:function(a,b){return 12>
-a.getHours()?b.AMPMS[0]:b.AMPMS[1]},Z:function(a,b,d){a=-1*d;return a=(0<=a?"+":"")+(Gb(Math[0<a?"floor":"ceil"](a/60),2)+Gb(Math.abs(a%60),2))},ww:Ed(2),w:Ed(1),G:jc,GG:jc,GGG:jc,GGGG:function(a,b){return 0>=a.getFullYear()?b.ERANAMES[0]:b.ERANAMES[1]}},ig=/((?:[^yMdHhmsaZEwG']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|d+|H+|h+|m+|s+|a|Z|G+|w+))(.*)/,hg=/^\-?\d+$/;zd.$inject=["$locale"];var eg=na(F),fg=na(sb);Bd.$inject=["$parse"];var he=na({restrict:"E",compile:function(a,b){if(!b.href&&!b.xlinkHref)return function(a,
-b){if("a"===b[0].nodeName.toLowerCase()){var e="[object SVGAnimatedString]"===sa.call(b.prop("href"))?"xlink:href":"href";b.on("click",function(a){b.attr(e)||a.preventDefault()})}}}}),tb={};n(Cb,function(a,b){function d(a,d,e){a.$watch(e[c],function(a){e.$set(b,!!a)})}if("multiple"!=a){var c=va("ng-"+b),e=d;"checked"===a&&(e=function(a,b,e){e.ngModel!==e[c]&&d(a,b,e)});tb[c]=function(){return{restrict:"A",priority:100,link:e}}}});n(Zc,function(a,b){tb[b]=function(){return{priority:100,link:function(a,
-c,e){if("ngPattern"===b&&"/"==e.ngPattern.charAt(0)&&(c=e.ngPattern.match(lg))){e.$set("ngPattern",new RegExp(c[1],c[2]));return}a.$watch(e[b],function(a){e.$set(b,a)})}}}});n(["src","srcset","href"],function(a){var b=va("ng-"+a);tb[b]=function(){return{priority:99,link:function(d,c,e){var f=a,g=a;"href"===a&&"[object SVGAnimatedString]"===sa.call(c.prop("href"))&&(g="xlinkHref",e.$attr[g]="xlink:href",f=null);e.$observe(b,function(b){b?(e.$set(g,b),Ha&&f&&c.prop(f,e[g])):"href"===a&&e.$set(g,null)})}}}});
-var Ib={$addControl:x,$$renameControl:function(a,b){a.$name=b},$removeControl:x,$setValidity:x,$setDirty:x,$setPristine:x,$setSubmitted:x};Fd.$inject=["$element","$attrs","$scope","$animate","$interpolate"];var Nd=function(a){return["$timeout","$parse",function(b,d){function c(a){return""===a?d('this[""]').assign:d(a).assign||x}return{name:"form",restrict:a?"EAC":"E",require:["form","^^?form"],controller:Fd,compile:function(d,f){d.addClass(Wa).addClass(mb);var g=f.name?"name":a&&f.ngForm?"ngForm":
-!1;return{pre:function(a,d,e,f){var n=f[0];if(!("action"in e)){var q=function(b){a.$apply(function(){n.$commitViewValue();n.$setSubmitted()});b.preventDefault()};d[0].addEventListener("submit",q,!1);d.on("$destroy",function(){b(function(){d[0].removeEventListener("submit",q,!1)},0,!1)})}(f[1]||n.$$parentForm).$addControl(n);var s=g?c(n.$name):x;g&&(s(a,n),e.$observe(g,function(b){n.$name!==b&&(s(a,u),n.$$parentForm.$$renameControl(n,b),s=c(n.$name),s(a,n))}));d.on("$destroy",function(){n.$$parentForm.$removeControl(n);
-s(a,u);M(n,Ib)})}}}}}]},ie=Nd(),ve=Nd(!0),kg=/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/,tg=/^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/,ug=/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i,vg=/^\s*(\-|\+)?(\d+|(\d*(\.\d*)))([eE][+-]?\d+)?\s*$/,Od=/^(\d{4})-(\d{2})-(\d{2})$/,Pd=/^(\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)(?::(\d\d)(\.\d{1,3})?)?$/,mc=/^(\d{4})-W(\d\d)$/,Qd=/^(\d{4})-(\d\d)$/,
-Rd=/^(\d\d):(\d\d)(?::(\d\d)(\.\d{1,3})?)?$/,Sd={text:function(a,b,d,c,e,f){jb(a,b,d,c,e,f);kc(c)},date:kb("date",Od,Kb(Od,["yyyy","MM","dd"]),"yyyy-MM-dd"),"datetime-local":kb("datetimelocal",Pd,Kb(Pd,"yyyy MM dd HH mm ss sss".split(" ")),"yyyy-MM-ddTHH:mm:ss.sss"),time:kb("time",Rd,Kb(Rd,["HH","mm","ss","sss"]),"HH:mm:ss.sss"),week:kb("week",mc,function(a,b){if(da(a))return a;if(E(a)){mc.lastIndex=0;var d=mc.exec(a);if(d){var c=+d[1],e=+d[2],f=d=0,g=0,h=0,k=Dd(c),e=7*(e-1);b&&(d=b.getHours(),f=
-b.getMinutes(),g=b.getSeconds(),h=b.getMilliseconds());return new Date(c,0,k.getDate()+e,d,f,g,h)}}return NaN},"yyyy-Www"),month:kb("month",Qd,Kb(Qd,["yyyy","MM"]),"yyyy-MM"),number:function(a,b,d,c,e,f){Hd(a,b,d,c);jb(a,b,d,c,e,f);c.$$parserName="number";c.$parsers.push(function(a){return c.$isEmpty(a)?null:vg.test(a)?parseFloat(a):u});c.$formatters.push(function(a){if(!c.$isEmpty(a)){if(!Q(a))throw lb("numfmt",a);a=a.toString()}return a});if(y(d.min)||d.ngMin){var g;c.$validators.min=function(a){return c.$isEmpty(a)||
-q(g)||a>=g};d.$observe("min",function(a){y(a)&&!Q(a)&&(a=parseFloat(a,10));g=Q(a)&&!isNaN(a)?a:u;c.$validate()})}if(y(d.max)||d.ngMax){var h;c.$validators.max=function(a){return c.$isEmpty(a)||q(h)||a<=h};d.$observe("max",function(a){y(a)&&!Q(a)&&(a=parseFloat(a,10));h=Q(a)&&!isNaN(a)?a:u;c.$validate()})}},url:function(a,b,d,c,e,f){jb(a,b,d,c,e,f);kc(c);c.$$parserName="url";c.$validators.url=function(a,b){var d=a||b;return c.$isEmpty(d)||tg.test(d)}},email:function(a,b,d,c,e,f){jb(a,b,d,c,e,f);kc(c);
-c.$$parserName="email";c.$validators.email=function(a,b){var d=a||b;return c.$isEmpty(d)||ug.test(d)}},radio:function(a,b,d,c){q(d.name)&&b.attr("name",++nb);b.on("click",function(a){b[0].checked&&c.$setViewValue(d.value,a&&a.type)});c.$render=function(){b[0].checked=d.value==c.$viewValue};d.$observe("value",c.$render)},checkbox:function(a,b,d,c,e,f,g,h){var k=Id(h,a,"ngTrueValue",d.ngTrueValue,!0),l=Id(h,a,"ngFalseValue",d.ngFalseValue,!1);b.on("click",function(a){c.$setViewValue(b[0].checked,a&&
-a.type)});c.$render=function(){b[0].checked=c.$viewValue};c.$isEmpty=function(a){return!1===a};c.$formatters.push(function(a){return ma(a,k)});c.$parsers.push(function(a){return a?k:l})},hidden:x,button:x,submit:x,reset:x,file:x},Dc=["$browser","$sniffer","$filter","$parse",function(a,b,d,c){return{restrict:"E",require:["?ngModel"],link:{pre:function(e,f,g,h){h[0]&&(Sd[F(g.type)]||Sd.text)(e,f,g,h[0],b,a,d,c)}}}}],wg=/^(true|false|\d+)$/,Ne=function(){return{restrict:"A",priority:100,compile:function(a,
-b){return wg.test(b.ngValue)?function(a,b,e){e.$set("value",a.$eval(e.ngValue))}:function(a,b,e){a.$watch(e.ngValue,function(a){e.$set("value",a)})}}}},ne=["$compile",function(a){return{restrict:"AC",compile:function(b){a.$$addBindingClass(b);return function(b,c,e){a.$$addBindingInfo(c,e.ngBind);c=c[0];b.$watch(e.ngBind,function(a){c.textContent=q(a)?"":a})}}}}],pe=["$interpolate","$compile",function(a,b){return{compile:function(d){b.$$addBindingClass(d);return function(c,d,f){c=a(d.attr(f.$attr.ngBindTemplate));
-b.$$addBindingInfo(d,c.expressions);d=d[0];f.$observe("ngBindTemplate",function(a){d.textContent=q(a)?"":a})}}}}],oe=["$sce","$parse","$compile",function(a,b,d){return{restrict:"A",compile:function(c,e){var f=b(e.ngBindHtml),g=b(e.ngBindHtml,function(a){return(a||"").toString()});d.$$addBindingClass(c);return function(b,c,e){d.$$addBindingInfo(c,e.ngBindHtml);b.$watch(g,function(){c.html(a.getTrustedHtml(f(b))||"")})}}}}],Me=na({restrict:"A",require:"ngModel",link:function(a,b,d,c){c.$viewChangeListeners.push(function(){a.$eval(d.ngChange)})}}),
-qe=lc("",!0),se=lc("Odd",0),re=lc("Even",1),te=La({compile:function(a,b){b.$set("ngCloak",u);a.removeClass("ng-cloak")}}),ue=[function(){return{restrict:"A",scope:!0,controller:"@",priority:500}}],Ic={},xg={blur:!0,focus:!0};n("click dblclick mousedown mouseup mouseover mouseout mousemove mouseenter mouseleave keydown keyup keypress submit focus blur copy cut paste".split(" "),function(a){var b=va("ng-"+a);Ic[b]=["$parse","$rootScope",function(d,c){return{restrict:"A",compile:function(e,f){var g=
-d(f[b],null,!0);return function(b,d){d.on(a,function(d){var e=function(){g(b,{$event:d})};xg[a]&&c.$$phase?b.$evalAsync(e):b.$apply(e)})}}}}]});var xe=["$animate",function(a){return{multiElement:!0,transclude:"element",priority:600,terminal:!0,restrict:"A",$$tlb:!0,link:function(b,d,c,e,f){var g,h,k;b.$watch(c.ngIf,function(b){b?h||f(function(b,e){h=e;b[b.length++]=X.createComment(" end ngIf: "+c.ngIf+" ");g={clone:b};a.enter(b,d.parent(),d)}):(k&&(k.remove(),k=null),h&&(h.$destroy(),h=null),g&&(k=
-rb(g.clone),a.leave(k).then(function(){k=null}),g=null))})}}}],ye=["$templateRequest","$anchorScroll","$animate",function(a,b,d){return{restrict:"ECA",priority:400,terminal:!0,transclude:"element",controller:fa.noop,compile:function(c,e){var f=e.ngInclude||e.src,g=e.onload||"",h=e.autoscroll;return function(c,e,m,n,q){var s=0,v,u,p,C=function(){u&&(u.remove(),u=null);v&&(v.$destroy(),v=null);p&&(d.leave(p).then(function(){u=null}),u=p,p=null)};c.$watch(f,function(f){var m=function(){!y(h)||h&&!c.$eval(h)||
-b()},u=++s;f?(a(f,!0).then(function(a){if(u===s){var b=c.$new();n.template=a;a=q(b,function(a){C();d.enter(a,null,e).then(m)});v=b;p=a;v.$emit("$includeContentLoaded",f);c.$eval(g)}},function(){u===s&&(C(),c.$emit("$includeContentError",f))}),c.$emit("$includeContentRequested",f)):(C(),n.template=null)})}}}}],Pe=["$compile",function(a){return{restrict:"ECA",priority:-400,require:"ngInclude",link:function(b,d,c,e){/SVG/.test(d[0].toString())?(d.empty(),a(Lc(e.template,X).childNodes)(b,function(a){d.append(a)},
-{futureParentElement:d})):(d.html(e.template),a(d.contents())(b))}}}],ze=La({priority:450,compile:function(){return{pre:function(a,b,d){a.$eval(d.ngInit)}}}}),Le=function(){return{restrict:"A",priority:100,require:"ngModel",link:function(a,b,d,c){var e=b.attr(d.$attr.ngList)||", ",f="false"!==d.ngTrim,g=f?U(e):e;c.$parsers.push(function(a){if(!q(a)){var b=[];a&&n(a.split(g),function(a){a&&b.push(f?U(a):a)});return b}});c.$formatters.push(function(a){return I(a)?a.join(e):u});c.$isEmpty=function(a){return!a||
-!a.length}}}},mb="ng-valid",Jd="ng-invalid",Wa="ng-pristine",Jb="ng-dirty",Ld="ng-pending",lb=G("ngModel"),yg=["$scope","$exceptionHandler","$attrs","$element","$parse","$animate","$timeout","$rootScope","$q","$interpolate",function(a,b,d,c,e,f,g,h,k,l){this.$modelValue=this.$viewValue=Number.NaN;this.$$rawModelValue=u;this.$validators={};this.$asyncValidators={};this.$parsers=[];this.$formatters=[];this.$viewChangeListeners=[];this.$untouched=!0;this.$touched=!1;this.$pristine=!0;this.$dirty=!1;
-this.$valid=!0;this.$invalid=!1;this.$error={};this.$$success={};this.$pending=u;this.$name=l(d.name||"",!1)(a);this.$$parentForm=Ib;var m=e(d.ngModel),r=m.assign,t=m,s=r,v=null,B,p=this;this.$$setOptions=function(a){if((p.$options=a)&&a.getterSetter){var b=e(d.ngModel+"()"),f=e(d.ngModel+"($$$p)");t=function(a){var c=m(a);z(c)&&(c=b(a));return c};s=function(a,b){z(m(a))?f(a,{$$$p:p.$modelValue}):r(a,p.$modelValue)}}else if(!m.assign)throw lb("nonassign",d.ngModel,ua(c));};this.$render=x;this.$isEmpty=
-function(a){return q(a)||""===a||null===a||a!==a};var C=0;Gd({ctrl:this,$element:c,set:function(a,b){a[b]=!0},unset:function(a,b){delete a[b]},$animate:f});this.$setPristine=function(){p.$dirty=!1;p.$pristine=!0;f.removeClass(c,Jb);f.addClass(c,Wa)};this.$setDirty=function(){p.$dirty=!0;p.$pristine=!1;f.removeClass(c,Wa);f.addClass(c,Jb);p.$$parentForm.$setDirty()};this.$setUntouched=function(){p.$touched=!1;p.$untouched=!0;f.setClass(c,"ng-untouched","ng-touched")};this.$setTouched=function(){p.$touched=
-!0;p.$untouched=!1;f.setClass(c,"ng-touched","ng-untouched")};this.$rollbackViewValue=function(){g.cancel(v);p.$viewValue=p.$$lastCommittedViewValue;p.$render()};this.$validate=function(){if(!Q(p.$modelValue)||!isNaN(p.$modelValue)){var a=p.$$rawModelValue,b=p.$valid,c=p.$modelValue,d=p.$options&&p.$options.allowInvalid;p.$$runValidators(a,p.$$lastCommittedViewValue,function(e){d||b===e||(p.$modelValue=e?a:u,p.$modelValue!==c&&p.$$writeModelToScope())})}};this.$$runValidators=function(a,b,c){function d(){var c=
-!0;n(p.$validators,function(d,e){var g=d(a,b);c=c&&g;f(e,g)});return c?!0:(n(p.$asyncValidators,function(a,b){f(b,null)}),!1)}function e(){var c=[],d=!0;n(p.$asyncValidators,function(e,g){var h=e(a,b);if(!h||!z(h.then))throw lb("$asyncValidators",h);f(g,u);c.push(h.then(function(){f(g,!0)},function(a){d=!1;f(g,!1)}))});c.length?k.all(c).then(function(){g(d)},x):g(!0)}function f(a,b){h===C&&p.$setValidity(a,b)}function g(a){h===C&&c(a)}C++;var h=C;(function(){var a=p.$$parserName||"parse";if(q(B))f(a,
-null);else return B||(n(p.$validators,function(a,b){f(b,null)}),n(p.$asyncValidators,function(a,b){f(b,null)})),f(a,B),B;return!0})()?d()?e():g(!1):g(!1)};this.$commitViewValue=function(){var a=p.$viewValue;g.cancel(v);if(p.$$lastCommittedViewValue!==a||""===a&&p.$$hasNativeValidators)p.$$lastCommittedViewValue=a,p.$pristine&&this.$setDirty(),this.$$parseAndValidate()};this.$$parseAndValidate=function(){var b=p.$$lastCommittedViewValue;if(B=q(b)?u:!0)for(var c=0;c<p.$parsers.length;c++)if(b=p.$parsers[c](b),
-q(b)){B=!1;break}Q(p.$modelValue)&&isNaN(p.$modelValue)&&(p.$modelValue=t(a));var d=p.$modelValue,e=p.$options&&p.$options.allowInvalid;p.$$rawModelValue=b;e&&(p.$modelValue=b,p.$modelValue!==d&&p.$$writeModelToScope());p.$$runValidators(b,p.$$lastCommittedViewValue,function(a){e||(p.$modelValue=a?b:u,p.$modelValue!==d&&p.$$writeModelToScope())})};this.$$writeModelToScope=function(){s(a,p.$modelValue);n(p.$viewChangeListeners,function(a){try{a()}catch(c){b(c)}})};this.$setViewValue=function(a,b){p.$viewValue=
-a;p.$options&&!p.$options.updateOnDefault||p.$$debounceViewValueCommit(b)};this.$$debounceViewValueCommit=function(b){var c=0,d=p.$options;d&&y(d.debounce)&&(d=d.debounce,Q(d)?c=d:Q(d[b])?c=d[b]:Q(d["default"])&&(c=d["default"]));g.cancel(v);c?v=g(function(){p.$commitViewValue()},c):h.$$phase?p.$commitViewValue():a.$apply(function(){p.$commitViewValue()})};a.$watch(function(){var b=t(a);if(b!==p.$modelValue&&(p.$modelValue===p.$modelValue||b===b)){p.$modelValue=p.$$rawModelValue=b;B=u;for(var c=p.$formatters,
-d=c.length,e=b;d--;)e=c[d](e);p.$viewValue!==e&&(p.$viewValue=p.$$lastCommittedViewValue=e,p.$render(),p.$$runValidators(b,e,x))}return b})}],Ke=["$rootScope",function(a){return{restrict:"A",require:["ngModel","^?form","^?ngModelOptions"],controller:yg,priority:1,compile:function(b){b.addClass(Wa).addClass("ng-untouched").addClass(mb);return{pre:function(a,b,e,f){var g=f[0];b=f[1]||g.$$parentForm;g.$$setOptions(f[2]&&f[2].$options);b.$addControl(g);e.$observe("name",function(a){g.$name!==a&&g.$$parentForm.$$renameControl(g,
-a)});a.$on("$destroy",function(){g.$$parentForm.$removeControl(g)})},post:function(b,c,e,f){var g=f[0];if(g.$options&&g.$options.updateOn)c.on(g.$options.updateOn,function(a){g.$$debounceViewValueCommit(a&&a.type)});c.on("blur",function(c){g.$touched||(a.$$phase?b.$evalAsync(g.$setTouched):b.$apply(g.$setTouched))})}}}}}],zg=/(\s+|^)default(\s+|$)/,Oe=function(){return{restrict:"A",controller:["$scope","$attrs",function(a,b){var d=this;this.$options=bb(a.$eval(b.ngModelOptions));y(this.$options.updateOn)?
-(this.$options.updateOnDefault=!1,this.$options.updateOn=U(this.$options.updateOn.replace(zg,function(){d.$options.updateOnDefault=!0;return" "}))):this.$options.updateOnDefault=!0}]}},Ae=La({terminal:!0,priority:1E3}),Ag=G("ngOptions"),Bg=/^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?(?:\s+disable\s+when\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/,Ie=["$compile","$parse",function(a,
-b){function d(a,c,d){function e(a,b,c,d,f){this.selectValue=a;this.viewValue=b;this.label=c;this.group=d;this.disabled=f}function l(a){var b;if(!q&&za(a))b=a;else{b=[];for(var c in a)a.hasOwnProperty(c)&&"$"!==c.charAt(0)&&b.push(c)}return b}var m=a.match(Bg);if(!m)throw Ag("iexp",a,ua(c));var n=m[5]||m[7],q=m[6];a=/ as /.test(m[0])&&m[1];var s=m[9];c=b(m[2]?m[1]:n);var v=a&&b(a)||c,u=s&&b(s),p=s?function(a,b){return u(d,b)}:function(a){return Ca(a)},C=function(a,b){return p(a,z(a,b))},w=b(m[2]||
-m[1]),y=b(m[3]||""),B=b(m[4]||""),x=b(m[8]),D={},z=q?function(a,b){D[q]=b;D[n]=a;return D}:function(a){D[n]=a;return D};return{trackBy:s,getTrackByValue:C,getWatchables:b(x,function(a){var b=[];a=a||[];for(var c=l(a),e=c.length,f=0;f<e;f++){var g=a===c?f:c[f],k=z(a[g],g),g=p(a[g],k);b.push(g);if(m[2]||m[1])g=w(d,k),b.push(g);m[4]&&(k=B(d,k),b.push(k))}return b}),getOptions:function(){for(var a=[],b={},c=x(d)||[],f=l(c),g=f.length,m=0;m<g;m++){var n=c===f?m:f[m],r=z(c[n],n),q=v(d,r),n=p(q,r),t=w(d,
-r),u=y(d,r),r=B(d,r),q=new e(n,q,t,u,r);a.push(q);b[n]=q}return{items:a,selectValueMap:b,getOptionFromViewValue:function(a){return b[C(a)]},getViewValueFromOption:function(a){return s?fa.copy(a.viewValue):a.viewValue}}}}}var c=X.createElement("option"),e=X.createElement("optgroup");return{restrict:"A",terminal:!0,require:["select","?ngModel"],link:{pre:function(a,b,c,d){d[0].registerOption=x},post:function(b,g,h,k){function l(a,b){a.element=b;b.disabled=a.disabled;a.label!==b.label&&(b.label=a.label,
-b.textContent=a.label);a.value!==b.value&&(b.value=a.selectValue)}function m(a,b,c,d){b&&F(b.nodeName)===c?c=b:(c=d.cloneNode(!1),b?a.insertBefore(c,b):a.appendChild(c));return c}function r(a){for(var b;a;)b=a.nextSibling,Xb(a),a=b}function q(a){var b=p&&p[0],c=z&&z[0];if(b||c)for(;a&&(a===b||a===c||8===a.nodeType||""===a.value);)a=a.nextSibling;return a}function s(){var a=D&&u.readValue();D=E.getOptions();var b={},d=g[0].firstChild;x&&g.prepend(p);d=q(d);D.items.forEach(function(a){var f,h;a.group?
-(f=b[a.group],f||(f=m(g[0],d,"optgroup",e),d=f.nextSibling,f.label=a.group,f=b[a.group]={groupElement:f,currentOptionElement:f.firstChild}),h=m(f.groupElement,f.currentOptionElement,"option",c),l(a,h),f.currentOptionElement=h.nextSibling):(h=m(g[0],d,"option",c),l(a,h),d=h.nextSibling)});Object.keys(b).forEach(function(a){r(b[a].currentOptionElement)});r(d);v.$render();if(!v.$isEmpty(a)){var f=u.readValue();(E.trackBy?ma(a,f):a===f)||(v.$setViewValue(f),v.$render())}}var v=k[1];if(v){var u=k[0];k=
-h.multiple;for(var p,C=0,w=g.children(),y=w.length;C<y;C++)if(""===w[C].value){p=w.eq(C);break}var x=!!p,z=B(c.cloneNode(!1));z.val("?");var D,E=d(h.ngOptions,g,b);k?(v.$isEmpty=function(a){return!a||0===a.length},u.writeValue=function(a){D.items.forEach(function(a){a.element.selected=!1});a&&a.forEach(function(a){(a=D.getOptionFromViewValue(a))&&!a.disabled&&(a.element.selected=!0)})},u.readValue=function(){var a=g.val()||[],b=[];n(a,function(a){(a=D.selectValueMap[a])&&!a.disabled&&b.push(D.getViewValueFromOption(a))});
-return b},E.trackBy&&b.$watchCollection(function(){if(I(v.$viewValue))return v.$viewValue.map(function(a){return E.getTrackByValue(a)})},function(){v.$render()})):(u.writeValue=function(a){var b=D.getOptionFromViewValue(a);b&&!b.disabled?g[0].value!==b.selectValue&&(z.remove(),x||p.remove(),g[0].value=b.selectValue,b.element.selected=!0,b.element.setAttribute("selected","selected")):null===a||x?(z.remove(),x||g.prepend(p),g.val(""),p.prop("selected",!0),p.attr("selected",!0)):(x||p.remove(),g.prepend(z),
-g.val("?"),z.prop("selected",!0),z.attr("selected",!0))},u.readValue=function(){var a=D.selectValueMap[g.val()];return a&&!a.disabled?(x||p.remove(),z.remove(),D.getViewValueFromOption(a)):null},E.trackBy&&b.$watch(function(){return E.getTrackByValue(v.$viewValue)},function(){v.$render()}));x?(p.remove(),a(p)(b),p.removeClass("ng-scope")):p=B(c.cloneNode(!1));s();b.$watchCollection(E.getWatchables,s)}}}}}],Be=["$locale","$interpolate","$log",function(a,b,d){var c=/{}/g,e=/^when(Minus)?(.+)$/;return{link:function(f,
-g,h){function k(a){g.text(a||"")}var l=h.count,m=h.$attr.when&&g.attr(h.$attr.when),r=h.offset||0,s=f.$eval(m)||{},u={},v=b.startSymbol(),y=b.endSymbol(),p=v+l+"-"+r+y,C=fa.noop,w;n(h,function(a,b){var c=e.exec(b);c&&(c=(c[1]?"-":"")+F(c[2]),s[c]=g.attr(h.$attr[b]))});n(s,function(a,d){u[d]=b(a.replace(c,p))});f.$watch(l,function(b){var c=parseFloat(b),e=isNaN(c);e||c in s||(c=a.pluralCat(c-r));c===w||e&&Q(w)&&isNaN(w)||(C(),e=u[c],q(e)?(null!=b&&d.debug("ngPluralize: no rule defined for '"+c+"' in "+
-m),C=x,k()):C=f.$watch(e,k),w=c)})}}}],Ce=["$parse","$animate",function(a,b){var d=G("ngRepeat"),c=function(a,b,c,d,k,l,m){a[c]=d;k&&(a[k]=l);a.$index=b;a.$first=0===b;a.$last=b===m-1;a.$middle=!(a.$first||a.$last);a.$odd=!(a.$even=0===(b&1))};return{restrict:"A",multiElement:!0,transclude:"element",priority:1E3,terminal:!0,$$tlb:!0,compile:function(e,f){var g=f.ngRepeat,h=X.createComment(" end ngRepeat: "+g+" "),k=g.match(/^\s*([\s\S]+?)\s+in\s+([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+track\s+by\s+([\s\S]+?))?\s*$/);
-if(!k)throw d("iexp",g);var l=k[1],m=k[2],r=k[3],q=k[4],k=l.match(/^(?:(\s*[\$\w]+)|\(\s*([\$\w]+)\s*,\s*([\$\w]+)\s*\))$/);if(!k)throw d("iidexp",l);var s=k[3]||k[1],v=k[2];if(r&&(!/^[$a-zA-Z_][$a-zA-Z0-9_]*$/.test(r)||/^(null|undefined|this|\$index|\$first|\$middle|\$last|\$even|\$odd|\$parent|\$root|\$id)$/.test(r)))throw d("badident",r);var x,p,y,w,z={$id:Ca};q?x=a(q):(y=function(a,b){return Ca(b)},w=function(a){return a});return function(a,e,f,k,l){x&&(p=function(b,c,d){v&&(z[v]=b);z[s]=c;z.$index=
-d;return x(a,z)});var q=$();a.$watchCollection(m,function(f){var k,m,t=e[0],x,z=$(),D,E,H,F,I,G,J;r&&(a[r]=f);if(za(f))I=f,m=p||y;else for(J in m=p||w,I=[],f)qa.call(f,J)&&"$"!==J.charAt(0)&&I.push(J);D=I.length;J=Array(D);for(k=0;k<D;k++)if(E=f===I?k:I[k],H=f[E],F=m(E,H,k),q[F])G=q[F],delete q[F],z[F]=G,J[k]=G;else{if(z[F])throw n(J,function(a){a&&a.scope&&(q[a.id]=a)}),d("dupes",g,F,H);J[k]={id:F,scope:u,clone:u};z[F]=!0}for(x in q){G=q[x];F=rb(G.clone);b.leave(F);if(F[0].parentNode)for(k=0,m=F.length;k<
-m;k++)F[k].$$NG_REMOVED=!0;G.scope.$destroy()}for(k=0;k<D;k++)if(E=f===I?k:I[k],H=f[E],G=J[k],G.scope){x=t;do x=x.nextSibling;while(x&&x.$$NG_REMOVED);G.clone[0]!=x&&b.move(rb(G.clone),null,B(t));t=G.clone[G.clone.length-1];c(G.scope,k,s,H,v,E,D)}else l(function(a,d){G.scope=d;var e=h.cloneNode(!1);a[a.length++]=e;b.enter(a,null,B(t));t=e;G.clone=a;z[G.id]=G;c(G.scope,k,s,H,v,E,D)});q=z})}}}}],De=["$animate",function(a){return{restrict:"A",multiElement:!0,link:function(b,d,c){b.$watch(c.ngShow,function(b){a[b?
-"removeClass":"addClass"](d,"ng-hide",{tempClasses:"ng-hide-animate"})})}}}],we=["$animate",function(a){return{restrict:"A",multiElement:!0,link:function(b,d,c){b.$watch(c.ngHide,function(b){a[b?"addClass":"removeClass"](d,"ng-hide",{tempClasses:"ng-hide-animate"})})}}}],Ee=La(function(a,b,d){a.$watch(d.ngStyle,function(a,d){d&&a!==d&&n(d,function(a,c){b.css(c,"")});a&&b.css(a)},!0)}),Fe=["$animate",function(a){return{require:"ngSwitch",controller:["$scope",function(){this.cases={}}],link:function(b,
-d,c,e){var f=[],g=[],h=[],k=[],l=function(a,b){return function(){a.splice(b,1)}};b.$watch(c.ngSwitch||c.on,function(b){var c,d;c=0;for(d=h.length;c<d;++c)a.cancel(h[c]);c=h.length=0;for(d=k.length;c<d;++c){var q=rb(g[c].clone);k[c].$destroy();(h[c]=a.leave(q)).then(l(h,c))}g.length=0;k.length=0;(f=e.cases["!"+b]||e.cases["?"])&&n(f,function(b){b.transclude(function(c,d){k.push(d);var e=b.element;c[c.length++]=X.createComment(" end ngSwitchWhen: ");g.push({clone:c});a.enter(c,e.parent(),e)})})})}}}],
-Ge=La({transclude:"element",priority:1200,require:"^ngSwitch",multiElement:!0,link:function(a,b,d,c,e){c.cases["!"+d.ngSwitchWhen]=c.cases["!"+d.ngSwitchWhen]||[];c.cases["!"+d.ngSwitchWhen].push({transclude:e,element:b})}}),He=La({transclude:"element",priority:1200,require:"^ngSwitch",multiElement:!0,link:function(a,b,d,c,e){c.cases["?"]=c.cases["?"]||[];c.cases["?"].push({transclude:e,element:b})}}),Je=La({restrict:"EAC",link:function(a,b,d,c,e){if(!e)throw G("ngTransclude")("orphan",ua(b));e(function(a){b.empty();
-b.append(a)})}}),je=["$templateCache",function(a){return{restrict:"E",terminal:!0,compile:function(b,d){"text/ng-template"==d.type&&a.put(d.id,b[0].text)}}}],Cg={$setViewValue:x,$render:x},Dg=["$element","$scope","$attrs",function(a,b,d){var c=this,e=new Sa;c.ngModelCtrl=Cg;c.unknownOption=B(X.createElement("option"));c.renderUnknownOption=function(b){b="? "+Ca(b)+" ?";c.unknownOption.val(b);a.prepend(c.unknownOption);a.val(b)};b.$on("$destroy",function(){c.renderUnknownOption=x});c.removeUnknownOption=
-function(){c.unknownOption.parent()&&c.unknownOption.remove()};c.readValue=function(){c.removeUnknownOption();return a.val()};c.writeValue=function(b){c.hasOption(b)?(c.removeUnknownOption(),a.val(b),""===b&&c.emptyOption.prop("selected",!0)):null==b&&c.emptyOption?(c.removeUnknownOption(),a.val("")):c.renderUnknownOption(b)};c.addOption=function(a,b){Ra(a,'"option value"');""===a&&(c.emptyOption=b);var d=e.get(a)||0;e.put(a,d+1);c.ngModelCtrl.$render();b[0].hasAttribute("selected")&&(b[0].selected=
-!0)};c.removeOption=function(a){var b=e.get(a);b&&(1===b?(e.remove(a),""===a&&(c.emptyOption=u)):e.put(a,b-1))};c.hasOption=function(a){return!!e.get(a)};c.registerOption=function(a,b,d,e,l){if(e){var m;d.$observe("value",function(a){y(m)&&c.removeOption(m);m=a;c.addOption(a,b)})}else l?a.$watch(l,function(a,e){d.$set("value",a);e!==a&&c.removeOption(e);c.addOption(a,b)}):c.addOption(d.value,b);b.on("$destroy",function(){c.removeOption(d.value);c.ngModelCtrl.$render()})}}],ke=function(){return{restrict:"E",
-require:["select","?ngModel"],controller:Dg,priority:1,link:{pre:function(a,b,d,c){var e=c[1];if(e){var f=c[0];f.ngModelCtrl=e;e.$render=function(){f.writeValue(e.$viewValue)};b.on("change",function(){a.$apply(function(){e.$setViewValue(f.readValue())})});if(d.multiple){f.readValue=function(){var a=[];n(b.find("option"),function(b){b.selected&&a.push(b.value)});return a};f.writeValue=function(a){var c=new Sa(a);n(b.find("option"),function(a){a.selected=y(c.get(a.value))})};var g,h=NaN;a.$watch(function(){h!==
-e.$viewValue||ma(g,e.$viewValue)||(g=ia(e.$viewValue),e.$render());h=e.$viewValue});e.$isEmpty=function(a){return!a||0===a.length}}}}}}},me=["$interpolate",function(a){return{restrict:"E",priority:100,compile:function(b,d){if(y(d.value))var c=a(d.value,!0);else{var e=a(b.text(),!0);e||d.$set("value",b.text())}return function(a,b,d){var k=b.parent();(k=k.data("$selectController")||k.parent().data("$selectController"))&&k.registerOption(a,b,d,c,e)}}}}],le=na({restrict:"E",terminal:!1}),Fc=function(){return{restrict:"A",
-require:"?ngModel",link:function(a,b,d,c){c&&(d.required=!0,c.$validators.required=function(a,b){return!d.required||!c.$isEmpty(b)},d.$observe("required",function(){c.$validate()}))}}},Ec=function(){return{restrict:"A",require:"?ngModel",link:function(a,b,d,c){if(c){var e,f=d.ngPattern||d.pattern;d.$observe("pattern",function(a){E(a)&&0<a.length&&(a=new RegExp("^"+a+"$"));if(a&&!a.test)throw G("ngPattern")("noregexp",f,a,ua(b));e=a||u;c.$validate()});c.$validators.pattern=function(a,b){return c.$isEmpty(b)||
-q(e)||e.test(b)}}}}},Hc=function(){return{restrict:"A",require:"?ngModel",link:function(a,b,d,c){if(c){var e=-1;d.$observe("maxlength",function(a){a=ea(a);e=isNaN(a)?-1:a;c.$validate()});c.$validators.maxlength=function(a,b){return 0>e||c.$isEmpty(b)||b.length<=e}}}}},Gc=function(){return{restrict:"A",require:"?ngModel",link:function(a,b,d,c){if(c){var e=0;d.$observe("minlength",function(a){e=ea(a)||0;c.$validate()});c.$validators.minlength=function(a,b){return c.$isEmpty(b)||b.length>=e}}}}};S.angular.bootstrap?
-console.log("WARNING: Tried to load angular more than once."):(ce(),ee(fa),fa.module("ngLocale",[],["$provide",function(a){function b(a){a+="";var b=a.indexOf(".");return-1==b?0:a.length-b-1}a.value("$locale",{DATETIME_FORMATS:{AMPMS:["AM","PM"],DAY:"Sunday Monday Tuesday Wednesday Thursday Friday Saturday".split(" "),ERANAMES:["Before Christ","Anno Domini"],ERAS:["BC","AD"],FIRSTDAYOFWEEK:6,MONTH:"January February March April May June July August September October November December".split(" "),SHORTDAY:"Sun Mon Tue Wed Thu Fri Sat".split(" "),
-SHORTMONTH:"Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" "),WEEKENDRANGE:[5,6],fullDate:"EEEE, MMMM d, y",longDate:"MMMM d, y",medium:"MMM d, y h:mm:ss a",mediumDate:"MMM d, y",mediumTime:"h:mm:ss a","short":"M/d/yy h:mm a",shortDate:"M/d/yy",shortTime:"h:mm a"},NUMBER_FORMATS:{CURRENCY_SYM:"$",DECIMAL_SEP:".",GROUP_SEP:",",PATTERNS:[{gSize:3,lgSize:3,maxFrac:3,minFrac:0,minInt:1,negPre:"-",negSuf:"",posPre:"",posSuf:""},{gSize:3,lgSize:3,maxFrac:2,minFrac:2,minInt:1,negPre:"-\u00a4",
-negSuf:"",posPre:"\u00a4",posSuf:""}]},id:"en-us",pluralCat:function(a,c){var e=a|0,f=c;u===f&&(f=Math.min(b(a),3));Math.pow(10,f);return 1==e&&0==f?"one":"other"}})}]),B(X).ready(function(){Zd(X,yc)}))})(window,document);!window.angular.$$csp().noInlineStyle&&window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
+(function(O,W,v){'use strict';function H(a){return function(){var b=arguments[0],d;d="["+(a?a+":":"")+b+"] http://errors.angularjs.org/1.5.0/"+(a?a+"/":"")+b;for(b=1;b<arguments.length;b++){d=d+(1==b?"?":"&")+"p"+(b-1)+"=";var c=encodeURIComponent,e;e=arguments[b];e="function"==typeof e?e.toString().replace(/ \{[\s\S]*$/,""):"undefined"==typeof e?"undefined":"string"!=typeof e?JSON.stringify(e):e;d+=c(e)}return Error(d)}}function Ca(a){if(null==a||Za(a))return!1;if(L(a)||F(a)||C&&a instanceof C)return!0;
+var b="length"in Object(a)&&a.length;return N(b)&&(0<=b&&(b-1 in a||a instanceof Array)||"function"==typeof a.item)}function n(a,b,d){var c,e;if(a)if(D(a))for(c in a)"prototype"==c||"length"==c||"name"==c||a.hasOwnProperty&&!a.hasOwnProperty(c)||b.call(d,a[c],c,a);else if(L(a)||Ca(a)){var f="object"!==typeof a;c=0;for(e=a.length;c<e;c++)(f||c in a)&&b.call(d,a[c],c,a)}else if(a.forEach&&a.forEach!==n)a.forEach(b,d,a);else if(qc(a))for(c in a)b.call(d,a[c],c,a);else if("function"===typeof a.hasOwnProperty)for(c in a)a.hasOwnProperty(c)&&
+b.call(d,a[c],c,a);else for(c in a)sa.call(a,c)&&b.call(d,a[c],c,a);return a}function rc(a,b,d){for(var c=Object.keys(a).sort(),e=0;e<c.length;e++)b.call(d,a[c[e]],c[e]);return c}function sc(a){return function(b,d){a(d,b)}}function Yd(){return++pb}function Qb(a,b,d){for(var c=a.$$hashKey,e=0,f=b.length;e<f;++e){var g=b[e];if(E(g)||D(g))for(var h=Object.keys(g),k=0,l=h.length;k<l;k++){var m=h[k],r=g[m];d&&E(r)?V(r)?a[m]=new Date(r.valueOf()):$a(r)?a[m]=new RegExp(r):r.nodeName?a[m]=r.cloneNode(!0):
+Rb(r)?a[m]=r.clone():(E(a[m])||(a[m]=L(r)?[]:{}),Qb(a[m],[r],!0)):a[m]=r}}c?a.$$hashKey=c:delete a.$$hashKey;return a}function T(a){return Qb(a,wa.call(arguments,1),!1)}function Zd(a){return Qb(a,wa.call(arguments,1),!0)}function ca(a){return parseInt(a,10)}function Sb(a,b){return T(Object.create(a),b)}function B(){}function ab(a){return a}function ba(a){return function(){return a}}function tc(a){return D(a.toString)&&a.toString!==ga}function x(a){return"undefined"===typeof a}function y(a){return"undefined"!==
+typeof a}function E(a){return null!==a&&"object"===typeof a}function qc(a){return null!==a&&"object"===typeof a&&!uc(a)}function F(a){return"string"===typeof a}function N(a){return"number"===typeof a}function V(a){return"[object Date]"===ga.call(a)}function D(a){return"function"===typeof a}function $a(a){return"[object RegExp]"===ga.call(a)}function Za(a){return a&&a.window===a}function bb(a){return a&&a.$evalAsync&&a.$watch}function Na(a){return"boolean"===typeof a}function $d(a){return a&&N(a.length)&&
+ae.test(ga.call(a))}function Rb(a){return!(!a||!(a.nodeName||a.prop&&a.attr&&a.find))}function be(a){var b={};a=a.split(",");var d;for(d=0;d<a.length;d++)b[a[d]]=!0;return b}function ra(a){return G(a.nodeName||a[0]&&a[0].nodeName)}function cb(a,b){var d=a.indexOf(b);0<=d&&a.splice(d,1);return d}function Oa(a,b){function d(a,b){var d=b.$$hashKey,e;if(L(a)){e=0;for(var f=a.length;e<f;e++)b.push(c(a[e]))}else if(qc(a))for(e in a)b[e]=c(a[e]);else if(a&&"function"===typeof a.hasOwnProperty)for(e in a)a.hasOwnProperty(e)&&
+(b[e]=c(a[e]));else for(e in a)sa.call(a,e)&&(b[e]=c(a[e]));d?b.$$hashKey=d:delete b.$$hashKey;return b}function c(a){if(!E(a))return a;var b=f.indexOf(a);if(-1!==b)return g[b];if(Za(a)||bb(a))throw Da("cpws");var b=!1,c=e(a);c===v&&(c=L(a)?[]:Object.create(uc(a)),b=!0);f.push(a);g.push(c);return b?d(a,c):c}function e(a){switch(ga.call(a)){case "[object Int8Array]":case "[object Int16Array]":case "[object Int32Array]":case "[object Float32Array]":case "[object Float64Array]":case "[object Uint8Array]":case "[object Uint8ClampedArray]":case "[object Uint16Array]":case "[object Uint32Array]":return new a.constructor(c(a.buffer));
+case "[object ArrayBuffer]":if(!a.slice){var b=new ArrayBuffer(a.byteLength);(new Uint8Array(b)).set(new Uint8Array(a));return b}return a.slice(0);case "[object Boolean]":case "[object Number]":case "[object String]":case "[object Date]":return new a.constructor(a.valueOf());case "[object RegExp]":return b=new RegExp(a.source,a.toString().match(/[^\/]*$/)[0]),b.lastIndex=a.lastIndex,b}if(D(a.cloneNode))return a.cloneNode(!0)}var f=[],g=[];if(b){if($d(b)||"[object ArrayBuffer]"===ga.call(b))throw Da("cpta");
+if(a===b)throw Da("cpi");L(b)?b.length=0:n(b,function(a,c){"$$hashKey"!==c&&delete b[c]});f.push(a);g.push(b);return d(a,b)}return c(a)}function na(a,b){if(L(a)){b=b||[];for(var d=0,c=a.length;d<c;d++)b[d]=a[d]}else if(E(a))for(d in b=b||{},a)if("$"!==d.charAt(0)||"$"!==d.charAt(1))b[d]=a[d];return b||a}function oa(a,b){if(a===b)return!0;if(null===a||null===b)return!1;if(a!==a&&b!==b)return!0;var d=typeof a,c;if(d==typeof b&&"object"==d)if(L(a)){if(!L(b))return!1;if((d=a.length)==b.length){for(c=
+0;c<d;c++)if(!oa(a[c],b[c]))return!1;return!0}}else{if(V(a))return V(b)?oa(a.getTime(),b.getTime()):!1;if($a(a))return $a(b)?a.toString()==b.toString():!1;if(bb(a)||bb(b)||Za(a)||Za(b)||L(b)||V(b)||$a(b))return!1;d=Z();for(c in a)if("$"!==c.charAt(0)&&!D(a[c])){if(!oa(a[c],b[c]))return!1;d[c]=!0}for(c in b)if(!(c in d)&&"$"!==c.charAt(0)&&y(b[c])&&!D(b[c]))return!1;return!0}return!1}function db(a,b,d){return a.concat(wa.call(b,d))}function vc(a,b){var d=2<arguments.length?wa.call(arguments,2):[];
+return!D(b)||b instanceof RegExp?b:d.length?function(){return arguments.length?b.apply(a,db(d,arguments,0)):b.apply(a,d)}:function(){return arguments.length?b.apply(a,arguments):b.call(a)}}function ce(a,b){var d=b;"string"===typeof a&&"$"===a.charAt(0)&&"$"===a.charAt(1)?d=v:Za(b)?d="$WINDOW":b&&W===b?d="$DOCUMENT":bb(b)&&(d="$SCOPE");return d}function eb(a,b){if(x(a))return v;N(b)||(b=b?2:null);return JSON.stringify(a,ce,b)}function wc(a){return F(a)?JSON.parse(a):a}function xc(a,b){a=a.replace(de,
+"");var d=Date.parse("Jan 01, 1970 00:00:00 "+a)/6E4;return isNaN(d)?b:d}function Tb(a,b,d){d=d?-1:1;var c=a.getTimezoneOffset();b=xc(b,c);d*=b-c;a=new Date(a.getTime());a.setMinutes(a.getMinutes()+d);return a}function ta(a){a=C(a).clone();try{a.empty()}catch(b){}var d=C("<div>").append(a).html();try{return a[0].nodeType===Pa?G(d):d.match(/^(<[^>]+>)/)[1].replace(/^<([\w\-]+)/,function(a,b){return"<"+G(b)})}catch(c){return G(d)}}function yc(a){try{return decodeURIComponent(a)}catch(b){}}function zc(a){var b=
+{};n((a||"").split("&"),function(a){var c,e,f;a&&(e=a=a.replace(/\+/g,"%20"),c=a.indexOf("="),-1!==c&&(e=a.substring(0,c),f=a.substring(c+1)),e=yc(e),y(e)&&(f=y(f)?yc(f):!0,sa.call(b,e)?L(b[e])?b[e].push(f):b[e]=[b[e],f]:b[e]=f))});return b}function Ub(a){var b=[];n(a,function(a,c){L(a)?n(a,function(a){b.push(ha(c,!0)+(!0===a?"":"="+ha(a,!0)))}):b.push(ha(c,!0)+(!0===a?"":"="+ha(a,!0)))});return b.length?b.join("&"):""}function qb(a){return ha(a,!0).replace(/%26/gi,"&").replace(/%3D/gi,"=").replace(/%2B/gi,
+"+")}function ha(a,b){return encodeURIComponent(a).replace(/%40/gi,"@").replace(/%3A/gi,":").replace(/%24/g,"$").replace(/%2C/gi,",").replace(/%3B/gi,";").replace(/%20/g,b?"%20":"+")}function ee(a,b){var d,c,e=Qa.length;for(c=0;c<e;++c)if(d=Qa[c]+b,F(d=a.getAttribute(d)))return d;return null}function fe(a,b){var d,c,e={};n(Qa,function(b){b+="app";!d&&a.hasAttribute&&a.hasAttribute(b)&&(d=a,c=a.getAttribute(b))});n(Qa,function(b){b+="app";var e;!d&&(e=a.querySelector("["+b.replace(":","\\:")+"]"))&&
+(d=e,c=e.getAttribute(b))});d&&(e.strictDi=null!==ee(d,"strict-di"),b(d,c?[c]:[],e))}function Ac(a,b,d){E(d)||(d={});d=T({strictDi:!1},d);var c=function(){a=C(a);if(a.injector()){var c=a[0]===W?"document":ta(a);throw Da("btstrpd",c.replace(/</,"&lt;").replace(/>/,"&gt;"));}b=b||[];b.unshift(["$provide",function(b){b.value("$rootElement",a)}]);d.debugInfoEnabled&&b.push(["$compileProvider",function(a){a.debugInfoEnabled(!0)}]);b.unshift("ng");c=fb(b,d.strictDi);c.invoke(["$rootScope","$rootElement",
+"$compile","$injector",function(a,b,c,d){a.$apply(function(){b.data("$injector",d);c(b)(a)})}]);return c},e=/^NG_ENABLE_DEBUG_INFO!/,f=/^NG_DEFER_BOOTSTRAP!/;O&&e.test(O.name)&&(d.debugInfoEnabled=!0,O.name=O.name.replace(e,""));if(O&&!f.test(O.name))return c();O.name=O.name.replace(f,"");ia.resumeBootstrap=function(a){n(a,function(a){b.push(a)});return c()};D(ia.resumeDeferredBootstrap)&&ia.resumeDeferredBootstrap()}function ge(){O.name="NG_ENABLE_DEBUG_INFO!"+O.name;O.location.reload()}function he(a){a=
+ia.element(a).injector();if(!a)throw Da("test");return a.get("$$testability")}function Bc(a,b){b=b||"_";return a.replace(ie,function(a,c){return(c?b:"")+a.toLowerCase()})}function je(){var a;if(!Cc){var b=rb();(ua=x(b)?O.jQuery:b?O[b]:v)&&ua.fn.on?(C=ua,T(ua.fn,{scope:Ra.scope,isolateScope:Ra.isolateScope,controller:Ra.controller,injector:Ra.injector,inheritedData:Ra.inheritedData}),a=ua.cleanData,ua.cleanData=function(b){for(var c,e=0,f;null!=(f=b[e]);e++)(c=ua._data(f,"events"))&&c.$destroy&&ua(f).triggerHandler("$destroy");
+a(b)}):C=U;ia.element=C;Cc=!0}}function sb(a,b,d){if(!a)throw Da("areq",b||"?",d||"required");return a}function Sa(a,b,d){d&&L(a)&&(a=a[a.length-1]);sb(D(a),b,"not a function, got "+(a&&"object"===typeof a?a.constructor.name||"Object":typeof a));return a}function Ta(a,b){if("hasOwnProperty"===a)throw Da("badname",b);}function Dc(a,b,d){if(!b)return a;b=b.split(".");for(var c,e=a,f=b.length,g=0;g<f;g++)c=b[g],a&&(a=(e=a)[c]);return!d&&D(a)?vc(e,a):a}function tb(a){for(var b=a[0],d=a[a.length-1],c,
+e=1;b!==d&&(b=b.nextSibling);e++)if(c||a[e]!==b)c||(c=C(wa.call(a,0,e))),c.push(b);return c||a}function Z(){return Object.create(null)}function ke(a){function b(a,b,c){return a[b]||(a[b]=c())}var d=H("$injector"),c=H("ng");a=b(a,"angular",Object);a.$$minErr=a.$$minErr||H;return b(a,"module",function(){var a={};return function(f,g,h){if("hasOwnProperty"===f)throw c("badname","module");g&&a.hasOwnProperty(f)&&(a[f]=null);return b(a,f,function(){function a(b,d,e,f){f||(f=c);return function(){f[e||"push"]([b,
+d,arguments]);return K}}function b(a,d){return function(b,e){e&&D(e)&&(e.$$moduleName=f);c.push([a,d,arguments]);return K}}if(!g)throw d("nomod",f);var c=[],e=[],s=[],I=a("$injector","invoke","push",e),K={_invokeQueue:c,_configBlocks:e,_runBlocks:s,requires:g,name:f,provider:b("$provide","provider"),factory:b("$provide","factory"),service:b("$provide","service"),value:a("$provide","value"),constant:a("$provide","constant","unshift"),decorator:b("$provide","decorator"),animation:b("$animateProvider",
+"register"),filter:b("$filterProvider","register"),controller:b("$controllerProvider","register"),directive:b("$compileProvider","directive"),component:b("$compileProvider","component"),config:I,run:function(a){s.push(a);return this}};h&&I(h);return K})}})}function le(a){T(a,{bootstrap:Ac,copy:Oa,extend:T,merge:Zd,equals:oa,element:C,forEach:n,injector:fb,noop:B,bind:vc,toJson:eb,fromJson:wc,identity:ab,isUndefined:x,isDefined:y,isString:F,isFunction:D,isObject:E,isNumber:N,isElement:Rb,isArray:L,
+version:me,isDate:V,lowercase:G,uppercase:ub,callbacks:{counter:0},getTestability:he,$$minErr:H,$$csp:Ea,reloadWithDebugInfo:ge});Vb=ke(O);Vb("ng",["ngLocale"],["$provide",function(a){a.provider({$$sanitizeUri:ne});a.provider("$compile",Ec).directive({a:oe,input:Fc,textarea:Fc,form:pe,script:qe,select:re,style:se,option:te,ngBind:ue,ngBindHtml:ve,ngBindTemplate:we,ngClass:xe,ngClassEven:ye,ngClassOdd:ze,ngCloak:Ae,ngController:Be,ngForm:Ce,ngHide:De,ngIf:Ee,ngInclude:Fe,ngInit:Ge,ngNonBindable:He,
+ngPluralize:Ie,ngRepeat:Je,ngShow:Ke,ngStyle:Le,ngSwitch:Me,ngSwitchWhen:Ne,ngSwitchDefault:Oe,ngOptions:Pe,ngTransclude:Qe,ngModel:Re,ngList:Se,ngChange:Te,pattern:Gc,ngPattern:Gc,required:Hc,ngRequired:Hc,minlength:Ic,ngMinlength:Ic,maxlength:Jc,ngMaxlength:Jc,ngValue:Ue,ngModelOptions:Ve}).directive({ngInclude:We}).directive(vb).directive(Kc);a.provider({$anchorScroll:Xe,$animate:Ye,$animateCss:Ze,$$animateJs:$e,$$animateQueue:af,$$AnimateRunner:bf,$$animateAsyncRun:cf,$browser:df,$cacheFactory:ef,
+$controller:ff,$document:gf,$exceptionHandler:hf,$filter:Lc,$$forceReflow:jf,$interpolate:kf,$interval:lf,$http:mf,$httpParamSerializer:nf,$httpParamSerializerJQLike:of,$httpBackend:pf,$xhrFactory:qf,$location:rf,$log:sf,$parse:tf,$rootScope:uf,$q:vf,$$q:wf,$sce:xf,$sceDelegate:yf,$sniffer:zf,$templateCache:Af,$templateRequest:Bf,$$testability:Cf,$timeout:Df,$window:Ef,$$rAF:Ff,$$jqLite:Gf,$$HashMap:Hf,$$cookieReader:If})}])}function gb(a){return a.replace(Jf,function(a,d,c,e){return e?c.toUpperCase():
+c}).replace(Kf,"Moz$1")}function Mc(a){a=a.nodeType;return 1===a||!a||9===a}function Nc(a,b){var d,c,e=b.createDocumentFragment(),f=[];if(Wb.test(a)){d=d||e.appendChild(b.createElement("div"));c=(Lf.exec(a)||["",""])[1].toLowerCase();c=da[c]||da._default;d.innerHTML=c[1]+a.replace(Mf,"<$1></$2>")+c[2];for(c=c[0];c--;)d=d.lastChild;f=db(f,d.childNodes);d=e.firstChild;d.textContent=""}else f.push(b.createTextNode(a));e.textContent="";e.innerHTML="";n(f,function(a){e.appendChild(a)});return e}function Oc(a,
+b){var d=a.parentNode;d&&d.replaceChild(b,a);b.appendChild(a)}function U(a){if(a instanceof U)return a;var b;F(a)&&(a=X(a),b=!0);if(!(this instanceof U)){if(b&&"<"!=a.charAt(0))throw Xb("nosel");return new U(a)}if(b){b=W;var d;a=(d=Nf.exec(a))?[b.createElement(d[1])]:(d=Nc(a,b))?d.childNodes:[]}Pc(this,a)}function Yb(a){return a.cloneNode(!0)}function wb(a,b){b||hb(a);if(a.querySelectorAll)for(var d=a.querySelectorAll("*"),c=0,e=d.length;c<e;c++)hb(d[c])}function Qc(a,b,d,c){if(y(c))throw Xb("offargs");
+var e=(c=xb(a))&&c.events,f=c&&c.handle;if(f)if(b){var g=function(b){var c=e[b];y(d)&&cb(c||[],d);y(d)&&c&&0<c.length||(a.removeEventListener(b,f,!1),delete e[b])};n(b.split(" "),function(a){g(a);yb[a]&&g(yb[a])})}else for(b in e)"$destroy"!==b&&a.removeEventListener(b,f,!1),delete e[b]}function hb(a,b){var d=a.ng339,c=d&&ib[d];c&&(b?delete c.data[b]:(c.handle&&(c.events.$destroy&&c.handle({},"$destroy"),Qc(a)),delete ib[d],a.ng339=v))}function xb(a,b){var d=a.ng339,d=d&&ib[d];b&&!d&&(a.ng339=d=++Of,
+d=ib[d]={events:{},data:{},handle:v});return d}function Zb(a,b,d){if(Mc(a)){var c=y(d),e=!c&&b&&!E(b),f=!b;a=(a=xb(a,!e))&&a.data;if(c)a[b]=d;else{if(f)return a;if(e)return a&&a[b];T(a,b)}}}function zb(a,b){return a.getAttribute?-1<(" "+(a.getAttribute("class")||"")+" ").replace(/[\n\t]/g," ").indexOf(" "+b+" "):!1}function Ab(a,b){b&&a.setAttribute&&n(b.split(" "),function(b){a.setAttribute("class",X((" "+(a.getAttribute("class")||"")+" ").replace(/[\n\t]/g," ").replace(" "+X(b)+" "," ")))})}function Bb(a,
+b){if(b&&a.setAttribute){var d=(" "+(a.getAttribute("class")||"")+" ").replace(/[\n\t]/g," ");n(b.split(" "),function(a){a=X(a);-1===d.indexOf(" "+a+" ")&&(d+=a+" ")});a.setAttribute("class",X(d))}}function Pc(a,b){if(b)if(b.nodeType)a[a.length++]=b;else{var d=b.length;if("number"===typeof d&&b.window!==b){if(d)for(var c=0;c<d;c++)a[a.length++]=b[c]}else a[a.length++]=b}}function Rc(a,b){return Cb(a,"$"+(b||"ngController")+"Controller")}function Cb(a,b,d){9==a.nodeType&&(a=a.documentElement);for(b=
+L(b)?b:[b];a;){for(var c=0,e=b.length;c<e;c++)if(y(d=C.data(a,b[c])))return d;a=a.parentNode||11===a.nodeType&&a.host}}function Sc(a){for(wb(a,!0);a.firstChild;)a.removeChild(a.firstChild)}function $b(a,b){b||wb(a);var d=a.parentNode;d&&d.removeChild(a)}function Pf(a,b){b=b||O;if("complete"===b.document.readyState)b.setTimeout(a);else C(b).on("load",a)}function Tc(a,b){var d=Db[b.toLowerCase()];return d&&Uc[ra(a)]&&d}function Qf(a,b){var d=function(c,d){c.isDefaultPrevented=function(){return c.defaultPrevented};
+var f=b[d||c.type],g=f?f.length:0;if(g){if(x(c.immediatePropagationStopped)){var h=c.stopImmediatePropagation;c.stopImmediatePropagation=function(){c.immediatePropagationStopped=!0;c.stopPropagation&&c.stopPropagation();h&&h.call(c)}}c.isImmediatePropagationStopped=function(){return!0===c.immediatePropagationStopped};var k=f.specialHandlerWrapper||Rf;1<g&&(f=na(f));for(var l=0;l<g;l++)c.isImmediatePropagationStopped()||k(a,c,f[l])}};d.elem=a;return d}function Rf(a,b,d){d.call(a,b)}function Sf(a,b,
+d){var c=b.relatedTarget;c&&(c===a||Tf.call(a,c))||d.call(a,b)}function Gf(){this.$get=function(){return T(U,{hasClass:function(a,b){a.attr&&(a=a[0]);return zb(a,b)},addClass:function(a,b){a.attr&&(a=a[0]);return Bb(a,b)},removeClass:function(a,b){a.attr&&(a=a[0]);return Ab(a,b)}})}}function Fa(a,b){var d=a&&a.$$hashKey;if(d)return"function"===typeof d&&(d=a.$$hashKey()),d;d=typeof a;return d="function"==d||"object"==d&&null!==a?a.$$hashKey=d+":"+(b||Yd)():d+":"+a}function Ua(a,b){if(b){var d=0;this.nextUid=
+function(){return++d}}n(a,this.put,this)}function Vc(a){a=a.toString().replace(Uf,"");return a.match(Vf)||a.match(Wf)}function Xf(a){return(a=Vc(a))?"function("+(a[1]||"").replace(/[\s\r\n]+/," ")+")":"fn"}function fb(a,b){function d(a){return function(b,c){if(E(b))n(b,sc(a));else return a(b,c)}}function c(a,b){Ta(a,"service");if(D(b)||L(b))b=s.instantiate(b);if(!b.$get)throw Ga("pget",a);return r[a+"Provider"]=b}function e(a,b){return function(){var c=t.invoke(b,this);if(x(c))throw Ga("undef",a);
+return c}}function f(a,b,d){return c(a,{$get:!1!==d?e(a,b):b})}function g(a){sb(x(a)||L(a),"modulesToLoad","not an array");var b=[],c;n(a,function(a){function d(a){var b,c;b=0;for(c=a.length;b<c;b++){var e=a[b],f=s.get(e[0]);f[e[1]].apply(f,e[2])}}if(!m.get(a)){m.put(a,!0);try{F(a)?(c=Vb(a),b=b.concat(g(c.requires)).concat(c._runBlocks),d(c._invokeQueue),d(c._configBlocks)):D(a)?b.push(s.invoke(a)):L(a)?b.push(s.invoke(a)):Sa(a,"module")}catch(e){throw L(a)&&(a=a[a.length-1]),e.message&&e.stack&&
+-1==e.stack.indexOf(e.message)&&(e=e.message+"\n"+e.stack),Ga("modulerr",a,e.stack||e.message||e);}}});return b}function h(a,c){function d(b,e){if(a.hasOwnProperty(b)){if(a[b]===k)throw Ga("cdep",b+" <- "+l.join(" <- "));return a[b]}try{return l.unshift(b),a[b]=k,a[b]=c(b,e)}catch(f){throw a[b]===k&&delete a[b],f;}finally{l.shift()}}function e(a,c,f){var g=[];a=fb.$$annotate(a,b,f);for(var h=0,k=a.length;h<k;h++){var l=a[h];if("string"!==typeof l)throw Ga("itkn",l);g.push(c&&c.hasOwnProperty(l)?c[l]:
+d(l,f))}return g}return{invoke:function(a,b,c,d){"string"===typeof c&&(d=c,c=null);c=e(a,c,d);L(a)&&(a=a[a.length-1]);d=11>=xa?!1:"function"===typeof a&&/^(?:class\s|constructor\()/.test(Function.prototype.toString.call(a));return d?(c.unshift(null),new (Function.prototype.bind.apply(a,c))):a.apply(b,c)},instantiate:function(a,b,c){var d=L(a)?a[a.length-1]:a;a=e(a,b,c);a.unshift(null);return new (Function.prototype.bind.apply(d,a))},get:d,annotate:fb.$$annotate,has:function(b){return r.hasOwnProperty(b+
+"Provider")||a.hasOwnProperty(b)}}}b=!0===b;var k={},l=[],m=new Ua([],!0),r={$provide:{provider:d(c),factory:d(f),service:d(function(a,b){return f(a,["$injector",function(a){return a.instantiate(b)}])}),value:d(function(a,b){return f(a,ba(b),!1)}),constant:d(function(a,b){Ta(a,"constant");r[a]=b;I[a]=b}),decorator:function(a,b){var c=s.get(a+"Provider"),d=c.$get;c.$get=function(){var a=t.invoke(d,c);return t.invoke(b,null,{$delegate:a})}}}},s=r.$injector=h(r,function(a,b){ia.isString(b)&&l.push(b);
+throw Ga("unpr",l.join(" <- "));}),I={},K=h(I,function(a,b){var c=s.get(a+"Provider",b);return t.invoke(c.$get,c,v,a)}),t=K;r.$injectorProvider={$get:ba(K)};var p=g(a),t=K.get("$injector");t.strictDi=b;n(p,function(a){a&&t.invoke(a)});return t}function Xe(){var a=!0;this.disableAutoScrolling=function(){a=!1};this.$get=["$window","$location","$rootScope",function(b,d,c){function e(a){var b=null;Array.prototype.some.call(a,function(a){if("a"===ra(a))return b=a,!0});return b}function f(a){if(a){a.scrollIntoView();
+var c;c=g.yOffset;D(c)?c=c():Rb(c)?(c=c[0],c="fixed"!==b.getComputedStyle(c).position?0:c.getBoundingClientRect().bottom):N(c)||(c=0);c&&(a=a.getBoundingClientRect().top,b.scrollBy(0,a-c))}else b.scrollTo(0,0)}function g(a){a=F(a)?a:d.hash();var b;a?(b=h.getElementById(a))?f(b):(b=e(h.getElementsByName(a)))?f(b):"top"===a&&f(null):f(null)}var h=b.document;a&&c.$watch(function(){return d.hash()},function(a,b){a===b&&""===a||Pf(function(){c.$evalAsync(g)})});return g}]}function jb(a,b){if(!a&&!b)return"";
+if(!a)return b;if(!b)return a;L(a)&&(a=a.join(" "));L(b)&&(b=b.join(" "));return a+" "+b}function Yf(a){F(a)&&(a=a.split(" "));var b=Z();n(a,function(a){a.length&&(b[a]=!0)});return b}function Ha(a){return E(a)?a:{}}function Zf(a,b,d,c){function e(a){try{a.apply(null,wa.call(arguments,1))}finally{if(K--,0===K)for(;t.length;)try{t.pop()()}catch(b){d.error(b)}}}function f(){z=null;g();h()}function g(){a:{try{p=m.state;break a}catch(a){}p=void 0}p=x(p)?null:p;oa(p,$)&&(p=$);$=p}function h(){if(u!==k.url()||
+w!==p)u=k.url(),w=p,n(A,function(a){a(k.url(),p)})}var k=this,l=a.location,m=a.history,r=a.setTimeout,s=a.clearTimeout,I={};k.isMock=!1;var K=0,t=[];k.$$completeOutstandingRequest=e;k.$$incOutstandingRequestCount=function(){K++};k.notifyWhenNoOutstandingRequests=function(a){0===K?a():t.push(a)};var p,w,u=l.href,la=b.find("base"),z=null;g();w=p;k.url=function(b,d,e){x(e)&&(e=null);l!==a.location&&(l=a.location);m!==a.history&&(m=a.history);if(b){var f=w===e;if(u===b&&(!c.history||f))return k;var h=
+u&&Ia(u)===Ia(b);u=b;w=e;if(!c.history||h&&f){if(!h||z)z=b;d?l.replace(b):h?(d=l,e=b.indexOf("#"),e=-1===e?"":b.substr(e),d.hash=e):l.href=b;l.href!==b&&(z=b)}else m[d?"replaceState":"pushState"](e,"",b),g(),w=p;return k}return z||l.href.replace(/%27/g,"'")};k.state=function(){return p};var A=[],Q=!1,$=null;k.onUrlChange=function(b){if(!Q){if(c.history)C(a).on("popstate",f);C(a).on("hashchange",f);Q=!0}A.push(b);return b};k.$$applicationDestroyed=function(){C(a).off("hashchange popstate",f)};k.$$checkUrlChange=
+h;k.baseHref=function(){var a=la.attr("href");return a?a.replace(/^(https?\:)?\/\/[^\/]*/,""):""};k.defer=function(a,b){var c;K++;c=r(function(){delete I[c];e(a)},b||0);I[c]=!0;return c};k.defer.cancel=function(a){return I[a]?(delete I[a],s(a),e(B),!0):!1}}function df(){this.$get=["$window","$log","$sniffer","$document",function(a,b,d,c){return new Zf(a,c,b,d)}]}function ef(){this.$get=function(){function a(a,c){function e(a){a!=r&&(s?s==a&&(s=a.n):s=a,f(a.n,a.p),f(a,r),r=a,r.n=null)}function f(a,
+b){a!=b&&(a&&(a.p=b),b&&(b.n=a))}if(a in b)throw H("$cacheFactory")("iid",a);var g=0,h=T({},c,{id:a}),k=Z(),l=c&&c.capacity||Number.MAX_VALUE,m=Z(),r=null,s=null;return b[a]={put:function(a,b){if(!x(b)){if(l<Number.MAX_VALUE){var c=m[a]||(m[a]={key:a});e(c)}a in k||g++;k[a]=b;g>l&&this.remove(s.key);return b}},get:function(a){if(l<Number.MAX_VALUE){var b=m[a];if(!b)return;e(b)}return k[a]},remove:function(a){if(l<Number.MAX_VALUE){var b=m[a];if(!b)return;b==r&&(r=b.p);b==s&&(s=b.n);f(b.n,b.p);delete m[a]}a in
+k&&(delete k[a],g--)},removeAll:function(){k=Z();g=0;m=Z();r=s=null},destroy:function(){m=h=k=null;delete b[a]},info:function(){return T({},h,{size:g})}}}var b={};a.info=function(){var a={};n(b,function(b,e){a[e]=b.info()});return a};a.get=function(a){return b[a]};return a}}function Af(){this.$get=["$cacheFactory",function(a){return a("templates")}]}function Ec(a,b){function d(a,b,c){var d=/^\s*([@&<]|=(\*?))(\??)\s*(\w*)\s*$/,e={};n(a,function(a,f){var g=a.match(d);if(!g)throw ja("iscp",b,f,a,c?
+"controller bindings definition":"isolate scope definition");e[f]={mode:g[1][0],collection:"*"===g[2],optional:"?"===g[3],attrName:g[4]||f}});return e}function c(a){var b=a.charAt(0);if(!b||b!==G(b))throw ja("baddir",a);if(a!==a.trim())throw ja("baddir",a);}var e={},f=/^\s*directive\:\s*([\w\-]+)\s+(.*)$/,g=/(([\w\-]+)(?:\:([^;]+))?;?)/,h=be("ngSrc,ngSrcset,src,srcset"),k=/^(?:(\^\^?)?(\?)?(\^\^?)?)?/,l=/^(on[a-z]+|formaction)$/;this.directive=function s(b,f){Ta(b,"directive");F(b)?(c(b),sb(f,"directiveFactory"),
+e.hasOwnProperty(b)||(e[b]=[],a.factory(b+"Directive",["$injector","$exceptionHandler",function(a,c){var f=[];n(e[b],function(e,g){try{var h=a.invoke(e);D(h)?h={compile:ba(h)}:!h.compile&&h.link&&(h.compile=ba(h.link));h.priority=h.priority||0;h.index=g;h.name=h.name||b;h.require=h.require||h.controller&&h.name;h.restrict=h.restrict||"EA";var k=h,l=h,m=h.name,s={isolateScope:null,bindToController:null};E(l.scope)&&(!0===l.bindToController?(s.bindToController=d(l.scope,m,!0),s.isolateScope={}):s.isolateScope=
+d(l.scope,m,!1));E(l.bindToController)&&(s.bindToController=d(l.bindToController,m,!0));if(E(s.bindToController)){var P=l.controller,S=l.controllerAs;if(!P)throw ja("noctrl",m);if(!Wc(P,S))throw ja("noident",m);}var ma=k.$$bindings=s;E(ma.isolateScope)&&(h.$$isolateBindings=ma.isolateScope);h.$$moduleName=e.$$moduleName;f.push(h)}catch(K){c(K)}});return f}])),e[b].push(f)):n(b,sc(s));return this};this.component=function(a,b){function c(a){function e(b){return D(b)||L(b)?function(c,d){return a.invoke(b,
+this,{$element:c,$attrs:d})}:b}var f=b.template||b.templateUrl?b.template:"";return{controller:d,controllerAs:Wc(b.controller)||b.controllerAs||"$ctrl",template:e(f),templateUrl:e(b.templateUrl),transclude:b.transclude,scope:{},bindToController:b.bindings||{},restrict:"E",require:b.require}}var d=b.controller||function(){};n(b,function(a,b){"$"===b.charAt(0)&&(c[b]=a)});c.$inject=["$injector"];return this.directive(a,c)};this.aHrefSanitizationWhitelist=function(a){return y(a)?(b.aHrefSanitizationWhitelist(a),
+this):b.aHrefSanitizationWhitelist()};this.imgSrcSanitizationWhitelist=function(a){return y(a)?(b.imgSrcSanitizationWhitelist(a),this):b.imgSrcSanitizationWhitelist()};var m=!0;this.debugInfoEnabled=function(a){return y(a)?(m=a,this):m};this.$get=["$injector","$interpolate","$exceptionHandler","$templateRequest","$parse","$controller","$rootScope","$sce","$animate","$$sanitizeUri",function(a,b,c,d,p,w,u,la,z,A){function Q(a,b,c){ba.innerHTML="<span "+b+">";b=ba.firstChild.attributes;var d=b[0];b.removeNamedItem(d.name);
+d.value=c;a.attributes.setNamedItem(d)}function $(a,b){try{a.addClass(b)}catch(c){}}function M(a,b,c,d,e){a instanceof C||(a=C(a));for(var f=/\S+/,g=0,h=a.length;g<h;g++){var k=a[g];k.nodeType===Pa&&k.nodeValue.match(f)&&Oc(k,a[g]=W.createElement("span"))}var l=P(a,b,a,c,d,e);M.$$addScopeClass(a);var m=null;return function(b,c,d){sb(b,"scope");e&&e.needsNewScope&&(b=b.$parent.$new());d=d||{};var f=d.parentBoundTranscludeFn,g=d.transcludeControllers;d=d.futureParentElement;f&&f.$$boundTransclude&&
+(f=f.$$boundTransclude);m||(m=(d=d&&d[0])?"foreignobject"!==ra(d)&&ga.call(d).match(/SVG/)?"svg":"html":"html");d="html"!==m?C(U(m,C("<div>").append(a).html())):c?Ra.clone.call(a):a;if(g)for(var h in g)d.data("$"+h+"Controller",g[h].instance);M.$$addScopeInfo(d,b);c&&c(d,b);l&&l(b,d,d,f);return d}}function P(a,b,c,d,e,f){function g(a,c,d,e){var f,k,l,m,p,s,u;if(A)for(u=Array(c.length),m=0;m<h.length;m+=3)f=h[m],u[f]=c[f];else u=c;m=0;for(p=h.length;m<p;)k=u[h[m++]],c=h[m++],f=h[m++],c?(c.scope?(l=
+a.$new(),M.$$addScopeInfo(C(k),l)):l=a,s=c.transcludeOnThisElement?S(a,c.transclude,e):!c.templateOnThisElement&&e?e:!e&&b?S(a,b):null,c(f,l,k,d,s)):f&&f(a,k.childNodes,v,e)}for(var h=[],k,l,m,p,A,s=0;s<a.length;s++){k=new na;l=ma(a[s],[],k,0===s?d:v,e);(f=l.length?y(l,a[s],k,b,c,null,[],[],f):null)&&f.scope&&M.$$addScopeClass(k.$$element);k=f&&f.terminal||!(m=a[s].childNodes)||!m.length?null:P(m,f?(f.transcludeOnThisElement||!f.templateOnThisElement)&&f.transclude:b);if(f||k)h.push(s,f,k),p=!0,A=
+A||f;f=null}return p?g:null}function S(a,b,c){var d=function(d,e,f,g,h){d||(d=a.$new(!1,h),d.$$transcluded=!0);return b(d,e,{parentBoundTranscludeFn:c,transcludeControllers:f,futureParentElement:g})},e=d.$$slots=Z(),f;for(f in b.$$slots)e[f]=b.$$slots[f]?S(a,b.$$slots[f],c):null;return d}function ma(a,b,c,d,e){var h=c.$attr,k;switch(a.nodeType){case 1:H(b,va(ra(a)),"E",d,e);for(var l,m,p,s=a.attributes,A=0,u=s&&s.length;A<u;A++){var t=!1,w=!1;l=s[A];k=l.name;m=X(l.value);l=va(k);if(p=pa.test(l))k=
+k.replace(Xc,"").substr(8).replace(/_(.)/g,function(a,b){return b.toUpperCase()});(l=l.match(ua))&&O(l[1])&&(t=k,w=k.substr(0,k.length-5)+"end",k=k.substr(0,k.length-6));l=va(k.toLowerCase());h[l]=k;if(p||!c.hasOwnProperty(l))c[l]=m,Tc(a,l)&&(c[l]=!0);Y(a,b,m,l,p);H(b,l,"A",d,e,t,w)}a=a.className;E(a)&&(a=a.animVal);if(F(a)&&""!==a)for(;k=g.exec(a);)l=va(k[2]),H(b,l,"C",d,e)&&(c[l]=X(k[3])),a=a.substr(k.index+k[0].length);break;case Pa:if(11===xa)for(;a.parentNode&&a.nextSibling&&a.nextSibling.nodeType===
+Pa;)a.nodeValue+=a.nextSibling.nodeValue,a.parentNode.removeChild(a.nextSibling);N(b,a.nodeValue);break;case 8:try{if(k=f.exec(a.nodeValue))l=va(k[1]),H(b,l,"M",d,e)&&(c[l]=X(k[2]))}catch(M){}}b.sort(ya);return b}function q(a,b,c){var d=[],e=0;if(b&&a.hasAttribute&&a.hasAttribute(b)){do{if(!a)throw ja("uterdir",b,c);1==a.nodeType&&(a.hasAttribute(b)&&e++,a.hasAttribute(c)&&e--);d.push(a);a=a.nextSibling}while(0<e)}else d.push(a);return C(d)}function Yc(a,b,c){return function(d,e,f,g,h){e=q(e[0],b,
+c);return a(d,e,f,g,h)}}function ac(a,b,c,d,e,f){if(a)return M(b,c,d,e,f);var g;return function(){g||(g=M(b,c,d,e,f),b=c=f=null);return g.apply(this,arguments)}}function y(a,b,d,e,f,g,h,l,m){function p(a,b,c,d){if(a){c&&(a=Yc(a,c,d));a.require=J.require;a.directiveName=H;if(P===J||J.$$isolateScope)a=ca(a,{isolateScope:!0});h.push(a)}if(b){c&&(b=Yc(b,c,d));b.require=J.require;b.directiveName=H;if(P===J||J.$$isolateScope)b=ca(b,{isolateScope:!0});l.push(b)}}function s(a,b,c,d){var e;if(F(b)){var f=
+b.match(k);b=b.substring(f[0].length);var g=f[1]||f[3],f="?"===f[2];"^^"===g?c=c.parent():e=(e=d&&d[b])&&e.instance;if(!e){var h="$"+b+"Controller";e=g?c.inheritedData(h):c.data(h)}if(!e&&!f)throw ja("ctreq",b,a);}else if(L(b))for(e=[],g=0,f=b.length;g<f;g++)e[g]=s(a,b[g],c,d);else E(b)&&(e={},n(b,function(b,f){e[f]=s(a,b,c,d)}));return e||null}function A(a,b,c,d,e,f){var g=Z(),h;for(h in d){var k=d[h],l={$scope:k===P||k.$$isolateScope?e:f,$element:a,$attrs:b,$transclude:c},m=k.controller;"@"==m&&
+(m=b[k.name]);l=w(m,l,!0,k.controllerAs);g[k.name]=l;B||a.data("$"+k.name+"Controller",l.instance)}return g}function u(a,c,e,f,g){function k(a,b,c,d){var e;bb(a)||(d=c,c=b,b=a,a=v);B&&(e=ma);c||(c=B?z.parent():z);if(d){var f=g.$$slots[d];if(f)return f(a,b,e,c,Eb);if(x(f))throw ja("noslot",d,ta(z));}else return g(a,b,e,c,Eb)}var m,p,t,w,ma,S,z,Ja;b===e?(f=d,z=d.$$element):(z=C(e),f=new na(z,d));t=c;P?w=c.$new(!0):Q&&(t=c.$parent);g&&(S=k,S.$$boundTransclude=g,S.isSlotFilled=function(a){return!!g.$$slots[a]});
+I&&(ma=A(z,f,S,I,w,c));P&&(M.$$addScopeInfo(z,w,!0,!($&&($===P||$===P.$$originalDirective))),M.$$addScopeClass(z,!0),w.$$isolateBindings=P.$$isolateBindings,(Ja=ia(c,f,w,w.$$isolateBindings,P))&&w.$on("$destroy",Ja));for(p in ma){Ja=I[p];var K=ma[p],la=Ja.$$bindings.bindToController;K.identifier&&la&&(m=ia(t,f,K.instance,la,Ja));var q=K();q!==K.instance&&(K.instance=q,z.data("$"+Ja.name+"Controller",q),m&&m(),m=ia(t,f,K.instance,la,Ja))}n(I,function(a,b){var c=a.require;a.bindToController&&!L(c)&&
+E(c)&&T(ma[b].instance,s(b,c,z,ma))});n(ma,function(a){D(a.instance.$onInit)&&a.instance.$onInit()});m=0;for(p=h.length;m<p;m++)t=h[m],ka(t,t.isolateScope?w:c,z,f,t.require&&s(t.directiveName,t.require,z,ma),S);var Eb=c;P&&(P.template||null===P.templateUrl)&&(Eb=w);a&&a(Eb,e.childNodes,v,g);for(m=l.length-1;0<=m;m--)t=l[m],ka(t,t.isolateScope?w:c,z,f,t.require&&s(t.directiveName,t.require,z,ma),S)}m=m||{};for(var t=-Number.MAX_VALUE,Q=m.newScopeDirective,I=m.controllerDirectives,P=m.newIsolateScopeDirective,
+$=m.templateDirective,S=m.nonTlbTranscludeDirective,z=!1,la=!1,B=m.hasElementTranscludeDirective,ea=d.$$element=C(b),J,H,G,ya=e,O,N=!1,Fb=!1,fa,R=0,Va=a.length;R<Va;R++){J=a[R];var Y=J.$$start,ba=J.$$end;Y&&(ea=q(b,Y,ba));G=v;if(t>J.priority)break;if(fa=J.scope)J.templateUrl||(E(fa)?(Wa("new/isolated scope",P||Q,J,ea),P=J):Wa("new/isolated scope",P,J,ea)),Q=Q||J;H=J.name;if(!N&&(J.replace&&(J.templateUrl||J.template)||J.transclude&&!J.$$tlb)){for(fa=R+1;N=a[fa++];)if(N.transclude&&!N.$$tlb||N.replace&&
+(N.templateUrl||N.template)){Fb=!0;break}N=!0}!J.templateUrl&&J.controller&&(fa=J.controller,I=I||Z(),Wa("'"+H+"' controller",I[H],J,ea),I[H]=J);if(fa=J.transclude)if(z=!0,J.$$tlb||(Wa("transclusion",S,J,ea),S=J),"element"==fa)B=!0,t=J.priority,G=ea,ea=d.$$element=C(W.createComment(" "+H+": "+d[H]+" ")),b=ea[0],aa(f,wa.call(G,0),b),ya=ac(Fb,G,e,t,g&&g.name,{nonTlbTranscludeDirective:S});else{var V=Z();G=C(Yb(b)).contents();if(E(fa)){G=[];var ha=Z(),da=Z();n(fa,function(a,b){var c="?"===a.charAt(0);
+a=c?a.substring(1):a;ha[a]=b;V[b]=null;da[b]=c});n(ea.contents(),function(a){var b=ha[va(ra(a))];b?(da[b]=!0,V[b]=V[b]||[],V[b].push(a)):G.push(a)});n(da,function(a,b){if(!a)throw ja("reqslot",b);});for(var ga in V)V[ga]&&(V[ga]=ac(Fb,V[ga],e))}ea.empty();ya=ac(Fb,G,e,v,v,{needsNewScope:J.$$isolateScope||J.$$newScope});ya.$$slots=V}if(J.template)if(la=!0,Wa("template",$,J,ea),$=J,fa=D(J.template)?J.template(ea,d):J.template,fa=qa(fa),J.replace){g=J;G=Wb.test(fa)?Zc(U(J.templateNamespace,X(fa))):[];
+b=G[0];if(1!=G.length||1!==b.nodeType)throw ja("tplrt",H,"");aa(f,ea,b);Va={$attr:{}};fa=ma(b,[],Va);var oa=a.splice(R+1,a.length-(R+1));(P||Q)&&$c(fa,P,Q);a=a.concat(fa).concat(oa);ad(d,Va);Va=a.length}else ea.html(fa);if(J.templateUrl)la=!0,Wa("template",$,J,ea),$=J,J.replace&&(g=J),u=$f(a.splice(R,a.length-R),ea,d,f,z&&ya,h,l,{controllerDirectives:I,newScopeDirective:Q!==J&&Q,newIsolateScopeDirective:P,templateDirective:$,nonTlbTranscludeDirective:S}),Va=a.length;else if(J.compile)try{O=J.compile(ea,
+d,ya),D(O)?p(null,O,Y,ba):O&&p(O.pre,O.post,Y,ba)}catch(pa){c(pa,ta(ea))}J.terminal&&(u.terminal=!0,t=Math.max(t,J.priority))}u.scope=Q&&!0===Q.scope;u.transcludeOnThisElement=z;u.templateOnThisElement=la;u.transclude=ya;m.hasElementTranscludeDirective=B;return u}function $c(a,b,c){for(var d=0,e=a.length;d<e;d++)a[d]=Sb(a[d],{$$isolateScope:b,$$newScope:c})}function H(b,d,f,g,h,k,l){if(d===h)return null;h=null;if(e.hasOwnProperty(d)){var m;d=a.get(d+"Directive");for(var p=0,A=d.length;p<A;p++)try{m=
+d[p],(x(g)||g>m.priority)&&-1!=m.restrict.indexOf(f)&&(k&&(m=Sb(m,{$$start:k,$$end:l})),b.push(m),h=m)}catch(t){c(t)}}return h}function O(b){if(e.hasOwnProperty(b))for(var c=a.get(b+"Directive"),d=0,f=c.length;d<f;d++)if(b=c[d],b.multiElement)return!0;return!1}function ad(a,b){var c=b.$attr,d=a.$attr,e=a.$$element;n(a,function(d,e){"$"!=e.charAt(0)&&(b[e]&&b[e]!==d&&(d+=("style"===e?";":" ")+b[e]),a.$set(e,d,!0,c[e]))});n(b,function(b,f){"class"==f?($(e,b),a["class"]=(a["class"]?a["class"]+" ":"")+
+b):"style"==f?(e.attr("style",e.attr("style")+";"+b),a.style=(a.style?a.style+";":"")+b):"$"==f.charAt(0)||a.hasOwnProperty(f)||(a[f]=b,d[f]=c[f])})}function $f(a,b,c,e,f,g,h,k){var l=[],m,p,s=b[0],A=a.shift(),u=Sb(A,{templateUrl:null,transclude:null,replace:null,$$originalDirective:A}),w=D(A.templateUrl)?A.templateUrl(b,c):A.templateUrl,Q=A.templateNamespace;b.empty();d(w).then(function(d){var t,I;d=qa(d);if(A.replace){d=Wb.test(d)?Zc(U(Q,X(d))):[];t=d[0];if(1!=d.length||1!==t.nodeType)throw ja("tplrt",
+A.name,w);d={$attr:{}};aa(e,b,t);var M=ma(t,[],d);E(A.scope)&&$c(M,!0);a=M.concat(a);ad(c,d)}else t=s,b.html(d);a.unshift(u);m=y(a,t,c,f,b,A,g,h,k);n(e,function(a,c){a==t&&(e[c]=b[0])});for(p=P(b[0].childNodes,f);l.length;){d=l.shift();I=l.shift();var z=l.shift(),K=l.shift(),M=b[0];if(!d.$$destroyed){if(I!==s){var la=I.className;k.hasElementTranscludeDirective&&A.replace||(M=Yb(t));aa(z,C(I),M);$(C(M),la)}I=m.transcludeOnThisElement?S(d,m.transclude,K):K;m(p,d,M,e,I)}}l=null});return function(a,b,
+c,d,e){a=e;b.$$destroyed||(l?l.push(b,c,d,a):(m.transcludeOnThisElement&&(a=S(b,m.transclude,e)),m(p,b,c,d,a)))}}function ya(a,b){var c=b.priority-a.priority;return 0!==c?c:a.name!==b.name?a.name<b.name?-1:1:a.index-b.index}function Wa(a,b,c,d){function e(a){return a?" (module: "+a+")":""}if(b)throw ja("multidir",b.name,e(b.$$moduleName),c.name,e(c.$$moduleName),a,ta(d));}function N(a,c){var d=b(c,!0);d&&a.push({priority:0,compile:function(a){a=a.parent();var b=!!a.length;b&&M.$$addBindingClass(a);
+return function(a,c){var e=c.parent();b||M.$$addBindingClass(e);M.$$addBindingInfo(e,d.expressions);a.$watch(d,function(a){c[0].nodeValue=a})}}})}function U(a,b){a=G(a||"html");switch(a){case "svg":case "math":var c=W.createElement("div");c.innerHTML="<"+a+">"+b+"</"+a+">";return c.childNodes[0].childNodes;default:return b}}function R(a,b){if("srcdoc"==b)return la.HTML;var c=ra(a);if("xlinkHref"==b||"form"==c&&"action"==b||"img"!=c&&("src"==b||"ngSrc"==b))return la.RESOURCE_URL}function Y(a,c,d,e,
+f){var g=R(a,e);f=h[e]||f;var k=b(d,!0,g,f);if(k){if("multiple"===e&&"select"===ra(a))throw ja("selmulti",ta(a));c.push({priority:100,compile:function(){return{pre:function(a,c,h){c=h.$$observers||(h.$$observers=Z());if(l.test(e))throw ja("nodomevents");var m=h[e];m!==d&&(k=m&&b(m,!0,g,f),d=m);k&&(h[e]=k(a),(c[e]||(c[e]=[])).$$inter=!0,(h.$$observers&&h.$$observers[e].$$scope||a).$watch(k,function(a,b){"class"===e&&a!=b?h.$updateClass(a,b):h.$set(e,a)}))}}}})}}function aa(a,b,c){var d=b[0],e=b.length,
+f=d.parentNode,g,h;if(a)for(g=0,h=a.length;g<h;g++)if(a[g]==d){a[g++]=c;h=g+e-1;for(var k=a.length;g<k;g++,h++)h<k?a[g]=a[h]:delete a[g];a.length-=e-1;a.context===d&&(a.context=c);break}f&&f.replaceChild(c,d);a=W.createDocumentFragment();for(g=0;g<e;g++)a.appendChild(b[g]);C.hasData(d)&&(C.data(c,C.data(d)),C(d).off("$destroy"));C.cleanData(a.querySelectorAll("*"));for(g=1;g<e;g++)delete b[g];b[0]=c;b.length=1}function ca(a,b){return T(function(){return a.apply(null,arguments)},a,b)}function ka(a,
+b,d,e,f,g){try{a(b,d,e,f,g)}catch(h){c(h,ta(d))}}function ia(a,c,d,e,f){var g=[];n(e,function(e,h){var k=e.attrName,l=e.optional,m,A,s,t;switch(e.mode){case "@":l||sa.call(c,k)||(d[h]=c[k]=void 0);c.$observe(k,function(a){F(a)&&(d[h]=a)});c.$$observers[k].$$scope=a;m=c[k];F(m)?d[h]=b(m)(a):Na(m)&&(d[h]=m);break;case "=":if(!sa.call(c,k)){if(l)break;c[k]=void 0}if(l&&!c[k])break;A=p(c[k]);t=A.literal?oa:function(a,b){return a===b||a!==a&&b!==b};s=A.assign||function(){m=d[h]=A(a);throw ja("nonassign",
+c[k],k,f.name);};m=d[h]=A(a);l=function(b){t(b,d[h])||(t(b,m)?s(a,b=d[h]):d[h]=b);return m=b};l.$stateful=!0;l=e.collection?a.$watchCollection(c[k],l):a.$watch(p(c[k],l),null,A.literal);g.push(l);break;case "<":if(!sa.call(c,k)){if(l)break;c[k]=void 0}if(l&&!c[k])break;A=p(c[k]);d[h]=A(a);l=a.$watch(A,function(a){d[h]=a},A.literal);g.push(l);break;case "&":A=c.hasOwnProperty(k)?p(c[k]):B;if(A===B&&l)break;d[h]=function(b){return A(a,b)}}});return g.length&&function(){for(var a=0,b=g.length;a<b;++a)g[a]()}}
+var V=/^\w/,ba=W.createElement("div"),na=function(a,b){if(b){var c=Object.keys(b),d,e,f;d=0;for(e=c.length;d<e;d++)f=c[d],this[f]=b[f]}else this.$attr={};this.$$element=a};na.prototype={$normalize:va,$addClass:function(a){a&&0<a.length&&z.addClass(this.$$element,a)},$removeClass:function(a){a&&0<a.length&&z.removeClass(this.$$element,a)},$updateClass:function(a,b){var c=bd(a,b);c&&c.length&&z.addClass(this.$$element,c);(c=bd(b,a))&&c.length&&z.removeClass(this.$$element,c)},$set:function(a,b,d,e){var f=
+Tc(this.$$element[0],a),g=cd[a],h=a;f?(this.$$element.prop(a,b),e=f):g&&(this[g]=b,h=g);this[a]=b;e?this.$attr[a]=e:(e=this.$attr[a])||(this.$attr[a]=e=Bc(a,"-"));f=ra(this.$$element);if("a"===f&&("href"===a||"xlinkHref"===a)||"img"===f&&"src"===a)this[a]=b=A(b,"src"===a);else if("img"===f&&"srcset"===a){for(var f="",g=X(b),k=/(\s+\d+x\s*,|\s+\d+w\s*,|\s+,|,\s+)/,k=/\s/.test(g)?k:/(,)/,g=g.split(k),k=Math.floor(g.length/2),l=0;l<k;l++)var m=2*l,f=f+A(X(g[m]),!0),f=f+(" "+X(g[m+1]));g=X(g[2*l]).split(/\s/);
+f+=A(X(g[0]),!0);2===g.length&&(f+=" "+X(g[1]));this[a]=b=f}!1!==d&&(null===b||x(b)?this.$$element.removeAttr(e):V.test(e)?this.$$element.attr(e,b):Q(this.$$element[0],e,b));(a=this.$$observers)&&n(a[h],function(a){try{a(b)}catch(d){c(d)}})},$observe:function(a,b){var c=this,d=c.$$observers||(c.$$observers=Z()),e=d[a]||(d[a]=[]);e.push(b);u.$evalAsync(function(){e.$$inter||!c.hasOwnProperty(a)||x(c[a])||b(c[a])});return function(){cb(e,b)}}};var ha=b.startSymbol(),da=b.endSymbol(),qa="{{"==ha&&"}}"==
+da?ab:function(a){return a.replace(/\{\{/g,ha).replace(/}}/g,da)},pa=/^ngAttr[A-Z]/,ua=/^(.+)Start$/;M.$$addBindingInfo=m?function(a,b){var c=a.data("$binding")||[];L(b)?c=c.concat(b):c.push(b);a.data("$binding",c)}:B;M.$$addBindingClass=m?function(a){$(a,"ng-binding")}:B;M.$$addScopeInfo=m?function(a,b,c,d){a.data(c?d?"$isolateScopeNoTemplate":"$isolateScope":"$scope",b)}:B;M.$$addScopeClass=m?function(a,b){$(a,b?"ng-isolate-scope":"ng-scope")}:B;return M}]}function va(a){return gb(a.replace(Xc,
+""))}function bd(a,b){var d="",c=a.split(/\s+/),e=b.split(/\s+/),f=0;a:for(;f<c.length;f++){for(var g=c[f],h=0;h<e.length;h++)if(g==e[h])continue a;d+=(0<d.length?" ":"")+g}return d}function Zc(a){a=C(a);var b=a.length;if(1>=b)return a;for(;b--;)8===a[b].nodeType&&ag.call(a,b,1);return a}function Wc(a,b){if(b&&F(b))return b;if(F(a)){var d=dd.exec(a);if(d)return d[3]}}function ff(){var a={},b=!1;this.register=function(b,c){Ta(b,"controller");E(b)?T(a,b):a[b]=c};this.allowGlobals=function(){b=!0};this.$get=
+["$injector","$window",function(d,c){function e(a,b,c,d){if(!a||!E(a.$scope))throw H("$controller")("noscp",d,b);a.$scope[b]=c}return function(f,g,h,k){var l,m,r;h=!0===h;k&&F(k)&&(r=k);if(F(f)){k=f.match(dd);if(!k)throw bg("ctrlfmt",f);m=k[1];r=r||k[3];f=a.hasOwnProperty(m)?a[m]:Dc(g.$scope,m,!0)||(b?Dc(c,m,!0):v);Sa(f,m,!0)}if(h)return h=(L(f)?f[f.length-1]:f).prototype,l=Object.create(h||null),r&&e(g,r,l,m||f.name),T(function(){var a=d.invoke(f,l,g,m);a!==l&&(E(a)||D(a))&&(l=a,r&&e(g,r,l,m||f.name));
+return l},{instance:l,identifier:r});l=d.instantiate(f,g,m);r&&e(g,r,l,m||f.name);return l}}]}function gf(){this.$get=["$window",function(a){return C(a.document)}]}function hf(){this.$get=["$log",function(a){return function(b,d){a.error.apply(a,arguments)}}]}function bc(a){return E(a)?V(a)?a.toISOString():eb(a):a}function nf(){this.$get=function(){return function(a){if(!a)return"";var b=[];rc(a,function(a,c){null===a||x(a)||(L(a)?n(a,function(a,d){b.push(ha(c)+"="+ha(bc(a)))}):b.push(ha(c)+"="+ha(bc(a))))});
+return b.join("&")}}}function of(){this.$get=function(){return function(a){function b(a,e,f){null===a||x(a)||(L(a)?n(a,function(a,c){b(a,e+"["+(E(a)?c:"")+"]")}):E(a)&&!V(a)?rc(a,function(a,c){b(a,e+(f?"":"[")+c+(f?"":"]"))}):d.push(ha(e)+"="+ha(bc(a))))}if(!a)return"";var d=[];b(a,"",!0);return d.join("&")}}}function cc(a,b){if(F(a)){var d=a.replace(cg,"").trim();if(d){var c=b("Content-Type");(c=c&&0===c.indexOf(ed))||(c=(c=d.match(dg))&&eg[c[0]].test(d));c&&(a=wc(d))}}return a}function fd(a){var b=
+Z(),d;F(a)?n(a.split("\n"),function(a){d=a.indexOf(":");var e=G(X(a.substr(0,d)));a=X(a.substr(d+1));e&&(b[e]=b[e]?b[e]+", "+a:a)}):E(a)&&n(a,function(a,d){var f=G(d),g=X(a);f&&(b[f]=b[f]?b[f]+", "+g:g)});return b}function gd(a){var b;return function(d){b||(b=fd(a));return d?(d=b[G(d)],void 0===d&&(d=null),d):b}}function hd(a,b,d,c){if(D(c))return c(a,b,d);n(c,function(c){a=c(a,b,d)});return a}function mf(){var a=this.defaults={transformResponse:[cc],transformRequest:[function(a){return E(a)&&"[object File]"!==
+ga.call(a)&&"[object Blob]"!==ga.call(a)&&"[object FormData]"!==ga.call(a)?eb(a):a}],headers:{common:{Accept:"application/json, text/plain, */*"},post:na(dc),put:na(dc),patch:na(dc)},xsrfCookieName:"XSRF-TOKEN",xsrfHeaderName:"X-XSRF-TOKEN",paramSerializer:"$httpParamSerializer"},b=!1;this.useApplyAsync=function(a){return y(a)?(b=!!a,this):b};var d=!0;this.useLegacyPromiseExtensions=function(a){return y(a)?(d=!!a,this):d};var c=this.interceptors=[];this.$get=["$httpBackend","$$cookieReader","$cacheFactory",
+"$rootScope","$q","$injector",function(e,f,g,h,k,l){function m(b){function c(a){var b=T({},a);b.data=hd(a.data,a.headers,a.status,f.transformResponse);a=a.status;return 200<=a&&300>a?b:k.reject(b)}function e(a,b){var c,d={};n(a,function(a,e){D(a)?(c=a(b),null!=c&&(d[e]=c)):d[e]=a});return d}if(!E(b))throw H("$http")("badreq",b);if(!F(b.url))throw H("$http")("badreq",b.url);var f=T({method:"get",transformRequest:a.transformRequest,transformResponse:a.transformResponse,paramSerializer:a.paramSerializer},
+b);f.headers=function(b){var c=a.headers,d=T({},b.headers),f,g,h,c=T({},c.common,c[G(b.method)]);a:for(f in c){g=G(f);for(h in d)if(G(h)===g)continue a;d[f]=c[f]}return e(d,na(b))}(b);f.method=ub(f.method);f.paramSerializer=F(f.paramSerializer)?l.get(f.paramSerializer):f.paramSerializer;var g=[function(b){var d=b.headers,e=hd(b.data,gd(d),v,b.transformRequest);x(e)&&n(d,function(a,b){"content-type"===G(b)&&delete d[b]});x(b.withCredentials)&&!x(a.withCredentials)&&(b.withCredentials=a.withCredentials);
+return r(b,e).then(c,c)},v],h=k.when(f);for(n(K,function(a){(a.request||a.requestError)&&g.unshift(a.request,a.requestError);(a.response||a.responseError)&&g.push(a.response,a.responseError)});g.length;){b=g.shift();var m=g.shift(),h=h.then(b,m)}d?(h.success=function(a){Sa(a,"fn");h.then(function(b){a(b.data,b.status,b.headers,f)});return h},h.error=function(a){Sa(a,"fn");h.then(null,function(b){a(b.data,b.status,b.headers,f)});return h}):(h.success=id("success"),h.error=id("error"));return h}function r(c,
+d){function g(a,c,d,e){function f(){l(c,a,d,e)}K&&(200<=a&&300>a?K.put(S,[a,c,fd(d),e]):K.remove(S));b?h.$applyAsync(f):(f(),h.$$phase||h.$apply())}function l(a,b,d,e){b=-1<=b?b:0;(200<=b&&300>b?A.resolve:A.reject)({data:a,status:b,headers:gd(d),config:c,statusText:e})}function r(a){l(a.data,a.status,na(a.headers()),a.statusText)}function z(){var a=m.pendingRequests.indexOf(c);-1!==a&&m.pendingRequests.splice(a,1)}var A=k.defer(),Q=A.promise,K,M,P=c.headers,S=s(c.url,c.paramSerializer(c.params));
+m.pendingRequests.push(c);Q.then(z,z);!c.cache&&!a.cache||!1===c.cache||"GET"!==c.method&&"JSONP"!==c.method||(K=E(c.cache)?c.cache:E(a.cache)?a.cache:I);K&&(M=K.get(S),y(M)?M&&D(M.then)?M.then(r,r):L(M)?l(M[1],M[0],na(M[2]),M[3]):l(M,200,{},"OK"):K.put(S,Q));x(M)&&((M=jd(c.url)?f()[c.xsrfCookieName||a.xsrfCookieName]:v)&&(P[c.xsrfHeaderName||a.xsrfHeaderName]=M),e(c.method,S,d,g,P,c.timeout,c.withCredentials,c.responseType));return Q}function s(a,b){0<b.length&&(a+=(-1==a.indexOf("?")?"?":"&")+b);
+return a}var I=g("$http");a.paramSerializer=F(a.paramSerializer)?l.get(a.paramSerializer):a.paramSerializer;var K=[];n(c,function(a){K.unshift(F(a)?l.get(a):l.invoke(a))});m.pendingRequests=[];(function(a){n(arguments,function(a){m[a]=function(b,c){return m(T({},c||{},{method:a,url:b}))}})})("get","delete","head","jsonp");(function(a){n(arguments,function(a){m[a]=function(b,c,d){return m(T({},d||{},{method:a,url:b,data:c}))}})})("post","put","patch");m.defaults=a;return m}]}function qf(){this.$get=
+function(){return function(){return new O.XMLHttpRequest}}}function pf(){this.$get=["$browser","$window","$document","$xhrFactory",function(a,b,d,c){return fg(a,c,a.defer,b.angular.callbacks,d[0])}]}function fg(a,b,d,c,e){function f(a,b,d){var f=e.createElement("script"),m=null;f.type="text/javascript";f.src=a;f.async=!0;m=function(a){f.removeEventListener("load",m,!1);f.removeEventListener("error",m,!1);e.body.removeChild(f);f=null;var g=-1,I="unknown";a&&("load"!==a.type||c[b].called||(a={type:"error"}),
+I=a.type,g="error"===a.type?404:200);d&&d(g,I)};f.addEventListener("load",m,!1);f.addEventListener("error",m,!1);e.body.appendChild(f);return m}return function(e,h,k,l,m,r,s,I){function K(){w&&w();u&&u.abort()}function t(b,c,e,f,g){y(z)&&d.cancel(z);w=u=null;b(c,e,f,g);a.$$completeOutstandingRequest(B)}a.$$incOutstandingRequestCount();h=h||a.url();if("jsonp"==G(e)){var p="_"+(c.counter++).toString(36);c[p]=function(a){c[p].data=a;c[p].called=!0};var w=f(h.replace("JSON_CALLBACK","angular.callbacks."+
+p),p,function(a,b){t(l,a,c[p].data,"",b);c[p]=B})}else{var u=b(e,h);u.open(e,h,!0);n(m,function(a,b){y(a)&&u.setRequestHeader(b,a)});u.onload=function(){var a=u.statusText||"",b="response"in u?u.response:u.responseText,c=1223===u.status?204:u.status;0===c&&(c=b?200:"file"==za(h).protocol?404:0);t(l,c,b,u.getAllResponseHeaders(),a)};e=function(){t(l,-1,null,null,"")};u.onerror=e;u.onabort=e;s&&(u.withCredentials=!0);if(I)try{u.responseType=I}catch(la){if("json"!==I)throw la;}u.send(x(k)?null:k)}if(0<
+r)var z=d(K,r);else r&&D(r.then)&&r.then(K)}}function kf(){var a="{{",b="}}";this.startSymbol=function(b){return b?(a=b,this):a};this.endSymbol=function(a){return a?(b=a,this):b};this.$get=["$parse","$exceptionHandler","$sce",function(d,c,e){function f(a){return"\\\\\\"+a}function g(c){return c.replace(r,a).replace(s,b)}function h(a,b,c,d){var e;return e=a.$watch(function(a){e();return d(a)},b,c)}function k(f,k,r,p){function s(a){try{var b=a;a=r?e.getTrusted(r,b):e.valueOf(b);var d;if(p&&!y(a))d=
+a;else if(null==a)d="";else{switch(typeof a){case "string":break;case "number":a=""+a;break;default:a=eb(a)}d=a}return d}catch(g){c(Ka.interr(f,g))}}if(!f.length||-1===f.indexOf(a)){var u;k||(k=g(f),u=ba(k),u.exp=f,u.expressions=[],u.$$watchDelegate=h);return u}p=!!p;var n,z,A=0,Q=[],$=[];u=f.length;for(var M=[],P=[];A<u;)if(-1!=(n=f.indexOf(a,A))&&-1!=(z=f.indexOf(b,n+l)))A!==n&&M.push(g(f.substring(A,n))),A=f.substring(n+l,z),Q.push(A),$.push(d(A,s)),A=z+m,P.push(M.length),M.push("");else{A!==u&&
+M.push(g(f.substring(A)));break}r&&1<M.length&&Ka.throwNoconcat(f);if(!k||Q.length){var S=function(a){for(var b=0,c=Q.length;b<c;b++){if(p&&x(a[b]))return;M[P[b]]=a[b]}return M.join("")};return T(function(a){var b=0,d=Q.length,e=Array(d);try{for(;b<d;b++)e[b]=$[b](a);return S(e)}catch(g){c(Ka.interr(f,g))}},{exp:f,expressions:Q,$$watchDelegate:function(a,b){var c;return a.$watchGroup($,function(d,e){var f=S(d);D(b)&&b.call(this,f,d!==e?c:f,a);c=f})}})}}var l=a.length,m=b.length,r=new RegExp(a.replace(/./g,
+f),"g"),s=new RegExp(b.replace(/./g,f),"g");k.startSymbol=function(){return a};k.endSymbol=function(){return b};return k}]}function lf(){this.$get=["$rootScope","$window","$q","$$q","$browser",function(a,b,d,c,e){function f(f,k,l,m){function r(){s?f.apply(null,I):f(p)}var s=4<arguments.length,I=s?wa.call(arguments,4):[],K=b.setInterval,t=b.clearInterval,p=0,w=y(m)&&!m,u=(w?c:d).defer(),n=u.promise;l=y(l)?l:0;n.$$intervalId=K(function(){w?e.defer(r):a.$evalAsync(r);u.notify(p++);0<l&&p>=l&&(u.resolve(p),
+t(n.$$intervalId),delete g[n.$$intervalId]);w||a.$apply()},k);g[n.$$intervalId]=u;return n}var g={};f.cancel=function(a){return a&&a.$$intervalId in g?(g[a.$$intervalId].reject("canceled"),b.clearInterval(a.$$intervalId),delete g[a.$$intervalId],!0):!1};return f}]}function ec(a){a=a.split("/");for(var b=a.length;b--;)a[b]=qb(a[b]);return a.join("/")}function kd(a,b){var d=za(a);b.$$protocol=d.protocol;b.$$host=d.hostname;b.$$port=ca(d.port)||gg[d.protocol]||null}function ld(a,b){var d="/"!==a.charAt(0);
+d&&(a="/"+a);var c=za(a);b.$$path=decodeURIComponent(d&&"/"===c.pathname.charAt(0)?c.pathname.substring(1):c.pathname);b.$$search=zc(c.search);b.$$hash=decodeURIComponent(c.hash);b.$$path&&"/"!=b.$$path.charAt(0)&&(b.$$path="/"+b.$$path)}function pa(a,b){if(0===b.indexOf(a))return b.substr(a.length)}function Ia(a){var b=a.indexOf("#");return-1==b?a:a.substr(0,b)}function kb(a){return a.replace(/(#.+)|#$/,"$1")}function fc(a,b,d){this.$$html5=!0;d=d||"";kd(a,this);this.$$parse=function(a){var d=pa(b,
+a);if(!F(d))throw Gb("ipthprfx",a,b);ld(d,this);this.$$path||(this.$$path="/");this.$$compose()};this.$$compose=function(){var a=Ub(this.$$search),d=this.$$hash?"#"+qb(this.$$hash):"";this.$$url=ec(this.$$path)+(a?"?"+a:"")+d;this.$$absUrl=b+this.$$url.substr(1)};this.$$parseLinkUrl=function(c,e){if(e&&"#"===e[0])return this.hash(e.slice(1)),!0;var f,g;y(f=pa(a,c))?(g=f,g=y(f=pa(d,f))?b+(pa("/",f)||f):a+g):y(f=pa(b,c))?g=b+f:b==c+"/"&&(g=b);g&&this.$$parse(g);return!!g}}function gc(a,b,d){kd(a,this);
+this.$$parse=function(c){var e=pa(a,c)||pa(b,c),f;x(e)||"#"!==e.charAt(0)?this.$$html5?f=e:(f="",x(e)&&(a=c,this.replace())):(f=pa(d,e),x(f)&&(f=e));ld(f,this);c=this.$$path;var e=a,g=/^\/[A-Z]:(\/.*)/;0===f.indexOf(e)&&(f=f.replace(e,""));g.exec(f)||(c=(f=g.exec(c))?f[1]:c);this.$$path=c;this.$$compose()};this.$$compose=function(){var b=Ub(this.$$search),e=this.$$hash?"#"+qb(this.$$hash):"";this.$$url=ec(this.$$path)+(b?"?"+b:"")+e;this.$$absUrl=a+(this.$$url?d+this.$$url:"")};this.$$parseLinkUrl=
+function(b,d){return Ia(a)==Ia(b)?(this.$$parse(b),!0):!1}}function md(a,b,d){this.$$html5=!0;gc.apply(this,arguments);this.$$parseLinkUrl=function(c,e){if(e&&"#"===e[0])return this.hash(e.slice(1)),!0;var f,g;a==Ia(c)?f=c:(g=pa(b,c))?f=a+d+g:b===c+"/"&&(f=b);f&&this.$$parse(f);return!!f};this.$$compose=function(){var b=Ub(this.$$search),e=this.$$hash?"#"+qb(this.$$hash):"";this.$$url=ec(this.$$path)+(b?"?"+b:"")+e;this.$$absUrl=a+d+this.$$url}}function Hb(a){return function(){return this[a]}}function nd(a,
+b){return function(d){if(x(d))return this[a];this[a]=b(d);this.$$compose();return this}}function rf(){var a="",b={enabled:!1,requireBase:!0,rewriteLinks:!0};this.hashPrefix=function(b){return y(b)?(a=b,this):a};this.html5Mode=function(a){return Na(a)?(b.enabled=a,this):E(a)?(Na(a.enabled)&&(b.enabled=a.enabled),Na(a.requireBase)&&(b.requireBase=a.requireBase),Na(a.rewriteLinks)&&(b.rewriteLinks=a.rewriteLinks),this):b};this.$get=["$rootScope","$browser","$sniffer","$rootElement","$window",function(d,
+c,e,f,g){function h(a,b,d){var e=l.url(),f=l.$$state;try{c.url(a,b,d),l.$$state=c.state()}catch(g){throw l.url(e),l.$$state=f,g;}}function k(a,b){d.$broadcast("$locationChangeSuccess",l.absUrl(),a,l.$$state,b)}var l,m;m=c.baseHref();var r=c.url(),s;if(b.enabled){if(!m&&b.requireBase)throw Gb("nobase");s=r.substring(0,r.indexOf("/",r.indexOf("//")+2))+(m||"/");m=e.history?fc:md}else s=Ia(r),m=gc;var I=s.substr(0,Ia(s).lastIndexOf("/")+1);l=new m(s,I,"#"+a);l.$$parseLinkUrl(r,r);l.$$state=c.state();
+var n=/^\s*(javascript|mailto):/i;f.on("click",function(a){if(b.rewriteLinks&&!a.ctrlKey&&!a.metaKey&&!a.shiftKey&&2!=a.which&&2!=a.button){for(var e=C(a.target);"a"!==ra(e[0]);)if(e[0]===f[0]||!(e=e.parent())[0])return;var h=e.prop("href"),k=e.attr("href")||e.attr("xlink:href");E(h)&&"[object SVGAnimatedString]"===h.toString()&&(h=za(h.animVal).href);n.test(h)||!h||e.attr("target")||a.isDefaultPrevented()||!l.$$parseLinkUrl(h,k)||(a.preventDefault(),l.absUrl()!=c.url()&&(d.$apply(),g.angular["ff-684208-preventDefault"]=
+!0))}});kb(l.absUrl())!=kb(r)&&c.url(l.absUrl(),!0);var t=!0;c.onUrlChange(function(a,b){x(pa(I,a))?g.location.href=a:(d.$evalAsync(function(){var c=l.absUrl(),e=l.$$state,f;a=kb(a);l.$$parse(a);l.$$state=b;f=d.$broadcast("$locationChangeStart",a,c,b,e).defaultPrevented;l.absUrl()===a&&(f?(l.$$parse(c),l.$$state=e,h(c,!1,e)):(t=!1,k(c,e)))}),d.$$phase||d.$digest())});d.$watch(function(){var a=kb(c.url()),b=kb(l.absUrl()),f=c.state(),g=l.$$replace,m=a!==b||l.$$html5&&e.history&&f!==l.$$state;if(t||
+m)t=!1,d.$evalAsync(function(){var b=l.absUrl(),c=d.$broadcast("$locationChangeStart",b,a,l.$$state,f).defaultPrevented;l.absUrl()===b&&(c?(l.$$parse(a),l.$$state=f):(m&&h(b,g,f===l.$$state?null:l.$$state),k(a,f)))});l.$$replace=!1});return l}]}function sf(){var a=!0,b=this;this.debugEnabled=function(b){return y(b)?(a=b,this):a};this.$get=["$window",function(d){function c(a){a instanceof Error&&(a.stack?a=a.message&&-1===a.stack.indexOf(a.message)?"Error: "+a.message+"\n"+a.stack:a.stack:a.sourceURL&&
+(a=a.message+"\n"+a.sourceURL+":"+a.line));return a}function e(a){var b=d.console||{},e=b[a]||b.log||B;a=!1;try{a=!!e.apply}catch(k){}return a?function(){var a=[];n(arguments,function(b){a.push(c(b))});return e.apply(b,a)}:function(a,b){e(a,null==b?"":b)}}return{log:e("log"),info:e("info"),warn:e("warn"),error:e("error"),debug:function(){var c=e("debug");return function(){a&&c.apply(b,arguments)}}()}}]}function Xa(a,b){if("__defineGetter__"===a||"__defineSetter__"===a||"__lookupGetter__"===a||"__lookupSetter__"===
+a||"__proto__"===a)throw ka("isecfld",b);return a}function hg(a){return a+""}function Aa(a,b){if(a){if(a.constructor===a)throw ka("isecfn",b);if(a.window===a)throw ka("isecwindow",b);if(a.children&&(a.nodeName||a.prop&&a.attr&&a.find))throw ka("isecdom",b);if(a===Object)throw ka("isecobj",b);}return a}function od(a,b){if(a){if(a.constructor===a)throw ka("isecfn",b);if(a===ig||a===jg||a===kg)throw ka("isecff",b);}}function Ib(a,b){if(a&&(a===(0).constructor||a===(!1).constructor||a==="".constructor||
+a==={}.constructor||a===[].constructor||a===Function.constructor))throw ka("isecaf",b);}function lg(a,b){return"undefined"!==typeof a?a:b}function pd(a,b){return"undefined"===typeof a?b:"undefined"===typeof b?a:a+b}function R(a,b){var d,c;switch(a.type){case q.Program:d=!0;n(a.body,function(a){R(a.expression,b);d=d&&a.expression.constant});a.constant=d;break;case q.Literal:a.constant=!0;a.toWatch=[];break;case q.UnaryExpression:R(a.argument,b);a.constant=a.argument.constant;a.toWatch=a.argument.toWatch;
+break;case q.BinaryExpression:R(a.left,b);R(a.right,b);a.constant=a.left.constant&&a.right.constant;a.toWatch=a.left.toWatch.concat(a.right.toWatch);break;case q.LogicalExpression:R(a.left,b);R(a.right,b);a.constant=a.left.constant&&a.right.constant;a.toWatch=a.constant?[]:[a];break;case q.ConditionalExpression:R(a.test,b);R(a.alternate,b);R(a.consequent,b);a.constant=a.test.constant&&a.alternate.constant&&a.consequent.constant;a.toWatch=a.constant?[]:[a];break;case q.Identifier:a.constant=!1;a.toWatch=
+[a];break;case q.MemberExpression:R(a.object,b);a.computed&&R(a.property,b);a.constant=a.object.constant&&(!a.computed||a.property.constant);a.toWatch=[a];break;case q.CallExpression:d=a.filter?!b(a.callee.name).$stateful:!1;c=[];n(a.arguments,function(a){R(a,b);d=d&&a.constant;a.constant||c.push.apply(c,a.toWatch)});a.constant=d;a.toWatch=a.filter&&!b(a.callee.name).$stateful?c:[a];break;case q.AssignmentExpression:R(a.left,b);R(a.right,b);a.constant=a.left.constant&&a.right.constant;a.toWatch=[a];
+break;case q.ArrayExpression:d=!0;c=[];n(a.elements,function(a){R(a,b);d=d&&a.constant;a.constant||c.push.apply(c,a.toWatch)});a.constant=d;a.toWatch=c;break;case q.ObjectExpression:d=!0;c=[];n(a.properties,function(a){R(a.value,b);d=d&&a.value.constant;a.value.constant||c.push.apply(c,a.value.toWatch)});a.constant=d;a.toWatch=c;break;case q.ThisExpression:a.constant=!1;a.toWatch=[];break;case q.LocalsExpression:a.constant=!1,a.toWatch=[]}}function qd(a){if(1==a.length){a=a[0].expression;var b=a.toWatch;
+return 1!==b.length?b:b[0]!==a?b:v}}function rd(a){return a.type===q.Identifier||a.type===q.MemberExpression}function sd(a){if(1===a.body.length&&rd(a.body[0].expression))return{type:q.AssignmentExpression,left:a.body[0].expression,right:{type:q.NGValueParameter},operator:"="}}function td(a){return 0===a.body.length||1===a.body.length&&(a.body[0].expression.type===q.Literal||a.body[0].expression.type===q.ArrayExpression||a.body[0].expression.type===q.ObjectExpression)}function ud(a,b){this.astBuilder=
+a;this.$filter=b}function vd(a,b){this.astBuilder=a;this.$filter=b}function Jb(a){return"constructor"==a}function hc(a){return D(a.valueOf)?a.valueOf():mg.call(a)}function tf(){var a=Z(),b=Z();this.$get=["$filter",function(d){function c(c,f,r){var u,n,z;r=r||K;switch(typeof c){case "string":z=c=c.trim();var A=r?b:a;u=A[z];if(!u){":"===c.charAt(0)&&":"===c.charAt(1)&&(n=!0,c=c.substring(2));u=r?I:s;var Q=new ic(u);u=(new jc(Q,d,u)).parse(c);u.constant?u.$$watchDelegate=l:n?u.$$watchDelegate=u.literal?
+k:h:u.inputs&&(u.$$watchDelegate=g);r&&(u=e(u));A[z]=u}return m(u,f);case "function":return m(c,f);default:return m(B,f)}}function e(a){function b(c,d,e,f){var g=K;K=!0;try{return a(c,d,e,f)}finally{K=g}}if(!a)return a;b.$$watchDelegate=a.$$watchDelegate;b.assign=e(a.assign);b.constant=a.constant;b.literal=a.literal;for(var c=0;a.inputs&&c<a.inputs.length;++c)a.inputs[c]=e(a.inputs[c]);b.inputs=a.inputs;return b}function f(a,b){return null==a||null==b?a===b:"object"===typeof a&&(a=hc(a),"object"===
+typeof a)?!1:a===b||a!==a&&b!==b}function g(a,b,c,d,e){var g=d.inputs,h;if(1===g.length){var k=f,g=g[0];return a.$watch(function(a){var b=g(a);f(b,k)||(h=d(a,v,v,[b]),k=b&&hc(b));return h},b,c,e)}for(var l=[],m=[],r=0,s=g.length;r<s;r++)l[r]=f,m[r]=null;return a.$watch(function(a){for(var b=!1,c=0,e=g.length;c<e;c++){var k=g[c](a);if(b||(b=!f(k,l[c])))m[c]=k,l[c]=k&&hc(k)}b&&(h=d(a,v,v,m));return h},b,c,e)}function h(a,b,c,d){var e,f;return e=a.$watch(function(a){return d(a)},function(a,c,d){f=a;
+D(b)&&b.apply(this,arguments);y(a)&&d.$$postDigest(function(){y(f)&&e()})},c)}function k(a,b,c,d){function e(a){var b=!0;n(a,function(a){y(a)||(b=!1)});return b}var f,g;return f=a.$watch(function(a){return d(a)},function(a,c,d){g=a;D(b)&&b.call(this,a,c,d);e(a)&&d.$$postDigest(function(){e(g)&&f()})},c)}function l(a,b,c,d){var e;return e=a.$watch(function(a){e();return d(a)},b,c)}function m(a,b){if(!b)return a;var c=a.$$watchDelegate,d=!1,c=c!==k&&c!==h?function(c,e,f,g){f=d&&g?g[0]:a(c,e,f,g);return b(f,
+c,e)}:function(c,d,e,f){e=a(c,d,e,f);c=b(e,c,d);return y(e)?c:e};a.$$watchDelegate&&a.$$watchDelegate!==g?c.$$watchDelegate=a.$$watchDelegate:b.$stateful||(c.$$watchDelegate=g,d=!a.inputs,c.inputs=a.inputs?a.inputs:[a]);return c}var r=Ea().noUnsafeEval,s={csp:r,expensiveChecks:!1},I={csp:r,expensiveChecks:!0},K=!1;c.$$runningExpensiveChecks=function(){return K};return c}]}function vf(){this.$get=["$rootScope","$exceptionHandler",function(a,b){return wd(function(b){a.$evalAsync(b)},b)}]}function wf(){this.$get=
+["$browser","$exceptionHandler",function(a,b){return wd(function(b){a.defer(b)},b)}]}function wd(a,b){function d(){this.$$state={status:0}}function c(a,b){return function(c){b.call(a,c)}}function e(c){!c.processScheduled&&c.pending&&(c.processScheduled=!0,a(function(){var a,d,e;e=c.pending;c.processScheduled=!1;c.pending=v;for(var f=0,g=e.length;f<g;++f){d=e[f][0];a=e[f][c.status];try{D(a)?d.resolve(a(c.value)):1===c.status?d.resolve(c.value):d.reject(c.value)}catch(h){d.reject(h),b(h)}}}))}function f(){this.promise=
+new d}var g=H("$q",TypeError);T(d.prototype,{then:function(a,b,c){if(x(a)&&x(b)&&x(c))return this;var d=new f;this.$$state.pending=this.$$state.pending||[];this.$$state.pending.push([d,a,b,c]);0<this.$$state.status&&e(this.$$state);return d.promise},"catch":function(a){return this.then(null,a)},"finally":function(a,b){return this.then(function(b){return k(b,!0,a)},function(b){return k(b,!1,a)},b)}});T(f.prototype,{resolve:function(a){this.promise.$$state.status||(a===this.promise?this.$$reject(g("qcycle",
+a)):this.$$resolve(a))},$$resolve:function(a){function d(a){k||(k=!0,h.$$resolve(a))}function f(a){k||(k=!0,h.$$reject(a))}var g,h=this,k=!1;try{if(E(a)||D(a))g=a&&a.then;D(g)?(this.promise.$$state.status=-1,g.call(a,d,f,c(this,this.notify))):(this.promise.$$state.value=a,this.promise.$$state.status=1,e(this.promise.$$state))}catch(l){f(l),b(l)}},reject:function(a){this.promise.$$state.status||this.$$reject(a)},$$reject:function(a){this.promise.$$state.value=a;this.promise.$$state.status=2;e(this.promise.$$state)},
+notify:function(c){var d=this.promise.$$state.pending;0>=this.promise.$$state.status&&d&&d.length&&a(function(){for(var a,e,f=0,g=d.length;f<g;f++){e=d[f][0];a=d[f][3];try{e.notify(D(a)?a(c):c)}catch(h){b(h)}}})}});var h=function(a,b){var c=new f;b?c.resolve(a):c.reject(a);return c.promise},k=function(a,b,c){var d=null;try{D(c)&&(d=c())}catch(e){return h(e,!1)}return d&&D(d.then)?d.then(function(){return h(a,b)},function(a){return h(a,!1)}):h(a,b)},l=function(a,b,c,d){var e=new f;e.resolve(a);return e.promise.then(b,
+c,d)},m=function(a){if(!D(a))throw g("norslvr",a);var b=new f;a(function(a){b.resolve(a)},function(a){b.reject(a)});return b.promise};m.prototype=d.prototype;m.defer=function(){var a=new f;a.resolve=c(a,a.resolve);a.reject=c(a,a.reject);a.notify=c(a,a.notify);return a};m.reject=function(a){var b=new f;b.reject(a);return b.promise};m.when=l;m.resolve=l;m.all=function(a){var b=new f,c=0,d=L(a)?[]:{};n(a,function(a,e){c++;l(a).then(function(a){d.hasOwnProperty(e)||(d[e]=a,--c||b.resolve(d))},function(a){d.hasOwnProperty(e)||
+b.reject(a)})});0===c&&b.resolve(d);return b.promise};return m}function Ff(){this.$get=["$window","$timeout",function(a,b){var d=a.requestAnimationFrame||a.webkitRequestAnimationFrame,c=a.cancelAnimationFrame||a.webkitCancelAnimationFrame||a.webkitCancelRequestAnimationFrame,e=!!d,f=e?function(a){var b=d(a);return function(){c(b)}}:function(a){var c=b(a,16.66,!1);return function(){b.cancel(c)}};f.supported=e;return f}]}function uf(){function a(a){function b(){this.$$watchers=this.$$nextSibling=this.$$childHead=
+this.$$childTail=null;this.$$listeners={};this.$$listenerCount={};this.$$watchersCount=0;this.$id=++pb;this.$$ChildScope=null}b.prototype=a;return b}var b=10,d=H("$rootScope"),c=null,e=null;this.digestTtl=function(a){arguments.length&&(b=a);return b};this.$get=["$exceptionHandler","$parse","$browser",function(f,g,h){function k(a){a.currentScope.$$destroyed=!0}function l(a){9===xa&&(a.$$childHead&&l(a.$$childHead),a.$$nextSibling&&l(a.$$nextSibling));a.$parent=a.$$nextSibling=a.$$prevSibling=a.$$childHead=
+a.$$childTail=a.$root=a.$$watchers=null}function m(){this.$id=++pb;this.$$phase=this.$parent=this.$$watchers=this.$$nextSibling=this.$$prevSibling=this.$$childHead=this.$$childTail=null;this.$root=this;this.$$destroyed=!1;this.$$listeners={};this.$$listenerCount={};this.$$watchersCount=0;this.$$isolateBindings=null}function r(a){if(w.$$phase)throw d("inprog",w.$$phase);w.$$phase=a}function s(a,b){do a.$$watchersCount+=b;while(a=a.$parent)}function I(a,b,c){do a.$$listenerCount[c]-=b,0===a.$$listenerCount[c]&&
+delete a.$$listenerCount[c];while(a=a.$parent)}function q(){}function t(){for(;z.length;)try{z.shift()()}catch(a){f(a)}e=null}function p(){null===e&&(e=h.defer(function(){w.$apply(t)}))}m.prototype={constructor:m,$new:function(b,c){var d;c=c||this;b?(d=new m,d.$root=this.$root):(this.$$ChildScope||(this.$$ChildScope=a(this)),d=new this.$$ChildScope);d.$parent=c;d.$$prevSibling=c.$$childTail;c.$$childHead?(c.$$childTail.$$nextSibling=d,c.$$childTail=d):c.$$childHead=c.$$childTail=d;(b||c!=this)&&d.$on("$destroy",
+k);return d},$watch:function(a,b,d,e){var f=g(a);if(f.$$watchDelegate)return f.$$watchDelegate(this,b,d,f,a);var h=this,k=h.$$watchers,l={fn:b,last:q,get:f,exp:e||a,eq:!!d};c=null;D(b)||(l.fn=B);k||(k=h.$$watchers=[]);k.unshift(l);s(this,1);return function(){0<=cb(k,l)&&s(h,-1);c=null}},$watchGroup:function(a,b){function c(){h=!1;k?(k=!1,b(e,e,g)):b(e,d,g)}var d=Array(a.length),e=Array(a.length),f=[],g=this,h=!1,k=!0;if(!a.length){var l=!0;g.$evalAsync(function(){l&&b(e,e,g)});return function(){l=
+!1}}if(1===a.length)return this.$watch(a[0],function(a,c,f){e[0]=a;d[0]=c;b(e,a===c?e:d,f)});n(a,function(a,b){var k=g.$watch(a,function(a,f){e[b]=a;d[b]=f;h||(h=!0,g.$evalAsync(c))});f.push(k)});return function(){for(;f.length;)f.shift()()}},$watchCollection:function(a,b){function c(a){e=a;var b,d,g,h;if(!x(e)){if(E(e))if(Ca(e))for(f!==r&&(f=r,u=f.length=0,l++),a=e.length,u!==a&&(l++,f.length=u=a),b=0;b<a;b++)h=f[b],g=e[b],d=h!==h&&g!==g,d||h===g||(l++,f[b]=g);else{f!==s&&(f=s={},u=0,l++);a=0;for(b in e)sa.call(e,
+b)&&(a++,g=e[b],h=f[b],b in f?(d=h!==h&&g!==g,d||h===g||(l++,f[b]=g)):(u++,f[b]=g,l++));if(u>a)for(b in l++,f)sa.call(e,b)||(u--,delete f[b])}else f!==e&&(f=e,l++);return l}}c.$stateful=!0;var d=this,e,f,h,k=1<b.length,l=0,m=g(a,c),r=[],s={},p=!0,u=0;return this.$watch(m,function(){p?(p=!1,b(e,e,d)):b(e,h,d);if(k)if(E(e))if(Ca(e)){h=Array(e.length);for(var a=0;a<e.length;a++)h[a]=e[a]}else for(a in h={},e)sa.call(e,a)&&(h[a]=e[a]);else h=e})},$digest:function(){var a,g,k,l,m,s,p,n,I=b,z,y=[],x,C;
+r("$digest");h.$$checkUrlChange();this===w&&null!==e&&(h.defer.cancel(e),t());c=null;do{n=!1;for(z=this;u.length;){try{C=u.shift(),C.scope.$eval(C.expression,C.locals)}catch(B){f(B)}c=null}a:do{if(s=z.$$watchers)for(p=s.length;p--;)try{if(a=s[p])if(m=a.get,(g=m(z))!==(k=a.last)&&!(a.eq?oa(g,k):"number"===typeof g&&"number"===typeof k&&isNaN(g)&&isNaN(k)))n=!0,c=a,a.last=a.eq?Oa(g,null):g,l=a.fn,l(g,k===q?g:k,z),5>I&&(x=4-I,y[x]||(y[x]=[]),y[x].push({msg:D(a.exp)?"fn: "+(a.exp.name||a.exp.toString()):
+a.exp,newVal:g,oldVal:k}));else if(a===c){n=!1;break a}}catch(E){f(E)}if(!(s=z.$$watchersCount&&z.$$childHead||z!==this&&z.$$nextSibling))for(;z!==this&&!(s=z.$$nextSibling);)z=z.$parent}while(z=s);if((n||u.length)&&!I--)throw w.$$phase=null,d("infdig",b,y);}while(n||u.length);for(w.$$phase=null;v.length;)try{v.shift()()}catch(H){f(H)}},$destroy:function(){if(!this.$$destroyed){var a=this.$parent;this.$broadcast("$destroy");this.$$destroyed=!0;this===w&&h.$$applicationDestroyed();s(this,-this.$$watchersCount);
+for(var b in this.$$listenerCount)I(this,this.$$listenerCount[b],b);a&&a.$$childHead==this&&(a.$$childHead=this.$$nextSibling);a&&a.$$childTail==this&&(a.$$childTail=this.$$prevSibling);this.$$prevSibling&&(this.$$prevSibling.$$nextSibling=this.$$nextSibling);this.$$nextSibling&&(this.$$nextSibling.$$prevSibling=this.$$prevSibling);this.$destroy=this.$digest=this.$apply=this.$evalAsync=this.$applyAsync=B;this.$on=this.$watch=this.$watchGroup=function(){return B};this.$$listeners={};this.$$nextSibling=
+null;l(this)}},$eval:function(a,b){return g(a)(this,b)},$evalAsync:function(a,b){w.$$phase||u.length||h.defer(function(){u.length&&w.$digest()});u.push({scope:this,expression:g(a),locals:b})},$$postDigest:function(a){v.push(a)},$apply:function(a){try{r("$apply");try{return this.$eval(a)}finally{w.$$phase=null}}catch(b){f(b)}finally{try{w.$digest()}catch(c){throw f(c),c;}}},$applyAsync:function(a){function b(){c.$eval(a)}var c=this;a&&z.push(b);a=g(a);p()},$on:function(a,b){var c=this.$$listeners[a];
+c||(this.$$listeners[a]=c=[]);c.push(b);var d=this;do d.$$listenerCount[a]||(d.$$listenerCount[a]=0),d.$$listenerCount[a]++;while(d=d.$parent);var e=this;return function(){var d=c.indexOf(b);-1!==d&&(c[d]=null,I(e,1,a))}},$emit:function(a,b){var c=[],d,e=this,g=!1,h={name:a,targetScope:e,stopPropagation:function(){g=!0},preventDefault:function(){h.defaultPrevented=!0},defaultPrevented:!1},k=db([h],arguments,1),l,m;do{d=e.$$listeners[a]||c;h.currentScope=e;l=0;for(m=d.length;l<m;l++)if(d[l])try{d[l].apply(null,
+k)}catch(r){f(r)}else d.splice(l,1),l--,m--;if(g)return h.currentScope=null,h;e=e.$parent}while(e);h.currentScope=null;return h},$broadcast:function(a,b){var c=this,d=this,e={name:a,targetScope:this,preventDefault:function(){e.defaultPrevented=!0},defaultPrevented:!1};if(!this.$$listenerCount[a])return e;for(var g=db([e],arguments,1),h,k;c=d;){e.currentScope=c;d=c.$$listeners[a]||[];h=0;for(k=d.length;h<k;h++)if(d[h])try{d[h].apply(null,g)}catch(l){f(l)}else d.splice(h,1),h--,k--;if(!(d=c.$$listenerCount[a]&&
+c.$$childHead||c!==this&&c.$$nextSibling))for(;c!==this&&!(d=c.$$nextSibling);)c=c.$parent}e.currentScope=null;return e}};var w=new m,u=w.$$asyncQueue=[],v=w.$$postDigestQueue=[],z=w.$$applyAsyncQueue=[];return w}]}function ne(){var a=/^\s*(https?|ftp|mailto|tel|file):/,b=/^\s*((https?|ftp|file|blob):|data:image\/)/;this.aHrefSanitizationWhitelist=function(b){return y(b)?(a=b,this):a};this.imgSrcSanitizationWhitelist=function(a){return y(a)?(b=a,this):b};this.$get=function(){return function(d,c){var e=
+c?b:a,f;f=za(d).href;return""===f||f.match(e)?d:"unsafe:"+f}}}function ng(a){if("self"===a)return a;if(F(a)){if(-1<a.indexOf("***"))throw Ba("iwcard",a);a=xd(a).replace("\\*\\*",".*").replace("\\*","[^:/.?&;]*");return new RegExp("^"+a+"$")}if($a(a))return new RegExp("^"+a.source+"$");throw Ba("imatcher");}function yd(a){var b=[];y(a)&&n(a,function(a){b.push(ng(a))});return b}function yf(){this.SCE_CONTEXTS=qa;var a=["self"],b=[];this.resourceUrlWhitelist=function(b){arguments.length&&(a=yd(b));return a};
+this.resourceUrlBlacklist=function(a){arguments.length&&(b=yd(a));return b};this.$get=["$injector",function(d){function c(a,b){return"self"===a?jd(b):!!a.exec(b.href)}function e(a){var b=function(a){this.$$unwrapTrustedValue=function(){return a}};a&&(b.prototype=new a);b.prototype.valueOf=function(){return this.$$unwrapTrustedValue()};b.prototype.toString=function(){return this.$$unwrapTrustedValue().toString()};return b}var f=function(a){throw Ba("unsafe");};d.has("$sanitize")&&(f=d.get("$sanitize"));
+var g=e(),h={};h[qa.HTML]=e(g);h[qa.CSS]=e(g);h[qa.URL]=e(g);h[qa.JS]=e(g);h[qa.RESOURCE_URL]=e(h[qa.URL]);return{trustAs:function(a,b){var c=h.hasOwnProperty(a)?h[a]:null;if(!c)throw Ba("icontext",a,b);if(null===b||x(b)||""===b)return b;if("string"!==typeof b)throw Ba("itype",a);return new c(b)},getTrusted:function(d,e){if(null===e||x(e)||""===e)return e;var g=h.hasOwnProperty(d)?h[d]:null;if(g&&e instanceof g)return e.$$unwrapTrustedValue();if(d===qa.RESOURCE_URL){var g=za(e.toString()),r,s,n=!1;
+r=0;for(s=a.length;r<s;r++)if(c(a[r],g)){n=!0;break}if(n)for(r=0,s=b.length;r<s;r++)if(c(b[r],g)){n=!1;break}if(n)return e;throw Ba("insecurl",e.toString());}if(d===qa.HTML)return f(e);throw Ba("unsafe");},valueOf:function(a){return a instanceof g?a.$$unwrapTrustedValue():a}}}]}function xf(){var a=!0;this.enabled=function(b){arguments.length&&(a=!!b);return a};this.$get=["$parse","$sceDelegate",function(b,d){if(a&&8>xa)throw Ba("iequirks");var c=na(qa);c.isEnabled=function(){return a};c.trustAs=d.trustAs;
+c.getTrusted=d.getTrusted;c.valueOf=d.valueOf;a||(c.trustAs=c.getTrusted=function(a,b){return b},c.valueOf=ab);c.parseAs=function(a,d){var e=b(d);return e.literal&&e.constant?e:b(d,function(b){return c.getTrusted(a,b)})};var e=c.parseAs,f=c.getTrusted,g=c.trustAs;n(qa,function(a,b){var d=G(b);c[gb("parse_as_"+d)]=function(b){return e(a,b)};c[gb("get_trusted_"+d)]=function(b){return f(a,b)};c[gb("trust_as_"+d)]=function(b){return g(a,b)}});return c}]}function zf(){this.$get=["$window","$document",
+function(a,b){var d={},c=ca((/android (\d+)/.exec(G((a.navigator||{}).userAgent))||[])[1]),e=/Boxee/i.test((a.navigator||{}).userAgent),f=b[0]||{},g,h=/^(Moz|webkit|ms)(?=[A-Z])/,k=f.body&&f.body.style,l=!1,m=!1;if(k){for(var r in k)if(l=h.exec(r)){g=l[0];g=g.substr(0,1).toUpperCase()+g.substr(1);break}g||(g="WebkitOpacity"in k&&"webkit");l=!!("transition"in k||g+"Transition"in k);m=!!("animation"in k||g+"Animation"in k);!c||l&&m||(l=F(k.webkitTransition),m=F(k.webkitAnimation))}return{history:!(!a.history||
+!a.history.pushState||4>c||e),hasEvent:function(a){if("input"===a&&11>=xa)return!1;if(x(d[a])){var b=f.createElement("div");d[a]="on"+a in b}return d[a]},csp:Ea(),vendorPrefix:g,transitions:l,animations:m,android:c}}]}function Bf(){var a;this.httpOptions=function(b){return b?(a=b,this):a};this.$get=["$templateCache","$http","$q","$sce",function(b,d,c,e){function f(g,h){f.totalPendingRequests++;F(g)&&b.get(g)||(g=e.getTrustedResourceUrl(g));var k=d.defaults&&d.defaults.transformResponse;L(k)?k=k.filter(function(a){return a!==
+cc}):k===cc&&(k=null);return d.get(g,T({cache:b,transformResponse:k},a))["finally"](function(){f.totalPendingRequests--}).then(function(a){b.put(g,a.data);return a.data},function(a){if(!h)throw ja("tpload",g,a.status,a.statusText);return c.reject(a)})}f.totalPendingRequests=0;return f}]}function Cf(){this.$get=["$rootScope","$browser","$location",function(a,b,d){return{findBindings:function(a,b,d){a=a.getElementsByClassName("ng-binding");var g=[];n(a,function(a){var c=ia.element(a).data("$binding");
+c&&n(c,function(c){d?(new RegExp("(^|\\s)"+xd(b)+"(\\s|\\||$)")).test(c)&&g.push(a):-1!=c.indexOf(b)&&g.push(a)})});return g},findModels:function(a,b,d){for(var g=["ng-","data-ng-","ng\\:"],h=0;h<g.length;++h){var k=a.querySelectorAll("["+g[h]+"model"+(d?"=":"*=")+'"'+b+'"]');if(k.length)return k}},getLocation:function(){return d.url()},setLocation:function(b){b!==d.url()&&(d.url(b),a.$digest())},whenStable:function(a){b.notifyWhenNoOutstandingRequests(a)}}}]}function Df(){this.$get=["$rootScope",
+"$browser","$q","$$q","$exceptionHandler",function(a,b,d,c,e){function f(f,k,l){D(f)||(l=k,k=f,f=B);var m=wa.call(arguments,3),r=y(l)&&!l,s=(r?c:d).defer(),n=s.promise,q;q=b.defer(function(){try{s.resolve(f.apply(null,m))}catch(b){s.reject(b),e(b)}finally{delete g[n.$$timeoutId]}r||a.$apply()},k);n.$$timeoutId=q;g[q]=s;return n}var g={};f.cancel=function(a){return a&&a.$$timeoutId in g?(g[a.$$timeoutId].reject("canceled"),delete g[a.$$timeoutId],b.defer.cancel(a.$$timeoutId)):!1};return f}]}function za(a){xa&&
+(Y.setAttribute("href",a),a=Y.href);Y.setAttribute("href",a);return{href:Y.href,protocol:Y.protocol?Y.protocol.replace(/:$/,""):"",host:Y.host,search:Y.search?Y.search.replace(/^\?/,""):"",hash:Y.hash?Y.hash.replace(/^#/,""):"",hostname:Y.hostname,port:Y.port,pathname:"/"===Y.pathname.charAt(0)?Y.pathname:"/"+Y.pathname}}function jd(a){a=F(a)?za(a):a;return a.protocol===zd.protocol&&a.host===zd.host}function Ef(){this.$get=ba(O)}function Ad(a){function b(a){try{return decodeURIComponent(a)}catch(b){return a}}
+var d=a[0]||{},c={},e="";return function(){var a,g,h,k,l;a=d.cookie||"";if(a!==e)for(e=a,a=e.split("; "),c={},h=0;h<a.length;h++)g=a[h],k=g.indexOf("="),0<k&&(l=b(g.substring(0,k)),x(c[l])&&(c[l]=b(g.substring(k+1))));return c}}function If(){this.$get=Ad}function Lc(a){function b(d,c){if(E(d)){var e={};n(d,function(a,c){e[c]=b(c,a)});return e}return a.factory(d+"Filter",c)}this.register=b;this.$get=["$injector",function(a){return function(b){return a.get(b+"Filter")}}];b("currency",Bd);b("date",Cd);
+b("filter",og);b("json",pg);b("limitTo",qg);b("lowercase",rg);b("number",Dd);b("orderBy",Ed);b("uppercase",sg)}function og(){return function(a,b,d){if(!Ca(a)){if(null==a)return a;throw H("filter")("notarray",a);}var c;switch(kc(b)){case "function":break;case "boolean":case "null":case "number":case "string":c=!0;case "object":b=tg(b,d,c);break;default:return a}return Array.prototype.filter.call(a,b)}}function tg(a,b,d){var c=E(a)&&"$"in a;!0===b?b=oa:D(b)||(b=function(a,b){if(x(a))return!1;if(null===
+a||null===b)return a===b;if(E(b)||E(a)&&!tc(a))return!1;a=G(""+a);b=G(""+b);return-1!==a.indexOf(b)});return function(e){return c&&!E(e)?La(e,a.$,b,!1):La(e,a,b,d)}}function La(a,b,d,c,e){var f=kc(a),g=kc(b);if("string"===g&&"!"===b.charAt(0))return!La(a,b.substring(1),d,c);if(L(a))return a.some(function(a){return La(a,b,d,c)});switch(f){case "object":var h;if(c){for(h in a)if("$"!==h.charAt(0)&&La(a[h],b,d,!0))return!0;return e?!1:La(a,b,d,!1)}if("object"===g){for(h in b)if(e=b[h],!D(e)&&!x(e)&&
+(f="$"===h,!La(f?a:a[h],e,d,f,f)))return!1;return!0}return d(a,b);case "function":return!1;default:return d(a,b)}}function kc(a){return null===a?"null":typeof a}function Bd(a){var b=a.NUMBER_FORMATS;return function(a,c,e){x(c)&&(c=b.CURRENCY_SYM);x(e)&&(e=b.PATTERNS[1].maxFrac);return null==a?a:Fd(a,b.PATTERNS[1],b.GROUP_SEP,b.DECIMAL_SEP,e).replace(/\u00A4/g,c)}}function Dd(a){var b=a.NUMBER_FORMATS;return function(a,c){return null==a?a:Fd(a,b.PATTERNS[0],b.GROUP_SEP,b.DECIMAL_SEP,c)}}function ug(a){var b=
+0,d,c,e,f,g;-1<(c=a.indexOf(Gd))&&(a=a.replace(Gd,""));0<(e=a.search(/e/i))?(0>c&&(c=e),c+=+a.slice(e+1),a=a.substring(0,e)):0>c&&(c=a.length);for(e=0;a.charAt(e)==lc;e++);if(e==(g=a.length))d=[0],c=1;else{for(g--;a.charAt(g)==lc;)g--;c-=e;d=[];for(f=0;e<=g;e++,f++)d[f]=+a.charAt(e)}c>Hd&&(d=d.splice(0,Hd-1),b=c-1,c=1);return{d:d,e:b,i:c}}function vg(a,b,d,c){var e=a.d,f=e.length-a.i;b=x(b)?Math.min(Math.max(d,f),c):+b;d=b+a.i;c=e[d];if(0<d)e.splice(d);else{a.i=1;e.length=d=b+1;for(var g=0;g<d;g++)e[g]=
+0}for(5<=c&&e[d-1]++;f<b;f++)e.push(0);if(b=e.reduceRight(function(a,b,c,d){b+=a;d[c]=b%10;return Math.floor(b/10)},0))e.unshift(b),a.i++}function Fd(a,b,d,c,e){if(!F(a)&&!N(a)||isNaN(a))return"";var f=!isFinite(a),g=!1,h=Math.abs(a)+"",k="";if(f)k="\u221e";else{g=ug(h);vg(g,e,b.minFrac,b.maxFrac);k=g.d;h=g.i;e=g.e;f=[];for(g=k.reduce(function(a,b){return a&&!b},!0);0>h;)k.unshift(0),h++;0<h?f=k.splice(h):(f=k,k=[0]);h=[];for(k.length>b.lgSize&&h.unshift(k.splice(-b.lgSize).join(""));k.length>b.gSize;)h.unshift(k.splice(-b.gSize).join(""));
+k.length&&h.unshift(k.join(""));k=h.join(d);f.length&&(k+=c+f.join(""));e&&(k+="e+"+e)}return 0>a&&!g?b.negPre+k+b.negSuf:b.posPre+k+b.posSuf}function Kb(a,b,d){var c="";0>a&&(c="-",a=-a);for(a=""+a;a.length<b;)a=lc+a;d&&(a=a.substr(a.length-b));return c+a}function aa(a,b,d,c){d=d||0;return function(e){e=e["get"+a]();if(0<d||e>-d)e+=d;0===e&&-12==d&&(e=12);return Kb(e,b,c)}}function Lb(a,b){return function(d,c){var e=d["get"+a](),f=ub(b?"SHORT"+a:a);return c[f][e]}}function Id(a){var b=(new Date(a,
+0,1)).getDay();return new Date(a,0,(4>=b?5:12)-b)}function Jd(a){return function(b){var d=Id(b.getFullYear());b=+new Date(b.getFullYear(),b.getMonth(),b.getDate()+(4-b.getDay()))-+d;b=1+Math.round(b/6048E5);return Kb(b,a)}}function mc(a,b){return 0>=a.getFullYear()?b.ERAS[0]:b.ERAS[1]}function Cd(a){function b(a){var b;if(b=a.match(d)){a=new Date(0);var f=0,g=0,h=b[8]?a.setUTCFullYear:a.setFullYear,k=b[8]?a.setUTCHours:a.setHours;b[9]&&(f=ca(b[9]+b[10]),g=ca(b[9]+b[11]));h.call(a,ca(b[1]),ca(b[2])-
+1,ca(b[3]));f=ca(b[4]||0)-f;g=ca(b[5]||0)-g;h=ca(b[6]||0);b=Math.round(1E3*parseFloat("0."+(b[7]||0)));k.call(a,f,g,h,b)}return a}var d=/^(\d{4})-?(\d\d)-?(\d\d)(?:T(\d\d)(?::?(\d\d)(?::?(\d\d)(?:\.(\d+))?)?)?(Z|([+-])(\d\d):?(\d\d))?)?$/;return function(c,d,f){var g="",h=[],k,l;d=d||"mediumDate";d=a.DATETIME_FORMATS[d]||d;F(c)&&(c=wg.test(c)?ca(c):b(c));N(c)&&(c=new Date(c));if(!V(c)||!isFinite(c.getTime()))return c;for(;d;)(l=xg.exec(d))?(h=db(h,l,1),d=h.pop()):(h.push(d),d=null);var m=c.getTimezoneOffset();
+f&&(m=xc(f,m),c=Tb(c,f,!0));n(h,function(b){k=yg[b];g+=k?k(c,a.DATETIME_FORMATS,m):"''"===b?"'":b.replace(/(^'|'$)/g,"").replace(/''/g,"'")});return g}}function pg(){return function(a,b){x(b)&&(b=2);return eb(a,b)}}function qg(){return function(a,b,d){b=Infinity===Math.abs(Number(b))?Number(b):ca(b);if(isNaN(b))return a;N(a)&&(a=a.toString());if(!L(a)&&!F(a))return a;d=!d||isNaN(d)?0:ca(d);d=0>d?Math.max(0,a.length+d):d;return 0<=b?a.slice(d,d+b):0===d?a.slice(b,a.length):a.slice(Math.max(0,d+b),
+d)}}function Ed(a){function b(b,d){d=d?-1:1;return b.map(function(b){var c=1,h=ab;if(D(b))h=b;else if(F(b)){if("+"==b.charAt(0)||"-"==b.charAt(0))c="-"==b.charAt(0)?-1:1,b=b.substring(1);if(""!==b&&(h=a(b),h.constant))var k=h(),h=function(a){return a[k]}}return{get:h,descending:c*d}})}function d(a){switch(typeof a){case "number":case "boolean":case "string":return!0;default:return!1}}return function(a,e,f){if(null==a)return a;if(!Ca(a))throw H("orderBy")("notarray",a);L(e)||(e=[e]);0===e.length&&
+(e=["+"]);var g=b(e,f);g.push({get:function(){return{}},descending:f?-1:1});a=Array.prototype.map.call(a,function(a,b){return{value:a,predicateValues:g.map(function(c){var e=c.get(a);c=typeof e;if(null===e)c="string",e="null";else if("string"===c)e=e.toLowerCase();else if("object"===c)a:{if("function"===typeof e.valueOf&&(e=e.valueOf(),d(e)))break a;if(tc(e)&&(e=e.toString(),d(e)))break a;e=b}return{value:e,type:c}})}});a.sort(function(a,b){for(var c=0,d=0,e=g.length;d<e;++d){var c=a.predicateValues[d],
+f=b.predicateValues[d],n=0;c.type===f.type?c.value!==f.value&&(n=c.value<f.value?-1:1):n=c.type<f.type?-1:1;if(c=n*g[d].descending)break}return c});return a=a.map(function(a){return a.value})}}function Ma(a){D(a)&&(a={link:a});a.restrict=a.restrict||"AC";return ba(a)}function Kd(a,b,d,c,e){var f=this,g=[];f.$error={};f.$$success={};f.$pending=v;f.$name=e(b.name||b.ngForm||"")(d);f.$dirty=!1;f.$pristine=!0;f.$valid=!0;f.$invalid=!1;f.$submitted=!1;f.$$parentForm=Mb;f.$rollbackViewValue=function(){n(g,
+function(a){a.$rollbackViewValue()})};f.$commitViewValue=function(){n(g,function(a){a.$commitViewValue()})};f.$addControl=function(a){Ta(a.$name,"input");g.push(a);a.$name&&(f[a.$name]=a);a.$$parentForm=f};f.$$renameControl=function(a,b){var c=a.$name;f[c]===a&&delete f[c];f[b]=a;a.$name=b};f.$removeControl=function(a){a.$name&&f[a.$name]===a&&delete f[a.$name];n(f.$pending,function(b,c){f.$setValidity(c,null,a)});n(f.$error,function(b,c){f.$setValidity(c,null,a)});n(f.$$success,function(b,c){f.$setValidity(c,
+null,a)});cb(g,a);a.$$parentForm=Mb};Ld({ctrl:this,$element:a,set:function(a,b,c){var d=a[b];d?-1===d.indexOf(c)&&d.push(c):a[b]=[c]},unset:function(a,b,c){var d=a[b];d&&(cb(d,c),0===d.length&&delete a[b])},$animate:c});f.$setDirty=function(){c.removeClass(a,Ya);c.addClass(a,Nb);f.$dirty=!0;f.$pristine=!1;f.$$parentForm.$setDirty()};f.$setPristine=function(){c.setClass(a,Ya,Nb+" ng-submitted");f.$dirty=!1;f.$pristine=!0;f.$submitted=!1;n(g,function(a){a.$setPristine()})};f.$setUntouched=function(){n(g,
+function(a){a.$setUntouched()})};f.$setSubmitted=function(){c.addClass(a,"ng-submitted");f.$submitted=!0;f.$$parentForm.$setSubmitted()}}function nc(a){a.$formatters.push(function(b){return a.$isEmpty(b)?b:b.toString()})}function lb(a,b,d,c,e,f){var g=G(b[0].type);if(!e.android){var h=!1;b.on("compositionstart",function(a){h=!0});b.on("compositionend",function(){h=!1;k()})}var k=function(a){l&&(f.defer.cancel(l),l=null);if(!h){var e=b.val();a=a&&a.type;"password"===g||d.ngTrim&&"false"===d.ngTrim||
+(e=X(e));(c.$viewValue!==e||""===e&&c.$$hasNativeValidators)&&c.$setViewValue(e,a)}};if(e.hasEvent("input"))b.on("input",k);else{var l,m=function(a,b,c){l||(l=f.defer(function(){l=null;b&&b.value===c||k(a)}))};b.on("keydown",function(a){var b=a.keyCode;91===b||15<b&&19>b||37<=b&&40>=b||m(a,this,this.value)});if(e.hasEvent("paste"))b.on("paste cut",m)}b.on("change",k);c.$render=function(){var a=c.$isEmpty(c.$viewValue)?"":c.$viewValue;b.val()!==a&&b.val(a)}}function Ob(a,b){return function(d,c){var e,
+f;if(V(d))return d;if(F(d)){'"'==d.charAt(0)&&'"'==d.charAt(d.length-1)&&(d=d.substring(1,d.length-1));if(zg.test(d))return new Date(d);a.lastIndex=0;if(e=a.exec(d))return e.shift(),f=c?{yyyy:c.getFullYear(),MM:c.getMonth()+1,dd:c.getDate(),HH:c.getHours(),mm:c.getMinutes(),ss:c.getSeconds(),sss:c.getMilliseconds()/1E3}:{yyyy:1970,MM:1,dd:1,HH:0,mm:0,ss:0,sss:0},n(e,function(a,c){c<b.length&&(f[b[c]]=+a)}),new Date(f.yyyy,f.MM-1,f.dd,f.HH,f.mm,f.ss||0,1E3*f.sss||0)}return NaN}}function mb(a,b,d,c){return function(e,
+f,g,h,k,l,m){function r(a){return a&&!(a.getTime&&a.getTime()!==a.getTime())}function s(a){return y(a)&&!V(a)?d(a)||v:a}Md(e,f,g,h);lb(e,f,g,h,k,l);var n=h&&h.$options&&h.$options.timezone,q;h.$$parserName=a;h.$parsers.push(function(a){return h.$isEmpty(a)?null:b.test(a)?(a=d(a,q),n&&(a=Tb(a,n)),a):v});h.$formatters.push(function(a){if(a&&!V(a))throw nb("datefmt",a);if(r(a))return(q=a)&&n&&(q=Tb(q,n,!0)),m("date")(a,c,n);q=null;return""});if(y(g.min)||g.ngMin){var t;h.$validators.min=function(a){return!r(a)||
+x(t)||d(a)>=t};g.$observe("min",function(a){t=s(a);h.$validate()})}if(y(g.max)||g.ngMax){var p;h.$validators.max=function(a){return!r(a)||x(p)||d(a)<=p};g.$observe("max",function(a){p=s(a);h.$validate()})}}}function Md(a,b,d,c){(c.$$hasNativeValidators=E(b[0].validity))&&c.$parsers.push(function(a){var c=b.prop("validity")||{};return c.badInput||c.typeMismatch?v:a})}function Nd(a,b,d,c,e){if(y(c)){a=a(c);if(!a.constant)throw nb("constexpr",d,c);return a(b)}return e}function oc(a,b){a="ngClass"+a;
+return["$animate",function(d){function c(a,b){var c=[],d=0;a:for(;d<a.length;d++){for(var e=a[d],m=0;m<b.length;m++)if(e==b[m])continue a;c.push(e)}return c}function e(a){var b=[];return L(a)?(n(a,function(a){b=b.concat(e(a))}),b):F(a)?a.split(" "):E(a)?(n(a,function(a,c){a&&(b=b.concat(c.split(" ")))}),b):a}return{restrict:"AC",link:function(f,g,h){function k(a,b){var c=g.data("$classCounts")||Z(),d=[];n(a,function(a){if(0<b||c[a])c[a]=(c[a]||0)+b,c[a]===+(0<b)&&d.push(a)});g.data("$classCounts",
+c);return d.join(" ")}function l(a){if(!0===b||f.$index%2===b){var l=e(a||[]);if(!m){var n=k(l,1);h.$addClass(n)}else if(!oa(a,m)){var q=e(m),n=c(l,q),l=c(q,l),n=k(n,1),l=k(l,-1);n&&n.length&&d.addClass(g,n);l&&l.length&&d.removeClass(g,l)}}m=na(a)}var m;f.$watch(h[a],l,!0);h.$observe("class",function(b){l(f.$eval(h[a]))});"ngClass"!==a&&f.$watch("$index",function(c,d){var g=c&1;if(g!==(d&1)){var l=e(f.$eval(h[a]));g===b?(g=k(l,1),h.$addClass(g)):(g=k(l,-1),h.$removeClass(g))}})}}}]}function Ld(a){function b(a,
+b){b&&!f[a]?(k.addClass(e,a),f[a]=!0):!b&&f[a]&&(k.removeClass(e,a),f[a]=!1)}function d(a,c){a=a?"-"+Bc(a,"-"):"";b(ob+a,!0===c);b(Od+a,!1===c)}var c=a.ctrl,e=a.$element,f={},g=a.set,h=a.unset,k=a.$animate;f[Od]=!(f[ob]=e.hasClass(ob));c.$setValidity=function(a,e,f){x(e)?(c.$pending||(c.$pending={}),g(c.$pending,a,f)):(c.$pending&&h(c.$pending,a,f),Pd(c.$pending)&&(c.$pending=v));Na(e)?e?(h(c.$error,a,f),g(c.$$success,a,f)):(g(c.$error,a,f),h(c.$$success,a,f)):(h(c.$error,a,f),h(c.$$success,a,f));
+c.$pending?(b(Qd,!0),c.$valid=c.$invalid=v,d("",null)):(b(Qd,!1),c.$valid=Pd(c.$error),c.$invalid=!c.$valid,d("",c.$valid));e=c.$pending&&c.$pending[a]?v:c.$error[a]?!1:c.$$success[a]?!0:null;d(a,e);c.$$parentForm.$setValidity(a,e,c)}}function Pd(a){if(a)for(var b in a)if(a.hasOwnProperty(b))return!1;return!0}var Ag=/^\/(.+)\/([a-z]*)$/,sa=Object.prototype.hasOwnProperty,G=function(a){return F(a)?a.toLowerCase():a},ub=function(a){return F(a)?a.toUpperCase():a},xa,C,ua,wa=[].slice,ag=[].splice,Bg=
+[].push,ga=Object.prototype.toString,uc=Object.getPrototypeOf,Da=H("ng"),ia=O.angular||(O.angular={}),Vb,pb=0;xa=W.documentMode;B.$inject=[];ab.$inject=[];var L=Array.isArray,ae=/^\[object (?:Uint8|Uint8Clamped|Uint16|Uint32|Int8|Int16|Int32|Float32|Float64)Array\]$/,X=function(a){return F(a)?a.trim():a},xd=function(a){return a.replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g,"\\$1").replace(/\x08/g,"\\x08")},Ea=function(){if(!y(Ea.rules)){var a=W.querySelector("[ng-csp]")||W.querySelector("[data-ng-csp]");
+if(a){var b=a.getAttribute("ng-csp")||a.getAttribute("data-ng-csp");Ea.rules={noUnsafeEval:!b||-1!==b.indexOf("no-unsafe-eval"),noInlineStyle:!b||-1!==b.indexOf("no-inline-style")}}else{a=Ea;try{new Function(""),b=!1}catch(d){b=!0}a.rules={noUnsafeEval:b,noInlineStyle:!1}}}return Ea.rules},rb=function(){if(y(rb.name_))return rb.name_;var a,b,d=Qa.length,c,e;for(b=0;b<d;++b)if(c=Qa[b],a=W.querySelector("["+c.replace(":","\\:")+"jq]")){e=a.getAttribute(c+"jq");break}return rb.name_=e},de=/:/g,Qa=["ng-",
+"data-ng-","ng:","x-ng-"],ie=/[A-Z]/g,Cc=!1,Pa=3,me={full:"1.5.0",major:1,minor:5,dot:0,codeName:"ennoblement-facilitation"};U.expando="ng339";var ib=U.cache={},Of=1;U._data=function(a){return this.cache[a[this.expando]]||{}};var Jf=/([\:\-\_]+(.))/g,Kf=/^moz([A-Z])/,yb={mouseleave:"mouseout",mouseenter:"mouseover"},Xb=H("jqLite"),Nf=/^<([\w-]+)\s*\/?>(?:<\/\1>|)$/,Wb=/<|&#?\w+;/,Lf=/<([\w:-]+)/,Mf=/<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:-]+)[^>]*)\/>/gi,da={option:[1,'<select multiple="multiple">',
+"</select>"],thead:[1,"<table>","</table>"],col:[2,"<table><colgroup>","</colgroup></table>"],tr:[2,"<table><tbody>","</tbody></table>"],td:[3,"<table><tbody><tr>","</tr></tbody></table>"],_default:[0,"",""]};da.optgroup=da.option;da.tbody=da.tfoot=da.colgroup=da.caption=da.thead;da.th=da.td;var Tf=Node.prototype.contains||function(a){return!!(this.compareDocumentPosition(a)&16)},Ra=U.prototype={ready:function(a){function b(){d||(d=!0,a())}var d=!1;"complete"===W.readyState?setTimeout(b):(this.on("DOMContentLoaded",
+b),U(O).on("load",b))},toString:function(){var a=[];n(this,function(b){a.push(""+b)});return"["+a.join(", ")+"]"},eq:function(a){return 0<=a?C(this[a]):C(this[this.length+a])},length:0,push:Bg,sort:[].sort,splice:[].splice},Db={};n("multiple selected checked disabled readOnly required open".split(" "),function(a){Db[G(a)]=a});var Uc={};n("input select option textarea button form details".split(" "),function(a){Uc[a]=!0});var cd={ngMinlength:"minlength",ngMaxlength:"maxlength",ngMin:"min",ngMax:"max",
+ngPattern:"pattern"};n({data:Zb,removeData:hb,hasData:function(a){for(var b in ib[a.ng339])return!0;return!1},cleanData:function(a){for(var b=0,d=a.length;b<d;b++)hb(a[b])}},function(a,b){U[b]=a});n({data:Zb,inheritedData:Cb,scope:function(a){return C.data(a,"$scope")||Cb(a.parentNode||a,["$isolateScope","$scope"])},isolateScope:function(a){return C.data(a,"$isolateScope")||C.data(a,"$isolateScopeNoTemplate")},controller:Rc,injector:function(a){return Cb(a,"$injector")},removeAttr:function(a,b){a.removeAttribute(b)},
+hasClass:zb,css:function(a,b,d){b=gb(b);if(y(d))a.style[b]=d;else return a.style[b]},attr:function(a,b,d){var c=a.nodeType;if(c!==Pa&&2!==c&&8!==c)if(c=G(b),Db[c])if(y(d))d?(a[b]=!0,a.setAttribute(b,c)):(a[b]=!1,a.removeAttribute(c));else return a[b]||(a.attributes.getNamedItem(b)||B).specified?c:v;else if(y(d))a.setAttribute(b,d);else if(a.getAttribute)return a=a.getAttribute(b,2),null===a?v:a},prop:function(a,b,d){if(y(d))a[b]=d;else return a[b]},text:function(){function a(a,d){if(x(d)){var c=a.nodeType;
+return 1===c||c===Pa?a.textContent:""}a.textContent=d}a.$dv="";return a}(),val:function(a,b){if(x(b)){if(a.multiple&&"select"===ra(a)){var d=[];n(a.options,function(a){a.selected&&d.push(a.value||a.text)});return 0===d.length?null:d}return a.value}a.value=b},html:function(a,b){if(x(b))return a.innerHTML;wb(a,!0);a.innerHTML=b},empty:Sc},function(a,b){U.prototype[b]=function(b,c){var e,f,g=this.length;if(a!==Sc&&x(2==a.length&&a!==zb&&a!==Rc?b:c)){if(E(b)){for(e=0;e<g;e++)if(a===Zb)a(this[e],b);else for(f in b)a(this[e],
+f,b[f]);return this}e=a.$dv;g=x(e)?Math.min(g,1):g;for(f=0;f<g;f++){var h=a(this[f],b,c);e=e?e+h:h}return e}for(e=0;e<g;e++)a(this[e],b,c);return this}});n({removeData:hb,on:function(a,b,d,c){if(y(c))throw Xb("onargs");if(Mc(a)){c=xb(a,!0);var e=c.events,f=c.handle;f||(f=c.handle=Qf(a,e));c=0<=b.indexOf(" ")?b.split(" "):[b];for(var g=c.length,h=function(b,c,g){var h=e[b];h||(h=e[b]=[],h.specialHandlerWrapper=c,"$destroy"===b||g||a.addEventListener(b,f,!1));h.push(d)};g--;)b=c[g],yb[b]?(h(yb[b],Sf),
+h(b,v,!0)):h(b)}},off:Qc,one:function(a,b,d){a=C(a);a.on(b,function e(){a.off(b,d);a.off(b,e)});a.on(b,d)},replaceWith:function(a,b){var d,c=a.parentNode;wb(a);n(new U(b),function(b){d?c.insertBefore(b,d.nextSibling):c.replaceChild(b,a);d=b})},children:function(a){var b=[];n(a.childNodes,function(a){1===a.nodeType&&b.push(a)});return b},contents:function(a){return a.contentDocument||a.childNodes||[]},append:function(a,b){var d=a.nodeType;if(1===d||11===d){b=new U(b);for(var d=0,c=b.length;d<c;d++)a.appendChild(b[d])}},
+prepend:function(a,b){if(1===a.nodeType){var d=a.firstChild;n(new U(b),function(b){a.insertBefore(b,d)})}},wrap:function(a,b){Oc(a,C(b).eq(0).clone()[0])},remove:$b,detach:function(a){$b(a,!0)},after:function(a,b){var d=a,c=a.parentNode;b=new U(b);for(var e=0,f=b.length;e<f;e++){var g=b[e];c.insertBefore(g,d.nextSibling);d=g}},addClass:Bb,removeClass:Ab,toggleClass:function(a,b,d){b&&n(b.split(" "),function(b){var e=d;x(e)&&(e=!zb(a,b));(e?Bb:Ab)(a,b)})},parent:function(a){return(a=a.parentNode)&&
+11!==a.nodeType?a:null},next:function(a){return a.nextElementSibling},find:function(a,b){return a.getElementsByTagName?a.getElementsByTagName(b):[]},clone:Yb,triggerHandler:function(a,b,d){var c,e,f=b.type||b,g=xb(a);if(g=(g=g&&g.events)&&g[f])c={preventDefault:function(){this.defaultPrevented=!0},isDefaultPrevented:function(){return!0===this.defaultPrevented},stopImmediatePropagation:function(){this.immediatePropagationStopped=!0},isImmediatePropagationStopped:function(){return!0===this.immediatePropagationStopped},
+stopPropagation:B,type:f,target:a},b.type&&(c=T(c,b)),b=na(g),e=d?[c].concat(d):[c],n(b,function(b){c.isImmediatePropagationStopped()||b.apply(a,e)})}},function(a,b){U.prototype[b]=function(b,c,e){for(var f,g=0,h=this.length;g<h;g++)x(f)?(f=a(this[g],b,c,e),y(f)&&(f=C(f))):Pc(f,a(this[g],b,c,e));return y(f)?f:this};U.prototype.bind=U.prototype.on;U.prototype.unbind=U.prototype.off});Ua.prototype={put:function(a,b){this[Fa(a,this.nextUid)]=b},get:function(a){return this[Fa(a,this.nextUid)]},remove:function(a){var b=
+this[a=Fa(a,this.nextUid)];delete this[a];return b}};var Hf=[function(){this.$get=[function(){return Ua}]}],Vf=/^([^\(]+?)=>/,Wf=/^[^\(]*\(\s*([^\)]*)\)/m,Cg=/,/,Dg=/^\s*(_?)(\S+?)\1\s*$/,Uf=/((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg,Ga=H("$injector");fb.$$annotate=function(a,b,d){var c;if("function"===typeof a){if(!(c=a.$inject)){c=[];if(a.length){if(b)throw F(d)&&d||(d=a.name||Xf(a)),Ga("strictdi",d);b=Vc(a);n(b[1].split(Cg),function(a){a.replace(Dg,function(a,b,d){c.push(d)})})}a.$inject=c}}else L(a)?
+(b=a.length-1,Sa(a[b],"fn"),c=a.slice(0,b)):Sa(a,"fn",!0);return c};var Rd=H("$animate"),$e=function(){this.$get=function(){}},af=function(){var a=new Ua,b=[];this.$get=["$$AnimateRunner","$rootScope",function(d,c){function e(a,b,c){var d=!1;b&&(b=F(b)?b.split(" "):L(b)?b:[],n(b,function(b){b&&(d=!0,a[b]=c)}));return d}function f(){n(b,function(b){var c=a.get(b);if(c){var d=Yf(b.attr("class")),e="",f="";n(c,function(a,b){a!==!!d[b]&&(a?e+=(e.length?" ":"")+b:f+=(f.length?" ":"")+b)});n(b,function(a){e&&
+Bb(a,e);f&&Ab(a,f)});a.remove(b)}});b.length=0}return{enabled:B,on:B,off:B,pin:B,push:function(g,h,k,l){l&&l();k=k||{};k.from&&g.css(k.from);k.to&&g.css(k.to);if(k.addClass||k.removeClass)if(h=k.addClass,l=k.removeClass,k=a.get(g)||{},h=e(k,h,!0),l=e(k,l,!1),h||l)a.put(g,k),b.push(g),1===b.length&&c.$$postDigest(f);g=new d;g.complete();return g}}}]},Ye=["$provide",function(a){var b=this;this.$$registeredAnimations=Object.create(null);this.register=function(d,c){if(d&&"."!==d.charAt(0))throw Rd("notcsel",
+d);var e=d+"-animation";b.$$registeredAnimations[d.substr(1)]=e;a.factory(e,c)};this.classNameFilter=function(a){if(1===arguments.length&&(this.$$classNameFilter=a instanceof RegExp?a:null)&&/(\s+|\/)ng-animate(\s+|\/)/.test(this.$$classNameFilter.toString()))throw Rd("nongcls","ng-animate");return this.$$classNameFilter};this.$get=["$$animateQueue",function(a){function b(a,c,d){if(d){var h;a:{for(h=0;h<d.length;h++){var k=d[h];if(1===k.nodeType){h=k;break a}}h=void 0}!h||h.parentNode||h.previousElementSibling||
+(d=null)}d?d.after(a):c.prepend(a)}return{on:a.on,off:a.off,pin:a.pin,enabled:a.enabled,cancel:function(a){a.end&&a.end()},enter:function(e,f,g,h){f=f&&C(f);g=g&&C(g);f=f||g.parent();b(e,f,g);return a.push(e,"enter",Ha(h))},move:function(e,f,g,h){f=f&&C(f);g=g&&C(g);f=f||g.parent();b(e,f,g);return a.push(e,"move",Ha(h))},leave:function(b,c){return a.push(b,"leave",Ha(c),function(){b.remove()})},addClass:function(b,c,g){g=Ha(g);g.addClass=jb(g.addclass,c);return a.push(b,"addClass",g)},removeClass:function(b,
+c,g){g=Ha(g);g.removeClass=jb(g.removeClass,c);return a.push(b,"removeClass",g)},setClass:function(b,c,g,h){h=Ha(h);h.addClass=jb(h.addClass,c);h.removeClass=jb(h.removeClass,g);return a.push(b,"setClass",h)},animate:function(b,c,g,h,k){k=Ha(k);k.from=k.from?T(k.from,c):c;k.to=k.to?T(k.to,g):g;k.tempClasses=jb(k.tempClasses,h||"ng-inline-animate");return a.push(b,"animate",k)}}}]}],cf=function(){this.$get=["$$rAF",function(a){function b(b){d.push(b);1<d.length||a(function(){for(var a=0;a<d.length;a++)d[a]();
+d=[]})}var d=[];return function(){var a=!1;b(function(){a=!0});return function(d){a?d():b(d)}}}]},bf=function(){this.$get=["$q","$sniffer","$$animateAsyncRun","$document","$timeout",function(a,b,d,c,e){function f(a){this.setHost(a);var b=d();this._doneCallbacks=[];this._tick=function(a){var d=c[0];d&&d.hidden?e(a,0,!1):b(a)};this._state=0}f.chain=function(a,b){function c(){if(d===a.length)b(!0);else a[d](function(a){!1===a?b(!1):(d++,c())})}var d=0;c()};f.all=function(a,b){function c(f){e=e&&f;++d===
+a.length&&b(e)}var d=0,e=!0;n(a,function(a){a.done(c)})};f.prototype={setHost:function(a){this.host=a||{}},done:function(a){2===this._state?a():this._doneCallbacks.push(a)},progress:B,getPromise:function(){if(!this.promise){var b=this;this.promise=a(function(a,c){b.done(function(b){!1===b?c():a()})})}return this.promise},then:function(a,b){return this.getPromise().then(a,b)},"catch":function(a){return this.getPromise()["catch"](a)},"finally":function(a){return this.getPromise()["finally"](a)},pause:function(){this.host.pause&&
+this.host.pause()},resume:function(){this.host.resume&&this.host.resume()},end:function(){this.host.end&&this.host.end();this._resolve(!0)},cancel:function(){this.host.cancel&&this.host.cancel();this._resolve(!1)},complete:function(a){var b=this;0===b._state&&(b._state=1,b._tick(function(){b._resolve(a)}))},_resolve:function(a){2!==this._state&&(n(this._doneCallbacks,function(b){b(a)}),this._doneCallbacks.length=0,this._state=2)}};return f}]},Ze=function(){this.$get=["$$rAF","$q","$$AnimateRunner",
+function(a,b,d){return function(b,e){function f(){a(function(){g.addClass&&(b.addClass(g.addClass),g.addClass=null);g.removeClass&&(b.removeClass(g.removeClass),g.removeClass=null);g.to&&(b.css(g.to),g.to=null);h||k.complete();h=!0});return k}var g=e||{};g.$$prepared||(g=Oa(g));g.cleanupStyles&&(g.from=g.to=null);g.from&&(b.css(g.from),g.from=null);var h,k=new d;return{start:f,end:f}}}]},ja=H("$compile");Ec.$inject=["$provide","$$sanitizeUriProvider"];var Xc=/^((?:x|data)[\:\-_])/i,bg=H("$controller"),
+dd=/^(\S+)(\s+as\s+([\w$]+))?$/,jf=function(){this.$get=["$document",function(a){return function(b){b?!b.nodeType&&b instanceof C&&(b=b[0]):b=a[0].body;return b.offsetWidth+1}}]},ed="application/json",dc={"Content-Type":ed+";charset=utf-8"},dg=/^\[|^\{(?!\{)/,eg={"[":/]$/,"{":/}$/},cg=/^\)\]\}',?\n/,Eg=H("$http"),id=function(a){return function(){throw Eg("legacy",a);}},Ka=ia.$interpolateMinErr=H("$interpolate");Ka.throwNoconcat=function(a){throw Ka("noconcat",a);};Ka.interr=function(a,b){return Ka("interr",
+a,b.toString())};var Fg=/^([^\?#]*)(\?([^#]*))?(#(.*))?$/,gg={http:80,https:443,ftp:21},Gb=H("$location"),Gg={$$html5:!1,$$replace:!1,absUrl:Hb("$$absUrl"),url:function(a){if(x(a))return this.$$url;var b=Fg.exec(a);(b[1]||""===a)&&this.path(decodeURIComponent(b[1]));(b[2]||b[1]||""===a)&&this.search(b[3]||"");this.hash(b[5]||"");return this},protocol:Hb("$$protocol"),host:Hb("$$host"),port:Hb("$$port"),path:nd("$$path",function(a){a=null!==a?a.toString():"";return"/"==a.charAt(0)?a:"/"+a}),search:function(a,
+b){switch(arguments.length){case 0:return this.$$search;case 1:if(F(a)||N(a))a=a.toString(),this.$$search=zc(a);else if(E(a))a=Oa(a,{}),n(a,function(b,c){null==b&&delete a[c]}),this.$$search=a;else throw Gb("isrcharg");break;default:x(b)||null===b?delete this.$$search[a]:this.$$search[a]=b}this.$$compose();return this},hash:nd("$$hash",function(a){return null!==a?a.toString():""}),replace:function(){this.$$replace=!0;return this}};n([md,gc,fc],function(a){a.prototype=Object.create(Gg);a.prototype.state=
+function(b){if(!arguments.length)return this.$$state;if(a!==fc||!this.$$html5)throw Gb("nostate");this.$$state=x(b)?null:b;return this}});var ka=H("$parse"),ig=Function.prototype.call,jg=Function.prototype.apply,kg=Function.prototype.bind,Pb=Z();n("+ - * / % === !== == != < > <= >= && || ! = |".split(" "),function(a){Pb[a]=!0});var Hg={n:"\n",f:"\f",r:"\r",t:"\t",v:"\v","'":"'",'"':'"'},ic=function(a){this.options=a};ic.prototype={constructor:ic,lex:function(a){this.text=a;this.index=0;for(this.tokens=
+[];this.index<this.text.length;)if(a=this.text.charAt(this.index),'"'===a||"'"===a)this.readString(a);else if(this.isNumber(a)||"."===a&&this.isNumber(this.peek()))this.readNumber();else if(this.isIdent(a))this.readIdent();else if(this.is(a,"(){}[].,;:?"))this.tokens.push({index:this.index,text:a}),this.index++;else if(this.isWhitespace(a))this.index++;else{var b=a+this.peek(),d=b+this.peek(2),c=Pb[b],e=Pb[d];Pb[a]||c||e?(a=e?d:c?b:a,this.tokens.push({index:this.index,text:a,operator:!0}),this.index+=
+a.length):this.throwError("Unexpected next character ",this.index,this.index+1)}return this.tokens},is:function(a,b){return-1!==b.indexOf(a)},peek:function(a){a=a||1;return this.index+a<this.text.length?this.text.charAt(this.index+a):!1},isNumber:function(a){return"0"<=a&&"9">=a&&"string"===typeof a},isWhitespace:function(a){return" "===a||"\r"===a||"\t"===a||"\n"===a||"\v"===a||"\u00a0"===a},isIdent:function(a){return"a"<=a&&"z">=a||"A"<=a&&"Z">=a||"_"===a||"$"===a},isExpOperator:function(a){return"-"===
+a||"+"===a||this.isNumber(a)},throwError:function(a,b,d){d=d||this.index;b=y(b)?"s "+b+"-"+this.index+" ["+this.text.substring(b,d)+"]":" "+d;throw ka("lexerr",a,b,this.text);},readNumber:function(){for(var a="",b=this.index;this.index<this.text.length;){var d=G(this.text.charAt(this.index));if("."==d||this.isNumber(d))a+=d;else{var c=this.peek();if("e"==d&&this.isExpOperator(c))a+=d;else if(this.isExpOperator(d)&&c&&this.isNumber(c)&&"e"==a.charAt(a.length-1))a+=d;else if(!this.isExpOperator(d)||
+c&&this.isNumber(c)||"e"!=a.charAt(a.length-1))break;else this.throwError("Invalid exponent")}this.index++}this.tokens.push({index:b,text:a,constant:!0,value:Number(a)})},readIdent:function(){for(var a=this.index;this.index<this.text.length;){var b=this.text.charAt(this.index);if(!this.isIdent(b)&&!this.isNumber(b))break;this.index++}this.tokens.push({index:a,text:this.text.slice(a,this.index),identifier:!0})},readString:function(a){var b=this.index;this.index++;for(var d="",c=a,e=!1;this.index<this.text.length;){var f=
+this.text.charAt(this.index),c=c+f;if(e)"u"===f?(e=this.text.substring(this.index+1,this.index+5),e.match(/[\da-f]{4}/i)||this.throwError("Invalid unicode escape [\\u"+e+"]"),this.index+=4,d+=String.fromCharCode(parseInt(e,16))):d+=Hg[f]||f,e=!1;else if("\\"===f)e=!0;else{if(f===a){this.index++;this.tokens.push({index:b,text:c,constant:!0,value:d});return}d+=f}this.index++}this.throwError("Unterminated quote",b)}};var q=function(a,b){this.lexer=a;this.options=b};q.Program="Program";q.ExpressionStatement=
+"ExpressionStatement";q.AssignmentExpression="AssignmentExpression";q.ConditionalExpression="ConditionalExpression";q.LogicalExpression="LogicalExpression";q.BinaryExpression="BinaryExpression";q.UnaryExpression="UnaryExpression";q.CallExpression="CallExpression";q.MemberExpression="MemberExpression";q.Identifier="Identifier";q.Literal="Literal";q.ArrayExpression="ArrayExpression";q.Property="Property";q.ObjectExpression="ObjectExpression";q.ThisExpression="ThisExpression";q.LocalsExpression="LocalsExpression";
+q.NGValueParameter="NGValueParameter";q.prototype={ast:function(a){this.text=a;this.tokens=this.lexer.lex(a);a=this.program();0!==this.tokens.length&&this.throwError("is an unexpected token",this.tokens[0]);return a},program:function(){for(var a=[];;)if(0<this.tokens.length&&!this.peek("}",")",";","]")&&a.push(this.expressionStatement()),!this.expect(";"))return{type:q.Program,body:a}},expressionStatement:function(){return{type:q.ExpressionStatement,expression:this.filterChain()}},filterChain:function(){for(var a=
+this.expression();this.expect("|");)a=this.filter(a);return a},expression:function(){return this.assignment()},assignment:function(){var a=this.ternary();this.expect("=")&&(a={type:q.AssignmentExpression,left:a,right:this.assignment(),operator:"="});return a},ternary:function(){var a=this.logicalOR(),b,d;return this.expect("?")&&(b=this.expression(),this.consume(":"))?(d=this.expression(),{type:q.ConditionalExpression,test:a,alternate:b,consequent:d}):a},logicalOR:function(){for(var a=this.logicalAND();this.expect("||");)a=
+{type:q.LogicalExpression,operator:"||",left:a,right:this.logicalAND()};return a},logicalAND:function(){for(var a=this.equality();this.expect("&&");)a={type:q.LogicalExpression,operator:"&&",left:a,right:this.equality()};return a},equality:function(){for(var a=this.relational(),b;b=this.expect("==","!=","===","!==");)a={type:q.BinaryExpression,operator:b.text,left:a,right:this.relational()};return a},relational:function(){for(var a=this.additive(),b;b=this.expect("<",">","<=",">=");)a={type:q.BinaryExpression,
+operator:b.text,left:a,right:this.additive()};return a},additive:function(){for(var a=this.multiplicative(),b;b=this.expect("+","-");)a={type:q.BinaryExpression,operator:b.text,left:a,right:this.multiplicative()};return a},multiplicative:function(){for(var a=this.unary(),b;b=this.expect("*","/","%");)a={type:q.BinaryExpression,operator:b.text,left:a,right:this.unary()};return a},unary:function(){var a;return(a=this.expect("+","-","!"))?{type:q.UnaryExpression,operator:a.text,prefix:!0,argument:this.unary()}:
+this.primary()},primary:function(){var a;this.expect("(")?(a=this.filterChain(),this.consume(")")):this.expect("[")?a=this.arrayDeclaration():this.expect("{")?a=this.object():this.constants.hasOwnProperty(this.peek().text)?a=Oa(this.constants[this.consume().text]):this.peek().identifier?a=this.identifier():this.peek().constant?a=this.constant():this.throwError("not a primary expression",this.peek());for(var b;b=this.expect("(","[",".");)"("===b.text?(a={type:q.CallExpression,callee:a,arguments:this.parseArguments()},
+this.consume(")")):"["===b.text?(a={type:q.MemberExpression,object:a,property:this.expression(),computed:!0},this.consume("]")):"."===b.text?a={type:q.MemberExpression,object:a,property:this.identifier(),computed:!1}:this.throwError("IMPOSSIBLE");return a},filter:function(a){a=[a];for(var b={type:q.CallExpression,callee:this.identifier(),arguments:a,filter:!0};this.expect(":");)a.push(this.expression());return b},parseArguments:function(){var a=[];if(")"!==this.peekToken().text){do a.push(this.expression());
+while(this.expect(","))}return a},identifier:function(){var a=this.consume();a.identifier||this.throwError("is not a valid identifier",a);return{type:q.Identifier,name:a.text}},constant:function(){return{type:q.Literal,value:this.consume().value}},arrayDeclaration:function(){var a=[];if("]"!==this.peekToken().text){do{if(this.peek("]"))break;a.push(this.expression())}while(this.expect(","))}this.consume("]");return{type:q.ArrayExpression,elements:a}},object:function(){var a=[],b;if("}"!==this.peekToken().text){do{if(this.peek("}"))break;
+b={type:q.Property,kind:"init"};this.peek().constant?b.key=this.constant():this.peek().identifier?b.key=this.identifier():this.throwError("invalid key",this.peek());this.consume(":");b.value=this.expression();a.push(b)}while(this.expect(","))}this.consume("}");return{type:q.ObjectExpression,properties:a}},throwError:function(a,b){throw ka("syntax",b.text,a,b.index+1,this.text,this.text.substring(b.index));},consume:function(a){if(0===this.tokens.length)throw ka("ueoe",this.text);var b=this.expect(a);
+b||this.throwError("is unexpected, expecting ["+a+"]",this.peek());return b},peekToken:function(){if(0===this.tokens.length)throw ka("ueoe",this.text);return this.tokens[0]},peek:function(a,b,d,c){return this.peekAhead(0,a,b,d,c)},peekAhead:function(a,b,d,c,e){if(this.tokens.length>a){a=this.tokens[a];var f=a.text;if(f===b||f===d||f===c||f===e||!(b||d||c||e))return a}return!1},expect:function(a,b,d,c){return(a=this.peek(a,b,d,c))?(this.tokens.shift(),a):!1},constants:{"true":{type:q.Literal,value:!0},
+"false":{type:q.Literal,value:!1},"null":{type:q.Literal,value:null},undefined:{type:q.Literal,value:v},"this":{type:q.ThisExpression},$locals:{type:q.LocalsExpression}}};ud.prototype={compile:function(a,b){var d=this,c=this.astBuilder.ast(a);this.state={nextId:0,filters:{},expensiveChecks:b,fn:{vars:[],body:[],own:{}},assign:{vars:[],body:[],own:{}},inputs:[]};R(c,d.$filter);var e="",f;this.stage="assign";if(f=sd(c))this.state.computing="assign",e=this.nextId(),this.recurse(f,e),this.return_(e),
+e="fn.assign="+this.generateFunction("assign","s,v,l");f=qd(c.body);d.stage="inputs";n(f,function(a,b){var c="fn"+b;d.state[c]={vars:[],body:[],own:{}};d.state.computing=c;var e=d.nextId();d.recurse(a,e);d.return_(e);d.state.inputs.push(c);a.watchId=b});this.state.computing="fn";this.stage="main";this.recurse(c);e='"'+this.USE+" "+this.STRICT+'";\n'+this.filterPrefix()+"var fn="+this.generateFunction("fn","s,l,a,i")+e+this.watchFns()+"return fn;";e=(new Function("$filter","ensureSafeMemberName","ensureSafeObject",
+"ensureSafeFunction","getStringValue","ensureSafeAssignContext","ifDefined","plus","text",e))(this.$filter,Xa,Aa,od,hg,Ib,lg,pd,a);this.state=this.stage=v;e.literal=td(c);e.constant=c.constant;return e},USE:"use",STRICT:"strict",watchFns:function(){var a=[],b=this.state.inputs,d=this;n(b,function(b){a.push("var "+b+"="+d.generateFunction(b,"s"))});b.length&&a.push("fn.inputs=["+b.join(",")+"];");return a.join("")},generateFunction:function(a,b){return"function("+b+"){"+this.varsPrefix(a)+this.body(a)+
+"};"},filterPrefix:function(){var a=[],b=this;n(this.state.filters,function(d,c){a.push(d+"=$filter("+b.escape(c)+")")});return a.length?"var "+a.join(",")+";":""},varsPrefix:function(a){return this.state[a].vars.length?"var "+this.state[a].vars.join(",")+";":""},body:function(a){return this.state[a].body.join("")},recurse:function(a,b,d,c,e,f){var g,h,k=this,l,m;c=c||B;if(!f&&y(a.watchId))b=b||this.nextId(),this.if_("i",this.lazyAssign(b,this.computedMember("i",a.watchId)),this.lazyRecurse(a,b,d,
+c,e,!0));else switch(a.type){case q.Program:n(a.body,function(b,c){k.recurse(b.expression,v,v,function(a){h=a});c!==a.body.length-1?k.current().body.push(h,";"):k.return_(h)});break;case q.Literal:m=this.escape(a.value);this.assign(b,m);c(m);break;case q.UnaryExpression:this.recurse(a.argument,v,v,function(a){h=a});m=a.operator+"("+this.ifDefined(h,0)+")";this.assign(b,m);c(m);break;case q.BinaryExpression:this.recurse(a.left,v,v,function(a){g=a});this.recurse(a.right,v,v,function(a){h=a});m="+"===
+a.operator?this.plus(g,h):"-"===a.operator?this.ifDefined(g,0)+a.operator+this.ifDefined(h,0):"("+g+")"+a.operator+"("+h+")";this.assign(b,m);c(m);break;case q.LogicalExpression:b=b||this.nextId();k.recurse(a.left,b);k.if_("&&"===a.operator?b:k.not(b),k.lazyRecurse(a.right,b));c(b);break;case q.ConditionalExpression:b=b||this.nextId();k.recurse(a.test,b);k.if_(b,k.lazyRecurse(a.alternate,b),k.lazyRecurse(a.consequent,b));c(b);break;case q.Identifier:b=b||this.nextId();d&&(d.context="inputs"===k.stage?
+"s":this.assign(this.nextId(),this.getHasOwnProperty("l",a.name)+"?l:s"),d.computed=!1,d.name=a.name);Xa(a.name);k.if_("inputs"===k.stage||k.not(k.getHasOwnProperty("l",a.name)),function(){k.if_("inputs"===k.stage||"s",function(){e&&1!==e&&k.if_(k.not(k.nonComputedMember("s",a.name)),k.lazyAssign(k.nonComputedMember("s",a.name),"{}"));k.assign(b,k.nonComputedMember("s",a.name))})},b&&k.lazyAssign(b,k.nonComputedMember("l",a.name)));(k.state.expensiveChecks||Jb(a.name))&&k.addEnsureSafeObject(b);c(b);
+break;case q.MemberExpression:g=d&&(d.context=this.nextId())||this.nextId();b=b||this.nextId();k.recurse(a.object,g,v,function(){k.if_(k.notNull(g),function(){e&&1!==e&&k.addEnsureSafeAssignContext(g);if(a.computed)h=k.nextId(),k.recurse(a.property,h),k.getStringValue(h),k.addEnsureSafeMemberName(h),e&&1!==e&&k.if_(k.not(k.computedMember(g,h)),k.lazyAssign(k.computedMember(g,h),"{}")),m=k.ensureSafeObject(k.computedMember(g,h)),k.assign(b,m),d&&(d.computed=!0,d.name=h);else{Xa(a.property.name);e&&
+1!==e&&k.if_(k.not(k.nonComputedMember(g,a.property.name)),k.lazyAssign(k.nonComputedMember(g,a.property.name),"{}"));m=k.nonComputedMember(g,a.property.name);if(k.state.expensiveChecks||Jb(a.property.name))m=k.ensureSafeObject(m);k.assign(b,m);d&&(d.computed=!1,d.name=a.property.name)}},function(){k.assign(b,"undefined")});c(b)},!!e);break;case q.CallExpression:b=b||this.nextId();a.filter?(h=k.filter(a.callee.name),l=[],n(a.arguments,function(a){var b=k.nextId();k.recurse(a,b);l.push(b)}),m=h+"("+
+l.join(",")+")",k.assign(b,m),c(b)):(h=k.nextId(),g={},l=[],k.recurse(a.callee,h,g,function(){k.if_(k.notNull(h),function(){k.addEnsureSafeFunction(h);n(a.arguments,function(a){k.recurse(a,k.nextId(),v,function(a){l.push(k.ensureSafeObject(a))})});g.name?(k.state.expensiveChecks||k.addEnsureSafeObject(g.context),m=k.member(g.context,g.name,g.computed)+"("+l.join(",")+")"):m=h+"("+l.join(",")+")";m=k.ensureSafeObject(m);k.assign(b,m)},function(){k.assign(b,"undefined")});c(b)}));break;case q.AssignmentExpression:h=
+this.nextId();g={};if(!rd(a.left))throw ka("lval");this.recurse(a.left,v,g,function(){k.if_(k.notNull(g.context),function(){k.recurse(a.right,h);k.addEnsureSafeObject(k.member(g.context,g.name,g.computed));k.addEnsureSafeAssignContext(g.context);m=k.member(g.context,g.name,g.computed)+a.operator+h;k.assign(b,m);c(b||m)})},1);break;case q.ArrayExpression:l=[];n(a.elements,function(a){k.recurse(a,k.nextId(),v,function(a){l.push(a)})});m="["+l.join(",")+"]";this.assign(b,m);c(m);break;case q.ObjectExpression:l=
+[];n(a.properties,function(a){k.recurse(a.value,k.nextId(),v,function(b){l.push(k.escape(a.key.type===q.Identifier?a.key.name:""+a.key.value)+":"+b)})});m="{"+l.join(",")+"}";this.assign(b,m);c(m);break;case q.ThisExpression:this.assign(b,"s");c("s");break;case q.LocalsExpression:this.assign(b,"l");c("l");break;case q.NGValueParameter:this.assign(b,"v"),c("v")}},getHasOwnProperty:function(a,b){var d=a+"."+b,c=this.current().own;c.hasOwnProperty(d)||(c[d]=this.nextId(!1,a+"&&("+this.escape(b)+" in "+
+a+")"));return c[d]},assign:function(a,b){if(a)return this.current().body.push(a,"=",b,";"),a},filter:function(a){this.state.filters.hasOwnProperty(a)||(this.state.filters[a]=this.nextId(!0));return this.state.filters[a]},ifDefined:function(a,b){return"ifDefined("+a+","+this.escape(b)+")"},plus:function(a,b){return"plus("+a+","+b+")"},return_:function(a){this.current().body.push("return ",a,";")},if_:function(a,b,d){if(!0===a)b();else{var c=this.current().body;c.push("if(",a,"){");b();c.push("}");
+d&&(c.push("else{"),d(),c.push("}"))}},not:function(a){return"!("+a+")"},notNull:function(a){return a+"!=null"},nonComputedMember:function(a,b){return a+"."+b},computedMember:function(a,b){return a+"["+b+"]"},member:function(a,b,d){return d?this.computedMember(a,b):this.nonComputedMember(a,b)},addEnsureSafeObject:function(a){this.current().body.push(this.ensureSafeObject(a),";")},addEnsureSafeMemberName:function(a){this.current().body.push(this.ensureSafeMemberName(a),";")},addEnsureSafeFunction:function(a){this.current().body.push(this.ensureSafeFunction(a),
+";")},addEnsureSafeAssignContext:function(a){this.current().body.push(this.ensureSafeAssignContext(a),";")},ensureSafeObject:function(a){return"ensureSafeObject("+a+",text)"},ensureSafeMemberName:function(a){return"ensureSafeMemberName("+a+",text)"},ensureSafeFunction:function(a){return"ensureSafeFunction("+a+",text)"},getStringValue:function(a){this.assign(a,"getStringValue("+a+")")},ensureSafeAssignContext:function(a){return"ensureSafeAssignContext("+a+",text)"},lazyRecurse:function(a,b,d,c,e,f){var g=
+this;return function(){g.recurse(a,b,d,c,e,f)}},lazyAssign:function(a,b){var d=this;return function(){d.assign(a,b)}},stringEscapeRegex:/[^ a-zA-Z0-9]/g,stringEscapeFn:function(a){return"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)},escape:function(a){if(F(a))return"'"+a.replace(this.stringEscapeRegex,this.stringEscapeFn)+"'";if(N(a))return a.toString();if(!0===a)return"true";if(!1===a)return"false";if(null===a)return"null";if("undefined"===typeof a)return"undefined";throw ka("esc");},nextId:function(a,
+b){var d="v"+this.state.nextId++;a||this.current().vars.push(d+(b?"="+b:""));return d},current:function(){return this.state[this.state.computing]}};vd.prototype={compile:function(a,b){var d=this,c=this.astBuilder.ast(a);this.expression=a;this.expensiveChecks=b;R(c,d.$filter);var e,f;if(e=sd(c))f=this.recurse(e);e=qd(c.body);var g;e&&(g=[],n(e,function(a,b){var c=d.recurse(a);a.input=c;g.push(c);a.watchId=b}));var h=[];n(c.body,function(a){h.push(d.recurse(a.expression))});e=0===c.body.length?function(){}:
+1===c.body.length?h[0]:function(a,b){var c;n(h,function(d){c=d(a,b)});return c};f&&(e.assign=function(a,b,c){return f(a,c,b)});g&&(e.inputs=g);e.literal=td(c);e.constant=c.constant;return e},recurse:function(a,b,d){var c,e,f=this,g;if(a.input)return this.inputs(a.input,a.watchId);switch(a.type){case q.Literal:return this.value(a.value,b);case q.UnaryExpression:return e=this.recurse(a.argument),this["unary"+a.operator](e,b);case q.BinaryExpression:return c=this.recurse(a.left),e=this.recurse(a.right),
+this["binary"+a.operator](c,e,b);case q.LogicalExpression:return c=this.recurse(a.left),e=this.recurse(a.right),this["binary"+a.operator](c,e,b);case q.ConditionalExpression:return this["ternary?:"](this.recurse(a.test),this.recurse(a.alternate),this.recurse(a.consequent),b);case q.Identifier:return Xa(a.name,f.expression),f.identifier(a.name,f.expensiveChecks||Jb(a.name),b,d,f.expression);case q.MemberExpression:return c=this.recurse(a.object,!1,!!d),a.computed||(Xa(a.property.name,f.expression),
+e=a.property.name),a.computed&&(e=this.recurse(a.property)),a.computed?this.computedMember(c,e,b,d,f.expression):this.nonComputedMember(c,e,f.expensiveChecks,b,d,f.expression);case q.CallExpression:return g=[],n(a.arguments,function(a){g.push(f.recurse(a))}),a.filter&&(e=this.$filter(a.callee.name)),a.filter||(e=this.recurse(a.callee,!0)),a.filter?function(a,c,d,f){for(var r=[],n=0;n<g.length;++n)r.push(g[n](a,c,d,f));a=e.apply(v,r,f);return b?{context:v,name:v,value:a}:a}:function(a,c,d,m){var r=
+e(a,c,d,m),n;if(null!=r.value){Aa(r.context,f.expression);od(r.value,f.expression);n=[];for(var q=0;q<g.length;++q)n.push(Aa(g[q](a,c,d,m),f.expression));n=Aa(r.value.apply(r.context,n),f.expression)}return b?{value:n}:n};case q.AssignmentExpression:return c=this.recurse(a.left,!0,1),e=this.recurse(a.right),function(a,d,g,m){var r=c(a,d,g,m);a=e(a,d,g,m);Aa(r.value,f.expression);Ib(r.context);r.context[r.name]=a;return b?{value:a}:a};case q.ArrayExpression:return g=[],n(a.elements,function(a){g.push(f.recurse(a))}),
+function(a,c,d,e){for(var f=[],n=0;n<g.length;++n)f.push(g[n](a,c,d,e));return b?{value:f}:f};case q.ObjectExpression:return g=[],n(a.properties,function(a){g.push({key:a.key.type===q.Identifier?a.key.name:""+a.key.value,value:f.recurse(a.value)})}),function(a,c,d,e){for(var f={},n=0;n<g.length;++n)f[g[n].key]=g[n].value(a,c,d,e);return b?{value:f}:f};case q.ThisExpression:return function(a){return b?{value:a}:a};case q.LocalsExpression:return function(a,c){return b?{value:c}:c};case q.NGValueParameter:return function(a,
+c,d,e){return b?{value:d}:d}}},"unary+":function(a,b){return function(d,c,e,f){d=a(d,c,e,f);d=y(d)?+d:0;return b?{value:d}:d}},"unary-":function(a,b){return function(d,c,e,f){d=a(d,c,e,f);d=y(d)?-d:0;return b?{value:d}:d}},"unary!":function(a,b){return function(d,c,e,f){d=!a(d,c,e,f);return b?{value:d}:d}},"binary+":function(a,b,d){return function(c,e,f,g){var h=a(c,e,f,g);c=b(c,e,f,g);h=pd(h,c);return d?{value:h}:h}},"binary-":function(a,b,d){return function(c,e,f,g){var h=a(c,e,f,g);c=b(c,e,f,g);
+h=(y(h)?h:0)-(y(c)?c:0);return d?{value:h}:h}},"binary*":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)*b(c,e,f,g);return d?{value:c}:c}},"binary/":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)/b(c,e,f,g);return d?{value:c}:c}},"binary%":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)%b(c,e,f,g);return d?{value:c}:c}},"binary===":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)===b(c,e,f,g);return d?{value:c}:c}},"binary!==":function(a,b,d){return function(c,e,f,g){c=a(c,
+e,f,g)!==b(c,e,f,g);return d?{value:c}:c}},"binary==":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)==b(c,e,f,g);return d?{value:c}:c}},"binary!=":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)!=b(c,e,f,g);return d?{value:c}:c}},"binary<":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)<b(c,e,f,g);return d?{value:c}:c}},"binary>":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)>b(c,e,f,g);return d?{value:c}:c}},"binary<=":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,
+g)<=b(c,e,f,g);return d?{value:c}:c}},"binary>=":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)>=b(c,e,f,g);return d?{value:c}:c}},"binary&&":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)&&b(c,e,f,g);return d?{value:c}:c}},"binary||":function(a,b,d){return function(c,e,f,g){c=a(c,e,f,g)||b(c,e,f,g);return d?{value:c}:c}},"ternary?:":function(a,b,d,c){return function(e,f,g,h){e=a(e,f,g,h)?b(e,f,g,h):d(e,f,g,h);return c?{value:e}:e}},value:function(a,b){return function(){return b?{context:v,
+name:v,value:a}:a}},identifier:function(a,b,d,c,e){return function(f,g,h,k){f=g&&a in g?g:f;c&&1!==c&&f&&!f[a]&&(f[a]={});g=f?f[a]:v;b&&Aa(g,e);return d?{context:f,name:a,value:g}:g}},computedMember:function(a,b,d,c,e){return function(f,g,h,k){var l=a(f,g,h,k),m,n;null!=l&&(m=b(f,g,h,k),m+="",Xa(m,e),c&&1!==c&&(Ib(l),l&&!l[m]&&(l[m]={})),n=l[m],Aa(n,e));return d?{context:l,name:m,value:n}:n}},nonComputedMember:function(a,b,d,c,e,f){return function(g,h,k,l){g=a(g,h,k,l);e&&1!==e&&(Ib(g),g&&!g[b]&&
+(g[b]={}));h=null!=g?g[b]:v;(d||Jb(b))&&Aa(h,f);return c?{context:g,name:b,value:h}:h}},inputs:function(a,b){return function(d,c,e,f){return f?f[b]:a(d,c,e)}}};var jc=function(a,b,d){this.lexer=a;this.$filter=b;this.options=d;this.ast=new q(this.lexer);this.astCompiler=d.csp?new vd(this.ast,b):new ud(this.ast,b)};jc.prototype={constructor:jc,parse:function(a){return this.astCompiler.compile(a,this.options.expensiveChecks)}};var mg=Object.prototype.valueOf,Ba=H("$sce"),qa={HTML:"html",CSS:"css",URL:"url",
+RESOURCE_URL:"resourceUrl",JS:"js"},ja=H("$compile"),Y=W.createElement("a"),zd=za(O.location.href);Ad.$inject=["$document"];Lc.$inject=["$provide"];var Hd=22,Gd=".",lc="0";Bd.$inject=["$locale"];Dd.$inject=["$locale"];var yg={yyyy:aa("FullYear",4),yy:aa("FullYear",2,0,!0),y:aa("FullYear",1),MMMM:Lb("Month"),MMM:Lb("Month",!0),MM:aa("Month",2,1),M:aa("Month",1,1),dd:aa("Date",2),d:aa("Date",1),HH:aa("Hours",2),H:aa("Hours",1),hh:aa("Hours",2,-12),h:aa("Hours",1,-12),mm:aa("Minutes",2),m:aa("Minutes",
+1),ss:aa("Seconds",2),s:aa("Seconds",1),sss:aa("Milliseconds",3),EEEE:Lb("Day"),EEE:Lb("Day",!0),a:function(a,b){return 12>a.getHours()?b.AMPMS[0]:b.AMPMS[1]},Z:function(a,b,d){a=-1*d;return a=(0<=a?"+":"")+(Kb(Math[0<a?"floor":"ceil"](a/60),2)+Kb(Math.abs(a%60),2))},ww:Jd(2),w:Jd(1),G:mc,GG:mc,GGG:mc,GGGG:function(a,b){return 0>=a.getFullYear()?b.ERANAMES[0]:b.ERANAMES[1]}},xg=/((?:[^yMdHhmsaZEwG']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|d+|H+|h+|m+|s+|a|Z|G+|w+))(.*)/,wg=/^\-?\d+$/;Cd.$inject=["$locale"];
+var rg=ba(G),sg=ba(ub);Ed.$inject=["$parse"];var oe=ba({restrict:"E",compile:function(a,b){if(!b.href&&!b.xlinkHref)return function(a,b){if("a"===b[0].nodeName.toLowerCase()){var e="[object SVGAnimatedString]"===ga.call(b.prop("href"))?"xlink:href":"href";b.on("click",function(a){b.attr(e)||a.preventDefault()})}}}}),vb={};n(Db,function(a,b){function d(a,d,e){a.$watch(e[c],function(a){e.$set(b,!!a)})}if("multiple"!=a){var c=va("ng-"+b),e=d;"checked"===a&&(e=function(a,b,e){e.ngModel!==e[c]&&d(a,b,
+e)});vb[c]=function(){return{restrict:"A",priority:100,link:e}}}});n(cd,function(a,b){vb[b]=function(){return{priority:100,link:function(a,c,e){if("ngPattern"===b&&"/"==e.ngPattern.charAt(0)&&(c=e.ngPattern.match(Ag))){e.$set("ngPattern",new RegExp(c[1],c[2]));return}a.$watch(e[b],function(a){e.$set(b,a)})}}}});n(["src","srcset","href"],function(a){var b=va("ng-"+a);vb[b]=function(){return{priority:99,link:function(d,c,e){var f=a,g=a;"href"===a&&"[object SVGAnimatedString]"===ga.call(c.prop("href"))&&
+(g="xlinkHref",e.$attr[g]="xlink:href",f=null);e.$observe(b,function(b){b?(e.$set(g,b),xa&&f&&c.prop(f,e[g])):"href"===a&&e.$set(g,null)})}}}});var Mb={$addControl:B,$$renameControl:function(a,b){a.$name=b},$removeControl:B,$setValidity:B,$setDirty:B,$setPristine:B,$setSubmitted:B};Kd.$inject=["$element","$attrs","$scope","$animate","$interpolate"];var Sd=function(a){return["$timeout","$parse",function(b,d){function c(a){return""===a?d('this[""]').assign:d(a).assign||B}return{name:"form",restrict:a?
+"EAC":"E",require:["form","^^?form"],controller:Kd,compile:function(d,f){d.addClass(Ya).addClass(ob);var g=f.name?"name":a&&f.ngForm?"ngForm":!1;return{pre:function(a,d,e,f){var n=f[0];if(!("action"in e)){var s=function(b){a.$apply(function(){n.$commitViewValue();n.$setSubmitted()});b.preventDefault()};d[0].addEventListener("submit",s,!1);d.on("$destroy",function(){b(function(){d[0].removeEventListener("submit",s,!1)},0,!1)})}(f[1]||n.$$parentForm).$addControl(n);var q=g?c(n.$name):B;g&&(q(a,n),e.$observe(g,
+function(b){n.$name!==b&&(q(a,v),n.$$parentForm.$$renameControl(n,b),q=c(n.$name),q(a,n))}));d.on("$destroy",function(){n.$$parentForm.$removeControl(n);q(a,v);T(n,Mb)})}}}}}]},pe=Sd(),Ce=Sd(!0),zg=/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/,Ig=/^[a-z][a-z\d.+-]*:\/*(?:[^:@]+(?::[^@]+)?@)?(?:[^\s:/?#]+|\[[a-f\d:]+\])(?::\d+)?(?:\/[^?#]*)?(?:\?[^#]*)?(?:#.*)?$/i,Jg=/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i,Kg=
+/^\s*(\-|\+)?(\d+|(\d*(\.\d*)))([eE][+-]?\d+)?\s*$/,Td=/^(\d{4})-(\d{2})-(\d{2})$/,Ud=/^(\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)(?::(\d\d)(\.\d{1,3})?)?$/,pc=/^(\d{4})-W(\d\d)$/,Vd=/^(\d{4})-(\d\d)$/,Wd=/^(\d\d):(\d\d)(?::(\d\d)(\.\d{1,3})?)?$/,Xd={text:function(a,b,d,c,e,f){lb(a,b,d,c,e,f);nc(c)},date:mb("date",Td,Ob(Td,["yyyy","MM","dd"]),"yyyy-MM-dd"),"datetime-local":mb("datetimelocal",Ud,Ob(Ud,"yyyy MM dd HH mm ss sss".split(" ")),"yyyy-MM-ddTHH:mm:ss.sss"),time:mb("time",Wd,Ob(Wd,["HH","mm","ss",
+"sss"]),"HH:mm:ss.sss"),week:mb("week",pc,function(a,b){if(V(a))return a;if(F(a)){pc.lastIndex=0;var d=pc.exec(a);if(d){var c=+d[1],e=+d[2],f=d=0,g=0,h=0,k=Id(c),e=7*(e-1);b&&(d=b.getHours(),f=b.getMinutes(),g=b.getSeconds(),h=b.getMilliseconds());return new Date(c,0,k.getDate()+e,d,f,g,h)}}return NaN},"yyyy-Www"),month:mb("month",Vd,Ob(Vd,["yyyy","MM"]),"yyyy-MM"),number:function(a,b,d,c,e,f){Md(a,b,d,c);lb(a,b,d,c,e,f);c.$$parserName="number";c.$parsers.push(function(a){return c.$isEmpty(a)?null:
+Kg.test(a)?parseFloat(a):v});c.$formatters.push(function(a){if(!c.$isEmpty(a)){if(!N(a))throw nb("numfmt",a);a=a.toString()}return a});if(y(d.min)||d.ngMin){var g;c.$validators.min=function(a){return c.$isEmpty(a)||x(g)||a>=g};d.$observe("min",function(a){y(a)&&!N(a)&&(a=parseFloat(a,10));g=N(a)&&!isNaN(a)?a:v;c.$validate()})}if(y(d.max)||d.ngMax){var h;c.$validators.max=function(a){return c.$isEmpty(a)||x(h)||a<=h};d.$observe("max",function(a){y(a)&&!N(a)&&(a=parseFloat(a,10));h=N(a)&&!isNaN(a)?
+a:v;c.$validate()})}},url:function(a,b,d,c,e,f){lb(a,b,d,c,e,f);nc(c);c.$$parserName="url";c.$validators.url=function(a,b){var d=a||b;return c.$isEmpty(d)||Ig.test(d)}},email:function(a,b,d,c,e,f){lb(a,b,d,c,e,f);nc(c);c.$$parserName="email";c.$validators.email=function(a,b){var d=a||b;return c.$isEmpty(d)||Jg.test(d)}},radio:function(a,b,d,c){x(d.name)&&b.attr("name",++pb);b.on("click",function(a){b[0].checked&&c.$setViewValue(d.value,a&&a.type)});c.$render=function(){b[0].checked=d.value==c.$viewValue};
+d.$observe("value",c.$render)},checkbox:function(a,b,d,c,e,f,g,h){var k=Nd(h,a,"ngTrueValue",d.ngTrueValue,!0),l=Nd(h,a,"ngFalseValue",d.ngFalseValue,!1);b.on("click",function(a){c.$setViewValue(b[0].checked,a&&a.type)});c.$render=function(){b[0].checked=c.$viewValue};c.$isEmpty=function(a){return!1===a};c.$formatters.push(function(a){return oa(a,k)});c.$parsers.push(function(a){return a?k:l})},hidden:B,button:B,submit:B,reset:B,file:B},Fc=["$browser","$sniffer","$filter","$parse",function(a,b,d,
+c){return{restrict:"E",require:["?ngModel"],link:{pre:function(e,f,g,h){h[0]&&(Xd[G(g.type)]||Xd.text)(e,f,g,h[0],b,a,d,c)}}}}],Lg=/^(true|false|\d+)$/,Ue=function(){return{restrict:"A",priority:100,compile:function(a,b){return Lg.test(b.ngValue)?function(a,b,e){e.$set("value",a.$eval(e.ngValue))}:function(a,b,e){a.$watch(e.ngValue,function(a){e.$set("value",a)})}}}},ue=["$compile",function(a){return{restrict:"AC",compile:function(b){a.$$addBindingClass(b);return function(b,c,e){a.$$addBindingInfo(c,
+e.ngBind);c=c[0];b.$watch(e.ngBind,function(a){c.textContent=x(a)?"":a})}}}}],we=["$interpolate","$compile",function(a,b){return{compile:function(d){b.$$addBindingClass(d);return function(c,d,f){c=a(d.attr(f.$attr.ngBindTemplate));b.$$addBindingInfo(d,c.expressions);d=d[0];f.$observe("ngBindTemplate",function(a){d.textContent=x(a)?"":a})}}}}],ve=["$sce","$parse","$compile",function(a,b,d){return{restrict:"A",compile:function(c,e){var f=b(e.ngBindHtml),g=b(e.ngBindHtml,function(a){return(a||"").toString()});
+d.$$addBindingClass(c);return function(b,c,e){d.$$addBindingInfo(c,e.ngBindHtml);b.$watch(g,function(){c.html(a.getTrustedHtml(f(b))||"")})}}}}],Te=ba({restrict:"A",require:"ngModel",link:function(a,b,d,c){c.$viewChangeListeners.push(function(){a.$eval(d.ngChange)})}}),xe=oc("",!0),ze=oc("Odd",0),ye=oc("Even",1),Ae=Ma({compile:function(a,b){b.$set("ngCloak",v);a.removeClass("ng-cloak")}}),Be=[function(){return{restrict:"A",scope:!0,controller:"@",priority:500}}],Kc={},Mg={blur:!0,focus:!0};n("click dblclick mousedown mouseup mouseover mouseout mousemove mouseenter mouseleave keydown keyup keypress submit focus blur copy cut paste".split(" "),
+function(a){var b=va("ng-"+a);Kc[b]=["$parse","$rootScope",function(d,c){return{restrict:"A",compile:function(e,f){var g=d(f[b],null,!0);return function(b,d){d.on(a,function(d){var e=function(){g(b,{$event:d})};Mg[a]&&c.$$phase?b.$evalAsync(e):b.$apply(e)})}}}}]});var Ee=["$animate",function(a){return{multiElement:!0,transclude:"element",priority:600,terminal:!0,restrict:"A",$$tlb:!0,link:function(b,d,c,e,f){var g,h,k;b.$watch(c.ngIf,function(b){b?h||f(function(b,e){h=e;b[b.length++]=W.createComment(" end ngIf: "+
+c.ngIf+" ");g={clone:b};a.enter(b,d.parent(),d)}):(k&&(k.remove(),k=null),h&&(h.$destroy(),h=null),g&&(k=tb(g.clone),a.leave(k).then(function(){k=null}),g=null))})}}}],Fe=["$templateRequest","$anchorScroll","$animate",function(a,b,d){return{restrict:"ECA",priority:400,terminal:!0,transclude:"element",controller:ia.noop,compile:function(c,e){var f=e.ngInclude||e.src,g=e.onload||"",h=e.autoscroll;return function(c,e,m,n,s){var q=0,v,t,p,w=function(){t&&(t.remove(),t=null);v&&(v.$destroy(),v=null);p&&
+(d.leave(p).then(function(){t=null}),t=p,p=null)};c.$watch(f,function(f){var m=function(){!y(h)||h&&!c.$eval(h)||b()},z=++q;f?(a(f,!0).then(function(a){if(!c.$$destroyed&&z===q){var b=c.$new();n.template=a;a=s(b,function(a){w();d.enter(a,null,e).then(m)});v=b;p=a;v.$emit("$includeContentLoaded",f);c.$eval(g)}},function(){c.$$destroyed||z!==q||(w(),c.$emit("$includeContentError",f))}),c.$emit("$includeContentRequested",f)):(w(),n.template=null)})}}}}],We=["$compile",function(a){return{restrict:"ECA",
+priority:-400,require:"ngInclude",link:function(b,d,c,e){ga.call(d[0]).match(/SVG/)?(d.empty(),a(Nc(e.template,W).childNodes)(b,function(a){d.append(a)},{futureParentElement:d})):(d.html(e.template),a(d.contents())(b))}}}],Ge=Ma({priority:450,compile:function(){return{pre:function(a,b,d){a.$eval(d.ngInit)}}}}),Se=function(){return{restrict:"A",priority:100,require:"ngModel",link:function(a,b,d,c){var e=b.attr(d.$attr.ngList)||", ",f="false"!==d.ngTrim,g=f?X(e):e;c.$parsers.push(function(a){if(!x(a)){var b=
+[];a&&n(a.split(g),function(a){a&&b.push(f?X(a):a)});return b}});c.$formatters.push(function(a){return L(a)?a.join(e):v});c.$isEmpty=function(a){return!a||!a.length}}}},ob="ng-valid",Od="ng-invalid",Ya="ng-pristine",Nb="ng-dirty",Qd="ng-pending",nb=H("ngModel"),Ng=["$scope","$exceptionHandler","$attrs","$element","$parse","$animate","$timeout","$rootScope","$q","$interpolate",function(a,b,d,c,e,f,g,h,k,l){this.$modelValue=this.$viewValue=Number.NaN;this.$$rawModelValue=v;this.$validators={};this.$asyncValidators=
+{};this.$parsers=[];this.$formatters=[];this.$viewChangeListeners=[];this.$untouched=!0;this.$touched=!1;this.$pristine=!0;this.$dirty=!1;this.$valid=!0;this.$invalid=!1;this.$error={};this.$$success={};this.$pending=v;this.$name=l(d.name||"",!1)(a);this.$$parentForm=Mb;var m=e(d.ngModel),r=m.assign,q=m,I=r,K=null,t,p=this;this.$$setOptions=function(a){if((p.$options=a)&&a.getterSetter){var b=e(d.ngModel+"()"),f=e(d.ngModel+"($$$p)");q=function(a){var c=m(a);D(c)&&(c=b(a));return c};I=function(a,
+b){D(m(a))?f(a,{$$$p:p.$modelValue}):r(a,p.$modelValue)}}else if(!m.assign)throw nb("nonassign",d.ngModel,ta(c));};this.$render=B;this.$isEmpty=function(a){return x(a)||""===a||null===a||a!==a};this.$$updateEmptyClasses=function(a){p.$isEmpty(a)?(f.removeClass(c,"ng-not-empty"),f.addClass(c,"ng-empty")):(f.removeClass(c,"ng-empty"),f.addClass(c,"ng-not-empty"))};var w=0;Ld({ctrl:this,$element:c,set:function(a,b){a[b]=!0},unset:function(a,b){delete a[b]},$animate:f});this.$setPristine=function(){p.$dirty=
+!1;p.$pristine=!0;f.removeClass(c,Nb);f.addClass(c,Ya)};this.$setDirty=function(){p.$dirty=!0;p.$pristine=!1;f.removeClass(c,Ya);f.addClass(c,Nb);p.$$parentForm.$setDirty()};this.$setUntouched=function(){p.$touched=!1;p.$untouched=!0;f.setClass(c,"ng-untouched","ng-touched")};this.$setTouched=function(){p.$touched=!0;p.$untouched=!1;f.setClass(c,"ng-touched","ng-untouched")};this.$rollbackViewValue=function(){g.cancel(K);p.$viewValue=p.$$lastCommittedViewValue;p.$render()};this.$validate=function(){if(!N(p.$modelValue)||
+!isNaN(p.$modelValue)){var a=p.$$rawModelValue,b=p.$valid,c=p.$modelValue,d=p.$options&&p.$options.allowInvalid;p.$$runValidators(a,p.$$lastCommittedViewValue,function(e){d||b===e||(p.$modelValue=e?a:v,p.$modelValue!==c&&p.$$writeModelToScope())})}};this.$$runValidators=function(a,b,c){function d(){var c=!0;n(p.$validators,function(d,e){var g=d(a,b);c=c&&g;f(e,g)});return c?!0:(n(p.$asyncValidators,function(a,b){f(b,null)}),!1)}function e(){var c=[],d=!0;n(p.$asyncValidators,function(e,g){var h=e(a,
+b);if(!h||!D(h.then))throw nb("nopromise",h);f(g,v);c.push(h.then(function(){f(g,!0)},function(a){d=!1;f(g,!1)}))});c.length?k.all(c).then(function(){g(d)},B):g(!0)}function f(a,b){h===w&&p.$setValidity(a,b)}function g(a){h===w&&c(a)}w++;var h=w;(function(){var a=p.$$parserName||"parse";if(x(t))f(a,null);else return t||(n(p.$validators,function(a,b){f(b,null)}),n(p.$asyncValidators,function(a,b){f(b,null)})),f(a,t),t;return!0})()?d()?e():g(!1):g(!1)};this.$commitViewValue=function(){var a=p.$viewValue;
+g.cancel(K);if(p.$$lastCommittedViewValue!==a||""===a&&p.$$hasNativeValidators)p.$$updateEmptyClasses(a),p.$$lastCommittedViewValue=a,p.$pristine&&this.$setDirty(),this.$$parseAndValidate()};this.$$parseAndValidate=function(){var b=p.$$lastCommittedViewValue;if(t=x(b)?v:!0)for(var c=0;c<p.$parsers.length;c++)if(b=p.$parsers[c](b),x(b)){t=!1;break}N(p.$modelValue)&&isNaN(p.$modelValue)&&(p.$modelValue=q(a));var d=p.$modelValue,e=p.$options&&p.$options.allowInvalid;p.$$rawModelValue=b;e&&(p.$modelValue=
+b,p.$modelValue!==d&&p.$$writeModelToScope());p.$$runValidators(b,p.$$lastCommittedViewValue,function(a){e||(p.$modelValue=a?b:v,p.$modelValue!==d&&p.$$writeModelToScope())})};this.$$writeModelToScope=function(){I(a,p.$modelValue);n(p.$viewChangeListeners,function(a){try{a()}catch(c){b(c)}})};this.$setViewValue=function(a,b){p.$viewValue=a;p.$options&&!p.$options.updateOnDefault||p.$$debounceViewValueCommit(b)};this.$$debounceViewValueCommit=function(b){var c=0,d=p.$options;d&&y(d.debounce)&&(d=d.debounce,
+N(d)?c=d:N(d[b])?c=d[b]:N(d["default"])&&(c=d["default"]));g.cancel(K);c?K=g(function(){p.$commitViewValue()},c):h.$$phase?p.$commitViewValue():a.$apply(function(){p.$commitViewValue()})};a.$watch(function(){var b=q(a);if(b!==p.$modelValue&&(p.$modelValue===p.$modelValue||b===b)){p.$modelValue=p.$$rawModelValue=b;t=v;for(var c=p.$formatters,d=c.length,e=b;d--;)e=c[d](e);p.$viewValue!==e&&(p.$$updateEmptyClasses(e),p.$viewValue=p.$$lastCommittedViewValue=e,p.$render(),p.$$runValidators(b,e,B))}return b})}],
+Re=["$rootScope",function(a){return{restrict:"A",require:["ngModel","^?form","^?ngModelOptions"],controller:Ng,priority:1,compile:function(b){b.addClass(Ya).addClass("ng-untouched").addClass(ob);return{pre:function(a,b,e,f){var g=f[0];b=f[1]||g.$$parentForm;g.$$setOptions(f[2]&&f[2].$options);b.$addControl(g);e.$observe("name",function(a){g.$name!==a&&g.$$parentForm.$$renameControl(g,a)});a.$on("$destroy",function(){g.$$parentForm.$removeControl(g)})},post:function(b,c,e,f){var g=f[0];if(g.$options&&
+g.$options.updateOn)c.on(g.$options.updateOn,function(a){g.$$debounceViewValueCommit(a&&a.type)});c.on("blur",function(c){g.$touched||(a.$$phase?b.$evalAsync(g.$setTouched):b.$apply(g.$setTouched))})}}}}}],Og=/(\s+|^)default(\s+|$)/,Ve=function(){return{restrict:"A",controller:["$scope","$attrs",function(a,b){var d=this;this.$options=Oa(a.$eval(b.ngModelOptions));y(this.$options.updateOn)?(this.$options.updateOnDefault=!1,this.$options.updateOn=X(this.$options.updateOn.replace(Og,function(){d.$options.updateOnDefault=
+!0;return" "}))):this.$options.updateOnDefault=!0}]}},He=Ma({terminal:!0,priority:1E3}),Pg=H("ngOptions"),Qg=/^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?(?:\s+disable\s+when\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/,Pe=["$compile","$parse",function(a,b){function d(a,c,d){function e(a,b,c,d,f){this.selectValue=a;this.viewValue=b;this.label=c;this.group=d;this.disabled=f}
+function l(a){var b;if(!q&&Ca(a))b=a;else{b=[];for(var c in a)a.hasOwnProperty(c)&&"$"!==c.charAt(0)&&b.push(c)}return b}var m=a.match(Qg);if(!m)throw Pg("iexp",a,ta(c));var n=m[5]||m[7],q=m[6];a=/ as /.test(m[0])&&m[1];var v=m[9];c=b(m[2]?m[1]:n);var y=a&&b(a)||c,t=v&&b(v),p=v?function(a,b){return t(d,b)}:function(a){return Fa(a)},w=function(a,b){return p(a,B(a,b))},u=b(m[2]||m[1]),x=b(m[3]||""),z=b(m[4]||""),A=b(m[8]),C={},B=q?function(a,b){C[q]=b;C[n]=a;return C}:function(a){C[n]=a;return C};return{trackBy:v,
+getTrackByValue:w,getWatchables:b(A,function(a){var b=[];a=a||[];for(var c=l(a),e=c.length,f=0;f<e;f++){var g=a===c?f:c[f],k=B(a[g],g),g=p(a[g],k);b.push(g);if(m[2]||m[1])g=u(d,k),b.push(g);m[4]&&(k=z(d,k),b.push(k))}return b}),getOptions:function(){for(var a=[],b={},c=A(d)||[],f=l(c),g=f.length,m=0;m<g;m++){var n=c===f?m:f[m],r=B(c[n],n),q=y(d,r),n=p(q,r),s=u(d,r),t=x(d,r),r=z(d,r),q=new e(n,q,s,t,r);a.push(q);b[n]=q}return{items:a,selectValueMap:b,getOptionFromViewValue:function(a){return b[w(a)]},
+getViewValueFromOption:function(a){return v?ia.copy(a.viewValue):a.viewValue}}}}}var c=W.createElement("option"),e=W.createElement("optgroup");return{restrict:"A",terminal:!0,require:["select","ngModel"],link:{pre:function(a,b,c,d){d[0].registerOption=B},post:function(b,g,h,k){function l(a,b){a.element=b;b.disabled=a.disabled;a.label!==b.label&&(b.label=a.label,b.textContent=a.label);a.value!==b.value&&(b.value=a.selectValue)}function m(a,b,c,d){b&&G(b.nodeName)===c?c=b:(c=d.cloneNode(!1),b?a.insertBefore(c,
+b):a.appendChild(c));return c}function r(a){for(var b;a;)b=a.nextSibling,$b(a),a=b}function q(a){var b=w&&w[0],c=A&&A[0];if(b||c)for(;a&&(a===b||a===c||8===a.nodeType||"option"===ra(a)&&""===a.value);)a=a.nextSibling;return a}function v(){var a=D&&x.readValue();D=E.getOptions();var b={},d=g[0].firstChild;z&&g.prepend(w);d=q(d);D.items.forEach(function(a){var f,h;y(a.group)?(f=b[a.group],f||(f=m(g[0],d,"optgroup",e),d=f.nextSibling,f.label=a.group,f=b[a.group]={groupElement:f,currentOptionElement:f.firstChild}),
+h=m(f.groupElement,f.currentOptionElement,"option",c),l(a,h),f.currentOptionElement=h.nextSibling):(h=m(g[0],d,"option",c),l(a,h),d=h.nextSibling)});Object.keys(b).forEach(function(a){r(b[a].currentOptionElement)});r(d);t.$render();if(!t.$isEmpty(a)){var f=x.readValue();(E.trackBy||p?oa(a,f):a===f)||(t.$setViewValue(f),t.$render())}}var x=k[0],t=k[1],p=h.multiple,w;k=0;for(var u=g.children(),B=u.length;k<B;k++)if(""===u[k].value){w=u.eq(k);break}var z=!!w,A=C(c.cloneNode(!1));A.val("?");var D,E=d(h.ngOptions,
+g,b);p?(t.$isEmpty=function(a){return!a||0===a.length},x.writeValue=function(a){D.items.forEach(function(a){a.element.selected=!1});a&&a.forEach(function(a){(a=D.getOptionFromViewValue(a))&&!a.disabled&&(a.element.selected=!0)})},x.readValue=function(){var a=g.val()||[],b=[];n(a,function(a){(a=D.selectValueMap[a])&&!a.disabled&&b.push(D.getViewValueFromOption(a))});return b},E.trackBy&&b.$watchCollection(function(){if(L(t.$viewValue))return t.$viewValue.map(function(a){return E.getTrackByValue(a)})},
+function(){t.$render()})):(x.writeValue=function(a){var b=D.getOptionFromViewValue(a);b&&!b.disabled?g[0].value!==b.selectValue&&(A.remove(),z||w.remove(),g[0].value=b.selectValue,b.element.selected=!0,b.element.setAttribute("selected","selected")):null===a||z?(A.remove(),z||g.prepend(w),g.val(""),w.prop("selected",!0),w.attr("selected",!0)):(z||w.remove(),g.prepend(A),g.val("?"),A.prop("selected",!0),A.attr("selected",!0))},x.readValue=function(){var a=D.selectValueMap[g.val()];return a&&!a.disabled?
+(z||w.remove(),A.remove(),D.getViewValueFromOption(a)):null},E.trackBy&&b.$watch(function(){return E.getTrackByValue(t.$viewValue)},function(){t.$render()}));z?(w.remove(),a(w)(b),w.removeClass("ng-scope")):w=C(c.cloneNode(!1));v();b.$watchCollection(E.getWatchables,v)}}}}],Ie=["$locale","$interpolate","$log",function(a,b,d){var c=/{}/g,e=/^when(Minus)?(.+)$/;return{link:function(f,g,h){function k(a){g.text(a||"")}var l=h.count,m=h.$attr.when&&g.attr(h.$attr.when),r=h.offset||0,q=f.$eval(m)||{},v=
+{},y=b.startSymbol(),t=b.endSymbol(),p=y+l+"-"+r+t,w=ia.noop,u;n(h,function(a,b){var c=e.exec(b);c&&(c=(c[1]?"-":"")+G(c[2]),q[c]=g.attr(h.$attr[b]))});n(q,function(a,d){v[d]=b(a.replace(c,p))});f.$watch(l,function(b){var c=parseFloat(b),e=isNaN(c);e||c in q||(c=a.pluralCat(c-r));c===u||e&&N(u)&&isNaN(u)||(w(),e=v[c],x(e)?(null!=b&&d.debug("ngPluralize: no rule defined for '"+c+"' in "+m),w=B,k()):w=f.$watch(e,k),u=c)})}}}],Je=["$parse","$animate",function(a,b){var d=H("ngRepeat"),c=function(a,b,
+c,d,k,l,m){a[c]=d;k&&(a[k]=l);a.$index=b;a.$first=0===b;a.$last=b===m-1;a.$middle=!(a.$first||a.$last);a.$odd=!(a.$even=0===(b&1))};return{restrict:"A",multiElement:!0,transclude:"element",priority:1E3,terminal:!0,$$tlb:!0,compile:function(e,f){var g=f.ngRepeat,h=W.createComment(" end ngRepeat: "+g+" "),k=g.match(/^\s*([\s\S]+?)\s+in\s+([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+track\s+by\s+([\s\S]+?))?\s*$/);if(!k)throw d("iexp",g);var l=k[1],m=k[2],r=k[3],q=k[4],k=l.match(/^(?:(\s*[\$\w]+)|\(\s*([\$\w]+)\s*,\s*([\$\w]+)\s*\))$/);
+if(!k)throw d("iidexp",l);var x=k[3]||k[1],y=k[2];if(r&&(!/^[$a-zA-Z_][$a-zA-Z0-9_]*$/.test(r)||/^(null|undefined|this|\$index|\$first|\$middle|\$last|\$even|\$odd|\$parent|\$root|\$id)$/.test(r)))throw d("badident",r);var t,p,w,u,B={$id:Fa};q?t=a(q):(w=function(a,b){return Fa(b)},u=function(a){return a});return function(a,e,f,k,l){t&&(p=function(b,c,d){y&&(B[y]=b);B[x]=c;B.$index=d;return t(a,B)});var q=Z();a.$watchCollection(m,function(f){var k,m,s=e[0],t,B=Z(),D,E,H,F,L,G,N;r&&(a[r]=f);if(Ca(f))L=
+f,m=p||w;else for(N in m=p||u,L=[],f)sa.call(f,N)&&"$"!==N.charAt(0)&&L.push(N);D=L.length;N=Array(D);for(k=0;k<D;k++)if(E=f===L?k:L[k],H=f[E],F=m(E,H,k),q[F])G=q[F],delete q[F],B[F]=G,N[k]=G;else{if(B[F])throw n(N,function(a){a&&a.scope&&(q[a.id]=a)}),d("dupes",g,F,H);N[k]={id:F,scope:v,clone:v};B[F]=!0}for(t in q){G=q[t];F=tb(G.clone);b.leave(F);if(F[0].parentNode)for(k=0,m=F.length;k<m;k++)F[k].$$NG_REMOVED=!0;G.scope.$destroy()}for(k=0;k<D;k++)if(E=f===L?k:L[k],H=f[E],G=N[k],G.scope){t=s;do t=
+t.nextSibling;while(t&&t.$$NG_REMOVED);G.clone[0]!=t&&b.move(tb(G.clone),null,C(s));s=G.clone[G.clone.length-1];c(G.scope,k,x,H,y,E,D)}else l(function(a,d){G.scope=d;var e=h.cloneNode(!1);a[a.length++]=e;b.enter(a,null,C(s));s=e;G.clone=a;B[G.id]=G;c(G.scope,k,x,H,y,E,D)});q=B})}}}}],Ke=["$animate",function(a){return{restrict:"A",multiElement:!0,link:function(b,d,c){b.$watch(c.ngShow,function(b){a[b?"removeClass":"addClass"](d,"ng-hide",{tempClasses:"ng-hide-animate"})})}}}],De=["$animate",function(a){return{restrict:"A",
+multiElement:!0,link:function(b,d,c){b.$watch(c.ngHide,function(b){a[b?"addClass":"removeClass"](d,"ng-hide",{tempClasses:"ng-hide-animate"})})}}}],Le=Ma(function(a,b,d){a.$watch(d.ngStyle,function(a,d){d&&a!==d&&n(d,function(a,c){b.css(c,"")});a&&b.css(a)},!0)}),Me=["$animate",function(a){return{require:"ngSwitch",controller:["$scope",function(){this.cases={}}],link:function(b,d,c,e){var f=[],g=[],h=[],k=[],l=function(a,b){return function(){a.splice(b,1)}};b.$watch(c.ngSwitch||c.on,function(b){var c,
+d;c=0;for(d=h.length;c<d;++c)a.cancel(h[c]);c=h.length=0;for(d=k.length;c<d;++c){var q=tb(g[c].clone);k[c].$destroy();(h[c]=a.leave(q)).then(l(h,c))}g.length=0;k.length=0;(f=e.cases["!"+b]||e.cases["?"])&&n(f,function(b){b.transclude(function(c,d){k.push(d);var e=b.element;c[c.length++]=W.createComment(" end ngSwitchWhen: ");g.push({clone:c});a.enter(c,e.parent(),e)})})})}}}],Ne=Ma({transclude:"element",priority:1200,require:"^ngSwitch",multiElement:!0,link:function(a,b,d,c,e){c.cases["!"+d.ngSwitchWhen]=
+c.cases["!"+d.ngSwitchWhen]||[];c.cases["!"+d.ngSwitchWhen].push({transclude:e,element:b})}}),Oe=Ma({transclude:"element",priority:1200,require:"^ngSwitch",multiElement:!0,link:function(a,b,d,c,e){c.cases["?"]=c.cases["?"]||[];c.cases["?"].push({transclude:e,element:b})}}),Rg=H("ngTransclude"),Qe=Ma({restrict:"EAC",link:function(a,b,d,c,e){d.ngTransclude===d.$attr.ngTransclude&&(d.ngTransclude="");if(!e)throw Rg("orphan",ta(b));e(function(a){a.length&&(b.empty(),b.append(a))},null,d.ngTransclude||
+d.ngTranscludeSlot)}}),qe=["$templateCache",function(a){return{restrict:"E",terminal:!0,compile:function(b,d){"text/ng-template"==d.type&&a.put(d.id,b[0].text)}}}],Sg={$setViewValue:B,$render:B},Tg=["$element","$scope","$attrs",function(a,b,d){var c=this,e=new Ua;c.ngModelCtrl=Sg;c.unknownOption=C(W.createElement("option"));c.renderUnknownOption=function(b){b="? "+Fa(b)+" ?";c.unknownOption.val(b);a.prepend(c.unknownOption);a.val(b)};b.$on("$destroy",function(){c.renderUnknownOption=B});c.removeUnknownOption=
+function(){c.unknownOption.parent()&&c.unknownOption.remove()};c.readValue=function(){c.removeUnknownOption();return a.val()};c.writeValue=function(b){c.hasOption(b)?(c.removeUnknownOption(),a.val(b),""===b&&c.emptyOption.prop("selected",!0)):null==b&&c.emptyOption?(c.removeUnknownOption(),a.val("")):c.renderUnknownOption(b)};c.addOption=function(a,b){if(8!==b[0].nodeType){Ta(a,'"option value"');""===a&&(c.emptyOption=b);var d=e.get(a)||0;e.put(a,d+1);c.ngModelCtrl.$render();b[0].hasAttribute("selected")&&
+(b[0].selected=!0)}};c.removeOption=function(a){var b=e.get(a);b&&(1===b?(e.remove(a),""===a&&(c.emptyOption=v)):e.put(a,b-1))};c.hasOption=function(a){return!!e.get(a)};c.registerOption=function(a,b,d,e,l){if(e){var m;d.$observe("value",function(a){y(m)&&c.removeOption(m);m=a;c.addOption(a,b)})}else l?a.$watch(l,function(a,e){d.$set("value",a);e!==a&&c.removeOption(e);c.addOption(a,b)}):c.addOption(d.value,b);b.on("$destroy",function(){c.removeOption(d.value);c.ngModelCtrl.$render()})}}],re=function(){return{restrict:"E",
+require:["select","?ngModel"],controller:Tg,priority:1,link:{pre:function(a,b,d,c){var e=c[1];if(e){var f=c[0];f.ngModelCtrl=e;b.on("change",function(){a.$apply(function(){e.$setViewValue(f.readValue())})});if(d.multiple){f.readValue=function(){var a=[];n(b.find("option"),function(b){b.selected&&a.push(b.value)});return a};f.writeValue=function(a){var c=new Ua(a);n(b.find("option"),function(a){a.selected=y(c.get(a.value))})};var g,h=NaN;a.$watch(function(){h!==e.$viewValue||oa(g,e.$viewValue)||(g=
+na(e.$viewValue),e.$render());h=e.$viewValue});e.$isEmpty=function(a){return!a||0===a.length}}}},post:function(a,b,d,c){var e=c[1];if(e){var f=c[0];e.$render=function(){f.writeValue(e.$viewValue)}}}}}},te=["$interpolate",function(a){return{restrict:"E",priority:100,compile:function(b,d){if(y(d.value))var c=a(d.value,!0);else{var e=a(b.text(),!0);e||d.$set("value",b.text())}return function(a,b,d){var k=b.parent();(k=k.data("$selectController")||k.parent().data("$selectController"))&&k.registerOption(a,
+b,d,c,e)}}}}],se=ba({restrict:"E",terminal:!1}),Hc=function(){return{restrict:"A",require:"?ngModel",link:function(a,b,d,c){c&&(d.required=!0,c.$validators.required=function(a,b){return!d.required||!c.$isEmpty(b)},d.$observe("required",function(){c.$validate()}))}}},Gc=function(){return{restrict:"A",require:"?ngModel",link:function(a,b,d,c){if(c){var e,f=d.ngPattern||d.pattern;d.$observe("pattern",function(a){F(a)&&0<a.length&&(a=new RegExp("^"+a+"$"));if(a&&!a.test)throw H("ngPattern")("noregexp",
+f,a,ta(b));e=a||v;c.$validate()});c.$validators.pattern=function(a,b){return c.$isEmpty(b)||x(e)||e.test(b)}}}}},Jc=function(){return{restrict:"A",require:"?ngModel",link:function(a,b,d,c){if(c){var e=-1;d.$observe("maxlength",function(a){a=ca(a);e=isNaN(a)?-1:a;c.$validate()});c.$validators.maxlength=function(a,b){return 0>e||c.$isEmpty(b)||b.length<=e}}}}},Ic=function(){return{restrict:"A",require:"?ngModel",link:function(a,b,d,c){if(c){var e=0;d.$observe("minlength",function(a){e=ca(a)||0;c.$validate()});
+c.$validators.minlength=function(a,b){return c.$isEmpty(b)||b.length>=e}}}}};O.angular.bootstrap?console.log("WARNING: Tried to load angular more than once."):(je(),le(ia),ia.module("ngLocale",[],["$provide",function(a){function b(a){a+="";var b=a.indexOf(".");return-1==b?0:a.length-b-1}a.value("$locale",{DATETIME_FORMATS:{AMPMS:["AM","PM"],DAY:"Sunday Monday Tuesday Wednesday Thursday Friday Saturday".split(" "),ERANAMES:["Before Christ","Anno Domini"],ERAS:["BC","AD"],FIRSTDAYOFWEEK:6,MONTH:"January February March April May June July August September October November December".split(" "),
+SHORTDAY:"Sun Mon Tue Wed Thu Fri Sat".split(" "),SHORTMONTH:"Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" "),STANDALONEMONTH:"January February March April May June July August September October November December".split(" "),WEEKENDRANGE:[5,6],fullDate:"EEEE, MMMM d, y",longDate:"MMMM d, y",medium:"MMM d, y h:mm:ss a",mediumDate:"MMM d, y",mediumTime:"h:mm:ss a","short":"M/d/yy h:mm a",shortDate:"M/d/yy",shortTime:"h:mm a"},NUMBER_FORMATS:{CURRENCY_SYM:"$",DECIMAL_SEP:".",GROUP_SEP:",",
+PATTERNS:[{gSize:3,lgSize:3,maxFrac:3,minFrac:0,minInt:1,negPre:"-",negSuf:"",posPre:"",posSuf:""},{gSize:3,lgSize:3,maxFrac:2,minFrac:2,minInt:1,negPre:"-\u00a4",negSuf:"",posPre:"\u00a4",posSuf:""}]},id:"en-us",localeID:"en_US",pluralCat:function(a,c){var e=a|0,f=c;v===f&&(f=Math.min(b(a),3));Math.pow(10,f);return 1==e&&0==f?"one":"other"}})}]),C(W).ready(function(){fe(W,Ac)}))})(window,document);!window.angular.$$csp().noInlineStyle&&window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 //# sourceMappingURL=angular.min.js.map
 ;
 // Generated by CoffeeScript 1.8.0
@@ -2880,7 +2892,7 @@ negSuf:"",posPre:"\u00a4",posSuf:""}]},id:"en-us",pluralCat:function(a,c){var e=
 
 }).call(this);;
 /*
- AngularJS v1.4.8
+ AngularJS v1.4.9
  (c) 2010-2015 Google, Inc. http://angularjs.org
  License: MIT
 */
@@ -2897,60 +2909,60 @@ c){g.push("<a ");h.isDefined(b)&&g.push('target="',b,'" ');g.push('href="',a.rep
 //# sourceMappingURL=angular-sanitize.min.js.map
 ;
 /*
- AngularJS v1.4.8
- (c) 2010-2015 Google, Inc. http://angularjs.org
+ AngularJS v1.5.0
+ (c) 2010-2016 Google, Inc. http://angularjs.org
  License: MIT
 */
-(function(H,u,Sa){'use strict';function wa(a,b,c){if(!a)throw ngMinErr("areq",b||"?",c||"required");return a}function xa(a,b){if(!a&&!b)return"";if(!a)return b;if(!b)return a;X(a)&&(a=a.join(" "));X(b)&&(b=b.join(" "));return a+" "+b}function Ia(a){var b={};a&&(a.to||a.from)&&(b.to=a.to,b.from=a.from);return b}function T(a,b,c){var d="";a=X(a)?a:a&&I(a)&&a.length?a.split(/\s+/):[];q(a,function(a,s){a&&0<a.length&&(d+=0<s?" ":"",d+=c?b+a:a+b)});return d}function Ja(a){if(a instanceof L)switch(a.length){case 0:return[];
-case 1:if(1===a[0].nodeType)return a;break;default:return L(ma(a))}if(1===a.nodeType)return L(a)}function ma(a){if(!a[0])return a;for(var b=0;b<a.length;b++){var c=a[b];if(1==c.nodeType)return c}}function Ka(a,b,c){q(b,function(b){a.addClass(b,c)})}function La(a,b,c){q(b,function(b){a.removeClass(b,c)})}function N(a){return function(b,c){c.addClass&&(Ka(a,b,c.addClass),c.addClass=null);c.removeClass&&(La(a,b,c.removeClass),c.removeClass=null)}}function ia(a){a=a||{};if(!a.$$prepared){var b=a.domOperation||
-M;a.domOperation=function(){a.$$domOperationFired=!0;b();b=M};a.$$prepared=!0}return a}function da(a,b){ya(a,b);za(a,b)}function ya(a,b){b.from&&(a.css(b.from),b.from=null)}function za(a,b){b.to&&(a.css(b.to),b.to=null)}function Q(a,b,c){var d=(b.addClass||"")+" "+(c.addClass||""),e=(b.removeClass||"")+" "+(c.removeClass||"");a=Ma(a.attr("class"),d,e);c.preparationClasses&&(b.preparationClasses=Y(c.preparationClasses,b.preparationClasses),delete c.preparationClasses);d=b.domOperation!==M?b.domOperation:
-null;Aa(b,c);d&&(b.domOperation=d);b.addClass=a.addClass?a.addClass:null;b.removeClass=a.removeClass?a.removeClass:null;return b}function Ma(a,b,c){function d(a){I(a)&&(a=a.split(" "));var b={};q(a,function(a){a.length&&(b[a]=!0)});return b}var e={};a=d(a);b=d(b);q(b,function(a,b){e[b]=1});c=d(c);q(c,function(a,b){e[b]=1===e[b]?null:-1});var s={addClass:"",removeClass:""};q(e,function(b,c){var e,d;1===b?(e="addClass",d=!a[c]):-1===b&&(e="removeClass",d=a[c]);d&&(s[e].length&&(s[e]+=" "),s[e]+=c)});
-return s}function B(a){return a instanceof u.element?a[0]:a}function Na(a,b,c){var d="";b&&(d=T(b,"ng-",!0));c.addClass&&(d=Y(d,T(c.addClass,"-add")));c.removeClass&&(d=Y(d,T(c.removeClass,"-remove")));d.length&&(c.preparationClasses=d,a.addClass(d))}function ja(a,b){var c=b?"-"+b+"s":"";ea(a,[fa,c]);return[fa,c]}function na(a,b){var c=b?"paused":"",d=U+"PlayState";ea(a,[d,c]);return[d,c]}function ea(a,b){a.style[b[0]]=b[1]}function Y(a,b){return a?b?a+" "+b:a:b}function Ba(a,b,c){var d=Object.create(null),
-e=a.getComputedStyle(b)||{};q(c,function(a,b){var c=e[a];if(c){var v=c.charAt(0);if("-"===v||"+"===v||0<=v)c=Oa(c);0===c&&(c=null);d[b]=c}});return d}function Oa(a){var b=0;a=a.split(/\s*,\s*/);q(a,function(a){"s"==a.charAt(a.length-1)&&(a=a.substring(0,a.length-1));a=parseFloat(a)||0;b=b?Math.max(a,b):a});return b}function oa(a){return 0===a||null!=a}function Ca(a,b){var c=O,d=a+"s";b?c+="Duration":d+=" linear all";return[c,d]}function Da(){var a=Object.create(null);return{flush:function(){a=Object.create(null)},
-count:function(b){return(b=a[b])?b.total:0},get:function(b){return(b=a[b])&&b.value},put:function(b,c){a[b]?a[b].total++:a[b]={total:1,value:c}}}}function Ea(a,b,c){q(c,function(c){a[c]=V(a[c])?a[c]:b.style.getPropertyValue(c)})}var M=u.noop,Aa=u.extend,L=u.element,q=u.forEach,X=u.isArray,I=u.isString,pa=u.isObject,qa=u.isUndefined,V=u.isDefined,Fa=u.isFunction,ra=u.isElement,O,sa,U,ta;qa(H.ontransitionend)&&V(H.onwebkittransitionend)?(O="WebkitTransition",sa="webkitTransitionEnd transitionend"):
-(O="transition",sa="transitionend");qa(H.onanimationend)&&V(H.onwebkitanimationend)?(U="WebkitAnimation",ta="webkitAnimationEnd animationend"):(U="animation",ta="animationend");var ka=U+"Delay",ua=U+"Duration",fa=O+"Delay";H=O+"Duration";var Pa={transitionDuration:H,transitionDelay:fa,transitionProperty:O+"Property",animationDuration:ua,animationDelay:ka,animationIterationCount:U+"IterationCount"},Qa={transitionDuration:H,transitionDelay:fa,animationDuration:ua,animationDelay:ka};u.module("ngAnimate",
-[]).directive("ngAnimateChildren",[function(){return function(a,b,c){a=c.ngAnimateChildren;u.isString(a)&&0===a.length?b.data("$$ngAnimateChildren",!0):c.$observe("ngAnimateChildren",function(a){b.data("$$ngAnimateChildren","on"===a||"true"===a)})}}]).factory("$$rAFScheduler",["$$rAF",function(a){function b(a){d=d.concat(a);c()}function c(){if(d.length){for(var b=d.shift(),h=0;h<b.length;h++)b[h]();e||a(function(){e||c()})}}var d,e;d=b.queue=[];b.waitUntilQuiet=function(b){e&&e();e=a(function(){e=
-null;b();c()})};return b}]).factory("$$AnimateRunner",["$q","$sniffer","$$animateAsyncRun",function(a,b,c){function d(a){this.setHost(a);this._doneCallbacks=[];this._runInAnimationFrame=c();this._state=0}d.chain=function(a,b){function c(){if(d===a.length)b(!0);else a[d](function(a){!1===a?b(!1):(d++,c())})}var d=0;c()};d.all=function(a,b){function c(h){v=v&&h;++d===a.length&&b(v)}var d=0,v=!0;q(a,function(a){a.done(c)})};d.prototype={setHost:function(a){this.host=a||{}},done:function(a){2===this._state?
-a():this._doneCallbacks.push(a)},progress:M,getPromise:function(){if(!this.promise){var b=this;this.promise=a(function(a,c){b.done(function(b){!1===b?c():a()})})}return this.promise},then:function(a,b){return this.getPromise().then(a,b)},"catch":function(a){return this.getPromise()["catch"](a)},"finally":function(a){return this.getPromise()["finally"](a)},pause:function(){this.host.pause&&this.host.pause()},resume:function(){this.host.resume&&this.host.resume()},end:function(){this.host.end&&this.host.end();
-this._resolve(!0)},cancel:function(){this.host.cancel&&this.host.cancel();this._resolve(!1)},complete:function(a){var b=this;0===b._state&&(b._state=1,b._runInAnimationFrame(function(){b._resolve(a)}))},_resolve:function(a){2!==this._state&&(q(this._doneCallbacks,function(b){b(a)}),this._doneCallbacks.length=0,this._state=2)}};return d}]).factory("$$animateAsyncRun",["$$rAF",function(a){function b(b){c.push(b);1<c.length||a(function(){for(var a=0;a<c.length;a++)c[a]();c=[]})}var c=[];return function(){var a=
-!1;b(function(){a=!0});return function(c){a?c():b(c)}}}]).provider("$$animateQueue",["$animateProvider",function(a){function b(a,b,c,q){return d[a].some(function(a){return a(b,c,q)})}function c(a,b){a=a||{};var c=0<(a.addClass||"").length,d=0<(a.removeClass||"").length;return b?c&&d:c||d}var d=this.rules={skip:[],cancel:[],join:[]};d.join.push(function(a,b,d){return!b.structural&&c(b.options)});d.skip.push(function(a,b,d){return!b.structural&&!c(b.options)});d.skip.push(function(a,b,c){return"leave"==
-c.event&&b.structural});d.skip.push(function(a,b,c){return c.structural&&2===c.state&&!b.structural});d.cancel.push(function(a,b,c){return c.structural&&b.structural});d.cancel.push(function(a,b,c){return 2===c.state&&b.structural});d.cancel.push(function(a,b,c){a=b.options;c=c.options;return a.addClass&&a.addClass===c.removeClass||a.removeClass&&a.removeClass===c.addClass});this.$get=["$$rAF","$rootScope","$rootElement","$document","$$HashMap","$$animation","$$AnimateRunner","$templateRequest","$$jqLite",
-"$$forceReflow",function(d,s,h,g,v,r,$,u,R,C){function D(){var a=!1;return function(b){a?b():s.$$postDigest(function(){a=!0;b()})}}function K(a,b,c){var f=B(b),d=B(a),n=[];(a=t[c])&&q(a,function(a){a.node.contains(f)?n.push(a.callback):"leave"===c&&a.node.contains(d)&&n.push(a.callback)});return n}function l(a,f,k){function n(b,c,f,t){R(function(){var b=K(v,a,c);b.length&&d(function(){q(b,function(b){b(a,f,t)})})});b.progress(c,f,t)}function t(b){var c=a,f=k;f.preparationClasses&&(c.removeClass(f.preparationClasses),
-f.preparationClasses=null);f.activeClasses&&(c.removeClass(f.activeClasses),f.activeClasses=null);Ha(a,k);da(a,k);k.domOperation();h.complete(!b)}var A,v;if(a=Ja(a))A=B(a),v=a.parent();k=ia(k);var h=new $,R=D();X(k.addClass)&&(k.addClass=k.addClass.join(" "));k.addClass&&!I(k.addClass)&&(k.addClass=null);X(k.removeClass)&&(k.removeClass=k.removeClass.join(" "));k.removeClass&&!I(k.removeClass)&&(k.removeClass=null);k.from&&!pa(k.from)&&(k.from=null);k.to&&!pa(k.to)&&(k.to=null);if(!A)return t(),h;
-var z=[A.className,k.addClass,k.removeClass].join(" ");if(!Ra(z))return t(),h;var l=0<=["enter","move","leave"].indexOf(f),g=!G||F.get(A),z=!g&&m.get(A)||{},C=!!z.state;g||C&&1==z.state||(g=!la(a,v,f));if(g)return t(),h;l&&y(a);g={structural:l,element:a,event:f,close:t,options:k,runner:h};if(C){if(b("skip",a,g,z)){if(2===z.state)return t(),h;Q(a,z.options,k);return z.runner}if(b("cancel",a,g,z))if(2===z.state)z.runner.end();else if(z.structural)z.close();else return Q(a,z.options,g.options),z.runner;
-else if(b("join",a,g,z))if(2===z.state)Q(a,k,{});else return Na(a,l?f:null,k),f=g.event=z.event,k=Q(a,z.options,g.options),z.runner}else Q(a,k,{});(C=g.structural)||(C="animate"===g.event&&0<Object.keys(g.options.to||{}).length||c(g.options));if(!C)return t(),w(a),h;var u=(z.counter||0)+1;g.counter=u;x(a,1,g);s.$$postDigest(function(){var b=m.get(A),d=!b,b=b||{},K=0<(a.parent()||[]).length&&("animate"===b.event||b.structural||c(b.options));if(d||b.counter!==u||!K){d&&(Ha(a,k),da(a,k));if(d||l&&b.event!==
-f)k.domOperation(),h.end();K||w(a)}else f=!b.structural&&c(b.options,!0)?"setClass":b.event,x(a,2),b=r(a,f,b.options),b.done(function(b){t(!b);(b=m.get(A))&&b.counter===u&&w(B(a));n(h,f,"close",{})}),h.setHost(b),n(h,f,"start",{})});return h}function y(a){a=B(a).querySelectorAll("[data-ng-animate]");q(a,function(a){var b=parseInt(a.getAttribute("data-ng-animate")),c=m.get(a);switch(b){case 2:c.runner.end();case 1:c&&m.remove(a)}})}function w(a){a=B(a);a.removeAttribute("data-ng-animate");m.remove(a)}
-function f(a,b){return B(a)===B(b)}function la(a,b,c){c=L(g[0].body);var d=f(a,c)||"HTML"===a[0].nodeName,t=f(a,h),n=!1,w;for((a=a.data("$ngAnimatePin"))&&(b=a);b&&b.length;){t||(t=f(b,h));a=b[0];if(1!==a.nodeType)break;var x=m.get(a)||{};n||(n=x.structural||F.get(a));if(qa(w)||!0===w)a=b.data("$$ngAnimateChildren"),V(a)&&(w=a);if(n&&!1===w)break;t||(t=f(b,h),t||(a=b.data("$ngAnimatePin"))&&(b=a));d||(d=f(b,c));b=b.parent()}return(!n||w)&&t&&d}function x(a,b,c){c=c||{};c.state=b;a=B(a);a.setAttribute("data-ng-animate",
-b);c=(b=m.get(a))?Aa(b,c):c;m.put(a,c)}var m=new v,F=new v,G=null,A=s.$watch(function(){return 0===u.totalPendingRequests},function(a){a&&(A(),s.$$postDigest(function(){s.$$postDigest(function(){null===G&&(G=!0)})}))}),t={},n=a.classNameFilter(),Ra=n?function(a){return n.test(a)}:function(){return!0},Ha=N(R);return{on:function(a,b,c){b=ma(b);t[a]=t[a]||[];t[a].push({node:b,callback:c})},off:function(a,b,c){function f(a,b,c){var d=ma(b);return a.filter(function(a){return!(a.node===d&&(!c||a.callback===
-c))})}var d=t[a];d&&(t[a]=1===arguments.length?null:f(d,b,c))},pin:function(a,b){wa(ra(a),"element","not an element");wa(ra(b),"parentElement","not an element");a.data("$ngAnimatePin",b)},push:function(a,b,c,f){c=c||{};c.domOperation=f;return l(a,b,c)},enabled:function(a,b){var c=arguments.length;if(0===c)b=!!G;else if(ra(a)){var f=B(a),d=F.get(f);1===c?b=!d:(b=!!b)?d&&F.remove(f):F.put(f,!0)}else b=G=!!a;return b}}}]}]).provider("$$animation",["$animateProvider",function(a){function b(a){return a.data("$$animationRunner")}
-var c=this.drivers=[];this.$get=["$$jqLite","$rootScope","$injector","$$AnimateRunner","$$HashMap","$$rAFScheduler",function(a,e,s,h,g,v){function r(a){function b(a){if(a.processed)return a;a.processed=!0;var f=a.domNode,d=f.parentNode;e.put(f,a);for(var x;d;){if(x=e.get(d)){x.processed||(x=b(x));break}d=d.parentNode}(x||c).children.push(a);return a}var c={children:[]},d,e=new g;for(d=0;d<a.length;d++){var h=a[d];e.put(h.domNode,a[d]={domNode:h.domNode,fn:h.fn,children:[]})}for(d=0;d<a.length;d++)b(a[d]);
-return function(a){var b=[],c=[],d;for(d=0;d<a.children.length;d++)c.push(a.children[d]);a=c.length;var m=0,e=[];for(d=0;d<c.length;d++){var h=c[d];0>=a&&(a=m,m=0,b.push(e),e=[]);e.push(h.fn);h.children.forEach(function(a){m++;c.push(a)});a--}e.length&&b.push(e);return b}(c)}var $=[],u=N(a);return function(g,C,D){function K(a){a=a.hasAttribute("ng-animate-ref")?[a]:a.querySelectorAll("[ng-animate-ref]");var b=[];q(a,function(a){var c=a.getAttribute("ng-animate-ref");c&&c.length&&b.push(a)});return b}
-function l(a){var b=[],c={};q(a,function(a,f){var d=B(a.element),t=0<=["enter","move"].indexOf(a.event),d=a.structural?K(d):[];if(d.length){var m=t?"to":"from";q(d,function(a){var b=a.getAttribute("ng-animate-ref");c[b]=c[b]||{};c[b][m]={animationID:f,element:L(a)}})}else b.push(a)});var f={},d={};q(c,function(c,m){var w=c.from,e=c.to;if(w&&e){var h=a[w.animationID],g=a[e.animationID],x=w.animationID.toString();if(!d[x]){var A=d[x]={structural:!0,beforeStart:function(){h.beforeStart();g.beforeStart()},
-close:function(){h.close();g.close()},classes:y(h.classes,g.classes),from:h,to:g,anchors:[]};A.classes.length?b.push(A):(b.push(h),b.push(g))}d[x].anchors.push({out:w.element,"in":e.element})}else w=w?w.animationID:e.animationID,e=w.toString(),f[e]||(f[e]=!0,b.push(a[w]))});return b}function y(a,b){a=a.split(" ");b=b.split(" ");for(var c=[],f=0;f<a.length;f++){var d=a[f];if("ng-"!==d.substring(0,3))for(var m=0;m<b.length;m++)if(d===b[m]){c.push(d);break}}return c.join(" ")}function w(a){for(var b=
-c.length-1;0<=b;b--){var f=c[b];if(s.has(f)&&(f=s.get(f)(a)))return f}}function f(a,c){a.from&&a.to?(b(a.from.element).setHost(c),b(a.to.element).setHost(c)):b(a.element).setHost(c)}function la(){var a=b(g);!a||"leave"===C&&D.$$domOperationFired||a.end()}function x(b){g.off("$destroy",la);g.removeData("$$animationRunner");u(g,D);da(g,D);D.domOperation();A&&a.removeClass(g,A);g.removeClass("ng-animate");F.complete(!b)}D=ia(D);var m=0<=["enter","move","leave"].indexOf(C),F=new h({end:function(){x()},
-cancel:function(){x(!0)}});if(!c.length)return x(),F;g.data("$$animationRunner",F);var G=xa(g.attr("class"),xa(D.addClass,D.removeClass)),A=D.tempClasses;A&&(G+=" "+A,D.tempClasses=null);$.push({element:g,classes:G,event:C,structural:m,options:D,beforeStart:function(){g.addClass("ng-animate");A&&a.addClass(g,A)},close:x});g.on("$destroy",la);if(1<$.length)return F;e.$$postDigest(function(){var a=[];q($,function(c){b(c.element)?a.push(c):c.close()});$.length=0;var c=l(a),d=[];q(c,function(a){d.push({domNode:B(a.from?
-a.from.element:a.element),fn:function(){a.beforeStart();var c,d=a.close;if(b(a.anchors?a.from.element||a.to.element:a.element)){var m=w(a);m&&(c=m.start)}c?(c=c(),c.done(function(a){d(!a)}),f(a,c)):d()}})});v(r(d))});return F}}]}]).provider("$animateCss",["$animateProvider",function(a){var b=Da(),c=Da();this.$get=["$window","$$jqLite","$$AnimateRunner","$timeout","$$forceReflow","$sniffer","$$rAFScheduler","$animate",function(a,e,s,h,g,v,r,u){function Ga(a,b){var c=a.parentNode;return(c.$$ngAnimateParentKey||
-(c.$$ngAnimateParentKey=++l))+"-"+a.getAttribute("class")+"-"+b}function R(w,f,h,g){var m;0<b.count(h)&&(m=c.get(h),m||(f=T(f,"-stagger"),e.addClass(w,f),m=Ba(a,w,g),m.animationDuration=Math.max(m.animationDuration,0),m.transitionDuration=Math.max(m.transitionDuration,0),e.removeClass(w,f),c.put(h,m)));return m||{}}function C(a){y.push(a);r.waitUntilQuiet(function(){b.flush();c.flush();for(var a=g(),d=0;d<y.length;d++)y[d](a);y.length=0})}function D(c,f,e){f=b.get(e);f||(f=Ba(a,c,Pa),"infinite"===
-f.animationIterationCount&&(f.animationIterationCount=1));b.put(e,f);c=f;e=c.animationDelay;f=c.transitionDelay;c.maxDelay=e&&f?Math.max(e,f):e||f;c.maxDuration=Math.max(c.animationDuration*c.animationIterationCount,c.transitionDuration);return c}var K=N(e),l=0,y=[];return function(a,c){function d(){m()}function g(){m(!0)}function m(b){if(!(ga||va&&k)){ga=!0;k=!1;c.$$skipPreparationClasses||e.removeClass(a,Z);e.removeClass(a,Y);na(n,!1);ja(n,!1);q(y,function(a){n.style[a[0]]=""});K(a,c);da(a,c);Object.keys(t).length&&
-q(t,function(a,b){a?n.style.setProperty(b,a):n.style.removeProperty(b)});if(c.onDone)c.onDone();H&&H.complete(!b)}}function F(a){p.blockTransition&&ja(n,a);p.blockKeyframeAnimation&&na(n,!!a)}function G(){H=new s({end:d,cancel:g});C(M);m();return{$$willAnimate:!1,start:function(){return H},end:d}}function A(){function b(){if(!ga){F(!1);q(y,function(a){n.style[a[0]]=a[1]});K(a,c);e.addClass(a,Y);if(p.recalculateTimingStyles){ha=n.className+" "+Z;aa=Ga(n,ha);E=D(n,ha,aa);W=E.maxDelay;I=Math.max(W,0);
-J=E.maxDuration;if(0===J){m();return}p.hasTransitions=0<E.transitionDuration;p.hasAnimations=0<E.animationDuration}p.applyAnimationDelay&&(W="boolean"!==typeof c.delay&&oa(c.delay)?parseFloat(c.delay):W,I=Math.max(W,0),E.animationDelay=W,ca=[ka,W+"s"],y.push(ca),n.style[ca[0]]=ca[1]);N=1E3*I;z=1E3*J;if(c.easing){var k,l=c.easing;p.hasTransitions&&(k=O+"TimingFunction",y.push([k,l]),n.style[k]=l);p.hasAnimations&&(k=U+"TimingFunction",y.push([k,l]),n.style[k]=l)}E.transitionDuration&&x.push(sa);E.animationDuration&&
-x.push(ta);A=Date.now();var v=N+1.5*z;k=A+v;var l=a.data("$$animateCss")||[],r=!0;if(l.length){var G=l[0];(r=k>G.expectedEndTime)?h.cancel(G.timer):l.push(m)}r&&(v=h(d,v,!1),l[0]={timer:v,expectedEndTime:k},l.push(m),a.data("$$animateCss",l));a.on(x.join(" "),g);c.to&&(c.cleanupStyles&&Ea(t,n,Object.keys(c.to)),za(a,c))}}function d(){var b=a.data("$$animateCss");if(b){for(var c=1;c<b.length;c++)b[c]();a.removeData("$$animateCss")}}function g(a){a.stopPropagation();var b=a.originalEvent||a;a=b.$manualTimeStamp||
-b.timeStamp||Date.now();b=parseFloat(b.elapsedTime.toFixed(3));Math.max(a-A,0)>=N&&b>=J&&(va=!0,m())}if(!ga)if(n.parentNode){var A,x=[],l=function(a){if(va)k&&a&&(k=!1,m());else if(k=!a,E.animationDuration)if(a=na(n,k),k)y.push(a);else{var b=y,c=b.indexOf(a);0<=a&&b.splice(c,1)}},v=0<V&&(E.transitionDuration&&0===S.transitionDuration||E.animationDuration&&0===S.animationDuration)&&Math.max(S.animationDelay,S.transitionDelay);v?h(b,Math.floor(v*V*1E3),!1):b();L.resume=function(){l(!0)};L.pause=function(){l(!1)}}else m()}
-var t={},n=B(a);if(!n||!n.parentNode||!u.enabled())return G();c=ia(c);var y=[],r=a.attr("class"),l=Ia(c),ga,k,va,H,L,I,N,J,z;if(0===c.duration||!v.animations&&!v.transitions)return G();var ba=c.event&&X(c.event)?c.event.join(" "):c.event,Q="",P="";ba&&c.structural?Q=T(ba,"ng-",!0):ba&&(Q=ba);c.addClass&&(P+=T(c.addClass,"-add"));c.removeClass&&(P.length&&(P+=" "),P+=T(c.removeClass,"-remove"));c.applyClassesEarly&&P.length&&K(a,c);var Z=[Q,P].join(" ").trim(),ha=r+" "+Z,Y=T(Z,"-active"),r=l.to&&0<
-Object.keys(l.to).length;if(!(0<(c.keyframeStyle||"").length||r||Z))return G();var aa,S;0<c.stagger?(l=parseFloat(c.stagger),S={transitionDelay:l,animationDelay:l,transitionDuration:0,animationDuration:0}):(aa=Ga(n,ha),S=R(n,Z,aa,Qa));c.$$skipPreparationClasses||e.addClass(a,Z);c.transitionStyle&&(l=[O,c.transitionStyle],ea(n,l),y.push(l));0<=c.duration&&(l=0<n.style[O].length,l=Ca(c.duration,l),ea(n,l),y.push(l));c.keyframeStyle&&(l=[U,c.keyframeStyle],ea(n,l),y.push(l));var V=S?0<=c.staggerIndex?
-c.staggerIndex:b.count(aa):0;(ba=0===V)&&!c.skipBlocking&&ja(n,9999);var E=D(n,ha,aa),W=E.maxDelay;I=Math.max(W,0);J=E.maxDuration;var p={};p.hasTransitions=0<E.transitionDuration;p.hasAnimations=0<E.animationDuration;p.hasTransitionAll=p.hasTransitions&&"all"==E.transitionProperty;p.applyTransitionDuration=r&&(p.hasTransitions&&!p.hasTransitionAll||p.hasAnimations&&!p.hasTransitions);p.applyAnimationDuration=c.duration&&p.hasAnimations;p.applyTransitionDelay=oa(c.delay)&&(p.applyTransitionDuration||
-p.hasTransitions);p.applyAnimationDelay=oa(c.delay)&&p.hasAnimations;p.recalculateTimingStyles=0<P.length;if(p.applyTransitionDuration||p.applyAnimationDuration)J=c.duration?parseFloat(c.duration):J,p.applyTransitionDuration&&(p.hasTransitions=!0,E.transitionDuration=J,l=0<n.style[O+"Property"].length,y.push(Ca(J,l))),p.applyAnimationDuration&&(p.hasAnimations=!0,E.animationDuration=J,y.push([ua,J+"s"]));if(0===J&&!p.recalculateTimingStyles)return G();if(null!=c.delay){var ca=parseFloat(c.delay);
-p.applyTransitionDelay&&y.push([fa,ca+"s"]);p.applyAnimationDelay&&y.push([ka,ca+"s"])}null==c.duration&&0<E.transitionDuration&&(p.recalculateTimingStyles=p.recalculateTimingStyles||ba);N=1E3*I;z=1E3*J;c.skipBlocking||(p.blockTransition=0<E.transitionDuration,p.blockKeyframeAnimation=0<E.animationDuration&&0<S.animationDelay&&0===S.animationDuration);c.from&&(c.cleanupStyles&&Ea(t,n,Object.keys(c.from)),ya(a,c));p.blockTransition||p.blockKeyframeAnimation?F(J):c.skipBlocking||ja(n,!1);return{$$willAnimate:!0,
-end:d,start:function(){if(!ga)return L={end:d,cancel:g,resume:null,pause:null},H=new s(L),C(A),H}}}}]}]).provider("$$animateCssDriver",["$$animationProvider",function(a){a.drivers.push("$$animateCssDriver");this.$get=["$animateCss","$rootScope","$$AnimateRunner","$rootElement","$sniffer","$$jqLite","$document",function(a,c,d,e,s,h,g){function v(a){return a.replace(/\bng-\S+\b/g,"")}function r(a,b){I(a)&&(a=a.split(" "));I(b)&&(b=b.split(" "));return a.filter(function(a){return-1===b.indexOf(a)}).join(" ")}
-function u(c,e,g){function h(a){var b={},c=B(a).getBoundingClientRect();q(["width","height","top","left"],function(a){var d=c[a];switch(a){case "top":d+=C.scrollTop;break;case "left":d+=C.scrollLeft}b[a]=Math.floor(d)+"px"});return b}function f(){var c=v(g.attr("class")||""),d=r(c,m),c=r(m,c),d=a(x,{to:h(g),addClass:"ng-anchor-in "+d,removeClass:"ng-anchor-out "+c,delay:!0});return d.$$willAnimate?d:null}function s(){x.remove();e.removeClass("ng-animate-shim");g.removeClass("ng-animate-shim")}var x=
-L(B(e).cloneNode(!0)),m=v(x.attr("class")||"");e.addClass("ng-animate-shim");g.addClass("ng-animate-shim");x.addClass("ng-anchor");D.append(x);var F;c=function(){var c=a(x,{addClass:"ng-anchor-out",delay:!0,from:h(e)});return c.$$willAnimate?c:null}();if(!c&&(F=f(),!F))return s();var G=c||F;return{start:function(){function a(){c&&c.end()}var b,c=G.start();c.done(function(){c=null;if(!F&&(F=f()))return c=F.start(),c.done(function(){c=null;s();b.complete()}),c;s();b.complete()});return b=new d({end:a,
-cancel:a})}}}function H(a,b,c,e){var f=R(a,M),g=R(b,M),h=[];q(e,function(a){(a=u(c,a.out,a["in"]))&&h.push(a)});if(f||g||0!==h.length)return{start:function(){function a(){q(b,function(a){a.end()})}var b=[];f&&b.push(f.start());g&&b.push(g.start());q(h,function(a){b.push(a.start())});var c=new d({end:a,cancel:a});d.all(b,function(a){c.complete(a)});return c}}}function R(c){var d=c.element,e=c.options||{};c.structural&&(e.event=c.event,e.structural=!0,e.applyClassesEarly=!0,"leave"===c.event&&(e.onDone=
-e.domOperation));e.preparationClasses&&(e.event=Y(e.event,e.preparationClasses));c=a(d,e);return c.$$willAnimate?c:null}if(!s.animations&&!s.transitions)return M;var C=g[0].body;c=B(e);var D=L(c.parentNode&&11===c.parentNode.nodeType||C.contains(c)?c:C);N(h);return function(a){return a.from&&a.to?H(a.from,a.to,a.classes,a.anchors):R(a)}}]}]).provider("$$animateJs",["$animateProvider",function(a){this.$get=["$injector","$$AnimateRunner","$$jqLite",function(b,c,d){function e(c){c=X(c)?c:c.split(" ");
-for(var d=[],e={},r=0;r<c.length;r++){var q=c[r],s=a.$$registeredAnimations[q];s&&!e[q]&&(d.push(b.get(s)),e[q]=!0)}return d}var s=N(d);return function(a,b,d,r){function u(){r.domOperation();s(a,r)}function H(a,b,d,e,f){switch(d){case "animate":b=[b,e.from,e.to,f];break;case "setClass":b=[b,D,K,f];break;case "addClass":b=[b,D,f];break;case "removeClass":b=[b,K,f];break;default:b=[b,f]}b.push(e);if(a=a.apply(a,b))if(Fa(a.start)&&(a=a.start()),a instanceof c)a.done(f);else if(Fa(a))return a;return M}
-function B(a,b,d,e,f){var g=[];q(e,function(e){var h=e[f];h&&g.push(function(){var e,f,g=!1,k=function(a){g||(g=!0,(f||M)(a),e.complete(!a))};e=new c({end:function(){k()},cancel:function(){k(!0)}});f=H(h,a,b,d,function(a){k(!1===a)});return e})});return g}function C(a,b,d,e,f){var g=B(a,b,d,e,f);if(0===g.length){var h,l;"beforeSetClass"===f?(h=B(a,"removeClass",d,e,"beforeRemoveClass"),l=B(a,"addClass",d,e,"beforeAddClass")):"setClass"===f&&(h=B(a,"removeClass",d,e,"removeClass"),l=B(a,"addClass",
-d,e,"addClass"));h&&(g=g.concat(h));l&&(g=g.concat(l))}if(0!==g.length)return function(a){var b=[];g.length&&q(g,function(a){b.push(a())});b.length?c.all(b,a):a();return function(a){q(b,function(b){a?b.cancel():b.end()})}}}3===arguments.length&&pa(d)&&(r=d,d=null);r=ia(r);d||(d=a.attr("class")||"",r.addClass&&(d+=" "+r.addClass),r.removeClass&&(d+=" "+r.removeClass));var D=r.addClass,K=r.removeClass,l=e(d),y,w;if(l.length){var f,I;"leave"==b?(I="leave",f="afterLeave"):(I="before"+b.charAt(0).toUpperCase()+
-b.substr(1),f=b);"enter"!==b&&"move"!==b&&(y=C(a,b,r,l,I));w=C(a,b,r,l,f)}if(y||w)return{start:function(){function b(c){f=!0;u();da(a,r);g.complete(c)}var d,e=[];y&&e.push(function(a){d=y(a)});e.length?e.push(function(a){u();a(!0)}):u();w&&e.push(function(a){d=w(a)});var f=!1,g=new c({end:function(){f||((d||M)(void 0),b(void 0))},cancel:function(){f||((d||M)(!0),b(!0))}});c.chain(e,b);return g}}}}]}]).provider("$$animateJsDriver",["$$animationProvider",function(a){a.drivers.push("$$animateJsDriver");
-this.$get=["$$animateJs","$$AnimateRunner",function(a,c){function d(c){return a(c.element,c.event,c.classes,c.options)}return function(a){if(a.from&&a.to){var b=d(a.from),h=d(a.to);if(b||h)return{start:function(){function a(){return function(){q(d,function(a){a.end()})}}var d=[];b&&d.push(b.start());h&&d.push(h.start());c.all(d,function(a){e.complete(a)});var e=new c({end:a(),cancel:a()});return e}}}else return d(a)}}]}])})(window,window.angular);
+(function(D,r,Va){'use strict';function ya(a,b,c){if(!a)throw Ka("areq",b||"?",c||"required");return a}function za(a,b){if(!a&&!b)return"";if(!a)return b;if(!b)return a;ba(a)&&(a=a.join(" "));ba(b)&&(b=b.join(" "));return a+" "+b}function La(a){var b={};a&&(a.to||a.from)&&(b.to=a.to,b.from=a.from);return b}function X(a,b,c){var d="";a=ba(a)?a:a&&R(a)&&a.length?a.split(/\s+/):[];s(a,function(a,g){a&&0<a.length&&(d+=0<g?" ":"",d+=c?b+a:a+b)});return d}function Ma(a){if(a instanceof I)switch(a.length){case 0:return[];
+case 1:if(1===a[0].nodeType)return a;break;default:return I(oa(a))}if(1===a.nodeType)return I(a)}function oa(a){if(!a[0])return a;for(var b=0;b<a.length;b++){var c=a[b];if(1==c.nodeType)return c}}function Na(a,b,c){s(b,function(b){a.addClass(b,c)})}function Oa(a,b,c){s(b,function(b){a.removeClass(b,c)})}function U(a){return function(b,c){c.addClass&&(Na(a,b,c.addClass),c.addClass=null);c.removeClass&&(Oa(a,b,c.removeClass),c.removeClass=null)}}function ka(a){a=a||{};if(!a.$$prepared){var b=a.domOperation||
+Q;a.domOperation=function(){a.$$domOperationFired=!0;b();b=Q};a.$$prepared=!0}return a}function fa(a,b){Aa(a,b);Ba(a,b)}function Aa(a,b){b.from&&(a.css(b.from),b.from=null)}function Ba(a,b){b.to&&(a.css(b.to),b.to=null)}function V(a,b,c){var d=b.options||{};c=c.options||{};var e=(d.addClass||"")+" "+(c.addClass||""),g=(d.removeClass||"")+" "+(c.removeClass||"");a=Pa(a.attr("class"),e,g);c.preparationClasses&&(d.preparationClasses=ca(c.preparationClasses,d.preparationClasses),delete c.preparationClasses);
+e=d.domOperation!==Q?d.domOperation:null;Ca(d,c);e&&(d.domOperation=e);d.addClass=a.addClass?a.addClass:null;d.removeClass=a.removeClass?a.removeClass:null;b.addClass=d.addClass;b.removeClass=d.removeClass;return d}function Pa(a,b,c){function d(a){R(a)&&(a=a.split(" "));var b={};s(a,function(a){a.length&&(b[a]=!0)});return b}var e={};a=d(a);b=d(b);s(b,function(a,b){e[b]=1});c=d(c);s(c,function(a,b){e[b]=1===e[b]?null:-1});var g={addClass:"",removeClass:""};s(e,function(b,c){var d,e;1===b?(d="addClass",
+e=!a[c]):-1===b&&(d="removeClass",e=a[c]);e&&(g[d].length&&(g[d]+=" "),g[d]+=c)});return g}function G(a){return a instanceof r.element?a[0]:a}function Qa(a,b,c){var d="";b&&(d=X(b,"ng-",!0));c.addClass&&(d=ca(d,X(c.addClass,"-add")));c.removeClass&&(d=ca(d,X(c.removeClass,"-remove")));d.length&&(c.preparationClasses=d,a.addClass(d))}function la(a,b){var c=b?"-"+b+"s":"";ha(a,[ia,c]);return[ia,c]}function pa(a,b){var c=b?"paused":"",d=Y+"PlayState";ha(a,[d,c]);return[d,c]}function ha(a,b){a.style[b[0]]=
+b[1]}function ca(a,b){return a?b?a+" "+b:a:b}function Da(a,b,c){var d=Object.create(null),e=a.getComputedStyle(b)||{};s(c,function(a,b){var c=e[a];if(c){var C=c.charAt(0);if("-"===C||"+"===C||0<=C)c=Ra(c);0===c&&(c=null);d[b]=c}});return d}function Ra(a){var b=0;a=a.split(/\s*,\s*/);s(a,function(a){"s"==a.charAt(a.length-1)&&(a=a.substring(0,a.length-1));a=parseFloat(a)||0;b=b?Math.max(a,b):a});return b}function qa(a){return 0===a||null!=a}function Ea(a,b){var c=S,d=a+"s";b?c+="Duration":d+=" linear all";
+return[c,d]}function Fa(){var a=Object.create(null);return{flush:function(){a=Object.create(null)},count:function(b){return(b=a[b])?b.total:0},get:function(b){return(b=a[b])&&b.value},put:function(b,c){a[b]?a[b].total++:a[b]={total:1,value:c}}}}function Ga(a,b,c){s(c,function(c){a[c]=Z(a[c])?a[c]:b.style.getPropertyValue(c)})}var Q=r.noop,Ha=r.copy,Ca=r.extend,I=r.element,s=r.forEach,ba=r.isArray,R=r.isString,ra=r.isObject,P=r.isUndefined,Z=r.isDefined,Ia=r.isFunction,sa=r.isElement,S,ta,Y,ua;P(D.ontransitionend)&&
+Z(D.onwebkittransitionend)?(S="WebkitTransition",ta="webkitTransitionEnd transitionend"):(S="transition",ta="transitionend");P(D.onanimationend)&&Z(D.onwebkitanimationend)?(Y="WebkitAnimation",ua="webkitAnimationEnd animationend"):(Y="animation",ua="animationend");var ma=Y+"Delay",va=Y+"Duration",ia=S+"Delay";D=S+"Duration";var Ka=r.$$minErr("ng"),Sa={transitionDuration:D,transitionDelay:ia,transitionProperty:S+"Property",animationDuration:va,animationDelay:ma,animationIterationCount:Y+"IterationCount"},
+Ta={transitionDuration:D,transitionDelay:ia,animationDuration:va,animationDelay:ma};r.module("ngAnimate",[]).directive("ngAnimateSwap",["$animate","$rootScope",function(a,b){return{restrict:"A",transclude:"element",terminal:!0,priority:600,link:function(b,d,e,g,H){var A,C;b.$watchCollection(e.ngAnimateSwap||e["for"],function(e){A&&a.leave(A);C&&(C.$destroy(),C=null);if(e||0===e)C=b.$new(),H(C,function(b){A=b;a.enter(b,null,d)})})}}}]).directive("ngAnimateChildren",["$interpolate",function(a){return{link:function(b,
+c,d){function e(a){c.data("$$ngAnimateChildren","on"===a||"true"===a)}var g=d.ngAnimateChildren;r.isString(g)&&0===g.length?c.data("$$ngAnimateChildren",!0):(e(a(g)(b)),d.$observe("ngAnimateChildren",e))}}}]).factory("$$rAFScheduler",["$$rAF",function(a){function b(a){d=d.concat(a);c()}function c(){if(d.length){for(var b=d.shift(),H=0;H<b.length;H++)b[H]();e||a(function(){e||c()})}}var d,e;d=b.queue=[];b.waitUntilQuiet=function(b){e&&e();e=a(function(){e=null;b();c()})};return b}]).provider("$$animateQueue",
+["$animateProvider",function(a){function b(a){if(!a)return null;a=a.split(" ");var b=Object.create(null);s(a,function(a){b[a]=!0});return b}function c(a,c){if(a&&c){var d=b(c);return a.split(" ").some(function(a){return d[a]})}}function d(a,b,c,d){return g[a].some(function(a){return a(b,c,d)})}function e(a,b){var c=0<(a.addClass||"").length,d=0<(a.removeClass||"").length;return b?c&&d:c||d}var g=this.rules={skip:[],cancel:[],join:[]};g.join.push(function(a,b,c){return!b.structural&&e(b)});g.skip.push(function(a,
+b,c){return!b.structural&&!e(b)});g.skip.push(function(a,b,c){return"leave"==c.event&&b.structural});g.skip.push(function(a,b,c){return c.structural&&2===c.state&&!b.structural});g.cancel.push(function(a,b,c){return c.structural&&b.structural});g.cancel.push(function(a,b,c){return 2===c.state&&b.structural});g.cancel.push(function(a,b,d){a=b.addClass;b=b.removeClass;var e=d.addClass;d=d.removeClass;return P(a)&&P(b)||P(e)&&P(d)?!1:c(a,d)||c(b,e)});this.$get=["$$rAF","$rootScope","$rootElement","$document",
+"$$HashMap","$$animation","$$AnimateRunner","$templateRequest","$$jqLite","$$forceReflow",function(b,c,g,m,M,r,u,na,v,z){function K(){var a=!1;return function(b){a?b():c.$$postDigest(function(){a=!0;b()})}}function J(a,b,c){var f=G(b),d=G(a),h=[];(a=x[c])&&s(a,function(a){y.call(a.node,f)?h.push(a.callback):"leave"===c&&y.call(a.node,d)&&h.push(a.callback)});return h}function h(a,f,h){function l(c,f,d,h){g(function(){var c=J(y,a,f);c.length&&b(function(){s(c,function(b){b(a,d,h)})})});c.progress(f,
+d,h)}function x(b){var c=a,f=n;f.preparationClasses&&(c.removeClass(f.preparationClasses),f.preparationClasses=null);f.activeClasses&&(c.removeClass(f.activeClasses),f.activeClasses=null);Ja(a,n);fa(a,n);n.domOperation();k.complete(!b)}var n=Ha(h),z,y;if(a=Ma(a))z=G(a),y=a.parent();var n=ka(n),k=new u,g=K();ba(n.addClass)&&(n.addClass=n.addClass.join(" "));n.addClass&&!R(n.addClass)&&(n.addClass=null);ba(n.removeClass)&&(n.removeClass=n.removeClass.join(" "));n.removeClass&&!R(n.removeClass)&&(n.removeClass=
+null);n.from&&!ra(n.from)&&(n.from=null);n.to&&!ra(n.to)&&(n.to=null);if(!z)return x(),k;h=[z.className,n.addClass,n.removeClass].join(" ");if(!Ua(h))return x(),k;var C=0<=["enter","move","leave"].indexOf(f),w=!L||m[0].hidden||E.get(z);h=!w&&B.get(z)||{};var v=!!h.state;w||v&&1==h.state||(w=!q(a,y,f));if(w)return x(),k;C&&xa(a);w={structural:C,element:a,event:f,addClass:n.addClass,removeClass:n.removeClass,close:x,options:n,runner:k};if(v){if(d("skip",a,w,h)){if(2===h.state)return x(),k;V(a,h,w);
+return h.runner}if(d("cancel",a,w,h))if(2===h.state)h.runner.end();else if(h.structural)h.close();else return V(a,h,w),h.runner;else if(d("join",a,w,h))if(2===h.state)V(a,w,{});else return Qa(a,C?f:null,n),f=w.event=h.event,n=V(a,h,w),h.runner}else V(a,w,{});(v=w.structural)||(v="animate"===w.event&&0<Object.keys(w.options.to||{}).length||e(w));if(!v)return x(),N(a),k;var M=(h.counter||0)+1;w.counter=M;t(a,1,w);c.$$postDigest(function(){var b=B.get(z),c=!b,b=b||{},d=0<(a.parent()||[]).length&&("animate"===
+b.event||b.structural||e(b));if(c||b.counter!==M||!d){c&&(Ja(a,n),fa(a,n));if(c||C&&b.event!==f)n.domOperation(),k.end();d||N(a)}else f=!b.structural&&e(b,!0)?"setClass":b.event,t(a,2),b=r(a,f,b.options),b.done(function(b){x(!b);(b=B.get(z))&&b.counter===M&&N(G(a));l(k,f,"close",{})}),k.setHost(b),l(k,f,"start",{})});return k}function xa(a){a=G(a).querySelectorAll("[data-ng-animate]");s(a,function(a){var b=parseInt(a.getAttribute("data-ng-animate")),c=B.get(a);if(c)switch(b){case 2:c.runner.end();
+case 1:B.remove(a)}})}function N(a){a=G(a);a.removeAttribute("data-ng-animate");B.remove(a)}function k(a,b){return G(a)===G(b)}function q(a,b,c){c=I(m[0].body);var f=k(a,c)||"HTML"===a[0].nodeName,d=k(a,g),h=!1,l,e=E.get(G(a));for((a=a.data("$ngAnimatePin"))&&(b=a);b&&b.length;){d||(d=k(b,g));var x=b[0];if(1!==x.nodeType)break;a=B.get(x)||{};if(!h){x=E.get(x);if(!0===x&&!1!==e){e=!0;break}else!1===x&&(e=!1);h=a.structural}if(P(l)||!0===l)a=b.data("$$ngAnimateChildren"),Z(a)&&(l=a);if(h&&!1===l)break;
+f||(f=k(b,c));if(f&&d)break;if(!d&&(a=b.data("$ngAnimatePin"))){b=a;continue}b=b.parent()}return(!h||l)&&!0!==e&&d&&f}function t(a,b,c){c=c||{};c.state=b;a=G(a);a.setAttribute("data-ng-animate",b);c=(b=B.get(a))?Ca(b,c):c;B.put(a,c)}var B=new M,E=new M,L=null,f=c.$watch(function(){return 0===na.totalPendingRequests},function(a){a&&(f(),c.$$postDigest(function(){c.$$postDigest(function(){null===L&&(L=!0)})}))}),x={},l=a.classNameFilter(),Ua=l?function(a){return l.test(a)}:function(){return!0},Ja=U(v),
+y=Node.prototype.contains||function(a){return this===a||!!(this.compareDocumentPosition(a)&16)};return{on:function(a,b,c){b=oa(b);x[a]=x[a]||[];x[a].push({node:b,callback:c})},off:function(a,b,c){function f(a,b,c){var d=oa(b);return a.filter(function(a){return!(a.node===d&&(!c||a.callback===c))})}var d=x[a];d&&(x[a]=1===arguments.length?null:f(d,b,c))},pin:function(a,b){ya(sa(a),"element","not an element");ya(sa(b),"parentElement","not an element");a.data("$ngAnimatePin",b)},push:function(a,b,c,f){c=
+c||{};c.domOperation=f;return h(a,b,c)},enabled:function(a,b){var c=arguments.length;if(0===c)b=!!L;else if(sa(a)){var f=G(a),d=E.get(f);1===c?b=!d:E.put(f,!b)}else b=L=!!a;return b}}}]}]).provider("$$animation",["$animateProvider",function(a){function b(a){return a.data("$$animationRunner")}var c=this.drivers=[];this.$get=["$$jqLite","$rootScope","$injector","$$AnimateRunner","$$HashMap","$$rAFScheduler",function(a,e,g,H,A,C){function m(a){function b(a){if(a.processed)return a;a.processed=!0;var d=
+a.domNode,N=d.parentNode;e.put(d,a);for(var k;N;){if(k=e.get(N)){k.processed||(k=b(k));break}N=N.parentNode}(k||c).children.push(a);return a}var c={children:[]},d,e=new A;for(d=0;d<a.length;d++){var g=a[d];e.put(g.domNode,a[d]={domNode:g.domNode,fn:g.fn,children:[]})}for(d=0;d<a.length;d++)b(a[d]);return function(a){var b=[],c=[],d;for(d=0;d<a.children.length;d++)c.push(a.children[d]);a=c.length;var e=0,t=[];for(d=0;d<c.length;d++){var g=c[d];0>=a&&(a=e,e=0,b.push(t),t=[]);t.push(g.fn);g.children.forEach(function(a){e++;
+c.push(a)});a--}t.length&&b.push(t);return b}(c)}var M=[],r=U(a);return function(u,A,v){function z(a){a=a.hasAttribute("ng-animate-ref")?[a]:a.querySelectorAll("[ng-animate-ref]");var b=[];s(a,function(a){var c=a.getAttribute("ng-animate-ref");c&&c.length&&b.push(a)});return b}function K(a){var b=[],c={};s(a,function(a,f){var d=G(a.element),h=0<=["enter","move"].indexOf(a.event),d=a.structural?z(d):[];if(d.length){var e=h?"to":"from";s(d,function(a){var b=a.getAttribute("ng-animate-ref");c[b]=c[b]||
+{};c[b][e]={animationID:f,element:I(a)}})}else b.push(a)});var d={},h={};s(c,function(c,e){var l=c.from,t=c.to;if(l&&t){var g=a[l.animationID],E=a[t.animationID],k=l.animationID.toString();if(!h[k]){var z=h[k]={structural:!0,beforeStart:function(){g.beforeStart();E.beforeStart()},close:function(){g.close();E.close()},classes:J(g.classes,E.classes),from:g,to:E,anchors:[]};z.classes.length?b.push(z):(b.push(g),b.push(E))}h[k].anchors.push({out:l.element,"in":t.element})}else l=l?l.animationID:t.animationID,
+t=l.toString(),d[t]||(d[t]=!0,b.push(a[l]))});return b}function J(a,b){a=a.split(" ");b=b.split(" ");for(var c=[],d=0;d<a.length;d++){var h=a[d];if("ng-"!==h.substring(0,3))for(var e=0;e<b.length;e++)if(h===b[e]){c.push(h);break}}return c.join(" ")}function h(a){for(var b=c.length-1;0<=b;b--){var d=c[b];if(g.has(d)&&(d=g.get(d)(a)))return d}}function xa(a,c){a.from&&a.to?(b(a.from.element).setHost(c),b(a.to.element).setHost(c)):b(a.element).setHost(c)}function N(){var a=b(u);!a||"leave"===A&&v.$$domOperationFired||
+a.end()}function k(b){u.off("$destroy",N);u.removeData("$$animationRunner");r(u,v);fa(u,v);v.domOperation();E&&a.removeClass(u,E);u.removeClass("ng-animate");t.complete(!b)}v=ka(v);var q=0<=["enter","move","leave"].indexOf(A),t=new H({end:function(){k()},cancel:function(){k(!0)}});if(!c.length)return k(),t;u.data("$$animationRunner",t);var B=za(u.attr("class"),za(v.addClass,v.removeClass)),E=v.tempClasses;E&&(B+=" "+E,v.tempClasses=null);var L;q&&(L="ng-"+A+"-prepare",a.addClass(u,L));M.push({element:u,
+classes:B,event:A,structural:q,options:v,beforeStart:function(){u.addClass("ng-animate");E&&a.addClass(u,E);L&&(a.removeClass(u,L),L=null)},close:k});u.on("$destroy",N);if(1<M.length)return t;e.$$postDigest(function(){var a=[];s(M,function(c){b(c.element)?a.push(c):c.close()});M.length=0;var c=K(a),d=[];s(c,function(a){d.push({domNode:G(a.from?a.from.element:a.element),fn:function(){a.beforeStart();var c,d=a.close;if(b(a.anchors?a.from.element||a.to.element:a.element)){var f=h(a);f&&(c=f.start)}c?
+(c=c(),c.done(function(a){d(!a)}),xa(a,c)):d()}})});C(m(d))});return t}}]}]).provider("$animateCss",["$animateProvider",function(a){var b=Fa(),c=Fa();this.$get=["$window","$$jqLite","$$AnimateRunner","$timeout","$$forceReflow","$sniffer","$$rAFScheduler","$$animateQueue",function(a,e,g,H,A,C,m,M){function r(a,b){var c=a.parentNode;return(c.$$ngAnimateParentKey||(c.$$ngAnimateParentKey=++K))+"-"+a.getAttribute("class")+"-"+b}function u(h,g,z,k){var q;0<b.count(z)&&(q=c.get(z),q||(g=X(g,"-stagger"),
+e.addClass(h,g),q=Da(a,h,k),q.animationDuration=Math.max(q.animationDuration,0),q.transitionDuration=Math.max(q.transitionDuration,0),e.removeClass(h,g),c.put(z,q)));return q||{}}function na(a){J.push(a);m.waitUntilQuiet(function(){b.flush();c.flush();for(var a=A(),d=0;d<J.length;d++)J[d](a);J.length=0})}function v(c,e,g){e=b.get(g);e||(e=Da(a,c,Sa),"infinite"===e.animationIterationCount&&(e.animationIterationCount=1));b.put(g,e);c=e;g=c.animationDelay;e=c.transitionDelay;c.maxDelay=g&&e?Math.max(g,
+e):g||e;c.maxDuration=Math.max(c.animationDuration*c.animationIterationCount,c.transitionDuration);return c}var z=U(e),K=0,J=[];return function(a,c){function d(){q()}function k(){q(!0)}function q(b){if(!(A||wa&&K)){A=!0;K=!1;f.$$skipPreparationClasses||e.removeClass(a,da);e.removeClass(a,ca);pa(l,!1);la(l,!1);s(m,function(a){l.style[a[0]]=""});z(a,f);fa(a,f);Object.keys(x).length&&s(x,function(a,b){a?l.style.setProperty(b,a):l.style.removeProperty(b)});if(f.onDone)f.onDone();ea&&ea.length&&a.off(ea.join(" "),
+E);var c=a.data("$$animateCss");c&&(H.cancel(c[0].timer),a.removeData("$$animateCss"));D&&D.complete(!b)}}function t(a){p.blockTransition&&la(l,a);p.blockKeyframeAnimation&&pa(l,!!a)}function B(){D=new g({end:d,cancel:k});na(Q);q();return{$$willAnimate:!1,start:function(){return D},end:d}}function E(a){a.stopPropagation();var b=a.originalEvent||a;a=b.$manualTimeStamp||Date.now();b=parseFloat(b.elapsedTime.toFixed(3));Math.max(a-U,0)>=P&&b>=O&&(wa=!0,q())}function L(){function b(){if(!A){t(!1);s(m,
+function(a){l.style[a[0]]=a[1]});z(a,f);e.addClass(a,ca);if(p.recalculateTimingStyles){ja=l.className+" "+da;ga=r(l,ja);F=v(l,ja,ga);$=F.maxDelay;n=Math.max($,0);O=F.maxDuration;if(0===O){q();return}p.hasTransitions=0<F.transitionDuration;p.hasAnimations=0<F.animationDuration}p.applyAnimationDelay&&($="boolean"!==typeof f.delay&&qa(f.delay)?parseFloat(f.delay):$,n=Math.max($,0),F.animationDelay=$,aa=[ma,$+"s"],m.push(aa),l.style[aa[0]]=aa[1]);P=1E3*n;R=1E3*O;if(f.easing){var d,g=f.easing;p.hasTransitions&&
+(d=S+"TimingFunction",m.push([d,g]),l.style[d]=g);p.hasAnimations&&(d=Y+"TimingFunction",m.push([d,g]),l.style[d]=g)}F.transitionDuration&&ea.push(ta);F.animationDuration&&ea.push(ua);U=Date.now();var k=P+1.5*R;d=U+k;var g=a.data("$$animateCss")||[],L=!0;if(g.length){var B=g[0];(L=d>B.expectedEndTime)?H.cancel(B.timer):g.push(q)}L&&(k=H(c,k,!1),g[0]={timer:k,expectedEndTime:d},g.push(q),a.data("$$animateCss",g));if(ea.length)a.on(ea.join(" "),E);f.to&&(f.cleanupStyles&&Ga(x,l,Object.keys(f.to)),Ba(a,
+f))}}function c(){var b=a.data("$$animateCss");if(b){for(var d=1;d<b.length;d++)b[d]();a.removeData("$$animateCss")}}if(!A)if(l.parentNode){var d=function(a){if(wa)K&&a&&(K=!1,q());else if(K=!a,F.animationDuration)if(a=pa(l,K),K)m.push(a);else{var b=m,c=b.indexOf(a);0<=a&&b.splice(c,1)}},g=0<Z&&(F.transitionDuration&&0===W.transitionDuration||F.animationDuration&&0===W.animationDuration)&&Math.max(W.animationDelay,W.transitionDelay);g?H(b,Math.floor(g*Z*1E3),!1):b();I.resume=function(){d(!0)};I.pause=
+function(){d(!1)}}else q()}var f=c||{};f.$$prepared||(f=ka(Ha(f)));var x={},l=G(a);if(!l||!l.parentNode||!M.enabled())return B();var m=[],J=a.attr("class"),y=La(f),A,K,wa,D,I,n,P,O,R,U,ea=[];if(0===f.duration||!C.animations&&!C.transitions)return B();var w=f.event&&ba(f.event)?f.event.join(" "):f.event,V="",T="";w&&f.structural?V=X(w,"ng-",!0):w&&(V=w);f.addClass&&(T+=X(f.addClass,"-add"));f.removeClass&&(T.length&&(T+=" "),T+=X(f.removeClass,"-remove"));f.applyClassesEarly&&T.length&&z(a,f);var da=
+[V,T].join(" ").trim(),ja=J+" "+da,ca=X(da,"-active"),J=y.to&&0<Object.keys(y.to).length;if(!(0<(f.keyframeStyle||"").length||J||da))return B();var ga,W;0<f.stagger?(y=parseFloat(f.stagger),W={transitionDelay:y,animationDelay:y,transitionDuration:0,animationDuration:0}):(ga=r(l,ja),W=u(l,da,ga,Ta));f.$$skipPreparationClasses||e.addClass(a,da);f.transitionStyle&&(y=[S,f.transitionStyle],ha(l,y),m.push(y));0<=f.duration&&(y=0<l.style[S].length,y=Ea(f.duration,y),ha(l,y),m.push(y));f.keyframeStyle&&
+(y=[Y,f.keyframeStyle],ha(l,y),m.push(y));var Z=W?0<=f.staggerIndex?f.staggerIndex:b.count(ga):0;(w=0===Z)&&!f.skipBlocking&&la(l,9999);var F=v(l,ja,ga),$=F.maxDelay;n=Math.max($,0);O=F.maxDuration;var p={};p.hasTransitions=0<F.transitionDuration;p.hasAnimations=0<F.animationDuration;p.hasTransitionAll=p.hasTransitions&&"all"==F.transitionProperty;p.applyTransitionDuration=J&&(p.hasTransitions&&!p.hasTransitionAll||p.hasAnimations&&!p.hasTransitions);p.applyAnimationDuration=f.duration&&p.hasAnimations;
+p.applyTransitionDelay=qa(f.delay)&&(p.applyTransitionDuration||p.hasTransitions);p.applyAnimationDelay=qa(f.delay)&&p.hasAnimations;p.recalculateTimingStyles=0<T.length;if(p.applyTransitionDuration||p.applyAnimationDuration)O=f.duration?parseFloat(f.duration):O,p.applyTransitionDuration&&(p.hasTransitions=!0,F.transitionDuration=O,y=0<l.style[S+"Property"].length,m.push(Ea(O,y))),p.applyAnimationDuration&&(p.hasAnimations=!0,F.animationDuration=O,m.push([va,O+"s"]));if(0===O&&!p.recalculateTimingStyles)return B();
+if(null!=f.delay){var aa;"boolean"!==typeof f.delay&&(aa=parseFloat(f.delay),n=Math.max(aa,0));p.applyTransitionDelay&&m.push([ia,aa+"s"]);p.applyAnimationDelay&&m.push([ma,aa+"s"])}null==f.duration&&0<F.transitionDuration&&(p.recalculateTimingStyles=p.recalculateTimingStyles||w);P=1E3*n;R=1E3*O;f.skipBlocking||(p.blockTransition=0<F.transitionDuration,p.blockKeyframeAnimation=0<F.animationDuration&&0<W.animationDelay&&0===W.animationDuration);f.from&&(f.cleanupStyles&&Ga(x,l,Object.keys(f.from)),
+Aa(a,f));p.blockTransition||p.blockKeyframeAnimation?t(O):f.skipBlocking||la(l,!1);return{$$willAnimate:!0,end:d,start:function(){if(!A)return I={end:d,cancel:k,resume:null,pause:null},D=new g(I),na(L),D}}}}]}]).provider("$$animateCssDriver",["$$animationProvider",function(a){a.drivers.push("$$animateCssDriver");this.$get=["$animateCss","$rootScope","$$AnimateRunner","$rootElement","$sniffer","$$jqLite","$document",function(a,c,d,e,g,H,A){function C(a){return a.replace(/\bng-\S+\b/g,"")}function m(a,
+b){R(a)&&(a=a.split(" "));R(b)&&(b=b.split(" "));return a.filter(function(a){return-1===b.indexOf(a)}).join(" ")}function M(c,e,g){function h(a){var b={},c=G(a).getBoundingClientRect();s(["width","height","top","left"],function(a){var d=c[a];switch(a){case "top":d+=D.scrollTop;break;case "left":d+=D.scrollLeft}b[a]=Math.floor(d)+"px"});return b}function A(){var c=C(g.attr("class")||""),d=m(c,q),c=m(q,c),d=a(k,{to:h(g),addClass:"ng-anchor-in "+d,removeClass:"ng-anchor-out "+c,delay:!0});return d.$$willAnimate?
+d:null}function H(){k.remove();e.removeClass("ng-animate-shim");g.removeClass("ng-animate-shim")}var k=I(G(e).cloneNode(!0)),q=C(k.attr("class")||"");e.addClass("ng-animate-shim");g.addClass("ng-animate-shim");k.addClass("ng-anchor");v.append(k);var t;c=function(){var c=a(k,{addClass:"ng-anchor-out",delay:!0,from:h(e)});return c.$$willAnimate?c:null}();if(!c&&(t=A(),!t))return H();var B=c||t;return{start:function(){function a(){c&&c.end()}var b,c=B.start();c.done(function(){c=null;if(!t&&(t=A()))return c=
+t.start(),c.done(function(){c=null;H();b.complete()}),c;H();b.complete()});return b=new d({end:a,cancel:a})}}}function r(a,b,c,e){var g=u(a,Q),m=u(b,Q),k=[];s(e,function(a){(a=M(c,a.out,a["in"]))&&k.push(a)});if(g||m||0!==k.length)return{start:function(){function a(){s(b,function(a){a.end()})}var b=[];g&&b.push(g.start());m&&b.push(m.start());s(k,function(a){b.push(a.start())});var c=new d({end:a,cancel:a});d.all(b,function(a){c.complete(a)});return c}}}function u(c){var d=c.element,e=c.options||
+{};c.structural&&(e.event=c.event,e.structural=!0,e.applyClassesEarly=!0,"leave"===c.event&&(e.onDone=e.domOperation));e.preparationClasses&&(e.event=ca(e.event,e.preparationClasses));c=a(d,e);return c.$$willAnimate?c:null}if(!g.animations&&!g.transitions)return Q;var D=A[0].body;c=G(e);var v=I(c.parentNode&&11===c.parentNode.nodeType||D.contains(c)?c:D);U(H);return function(a){return a.from&&a.to?r(a.from,a.to,a.classes,a.anchors):u(a)}}]}]).provider("$$animateJs",["$animateProvider",function(a){this.$get=
+["$injector","$$AnimateRunner","$$jqLite",function(b,c,d){function e(c){c=ba(c)?c:c.split(" ");for(var d=[],e={},g=0;g<c.length;g++){var s=c[g],r=a.$$registeredAnimations[s];r&&!e[s]&&(d.push(b.get(r)),e[s]=!0)}return d}var g=U(d);return function(a,b,d,m){function r(){m.domOperation();g(a,m)}function D(a,b,d,e,f){switch(d){case "animate":b=[b,e.from,e.to,f];break;case "setClass":b=[b,z,K,f];break;case "addClass":b=[b,z,f];break;case "removeClass":b=[b,K,f];break;default:b=[b,f]}b.push(e);if(a=a.apply(a,
+b))if(Ia(a.start)&&(a=a.start()),a instanceof c)a.done(f);else if(Ia(a))return a;return Q}function u(a,b,d,e,f){var g=[];s(e,function(e){var h=e[f];h&&g.push(function(){var e,f,g=!1,k=function(a){g||(g=!0,(f||Q)(a),e.complete(!a))};e=new c({end:function(){k()},cancel:function(){k(!0)}});f=D(h,a,b,d,function(a){k(!1===a)});return e})});return g}function G(a,b,d,e,f){var g=u(a,b,d,e,f);if(0===g.length){var h,k;"beforeSetClass"===f?(h=u(a,"removeClass",d,e,"beforeRemoveClass"),k=u(a,"addClass",d,e,"beforeAddClass")):
+"setClass"===f&&(h=u(a,"removeClass",d,e,"removeClass"),k=u(a,"addClass",d,e,"addClass"));h&&(g=g.concat(h));k&&(g=g.concat(k))}if(0!==g.length)return function(a){var b=[];g.length&&s(g,function(a){b.push(a())});b.length?c.all(b,a):a();return function(a){s(b,function(b){a?b.cancel():b.end()})}}}var v=!1;3===arguments.length&&ra(d)&&(m=d,d=null);m=ka(m);d||(d=a.attr("class")||"",m.addClass&&(d+=" "+m.addClass),m.removeClass&&(d+=" "+m.removeClass));var z=m.addClass,K=m.removeClass,J=e(d),h,I;if(J.length){var N,
+k;"leave"==b?(k="leave",N="afterLeave"):(k="before"+b.charAt(0).toUpperCase()+b.substr(1),N=b);"enter"!==b&&"move"!==b&&(h=G(a,b,m,J,k));I=G(a,b,m,J,N)}if(h||I){var q;return{$$willAnimate:!0,end:function(){q?q.end():(v=!0,r(),fa(a,m),q=new c,q.complete(!0));return q},start:function(){function b(c){v=!0;r();fa(a,m);q.complete(c)}if(q)return q;q=new c;var d,e=[];h&&e.push(function(a){d=h(a)});e.length?e.push(function(a){r();a(!0)}):r();I&&e.push(function(a){d=I(a)});q.setHost({end:function(){v||((d||
+Q)(void 0),b(void 0))},cancel:function(){v||((d||Q)(!0),b(!0))}});c.chain(e,b);return q}}}}}]}]).provider("$$animateJsDriver",["$$animationProvider",function(a){a.drivers.push("$$animateJsDriver");this.$get=["$$animateJs","$$AnimateRunner",function(a,c){function d(c){return a(c.element,c.event,c.classes,c.options)}return function(a){if(a.from&&a.to){var b=d(a.from),r=d(a.to);if(b||r)return{start:function(){function a(){return function(){s(d,function(a){a.end()})}}var d=[];b&&d.push(b.start());r&&
+d.push(r.start());c.all(d,function(a){e.complete(a)});var e=new c({end:a(),cancel:a()});return e}}}else return d(a)}}]}])})(window,window.angular);
 //# sourceMappingURL=angular-animate.min.js.map
 ;
 /*
@@ -2975,11 +2987,12 @@ n.$destroy()});n.$on("$destroy",u)}]).directive("dropdown",function(){return{con
 i&&d.unbind(i,j),h.reject("Transition cancelled")},h.promise},h=document.createElement("trans"),i={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"oTransitionEnd",transition:"transitionend"},j={WebkitTransition:"webkitAnimationEnd",MozTransition:"animationend",OTransition:"oAnimationEnd",transition:"animationend"};return g.transitionEndEventName=f(i),g.animationEndEventName=f(j),g}]),angular.module("ui.bootstrap.typeahead",["ui.bootstrap.position"]).factory("typeaheadParser",["$parse",function(a){var b=/^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w\d]*))\s+in\s+([\s\S]+?)$/;return{parse:function(c){var d=c.match(b);if(!d)throw new Error('Expected typeahead specification in form of "_modelValue_ (as _label_)? for _item_ in _collection_" but got "'+c+'".');return{itemName:d[3],source:a(d[4]),viewMapper:a(d[2]||d[1]),modelMapper:a(d[1])}}}}]).directive("typeahead",["$compile","$parse","$q","$timeout","$document","$window","$rootScope","$position","typeaheadParser",function(a,b,c,d,e,f,g,h,i){var j=[9,13,27,38,40],k=200;return{require:["ngModel","^?ngModelOptions"],link:function(l,m,n,o){function p(){K.moveInProgress||(K.moveInProgress=!0,K.$digest()),S&&d.cancel(S),S=d(function(){K.matches.length&&q(),K.moveInProgress=!1,K.$digest()},k)}function q(){K.position=D?h.offset(m):h.position(m),K.position.top+=m.prop("offsetHeight")}var r=o[0],s=o[1],t=l.$eval(n.typeaheadMinLength);t||0===t||(t=1);var u,v,w=l.$eval(n.typeaheadWaitMs)||0,x=l.$eval(n.typeaheadEditable)!==!1,y=b(n.typeaheadLoading).assign||angular.noop,z=b(n.typeaheadOnSelect),A=angular.isDefined(n.typeaheadSelectOnBlur)?l.$eval(n.typeaheadSelectOnBlur):!1,B=b(n.typeaheadNoResults).assign||angular.noop,C=n.typeaheadInputFormatter?b(n.typeaheadInputFormatter):void 0,D=n.typeaheadAppendToBody?l.$eval(n.typeaheadAppendToBody):!1,E=l.$eval(n.typeaheadFocusFirst)!==!1,F=n.typeaheadSelectOnExact?l.$eval(n.typeaheadSelectOnExact):!1,G=b(n.ngModel),H=b(n.ngModel+"($$$p)"),I=function(a,b){return angular.isFunction(G(l))&&s&&s.$options&&s.$options.getterSetter?H(a,{$$$p:b}):G.assign(a,b)},J=i.parse(n.typeahead),K=l.$new(),L=l.$on("$destroy",function(){K.$destroy()});K.$on("$destroy",L);var M="typeahead-"+K.$id+"-"+Math.floor(1e4*Math.random());m.attr({"aria-autocomplete":"list","aria-expanded":!1,"aria-owns":M});var N=angular.element("<div typeahead-popup></div>");N.attr({id:M,matches:"matches",active:"activeIdx",select:"select(activeIdx)","move-in-progress":"moveInProgress",query:"query",position:"position"}),angular.isDefined(n.typeaheadTemplateUrl)&&N.attr("template-url",n.typeaheadTemplateUrl),angular.isDefined(n.typeaheadPopupTemplateUrl)&&N.attr("popup-template-url",n.typeaheadPopupTemplateUrl);var O=function(){K.matches=[],K.activeIdx=-1,m.attr("aria-expanded",!1)},P=function(a){return M+"-option-"+a};K.$watch("activeIdx",function(a){0>a?m.removeAttr("aria-activedescendant"):m.attr("aria-activedescendant",P(a))});var Q=function(a,b){return K.matches.length>b&&a?a.toUpperCase()===K.matches[b].label.toUpperCase():!1},R=function(a){var b={$viewValue:a};y(l,!0),B(l,!1),c.when(J.source(l,b)).then(function(c){var d=a===r.$viewValue;if(d&&u)if(c&&c.length>0){K.activeIdx=E?0:-1,B(l,!1),K.matches.length=0;for(var e=0;e<c.length;e++)b[J.itemName]=c[e],K.matches.push({id:P(e),label:J.viewMapper(K,b),model:c[e]});K.query=a,q(),m.attr("aria-expanded",!0),F&&1===K.matches.length&&Q(a,0)&&K.select(0)}else O(),B(l,!0);d&&y(l,!1)},function(){O(),y(l,!1),B(l,!0)})};D&&(angular.element(f).bind("resize",p),e.find("body").bind("scroll",p));var S;K.moveInProgress=!1,O(),K.query=void 0;var T,U=function(a){T=d(function(){R(a)},w)},V=function(){T&&d.cancel(T)};r.$parsers.unshift(function(a){return u=!0,0===t||a&&a.length>=t?w>0?(V(),U(a)):R(a):(y(l,!1),V(),O()),x?a:a?void r.$setValidity("editable",!1):(r.$setValidity("editable",!0),null)}),r.$formatters.push(function(a){var b,c,d={};return x||r.$setValidity("editable",!0),C?(d.$model=a,C(l,d)):(d[J.itemName]=a,b=J.viewMapper(l,d),d[J.itemName]=void 0,c=J.viewMapper(l,d),b!==c?b:a)}),K.select=function(a){var b,c,e={};v=!0,e[J.itemName]=c=K.matches[a].model,b=J.modelMapper(l,e),I(l,b),r.$setValidity("editable",!0),r.$setValidity("parse",!0),z(l,{$item:c,$model:b,$label:J.viewMapper(l,e)}),O(),K.$eval(n.typeaheadFocusOnSelect)!==!1&&d(function(){m[0].focus()},0,!1)},m.bind("keydown",function(a){if(0!==K.matches.length&&-1!==j.indexOf(a.which)){if(-1===K.activeIdx&&(9===a.which||13===a.which))return O(),void K.$digest();a.preventDefault(),40===a.which?(K.activeIdx=(K.activeIdx+1)%K.matches.length,K.$digest()):38===a.which?(K.activeIdx=(K.activeIdx>0?K.activeIdx:K.matches.length)-1,K.$digest()):13===a.which||9===a.which?K.$apply(function(){K.select(K.activeIdx)}):27===a.which&&(a.stopPropagation(),O(),K.$digest())}}),m.bind("blur",function(){A&&K.matches.length&&-1!==K.activeIdx&&!v&&(v=!0,K.$apply(function(){K.select(K.activeIdx)})),u=!1,v=!1});var W=function(a){m[0]!==a.target&&3!==a.which&&0!==K.matches.length&&(O(),g.$$phase||K.$digest())};e.bind("click",W),l.$on("$destroy",function(){e.unbind("click",W),D&&X.remove(),N.remove()});var X=a(N)(K);D?e.find("body").append(X):m.after(X)}}}]).directive("typeaheadPopup",function(){return{restrict:"EA",scope:{matches:"=",query:"=",active:"=",position:"&",moveInProgress:"=",select:"&"},replace:!0,templateUrl:function(a,b){return b.popupTemplateUrl||"template/typeahead/typeahead-popup.html"},link:function(a,b,c){a.templateUrl=c.templateUrl,a.isOpen=function(){return a.matches.length>0},a.isActive=function(b){return a.active==b},a.selectActive=function(b){a.active=b},a.selectMatch=function(b){a.select({activeIdx:b})}}}}).directive("typeaheadMatch",["$templateRequest","$compile","$parse",function(a,b,c){return{restrict:"EA",scope:{index:"=",match:"=",query:"="},link:function(d,e,f){var g=c(f.templateUrl)(d.$parent)||"template/typeahead/typeahead-match.html";a(g).then(function(a){b(a.trim())(d,function(a){e.replaceWith(a)})})}}}]).filter("typeaheadHighlight",["$sce","$injector","$log",function(a,b,c){function d(a){return a.replace(/([.?*+^$[\]\\(){}|-])/g,"\\$1")}function e(a){return/<.*>/g.test(a)}var f;return f=b.has("$sanitize"),function(b,g){return!f&&e(b)&&c.warn("Unsafe use of typeahead please use ngSanitize"),b=g?(""+b).replace(new RegExp(d(g),"gi"),"<strong>$&</strong>"):b,f||(b=a.trustAsHtml(b)),b}}]),angular.module("template/accordion/accordion-group.html",[]).run(["$templateCache",function(a){a.put("template/accordion/accordion-group.html",'<div class="panel {{panelClass || \'panel-default\'}}">\n  <div class="panel-heading" ng-keypress="toggleOpen($event)">\n    <h4 class="panel-title">\n      <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" accordion-transclude="heading"><span ng-class="{\'text-muted\': isDisabled}">{{heading}}</span></a>\n    </h4>\n  </div>\n  <div class="panel-collapse collapse" collapse="!isOpen">\n	  <div class="panel-body" ng-transclude></div>\n  </div>\n</div>\n')}]),angular.module("template/accordion/accordion.html",[]).run(["$templateCache",function(a){a.put("template/accordion/accordion.html",'<div class="panel-group" ng-transclude></div>')}]),angular.module("template/alert/alert.html",[]).run(["$templateCache",function(a){a.put("template/alert/alert.html",'<div class="alert" ng-class="[\'alert-\' + (type || \'warning\'), closeable ? \'alert-dismissible\' : null]" role="alert">\n    <button ng-show="closeable" type="button" class="close" ng-click="close($event)">\n        <span aria-hidden="true">&times;</span>\n        <span class="sr-only">Close</span>\n    </button>\n    <div ng-transclude></div>\n</div>\n')}]),angular.module("template/carousel/carousel.html",[]).run(["$templateCache",function(a){a.put("template/carousel/carousel.html",'<div ng-mouseenter="pause()" ng-mouseleave="play()" class="carousel" ng-swipe-right="prev()" ng-swipe-left="next()">\n    <ol class="carousel-indicators" ng-show="slides.length > 1">\n        <li ng-repeat="slide in slides | orderBy:indexOfSlide track by $index" ng-class="{active: isActive(slide)}" ng-click="select(slide)"></li>\n    </ol>\n    <div class="carousel-inner" ng-transclude></div>\n    <a class="left carousel-control" ng-click="prev()" ng-show="slides.length > 1"><span class="glyphicon glyphicon-chevron-left"></span></a>\n    <a class="right carousel-control" ng-click="next()" ng-show="slides.length > 1"><span class="glyphicon glyphicon-chevron-right"></span></a>\n</div>\n')}]),angular.module("template/carousel/slide.html",[]).run(["$templateCache",function(a){a.put("template/carousel/slide.html",'<div ng-class="{\n    \'active\': active\n  }" class="item text-center" ng-transclude></div>\n')}]),angular.module("template/datepicker/datepicker.html",[]).run(["$templateCache",function(a){a.put("template/datepicker/datepicker.html",'<div ng-switch="datepickerMode" role="application" ng-keydown="keydown($event)">\n  <daypicker ng-switch-when="day" tabindex="0"></daypicker>\n  <monthpicker ng-switch-when="month" tabindex="0"></monthpicker>\n  <yearpicker ng-switch-when="year" tabindex="0"></yearpicker>\n</div>')}]),angular.module("template/datepicker/day.html",[]).run(["$templateCache",function(a){a.put("template/datepicker/day.html",'<table role="grid" aria-labelledby="{{::uniqueId}}-title" aria-activedescendant="{{activeDateId}}">\n  <thead>\n    <tr>\n      <th><button type="button" class="btn btn-default btn-sm pull-left" ng-click="move(-1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-left"></i></button></th>\n      <th colspan="{{::5 + showWeeks}}"><button id="{{::uniqueId}}-title" role="heading" aria-live="assertive" aria-atomic="true" type="button" class="btn btn-default btn-sm" ng-click="toggleMode()" ng-disabled="datepickerMode === maxMode" tabindex="-1" style="width:100%;"><strong>{{title}}</strong></button></th>\n      <th><button type="button" class="btn btn-default btn-sm pull-right" ng-click="move(1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-right"></i></button></th>\n    </tr>\n    <tr>\n      <th ng-if="showWeeks" class="text-center"></th>\n      <th ng-repeat="label in ::labels track by $index" class="text-center"><small aria-label="{{::label.full}}">{{::label.abbr}}</small></th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat="row in rows track by $index">\n      <td ng-if="showWeeks" class="text-center h6"><em>{{ weekNumbers[$index] }}</em></td>\n      <td ng-repeat="dt in row track by dt.date" class="text-center" role="gridcell" id="{{::dt.uid}}" ng-class="::dt.customClass">\n        <button type="button" style="min-width:100%;" class="btn btn-default btn-sm" ng-class="{\'btn-info\': dt.selected, active: isActive(dt)}" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1"><span ng-class="::{\'text-muted\': dt.secondary, \'text-info\': dt.current}">{{::dt.label}}</span></button>\n      </td>\n    </tr>\n  </tbody>\n</table>\n')}]),angular.module("template/datepicker/month.html",[]).run(["$templateCache",function(a){a.put("template/datepicker/month.html",'<table role="grid" aria-labelledby="{{::uniqueId}}-title" aria-activedescendant="{{activeDateId}}">\n  <thead>\n    <tr>\n      <th><button type="button" class="btn btn-default btn-sm pull-left" ng-click="move(-1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-left"></i></button></th>\n      <th><button id="{{::uniqueId}}-title" role="heading" aria-live="assertive" aria-atomic="true" type="button" class="btn btn-default btn-sm" ng-click="toggleMode()" ng-disabled="datepickerMode === maxMode" tabindex="-1" style="width:100%;"><strong>{{title}}</strong></button></th>\n      <th><button type="button" class="btn btn-default btn-sm pull-right" ng-click="move(1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-right"></i></button></th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat="row in rows track by $index">\n      <td ng-repeat="dt in row track by dt.date" class="text-center" role="gridcell" id="{{::dt.uid}}" ng-class="::dt.customClass">\n        <button type="button" style="min-width:100%;" class="btn btn-default" ng-class="{\'btn-info\': dt.selected, active: isActive(dt)}" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1"><span ng-class="::{\'text-info\': dt.current}">{{::dt.label}}</span></button>\n      </td>\n    </tr>\n  </tbody>\n</table>\n')}]),angular.module("template/datepicker/popup.html",[]).run(["$templateCache",function(a){a.put("template/datepicker/popup.html",'<ul class="dropdown-menu" ng-if="isOpen" style="display: block" ng-style="{top: position.top+\'px\', left: position.left+\'px\'}" ng-keydown="keydown($event)" ng-click="$event.stopPropagation()">\n	<li ng-transclude></li>\n	<li ng-if="showButtonBar" style="padding:10px 9px 2px">\n		<span class="btn-group pull-left">\n			<button type="button" class="btn btn-sm btn-info" ng-click="select(\'today\')" ng-disabled="isDisabled(\'today\')">{{ getText(\'current\') }}</button>\n			<button type="button" class="btn btn-sm btn-danger" ng-click="select(null)">{{ getText(\'clear\') }}</button>\n		</span>\n		<button type="button" class="btn btn-sm btn-success pull-right" ng-click="close()">{{ getText(\'close\') }}</button>\n	</li>\n</ul>\n')}]),angular.module("template/datepicker/year.html",[]).run(["$templateCache",function(a){a.put("template/datepicker/year.html",'<table role="grid" aria-labelledby="{{::uniqueId}}-title" aria-activedescendant="{{activeDateId}}">\n  <thead>\n    <tr>\n      <th><button type="button" class="btn btn-default btn-sm pull-left" ng-click="move(-1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-left"></i></button></th>\n      <th colspan="3"><button id="{{::uniqueId}}-title" role="heading" aria-live="assertive" aria-atomic="true" type="button" class="btn btn-default btn-sm" ng-click="toggleMode()" ng-disabled="datepickerMode === maxMode" tabindex="-1" style="width:100%;"><strong>{{title}}</strong></button></th>\n      <th><button type="button" class="btn btn-default btn-sm pull-right" ng-click="move(1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-right"></i></button></th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat="row in rows track by $index">\n      <td ng-repeat="dt in row track by dt.date" class="text-center" role="gridcell" id="{{::dt.uid}}">\n        <button type="button" style="min-width:100%;" class="btn btn-default" ng-class="{\'btn-info\': dt.selected, active: isActive(dt)}" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1"><span ng-class="::{\'text-info\': dt.current}">{{::dt.label}}</span></button>\n      </td>\n    </tr>\n  </tbody>\n</table>\n')}]),angular.module("template/modal/backdrop.html",[]).run(["$templateCache",function(a){a.put("template/modal/backdrop.html",'<div class="modal-backdrop"\n     modal-animation-class="fade"\n     modal-in-class="in"\n     ng-style="{\'z-index\': 1040 + (index && 1 || 0) + index*10}"\n></div>\n')}]),angular.module("template/modal/window.html",[]).run(["$templateCache",function(a){a.put("template/modal/window.html",'<div modal-render="{{$isRendered}}" tabindex="-1" role="dialog" class="modal"\n    modal-animation-class="fade"\n    modal-in-class="in"\n	ng-style="{\'z-index\': 1050 + index*10, display: \'block\'}" ng-click="close($event)">\n    <div class="modal-dialog" ng-class="size ? \'modal-\' + size : \'\'"><div class="modal-content" modal-transclude></div></div>\n</div>\n')}]),angular.module("template/pagination/pager.html",[]).run(["$templateCache",function(a){a.put("template/pagination/pager.html",'<ul class="pager">\n  <li ng-class="{disabled: noPrevious()||ngDisabled, previous: align}"><a href ng-click="selectPage(page - 1, $event)">{{::getText(\'previous\')}}</a></li>\n  <li ng-class="{disabled: noNext()||ngDisabled, next: align}"><a href ng-click="selectPage(page + 1, $event)">{{::getText(\'next\')}}</a></li>\n</ul>\n')}]),angular.module("template/pagination/pagination.html",[]).run(["$templateCache",function(a){a.put("template/pagination/pagination.html",'<ul class="pagination">\n  <li ng-if="::boundaryLinks" ng-class="{disabled: noPrevious()||ngDisabled}" class="pagination-first"><a href ng-click="selectPage(1, $event)">{{::getText(\'first\')}}</a></li>\n  <li ng-if="::directionLinks" ng-class="{disabled: noPrevious()||ngDisabled}" class="pagination-prev"><a href ng-click="selectPage(page - 1, $event)">{{::getText(\'previous\')}}</a></li>\n  <li ng-repeat="page in pages track by $index" ng-class="{active: page.active,disabled: ngDisabled&&!page.active}" class="pagination-page"><a href ng-click="selectPage(page.number, $event)">{{page.text}}</a></li>\n  <li ng-if="::directionLinks" ng-class="{disabled: noNext()||ngDisabled}" class="pagination-next"><a href ng-click="selectPage(page + 1, $event)">{{::getText(\'next\')}}</a></li>\n  <li ng-if="::boundaryLinks" ng-class="{disabled: noNext()||ngDisabled}" class="pagination-last"><a href ng-click="selectPage(totalPages, $event)">{{::getText(\'last\')}}</a></li>\n</ul>\n')}]),angular.module("template/tooltip/tooltip-html-popup.html",[]).run(["$templateCache",function(a){a.put("template/tooltip/tooltip-html-popup.html",'<div class="tooltip"\n  tooltip-animation-class="fade"\n  tooltip-classes\n  ng-class="{ in: isOpen() }">\n  <div class="tooltip-arrow"></div>\n  <div class="tooltip-inner" ng-bind-html="contentExp()"></div>\n</div>\n')}]),angular.module("template/tooltip/tooltip-html-unsafe-popup.html",[]).run(["$templateCache",function(a){a.put("template/tooltip/tooltip-html-unsafe-popup.html",'<div class="tooltip"\n  tooltip-animation-class="fade"\n  tooltip-classes\n  ng-class="{ in: isOpen() }">\n  <div class="tooltip-arrow"></div>\n  <div class="tooltip-inner" bind-html-unsafe="content"></div>\n</div>\n')}]),angular.module("template/tooltip/tooltip-popup.html",[]).run(["$templateCache",function(a){a.put("template/tooltip/tooltip-popup.html",'<div class="tooltip"\n  tooltip-animation-class="fade"\n  tooltip-classes\n  ng-class="{ in: isOpen() }">\n  <div class="tooltip-arrow"></div>\n  <div class="tooltip-inner" ng-bind="content"></div>\n</div>\n')}]),angular.module("template/tooltip/tooltip-template-popup.html",[]).run(["$templateCache",function(a){a.put("template/tooltip/tooltip-template-popup.html",'<div class="tooltip"\n  tooltip-animation-class="fade"\n  tooltip-classes\n  ng-class="{ in: isOpen() }">\n  <div class="tooltip-arrow"></div>\n  <div class="tooltip-inner"\n    tooltip-template-transclude="contentExp()"\n    tooltip-template-transclude-scope="originScope()"></div>\n</div>\n')}]),angular.module("template/popover/popover-html.html",[]).run(["$templateCache",function(a){a.put("template/popover/popover-html.html",'<div class="popover"\n  tooltip-animation-class="fade"\n  tooltip-classes\n  ng-class="{ in: isOpen() }">\n  <div class="arrow"></div>\n\n  <div class="popover-inner">\n      <h3 class="popover-title" ng-bind="title" ng-if="title"></h3>\n      <div class="popover-content" ng-bind-html="contentExp()"></div>\n  </div>\n</div>\n')}]),angular.module("template/popover/popover-template.html",[]).run(["$templateCache",function(a){a.put("template/popover/popover-template.html",'<div class="popover"\n  tooltip-animation-class="fade"\n  tooltip-classes\n  ng-class="{ in: isOpen() }">\n  <div class="arrow"></div>\n\n  <div class="popover-inner">\n      <h3 class="popover-title" ng-bind="title" ng-if="title"></h3>\n      <div class="popover-content"\n        tooltip-template-transclude="contentExp()"\n        tooltip-template-transclude-scope="originScope()"></div>\n  </div>\n</div>\n')}]),angular.module("template/popover/popover.html",[]).run(["$templateCache",function(a){a.put("template/popover/popover.html",'<div class="popover"\n  tooltip-animation-class="fade"\n  tooltip-classes\n  ng-class="{ in: isOpen() }">\n  <div class="arrow"></div>\n\n  <div class="popover-inner">\n      <h3 class="popover-title" ng-bind="title" ng-if="title"></h3>\n      <div class="popover-content" ng-bind="content"></div>\n  </div>\n</div>\n')}]),angular.module("template/progressbar/bar.html",[]).run(["$templateCache",function(a){a.put("template/progressbar/bar.html",'<div class="progress-bar" ng-class="type && \'progress-bar-\' + type" role="progressbar" aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="{{max}}" ng-style="{width: (percent < 100 ? percent : 100) + \'%\'}" aria-valuetext="{{percent | number:0}}%" style="min-width: 0;" ng-transclude></div>\n')}]),angular.module("template/progressbar/progress.html",[]).run(["$templateCache",function(a){a.put("template/progressbar/progress.html",'<div class="progress" ng-transclude></div>')}]),angular.module("template/progressbar/progressbar.html",[]).run(["$templateCache",function(a){a.put("template/progressbar/progressbar.html",'<div class="progress">\n  <div class="progress-bar" ng-class="type && \'progress-bar-\' + type" role="progressbar" aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="{{max}}" ng-style="{width: (percent < 100 ? percent : 100) + \'%\'}" aria-valuetext="{{percent | number:0}}%" style="min-width: 0;" ng-transclude></div>\n</div>\n')}]),angular.module("template/rating/rating.html",[]).run(["$templateCache",function(a){a.put("template/rating/rating.html",'<span ng-mouseleave="reset()" ng-keydown="onKeydown($event)" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="{{range.length}}" aria-valuenow="{{value}}">\n    <span ng-repeat-start="r in range track by $index" class="sr-only">({{ $index < value ? \'*\' : \' \' }})</span>\n    <i ng-repeat-end ng-mouseenter="enter($index + 1)" ng-click="rate($index + 1)" class="glyphicon" ng-class="$index < value && (r.stateOn || \'glyphicon-star\') || (r.stateOff || \'glyphicon-star-empty\')" ng-attr-title="{{r.title}}" ></i>\n</span>\n')}]),angular.module("template/tabs/tab.html",[]).run(["$templateCache",function(a){a.put("template/tabs/tab.html",'<li ng-class="{active: active, disabled: disabled}">\n  <a href ng-click="select()" tab-heading-transclude>{{heading}}</a>\n</li>\n')}]),angular.module("template/tabs/tabset.html",[]).run(["$templateCache",function(a){a.put("template/tabs/tabset.html",'<div>\n  <ul class="nav nav-{{type || \'tabs\'}}" ng-class="{\'nav-stacked\': vertical, \'nav-justified\': justified}" ng-transclude></ul>\n  <div class="tab-content">\n    <div class="tab-pane" \n         ng-repeat="tab in tabs" \n         ng-class="{active: tab.active}"\n         tab-content-transclude="tab">\n    </div>\n  </div>\n</div>\n')}]),angular.module("template/timepicker/timepicker.html",[]).run(["$templateCache",function(a){a.put("template/timepicker/timepicker.html",'<table>\n  <tbody>\n    <tr class="text-center" ng-show="::showSpinners">\n      <td><a ng-click="incrementHours()" ng-class="{disabled: noIncrementHours()}" class="btn btn-link"><span class="glyphicon glyphicon-chevron-up"></span></a></td>\n      <td>&nbsp;</td>\n      <td><a ng-click="incrementMinutes()" ng-class="{disabled: noIncrementMinutes()}" class="btn btn-link"><span class="glyphicon glyphicon-chevron-up"></span></a></td>\n      <td ng-show="showMeridian"></td>\n    </tr>\n    <tr>\n      <td class="form-group" ng-class="{\'has-error\': invalidHours}">\n        <input style="width:50px;" type="text" ng-model="hours" ng-change="updateHours()" class="form-control text-center" ng-readonly="::readonlyInput" maxlength="2">\n      </td>\n      <td>:</td>\n      <td class="form-group" ng-class="{\'has-error\': invalidMinutes}">\n        <input style="width:50px;" type="text" ng-model="minutes" ng-change="updateMinutes()" class="form-control text-center" ng-readonly="::readonlyInput" maxlength="2">\n      </td>\n      <td ng-show="showMeridian"><button type="button" ng-class="{disabled: noToggleMeridian()}" class="btn btn-default text-center" ng-click="toggleMeridian()">{{meridian}}</button></td>\n    </tr>\n    <tr class="text-center" ng-show="::showSpinners">\n      <td><a ng-click="decrementHours()" ng-class="{disabled: noDecrementHours()}" class="btn btn-link"><span class="glyphicon glyphicon-chevron-down"></span></a></td>\n      <td>&nbsp;</td>\n      <td><a ng-click="decrementMinutes()" ng-class="{disabled: noDecrementMinutes()}" class="btn btn-link"><span class="glyphicon glyphicon-chevron-down"></span></a></td>\n      <td ng-show="showMeridian"></td>\n    </tr>\n  </tbody>\n</table>\n')}]),angular.module("template/typeahead/typeahead-match.html",[]).run(["$templateCache",function(a){a.put("template/typeahead/typeahead-match.html",'<a href tabindex="-1" ng-bind-html="match.label | typeaheadHighlight:query"></a>\n')}]),angular.module("template/typeahead/typeahead-popup.html",[]).run(["$templateCache",function(a){a.put("template/typeahead/typeahead-popup.html",'<ul class="dropdown-menu" ng-show="isOpen() && !moveInProgress" ng-style="{top: position().top+\'px\', left: position().left+\'px\'}" style="display: block;" role="listbox" aria-hidden="{{!isOpen()}}">\n    <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">\n        <div typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>\n    </li>\n</ul>\n')}]),!angular.$$csp()&&angular.element(document).find("head").prepend('<style type="text/css">.ng-animate.item:not(.left):not(.right){-webkit-transition:0s ease-in-out left;transition:0s ease-in-out left}</style>');;
 /**
  * State-based routing for AngularJS
- * @version v0.2.15
+ * @version v0.2.18
  * @link http://angular-ui.github.com/
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
-"undefined"!=typeof module&&"undefined"!=typeof exports&&module.exports===exports&&(module.exports="ui.router"),function(a,b,c){"use strict";function d(a,b){return N(new(N(function(){},{prototype:a})),b)}function e(a){return M(arguments,function(b){b!==a&&M(b,function(b,c){a.hasOwnProperty(c)||(a[c]=b)})}),a}function f(a,b){var c=[];for(var d in a.path){if(a.path[d]!==b.path[d])break;c.push(a.path[d])}return c}function g(a){if(Object.keys)return Object.keys(a);var b=[];return M(a,function(a,c){b.push(c)}),b}function h(a,b){if(Array.prototype.indexOf)return a.indexOf(b,Number(arguments[2])||0);var c=a.length>>>0,d=Number(arguments[2])||0;for(d=0>d?Math.ceil(d):Math.floor(d),0>d&&(d+=c);c>d;d++)if(d in a&&a[d]===b)return d;return-1}function i(a,b,c,d){var e,i=f(c,d),j={},k=[];for(var l in i)if(i[l].params&&(e=g(i[l].params),e.length))for(var m in e)h(k,e[m])>=0||(k.push(e[m]),j[e[m]]=a[e[m]]);return N({},j,b)}function j(a,b,c){if(!c){c=[];for(var d in a)c.push(d)}for(var e=0;e<c.length;e++){var f=c[e];if(a[f]!=b[f])return!1}return!0}function k(a,b){var c={};return M(a,function(a){c[a]=b[a]}),c}function l(a){var b={},c=Array.prototype.concat.apply(Array.prototype,Array.prototype.slice.call(arguments,1));return M(c,function(c){c in a&&(b[c]=a[c])}),b}function m(a){var b={},c=Array.prototype.concat.apply(Array.prototype,Array.prototype.slice.call(arguments,1));for(var d in a)-1==h(c,d)&&(b[d]=a[d]);return b}function n(a,b){var c=L(a),d=c?[]:{};return M(a,function(a,e){b(a,e)&&(d[c?d.length:e]=a)}),d}function o(a,b){var c=L(a)?[]:{};return M(a,function(a,d){c[d]=b(a,d)}),c}function p(a,b){var d=1,f=2,i={},j=[],k=i,l=N(a.when(i),{$$promises:i,$$values:i});this.study=function(i){function n(a,c){if(s[c]!==f){if(r.push(c),s[c]===d)throw r.splice(0,h(r,c)),new Error("Cyclic dependency: "+r.join(" -> "));if(s[c]=d,J(a))q.push(c,[function(){return b.get(a)}],j);else{var e=b.annotate(a);M(e,function(a){a!==c&&i.hasOwnProperty(a)&&n(i[a],a)}),q.push(c,a,e)}r.pop(),s[c]=f}}function o(a){return K(a)&&a.then&&a.$$promises}if(!K(i))throw new Error("'invocables' must be an object");var p=g(i||{}),q=[],r=[],s={};return M(i,n),i=r=s=null,function(d,f,g){function h(){--u||(v||e(t,f.$$values),r.$$values=t,r.$$promises=r.$$promises||!0,delete r.$$inheritedValues,n.resolve(t))}function i(a){r.$$failure=a,n.reject(a)}function j(c,e,f){function j(a){l.reject(a),i(a)}function k(){if(!H(r.$$failure))try{l.resolve(b.invoke(e,g,t)),l.promise.then(function(a){t[c]=a,h()},j)}catch(a){j(a)}}var l=a.defer(),m=0;M(f,function(a){s.hasOwnProperty(a)&&!d.hasOwnProperty(a)&&(m++,s[a].then(function(b){t[a]=b,--m||k()},j))}),m||k(),s[c]=l.promise}if(o(d)&&g===c&&(g=f,f=d,d=null),d){if(!K(d))throw new Error("'locals' must be an object")}else d=k;if(f){if(!o(f))throw new Error("'parent' must be a promise returned by $resolve.resolve()")}else f=l;var n=a.defer(),r=n.promise,s=r.$$promises={},t=N({},d),u=1+q.length/3,v=!1;if(H(f.$$failure))return i(f.$$failure),r;f.$$inheritedValues&&e(t,m(f.$$inheritedValues,p)),N(s,f.$$promises),f.$$values?(v=e(t,m(f.$$values,p)),r.$$inheritedValues=m(f.$$values,p),h()):(f.$$inheritedValues&&(r.$$inheritedValues=m(f.$$inheritedValues,p)),f.then(h,i));for(var w=0,x=q.length;x>w;w+=3)d.hasOwnProperty(q[w])?h():j(q[w],q[w+1],q[w+2]);return r}},this.resolve=function(a,b,c,d){return this.study(a)(b,c,d)}}function q(a,b,c){this.fromConfig=function(a,b,c){return H(a.template)?this.fromString(a.template,b):H(a.templateUrl)?this.fromUrl(a.templateUrl,b):H(a.templateProvider)?this.fromProvider(a.templateProvider,b,c):null},this.fromString=function(a,b){return I(a)?a(b):a},this.fromUrl=function(c,d){return I(c)&&(c=c(d)),null==c?null:a.get(c,{cache:b,headers:{Accept:"text/html"}}).then(function(a){return a.data})},this.fromProvider=function(a,b,d){return c.invoke(a,null,d||{params:b})}}function r(a,b,e){function f(b,c,d,e){if(q.push(b),o[b])return o[b];if(!/^\w+(-+\w+)*(?:\[\])?$/.test(b))throw new Error("Invalid parameter name '"+b+"' in pattern '"+a+"'");if(p[b])throw new Error("Duplicate parameter name '"+b+"' in pattern '"+a+"'");return p[b]=new P.Param(b,c,d,e),p[b]}function g(a,b,c,d){var e=["",""],f=a.replace(/[\\\[\]\^$*+?.()|{}]/g,"\\$&");if(!b)return f;switch(c){case!1:e=["(",")"+(d?"?":"")];break;case!0:e=["?(",")?"];break;default:e=["("+c+"|",")?"]}return f+e[0]+b+e[1]}function h(e,f){var g,h,i,j,k;return g=e[2]||e[3],k=b.params[g],i=a.substring(m,e.index),h=f?e[4]:e[4]||("*"==e[1]?".*":null),j=P.type(h||"string")||d(P.type("string"),{pattern:new RegExp(h,b.caseInsensitive?"i":c)}),{id:g,regexp:h,segment:i,type:j,cfg:k}}b=N({params:{}},K(b)?b:{});var i,j=/([:*])([\w\[\]]+)|\{([\w\[\]]+)(?:\:((?:[^{}\\]+|\\.|\{(?:[^{}\\]+|\\.)*\})+))?\}/g,k=/([:]?)([\w\[\]-]+)|\{([\w\[\]-]+)(?:\:((?:[^{}\\]+|\\.|\{(?:[^{}\\]+|\\.)*\})+))?\}/g,l="^",m=0,n=this.segments=[],o=e?e.params:{},p=this.params=e?e.params.$$new():new P.ParamSet,q=[];this.source=a;for(var r,s,t;(i=j.exec(a))&&(r=h(i,!1),!(r.segment.indexOf("?")>=0));)s=f(r.id,r.type,r.cfg,"path"),l+=g(r.segment,s.type.pattern.source,s.squash,s.isOptional),n.push(r.segment),m=j.lastIndex;t=a.substring(m);var u=t.indexOf("?");if(u>=0){var v=this.sourceSearch=t.substring(u);if(t=t.substring(0,u),this.sourcePath=a.substring(0,m+u),v.length>0)for(m=0;i=k.exec(v);)r=h(i,!0),s=f(r.id,r.type,r.cfg,"search"),m=j.lastIndex}else this.sourcePath=a,this.sourceSearch="";l+=g(t)+(b.strict===!1?"/?":"")+"$",n.push(t),this.regexp=new RegExp(l,b.caseInsensitive?"i":c),this.prefix=n[0],this.$$paramNames=q}function s(a){N(this,a)}function t(){function a(a){return null!=a?a.toString().replace(/\//g,"%2F"):a}function e(a){return null!=a?a.toString().replace(/%2F/g,"/"):a}function f(){return{strict:p,caseInsensitive:m}}function i(a){return I(a)||L(a)&&I(a[a.length-1])}function j(){for(;w.length;){var a=w.shift();if(a.pattern)throw new Error("You cannot override a type's .pattern at runtime.");b.extend(u[a.name],l.invoke(a.def))}}function k(a){N(this,a||{})}P=this;var l,m=!1,p=!0,q=!1,u={},v=!0,w=[],x={string:{encode:a,decode:e,is:function(a){return null==a||!H(a)||"string"==typeof a},pattern:/[^/]*/},"int":{encode:a,decode:function(a){return parseInt(a,10)},is:function(a){return H(a)&&this.decode(a.toString())===a},pattern:/\d+/},bool:{encode:function(a){return a?1:0},decode:function(a){return 0!==parseInt(a,10)},is:function(a){return a===!0||a===!1},pattern:/0|1/},date:{encode:function(a){return this.is(a)?[a.getFullYear(),("0"+(a.getMonth()+1)).slice(-2),("0"+a.getDate()).slice(-2)].join("-"):c},decode:function(a){if(this.is(a))return a;var b=this.capture.exec(a);return b?new Date(b[1],b[2]-1,b[3]):c},is:function(a){return a instanceof Date&&!isNaN(a.valueOf())},equals:function(a,b){return this.is(a)&&this.is(b)&&a.toISOString()===b.toISOString()},pattern:/[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2][0-9]|3[0-1])/,capture:/([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])/},json:{encode:b.toJson,decode:b.fromJson,is:b.isObject,equals:b.equals,pattern:/[^/]*/},any:{encode:b.identity,decode:b.identity,equals:b.equals,pattern:/.*/}};t.$$getDefaultValue=function(a){if(!i(a.value))return a.value;if(!l)throw new Error("Injectable functions cannot be called at configuration time");return l.invoke(a.value)},this.caseInsensitive=function(a){return H(a)&&(m=a),m},this.strictMode=function(a){return H(a)&&(p=a),p},this.defaultSquashPolicy=function(a){if(!H(a))return q;if(a!==!0&&a!==!1&&!J(a))throw new Error("Invalid squash policy: "+a+". Valid policies: false, true, arbitrary-string");return q=a,a},this.compile=function(a,b){return new r(a,N(f(),b))},this.isMatcher=function(a){if(!K(a))return!1;var b=!0;return M(r.prototype,function(c,d){I(c)&&(b=b&&H(a[d])&&I(a[d]))}),b},this.type=function(a,b,c){if(!H(b))return u[a];if(u.hasOwnProperty(a))throw new Error("A type named '"+a+"' has already been defined.");return u[a]=new s(N({name:a},b)),c&&(w.push({name:a,def:c}),v||j()),this},M(x,function(a,b){u[b]=new s(N({name:b},a))}),u=d(u,{}),this.$get=["$injector",function(a){return l=a,v=!1,j(),M(x,function(a,b){u[b]||(u[b]=new s(a))}),this}],this.Param=function(a,b,d,e){function f(a){var b=K(a)?g(a):[],c=-1===h(b,"value")&&-1===h(b,"type")&&-1===h(b,"squash")&&-1===h(b,"array");return c&&(a={value:a}),a.$$fn=i(a.value)?a.value:function(){return a.value},a}function j(b,c,d){if(b.type&&c)throw new Error("Param '"+a+"' has two type configurations.");return c?c:b.type?b.type instanceof s?b.type:new s(b.type):"config"===d?u.any:u.string}function k(){var b={array:"search"===e?"auto":!1},c=a.match(/\[\]$/)?{array:!0}:{};return N(b,c,d).array}function m(a,b){var c=a.squash;if(!b||c===!1)return!1;if(!H(c)||null==c)return q;if(c===!0||J(c))return c;throw new Error("Invalid squash policy: '"+c+"'. Valid policies: false, true, or arbitrary string")}function p(a,b,d,e){var f,g,i=[{from:"",to:d||b?c:""},{from:null,to:d||b?c:""}];return f=L(a.replace)?a.replace:[],J(e)&&f.push({from:e,to:c}),g=o(f,function(a){return a.from}),n(i,function(a){return-1===h(g,a.from)}).concat(f)}function r(){if(!l)throw new Error("Injectable functions cannot be called at configuration time");var a=l.invoke(d.$$fn);if(null!==a&&a!==c&&!w.type.is(a))throw new Error("Default value ("+a+") for parameter '"+w.id+"' is not an instance of Type ("+w.type.name+")");return a}function t(a){function b(a){return function(b){return b.from===a}}function c(a){var c=o(n(w.replace,b(a)),function(a){return a.to});return c.length?c[0]:a}return a=c(a),H(a)?w.type.$normalize(a):r()}function v(){return"{Param:"+a+" "+b+" squash: '"+z+"' optional: "+y+"}"}var w=this;d=f(d),b=j(d,b,e);var x=k();b=x?b.$asArray(x,"search"===e):b,"string"!==b.name||x||"path"!==e||d.value!==c||(d.value="");var y=d.value!==c,z=m(d,y),A=p(d,x,y,z);N(this,{id:a,type:b,location:e,array:x,squash:z,replace:A,isOptional:y,value:t,dynamic:c,config:d,toString:v})},k.prototype={$$new:function(){return d(this,N(new k,{$$parent:this}))},$$keys:function(){for(var a=[],b=[],c=this,d=g(k.prototype);c;)b.push(c),c=c.$$parent;return b.reverse(),M(b,function(b){M(g(b),function(b){-1===h(a,b)&&-1===h(d,b)&&a.push(b)})}),a},$$values:function(a){var b={},c=this;return M(c.$$keys(),function(d){b[d]=c[d].value(a&&a[d])}),b},$$equals:function(a,b){var c=!0,d=this;return M(d.$$keys(),function(e){var f=a&&a[e],g=b&&b[e];d[e].type.equals(f,g)||(c=!1)}),c},$$validates:function(a){var d,e,f,g,h,i=this.$$keys();for(d=0;d<i.length&&(e=this[i[d]],f=a[i[d]],f!==c&&null!==f||!e.isOptional);d++){if(g=e.type.$normalize(f),!e.type.is(g))return!1;if(h=e.type.encode(g),b.isString(h)&&!e.type.pattern.exec(h))return!1}return!0},$$parent:c},this.ParamSet=k}function u(a,d){function e(a){var b=/^\^((?:\\[^a-zA-Z0-9]|[^\\\[\]\^$*+?.()|{}]+)*)/.exec(a.source);return null!=b?b[1].replace(/\\(.)/g,"$1"):""}function f(a,b){return a.replace(/\$(\$|\d{1,2})/,function(a,c){return b["$"===c?0:Number(c)]})}function g(a,b,c){if(!c)return!1;var d=a.invoke(b,b,{$match:c});return H(d)?d:!0}function h(d,e,f,g){function h(a,b,c){return"/"===p?a:b?p.slice(0,-1)+a:c?p.slice(1)+a:a}function m(a){function b(a){var b=a(f,d);return b?(J(b)&&d.replace().url(b),!0):!1}if(!a||!a.defaultPrevented){o&&d.url()===o;o=c;var e,g=j.length;for(e=0;g>e;e++)if(b(j[e]))return;k&&b(k)}}function n(){return i=i||e.$on("$locationChangeSuccess",m)}var o,p=g.baseHref(),q=d.url();return l||n(),{sync:function(){m()},listen:function(){return n()},update:function(a){return a?void(q=d.url()):void(d.url()!==q&&(d.url(q),d.replace()))},push:function(a,b,e){var f=a.format(b||{});null!==f&&b&&b["#"]&&(f+="#"+b["#"]),d.url(f),o=e&&e.$$avoidResync?d.url():c,e&&e.replace&&d.replace()},href:function(c,e,f){if(!c.validates(e))return null;var g=a.html5Mode();b.isObject(g)&&(g=g.enabled);var i=c.format(e);if(f=f||{},g||null===i||(i="#"+a.hashPrefix()+i),null!==i&&e&&e["#"]&&(i+="#"+e["#"]),i=h(i,g,f.absolute),!f.absolute||!i)return i;var j=!g&&i?"/":"",k=d.port();return k=80===k||443===k?"":":"+k,[d.protocol(),"://",d.host(),k,j,i].join("")}}}var i,j=[],k=null,l=!1;this.rule=function(a){if(!I(a))throw new Error("'rule' must be a function");return j.push(a),this},this.otherwise=function(a){if(J(a)){var b=a;a=function(){return b}}else if(!I(a))throw new Error("'rule' must be a function");return k=a,this},this.when=function(a,b){var c,h=J(b);if(J(a)&&(a=d.compile(a)),!h&&!I(b)&&!L(b))throw new Error("invalid 'handler' in when()");var i={matcher:function(a,b){return h&&(c=d.compile(b),b=["$match",function(a){return c.format(a)}]),N(function(c,d){return g(c,b,a.exec(d.path(),d.search()))},{prefix:J(a.prefix)?a.prefix:""})},regex:function(a,b){if(a.global||a.sticky)throw new Error("when() RegExp must not be global or sticky");return h&&(c=b,b=["$match",function(a){return f(c,a)}]),N(function(c,d){return g(c,b,a.exec(d.path()))},{prefix:e(a)})}},j={matcher:d.isMatcher(a),regex:a instanceof RegExp};for(var k in j)if(j[k])return this.rule(i[k](a,b));throw new Error("invalid 'what' in when()")},this.deferIntercept=function(a){a===c&&(a=!0),l=a},this.$get=h,h.$inject=["$location","$rootScope","$injector","$browser"]}function v(a,e){function f(a){return 0===a.indexOf(".")||0===a.indexOf("^")}function m(a,b){if(!a)return c;var d=J(a),e=d?a:a.name,g=f(e);if(g){if(!b)throw new Error("No reference point given for path '"+e+"'");b=m(b);for(var h=e.split("."),i=0,j=h.length,k=b;j>i;i++)if(""!==h[i]||0!==i){if("^"!==h[i])break;if(!k.parent)throw new Error("Path '"+e+"' not valid for state '"+b.name+"'");k=k.parent}else k=b;h=h.slice(i).join("."),e=k.name+(k.name&&h?".":"")+h}var l=z[e];return!l||!d&&(d||l!==a&&l.self!==a)?c:l}function n(a,b){A[a]||(A[a]=[]),A[a].push(b)}function p(a){for(var b=A[a]||[];b.length;)q(b.shift())}function q(b){b=d(b,{self:b,resolve:b.resolve||{},toString:function(){return this.name}});var c=b.name;if(!J(c)||c.indexOf("@")>=0)throw new Error("State must have a valid name");if(z.hasOwnProperty(c))throw new Error("State '"+c+"'' is already defined");var e=-1!==c.indexOf(".")?c.substring(0,c.lastIndexOf(".")):J(b.parent)?b.parent:K(b.parent)&&J(b.parent.name)?b.parent.name:"";if(e&&!z[e])return n(e,b.self);for(var f in C)I(C[f])&&(b[f]=C[f](b,C.$delegates[f]));return z[c]=b,!b[B]&&b.url&&a.when(b.url,["$match","$stateParams",function(a,c){y.$current.navigable==b&&j(a,c)||y.transitionTo(b,a,{inherit:!0,location:!1})}]),p(c),b}function r(a){return a.indexOf("*")>-1}function s(a){for(var b=a.split("."),c=y.$current.name.split("."),d=0,e=b.length;e>d;d++)"*"===b[d]&&(c[d]="*");return"**"===b[0]&&(c=c.slice(h(c,b[1])),c.unshift("**")),"**"===b[b.length-1]&&(c.splice(h(c,b[b.length-2])+1,Number.MAX_VALUE),c.push("**")),b.length!=c.length?!1:c.join("")===b.join("")}function t(a,b){return J(a)&&!H(b)?C[a]:I(b)&&J(a)?(C[a]&&!C.$delegates[a]&&(C.$delegates[a]=C[a]),C[a]=b,this):this}function u(a,b){return K(a)?b=a:b.name=a,q(b),this}function v(a,e,f,h,l,n,p,q,t){function u(b,c,d,f){var g=a.$broadcast("$stateNotFound",b,c,d);if(g.defaultPrevented)return p.update(),D;if(!g.retry)return null;if(f.$retry)return p.update(),E;var h=y.transition=e.when(g.retry);return h.then(function(){return h!==y.transition?A:(b.options.$retry=!0,y.transitionTo(b.to,b.toParams,b.options))},function(){return D}),p.update(),h}function v(a,c,d,g,i,j){function m(){var c=[];return M(a.views,function(d,e){var g=d.resolve&&d.resolve!==a.resolve?d.resolve:{};g.$template=[function(){return f.load(e,{view:d,locals:i.globals,params:n,notify:j.notify})||""}],c.push(l.resolve(g,i.globals,i.resolve,a).then(function(c){if(I(d.controllerProvider)||L(d.controllerProvider)){var f=b.extend({},g,i.globals);c.$$controller=h.invoke(d.controllerProvider,null,f)}else c.$$controller=d.controller;c.$$state=a,c.$$controllerAs=d.controllerAs,i[e]=c}))}),e.all(c).then(function(){return i.globals})}var n=d?c:k(a.params.$$keys(),c),o={$stateParams:n};i.resolve=l.resolve(a.resolve,o,i.resolve,a);var p=[i.resolve.then(function(a){i.globals=a})];return g&&p.push(g),e.all(p).then(m).then(function(a){return i})}var A=e.reject(new Error("transition superseded")),C=e.reject(new Error("transition prevented")),D=e.reject(new Error("transition aborted")),E=e.reject(new Error("transition failed"));return x.locals={resolve:null,globals:{$stateParams:{}}},y={params:{},current:x.self,$current:x,transition:null},y.reload=function(a){return y.transitionTo(y.current,n,{reload:a||!0,inherit:!1,notify:!0})},y.go=function(a,b,c){return y.transitionTo(a,b,N({inherit:!0,relative:y.$current},c))},y.transitionTo=function(b,c,f){c=c||{},f=N({location:!0,inherit:!1,relative:null,notify:!0,reload:!1,$retry:!1},f||{});var g,j=y.$current,l=y.params,o=j.path,q=m(b,f.relative),r=c["#"];if(!H(q)){var s={to:b,toParams:c,options:f},t=u(s,j.self,l,f);if(t)return t;if(b=s.to,c=s.toParams,f=s.options,q=m(b,f.relative),!H(q)){if(!f.relative)throw new Error("No such state '"+b+"'");throw new Error("Could not resolve '"+b+"' from state '"+f.relative+"'")}}if(q[B])throw new Error("Cannot transition to abstract state '"+b+"'");if(f.inherit&&(c=i(n,c||{},y.$current,q)),!q.params.$$validates(c))return E;c=q.params.$$values(c),b=q;var z=b.path,D=0,F=z[D],G=x.locals,I=[];if(f.reload){if(J(f.reload)||K(f.reload)){if(K(f.reload)&&!f.reload.name)throw new Error("Invalid reload state object");var L=f.reload===!0?o[0]:m(f.reload);if(f.reload&&!L)throw new Error("No such reload state '"+(J(f.reload)?f.reload:f.reload.name)+"'");for(;F&&F===o[D]&&F!==L;)G=I[D]=F.locals,D++,F=z[D]}}else for(;F&&F===o[D]&&F.ownParams.$$equals(c,l);)G=I[D]=F.locals,D++,F=z[D];if(w(b,c,j,l,G,f))return r&&(c["#"]=r),y.params=c,O(y.params,n),f.location&&b.navigable&&b.navigable.url&&(p.push(b.navigable.url,c,{$$avoidResync:!0,replace:"replace"===f.location}),p.update(!0)),y.transition=null,e.when(y.current);if(c=k(b.params.$$keys(),c||{}),f.notify&&a.$broadcast("$stateChangeStart",b.self,c,j.self,l).defaultPrevented)return a.$broadcast("$stateChangeCancel",b.self,c,j.self,l),p.update(),C;for(var M=e.when(G),P=D;P<z.length;P++,F=z[P])G=I[P]=d(G),M=v(F,c,F===b,M,G,f);var Q=y.transition=M.then(function(){var d,e,g;if(y.transition!==Q)return A;for(d=o.length-1;d>=D;d--)g=o[d],g.self.onExit&&h.invoke(g.self.onExit,g.self,g.locals.globals),g.locals=null;for(d=D;d<z.length;d++)e=z[d],e.locals=I[d],e.self.onEnter&&h.invoke(e.self.onEnter,e.self,e.locals.globals);return r&&(c["#"]=r),y.transition!==Q?A:(y.$current=b,y.current=b.self,y.params=c,O(y.params,n),y.transition=null,f.location&&b.navigable&&p.push(b.navigable.url,b.navigable.locals.globals.$stateParams,{$$avoidResync:!0,replace:"replace"===f.location}),f.notify&&a.$broadcast("$stateChangeSuccess",b.self,c,j.self,l),p.update(!0),y.current)},function(d){return y.transition!==Q?A:(y.transition=null,g=a.$broadcast("$stateChangeError",b.self,c,j.self,l,d),g.defaultPrevented||p.update(),e.reject(d))});return Q},y.is=function(a,b,d){d=N({relative:y.$current},d||{});var e=m(a,d.relative);return H(e)?y.$current!==e?!1:b?j(e.params.$$values(b),n):!0:c},y.includes=function(a,b,d){if(d=N({relative:y.$current},d||{}),J(a)&&r(a)){if(!s(a))return!1;a=y.$current.name}var e=m(a,d.relative);return H(e)?H(y.$current.includes[e.name])?b?j(e.params.$$values(b),n,g(b)):!0:!1:c},y.href=function(a,b,d){d=N({lossy:!0,inherit:!0,absolute:!1,relative:y.$current},d||{});var e=m(a,d.relative);if(!H(e))return null;d.inherit&&(b=i(n,b||{},y.$current,e));var f=e&&d.lossy?e.navigable:e;return f&&f.url!==c&&null!==f.url?p.href(f.url,k(e.params.$$keys().concat("#"),b||{}),{absolute:d.absolute}):null},y.get=function(a,b){if(0===arguments.length)return o(g(z),function(a){return z[a].self});var c=m(a,b||y.$current);return c&&c.self?c.self:null},y}function w(a,b,c,d,e,f){function g(a,b,c){function d(b){return"search"!=a.params[b].location}var e=a.params.$$keys().filter(d),f=l.apply({},[a.params].concat(e)),g=new P.ParamSet(f);return g.$$equals(b,c)}return!f.reload&&a===c&&(e===c.locals||a.self.reloadOnSearch===!1&&g(c,d,b))?!0:void 0}var x,y,z={},A={},B="abstract",C={parent:function(a){if(H(a.parent)&&a.parent)return m(a.parent);var b=/^(.+)\.[^.]+$/.exec(a.name);return b?m(b[1]):x},data:function(a){return a.parent&&a.parent.data&&(a.data=a.self.data=N({},a.parent.data,a.data)),a.data},url:function(a){var b=a.url,c={params:a.params||{}};if(J(b))return"^"==b.charAt(0)?e.compile(b.substring(1),c):(a.parent.navigable||x).url.concat(b,c);if(!b||e.isMatcher(b))return b;throw new Error("Invalid url '"+b+"' in state '"+a+"'")},navigable:function(a){return a.url?a:a.parent?a.parent.navigable:null},ownParams:function(a){var b=a.url&&a.url.params||new P.ParamSet;return M(a.params||{},function(a,c){b[c]||(b[c]=new P.Param(c,null,a,"config"))}),b},params:function(a){return a.parent&&a.parent.params?N(a.parent.params.$$new(),a.ownParams):new P.ParamSet},views:function(a){var b={};return M(H(a.views)?a.views:{"":a},function(c,d){d.indexOf("@")<0&&(d+="@"+a.parent.name),b[d]=c}),b},path:function(a){return a.parent?a.parent.path.concat(a):[]},includes:function(a){var b=a.parent?N({},a.parent.includes):{};return b[a.name]=!0,b},$delegates:{}};x=q({name:"",url:"^",views:null,"abstract":!0}),x.navigable=null,this.decorator=t,this.state=u,this.$get=v,v.$inject=["$rootScope","$q","$view","$injector","$resolve","$stateParams","$urlRouter","$location","$urlMatcherFactory"]}function w(){function a(a,b){return{load:function(c,d){var e,f={template:null,controller:null,view:null,locals:null,notify:!0,async:!0,params:{}};return d=N(f,d),d.view&&(e=b.fromConfig(d.view,d.params,d.locals)),e&&d.notify&&a.$broadcast("$viewContentLoading",d),e}}}this.$get=a,a.$inject=["$rootScope","$templateFactory"]}function x(){var a=!1;this.useAnchorScroll=function(){a=!0},this.$get=["$anchorScroll","$timeout",function(b,c){return a?b:function(a){return c(function(){a[0].scrollIntoView()},0,!1)}}]}function y(a,c,d,e){function f(){return c.has?function(a){return c.has(a)?c.get(a):null}:function(a){try{return c.get(a)}catch(b){return null}}}function g(a,b){var c=function(){return{enter:function(a,b,c){b.after(a),c()},leave:function(a,b){a.remove(),b()}}};if(j)return{enter:function(a,b,c){var d=j.enter(a,null,b,c);d&&d.then&&d.then(c)},leave:function(a,b){var c=j.leave(a,b);c&&c.then&&c.then(b)}};if(i){var d=i&&i(b,a);return{enter:function(a,b,c){d.enter(a,null,b),c()},leave:function(a,b){d.leave(a),b()}}}return c()}var h=f(),i=h("$animator"),j=h("$animate"),k={restrict:"ECA",terminal:!0,priority:400,transclude:"element",compile:function(c,f,h){return function(c,f,i){function j(){l&&(l.remove(),l=null),n&&(n.$destroy(),n=null),m&&(r.leave(m,function(){l=null}),l=m,m=null)}function k(g){var k,l=A(c,i,f,e),s=l&&a.$current&&a.$current.locals[l];if(g||s!==o){k=c.$new(),o=a.$current.locals[l];var t=h(k,function(a){r.enter(a,f,function(){n&&n.$emit("$viewContentAnimationEnded"),(b.isDefined(q)&&!q||c.$eval(q))&&d(a)}),j()});m=t,n=k,n.$emit("$viewContentLoaded"),n.$eval(p)}}var l,m,n,o,p=i.onload||"",q=i.autoscroll,r=g(i,c);c.$on("$stateChangeSuccess",function(){k(!1)}),c.$on("$viewContentLoading",function(){k(!1)}),k(!0)}}};return k}function z(a,b,c,d){return{restrict:"ECA",priority:-400,compile:function(e){var f=e.html();return function(e,g,h){var i=c.$current,j=A(e,h,g,d),k=i&&i.locals[j];if(k){g.data("$uiView",{name:j,state:k.$$state}),g.html(k.$template?k.$template:f);var l=a(g.contents());if(k.$$controller){k.$scope=e,k.$element=g;var m=b(k.$$controller,k);k.$$controllerAs&&(e[k.$$controllerAs]=m),g.data("$ngControllerController",m),g.children().data("$ngControllerController",m)}l(e)}}}}}function A(a,b,c,d){var e=d(b.uiView||b.name||"")(a),f=c.inheritedData("$uiView");return e.indexOf("@")>=0?e:e+"@"+(f?f.state.name:"")}function B(a,b){var c,d=a.match(/^\s*({[^}]*})\s*$/);if(d&&(a=b+"("+d[1]+")"),c=a.replace(/\n/g," ").match(/^([^(]+?)\s*(\((.*)\))?$/),!c||4!==c.length)throw new Error("Invalid state ref '"+a+"'");return{state:c[1],paramExpr:c[3]||null}}function C(a){var b=a.parent().inheritedData("$uiView");return b&&b.state&&b.state.name?b.state:void 0}function D(a,c){var d=["location","inherit","reload","absolute"];return{restrict:"A",require:["?^uiSrefActive","?^uiSrefActiveEq"],link:function(e,f,g,h){var i=B(g.uiSref,a.current.name),j=null,k=C(f)||a.$current,l="[object SVGAnimatedString]"===Object.prototype.toString.call(f.prop("href"))?"xlink:href":"href",m=null,n="A"===f.prop("tagName").toUpperCase(),o="FORM"===f[0].nodeName,p=o?"action":l,q=!0,r={relative:k,inherit:!0},s=e.$eval(g.uiSrefOpts)||{};b.forEach(d,function(a){a in s&&(r[a]=s[a])});var t=function(c){if(c&&(j=b.copy(c)),q){m=a.href(i.state,j,r);var d=h[1]||h[0];return d&&d.$$addStateInfo(i.state,j),null===m?(q=!1,!1):void g.$set(p,m)}};i.paramExpr&&(e.$watch(i.paramExpr,function(a,b){a!==j&&t(a)},!0),j=b.copy(e.$eval(i.paramExpr))),t(),o||f.bind("click",function(b){var d=b.which||b.button;if(!(d>1||b.ctrlKey||b.metaKey||b.shiftKey||f.attr("target"))){var e=c(function(){a.go(i.state,j,r)});b.preventDefault();var g=n&&!m?1:0;b.preventDefault=function(){g--<=0&&c.cancel(e)}}})}}}function E(a,b,c){return{restrict:"A",controller:["$scope","$element","$attrs",function(b,d,e){function f(){g()?d.addClass(i):d.removeClass(i)}function g(){for(var a=0;a<j.length;a++)if(h(j[a].state,j[a].params))return!0;return!1}function h(b,c){return"undefined"!=typeof e.uiSrefActiveEq?a.is(b.name,c):a.includes(b.name,c)}var i,j=[];i=c(e.uiSrefActiveEq||e.uiSrefActive||"",!1)(b),this.$$addStateInfo=function(b,c){var e=a.get(b,C(d));j.push({state:e||{name:b},params:c}),f()},b.$on("$stateChangeSuccess",f)}]}}function F(a){var b=function(b){return a.is(b)};return b.$stateful=!0,b}function G(a){var b=function(b){return a.includes(b)};return b.$stateful=!0,b}var H=b.isDefined,I=b.isFunction,J=b.isString,K=b.isObject,L=b.isArray,M=b.forEach,N=b.extend,O=b.copy;b.module("ui.router.util",["ng"]),b.module("ui.router.router",["ui.router.util"]),b.module("ui.router.state",["ui.router.router","ui.router.util"]),b.module("ui.router",["ui.router.state"]),b.module("ui.router.compat",["ui.router"]),p.$inject=["$q","$injector"],b.module("ui.router.util").service("$resolve",p),q.$inject=["$http","$templateCache","$injector"],b.module("ui.router.util").service("$templateFactory",q);var P;r.prototype.concat=function(a,b){var c={caseInsensitive:P.caseInsensitive(),strict:P.strictMode(),squash:P.defaultSquashPolicy()};return new r(this.sourcePath+a+this.sourceSearch,N(c,b),this)},r.prototype.toString=function(){return this.source},r.prototype.exec=function(a,b){function c(a){function b(a){return a.split("").reverse().join("")}function c(a){return a.replace(/\\-/g,"-")}var d=b(a).split(/-(?!\\)/),e=o(d,b);return o(e,c).reverse()}var d=this.regexp.exec(a);if(!d)return null;b=b||{};var e,f,g,h=this.parameters(),i=h.length,j=this.segments.length-1,k={};if(j!==d.length-1)throw new Error("Unbalanced capture group in route '"+this.source+"'");for(e=0;j>e;e++){g=h[e];var l=this.params[g],m=d[e+1];for(f=0;f<l.replace;f++)l.replace[f].from===m&&(m=l.replace[f].to);m&&l.array===!0&&(m=c(m)),k[g]=l.value(m)}for(;i>e;e++)g=h[e],k[g]=this.params[g].value(b[g]);return k},r.prototype.parameters=function(a){return H(a)?this.params[a]||null:this.$$paramNames},r.prototype.validates=function(a){return this.params.$$validates(a)},r.prototype.format=function(a){function b(a){return encodeURIComponent(a).replace(/-/g,function(a){return"%5C%"+a.charCodeAt(0).toString(16).toUpperCase()})}a=a||{};var c=this.segments,d=this.parameters(),e=this.params;if(!this.validates(a))return null;var f,g=!1,h=c.length-1,i=d.length,j=c[0];for(f=0;i>f;f++){var k=h>f,l=d[f],m=e[l],n=m.value(a[l]),p=m.isOptional&&m.type.equals(m.value(),n),q=p?m.squash:!1,r=m.type.encode(n);if(k){var s=c[f+1];if(q===!1)null!=r&&(j+=L(r)?o(r,b).join("-"):encodeURIComponent(r)),j+=s;else if(q===!0){var t=j.match(/\/$/)?/\/?(.*)/:/(.*)/;j+=s.match(t)[1]}else J(q)&&(j+=q+s)}else{if(null==r||p&&q!==!1)continue;L(r)||(r=[r]),r=o(r,encodeURIComponent).join("&"+l+"="),j+=(g?"&":"?")+(l+"="+r),g=!0}}return j},s.prototype.is=function(a,b){return!0},s.prototype.encode=function(a,b){return a},s.prototype.decode=function(a,b){return a},s.prototype.equals=function(a,b){return a==b},s.prototype.$subPattern=function(){var a=this.pattern.toString();return a.substr(1,a.length-2)},s.prototype.pattern=/.*/,s.prototype.toString=function(){return"{Type:"+this.name+"}"},s.prototype.$normalize=function(a){return this.is(a)?a:this.decode(a)},s.prototype.$asArray=function(a,b){function d(a,b){function d(a,b){return function(){return a[b].apply(a,arguments)}}function e(a){return L(a)?a:H(a)?[a]:[]}function f(a){switch(a.length){case 0:return c;case 1:return"auto"===b?a[0]:a;default:return a}}function g(a){return!a}function h(a,b){return function(c){c=e(c);var d=o(c,a);return b===!0?0===n(d,g).length:f(d)}}function i(a){return function(b,c){var d=e(b),f=e(c);if(d.length!==f.length)return!1;for(var g=0;g<d.length;g++)if(!a(d[g],f[g]))return!1;return!0}}this.encode=h(d(a,"encode")),this.decode=h(d(a,"decode")),this.is=h(d(a,"is"),!0),this.equals=i(d(a,"equals")),this.pattern=a.pattern,this.$normalize=h(d(a,"$normalize")),this.name=a.name,this.$arrayMode=b}if(!a)return this;if("auto"===a&&!b)throw new Error("'auto' array mode is for query parameters only");return new d(this,a)},b.module("ui.router.util").provider("$urlMatcherFactory",t),b.module("ui.router.util").run(["$urlMatcherFactory",function(a){}]),u.$inject=["$locationProvider","$urlMatcherFactoryProvider"],b.module("ui.router.router").provider("$urlRouter",u),v.$inject=["$urlRouterProvider","$urlMatcherFactoryProvider"],b.module("ui.router.state").value("$stateParams",{}).provider("$state",v),w.$inject=[],b.module("ui.router.state").provider("$view",w),b.module("ui.router.state").provider("$uiViewScroll",x),y.$inject=["$state","$injector","$uiViewScroll","$interpolate"],z.$inject=["$compile","$controller","$state","$interpolate"],b.module("ui.router.state").directive("uiView",y),b.module("ui.router.state").directive("uiView",z),D.$inject=["$state","$timeout"],E.$inject=["$state","$stateParams","$interpolate"],b.module("ui.router.state").directive("uiSref",D).directive("uiSrefActive",E).directive("uiSrefActiveEq",E),F.$inject=["$state"],G.$inject=["$state"],b.module("ui.router.state").filter("isState",F).filter("includedByState",G)}(window,window.angular);;
+"undefined"!=typeof module&&"undefined"!=typeof exports&&module.exports===exports&&(module.exports="ui.router"),function(a,b,c){"use strict";function d(a,b){return R(new(R(function(){},{prototype:a})),b)}function e(a){return Q(arguments,function(b){b!==a&&Q(b,function(b,c){a.hasOwnProperty(c)||(a[c]=b)})}),a}function f(a,b){var c=[];for(var d in a.path){if(a.path[d]!==b.path[d])break;c.push(a.path[d])}return c}function g(a){if(Object.keys)return Object.keys(a);var b=[];return Q(a,function(a,c){b.push(c)}),b}function h(a,b){if(Array.prototype.indexOf)return a.indexOf(b,Number(arguments[2])||0);var c=a.length>>>0,d=Number(arguments[2])||0;for(d=0>d?Math.ceil(d):Math.floor(d),0>d&&(d+=c);c>d;d++)if(d in a&&a[d]===b)return d;return-1}function i(a,b,c,d){var e,i=f(c,d),j={},k=[];for(var l in i)if(i[l]&&i[l].params&&(e=g(i[l].params),e.length))for(var m in e)h(k,e[m])>=0||(k.push(e[m]),j[e[m]]=a[e[m]]);return R({},j,b)}function j(a,b,c){if(!c){c=[];for(var d in a)c.push(d)}for(var e=0;e<c.length;e++){var f=c[e];if(a[f]!=b[f])return!1}return!0}function k(a,b){var c={};return Q(a,function(a){c[a]=b[a]}),c}function l(a){var b={},c=Array.prototype.concat.apply(Array.prototype,Array.prototype.slice.call(arguments,1));return Q(c,function(c){c in a&&(b[c]=a[c])}),b}function m(a){var b={},c=Array.prototype.concat.apply(Array.prototype,Array.prototype.slice.call(arguments,1));for(var d in a)-1==h(c,d)&&(b[d]=a[d]);return b}function n(a,b){var c=P(a),d=c?[]:{};return Q(a,function(a,e){b(a,e)&&(d[c?d.length:e]=a)}),d}function o(a,b){var c=P(a)?[]:{};return Q(a,function(a,d){c[d]=b(a,d)}),c}function p(a,b){var d=1,f=2,i={},j=[],k=i,l=R(a.when(i),{$$promises:i,$$values:i});this.study=function(i){function n(a,c){if(s[c]!==f){if(r.push(c),s[c]===d)throw r.splice(0,h(r,c)),new Error("Cyclic dependency: "+r.join(" -> "));if(s[c]=d,N(a))q.push(c,[function(){return b.get(a)}],j);else{var e=b.annotate(a);Q(e,function(a){a!==c&&i.hasOwnProperty(a)&&n(i[a],a)}),q.push(c,a,e)}r.pop(),s[c]=f}}function o(a){return O(a)&&a.then&&a.$$promises}if(!O(i))throw new Error("'invocables' must be an object");var p=g(i||{}),q=[],r=[],s={};return Q(i,n),i=r=s=null,function(d,f,g){function h(){--u||(v||e(t,f.$$values),r.$$values=t,r.$$promises=r.$$promises||!0,delete r.$$inheritedValues,n.resolve(t))}function i(a){r.$$failure=a,n.reject(a)}function j(c,e,f){function j(a){l.reject(a),i(a)}function k(){if(!L(r.$$failure))try{l.resolve(b.invoke(e,g,t)),l.promise.then(function(a){t[c]=a,h()},j)}catch(a){j(a)}}var l=a.defer(),m=0;Q(f,function(a){s.hasOwnProperty(a)&&!d.hasOwnProperty(a)&&(m++,s[a].then(function(b){t[a]=b,--m||k()},j))}),m||k(),s[c]=l.promise}if(o(d)&&g===c&&(g=f,f=d,d=null),d){if(!O(d))throw new Error("'locals' must be an object")}else d=k;if(f){if(!o(f))throw new Error("'parent' must be a promise returned by $resolve.resolve()")}else f=l;var n=a.defer(),r=n.promise,s=r.$$promises={},t=R({},d),u=1+q.length/3,v=!1;if(L(f.$$failure))return i(f.$$failure),r;f.$$inheritedValues&&e(t,m(f.$$inheritedValues,p)),R(s,f.$$promises),f.$$values?(v=e(t,m(f.$$values,p)),r.$$inheritedValues=m(f.$$values,p),h()):(f.$$inheritedValues&&(r.$$inheritedValues=m(f.$$inheritedValues,p)),f.then(h,i));for(var w=0,x=q.length;x>w;w+=3)d.hasOwnProperty(q[w])?h():j(q[w],q[w+1],q[w+2]);return r}},this.resolve=function(a,b,c,d){return this.study(a)(b,c,d)}}function q(a,b,c){this.fromConfig=function(a,b,c){return L(a.template)?this.fromString(a.template,b):L(a.templateUrl)?this.fromUrl(a.templateUrl,b):L(a.templateProvider)?this.fromProvider(a.templateProvider,b,c):null},this.fromString=function(a,b){return M(a)?a(b):a},this.fromUrl=function(c,d){return M(c)&&(c=c(d)),null==c?null:a.get(c,{cache:b,headers:{Accept:"text/html"}}).then(function(a){return a.data})},this.fromProvider=function(a,b,d){return c.invoke(a,null,d||{params:b})}}function r(a,b,e){function f(b,c,d,e){if(q.push(b),o[b])return o[b];if(!/^\w+([-.]+\w+)*(?:\[\])?$/.test(b))throw new Error("Invalid parameter name '"+b+"' in pattern '"+a+"'");if(p[b])throw new Error("Duplicate parameter name '"+b+"' in pattern '"+a+"'");return p[b]=new U.Param(b,c,d,e),p[b]}function g(a,b,c,d){var e=["",""],f=a.replace(/[\\\[\]\^$*+?.()|{}]/g,"\\$&");if(!b)return f;switch(c){case!1:e=["(",")"+(d?"?":"")];break;case!0:f=f.replace(/\/$/,""),e=["(?:/(",")|/)?"];break;default:e=["("+c+"|",")?"]}return f+e[0]+b+e[1]}function h(e,f){var g,h,i,j,k;return g=e[2]||e[3],k=b.params[g],i=a.substring(m,e.index),h=f?e[4]:e[4]||("*"==e[1]?".*":null),h&&(j=U.type(h)||d(U.type("string"),{pattern:new RegExp(h,b.caseInsensitive?"i":c)})),{id:g,regexp:h,segment:i,type:j,cfg:k}}b=R({params:{}},O(b)?b:{});var i,j=/([:*])([\w\[\]]+)|\{([\w\[\]]+)(?:\:\s*((?:[^{}\\]+|\\.|\{(?:[^{}\\]+|\\.)*\})+))?\}/g,k=/([:]?)([\w\[\].-]+)|\{([\w\[\].-]+)(?:\:\s*((?:[^{}\\]+|\\.|\{(?:[^{}\\]+|\\.)*\})+))?\}/g,l="^",m=0,n=this.segments=[],o=e?e.params:{},p=this.params=e?e.params.$$new():new U.ParamSet,q=[];this.source=a;for(var r,s,t;(i=j.exec(a))&&(r=h(i,!1),!(r.segment.indexOf("?")>=0));)s=f(r.id,r.type,r.cfg,"path"),l+=g(r.segment,s.type.pattern.source,s.squash,s.isOptional),n.push(r.segment),m=j.lastIndex;t=a.substring(m);var u=t.indexOf("?");if(u>=0){var v=this.sourceSearch=t.substring(u);if(t=t.substring(0,u),this.sourcePath=a.substring(0,m+u),v.length>0)for(m=0;i=k.exec(v);)r=h(i,!0),s=f(r.id,r.type,r.cfg,"search"),m=j.lastIndex}else this.sourcePath=a,this.sourceSearch="";l+=g(t)+(b.strict===!1?"/?":"")+"$",n.push(t),this.regexp=new RegExp(l,b.caseInsensitive?"i":c),this.prefix=n[0],this.$$paramNames=q}function s(a){R(this,a)}function t(){function a(a){return null!=a?a.toString().replace(/~/g,"~~").replace(/\//g,"~2F"):a}function e(a){return null!=a?a.toString().replace(/~2F/g,"/").replace(/~~/g,"~"):a}function f(){return{strict:p,caseInsensitive:m}}function i(a){return M(a)||P(a)&&M(a[a.length-1])}function j(){for(;w.length;){var a=w.shift();if(a.pattern)throw new Error("You cannot override a type's .pattern at runtime.");b.extend(u[a.name],l.invoke(a.def))}}function k(a){R(this,a||{})}U=this;var l,m=!1,p=!0,q=!1,u={},v=!0,w=[],x={string:{encode:a,decode:e,is:function(a){return null==a||!L(a)||"string"==typeof a},pattern:/[^\/]*/},"int":{encode:a,decode:function(a){return parseInt(a,10)},is:function(a){return L(a)&&this.decode(a.toString())===a},pattern:/\d+/},bool:{encode:function(a){return a?1:0},decode:function(a){return 0!==parseInt(a,10)},is:function(a){return a===!0||a===!1},pattern:/0|1/},date:{encode:function(a){return this.is(a)?[a.getFullYear(),("0"+(a.getMonth()+1)).slice(-2),("0"+a.getDate()).slice(-2)].join("-"):c},decode:function(a){if(this.is(a))return a;var b=this.capture.exec(a);return b?new Date(b[1],b[2]-1,b[3]):c},is:function(a){return a instanceof Date&&!isNaN(a.valueOf())},equals:function(a,b){return this.is(a)&&this.is(b)&&a.toISOString()===b.toISOString()},pattern:/[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2][0-9]|3[0-1])/,capture:/([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])/},json:{encode:b.toJson,decode:b.fromJson,is:b.isObject,equals:b.equals,pattern:/[^\/]*/},any:{encode:b.identity,decode:b.identity,equals:b.equals,pattern:/.*/}};t.$$getDefaultValue=function(a){if(!i(a.value))return a.value;if(!l)throw new Error("Injectable functions cannot be called at configuration time");return l.invoke(a.value)},this.caseInsensitive=function(a){return L(a)&&(m=a),m},this.strictMode=function(a){return L(a)&&(p=a),p},this.defaultSquashPolicy=function(a){if(!L(a))return q;if(a!==!0&&a!==!1&&!N(a))throw new Error("Invalid squash policy: "+a+". Valid policies: false, true, arbitrary-string");return q=a,a},this.compile=function(a,b){return new r(a,R(f(),b))},this.isMatcher=function(a){if(!O(a))return!1;var b=!0;return Q(r.prototype,function(c,d){M(c)&&(b=b&&L(a[d])&&M(a[d]))}),b},this.type=function(a,b,c){if(!L(b))return u[a];if(u.hasOwnProperty(a))throw new Error("A type named '"+a+"' has already been defined.");return u[a]=new s(R({name:a},b)),c&&(w.push({name:a,def:c}),v||j()),this},Q(x,function(a,b){u[b]=new s(R({name:b},a))}),u=d(u,{}),this.$get=["$injector",function(a){return l=a,v=!1,j(),Q(x,function(a,b){u[b]||(u[b]=new s(a))}),this}],this.Param=function(a,d,e,f){function j(a){var b=O(a)?g(a):[],c=-1===h(b,"value")&&-1===h(b,"type")&&-1===h(b,"squash")&&-1===h(b,"array");return c&&(a={value:a}),a.$$fn=i(a.value)?a.value:function(){return a.value},a}function k(c,d,e){if(c.type&&d)throw new Error("Param '"+a+"' has two type configurations.");return d?d:c.type?b.isString(c.type)?u[c.type]:c.type instanceof s?c.type:new s(c.type):"config"===e?u.any:u.string}function m(){var b={array:"search"===f?"auto":!1},c=a.match(/\[\]$/)?{array:!0}:{};return R(b,c,e).array}function p(a,b){var c=a.squash;if(!b||c===!1)return!1;if(!L(c)||null==c)return q;if(c===!0||N(c))return c;throw new Error("Invalid squash policy: '"+c+"'. Valid policies: false, true, or arbitrary string")}function r(a,b,d,e){var f,g,i=[{from:"",to:d||b?c:""},{from:null,to:d||b?c:""}];return f=P(a.replace)?a.replace:[],N(e)&&f.push({from:e,to:c}),g=o(f,function(a){return a.from}),n(i,function(a){return-1===h(g,a.from)}).concat(f)}function t(){if(!l)throw new Error("Injectable functions cannot be called at configuration time");var a=l.invoke(e.$$fn);if(null!==a&&a!==c&&!x.type.is(a))throw new Error("Default value ("+a+") for parameter '"+x.id+"' is not an instance of Type ("+x.type.name+")");return a}function v(a){function b(a){return function(b){return b.from===a}}function c(a){var c=o(n(x.replace,b(a)),function(a){return a.to});return c.length?c[0]:a}return a=c(a),L(a)?x.type.$normalize(a):t()}function w(){return"{Param:"+a+" "+d+" squash: '"+A+"' optional: "+z+"}"}var x=this;e=j(e),d=k(e,d,f);var y=m();d=y?d.$asArray(y,"search"===f):d,"string"!==d.name||y||"path"!==f||e.value!==c||(e.value="");var z=e.value!==c,A=p(e,z),B=r(e,y,z,A);R(this,{id:a,type:d,location:f,array:y,squash:A,replace:B,isOptional:z,value:v,dynamic:c,config:e,toString:w})},k.prototype={$$new:function(){return d(this,R(new k,{$$parent:this}))},$$keys:function(){for(var a=[],b=[],c=this,d=g(k.prototype);c;)b.push(c),c=c.$$parent;return b.reverse(),Q(b,function(b){Q(g(b),function(b){-1===h(a,b)&&-1===h(d,b)&&a.push(b)})}),a},$$values:function(a){var b={},c=this;return Q(c.$$keys(),function(d){b[d]=c[d].value(a&&a[d])}),b},$$equals:function(a,b){var c=!0,d=this;return Q(d.$$keys(),function(e){var f=a&&a[e],g=b&&b[e];d[e].type.equals(f,g)||(c=!1)}),c},$$validates:function(a){var d,e,f,g,h,i=this.$$keys();for(d=0;d<i.length&&(e=this[i[d]],f=a[i[d]],f!==c&&null!==f||!e.isOptional);d++){if(g=e.type.$normalize(f),!e.type.is(g))return!1;if(h=e.type.encode(g),b.isString(h)&&!e.type.pattern.exec(h))return!1}return!0},$$parent:c},this.ParamSet=k}function u(a,d){function e(a){var b=/^\^((?:\\[^a-zA-Z0-9]|[^\\\[\]\^$*+?.()|{}]+)*)/.exec(a.source);return null!=b?b[1].replace(/\\(.)/g,"$1"):""}function f(a,b){return a.replace(/\$(\$|\d{1,2})/,function(a,c){return b["$"===c?0:Number(c)]})}function g(a,b,c){if(!c)return!1;var d=a.invoke(b,b,{$match:c});return L(d)?d:!0}function h(d,e,f,g,h){function m(a,b,c){return"/"===q?a:b?q.slice(0,-1)+a:c?q.slice(1)+a:a}function n(a){function b(a){var b=a(f,d);return b?(N(b)&&d.replace().url(b),!0):!1}if(!a||!a.defaultPrevented){p&&d.url()===p;p=c;var e,g=j.length;for(e=0;g>e;e++)if(b(j[e]))return;k&&b(k)}}function o(){return i=i||e.$on("$locationChangeSuccess",n)}var p,q=g.baseHref(),r=d.url();return l||o(),{sync:function(){n()},listen:function(){return o()},update:function(a){return a?void(r=d.url()):void(d.url()!==r&&(d.url(r),d.replace()))},push:function(a,b,e){var f=a.format(b||{});null!==f&&b&&b["#"]&&(f+="#"+b["#"]),d.url(f),p=e&&e.$$avoidResync?d.url():c,e&&e.replace&&d.replace()},href:function(c,e,f){if(!c.validates(e))return null;var g=a.html5Mode();b.isObject(g)&&(g=g.enabled),g=g&&h.history;var i=c.format(e);if(f=f||{},g||null===i||(i="#"+a.hashPrefix()+i),null!==i&&e&&e["#"]&&(i+="#"+e["#"]),i=m(i,g,f.absolute),!f.absolute||!i)return i;var j=!g&&i?"/":"",k=d.port();return k=80===k||443===k?"":":"+k,[d.protocol(),"://",d.host(),k,j,i].join("")}}}var i,j=[],k=null,l=!1;this.rule=function(a){if(!M(a))throw new Error("'rule' must be a function");return j.push(a),this},this.otherwise=function(a){if(N(a)){var b=a;a=function(){return b}}else if(!M(a))throw new Error("'rule' must be a function");return k=a,this},this.when=function(a,b){var c,h=N(b);if(N(a)&&(a=d.compile(a)),!h&&!M(b)&&!P(b))throw new Error("invalid 'handler' in when()");var i={matcher:function(a,b){return h&&(c=d.compile(b),b=["$match",function(a){return c.format(a)}]),R(function(c,d){return g(c,b,a.exec(d.path(),d.search()))},{prefix:N(a.prefix)?a.prefix:""})},regex:function(a,b){if(a.global||a.sticky)throw new Error("when() RegExp must not be global or sticky");return h&&(c=b,b=["$match",function(a){return f(c,a)}]),R(function(c,d){return g(c,b,a.exec(d.path()))},{prefix:e(a)})}},j={matcher:d.isMatcher(a),regex:a instanceof RegExp};for(var k in j)if(j[k])return this.rule(i[k](a,b));throw new Error("invalid 'what' in when()")},this.deferIntercept=function(a){a===c&&(a=!0),l=a},this.$get=h,h.$inject=["$location","$rootScope","$injector","$browser","$sniffer"]}function v(a,e){function f(a){return 0===a.indexOf(".")||0===a.indexOf("^")}function m(a,b){if(!a)return c;var d=N(a),e=d?a:a.name,g=f(e);if(g){if(!b)throw new Error("No reference point given for path '"+e+"'");b=m(b);for(var h=e.split("."),i=0,j=h.length,k=b;j>i;i++)if(""!==h[i]||0!==i){if("^"!==h[i])break;if(!k.parent)throw new Error("Path '"+e+"' not valid for state '"+b.name+"'");k=k.parent}else k=b;h=h.slice(i).join("."),e=k.name+(k.name&&h?".":"")+h}var l=z[e];return!l||!d&&(d||l!==a&&l.self!==a)?c:l}function n(a,b){A[a]||(A[a]=[]),A[a].push(b)}function p(a){for(var b=A[a]||[];b.length;)q(b.shift())}function q(b){b=d(b,{self:b,resolve:b.resolve||{},toString:function(){return this.name}});var c=b.name;if(!N(c)||c.indexOf("@")>=0)throw new Error("State must have a valid name");if(z.hasOwnProperty(c))throw new Error("State '"+c+"' is already defined");var e=-1!==c.indexOf(".")?c.substring(0,c.lastIndexOf(".")):N(b.parent)?b.parent:O(b.parent)&&N(b.parent.name)?b.parent.name:"";if(e&&!z[e])return n(e,b.self);for(var f in C)M(C[f])&&(b[f]=C[f](b,C.$delegates[f]));return z[c]=b,!b[B]&&b.url&&a.when(b.url,["$match","$stateParams",function(a,c){y.$current.navigable==b&&j(a,c)||y.transitionTo(b,a,{inherit:!0,location:!1})}]),p(c),b}function r(a){return a.indexOf("*")>-1}function s(a){for(var b=a.split("."),c=y.$current.name.split("."),d=0,e=b.length;e>d;d++)"*"===b[d]&&(c[d]="*");return"**"===b[0]&&(c=c.slice(h(c,b[1])),c.unshift("**")),"**"===b[b.length-1]&&(c.splice(h(c,b[b.length-2])+1,Number.MAX_VALUE),c.push("**")),b.length!=c.length?!1:c.join("")===b.join("")}function t(a,b){return N(a)&&!L(b)?C[a]:M(b)&&N(a)?(C[a]&&!C.$delegates[a]&&(C.$delegates[a]=C[a]),C[a]=b,this):this}function u(a,b){return O(a)?b=a:b.name=a,q(b),this}function v(a,e,f,h,l,n,p,q,t){function u(b,c,d,f){var g=a.$broadcast("$stateNotFound",b,c,d);if(g.defaultPrevented)return p.update(),D;if(!g.retry)return null;if(f.$retry)return p.update(),E;var h=y.transition=e.when(g.retry);return h.then(function(){return h!==y.transition?A:(b.options.$retry=!0,y.transitionTo(b.to,b.toParams,b.options))},function(){return D}),p.update(),h}function v(a,c,d,g,i,j){function m(){var c=[];return Q(a.views,function(d,e){var g=d.resolve&&d.resolve!==a.resolve?d.resolve:{};g.$template=[function(){return f.load(e,{view:d,locals:i.globals,params:n,notify:j.notify})||""}],c.push(l.resolve(g,i.globals,i.resolve,a).then(function(c){if(M(d.controllerProvider)||P(d.controllerProvider)){var f=b.extend({},g,i.globals);c.$$controller=h.invoke(d.controllerProvider,null,f)}else c.$$controller=d.controller;c.$$state=a,c.$$controllerAs=d.controllerAs,i[e]=c}))}),e.all(c).then(function(){return i.globals})}var n=d?c:k(a.params.$$keys(),c),o={$stateParams:n};i.resolve=l.resolve(a.resolve,o,i.resolve,a);var p=[i.resolve.then(function(a){i.globals=a})];return g&&p.push(g),e.all(p).then(m).then(function(a){return i})}var A=e.reject(new Error("transition superseded")),C=e.reject(new Error("transition prevented")),D=e.reject(new Error("transition aborted")),E=e.reject(new Error("transition failed"));return x.locals={resolve:null,globals:{$stateParams:{}}},y={params:{},current:x.self,$current:x,transition:null},y.reload=function(a){return y.transitionTo(y.current,n,{reload:a||!0,inherit:!1,notify:!0})},y.go=function(a,b,c){return y.transitionTo(a,b,R({inherit:!0,relative:y.$current},c))},y.transitionTo=function(b,c,f){c=c||{},f=R({location:!0,inherit:!1,relative:null,notify:!0,reload:!1,$retry:!1},f||{});var g,j=y.$current,l=y.params,o=j.path,q=m(b,f.relative),r=c["#"];if(!L(q)){var s={to:b,toParams:c,options:f},t=u(s,j.self,l,f);if(t)return t;if(b=s.to,c=s.toParams,f=s.options,q=m(b,f.relative),!L(q)){if(!f.relative)throw new Error("No such state '"+b+"'");throw new Error("Could not resolve '"+b+"' from state '"+f.relative+"'")}}if(q[B])throw new Error("Cannot transition to abstract state '"+b+"'");if(f.inherit&&(c=i(n,c||{},y.$current,q)),!q.params.$$validates(c))return E;c=q.params.$$values(c),b=q;var z=b.path,D=0,F=z[D],G=x.locals,H=[];if(f.reload){if(N(f.reload)||O(f.reload)){if(O(f.reload)&&!f.reload.name)throw new Error("Invalid reload state object");var I=f.reload===!0?o[0]:m(f.reload);if(f.reload&&!I)throw new Error("No such reload state '"+(N(f.reload)?f.reload:f.reload.name)+"'");for(;F&&F===o[D]&&F!==I;)G=H[D]=F.locals,D++,F=z[D]}}else for(;F&&F===o[D]&&F.ownParams.$$equals(c,l);)G=H[D]=F.locals,D++,F=z[D];if(w(b,c,j,l,G,f))return r&&(c["#"]=r),y.params=c,S(y.params,n),S(k(b.params.$$keys(),n),b.locals.globals.$stateParams),f.location&&b.navigable&&b.navigable.url&&(p.push(b.navigable.url,c,{$$avoidResync:!0,replace:"replace"===f.location}),p.update(!0)),y.transition=null,e.when(y.current);if(c=k(b.params.$$keys(),c||{}),r&&(c["#"]=r),f.notify&&a.$broadcast("$stateChangeStart",b.self,c,j.self,l,f).defaultPrevented)return a.$broadcast("$stateChangeCancel",b.self,c,j.self,l),null==y.transition&&p.update(),C;for(var J=e.when(G),K=D;K<z.length;K++,F=z[K])G=H[K]=d(G),J=v(F,c,F===b,J,G,f);var M=y.transition=J.then(function(){var d,e,g;if(y.transition!==M)return A;for(d=o.length-1;d>=D;d--)g=o[d],g.self.onExit&&h.invoke(g.self.onExit,g.self,g.locals.globals),g.locals=null;for(d=D;d<z.length;d++)e=z[d],e.locals=H[d],e.self.onEnter&&h.invoke(e.self.onEnter,e.self,e.locals.globals);return y.transition!==M?A:(y.$current=b,y.current=b.self,y.params=c,S(y.params,n),y.transition=null,f.location&&b.navigable&&p.push(b.navigable.url,b.navigable.locals.globals.$stateParams,{$$avoidResync:!0,replace:"replace"===f.location}),f.notify&&a.$broadcast("$stateChangeSuccess",b.self,c,j.self,l),p.update(!0),y.current)},function(d){return y.transition!==M?A:(y.transition=null,g=a.$broadcast("$stateChangeError",b.self,c,j.self,l,d),g.defaultPrevented||p.update(),e.reject(d))});return M},y.is=function(a,b,d){d=R({relative:y.$current},d||{});var e=m(a,d.relative);return L(e)?y.$current!==e?!1:b?j(e.params.$$values(b),n):!0:c},y.includes=function(a,b,d){if(d=R({relative:y.$current},d||{}),N(a)&&r(a)){if(!s(a))return!1;a=y.$current.name}var e=m(a,d.relative);return L(e)?L(y.$current.includes[e.name])?b?j(e.params.$$values(b),n,g(b)):!0:!1:c},y.href=function(a,b,d){d=R({lossy:!0,inherit:!0,absolute:!1,relative:y.$current},d||{});var e=m(a,d.relative);if(!L(e))return null;d.inherit&&(b=i(n,b||{},y.$current,e));var f=e&&d.lossy?e.navigable:e;return f&&f.url!==c&&null!==f.url?p.href(f.url,k(e.params.$$keys().concat("#"),b||{}),{absolute:d.absolute}):null},y.get=function(a,b){if(0===arguments.length)return o(g(z),function(a){return z[a].self});var c=m(a,b||y.$current);return c&&c.self?c.self:null},y}function w(a,b,c,d,e,f){function g(a,b,c){function d(b){return"search"!=a.params[b].location}var e=a.params.$$keys().filter(d),f=l.apply({},[a.params].concat(e)),g=new U.ParamSet(f);return g.$$equals(b,c)}return!f.reload&&a===c&&(e===c.locals||a.self.reloadOnSearch===!1&&g(c,d,b))?!0:void 0}var x,y,z={},A={},B="abstract",C={parent:function(a){if(L(a.parent)&&a.parent)return m(a.parent);var b=/^(.+)\.[^.]+$/.exec(a.name);return b?m(b[1]):x},data:function(a){return a.parent&&a.parent.data&&(a.data=a.self.data=d(a.parent.data,a.data)),a.data},url:function(a){var b=a.url,c={params:a.params||{}};if(N(b))return"^"==b.charAt(0)?e.compile(b.substring(1),c):(a.parent.navigable||x).url.concat(b,c);if(!b||e.isMatcher(b))return b;throw new Error("Invalid url '"+b+"' in state '"+a+"'")},navigable:function(a){return a.url?a:a.parent?a.parent.navigable:null},ownParams:function(a){var b=a.url&&a.url.params||new U.ParamSet;return Q(a.params||{},function(a,c){b[c]||(b[c]=new U.Param(c,null,a,"config"))}),b},params:function(a){var b=l(a.ownParams,a.ownParams.$$keys());return a.parent&&a.parent.params?R(a.parent.params.$$new(),b):new U.ParamSet},views:function(a){var b={};return Q(L(a.views)?a.views:{"":a},function(c,d){d.indexOf("@")<0&&(d+="@"+a.parent.name),b[d]=c}),b},path:function(a){return a.parent?a.parent.path.concat(a):[]},includes:function(a){var b=a.parent?R({},a.parent.includes):{};return b[a.name]=!0,b},$delegates:{}};x=q({name:"",url:"^",views:null,"abstract":!0}),x.navigable=null,this.decorator=t,this.state=u,this.$get=v,v.$inject=["$rootScope","$q","$view","$injector","$resolve","$stateParams","$urlRouter","$location","$urlMatcherFactory"]}function w(){function a(a,b){return{load:function(a,c){var d,e={template:null,controller:null,view:null,locals:null,notify:!0,async:!0,params:{}};return c=R(e,c),c.view&&(d=b.fromConfig(c.view,c.params,c.locals)),d}}}this.$get=a,a.$inject=["$rootScope","$templateFactory"]}function x(){var a=!1;this.useAnchorScroll=function(){a=!0},this.$get=["$anchorScroll","$timeout",function(b,c){return a?b:function(a){return c(function(){a[0].scrollIntoView()},0,!1)}}]}function y(a,c,d,e){function f(){return c.has?function(a){return c.has(a)?c.get(a):null}:function(a){try{return c.get(a)}catch(b){return null}}}function g(a,c){function d(a){return 1===V&&W>=4?!!j.enabled(a):1===V&&W>=2?!!j.enabled():!!i}var e={enter:function(a,b,c){b.after(a),c()},leave:function(a,b){a.remove(),b()}};if(a.noanimation)return e;if(j)return{enter:function(a,c,f){d(a)?b.version.minor>2?j.enter(a,null,c).then(f):j.enter(a,null,c,f):e.enter(a,c,f)},leave:function(a,c){d(a)?b.version.minor>2?j.leave(a).then(c):j.leave(a,c):e.leave(a,c)}};if(i){var f=i&&i(c,a);return{enter:function(a,b,c){f.enter(a,null,b),c()},leave:function(a,b){f.leave(a),b()}}}return e}var h=f(),i=h("$animator"),j=h("$animate"),k={restrict:"ECA",terminal:!0,priority:400,transclude:"element",compile:function(c,f,h){return function(c,f,i){function j(){function a(){b&&b.remove(),c&&c.$destroy()}var b=l,c=n;c&&(c._willBeDestroyed=!0),m?(r.leave(m,function(){a(),l=null}),l=m):(a(),l=null),m=null,n=null}function k(g){var k,l=A(c,i,f,e),s=l&&a.$current&&a.$current.locals[l];if((g||s!==o)&&!c._willBeDestroyed){k=c.$new(),o=a.$current.locals[l],k.$emit("$viewContentLoading",l);var t=h(k,function(a){r.enter(a,f,function(){n&&n.$emit("$viewContentAnimationEnded"),(b.isDefined(q)&&!q||c.$eval(q))&&d(a)}),j()});m=t,n=k,n.$emit("$viewContentLoaded",l),n.$eval(p)}}var l,m,n,o,p=i.onload||"",q=i.autoscroll,r=g(i,c);c.$on("$stateChangeSuccess",function(){k(!1)}),k(!0)}}};return k}function z(a,b,c,d){return{restrict:"ECA",priority:-400,compile:function(e){var f=e.html();return function(e,g,h){var i=c.$current,j=A(e,h,g,d),k=i&&i.locals[j];if(k){g.data("$uiView",{name:j,state:k.$$state}),g.html(k.$template?k.$template:f);var l=a(g.contents());if(k.$$controller){k.$scope=e,k.$element=g;var m=b(k.$$controller,k);k.$$controllerAs&&(e[k.$$controllerAs]=m),g.data("$ngControllerController",m),g.children().data("$ngControllerController",m)}l(e)}}}}}function A(a,b,c,d){var e=d(b.uiView||b.name||"")(a),f=c.inheritedData("$uiView");return e.indexOf("@")>=0?e:e+"@"+(f?f.state.name:"")}function B(a,b){var c,d=a.match(/^\s*({[^}]*})\s*$/);if(d&&(a=b+"("+d[1]+")"),c=a.replace(/\n/g," ").match(/^([^(]+?)\s*(\((.*)\))?$/),!c||4!==c.length)throw new Error("Invalid state ref '"+a+"'");return{state:c[1],paramExpr:c[3]||null}}function C(a){var b=a.parent().inheritedData("$uiView");return b&&b.state&&b.state.name?b.state:void 0}function D(a){var b="[object SVGAnimatedString]"===Object.prototype.toString.call(a.prop("href")),c="FORM"===a[0].nodeName;return{attr:c?"action":b?"xlink:href":"href",isAnchor:"A"===a.prop("tagName").toUpperCase(),clickable:!c}}function E(a,b,c,d,e){return function(f){var g=f.which||f.button,h=e();if(!(g>1||f.ctrlKey||f.metaKey||f.shiftKey||a.attr("target"))){var i=c(function(){b.go(h.state,h.params,h.options)});f.preventDefault();var j=d.isAnchor&&!h.href?1:0;f.preventDefault=function(){j--<=0&&c.cancel(i)}}}}function F(a,b){return{relative:C(a)||b.$current,inherit:!0}}function G(a,c){return{restrict:"A",require:["?^uiSrefActive","?^uiSrefActiveEq"],link:function(d,e,f,g){var h=B(f.uiSref,a.current.name),i={state:h.state,href:null,params:null},j=D(e),k=g[1]||g[0];i.options=R(F(e,a),f.uiSrefOpts?d.$eval(f.uiSrefOpts):{});var l=function(c){c&&(i.params=b.copy(c)),i.href=a.href(h.state,i.params,i.options),k&&k.$$addStateInfo(h.state,i.params),null!==i.href&&f.$set(j.attr,i.href)};h.paramExpr&&(d.$watch(h.paramExpr,function(a){a!==i.params&&l(a)},!0),i.params=b.copy(d.$eval(h.paramExpr))),l(),j.clickable&&e.bind("click",E(e,a,c,j,function(){return i}))}}}function H(a,b){return{restrict:"A",require:["?^uiSrefActive","?^uiSrefActiveEq"],link:function(c,d,e,f){function g(b){l.state=b[0],l.params=b[1],l.options=b[2],l.href=a.href(l.state,l.params,l.options),i&&i.$$addStateInfo(l.state,l.params),l.href&&e.$set(h.attr,l.href)}var h=D(d),i=f[1]||f[0],j=[e.uiState,e.uiStateParams||null,e.uiStateOpts||null],k="["+j.map(function(a){return a||"null"}).join(", ")+"]",l={state:null,params:null,options:null,href:null};c.$watch(k,g,!0),g(c.$eval(k)),h.clickable&&d.bind("click",E(d,a,b,h,function(){return l}))}}}function I(a,b,c){return{restrict:"A",controller:["$scope","$element","$attrs","$timeout",function(b,d,e,f){function g(b,c,e){var f=a.get(b,C(d)),g=h(b,c);p.push({state:f||{name:b},params:c,hash:g}),q[g]=e}function h(a,c){if(!N(a))throw new Error("state should be a string");return O(c)?a+T(c):(c=b.$eval(c),O(c)?a+T(c):a)}function i(){for(var a=0;a<p.length;a++)l(p[a].state,p[a].params)?j(d,q[p[a].hash]):k(d,q[p[a].hash]),m(p[a].state,p[a].params)?j(d,n):k(d,n)}function j(a,b){f(function(){a.addClass(b)})}function k(a,b){a.removeClass(b)}function l(b,c){return a.includes(b.name,c)}function m(b,c){return a.is(b.name,c)}var n,o,p=[],q={};n=c(e.uiSrefActiveEq||"",!1)(b);try{o=b.$eval(e.uiSrefActive)}catch(r){}o=o||c(e.uiSrefActive||"",!1)(b),O(o)&&Q(o,function(c,d){if(N(c)){var e=B(c,a.current.name);g(e.state,b.$eval(e.paramExpr),d)}}),this.$$addStateInfo=function(a,b){O(o)&&p.length>0||(g(a,b,o),i())},b.$on("$stateChangeSuccess",i),i()}]}}function J(a){var b=function(b,c){return a.is(b,c)};return b.$stateful=!0,b}function K(a){var b=function(b,c,d){return a.includes(b,c,d)};return b.$stateful=!0,b}var L=b.isDefined,M=b.isFunction,N=b.isString,O=b.isObject,P=b.isArray,Q=b.forEach,R=b.extend,S=b.copy,T=b.toJson;b.module("ui.router.util",["ng"]),b.module("ui.router.router",["ui.router.util"]),b.module("ui.router.state",["ui.router.router","ui.router.util"]),b.module("ui.router",["ui.router.state"]),b.module("ui.router.compat",["ui.router"]),p.$inject=["$q","$injector"],b.module("ui.router.util").service("$resolve",p),q.$inject=["$http","$templateCache","$injector"],b.module("ui.router.util").service("$templateFactory",q);var U;r.prototype.concat=function(a,b){var c={caseInsensitive:U.caseInsensitive(),strict:U.strictMode(),squash:U.defaultSquashPolicy()};return new r(this.sourcePath+a+this.sourceSearch,R(c,b),this)},r.prototype.toString=function(){return this.source},r.prototype.exec=function(a,b){function c(a){function b(a){return a.split("").reverse().join("")}function c(a){return a.replace(/\\-/g,"-")}var d=b(a).split(/-(?!\\)/),e=o(d,b);return o(e,c).reverse()}var d=this.regexp.exec(a);if(!d)return null;b=b||{};var e,f,g,h=this.parameters(),i=h.length,j=this.segments.length-1,k={};if(j!==d.length-1)throw new Error("Unbalanced capture group in route '"+this.source+"'");var l,m;for(e=0;j>e;e++){for(g=h[e],l=this.params[g],m=d[e+1],f=0;f<l.replace.length;f++)l.replace[f].from===m&&(m=l.replace[f].to);m&&l.array===!0&&(m=c(m)),L(m)&&(m=l.type.decode(m)),k[g]=l.value(m)}for(;i>e;e++){for(g=h[e],k[g]=this.params[g].value(b[g]),l=this.params[g],m=b[g],f=0;f<l.replace.length;f++)l.replace[f].from===m&&(m=l.replace[f].to);L(m)&&(m=l.type.decode(m)),k[g]=l.value(m)}return k},r.prototype.parameters=function(a){return L(a)?this.params[a]||null:this.$$paramNames},r.prototype.validates=function(a){return this.params.$$validates(a)},r.prototype.format=function(a){function b(a){return encodeURIComponent(a).replace(/-/g,function(a){return"%5C%"+a.charCodeAt(0).toString(16).toUpperCase()})}a=a||{};var c=this.segments,d=this.parameters(),e=this.params;if(!this.validates(a))return null;var f,g=!1,h=c.length-1,i=d.length,j=c[0];for(f=0;i>f;f++){var k=h>f,l=d[f],m=e[l],n=m.value(a[l]),p=m.isOptional&&m.type.equals(m.value(),n),q=p?m.squash:!1,r=m.type.encode(n);if(k){var s=c[f+1],t=f+1===h;if(q===!1)null!=r&&(j+=P(r)?o(r,b).join("-"):encodeURIComponent(r)),j+=s;else if(q===!0){var u=j.match(/\/$/)?/\/?(.*)/:/(.*)/;j+=s.match(u)[1]}else N(q)&&(j+=q+s);t&&m.squash===!0&&"/"===j.slice(-1)&&(j=j.slice(0,-1))}else{if(null==r||p&&q!==!1)continue;if(P(r)||(r=[r]),0===r.length)continue;r=o(r,encodeURIComponent).join("&"+l+"="),j+=(g?"&":"?")+(l+"="+r),g=!0}}return j},s.prototype.is=function(a,b){return!0},s.prototype.encode=function(a,b){return a},s.prototype.decode=function(a,b){return a},s.prototype.equals=function(a,b){return a==b},s.prototype.$subPattern=function(){var a=this.pattern.toString();return a.substr(1,a.length-2)},s.prototype.pattern=/.*/,s.prototype.toString=function(){return"{Type:"+this.name+"}"},s.prototype.$normalize=function(a){return this.is(a)?a:this.decode(a)},s.prototype.$asArray=function(a,b){function d(a,b){function d(a,b){return function(){return a[b].apply(a,arguments)}}function e(a){return P(a)?a:L(a)?[a]:[]}function f(a){switch(a.length){case 0:return c;case 1:return"auto"===b?a[0]:a;default:return a}}function g(a){return!a}function h(a,b){return function(c){if(P(c)&&0===c.length)return c;c=e(c);var d=o(c,a);return b===!0?0===n(d,g).length:f(d)}}function i(a){return function(b,c){var d=e(b),f=e(c);if(d.length!==f.length)return!1;for(var g=0;g<d.length;g++)if(!a(d[g],f[g]))return!1;return!0}}this.encode=h(d(a,"encode")),this.decode=h(d(a,"decode")),this.is=h(d(a,"is"),!0),this.equals=i(d(a,"equals")),this.pattern=a.pattern,this.$normalize=h(d(a,"$normalize")),this.name=a.name,this.$arrayMode=b}if(!a)return this;if("auto"===a&&!b)throw new Error("'auto' array mode is for query parameters only");return new d(this,a)},b.module("ui.router.util").provider("$urlMatcherFactory",t),b.module("ui.router.util").run(["$urlMatcherFactory",function(a){}]),u.$inject=["$locationProvider","$urlMatcherFactoryProvider"],b.module("ui.router.router").provider("$urlRouter",u),v.$inject=["$urlRouterProvider","$urlMatcherFactoryProvider"],b.module("ui.router.state").factory("$stateParams",function(){return{}}).provider("$state",v),w.$inject=[],b.module("ui.router.state").provider("$view",w),b.module("ui.router.state").provider("$uiViewScroll",x);var V=b.version.major,W=b.version.minor;y.$inject=["$state","$injector","$uiViewScroll","$interpolate"],z.$inject=["$compile","$controller","$state","$interpolate"],b.module("ui.router.state").directive("uiView",y),b.module("ui.router.state").directive("uiView",z),G.$inject=["$state","$timeout"],H.$inject=["$state","$timeout"],I.$inject=["$state","$stateParams","$interpolate"],b.module("ui.router.state").directive("uiSref",G).directive("uiSrefActive",I).directive("uiSrefActiveEq",I).directive("uiState",H),
+J.$inject=["$state"],K.$inject=["$state"],b.module("ui.router.state").filter("isState",J).filter("includedByState",K)}(window,window.angular);;
 /*! 
  * angular-loading-bar v0.8.0
  * https://chieffancypants.github.io/angular-loading-bar
@@ -2987,8 +3000,8 @@ i&&d.unbind(i,j),h.reject("Transition cancelled")},h.promise},h=document.createE
  * License: MIT
  */
 !function(){"use strict";angular.module("angular-loading-bar",["cfp.loadingBarInterceptor"]),angular.module("chieffancypants.loadingBar",["cfp.loadingBarInterceptor"]),angular.module("cfp.loadingBarInterceptor",["cfp.loadingBar"]).config(["$httpProvider",function(a){var b=["$q","$cacheFactory","$timeout","$rootScope","$log","cfpLoadingBar",function(b,c,d,e,f,g){function h(){d.cancel(j),g.complete(),l=0,k=0}function i(b){var d,e=c.get("$http"),f=a.defaults;!b.cache&&!f.cache||b.cache===!1||"GET"!==b.method&&"JSONP"!==b.method||(d=angular.isObject(b.cache)?b.cache:angular.isObject(f.cache)?f.cache:e);var g=void 0!==d?void 0!==d.get(b.url):!1;return void 0!==b.cached&&g!==b.cached?b.cached:(b.cached=g,g)}var j,k=0,l=0,m=g.latencyThreshold;return{request:function(a){return a.ignoreLoadingBar||i(a)||(e.$broadcast("cfpLoadingBar:loading",{url:a.url}),0===k&&(j=d(function(){g.start()},m)),k++,g.set(l/k)),a},response:function(a){return a&&a.config?(a.config.ignoreLoadingBar||i(a.config)||(l++,e.$broadcast("cfpLoadingBar:loaded",{url:a.config.url,result:a}),l>=k?h():g.set(l/k)),a):(f.error("Broken interceptor detected: Config object not supplied in response:\n https://github.com/chieffancypants/angular-loading-bar/pull/50"),a)},responseError:function(a){return a&&a.config?(a.config.ignoreLoadingBar||i(a.config)||(l++,e.$broadcast("cfpLoadingBar:loaded",{url:a.config.url,result:a}),l>=k?h():g.set(l/k)),b.reject(a)):(f.error("Broken interceptor detected: Config object not supplied in rejection:\n https://github.com/chieffancypants/angular-loading-bar/pull/50"),b.reject(a))}}}];a.interceptors.push(b)}]),angular.module("cfp.loadingBar",[]).provider("cfpLoadingBar",function(){this.autoIncrement=!0,this.includeSpinner=!0,this.includeBar=!0,this.latencyThreshold=100,this.startSize=.02,this.parentSelector="body",this.spinnerTemplate='<div id="loading-bar-spinner"><div class="spinner-icon"></div></div>',this.loadingBarTemplate='<div id="loading-bar"><div class="bar"><div class="peg"></div></div></div>',this.$get=["$injector","$document","$timeout","$rootScope",function(a,b,c,d){function e(){k||(k=a.get("$animate"));var e=b.find(n).eq(0);c.cancel(m),r||(d.$broadcast("cfpLoadingBar:started"),r=!0,v&&k.enter(o,e,angular.element(e[0].lastChild)),u&&k.enter(q,e,angular.element(e[0].lastChild)),f(w))}function f(a){if(r){var b=100*a+"%";p.css("width",b),s=a,t&&(c.cancel(l),l=c(function(){g()},250))}}function g(){if(!(h()>=1)){var a=0,b=h();a=b>=0&&.25>b?(3*Math.random()+3)/100:b>=.25&&.65>b?3*Math.random()/100:b>=.65&&.9>b?2*Math.random()/100:b>=.9&&.99>b?.005:0;var c=h()+a;f(c)}}function h(){return s}function i(){s=0,r=!1}function j(){k||(k=a.get("$animate")),d.$broadcast("cfpLoadingBar:completed"),f(1),c.cancel(m),m=c(function(){var a=k.leave(o,i);a&&a.then&&a.then(i),k.leave(q)},500)}var k,l,m,n=this.parentSelector,o=angular.element(this.loadingBarTemplate),p=o.find("div").eq(0),q=angular.element(this.spinnerTemplate),r=!1,s=0,t=this.autoIncrement,u=this.includeSpinner,v=this.includeBar,w=this.startSize;return{start:e,set:f,status:h,inc:g,complete:j,autoIncrement:this.autoIncrement,includeSpinner:this.includeSpinner,latencyThreshold:this.latencyThreshold,parentSelector:this.parentSelector,startSize:this.startSize}}]})}();;
-/* ng-infinite-scroll - v1.2.0 - 2015-02-14 */
-var mod;mod=angular.module("infinite-scroll",[]),mod.value("THROTTLE_MILLISECONDS",null),mod.directive("infiniteScroll",["$rootScope","$window","$interval","THROTTLE_MILLISECONDS",function(a,b,c,d){return{scope:{infiniteScroll:"&",infiniteScrollContainer:"=",infiniteScrollDistance:"=",infiniteScrollDisabled:"=",infiniteScrollUseDocumentBottom:"=",infiniteScrollListenForEvent:"@"},link:function(e,f,g){var h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y;return y=angular.element(b),t=null,u=null,i=null,j=null,q=!0,x=!1,w=null,p=function(a){return a=a[0]||a,isNaN(a.offsetHeight)?a.document.documentElement.clientHeight:a.offsetHeight},r=function(a){return a[0].getBoundingClientRect&&!a.css("none")?a[0].getBoundingClientRect().top+s(a):void 0},s=function(a){return a=a[0]||a,isNaN(window.pageYOffset)?a.document.documentElement.scrollTop:a.ownerDocument.defaultView.pageYOffset},o=function(){var b,c,d,g,h;return j===y?(b=p(j)+s(j[0].document.documentElement),d=r(f)+p(f)):(b=p(j),c=0,void 0!==r(j)&&(c=r(j)),d=r(f)-c+p(f)),x&&(d=p((f[0].ownerDocument||f[0].document).documentElement)),g=d-b,h=g<=p(j)*t+1,h?(i=!0,u?e.$$phase||a.$$phase?e.infiniteScroll():e.$apply(e.infiniteScroll):void 0):i=!1},v=function(a,b){var d,e,f;return f=null,e=0,d=function(){var b;return e=(new Date).getTime(),c.cancel(f),f=null,a.call(),b=null},function(){var g,h;return g=(new Date).getTime(),h=b-(g-e),0>=h?(clearTimeout(f),c.cancel(f),f=null,e=g,a.call()):f?void 0:f=c(d,h,1)}},null!=d&&(o=v(o,d)),e.$on("$destroy",function(){return j.unbind("scroll",o),null!=w?(w(),w=null):void 0}),m=function(a){return t=parseFloat(a)||0},e.$watch("infiniteScrollDistance",m),m(e.infiniteScrollDistance),l=function(a){return u=!a,u&&i?(i=!1,o()):void 0},e.$watch("infiniteScrollDisabled",l),l(e.infiniteScrollDisabled),n=function(a){return x=a},e.$watch("infiniteScrollUseDocumentBottom",n),n(e.infiniteScrollUseDocumentBottom),h=function(a){return null!=j&&j.unbind("scroll",o),j=a,null!=a?j.bind("scroll",o):void 0},h(y),e.infiniteScrollListenForEvent&&(w=a.$on(e.infiniteScrollListenForEvent,o)),k=function(a){if(null!=a&&0!==a.length){if(a instanceof HTMLElement?a=angular.element(a):"function"==typeof a.append?a=angular.element(a[a.length-1]):"string"==typeof a&&(a=angular.element(document.querySelector(a))),null!=a)return h(a);throw new Exception("invalid infinite-scroll-container attribute.")}},e.$watch("infiniteScrollContainer",k),k(e.infiniteScrollContainer||[]),null!=g.infiniteScrollParent&&h(angular.element(f.parent())),null!=g.infiniteScrollImmediateCheck&&(q=e.$eval(g.infiniteScrollImmediateCheck)),c(function(){return q?o():void 0},0,1)}}}]);;
+/* ng-infinite-scroll - v1.2.0 - 2015-12-02 */
+var mod;mod=angular.module("infinite-scroll",[]),mod.value("THROTTLE_MILLISECONDS",null),mod.directive("infiniteScroll",["$rootScope","$window","$interval","THROTTLE_MILLISECONDS",function(a,b,c,d){return{scope:{infiniteScroll:"&",infiniteScrollContainer:"=",infiniteScrollDistance:"=",infiniteScrollDisabled:"=",infiniteScrollUseDocumentBottom:"=",infiniteScrollListenForEvent:"@"},link:function(e,f,g){var h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z;return z=angular.element(b),u=null,v=null,j=null,k=null,r=!0,y=!1,x=null,i=!1,q=function(a){return a=a[0]||a,isNaN(a.offsetHeight)?a.document.documentElement.clientHeight:a.offsetHeight},s=function(a){return a[0].getBoundingClientRect&&!a.css("none")?a[0].getBoundingClientRect().top+t(a):void 0},t=function(a){return a=a[0]||a,isNaN(window.pageYOffset)?a.document.documentElement.scrollTop:a.ownerDocument.defaultView.pageYOffset},p=function(){var b,d,g,h,l;return k===z?(b=q(k)+t(k[0].document.documentElement),g=s(f)+q(f)):(b=q(k),d=0,void 0!==s(k)&&(d=s(k)),g=s(f)-d+q(f)),y&&(g=q((f[0].ownerDocument||f[0].document).documentElement)),h=g-b,l=h<=q(k)*u+1,l?(j=!0,v?e.$$phase||a.$$phase?e.infiniteScroll():e.$apply(e.infiniteScroll):void 0):(i&&c.cancel(i),j=!1)},w=function(a,b){var d,e,f;return f=null,e=0,d=function(){var b;return e=(new Date).getTime(),c.cancel(f),f=null,a.call(),b=null},function(){var g,h;return g=(new Date).getTime(),h=b-(g-e),0>=h?(clearTimeout(f),c.cancel(f),f=null,e=g,a.call()):f?void 0:f=c(d,h,1)}},null!=d&&(p=w(p,d)),e.$on("$destroy",function(){return k.unbind("scroll",p),null!=x?(x(),x=null):void 0}),n=function(a){return u=parseFloat(a)||0},e.$watch("infiniteScrollDistance",n),n(e.infiniteScrollDistance),m=function(a){return v=!a,v&&j?(j=!1,p()):void 0},e.$watch("infiniteScrollDisabled",m),m(e.infiniteScrollDisabled),o=function(a){return y=a},e.$watch("infiniteScrollUseDocumentBottom",o),o(e.infiniteScrollUseDocumentBottom),h=function(a){return null!=k&&k.unbind("scroll",p),k=a,null!=a?k.bind("scroll",p):void 0},h(z),e.infiniteScrollListenForEvent&&(x=a.$on(e.infiniteScrollListenForEvent,p)),l=function(a){if(null!=a&&0!==a.length){if(a instanceof HTMLElement?a=angular.element(a):"function"==typeof a.append?a=angular.element(a[a.length-1]):"string"==typeof a&&(a=angular.element(document.querySelector(a))),null!=a)return h(a);throw new Exception("invalid infinite-scroll-container attribute.")}},e.$watch("infiniteScrollContainer",l),l(e.infiniteScrollContainer||[]),null!=g.infiniteScrollParent&&h(angular.element(f.parent())),null!=g.infiniteScrollImmediateCheck&&(r=e.$eval(g.infiniteScrollImmediateCheck)),i=c(function(){return r?p():void 0},0)}}}]);;
 /*
  * AngularJS Toaster
  * Version: 0.4.16
@@ -3001,7 +3014,7 @@ var mod;mod=angular.module("infinite-scroll",[]),mod.value("THROTTLE_MILLISECOND
  * Author: Jiri Kavulak
  * Related to project of John Papa, Hans Fjällemark and Nguyễn Thiện Hùng (thienhung1989)
  */
-!function(){"use strict";angular.module("toaster",[]).constant("toasterConfig",{limit:0,"tap-to-dismiss":!0,"close-button":!1,"newest-on-top":!0,"time-out":5e3,"icon-classes":{error:"toast-error",info:"toast-info",wait:"toast-wait",success:"toast-success",warning:"toast-warning"},"body-output-type":"","body-template":"toasterBodyTmpl.html","icon-class":"toast-info","position-class":"toast-top-right","title-class":"toast-title","message-class":"toast-message","prevent-duplicates":!1,"mouseover-timer-stop":!0}).service("toaster",["$rootScope","toasterConfig",function(t,e){function o(t){return function(e,o,s,i,a,n,r,c,l,u){angular.isString(e)?this.pop(t,e,o,s,i,a,n,r,c,l,u):this.pop(angular.extend(e,{type:t}))}}this.pop=function(e,o,s,i,a,n,r,c,l,u,d){if(angular.isObject(e)){var p=e;this.toast={type:p.type,title:p.title,body:p.body,timeout:p.timeout,bodyOutputType:p.bodyOutputType,clickHandler:p.clickHandler,showCloseButton:p.showCloseButton,uid:p.toastId,onHideCallback:p.onHideCallback,directiveData:p.directiveData},l=p.toastId,r=p.toasterId}else this.toast={type:e,title:o,body:s,timeout:i,bodyOutputType:a,clickHandler:n,showCloseButton:c,uid:l,onHideCallback:u,directiveData:d};t.$emit("toaster-newToast",r,l)},this.clear=function(e,o){t.$emit("toaster-clearToasts",e,o)};for(var s in e["icon-classes"])this[s]=o(s)}]).factory("toasterEventRegistry",["$rootScope",function(t){var e,o=null,s=null,i=[],a=[];return e={setup:function(){o||(o=t.$on("toaster-newToast",function(t,e,o){for(var s=0,a=i.length;a>s;s++)i[s](t,e,o)})),s||(s=t.$on("toaster-clearToasts",function(t,e,o){for(var s=0,i=a.length;i>s;s++)a[s](t,e,o)}))},subscribeToNewToastEvent:function(t){i.push(t)},subscribeToClearToastsEvent:function(t){a.push(t)},unsubscribeToNewToastEvent:function(t){var e=i.indexOf(t);e>=0&&i.splice(e,1),0===i.length&&(o(),o=null)},unsubscribeToClearToastsEvent:function(t){var e=a.indexOf(t);e>=0&&a.splice(e,1),0===a.length&&(s(),s=null)}},{setup:e.setup,subscribeToNewToastEvent:e.subscribeToNewToastEvent,subscribeToClearToastsEvent:e.subscribeToClearToastsEvent,unsubscribeToNewToastEvent:e.unsubscribeToNewToastEvent,unsubscribeToClearToastsEvent:e.unsubscribeToClearToastsEvent}}]).directive("directiveTemplate",["$compile","$injector",function(t,e){return{restrict:"A",scope:{directiveName:"@directiveName",directiveData:"@directiveData"},replace:!0,link:function(o,s,i){o.$watch("directiveName",function(a){if(angular.isUndefined(a)||a.length<=0)throw new Error("A valid directive name must be provided via the toast body argument when using bodyOutputType: directive");var n=e.has(i.$normalize(a)+"Directive");if(!n)throw new Error(a+" could not be found.");o.directiveData&&(o.directiveData=angular.fromJson(o.directiveData));var r=t("<div "+a+"></div>")(o);s.append(r)})}}}]).directive("toasterContainer",["$parse","$rootScope","$interval","$sce","toasterConfig","toaster","toasterEventRegistry",function(t,e,o,s,i,a,n){return{replace:!0,restrict:"EA",scope:!0,link:function(e,r,c){function l(t,s){t.timeoutPromise=o(function(){e.removeToast(t.id)},s,1)}function u(o,i){if(o.type=m["icon-classes"][o.type],o.type||(o.type=m["icon-class"]),m["prevent-duplicates"]===!0)if(v(i)){if(e.toasters.length>0&&e.toasters[e.toasters.length-1].body===o.body)return}else{var a,n;for(a=0,n=e.toasters.length;n>a;a++)e.toasters[a].uid===i&&(d(a),a--,n=e.toasters.length)}o.id=++f,v(i)||(o.uid=i);var r=m["close-button"];if("boolean"==typeof o.showCloseButton);else if("boolean"==typeof r)o.showCloseButton=r;else if("object"==typeof r){var c=r[o.type];"undefined"!=typeof c&&null!==c&&(o.showCloseButton=c)}else o.showCloseButton=!1;switch(o.bodyOutputType=o.bodyOutputType||m["body-output-type"],o.bodyOutputType){case"trustedHtml":o.html=s.trustAsHtml(o.body);break;case"template":o.bodyTemplate=o.body||m["body-template"];break;case"templateWithData":var l=t(o.body||m["body-template"]),u=l(e);o.bodyTemplate=u.template,o.data=u.data;break;case"directive":o.html=o.body}e.configureTimer(o),m["newest-on-top"]===!0?(e.toasters.unshift(o),m.limit>0&&e.toasters.length>m.limit&&e.toasters.pop()):(e.toasters.push(o),m.limit>0&&e.toasters.length>m.limit&&e.toasters.shift())}function d(t){var s=e.toasters[t];s&&(s.timeoutPromise&&o.cancel(s.timeoutPromise),e.toasters.splice(t,1),angular.isFunction(s.onHideCallback)&&s.onHideCallback())}function p(t){for(var o=e.toasters.length-1;o>=0;o--)v(t)?d(o):e.toasters[o].uid==t&&d(o)}function v(t){return angular.isUndefined(t)||null===t}var m,f=0;m=angular.extend({},i,e.$eval(c.toasterOptions)),e.config={toasterId:m["toaster-id"],position:m["position-class"],title:m["title-class"],message:m["message-class"],tap:m["tap-to-dismiss"],closeButton:m["close-button"],animation:m["animation-class"],mouseoverTimer:m["mouseover-timer-stop"]},e.$on("$destroy",function(){n.unsubscribeToNewToastEvent(e._onNewToast),n.unsubscribeToClearToastsEvent(e._onClearToasts)}),e.configureTimer=function(t){var e=angular.isNumber(t.timeout)?t.timeout:m["time-out"];"object"==typeof e&&(e=e[t.type]),e>0&&l(t,e)},e.removeToast=function(t){var o,s;for(o=0,s=e.toasters.length;s>o;o++)if(e.toasters[o].id===t){d(o);break}},e.toasters=[],e._onNewToast=function(t,o,s){(v(e.config.toasterId)&&v(o)||!v(e.config.toasterId)&&!v(o)&&e.config.toasterId==o)&&u(a.toast,s)},e._onClearToasts=function(t,o,s){("*"==o||v(e.config.toasterId)&&v(o)||!v(e.config.toasterId)&&!v(o)&&e.config.toasterId==o)&&p(s)},n.setup(),n.subscribeToNewToastEvent(e._onNewToast),n.subscribeToClearToastsEvent(e._onClearToasts)},controller:["$scope","$element","$attrs",function(t){t.stopTimer=function(e){t.config.mouseoverTimer===!0&&e.timeoutPromise&&(o.cancel(e.timeoutPromise),e.timeoutPromise=null)},t.restartTimer=function(e){t.config.mouseoverTimer===!0?e.timeoutPromise||t.configureTimer(e):null===e.timeoutPromise&&t.removeToast(e.id)},t.click=function(e,o){if(t.config.tap===!0||e.showCloseButton===!0&&o===!0){var s=!0;e.clickHandler&&(angular.isFunction(e.clickHandler)?s=e.clickHandler(e,o):angular.isFunction(t.$parent.$eval(e.clickHandler))?s=t.$parent.$eval(e.clickHandler)(e,o):console.log("TOAST-NOTE: Your click handler is not inside a parent scope of toaster-container.")),s&&t.removeToast(e.id)}}}],template:'<div id="toast-container" ng-class="[config.position, config.animation]"><div ng-repeat="toaster in toasters" class="toast" ng-class="toaster.type" ng-click="click(toaster)" ng-mouseover="stopTimer(toaster)" ng-mouseout="restartTimer(toaster)"><button type="button" class="toast-close-button" ng-show="toaster.showCloseButton" ng-click="click(toaster, true)">&times;</button><div ng-class="config.title">{{toaster.title}}</div><div ng-class="config.message" ng-switch on="toaster.bodyOutputType"><div ng-switch-when="trustedHtml" ng-bind-html="toaster.html"></div><div ng-switch-when="template"><div ng-include="toaster.bodyTemplate"></div></div><div ng-switch-when="templateWithData"><div ng-include="toaster.bodyTemplate"></div></div><div ng-switch-when="directive"><div directive-template directive-name="{{toaster.html}}" directive-data="{{toaster.directiveData}}"></div></div><div ng-switch-default >{{toaster.body}}</div></div></div></div>'}}])}(window,document);;
+!function(){"use strict";angular.module("toaster",[]).constant("toasterConfig",{limit:0,"tap-to-dismiss":!0,"close-button":!1,"close-html":'<button class="toast-close-button" type="button">&times;</button>',"newest-on-top":!0,"time-out":5e3,"icon-classes":{error:"toast-error",info:"toast-info",wait:"toast-wait",success:"toast-success",warning:"toast-warning"},"body-output-type":"","body-template":"toasterBodyTmpl.html","icon-class":"toast-info","position-class":"toast-top-right","title-class":"toast-title","message-class":"toast-message","prevent-duplicates":!1,"mouseover-timer-stop":!0}).service("toaster",["$rootScope","toasterConfig",function(t,e){function o(t){return function(e,o,s,i,n,a,r,c,l){angular.isString(e)?this.pop(t,e,o,s,i,n,a,r,c,l):this.pop(angular.extend(e,{type:t}))}}this.pop=function(e,o,s,i,n,a,r,c,l,u){if(angular.isObject(e)){var d=e;this.toast={type:d.type,title:d.title,body:d.body,timeout:d.timeout,bodyOutputType:d.bodyOutputType,clickHandler:d.clickHandler,showCloseButton:d.showCloseButton,closeHtml:d.closeHtml,uid:d.toastId,onHideCallback:d.onHideCallback,directiveData:d.directiveData},l=d.toastId,r=d.toasterId}else this.toast={type:e,title:o,body:s,timeout:i,bodyOutputType:n,clickHandler:a,showCloseButton:c,uid:l,onHideCallback:u};t.$emit("toaster-newToast",r,l)},this.clear=function(e,o){t.$emit("toaster-clearToasts",e,o)};for(var s in e["icon-classes"])this[s]=o(s)}]).factory("toasterEventRegistry",["$rootScope",function(t){var e,o=null,s=null,i=[],n=[];return e={setup:function(){o||(o=t.$on("toaster-newToast",function(t,e,o){for(var s=0,n=i.length;n>s;s++)i[s](t,e,o)})),s||(s=t.$on("toaster-clearToasts",function(t,e,o){for(var s=0,i=n.length;i>s;s++)n[s](t,e,o)}))},subscribeToNewToastEvent:function(t){i.push(t)},subscribeToClearToastsEvent:function(t){n.push(t)},unsubscribeToNewToastEvent:function(t){var e=i.indexOf(t);e>=0&&i.splice(e,1),0===i.length&&(o(),o=null)},unsubscribeToClearToastsEvent:function(t){var e=n.indexOf(t);e>=0&&n.splice(e,1),0===n.length&&(s(),s=null)}},{setup:e.setup,subscribeToNewToastEvent:e.subscribeToNewToastEvent,subscribeToClearToastsEvent:e.subscribeToClearToastsEvent,unsubscribeToNewToastEvent:e.unsubscribeToNewToastEvent,unsubscribeToClearToastsEvent:e.unsubscribeToClearToastsEvent}}]).directive("directiveTemplate",["$compile","$injector",function(t,e){return{restrict:"A",scope:{directiveName:"@directiveName",directiveData:"@directiveData"},replace:!0,link:function(o,s,i){o.$watch("directiveName",function(n){if(angular.isUndefined(n)||n.length<=0)throw new Error("A valid directive name must be provided via the toast body argument when using bodyOutputType: directive");var a=e.has(i.$normalize(n)+"Directive");if(!a)throw new Error(n+" could not be found.");o.directiveData&&(o.directiveData=angular.fromJson(o.directiveData));var r=t("<div "+n+"></div>")(o);s.append(r)})}}}]).directive("toasterContainer",["$parse","$rootScope","$interval","$sce","toasterConfig","toaster","toasterEventRegistry",function(t,e,o,s,i,n,a){return{replace:!0,restrict:"EA",scope:!0,link:function(e,r,c){function l(t,s){t.timeoutPromise=o(function(){e.removeToast(t.id)},s,1)}function u(o,i){if(o.type=v["icon-classes"][o.type],o.type||(o.type=v["icon-class"]),v["prevent-duplicates"]===!0)if(p(i)){if(e.toasters.length>0&&e.toasters[e.toasters.length-1].body===o.body)return}else{var n,a;for(n=0,a=e.toasters.length;a>n;n++)e.toasters[n].uid===i&&(d(n),n--,a=e.toasters.length)}o.id=++f,p(i)||(o.uid=i);var r=v["close-button"];if("boolean"==typeof o.showCloseButton);else if("boolean"==typeof r)o.showCloseButton=r;else if("object"==typeof r){var c=r[o.type];"undefined"!=typeof c&&null!==c&&(o.showCloseButton=c)}else o.showCloseButton=!1;switch(o.showCloseButton&&(o.closeHtml=s.trustAsHtml(o.closeHtml||e.config.closeHtml)),o.bodyOutputType=o.bodyOutputType||v["body-output-type"],o.bodyOutputType){case"trustedHtml":o.html=s.trustAsHtml(o.body);break;case"template":o.bodyTemplate=o.body||v["body-template"];break;case"templateWithData":var l=t(o.body||v["body-template"]),u=l(e);o.bodyTemplate=u.template,o.data=u.data;break;case"directive":o.html=o.body}e.configureTimer(o),v["newest-on-top"]===!0?(e.toasters.unshift(o),v.limit>0&&e.toasters.length>v.limit&&e.toasters.pop()):(e.toasters.push(o),v.limit>0&&e.toasters.length>v.limit&&e.toasters.shift())}function d(t){var s=e.toasters[t];s&&(s.timeoutPromise&&o.cancel(s.timeoutPromise),e.toasters.splice(t,1),angular.isFunction(s.onHideCallback)&&s.onHideCallback())}function m(t){for(var o=e.toasters.length-1;o>=0;o--)p(t)?d(o):e.toasters[o].uid==t&&d(o)}function p(t){return angular.isUndefined(t)||null===t}var v,f=0;v=angular.extend({},i,e.$eval(c.toasterOptions)),e.config={toasterId:v["toaster-id"],position:v["position-class"],title:v["title-class"],message:v["message-class"],tap:v["tap-to-dismiss"],closeButton:v["close-button"],closeHtml:v["close-html"],animation:v["animation-class"],mouseoverTimer:v["mouseover-timer-stop"]},e.$on("$destroy",function(){a.unsubscribeToNewToastEvent(e._onNewToast),a.unsubscribeToClearToastsEvent(e._onClearToasts)}),e.configureTimer=function(t){var e=angular.isNumber(t.timeout)?t.timeout:v["time-out"];"object"==typeof e&&(e=e[t.type]),e>0&&l(t,e)},e.removeToast=function(t){var o,s;for(o=0,s=e.toasters.length;s>o;o++)if(e.toasters[o].id===t){d(o);break}},e.toasters=[],e._onNewToast=function(t,o,s){(p(e.config.toasterId)&&p(o)||!p(e.config.toasterId)&&!p(o)&&e.config.toasterId==o)&&u(n.toast,s)},e._onClearToasts=function(t,o,s){("*"==o||p(e.config.toasterId)&&p(o)||!p(e.config.toasterId)&&!p(o)&&e.config.toasterId==o)&&m(s)},a.setup(),a.subscribeToNewToastEvent(e._onNewToast),a.subscribeToClearToastsEvent(e._onClearToasts)},controller:["$scope","$element","$attrs",function(t){t.stopTimer=function(e){t.config.mouseoverTimer===!0&&e.timeoutPromise&&(o.cancel(e.timeoutPromise),e.timeoutPromise=null)},t.restartTimer=function(e){t.config.mouseoverTimer===!0?e.timeoutPromise||t.configureTimer(e):null===e.timeoutPromise&&t.removeToast(e.id)},t.click=function(e,o){if(t.config.tap===!0||e.showCloseButton===!0&&o===!0){var s=!0;e.clickHandler&&(angular.isFunction(e.clickHandler)?s=e.clickHandler(e,o):angular.isFunction(t.$parent.$eval(e.clickHandler))?s=t.$parent.$eval(e.clickHandler)(e,o):console.log("TOAST-NOTE: Your click handler is not inside a parent scope of toaster-container.")),s&&t.removeToast(e.id)}}}],template:'<div id="toast-container" ng-class="[config.position, config.animation]"><div ng-repeat="toaster in toasters" class="toast" ng-class="toaster.type" ng-click="click(toaster)" ng-mouseover="stopTimer(toaster)" ng-mouseout="restartTimer(toaster)"><div ng-if="toaster.showCloseButton" ng-click="click(toaster, true)" ng-bind-html="toaster.closeHtml"></div><div ng-class="config.title">{{toaster.title}}</div><div ng-class="config.message" ng-switch on="toaster.bodyOutputType"><div ng-switch-when="trustedHtml" ng-bind-html="toaster.html"></div><div ng-switch-when="template"><div ng-include="toaster.bodyTemplate"></div></div><div ng-switch-when="templateWithData"><div ng-include="toaster.bodyTemplate"></div></div><div ng-switch-when="directive"><div directive-template directive-name="{{toaster.html}}" directive-data="{{toaster.directiveData}}"></div></div><div ng-switch-default >{{toaster.body}}</div></div></div></div>'}}])}(window,document);;
 !function(a,b){"use strict";angular.module("valdr",["ng"]).constant("valdrEvents",{revalidate:"valdr-revalidate"}).value("valdrConfig",{addFormGroupClass:!0}).value("valdrClasses",{formGroup:"form-group",valid:"ng-valid",invalid:"ng-invalid",dirty:"ng-dirty",pristine:"ng-pristine",touched:"ng-touched",untouched:"ng-untouched",invalidDirtyTouchedGroup:"valdr-invalid-dirty-touched-group"}),angular.module("valdr").factory("valdrUtil",[function(){var a=function(a){return-1===a.lastIndexOf(".")?a:a.substring(a.lastIndexOf(".")+1,a.length)},b=/[A-Z]/g,c=function(a){return a.replace(b,function(a,b){return(b?"-":"")+a.toLowerCase()})},d=function(b){if(angular.isString(b)){var d=a(b);return d=c(d),"valdr-"+d}return b};return{validatorNameToToken:d,isNaN:function(a){return this.isNumber(a)&&a!==+a},isNumber:function(a){var b=typeof a;return"number"===b||a&&"object"===b&&"[object Number]"===Object.prototype.toString.call(a)||!1},has:function(a,b){return a?Object.prototype.hasOwnProperty.call(a,b):!1},notEmpty:function(a){return this.isNaN(a)?!1:angular.isDefined(a)&&""!==a&&null!==a},isEmpty:function(a){return this.isNaN(a)?!1:!this.notEmpty(a)},startsWith:function(a,b){return angular.isString(a)&&angular.isString(b)&&0===a.lastIndexOf(b,0)}}}]),angular.module("valdr").factory("valdrRequiredValidator",["valdrUtil",function(a){return{name:"required",validate:function(b){return a.notEmpty(b)}}}]),angular.module("valdr").factory("valdrMinValidator",["valdrUtil",function(a){return{name:"min",validate:function(b,c){var d=Number(c.value),e=Number(b);return a.isNaN(b)?!1:a.isEmpty(b)||e>=d}}}]),angular.module("valdr").factory("valdrMaxValidator",["valdrUtil",function(a){return{name:"max",validate:function(b,c){var d=Number(c.value),e=Number(b);return a.isNaN(b)?!1:a.isEmpty(b)||d>=e}}}]),angular.module("valdr").factory("valdrSizeValidator",function(){return{name:"size",validate:function(a,b){var c=b.min||0,d=b.max;return a=a||"",a.length>=c&&(void 0===d||a.length<=d)}}}),angular.module("valdr").factory("valdrEmailValidator",["valdrUtil",function(a){var b=/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;return{name:"email",validate:function(c){return a.isEmpty(c)||b.test(c)}}}]),angular.module("valdr").factory("valdrUrlValidator",["valdrUtil",function(a){var b=/^(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?$/;return{name:"url",validate:function(c){return a.isEmpty(c)||b.test(c)}}}]),angular.module("valdr").factory("valdrDigitsValidator",["valdrUtil",function(a){var b=new RegExp("[^.\\d]","g"),c=function(a){return Number(a).toString().replace(b,"")},d=function(a,b){return a?a.length<=b:!0},e=function(a,b){var e,f,g=b.integer,h=b.fraction;return e=c(a),f=e.split("."),d(f[0],g)&&d(f[1],h)};return{name:"digits",validate:function(b,c){return a.isEmpty(b)?!0:a.isNaN(Number(b))?!1:e(b,c)}}}]),angular.module("valdr").factory("futureAndPastSharedValidator",["valdrUtil",function(a){var b=["D-M-YYYY","D.M.YYYY","D/M/YYYY","D. M. YYYY","YYYY.M.D"];return{validate:function(c,d){var e,f=moment();if(a.isEmpty(c))return!0;e=moment(c);for(var g=0;g<b.length&&!e.isValid();g++)e=moment(c,b[g],!0);return e.isValid()&&d(e,f)}}}]),angular.module("valdr").factory("valdrPastValidator",["futureAndPastSharedValidator",function(a){return{name:"past",validate:function(b){return a.validate(b,function(a,b){return a.isBefore(b)})}}}]),angular.module("valdr").factory("valdrFutureValidator",["futureAndPastSharedValidator",function(a){return{name:"future",validate:function(b){return a.validate(b,function(a,b){return a.isAfter(b)})}}}]),angular.module("valdr").factory("valdrPatternValidator",["valdrUtil",function(a){var b=/^\/(.*)\/([gim]*)$/,c=function(a){var c;if(a.test)return a;if(c=a.match(b))return new RegExp(c[1],c[2]);throw"Expected "+a+" to be a RegExp"};return{name:"pattern",validate:function(b,d){var e=c(d.value);return a.isEmpty(b)||e.test(b)}}}]),angular.module("valdr").factory("valdrMinLengthValidator",["valdrUtil",function(a){return{name:"minLength",validate:function(b,c){var d=c.number;return a.isEmpty(b)?0===d:"string"==typeof b?b.length>=d:!1}}}]),angular.module("valdr").factory("valdrMaxLengthValidator",["valdrUtil",function(a){return{name:"maxLength",validate:function(b,c){var d=c.number;return a.isEmpty(b)?!0:"string"==typeof b?b.length<=d:!1}}}]),angular.module("valdr").factory("valdrHibernateEmailValidator",["valdrUtil",function(a){var b="[a-z0-9!#$%&'*+/=?^_`{|}~-]",c="^"+b+"+(\\."+b+"+)*$",d="^\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\]$",e=new RegExp("^"+b+"+(\\."+b+"+)*$","i"),f=new RegExp(c+"|"+d,"i");return{name:"hibernateEmail",validate:function(b){if(a.isEmpty(b))return!0;var c=b.split("@");return 2!==c.length?!1:e.test(c[0])?f.test(c[1]):!1}}}]),angular.module("valdr").provider("valdr",function(){var a,b,c={},d={},e={},f=["valdrRequiredValidator","valdrSizeValidator","valdrMinLengthValidator","valdrMaxLengthValidator","valdrMinValidator","valdrMaxValidator","valdrEmailValidator","valdrUrlValidator","valdrDigitsValidator","valdrFutureValidator","valdrPastValidator","valdrPatternValidator","valdrHibernateEmailValidator"],g=function(a){angular.extend(c,a)};this.addConstraints=g;var h=function(a){angular.isArray(a)?angular.forEach(a,function(a){delete c[a]}):angular.isString(a)&&delete c[a]};this.removeConstraints=h,this.setConstraintUrl=function(b){a=b},this.addValidator=function(a){f.push(a)},this.addConstraintAlias=function(a,b){angular.isArray(e[a])||(e[a]=[]),e[a].push(b)},this.$get=["$log","$injector","$rootScope","$http","valdrEvents","valdrUtil","valdrClasses",function(i,j,k,l,m,n,o){angular.forEach(f,function(a){var b=j.get(a);d[b.name]=b,angular.isArray(e[b.name])&&angular.forEach(e[b.name],function(a){d[a]=b})}),a&&(b=!0,l.get(a).then(function(a){b=!1,g(a.data),k.$broadcast(m.revalidate)})["finally"](function(){b=!1}));var p=function(a){return n.has(c,a)?c[a]:void(b||i.warn("No constraints for type '"+a+"' available."))};return{validate:function(a,b,c){var e={valid:!0},f=p(a);if(n.has(f,b)){var g=f[b],h=!0,j=[],k=[];return angular.forEach(g,function(f,g){var l=d[g];if(angular.isUndefined(l))return i.warn("No validator defined for '"+g+"'. Can not validate field '"+b+"'"),e;var m=l.validate(c,f),n={valid:m,value:c,field:b,type:a,validator:g};angular.extend(n,f),j.push(n),m||k.push(n),h=h&&m}),{valid:h,violations:0===k.length?void 0:k,validationResults:0===j.length?void 0:j}}return e},addConstraints:function(a){g(a),k.$broadcast(m.revalidate)},removeConstraints:function(a){h(a),k.$broadcast(m.revalidate)},getConstraints:function(){return c},setClasses:function(a){angular.extend(o,a),k.$broadcast(m.revalidate)}}}]});var c=["valdrClasses","valdrConfig",function(a,b){return{restrict:"EA",link:function(c,d){b.addFormGroupClass&&d.addClass(a.formGroup)},controller:["$scope","$element",function(b,c){var d=[],e={},f=function(){var a={invalidDirtyTouchedGroup:!1,valid:!0,itemStates:[]};return angular.forEach(d,function(b){b.$touched&&b.$dirty&&b.$invalid&&(a.invalidDirtyTouchedGroup=!0),b.$invalid&&(a.valid=!1);var c={name:b.$name,touched:b.$touched,dirty:b.$dirty,valid:b.$valid};a.itemStates.push(c)}),a},g=function(b){c.toggleClass(a.invalidDirtyTouchedGroup,b.invalidDirtyTouchedGroup),c.toggleClass(a.valid,b.valid),c.toggleClass(a.invalid,!b.valid),angular.forEach(b.itemStates,function(b){var c=e[b.name];c&&(c.toggleClass(a.valid,b.valid),c.toggleClass(a.invalid,!b.valid),c.toggleClass(a.dirty,b.dirty),c.toggleClass(a.pristine,!b.dirty),c.toggleClass(a.touched,b.touched),c.toggleClass(a.untouched,!b.touched))})};b.$watch(f,g,!0),this.addFormItem=function(a){d.push(a)},this.removeFormItem=function(a){var b=d.indexOf(a);b>=0&&d.splice(b,1)},this.addMessageElement=function(a,b){c.append(b),e[a.$name]=b},this.removeMessageElement=function(a){e[a.$name].remove()}}]}}];angular.module("valdr").directive("valdrFormGroup",c),angular.module("valdr").directive("valdrType",function(){return{priority:1,controller:["$attrs",function(a){this.getType=function(){return a.valdrType}}]}});var d={isEnabled:function(){return!0}},e={addFormItem:angular.noop,removeFormItem:angular.noop},f=function(a){return["valdrEvents","valdr","valdrUtil",function(b,c,f){return{restrict:a,require:["?^valdrType","?^ngModel","?^valdrFormGroup","?^valdrEnabled"],link:function(a,g,h,i){var j=i[0],k=i[1],l=i[2]||e,m=i[3]||d,n=h.valdrNoValidate,o=h.name;if(j&&k&&!angular.isDefined(n)){l.addFormItem(k),f.isEmpty(o)&&m.isEnabled()&&console.warn('Form element with ID "'+h.id+'" is not bound to a field name.');var p=function(a){if(m.isEnabled()){var b=["valdr"];angular.forEach(a.validationResults,function(a){var c=f.validatorNameToToken(a.validator);k.$setValidity(c,a.valid),b.push(c)}),k.$setValidity("valdr",a.valid),k.valdrViolations=a.violations,angular.forEach(k.$error,function(a,c){-1===b.indexOf(c)&&f.startsWith(c,"valdr")&&k.$setValidity(c,!0)})}else angular.forEach(k.$error,function(a,b){f.startsWith(b,"valdr")&&k.$setValidity(b,!0)}),k.valdrViolations=void 0},q=function(a){var b=c.validate(j.getType(),o,a);return p(b),m.isEnabled()?b.valid:!0};k.$validators.valdr=q,a.$on(b.revalidate,function(){q(k.$modelValue)}),a.$on("$destroy",function(){l.removeFormItem(k)})}}}}]},g=f("E"),h=f("A");angular.module("valdr").directive("input",g).directive("select",g).directive("textarea",g).directive("enableValdrValidation",h),angular.module("valdr").directive("valdrEnabled",["valdrEvents",function(a){return{controller:["$scope","$attrs",function(b,c){b.$watch(c.valdrEnabled,function(){b.$broadcast(a.revalidate)}),this.isEnabled=function(){var a=b.$eval(c.valdrEnabled);return void 0===a?!0:a}}]}}])}(window,document);;
 !function(a,b){"use strict";angular.module("valdr").provider("valdrMessage",function(){var a,b,c={},d="valdr/default-message.html",e='<div class="valdr-message">{{ violation.message }}</div>',f='<div class="valdr-message" ng-show="violation"><span translate="{{ violation.message }}" translate-values="violation"></span></div>';this.setTemplate=function(a){b=a},this.setTemplateUrl=function(b){a=b},this.addMessages=function(a){angular.extend(c,a)};var g=this.addMessages;this.getMessage=function(a,b,d){var e=a+"."+b+"."+d;return c[e]||c[d]||"["+d+"]"};var h=this.getMessage;this.$get=["$templateCache","$injector",function(c,i){function j(){try{return i.get("$translate")}catch(a){return void 0}}function k(){try{return i.get("valdrFieldNameKeyGenerator")}catch(a){return function(a){return a.type+"."+a.field}}}function l(){return angular.isDefined(b)?b:p?f:e}function m(){c.put(d,l()),a&&b&&c.put(a,b)}var n=!1,o=j(),p=angular.isDefined(o),q=k();return m(),{templateUrl:a||d,setTemplate:function(a){b=a,m()},translateAvailable:p,$translate:o,fieldNameKeyGenerator:q,addMessages:g,getMessage:h,angularMessagesEnabled:n}}]});var c=function(a){return["$compile",function(b){return{restrict:a,require:["?^valdrType","?^ngModel","?^valdrFormGroup"],link:function(a,c,d,e){var f=e[0],g=e[1],h=e[2],i=d.valdrNoValidate,j=d.valdrNoMessage,k=d.name;if(f&&h&&g&&!angular.isDefined(i)&&!angular.isDefined(j)){var l=angular.element('<span valdr-message="'+k+'"></span>');b(l)(a),h.addMessageElement(g,l),a.$on("$destroy",function(){h.removeMessageElement(g)})}}}}]},d=c("E"),e=c("A"),f={getType:angular.noop};angular.module("valdr").directive("input",d).directive("select",d).directive("textarea",d).directive("enableValdrMessage",e).directive("valdrMessage",["$rootScope","$injector","valdrMessage","valdrUtil",function(a,b,c,d){return{replace:!0,restrict:"A",scope:{formFieldName:"@valdrMessage"},templateUrl:function(){return c.templateUrl},require:["^form","?^valdrType"],link:function(b,e,g,h){var i=h[0],j=h[1]||f,k=function(){c.translateAvailable&&angular.isArray(b.violations)&&angular.forEach(b.violations,function(a){c.$translate(c.fieldNameKeyGenerator(a)).then(function(b){a.fieldName=b})})},l=function(a){var d=j.getType(),e=b.formFieldName;return{type:d,field:e,validator:a,message:c.getMessage(d,e,a)}},m=function(){b.violations=[],angular.forEach(b.formField.valdrViolations,function(a){b.violations.push(a)}),c.angularMessagesEnabled&&angular.forEach(b.formField.$error,function(a,c){d.startsWith(c,"valdr")||b.violations.push(l(c))}),b.violation=b.violations[0],k()},n=function(){b.violations=void 0,b.violation=void 0},o=function(){return b.formField=i[b.formFieldName],b.formField?{valdr:b.formField.valdrViolations,error:b.formField.$error}:void 0};b.$watch(o,function(){b.formField&&b.formField.$invalid?m():n()},!0),a.$on("$translateChangeSuccess",function(){k()})}}}])}(window,document);;
 /*! ng-dialog - v0.4.0 (https://github.com/likeastore/ngDialog) */
@@ -16707,16 +16720,16 @@ var firstapp = angular.module('firstapp', [
 
 ]);
 
-firstapp.run(function ($rootScope, NavigationService) {
-    $rootScope.addToFav = function (artid, folderid) {
-        NavigationService.addToFav(artid, function (data, status) {
+firstapp.run(function($rootScope, NavigationService) {
+    $rootScope.addToFav = function(artid, folderid) {
+        NavigationService.addToFav(artid, function(data, status) {
             console.log(data);
             $.jStorage.set("user", data);
         });
     };
 });
 
-firstapp.config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, $httpProvider) {
+firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, $httpProvider) {
     //Turn the spinner on or off
 
     $httpProvider.defaults.withCredentials = true;
@@ -16862,15 +16875,15 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvi
     })
 
     .state('favorite', {
-        url: "/favorite",
-        templateUrl: "views/template.html",
-        controller: 'FavoriteCtrl'
-    })
-    .state('favorites', {
-        url: "/favorite/:artist",
-        templateUrl: "views/template.html",
-        controller: 'FavoriteCtrl'
-    })
+            url: "/favorite",
+            templateUrl: "views/template.html",
+            controller: 'FavoriteCtrl'
+        })
+        .state('favorites', {
+            url: "/favorite/:artist",
+            templateUrl: "views/template.html",
+            controller: 'FavoriteCtrl'
+        })
 
     .state('artistpage', {
         url: "/artistpage",
@@ -16954,15 +16967,15 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvi
         url: "/error500",
         templateUrl: "views/template.html",
         controller: 'Error500Ctrl'
-    })
+    });
 
     $urlRouterProvider.otherwise("/home");
 
 });
 
-firstapp.directive("scroll", function ($window) {
-    return function (scope, element, attrs) {
-        angular.element($window).bind("scroll", function () {
+firstapp.directive("scroll", function($window) {
+    return function(scope, element, attrs) {
+        angular.element($window).bind("scroll", function() {
             if (this.pageYOffset >= 100) {
                 element.addClass('min');
             } else {
@@ -16973,8 +16986,8 @@ firstapp.directive("scroll", function ($window) {
 });
 
 firstapp.filter('rawHtml', ['$sce',
-    function ($sce) {
-        return function (val) {
+    function($sce) {
+        return function(val) {
             return $sce.trustAsHtml(val);
         };
     }
@@ -16996,10 +17009,10 @@ firstapp.directive('readmores', function ($window) {
     };
 });*/
 
-firstapp.directive('focusMe', function ($timeout) {
+firstapp.directive('focusMe', function($timeout) {
     return {
-        link: function (scope, element, attrs) {
-            scope.$watch(attrs.focusMe, function (value) {
+        link: function(scope, element, attrs) {
+            scope.$watch(attrs.focusMe, function(value) {
                 if (value === true) {
                     console.log('value=', value);
                     //$timeout(function() {
@@ -17012,38 +17025,35 @@ firstapp.directive('focusMe', function ($timeout) {
     };
 });
 
-firstapp.directive("uiselectAutofocus", function ($timeout) {
+firstapp.directive("uiselectAutofocus", function($timeout) {
     return {
         restrict: 'EA',
         require: 'uiSelect',
-        link: function (scope, elem, attr) {
+        link: function(scope, elem, attr) {
             //         scope.$watch(attr.)
-            scope.$watch(attr.demo, function () {
+            scope.$watch(attr.demo, function() {
                 console.log(attr.demo);
-
-
-                $timeout(function () {
+                $timeout(function() {
                     var input = elem.find('input');
                     //                if (attr.uiselectAutofocus == 'open')
                     //                    input.click();
-                    //
-                    input.focus()
+                    input.focus();
                 }, 0);
-            })
+            });
         }
-    }
+    };
 });
 
 firstapp.directive('focus',
-    function ($timeout) {
+    function($timeout) {
         return {
             scope: {
                 trigger: '@focus'
             },
-            link: function (scope, element) {
-                scope.$watch('trigger', function (value) {
+            link: function(scope, element) {
+                scope.$watch('trigger', function(value) {
                     if (value === "true") {
-                        $timeout(function () {
+                        $timeout(function() {
                             element[0].focus();
                         }, 1000);
                     }
@@ -17054,7 +17064,7 @@ firstapp.directive('focus',
 );
 
 firstapp.directive('googlePlusSignin', ['$window',
-    function ($window) {
+    function($window) {
         var ending = /\.apps\.googleusercontent\.com$/;
 
         return {
@@ -17062,7 +17072,7 @@ firstapp.directive('googlePlusSignin', ['$window',
             transclude: true,
             template: '<span></span>',
             replace: true,
-            link: function (scope, element, attrs, ctrl, linker) {
+            link: function(scope, element, attrs, ctrl, linker) {
                 attrs.clientid += (ending.test(attrs.clientid) ? '' : '.apps.googleusercontent.com');
 
                 attrs.$set('data-clientid', attrs.clientid);
@@ -17083,7 +17093,7 @@ firstapp.directive('googlePlusSignin', ['$window',
                 defaults.theme = attrs.theme;
 
                 // Overwrite default values if explicitly set
-                angular.forEach(Object.getOwnPropertyNames(defaults), function (propName) {
+                angular.forEach(Object.getOwnPropertyNames(defaults), function(propName) {
                     if (attrs.hasOwnProperty(propName)) {
                         defaults[propName] = attrs[propName];
                     }
@@ -17091,7 +17101,7 @@ firstapp.directive('googlePlusSignin', ['$window',
 
                 // Default language
                 // Supported languages: https://developers.google.com/+/web/api/supported-languages
-                attrs.$observe('language', function (value) {
+                attrs.$observe('language', function(value) {
                     $window.___gcfg = {
                         lang: value ? value : 'en'
                     };
@@ -17105,8 +17115,8 @@ firstapp.directive('googlePlusSignin', ['$window',
                 var s = document.getElementsByTagName('script')[0];
                 s.parentNode.insertBefore(po, s);
 
-                linker(function (el, tScope) {
-                    po.onload = function () {
+                linker(function(el, tScope) {
+                    po.onload = function() {
                         if (el.length) {
                             element.append(el);
                         }
@@ -17114,11 +17124,11 @@ firstapp.directive('googlePlusSignin', ['$window',
                     };
                 });
             }
-        }
+        };
     }
 ]).run(['$window', '$rootScope',
-    function ($window, $rootScope) {
-        $window.signinCallback = function (authResult) {
+    function($window, $rootScope) {
+        $window.signinCallback = function(authResult) {
             if (authResult && authResult.access_token) {
                 $rootScope.$broadcast('event:google-plus-signin-success', authResult);
             } else {
@@ -17130,16 +17140,17 @@ firstapp.directive('googlePlusSignin', ['$window',
 
 var dem = 0;
 
-firstapp.directive('fancyboxBox', function ($document) {
+firstapp.directive('fancyboxBox', function($document) {
     return {
         restrict: 'EA',
         replace: false,
-        link: function (scope, element, attr) {
+        link: function(scope, element, attr) {
             var $element = $(element);
+            var target;
             if (attr.rel) {
-                var target = $("[rel='" + attr.rel + "']");
+               target = $("[rel='" + attr.rel + "']");
             } else {
-                var target = element;
+                target = element;
             }
 
             target.fancybox({
@@ -17150,51 +17161,54 @@ firstapp.directive('fancyboxBox', function ($document) {
                     media: {}
                 }
             });
-
         }
-    }
+    };
 });
 
-firstapp.directive('elevateZoom', function ($document, $filter) {
+
+firstapp.directive('elevateZoom', function($document, $filter) {
     return {
         restrict: 'EA',
-        link: function ($scope, element, attr) {
-            $scope.$watch(attr.image, function () {
-                $scope.changeImage = function () {
+        link: function($scope, element, attr) {
+            $scope.$watch(attr.image, function() {
+                $scope.changeImage = function() {
+                    var $element = $(element);
                     var image = '';
                     image = $scope[attr.image].artwork.image[0];
-                    var $element = $(element);
-                    // image = image.artwork.image[0];
-                    var smallimg = attr.smallImage;
-                    var bigimg = attr.bigImage;
-                    $element.attr('data-zoom-image', $filter('uploadpath')(image));
-                    $element.attr('src', $filter('uploadsmallimage')(image));
-                    $element.elevateZoom();
-                }
-                $scope.$on('changeImage', function (event, data) {
+                    var ez = $element.data("elevateZoom");
+                    if (!ez) {
+                        $element.attr('data-zoom-image', $filter('uploadpath')(image));
+                        $element.attr('src', $filter('uploadpath')(image));
+                        $element.elevateZoom();
+                    } else {
+                        var newImage = $filter('uploadpath')(image);
+                        ez.swaptheimage(newImage, newImage);
+                    }
+                };
+                $scope.$on('changeImage', function(event, data) {
                     $scope.changeImage();
                 });
                 $scope.changeImage();
-            })
+            });
         }
-    }
+    };
 });
 
-firstapp.directive('zoomContainer', function () {
+firstapp.directive('zoomContainer', function() {
     return {
         restrict: 'A',
-        link: function (scope, element, attrs) {
-            scope.$on('$stateChangeSuccess', function () {
+        link: function(scope, element, attrs) {
+            scope.$on('$stateChangeSuccess', function() {
                 var target = element.children('div.zoomContainer').remove();
-            })
+            });
         }
-    }
+    };
 
 });
 
-firstapp.filter('uploadthumbnail', function () {
-    return function (input) {
-        if (input && input != "") {
+firstapp.filter('uploadthumbnail', function() {
+    return function(input) {
+        if (input && input !== "") {
             return adminurl + "user/resize?height=190&file=" + input;
             // return adminurl + "user/resize?file=" + input;
         } else {
@@ -17203,19 +17217,23 @@ firstapp.filter('uploadthumbnail', function () {
     };
 });
 
-firstapp.filter('uploadpath', function () {
-    return function (input) {
-        if (input && input != "") {
-            return adminurl + "user/resize?width=750&file=" + input;
+firstapp.filter('uploadpath', function() {
+    return function(input) {
+        if (input && input !== "") {
+            if (input.indexOf('.jpg') != -1)
+                return adminurl + "user/resize?width=750&file=" + input;
+            else {
+                return adminurl + "user/resize?file=" + input;
+            }
         } else {
             return "img/noimg.jpg";
         }
     };
 });
 
-firstapp.filter('uploadsmallimage', function () {
-    return function (input) {
-        if (input && input != "") {
+firstapp.filter('uploadsmallimage', function() {
+    return function(input) {
+        if (input && input !== "") {
             // return adminurl + "user/resize?file=" + input;
             return adminurl + "user/resize?width=750&file=" + input;
         } else {
@@ -17225,16 +17243,16 @@ firstapp.filter('uploadsmallimage', function () {
 });
 
 
-firstapp.directive('img', function ($compile, $parse) {
+firstapp.directive('img', function($compile, $parse) {
     return {
         restrict: 'EA',
         replace: false,
-        link: function ($scope, element, attrs) {
+        link: function($scope, element, attrs) {
             var $element = $(element);
             if (!attrs.noloading) {
                 $element.after("<img src='img/loading.gif' class='loading' />");
                 var $loading = $element.next(".loading");
-                $element.load(function () {
+                $element.load(function() {
                     $loading.remove();
                     $(this).addClass("doneLoading");
                 });
@@ -17244,10 +17262,10 @@ firstapp.directive('img', function ($compile, $parse) {
         }
     };
 });
-firstapp.directive('numbersOnly', function () {
+firstapp.directive('numbersOnly', function() {
     return {
         require: 'ngModel',
-        link: function (scope, element, attr, ngModelCtrl) {
+        link: function(scope, element, attr, ngModelCtrl) {
             function fromUser(text) {
                 if (text) {
                     var transformedInput = text.replace(/[^a-z\s]/gi, '');
@@ -17265,25 +17283,25 @@ firstapp.directive('numbersOnly', function () {
     };
 });
 
-firstapp.filter('touppercase', function () {
-    return function (input) {
+firstapp.filter('touppercase', function() {
+    return function(input) {
         var firstletter = input.substr(0, 1);
         var remaining = input.substr(1);
         return firstletter.toUpperCase() + remaining;
     };
 });
 
-firstapp.filter('makesizestr', function () {
-    return function (artobj) {
+firstapp.filter('makesizestr', function() {
+    return function(artobj) {
         var size = "";
-        if (artobj && artobj != undefined) {
-            if (artobj.height && artobj.height != "") {
+        if (artobj && artobj !== undefined) {
+            if (artobj.height && artobj.height !== "") {
                 size += artobj.height;
             }
-            if (artobj.width && artobj.width != "") {
+            if (artobj.width && artobj.width !== "") {
                 size += " " + artobj.width;
             }
-            if (artobj.breadth && artobj.breadth != "" && artobj.breadth != "N/A") {
+            if (artobj.breadth && artobj.breadth !== "" && artobj.breadth != "N/A") {
                 size += " " + artobj.breadth;
             }
             size = size.trim();
@@ -17300,8 +17318,8 @@ firstapp.filter('makesizestr', function () {
 });
 
 
-firstapp.filter('showheart', function (NavigationService) {
-    return function (input) {
+firstapp.filter('showheart', function(NavigationService) {
+    return function(input) {
         if (input) {
             if (userProfile.wishlist) {
                 var ispresent = _.findIndex(userProfile.wishlist, {
@@ -17319,8 +17337,8 @@ firstapp.filter('showheart', function (NavigationService) {
     };
 });
 
-firstapp.filter('indollars', function (NavigationService, $filter) {
-    return function (input) {
+firstapp.filter('indollars', function(NavigationService, $filter) {
+    return function(input) {
         if (input && dollarPrice) {
             if (input != "0") {
                 var price = parseFloat(input) / parseFloat(dollarPrice);
@@ -17333,17 +17351,18 @@ firstapp.filter('indollars', function (NavigationService, $filter) {
     };
 });
 
-firstapp.directive('onlyDigits', function () {
+firstapp.directive('onlyDigits', function() {
     return {
         require: 'ngModel',
         restrict: 'A',
-        link: function (scope, element, attr, ctrl) {
+        link: function(scope, element, attr, ctrl) {
             function inputValue(val) {
+              var digits;
                 if (val) {
                     if (attr.type == "tel") {
-                        var digits = val.replace(/[^0-9\+\\]/g, '');
+                         digits = val.replace(/[^0-9\+\\]/g, '');
                     } else {
-                        var digits = val.replace(/[^0-9\-\\]/g, '');
+                         digits = val.replace(/[^0-9\-\\]/g, '');
                     }
 
 
@@ -17360,17 +17379,17 @@ firstapp.directive('onlyDigits', function () {
     };
 });
 
-firstapp.directive('clickme', function () {
-    return function (scope, element, attrs) {
-        var clickingCallback = function () {
+firstapp.directive('clickme', function() {
+    return function(scope, element, attrs) {
+        var clickingCallback = function() {
             console.log(userProfile);
             alert(userProfile);
         };
         element.bind('click', clickingCallback);
-    }
+    };
 });
 
-firstapp.directive('youtube', function ($sce) {
+firstapp.directive('youtube', function($sce) {
     return {
         restrict: 'A',
         scope: {
@@ -17378,8 +17397,8 @@ firstapp.directive('youtube', function ($sce) {
         },
         replace: true,
         template: '<iframe id="popup-youtube-player" style="overflow:hidden;width:100%" width="100%" height="130px" src="{{url}}" frameborder="0" allowscriptaccess="always" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>',
-        link: function (scope) {
-            scope.$watch('code', function (newVal) {
+        link: function(scope) {
+            scope.$watch('code', function(newVal) {
                 if (newVal) {
                     scope.url = $sce.trustAsResourceUrl("http://www.youtube.com/embed/" + newVal);
                 }
@@ -17388,15 +17407,15 @@ firstapp.directive('youtube', function ($sce) {
     };
 });
 
-var formvalidation = function (allvalidation) {
+var formvalidation = function(allvalidation) {
     console.log(allvalidation);
     var isvalid2 = true;
     var error = '';
     for (var i = 0; i < allvalidation.length; i++) {
         console.log(allvalidation[i].field);
-        if (allvalidation[i].field == "" || !allvalidation[i].field) {
+        if (allvalidation[i].field === "" || !allvalidation[i].field) {
             allvalidation[i].validation = "ng-dirty";
-            if (error == '') {
+            if (error === '') {
                 error += allvalidation[i].name;
             } else {
                 error += " , " + allvalidation[i].name;
@@ -17407,8 +17426,8 @@ var formvalidation = function (allvalidation) {
     return isvalid2;
 };
 
-firstapp.filter('addhighlight', function () {
-    return function (str, searchkey) {
+firstapp.filter('addhighlight', function() {
+    return function(str, searchkey) {
         if (!str) {
             return str;
         }
@@ -17420,9 +17439,9 @@ firstapp.filter('addhighlight', function () {
         var num = 0;
         var check = false;
         var string2 = "";
-        if (smallSearchkey && smallSearchkey != "") {
+        if (smallSearchkey && smallSearchkey !== "") {
             var split = newstr.split(" ");
-            _.each(split, function (n) {
+            _.each(split, function(n) {
                 var subst = n.substr(0, searchkey.length);
                 var subst2 = n.substr(searchkey.length);
                 var abc = "";
@@ -17433,18 +17452,18 @@ firstapp.filter('addhighlight', function () {
                     abc = n + " ";
                 }
                 string2 += abc + " ";
-            })
+            });
         }
         if (check) {
             return string2;
         } else {
             return str;
         }
-    }
-})
+    };
+});
 
 
-var clearFields = function (allvalidation) {
+var clearFields = function(allvalidation) {
     var isvalid2 = true;
     var error = '';
     for (var i = 0; i < allvalidation.length; i++) {
@@ -17469,5799 +17488,5860 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 //.controller('AppCtrl')
 .controller('HomeCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("home");
-    $scope.menutitle = NavigationService.makeactive("Home");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+  //Used to name the .html file
+  $scope.template = TemplateService.changecontent("home");
+  $scope.menutitle = NavigationService.makeactive("Home");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
 
-    $scope.filterby = {};
-    $scope.filterby.search = "";
-    $scope.filterby.type = "";
-    $scope.filterby.pagenumber = 1;
-    $scope.filterby.pagesize = 20;
-    $scope.filterby.filter = "srno";
-    $scope.filterby.sort = 1;
-    $scope.filterby.minprice = 0;
-    $scope.filterby.maxprice = 10000000;
-    $scope.filterby.minwidth = '';
-    $scope.filterby.maxwidth = '';
-    $scope.filterby.minheight = '';
-    $scope.filterby.maxheight = '';
-    $scope.filterby.minbreadth = '';
-    $scope.filterby.maxbreadth = '';
-    $scope.showInvalidLogin = false;
-    //  $scope.filterby.color = '';
-    //  $scope.filterby.style = '';
-    //  $scope.filterby.element = '';
-    NavigationService.getSlider(function(data) {
-        $scope.slides = data;
-    });
+  $scope.filterby = {};
+  $scope.filterby.search = "";
+  $scope.filterby.type = "";
+  $scope.filterby.pagenumber = 1;
+  $scope.filterby.pagesize = 20;
+  $scope.filterby.filter = "srno";
+  $scope.filterby.sort = 1;
+  $scope.filterby.minprice = 0;
+  $scope.filterby.maxprice = 10000000;
+  $scope.filterby.minwidth = '';
+  $scope.filterby.maxwidth = '';
+  $scope.filterby.minheight = '';
+  $scope.filterby.maxheight = '';
+  $scope.filterby.minbreadth = '';
+  $scope.filterby.maxbreadth = '';
+  $scope.showInvalidLogin = false;
+  //  $scope.filterby.color = '';
+  //  $scope.filterby.style = '';
+  //  $scope.filterby.element = '';
+  NavigationService.getSlider(function(data) {
+    $scope.slides = data;
+  });
 
-    $scope.openPop = function() {
-        dataNextPre.messageBoxSignUp();
-    }
+  $scope.openPop = function() {
+    dataNextPre.messageBoxSignUp();
+  }
 
-    $scope.toPayU = function() {
-        console.log("in payu");
-        window.location.href = "http://www.auraart.in/PayUMoney_PHP_Module/PayUMoney_form.php";
-    }
+  $scope.toPayU = function() {
+    console.log("in payu");
+    window.location.href = "http://www.auraart.in/PayUMoney_PHP_Module/PayUMoney_form.php";
+  }
 
-    $scope.becomeSeller = function() {
-        globalFunction.becomeSeller();
-        // if ($scope.isLoggedIn == true) {
-        //   if (userProfile && userProfile.accesslevel == "reseller") {
-        //     $state.go("create-artwork");
-        //   } else {
-        //     $state.go("termcondition");
-        //   }
-        // } else {
-        //   ngDialog.open({
-        //     template: 'views/content/sellerRegister.html'
-        //   });
-        // }
-    }
+  $scope.becomeSeller = function() {
+    globalFunction.becomeSeller();
+    // if ($scope.isLoggedIn == true) {
+    //   if (userProfile && userProfile.accesslevel == "reseller") {
+    //     $state.go("create-artwork");
+    //   } else {
+    //     $state.go("termcondition");
+    //   }
+    // } else {
+    //   ngDialog.open({
+    //     template: 'views/content/sellerRegister.html'
+    //   });
+    // }
+  }
 
-    $scope.registeruser = function() {
-        if ($scope.register.password === $scope.register.confirmpassword) {
-            $scope.passwordNotMatch = false;
-            $scope.register.accesslevel = "customer";
-            NavigationService.registeruser($scope.register, function(data, status) {
-                console.log(data);
-                if (data.value != false) {
-                    $scope.showAlreadyRegistered = false;
-                    $scope.showWishlist = true;
-                    //$.jStorage.set("user", data);
-                    ngDialog.closeAll();
-                    $state.go("termcondition");
-                } else if (data.value == false && data.comment == "User already exists") {
-                    $scope.showAlreadyRegistered = true;
-                }
-            })
-        } else {
-            $scope.passwordNotMatch = true;
-        }
-    };
-
-    $scope.lauchedSoon = function() {
-        ngDialog.open({
-            template: 'views/content/modal-launch.html'
-        });
-        $timeout(function() {
-            ngDialog.closeAll();
-        }, 3000);
-    };
-
-    $scope.userlogin = function() {
-        NavigationService.userlogin($scope.login, function(data, status) {
-            if (data.value != false) {
-                $scope.showInvalidLogin = false;
-                NavigationService.getuserprofile(function(data) {
-                    ngDialog.closeAll();
-                    if (data.id && data.accesslevel == "reseller") {
-                        $state.go("create-artwork");
-                    } else {
-                        $state.go("termcondition");
-                    }
-                })
-            } else {
-                $scope.showInvalidLogin = true;
-            }
-
-
-            // if (data.value != false) {
-            //     $scope.showInvalidLogin = false;
-            //     $scope.showWishlist = true;
-            //     //$.jStorage.set("user", data);
-            //     $scope.user.name = data.name;
-            //     ngDialog.closeAll();
-            //     window.location.reload();
-            // } else {
-            //     $scope.showInvalidLogin = true;
-            // }
-        })
-    };
-
-    $scope.showLogin = true;
-    $scope.changeTab = function(tab) {
-        console.log(tab);
-        if (tab == 1) {
-            $scope.showLogin = false;
-        } else {
-            $scope.showLogin = true;
-        }
-    }
-
-    function getPress(data) {
-
-        if (data.value != false) {
-            $scope.press = data
-            console.log(data);
-        } else {
-            $scope.press = [];
-        }
-    }
-    NavigationService.pressFind(getPress);
-
-    NavigationService.getupcomingevents(function(data) {
-        if (data.value != false)
-            $scope.upcomingEvent = data;
+  $scope.registeruser = function() {
+    if ($scope.register.password === $scope.register.confirmpassword) {
+      $scope.passwordNotMatch = false;
+      $scope.register.accesslevel = "customer";
+      NavigationService.registeruser($scope.register, function(data, status) {
         console.log(data);
+        if (data.value != false) {
+          $scope.showAlreadyRegistered = false;
+          $scope.showWishlist = true;
+          //$.jStorage.set("user", data);
+          ngDialog.closeAll();
+          $state.go("termcondition");
+        } else if (data.value == false && data.comment == "User already exists") {
+          $scope.showAlreadyRegistered = true;
+        }
+      })
+    } else {
+      $scope.passwordNotMatch = true;
+    }
+  };
+
+  $scope.lauchedSoon = function() {
+    ngDialog.open({
+      template: 'views/content/modal-launch.html'
     });
+    $timeout(function() {
+      ngDialog.closeAll();
+    }, 3000);
+  };
 
-    NavigationService.getuserprofile(function(data) {
-        if (data.id) {
-            $scope.isLoggedIn = true;
-            userProfile = data;
-            NavigationService.getMyFavourites(data.id, function(favorite) {
-                userProfile.wishlist = favorite;
-            })
-        } else {
-            $scope.isLoggedIn = false;
-        }
+  $scope.userlogin = function() {
+    NavigationService.userlogin($scope.login, function(data, status) {
+      if (data.value != false) {
+        $scope.showInvalidLogin = false;
+        NavigationService.getuserprofile(function(data) {
+          ngDialog.closeAll();
+          if (data.id && data.accesslevel == "reseller") {
+            $state.go("create-artwork");
+          } else {
+            $state.go("termcondition");
+          }
+        })
+      } else {
+        $scope.showInvalidLogin = true;
+      }
+
+
+      // if (data.value != false) {
+      //     $scope.showInvalidLogin = false;
+      //     $scope.showWishlist = true;
+      //     //$.jStorage.set("user", data);
+      //     $scope.user.name = data.name;
+      //     ngDialog.closeAll();
+      //     window.location.reload();
+      // } else {
+      //     $scope.showInvalidLogin = true;
+      // }
     })
+  };
 
-    $scope.onfock = "";
-    $scope.oon = function() {
-        if ($scope.onfock == "") {
-            $scope.onfock = "sdfs";
+  $scope.showLogin = true;
+  $scope.changeTab = function(tab) {
+    console.log(tab);
+    if (tab == 1) {
+      $scope.showLogin = false;
+    } else {
+      $scope.showLogin = true;
+    }
+  }
+
+  function getPress(data) {
+
+    if (data.value != false) {
+      $scope.press = data
+      console.log(data);
+    } else {
+      $scope.press = [];
+    }
+  }
+  NavigationService.pressFind(getPress);
+
+  NavigationService.getupcomingevents(function(data) {
+    if (data.value != false)
+      $scope.upcomingEvent = data;
+    console.log(data);
+  });
+
+  NavigationService.getuserprofile(function(data) {
+    if (data.id) {
+      $scope.isLoggedIn = true;
+      userProfile = data;
+      NavigationService.getMyFavourites(data.id, function(favorite) {
+        userProfile.wishlist = favorite;
+      })
+    } else {
+      $scope.isLoggedIn = false;
+    }
+  })
+
+  $scope.onfock = "";
+  $scope.oon = function() {
+    if ($scope.onfock == "") {
+      $scope.onfock = "sdfs";
+    } else {
+      $scope.onfock = "";
+    }
+  }
+  dataNextPre.setData = function(data) {
+    //      console.log(data);
+  }
+  $scope.changeUI = 0;
+  // set available range
+  $scope.minPrice = 0;
+  $scope.maxPrice = 10000000;
+
+  // default the user's values to the available range
+  $scope.userMinPrice = $scope.minPrice;
+  $scope.userMaxPrice = $scope.maxPrice;
+
+  //    NavigationService.getsliderimages(function (data, status) {
+  //        _.each(data, function (n) {
+  //            $scope.slides.push(n._id);
+  //        })
+  //    });
+
+  $scope.applyfilter = function() {
+    //      console.log($scope.filterby);
+    console.log($scope.filterby);
+    $.jStorage.set("filterby", $scope.filterby)
+      //      $location.url("/artwork/-1");
+    $state.go('totalartpage', {
+      type: -1
+    });
+  }
+
+  $scope.goToArtworks = function(type) {
+    //      $location.url("/artwork/" + type);
+    $state.go('totalartpage', {
+      type: type
+    });
+  }
+
+  $scope.goToEvents = function() {
+    $state.go('events');
+  }
+
+  $scope.onclick = function(value) {
+    $scope.filterby.checked
+  }
+  var lastChecked = null
+  $scope.onclick = function(event) {
+    if (event.target.value === lastChecked) {
+      $scope.filterby.type = "";
+      $scope.getallartist();
+      lastChecked = null
+    } else {
+      lastChecked = event.target.value
+    }
+  }
+  $scope.changetype = function(chang) {
+    if (chang == 1) {
+      $scope.filterby.type = "Paintings";
+      $scope.getallartist();
+      $scope.getmedium();
+      $scope.getClr();
+      $scope.getElm();
+      $scope.getStl();
+    } else if (chang == 2) {
+      $scope.filterby.type = "Sculptures";
+      $scope.getallartist();
+      $scope.getmedium();
+      $scope.getClr();
+      $scope.getElm();
+      $scope.getStl();
+    } else if (chang == 3) {
+      $scope.filterby.type = "Photographs";
+      $scope.getallartist();
+      $scope.getmedium();
+      $scope.getClr();
+      $scope.getElm();
+      $scope.getStl();
+    } else if (chang == 4) {
+      $scope.filterby.type = "Prints";
+      $scope.getallartist();
+      $scope.getmedium();
+      $scope.getClr();
+      $scope.getElm();
+      $scope.getStl();
+    }
+  }
+  $scope.setSearch = function(select) {
+    $scope.filterby.search = select.selected.name;
+  }
+  $scope.setMediumSearch = function(select) {
+    $scope.filterby.medium = select.selected.name;
+  }
+  $scope.setColorSearch = function(select) {
+    $scope.filterby.color = select.selected.name;
+  }
+  $scope.setStyleSearch = function(select) {
+    $scope.filterby.style = select.selected.name;
+  }
+  $scope.setElementSearch = function(select) {
+    $scope.filterby.element = select.selected.name;
+  }
+  $scope.allartist = [];
+  $scope.allmedium = [];
+  $scope.getmedium = function() {
+    if ($scope.filterby.type == "") {
+      //          console.log("in if");
+      $scope.change = "";
+      NavigationService.getallmedium($scope.change, function(data, status) {
+        if (data && data.value != false) {
+          $scope.allmedium = _.uniq(data, '_id');
         } else {
-            $scope.onfock = "";
+          $scope.allmedium = [];
         }
+      });
+    } else {
+      //          console.log("in else");
+      $scope.change = {};
+      $scope.change.type = $scope.filterby.type;
+      NavigationService.getallmedium($scope.change, function(data, status) {
+        if (data && data.value != false) {
+          $scope.allmedium = _.uniq(data, '_id');
+        } else {
+          $scope.allmedium = [];
+        }
+      });
     }
-    dataNextPre.setData = function(data) {
-        //      console.log(data);
+  }
+
+  $scope.getClr = function() {
+    if ($scope.filterby.type == "") {
+      //          console.log("in if");
+      $scope.change = "";
+      NavigationService.tagSearchType($scope.change, "", function(data, status) {
+        if (data && data.value != false) {
+          $scope.allColor = _.uniq(data, '_id');
+          $scope.allColor.unshift({
+            "_id": "0",
+            name: ""
+          });
+        } else {
+          $scope.allColor = [];
+        }
+      });
+    } else {
+      //          console.log("in else");
+      $scope.change = {};
+      $scope.change.type = $scope.filterby.type;
+      NavigationService.tagSearchType($scope.change, "", function(data, status) {
+        if (data && data.value != false) {
+          $scope.allColor = _.uniq(data, '_id');
+          $scope.allColor.unshift({
+            "_id": "0",
+            name: ""
+          });
+        } else {
+          $scope.allColor = [];
+        }
+      });
     }
-    $scope.changeUI = 0;
-    // set available range
-    $scope.minPrice = 0;
-    $scope.maxPrice = 10000000;
+  }
+  $scope.getStl = function() {
+    if ($scope.filterby.type == "") {
+      //          console.log("in if");
+      $scope.change = "";
+      NavigationService.tagSearchType($scope.change, "", function(data, status) {
+        if (data && data.value != false) {
+          $scope.allStyle = _.uniq(data, '_id');
+          $scope.allStyle.unshift({
+            "_id": "0",
+            name: ""
+          });
+        } else {
+          $scope.allStyle = [];
+        }
+      });
+    } else {
+      //          console.log("in else");
+      $scope.change = {};
+      $scope.change.type = $scope.filterby.type;
+      NavigationService.tagSearchType($scope.change, "", function(data, status) {
+        if (data && data.value != false) {
+          $scope.allStyle = _.uniq(data, '_id');
+          $scope.allStyle.unshift({
+            "_id": "0",
+            name: ""
+          });
+        } else {
+          $scope.allStyle = [];
+        }
+      });
+    }
+  }
+  $scope.getElm = function() {
+    if ($scope.filterby.type == "") {
+      //          console.log("in if");
+      $scope.change = "";
+      NavigationService.tagSearchType($scope.change, "", function(data, status) {
+        if (data && data.value != false) {
+          $scope.allElement = _.uniq(data, '_id');
+          $scope.allElement.unshift({
+            "_id": "0",
+            name: ""
+          });
+        } else {
+          $scope.allElement = [];
+        }
+      });
+    } else {
+      //          console.log("in else");
+      $scope.change = {};
+      $scope.change.type = $scope.filterby.type;
+      NavigationService.tagSearchType($scope.change, "", function(data, status) {
+        if (data && data.value != false) {
+          $scope.allElement = _.uniq(data, '_id');
+          $scope.allElement.unshift({
+            "_id": "0",
+            name: ""
+          });
+        } else {
+          $scope.allElement = [];
+        }
+      });
+    }
+  }
+  $scope.getClr();
+  $scope.getElm();
+  $scope.getStl();
+  var countcall = 0;
+  $scope.getallartist = function() {
+    if ($scope.filterby.type == "") {
+      NavigationService.getAllArtistByAccess(++countcall, function(data, status, n) {
+        if (n == countcall) {
+          if (data && data.value != false) {
+            $scope.allartist = _.uniq(data, '_id');
+            $scope.allartist.unshift({
+              "_id": "0",
+              name: ""
+            });
+          } else {
+            $scope.allartist = [];
+          }
+        } else {
+          $scope.allartist = [];
+        }
+      });
+    } else {
+      NavigationService.userbytype($scope.filterby.type, ++countcall, function(data, status, n) {
+        if (n == countcall) {
+          if (data && data.value != false) {
+            $scope.allartist = data;
+            $scope.allartist.unshift({
+              "_id": "0",
+              name: ""
+            });
+          } else {
+            $scope.allartist = [];
+          }
+        } else {
+          $scope.allartist = [];
+        }
 
-    // default the user's values to the available range
-    $scope.userMinPrice = $scope.minPrice;
-    $scope.userMaxPrice = $scope.maxPrice;
-
-    //    NavigationService.getsliderimages(function (data, status) {
-    //        _.each(data, function (n) {
-    //            $scope.slides.push(n._id);
-    //        })
-    //    });
-
-    $scope.applyfilter = function() {
-        //      console.log($scope.filterby);
-        console.log($scope.filterby);
-        $.jStorage.set("filterby", $scope.filterby)
-            //      $location.url("/artwork/-1");
-        $state.go('totalartpage', {
-            type: -1
+      });
+    }
+  }
+  $scope.getDropdown = function(search) {
+    if (search.length >= 1) {
+      $scope.change = {};
+      $scope.change.type = $scope.filterby.type;
+      $scope.change.search = search;
+      $timeout(function() {
+        NavigationService.getAllArtistDrop($scope.change, function(data) {
+          console.log(data);
+          if (data && data.value != false) {
+            $scope.allartist = data;
+            $scope.allartist.unshift({
+              "_id": "0",
+              name: ""
+            });
+          } else {
+            $scope.allartist = [];
+          }
         });
+      }, 1000);
+    } else {
+      $scope.getallartist();
     }
-
-    $scope.goToArtworks = function(type) {
-        //      $location.url("/artwork/" + type);
-        $state.go('totalartpage', {
-            type: type
+  }
+  $scope.getDropdownMedium = function(search) {
+    if (search.length >= 1) {
+      $scope.change = {};
+      $scope.change.type = $scope.filterby.type;
+      $scope.change.search = search;
+      $timeout(function() {
+        NavigationService.getallmedium($scope.change, function(data) {
+          if (data && data.value != false) {
+            $scope.allmedium = data;
+            $scope.allmedium.unshift({
+              "_id": "0",
+              name: ""
+            });
+          } else {
+            $scope.allmedium = [];
+          }
         });
+      }, 1000);
+    } else {
+      $scope.getmedium();
     }
+  }
 
-    $scope.goToEvents = function() {
-        $state.go('events');
-    }
+  //search by keyword
 
-    $scope.onclick = function(value) {
-        $scope.filterby.checked
+  $scope.getColorDropdown = function(search) {
+    if (search.length >= 1) {
+      $timeout(function() {
+        NavigationService.tagSearchType($scope.filterby.type, search, function(data) {
+          if (data && data.value != false) {
+            $scope.allColor = data;
+          } else {
+            $scope.allColor = [];
+          }
+        });
+      }, 1000);
+    } else {
+      $scope.getClr();
     }
-    var lastChecked = null
-    $scope.onclick = function(event) {
-        if (event.target.value === lastChecked) {
-            $scope.filterby.type = "";
-            $scope.getallartist();
-            lastChecked = null
-        } else {
-            lastChecked = event.target.value
-        }
+  }
+  $scope.getStyleDropdown = function(search) {
+    if (search.length >= 1) {
+      $timeout(function() {
+        NavigationService.tagSearchType($scope.filterby.type, search, function(data) {
+          if (data && data.value != false) {
+            $scope.allStyle = data;
+          } else {
+            $scope.allStyle = [];
+          }
+        });
+      }, 1000);
+    } else {
+      $scope.getStl();
     }
-    $scope.changetype = function(chang) {
-        if (chang == 1) {
-            $scope.filterby.type = "Paintings";
-            $scope.getallartist();
-            $scope.getmedium();
-            $scope.getClr();
-            $scope.getElm();
-            $scope.getStl();
-        } else if (chang == 2) {
-            $scope.filterby.type = "Sculptures";
-            $scope.getallartist();
-            $scope.getmedium();
-            $scope.getClr();
-            $scope.getElm();
-            $scope.getStl();
-        } else if (chang == 3) {
-            $scope.filterby.type = "Photographs";
-            $scope.getallartist();
-            $scope.getmedium();
-            $scope.getClr();
-            $scope.getElm();
-            $scope.getStl();
-        } else if (chang == 4) {
-            $scope.filterby.type = "Prints";
-            $scope.getallartist();
-            $scope.getmedium();
-            $scope.getClr();
-            $scope.getElm();
-            $scope.getStl();
-        }
+  }
+  $scope.getElementDropdown = function(search) {
+    if (search.length >= 1) {
+      $timeout(function() {
+        NavigationService.tagSearchType($scope.filterby.type, search, function(data) {
+          if (data && data.value != false) {
+            $scope.allElement = data;
+          } else {
+            $scope.allElement = [];
+          }
+        });
+      }, 1000);
+    } else {
+      $scope.getElm();
     }
-    $scope.setSearch = function(select) {
-        $scope.filterby.search = select.selected.name;
-    }
-    $scope.setMediumSearch = function(select) {
-        $scope.filterby.medium = select.selected.name;
-    }
-    $scope.setColorSearch = function(select) {
-        $scope.filterby.color = select.selected.name;
-    }
-    $scope.setStyleSearch = function(select) {
-        $scope.filterby.style = select.selected.name;
-    }
-    $scope.setElementSearch = function(select) {
-        $scope.filterby.element = select.selected.name;
-    }
-    $scope.allartist = [];
-    $scope.allmedium = [];
-    $scope.getmedium = function() {
-        if ($scope.filterby.type == "") {
-            //          console.log("in if");
-            $scope.change = "";
-            NavigationService.getallmedium($scope.change, function(data, status) {
-                if (data && data.value != false) {
-                    $scope.allmedium = _.uniq(data, '_id');
-                } else {
-                    $scope.allmedium = [];
-                }
-            });
-        } else {
-            //          console.log("in else");
-            $scope.change = {};
-            $scope.change.type = $scope.filterby.type;
-            NavigationService.getallmedium($scope.change, function(data, status) {
-                if (data && data.value != false) {
-                    $scope.allmedium = _.uniq(data, '_id');
-                } else {
-                    $scope.allmedium = [];
-                }
-            });
-        }
-    }
-
-    $scope.getClr = function() {
-        if ($scope.filterby.type == "") {
-            //          console.log("in if");
-            $scope.change = "";
-            NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
-                    $scope.allColor = _.uniq(data, '_id');
-                    $scope.allColor.unshift({
-                        "_id": "0",
-                        name: ""
-                    });
-                } else {
-                    $scope.allColor = [];
-                }
-            });
-        } else {
-            //          console.log("in else");
-            $scope.change = {};
-            $scope.change.type = $scope.filterby.type;
-            NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
-                    $scope.allColor = _.uniq(data, '_id');
-                    $scope.allColor.unshift({
-                        "_id": "0",
-                        name: ""
-                    });
-                } else {
-                    $scope.allColor = [];
-                }
-            });
-        }
-    }
-    $scope.getStl = function() {
-        if ($scope.filterby.type == "") {
-            //          console.log("in if");
-            $scope.change = "";
-            NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
-                    $scope.allStyle = _.uniq(data, '_id');
-                    $scope.allStyle.unshift({
-                        "_id": "0",
-                        name: ""
-                    });
-                } else {
-                    $scope.allStyle = [];
-                }
-            });
-        } else {
-            //          console.log("in else");
-            $scope.change = {};
-            $scope.change.type = $scope.filterby.type;
-            NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
-                    $scope.allStyle = _.uniq(data, '_id');
-                    $scope.allStyle.unshift({
-                        "_id": "0",
-                        name: ""
-                    });
-                } else {
-                    $scope.allStyle = [];
-                }
-            });
-        }
-    }
-    $scope.getElm = function() {
-        if ($scope.filterby.type == "") {
-            //          console.log("in if");
-            $scope.change = "";
-            NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
-                    $scope.allElement = _.uniq(data, '_id');
-                    $scope.allElement.unshift({
-                        "_id": "0",
-                        name: ""
-                    });
-                } else {
-                    $scope.allElement = [];
-                }
-            });
-        } else {
-            //          console.log("in else");
-            $scope.change = {};
-            $scope.change.type = $scope.filterby.type;
-            NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
-                    $scope.allElement = _.uniq(data, '_id');
-                    $scope.allElement.unshift({
-                        "_id": "0",
-                        name: ""
-                    });
-                } else {
-                    $scope.allElement = [];
-                }
-            });
-        }
-    }
-    $scope.getClr();
-    $scope.getElm();
-    $scope.getStl();
-    var countcall = 0;
-    $scope.getallartist = function() {
-        if ($scope.filterby.type == "") {
-            NavigationService.getAllArtistByAccess(++countcall, function(data, status, n) {
-                if (n == countcall) {
-                    if (data && data.value != false) {
-                        $scope.allartist = _.uniq(data, '_id');
-                        $scope.allartist.unshift({
-                            "_id": "0",
-                            name: ""
-                        });
-                    } else {
-                        $scope.allartist = [];
-                    }
-                } else {
-                    $scope.allartist = [];
-                }
-            });
-        } else {
-            NavigationService.userbytype($scope.filterby.type, ++countcall, function(data, status, n) {
-                if (n == countcall) {
-                    if (data && data.value != false) {
-                        $scope.allartist = data;
-                        $scope.allartist.unshift({
-                            "_id": "0",
-                            name: ""
-                        });
-                    } else {
-                        $scope.allartist = [];
-                    }
-                } else {
-                    $scope.allartist = [];
-                }
-
-            });
-        }
-    }
-    $scope.getDropdown = function(search) {
-        if (search.length >= 1) {
-            $scope.change = {};
-            $scope.change.type = $scope.filterby.type;
-            $scope.change.search = search;
-            $timeout(function() {
-                NavigationService.getAllArtistDrop($scope.change, function(data) {
-                    console.log(data);
-                    if (data && data.value != false) {
-                        $scope.allartist = data;
-                        $scope.allartist.unshift({
-                            "_id": "0",
-                            name: ""
-                        });
-                    } else {
-                        $scope.allartist = [];
-                    }
-                });
-            }, 1000);
-        } else {
-            $scope.getallartist();
-        }
-    }
-    $scope.getDropdownMedium = function(search) {
-        if (search.length >= 1) {
-            $scope.change = {};
-            $scope.change.type = $scope.filterby.type;
-            $scope.change.search = search;
-            $timeout(function() {
-                NavigationService.getallmedium($scope.change, function(data) {
-                    if (data && data.value != false) {
-                        $scope.allmedium = data;
-                        $scope.allmedium.unshift({
-                            "_id": "0",
-                            name: ""
-                        });
-                    } else {
-                        $scope.allmedium = [];
-                    }
-                });
-            }, 1000);
-        } else {
-            $scope.getmedium();
-        }
-    }
-
-    //search by keyword
-
-    $scope.getColorDropdown = function(search) {
-        if (search.length >= 1) {
-            $timeout(function() {
-                NavigationService.tagSearchType($scope.filterby.type, search, function(data) {
-                    if (data && data.value != false) {
-                        $scope.allColor = data;
-                    } else {
-                        $scope.allColor = [];
-                    }
-                });
-            }, 1000);
-        } else {
-            $scope.getClr();
-        }
-    }
-    $scope.getStyleDropdown = function(search) {
-        if (search.length >= 1) {
-            $timeout(function() {
-                NavigationService.tagSearchType($scope.filterby.type, search, function(data) {
-                    if (data && data.value != false) {
-                        $scope.allStyle = data;
-                    } else {
-                        $scope.allStyle = [];
-                    }
-                });
-            }, 1000);
-        } else {
-            $scope.getStl();
-        }
-    }
-    $scope.getElementDropdown = function(search) {
-        if (search.length >= 1) {
-            $timeout(function() {
-                NavigationService.tagSearchType($scope.filterby.type, search, function(data) {
-                    if (data && data.value != false) {
-                        $scope.allElement = data;
-                    } else {
-                        $scope.allElement = [];
-                    }
-                });
-            }, 1000);
-        } else {
-            $scope.getElm();
-        }
-    }
+  }
 
 })
 
 .controller('FavoriteCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $state, $stateParams, ngDialog) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("favorite");
-    $scope.menutitle = NavigationService.makeactive("Favorite");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-    $scope.artistdetail = [];
-    $scope.allfavourites = [];
-    $scope.noFavs = false;
-    cfpLoadingBar.start();
-    $scope.totalfav = 0;
-    NavigationService.getuserprofile(function(data) {
-        if (data.id) {
-            userProfile = data;
-            $scope.userProfile = data;
-            NavigationService.getMyFavourites(data.id, function(favorite) {
-                console.log(favorite);
-                if (favorite.value != false) {
-                    $scope.noFavs = false;
-                    userProfile.wishlist = favorite;
-                    _.each(favorite, function(n) {
-                        if (n.wishlistfolder) {
-                            $scope.allfavourites.push({
-                                "_id": n.artwork,
-                                "wishlistfolder": n.wishlistfolder
-                            });
-                        } else {
-                            $scope.totalfav++;
-                            $scope.allfavourites.push({
-                                "_id": n.artwork
-                            });
-                        }
-                    });
-                    getFavorite($scope.allfavourites)
-                } else {
-                    cfpLoadingBar.complete();
-                    $scope.noFavs = true;
-                }
-            })
-        }
-    })
-
-    $scope.activeTab = "myfav";
-
-    function getFavorite(allfavourites) {
-        $scope.myArtists = [];
-        NavigationService.getAllFavouritesData(allfavourites, function(datas, status) {
-            console.log("favorite data");
-            console.log(datas)
-            var favs = _.groupBy(datas, function(n) {
-                return n.name;
-            });
-            _.each(favs, function(key, value) {
-                _.each(key, function(n) {
-                    if (!n.wishlistfolder) {
-                        $scope.myArtists.push(value);
-                    }
-                })
-            })
-            $scope.myArtists = _.uniq($scope.myArtists);
-            if (!$stateParams.artist) {
-                $scope.artistName = '';
-                $scope.artistdetail = datas;
+  //Used to name the .html file
+  $scope.template = TemplateService.changecontent("favorite");
+  $scope.menutitle = NavigationService.makeactive("Favorite");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
+  $scope.artistdetail = [];
+  $scope.allfavourites = [];
+  $scope.noFavs = false;
+  cfpLoadingBar.start();
+  $scope.totalfav = 0;
+  NavigationService.getuserprofile(function(data) {
+    if (data.id) {
+      userProfile = data;
+      $scope.userProfile = data;
+      NavigationService.getMyFavourites(data.id, function(favorite) {
+        console.log(favorite);
+        if (favorite.value != false) {
+          $scope.noFavs = false;
+          userProfile.wishlist = favorite;
+          _.each(favorite, function(n) {
+            if (n.wishlistfolder) {
+              $scope.allfavourites.push({
+                "_id": n.artwork,
+                "wishlistfolder": n.wishlistfolder
+              });
             } else {
-                $scope.activeTab = "myartist";
-                $scope.artistName = $stateParams.artist;
-                $scope.artistdetail = [];
-                _.each(datas, function(n) {
-                    if (n.name === $stateParams.artist)
-                        $scope.artistdetail.push(n);
-                });
-                if ($scope.artistdetail.length == 0) {
-                    $scope.activeTab = "myfolder";
-                    $scope.artistName = $scope.myFolders[_.findIndex($scope.myFolders, {
-                        "_id": $stateParams.artist
-                    })].name;
-                    _.each(datas, function(n) {
-                        if (n.wishlistfolder == $stateParams.artist) {
-                            delete n.wishlistfolder;
-                            $scope.artistdetail.push(n);
-                        }
-                    });
-                }
+              $scope.totalfav++;
+              $scope.allfavourites.push({
+                "_id": n.artwork
+              });
             }
-            if ($scope.artistdetail.length == 0) {
-                $scope.noFavsFolder = true;
-            } else {
-                $scope.noFavsFolder = false;
-            }
-            cfpLoadingBar.complete();
-        })
-    }
-
-    $scope.addToCart = function(art) {
-        dataNextPre.addToCart(art);
-    }
-
-    $scope.goToDetail = function(artwork) {
-        console.log(artwork);
-        if (artwork.type == "Sculptures") {
-            //          $location.url("/sculpture/" + artwork._id);
-            $state.go('sculpture', {
-                artid: artwork._id
-            });
+          });
+          getFavorite($scope.allfavourites)
         } else {
-            //          $location.url("/artwork/detail/" + artwork._id);
-            $state.go('detail', {
-                artid: artwork._id
-            });
+          cfpLoadingBar.complete();
+          $scope.noFavs = true;
         }
+      })
     }
+  })
 
-    $scope.openFolderPop = function() {
-        ngDialog.open({
-            scope: $scope,
-            template: 'views/content/modal-create.html'
-        });
-    }
+  $scope.activeTab = "myfav";
 
-    $scope.createFolder = function(name) {
-        if (name && name != '') {
-            ngDialog.closeAll();
-            if ($scope.userProfile.id) {
-                NavigationService.createwishlistfolder(name, function(data) {
-                    console.log(data);
-                    if (data.value == true) {
-                        getMyFolders();
-                    }
-                })
-            }
-        }
-    }
-
-    function getMyFolders() {
-        NavigationService.getMyFolders(function(data) {
-            console.log(data);
-            if (data.value != false) {
-                $scope.myFolders = data;
-            } else {
-                $scope.myFolders = [];
-            }
+  function getFavorite(allfavourites) {
+    $scope.myArtists = [];
+    NavigationService.getAllFavouritesData(allfavourites, function(datas, status) {
+      console.log("favorite data");
+      console.log(datas)
+      var favs = _.groupBy(datas, function(n) {
+        return n.name;
+      });
+      _.each(favs, function(key, value) {
+        _.each(key, function(n) {
+          if (!n.wishlistfolder) {
+            $scope.myArtists.push(value);
+          }
         })
+      })
+      $scope.myArtists = _.uniq($scope.myArtists);
+      if (!$stateParams.artist) {
+        $scope.artistName = '';
+        $scope.artistdetail = datas;
+      } else {
+        $scope.activeTab = "myartist";
+        $scope.artistName = $stateParams.artist;
+        $scope.artistdetail = [];
+        _.each(datas, function(n) {
+          if (n.name === $stateParams.artist)
+            $scope.artistdetail.push(n);
+        });
+        if ($scope.artistdetail.length == 0) {
+          $scope.activeTab = "myfolder";
+          $scope.artistName = $scope.myFolders[_.findIndex($scope.myFolders, {
+            "_id": $stateParams.artist
+          })].name;
+          _.each(datas, function(n) {
+            if (n.wishlistfolder == $stateParams.artist) {
+              delete n.wishlistfolder;
+              $scope.artistdetail.push(n);
+            }
+          });
+        }
+      }
+      if ($scope.artistdetail.length == 0) {
+        $scope.noFavsFolder = true;
+      } else {
+        $scope.noFavsFolder = false;
+      }
+      cfpLoadingBar.complete();
+    })
+  }
+
+  $scope.addToCart = function(art) {
+    dataNextPre.addToCart(art);
+  }
+
+  $scope.goToDetail = function(artwork) {
+    console.log(artwork);
+    if (artwork.type == "Sculptures") {
+      //          $location.url("/sculpture/" + artwork._id);
+      $state.go('sculpture', {
+        artid: artwork._id
+      });
+    } else {
+      //          $location.url("/artwork/detail/" + artwork._id);
+      $state.go('detail', {
+        artid: artwork._id
+      });
     }
-    getMyFolders();
+  }
+
+  $scope.openFolderPop = function() {
+    ngDialog.open({
+      scope: $scope,
+      template: 'views/content/modal-create.html'
+    });
+  }
+
+  $scope.createFolder = function(name) {
+    if (name && name != '') {
+      ngDialog.closeAll();
+      if ($scope.userProfile.id) {
+        NavigationService.createwishlistfolder(name, function(data) {
+          console.log(data);
+          if (data.value == true) {
+            getMyFolders();
+          }
+        })
+      }
+    }
+  }
+
+  function getMyFolders() {
+    NavigationService.getMyFolders(function(data) {
+      console.log(data);
+      if (data.value != false) {
+        $scope.myFolders = data;
+      } else {
+        $scope.myFolders = [];
+      }
+    })
+  }
+  getMyFolders();
 })
 
 .controller('CartCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $state) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("cart");
-    $scope.menutitle = NavigationService.makeactive("Cart");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-    $scope.totalCartPrice = 0;
-    $scope.noCartItems = false;
-    cfpLoadingBar.start();
-    $scope.checkCheckout = true;
+  //Used to name the .html file
+  $scope.template = TemplateService.changecontent("cart");
+  $scope.menutitle = NavigationService.makeactive("Cart");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
+  $scope.totalCartPrice = 0;
+  $scope.noCartItems = false;
+  cfpLoadingBar.start();
+  $scope.checkCheckout = true;
 
-    $scope.getCartItems = function() {
-        NavigationService.getCartItems(function(data) {
-            console.log(data);
-            if (data.length == 0) {
-                $scope.noCartItems = true;
-            } else {
-                $scope.noCartItems = false;
-                $scope.cartItems = data;
-                $scope.totalCartPrice = 0;
-                _.each($scope.cartItems, function(n) {
-                    if (n.artwork.status == "sold") {
-                        $scope.checkCheckout = false;
-                    }
-                    if (n.artwork.gprice != 'N/A')
-                        $scope.totalCartPrice += n.artwork.gprice;
-                });
-                $scope.vat = ($scope.totalCartPrice / 100) * 12.5;
-            }
-            cfpLoadingBar.complete();
-        });
-    }
-
-    $scope.getCartItems();
-
-    $scope.toCheckout = function() {
-        $scope.checkCheckout = true;
+  $scope.getCartItems = function() {
+    NavigationService.getCartItems(function(data) {
+      console.log(data);
+      if (data.length == 0) {
+        $scope.noCartItems = true;
+      } else {
+        $scope.noCartItems = false;
+        $scope.cartItems = data;
+        $scope.totalCartPrice = 0;
         _.each($scope.cartItems, function(n) {
-            if (n.artwork.status == "sold") {
-                $scope.checkCheckout = false;
-            }
+          if (n.artwork.status == "sold") {
+            $scope.checkCheckout = false;
+          }
+          if (n.artwork.gprice != 'N/A')
+            $scope.totalCartPrice += n.artwork.gprice;
         });
-        if ($scope.checkCheckout == false) {
-            dataNextPre.messageBox("Item in cart already sold, Recheck cart");
-        } else {
-            $state.go("checkout");
-        }
-    }
+        $scope.vat = ($scope.totalCartPrice / 100) * 12.5;
+      }
+      cfpLoadingBar.complete();
+    });
+  }
 
-    $scope.removeFromCart = function(artid) {
-        NavigationService.removeFromCart(artid, function(data) {
-            console.log(data);
-            if (data.value == true) {
-                dataNextPre.messageBox("Removed from cart");
-                dataNextPre.getCartItems();
-                $scope.getCartItems();
-            }
-        })
+  $scope.getCartItems();
+
+  $scope.toCheckout = function() {
+    $scope.checkCheckout = true;
+    _.each($scope.cartItems, function(n) {
+      if (n.artwork.status == "sold") {
+        $scope.checkCheckout = false;
+      }
+    });
+    if ($scope.checkCheckout == false) {
+      dataNextPre.messageBox("Item in cart already sold, Recheck cart");
+    } else {
+      $state.go("checkout");
     }
+  }
+
+  $scope.removeFromCart = function(artid) {
+    NavigationService.removeFromCart(artid, function(data) {
+      console.log(data);
+      if (data.value == true) {
+        dataNextPre.messageBox("Removed from cart");
+        dataNextPre.getCartItems();
+        $scope.getCartItems();
+      }
+    })
+  }
 
 })
 
 .controller('TeamCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("team");
-    $scope.menutitle = NavigationService.makeactive("Team");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+  //Used to name the .html file
+  $scope.template = TemplateService.changecontent("team");
+  $scope.menutitle = NavigationService.makeactive("Team");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
 })
 
 .controller('ArtistPageCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("artistpage");
-    $scope.menutitle = NavigationService.makeactive("Artist");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+  //Used to name the .html file
+  $scope.template = TemplateService.changecontent("artistpage");
+  $scope.menutitle = NavigationService.makeactive("Artist");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
 })
 
 .controller('ContactusCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("contactus");
-    $scope.menutitle = NavigationService.makeactive("Contact Us");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+  //Used to name the .html file
+  $scope.template = TemplateService.changecontent("contactus");
+  $scope.menutitle = NavigationService.makeactive("Contact Us");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
 
-    $scope.becomeSeller = function() {
-        globalFunction.becomeSeller();
-    }
+  $scope.becomeSeller = function() {
+    globalFunction.becomeSeller();
+  }
 })
 
 .controller('TotalartWorkCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, ngDialog, $stateParams, $location, $state) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("totalartwork");
-    $scope.menutitle = NavigationService.makeactive("Total Artwork");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-    $scope.pagedata = {};
+  //Used to name the .html file
+  $scope.template = TemplateService.changecontent("totalartwork");
+  $scope.menutitle = NavigationService.makeactive("Total Artwork");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
+  $scope.pagedata = {};
+  $scope.pagedata.search = "";
+  $scope.pagedata.type = "";
+  $scope.pagedata.medium = "";
+  $scope.pagedata.pagenumber = 1;
+  $scope.pagedata.pagesize = 20;
+  $scope.pagedata.filter = "";
+  $scope.pagedata.sort = 1;
+  $scope.pagedata.minprice = '';
+  $scope.pagedata.maxprice = '';
+  $scope.pagedata.minwidth = '';
+  $scope.pagedata.maxwidth = '';
+  $scope.pagedata.minheight = '';
+  $scope.pagedata.maxheight = '';
+  $scope.pagedata.minbreadth = '';
+  $scope.pagedata.maxbreadth = '';
+  $scope.totalartcont = [];
+  $scope.maxpages = 2;
+  $scope.callinfinite = true;
+  $scope.isRed = false;
+  $scope.heartClass = "fa fa-heart";
+  var lastpage = 2;
+
+  NavigationService.getuserprofile(function(data) {
+    if (data.id) {
+      userProfile = data;
+      NavigationService.getMyFavourites(data.id, function(favorite) {
+        userProfile.wishlist = favorite;
+      })
+    }
+  })
+
+  $scope.openReachout = function() {
+    globalFunction.reachOut();
+  }
+
+  //get user details
+  $scope.setColorSearch = function(select) {
+    $scope.pagedata.color = select.selected.name;
+  }
+  $scope.setStyleSearch = function(select) {
+    $scope.pagedata.style = select.selected.name;
+  }
+  $scope.setElementSearch = function(select) {
+    $scope.pagedata.element = select.selected.name;
+  }
+
+  $scope.getClr = function() {
+    if ($scope.pagedata.type == "") {
+      //          console.log("in if");
+      $scope.change = "";
+      NavigationService.tagSearchType($scope.change, "", function(data, status) {
+        if (data && data.value != false) {
+          $scope.allColor = _.uniq(data, '_id');
+          $scope.allColor.unshift({
+            "_id": "0",
+            name: ""
+          });
+        } else {
+          $scope.allColor = [];
+        }
+      });
+    } else {
+      //          console.log("in else");
+      $scope.change = {};
+      $scope.change.type = $scope.pagedata.type;
+      NavigationService.tagSearchType($scope.change, "", function(data, status) {
+        if (data && data.value != false) {
+          $scope.allColor = _.uniq(data, '_id');
+          $scope.allColor.unshift({
+            "_id": "0",
+            name: ""
+          });
+        } else {
+          $scope.allColor = [];
+        }
+      });
+    }
+  }
+  $scope.getStl = function() {
+    if ($scope.pagedata.type == "") {
+      //          console.log("in if");
+      $scope.change = "";
+      NavigationService.tagSearchType($scope.change, "", function(data, status) {
+        if (data && data.value != false) {
+          $scope.allStyle = _.uniq(data, '_id');
+          $scope.allStyle.unshift({
+            "_id": "0",
+            name: ""
+          });
+        } else {
+          $scope.allStyle = [];
+        }
+      });
+    } else {
+      //          console.log("in else");
+      $scope.change = {};
+      $scope.change.type = $scope.pagedata.type;
+      NavigationService.tagSearchType($scope.change, "", function(data, status) {
+        if (data && data.value != false) {
+          $scope.allStyle = _.uniq(data, '_id');
+          $scope.allStyle.unshift({
+            "_id": "0",
+            name: ""
+          });
+        } else {
+          $scope.allStyle = [];
+        }
+      });
+    }
+  }
+  $scope.getElm = function() {
+    if ($scope.pagedata.type == "") {
+      //          console.log("in if");
+      $scope.change = "";
+      NavigationService.tagSearchType($scope.change, "", function(data, status) {
+        if (data && data.value != false) {
+          $scope.allElement = _.uniq(data, '_id');
+          $scope.allElement.unshift({
+            "_id": "0",
+            name: ""
+          });
+        } else {
+          $scope.allElement = [];
+        }
+      });
+    } else {
+      //          console.log("in else");
+      $scope.change = {};
+      $scope.change.type = $scope.pagedata.type;
+      NavigationService.tagSearchType($scope.change, "", function(data, status) {
+        if (data && data.value != false) {
+          $scope.allElement = _.uniq(data, '_id');
+          $scope.allElement.unshift({
+            "_id": "0",
+            name: ""
+          });
+        } else {
+          $scope.allElement = [];
+        }
+      });
+    }
+  }
+  $scope.getClr();
+  $scope.getElm();
+  $scope.getStl();
+
+  $scope.getColorDropdown = function(search) {
+    if (search.length >= 1) {
+      $timeout(function() {
+        NavigationService.tagSearchType($scope.pagedata.type, search, function(data) {
+          if (data && data.value != false) {
+            $scope.allColor = data;
+          } else {
+            $scope.allColor = [];
+          }
+        });
+      }, 1000);
+    } else {
+      $scope.getClr();
+    }
+  }
+  $scope.getStyleDropdown = function(search) {
+    if (search.length >= 1) {
+      $timeout(function() {
+        NavigationService.tagSearchType($scope.pagedata.type, search, function(data) {
+          if (data && data.value != false) {
+            $scope.allStyle = data;
+          } else {
+            $scope.allStyle = [];
+          }
+        });
+      }, 1000);
+    } else {
+      $scope.getStl();
+    }
+  }
+  $scope.getElementDropdown = function(search) {
+    if (search.length >= 1) {
+      $timeout(function() {
+        NavigationService.tagSearchType($scope.pagedata.type, search, function(data) {
+          if (data && data.value != false) {
+            $scope.allElement = data;
+          } else {
+            $scope.allElement = [];
+          }
+        });
+      }, 1000);
+    } else {
+      $scope.getElm();
+    }
+  }
+  var countcall = 0;
+  $scope.getallartist = function() {
+    if ($scope.pagedata.type == "") {
+      NavigationService.getAllArtistByAccess(++countcall, function(data, status, n) {
+        if (n == countcall) {
+          if (data && data.value != false) {
+            $scope.allartist = _.uniq(data, '_id');
+            $scope.allartist.unshift({
+              "_id": "0",
+              name: ""
+            });
+          } else {
+            $scope.allartist = [];
+          }
+        } else {
+          $scope.allartist = [];
+        }
+      });
+    } else {
+      NavigationService.userbytype($scope.pagedata.type, ++countcall, function(data, status, n) {
+        if (n == countcall) {
+          if (data && data.value != false) {
+            $scope.allartist = data;
+            $scope.allartist.unshift({
+              "_id": "0",
+              name: ""
+            });
+          } else {
+            $scope.allartist = [];
+          }
+        } else {
+          $scope.allartist = [];
+        }
+      });
+    }
+  }
+
+  $scope.getmedium = function() {
+    if ($scope.pagedata.type == "") {
+      //          console.log("in if");
+      $scope.change = "";
+      NavigationService.getallmedium($scope.change, function(data, status) {
+        if (data && data.value != false) {
+          $scope.allmedium = _.uniq(data, '_id');
+        } else {
+          $scope.allmedium = [];
+        }
+      });
+    } else {
+      //          console.log("in else");
+      $scope.change = {};
+      $scope.change.type = $scope.pagedata.type;
+      NavigationService.getallmedium($scope.change, function(data, status) {
+        if (data && data.value != false) {
+          $scope.allmedium = _.uniq(data, '_id');
+        } else {
+          $scope.allmedium = [];
+        }
+      });
+    }
+  }
+  $scope.getallartist();
+  $scope.getDropdown = function(search) {
+    if (search.length >= 1) {
+      $scope.change = {};
+      $scope.change.type = $scope.pagedata.type;
+      $scope.change.search = search;
+      $timeout(function() {
+        NavigationService.getAllArtistDrop($scope.change, function(data) {
+          if (data && data.value != false) {
+            $scope.allartist = data;
+            $scope.allartist.unshift({
+              "_id": "0",
+              name: ""
+            });
+          } else {
+            $scope.allartist = [];
+          }
+        });
+      }, 1000);
+    } else {
+      $scope.getallartist();
+    }
+  }
+
+  $scope.getDropdownMedium = function(search) {
+    if (search.length >= 1) {
+      $scope.change = {};
+      $scope.change.type = $scope.pagedata.type;
+      $scope.change.search = search;
+      $timeout(function() {
+        NavigationService.getallmedium($scope.change, function(data) {
+          if (data && data.value != false) {
+            $scope.allmedium = data;
+            $scope.allmedium.unshift({
+              "_id": "0",
+              name: ""
+            });
+          } else {
+            $scope.allmedium = [];
+          }
+        });
+      }, 1000);
+    } else {
+      $scope.getmedium();
+    }
+  }
+
+  $scope.setSearch = function(select) {
+    $scope.pagedata.search = select.selected.name;
+  }
+  $scope.setMediumSearch = function(select) {
+    $scope.pagedata.medium = select.selected.name;
+  }
+
+  $scope.typejson = [{
+    name: "All",
+    class: "actives"
+  }, {
+    name: "Paintings",
+    class: ""
+  }, {
+    name: "Sculptures",
+    class: ""
+  }, {
+    name: "Photographs",
+    class: ""
+  }, {
+    name: "Prints",
+    class: ""
+  }, {
+    name: "Others",
+    class: ""
+  }]
+
+  $scope.changeHeartColor = function(totalartcont) {
+    if ($scope.isRed == true)
+      totalartcont.heartClass = "fa fa-heart";
+    else
+      totalartcont.heartClass = "fa fa-heart font-color3";
+    $scope.isRed = !$scope.isRed;
+  }
+
+  $scope.makeFav = function(art) {
+    dataNextPre.favorite(art);
+  }
+
+  $scope.addToCart = function(art) {
+    dataNextPre.addToCart(art);
+  }
+
+  $scope.checkForEmpty = function() {
+
+  }
+
+  $scope.reload = function() {
+    cfpLoadingBar.start();
+    //      console.log($scope.pagedata);
+    var filterdata = $scope.pagedata;
+    if (filterdata.minprice == 0) {
+      filterdata.minprice = '';
+      $scope.pagedata.minprice = '';
+    }
+    if (filterdata.maxprice == 10000000) {
+      filterdata.maxprice = '';
+      $scope.pagedata.maxprice = '';
+    }
+
+    if (filterdata.sort == 1) {
+      $scope.lotactive = '';
+      $scope.htlactive = '';
+      $scope.lthactive = '';
+    }
+    NavigationService.artworktype(filterdata, function(data, status) {
+      // console.log(data.data);
+      lastpage = parseInt(data.totalpages);
+      $scope.totalartcont = _.union($scope.totalartcont, data.data);
+      // _.each(data.data, function(n) {
+      //     $scope.totalartcont.push(n);
+      // })
+      $scope.totalartcont = _.uniq($scope.totalartcont, 'artwork._id');
+      $scope.callinfinite = false;
+      cfpLoadingBar.complete();
+    });
+  }
+
+  //    $scope.reload();
+
+  $scope.makeactive = function(type) {
+    //      console.log(type);
+    _.each($scope.typejson, function(n) {
+      var index = n.name.indexOf(type);
+      if (index != -1) {
+        n.class = "actives";
+      } else {
+        n.class = "";
+      }
+    })
+    if (type == "All")
+      type = "";
+    $scope.pagedata.type = type;
+    $scope.totalartcont = [];
+    $scope.pagedata.pagenumber = 1;
+    // $scope.pagedata.search = '';
+    $scope.pagedata.filter = "srno";
+    $scope.pagedata.sort = 1;
+    // $scope.pagedata.medium = '';
+    $scope.checkForEmpty();
+    $scope.reload();
+  }
+
+  //    $scope.loadMore = function () {
+  //        $scope.pagedata.pagenumber++;
+  //        if ($scope.pagedata.pagenumber <= $scope.totalpagecount) {
+  //            $scope.reload();
+  //        }
+  //    };
+
+  $scope.filterresults = function(search) {
+    //      console.log(search);
+    $scope.pagedata.search = _.capitalize(search);
+    $scope.totalartcont = [];
+    $scope.pagedata.pagenumber = 1;
+    $scope.pagedata.filter = "srno";
+    $scope.pagedata.sort = 1;
+    $scope.checkForEmpty();
+    $scope.reload();
+  }
+
+  // $(window).scroll(function() {
+  //     if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+  //         console.log("at bottom");
+  //         $scope.pagedata.pagenumber++;
+  //         $scope.reload();
+  //     }
+  // });
+
+  $scope.addMoreItems = function() {
+    if (lastpage > $scope.pagedata.pagenumber) {
+      $scope.pagedata.pagenumber++;
+      $scope.reload();
+    }
+  }
+
+
+  // set available range
+  $scope.minPrice = 0;
+  $scope.maxPrice = 10000000;
+
+  // default the user's values to the available range
+  $scope.userMinPrice = $scope.minPrice;
+  $scope.userMaxPrice = $scope.maxPrice;
+
+  $scope.imageSrc = 'img/artist/artist1.jpg';
+
+  $scope.artistDetailImg = {};
+  $scope.showDetails = function(oneuser) {
+    //      console.log(oneuser)
+    $scope.artistDetailImg = oneuser;
+    ngDialog.open({
+      scope: $scope,
+      template: 'views/content/quickview-imagedetail.html'
+    });
+  };
+
+  $scope.lauchedSoon = function() {
+    ngDialog.open({
+      template: 'views/content/modal-launch.html'
+    });
+    $timeout(function() {
+      ngDialog.closeAll();
+    }, 3000);
+  };
+
+  $scope.sortBy = function(num, by) {
+    if (num == -1 && by == 'yoc') {
+      $scope.lotactive = 'active';
+      $scope.htlactive = '';
+      $scope.lthactive = '';
+    } else if (num == -1 && by == 'gprice') {
+      $scope.lotactive = '';
+      $scope.htlactive = 'active';
+      $scope.lthactive = '';
+    } else if (num == 1 && by == 'gprice') {
+      $scope.lotactive = '';
+      $scope.htlactive = '';
+      $scope.lthactive = 'active';
+    }
+    $scope.pagedata.sort = num;
+    $scope.pagedata.filter = by;
+    $scope.pagedata.pagenumber = 1;
+    $scope.totalartcont = [];
+    $scope.reload();
+  }
+
+  if ($stateParams.type != -1) {
+    $scope.makeactive($stateParams.type);
+  } else {
+    $scope.pagedata = $.jStorage.get("filterby");
+    $scope.checkForEmpty();
+    $stateParams.type = "All";
+    if ($.jStorage.get("filterby") && $.jStorage.get("filterby").type == '')
+      $scope.makeactive("All");
+    else
+      $scope.makeactive($.jStorage.get("filterby").type);
+  }
+
+  $scope.clearfilters = function() {
     $scope.pagedata.search = "";
     $scope.pagedata.type = "";
-    $scope.pagedata.medium = "";
     $scope.pagedata.pagenumber = 1;
     $scope.pagedata.pagesize = 20;
     $scope.pagedata.filter = "";
+    $scope.pagedata.medium = '';
     $scope.pagedata.sort = 1;
-    $scope.pagedata.minprice = '';
-    $scope.pagedata.maxprice = '';
-    $scope.pagedata.minwidth = '';
-    $scope.pagedata.maxwidth = '';
-    $scope.pagedata.minheight = '';
-    $scope.pagedata.maxheight = '';
-    $scope.pagedata.minbreadth = '';
-    $scope.pagedata.maxbreadth = '';
-    $scope.totalartcont = [];
-    $scope.maxpages = 2;
-    $scope.callinfinite = true;
-    $scope.isRed = false;
-    $scope.heartClass = "fa fa-heart";
-    var lastpage = 2;
+    $scope.pagedata.minheight = "";
+    $scope.pagedata.maxheight = "";
+    $scope.pagedata.minwidth = "";
+    $scope.pagedata.maxwidth = "";
+    $scope.pagedata.minbreadth = "";
+    $scope.pagedata.maxbreadth = "";
+    $scope.pagedata.minprice = "";
+    $scope.pagedata.maxprice = "";
+    $scope.pagedata.color = "";
+    $scope.pagedata.style = "";
+    $scope.pagedata.element = "";
 
-    NavigationService.getuserprofile(function(data) {
-        if (data.id) {
-            userProfile = data;
-            NavigationService.getMyFavourites(data.id, function(favorite) {
-                userProfile.wishlist = favorite;
-            })
-        }
-    })
+    $scope.makeactive('All');
+  }
 
-    $scope.openReachout = function() {
-        globalFunction.reachOut();
-    }
-
-    //get user details
-    $scope.setColorSearch = function(select) {
-        $scope.pagedata.color = select.selected.name;
-    }
-    $scope.setStyleSearch = function(select) {
-        $scope.pagedata.style = select.selected.name;
-    }
-    $scope.setElementSearch = function(select) {
-        $scope.pagedata.element = select.selected.name;
-    }
-
-    $scope.getClr = function() {
-        if ($scope.pagedata.type == "") {
-            //          console.log("in if");
-            $scope.change = "";
-            NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
-                    $scope.allColor = _.uniq(data, '_id');
-                    $scope.allColor.unshift({
-                        "_id": "0",
-                        name: ""
-                    });
-                } else {
-                    $scope.allColor = [];
-                }
-            });
-        } else {
-            //          console.log("in else");
-            $scope.change = {};
-            $scope.change.type = $scope.pagedata.type;
-            NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
-                    $scope.allColor = _.uniq(data, '_id');
-                    $scope.allColor.unshift({
-                        "_id": "0",
-                        name: ""
-                    });
-                } else {
-                    $scope.allColor = [];
-                }
-            });
-        }
-    }
-    $scope.getStl = function() {
-        if ($scope.pagedata.type == "") {
-            //          console.log("in if");
-            $scope.change = "";
-            NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
-                    $scope.allStyle = _.uniq(data, '_id');
-                    $scope.allStyle.unshift({
-                        "_id": "0",
-                        name: ""
-                    });
-                } else {
-                    $scope.allStyle = [];
-                }
-            });
-        } else {
-            //          console.log("in else");
-            $scope.change = {};
-            $scope.change.type = $scope.pagedata.type;
-            NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
-                    $scope.allStyle = _.uniq(data, '_id');
-                    $scope.allStyle.unshift({
-                        "_id": "0",
-                        name: ""
-                    });
-                } else {
-                    $scope.allStyle = [];
-                }
-            });
-        }
-    }
-    $scope.getElm = function() {
-        if ($scope.pagedata.type == "") {
-            //          console.log("in if");
-            $scope.change = "";
-            NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
-                    $scope.allElement = _.uniq(data, '_id');
-                    $scope.allElement.unshift({
-                        "_id": "0",
-                        name: ""
-                    });
-                } else {
-                    $scope.allElement = [];
-                }
-            });
-        } else {
-            //          console.log("in else");
-            $scope.change = {};
-            $scope.change.type = $scope.pagedata.type;
-            NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
-                    $scope.allElement = _.uniq(data, '_id');
-                    $scope.allElement.unshift({
-                        "_id": "0",
-                        name: ""
-                    });
-                } else {
-                    $scope.allElement = [];
-                }
-            });
-        }
-    }
-    $scope.getClr();
-    $scope.getElm();
-    $scope.getStl();
-
-    $scope.getColorDropdown = function(search) {
-        if (search.length >= 1) {
-            $timeout(function() {
-                NavigationService.tagSearchType($scope.pagedata.type, search, function(data) {
-                    if (data && data.value != false) {
-                        $scope.allColor = data;
-                    } else {
-                        $scope.allColor = [];
-                    }
-                });
-            }, 1000);
-        } else {
-            $scope.getClr();
-        }
-    }
-    $scope.getStyleDropdown = function(search) {
-        if (search.length >= 1) {
-            $timeout(function() {
-                NavigationService.tagSearchType($scope.pagedata.type, search, function(data) {
-                    if (data && data.value != false) {
-                        $scope.allStyle = data;
-                    } else {
-                        $scope.allStyle = [];
-                    }
-                });
-            }, 1000);
-        } else {
-            $scope.getStl();
-        }
-    }
-    $scope.getElementDropdown = function(search) {
-        if (search.length >= 1) {
-            $timeout(function() {
-                NavigationService.tagSearchType($scope.pagedata.type, search, function(data) {
-                    if (data && data.value != false) {
-                        $scope.allElement = data;
-                    } else {
-                        $scope.allElement = [];
-                    }
-                });
-            }, 1000);
-        } else {
-            $scope.getElm();
-        }
-    }
-    var countcall = 0;
-    $scope.getallartist = function() {
-        if ($scope.pagedata.type == "") {
-            NavigationService.getAllArtistByAccess(++countcall, function(data, status, n) {
-                if (n == countcall) {
-                    if (data && data.value != false) {
-                        $scope.allartist = _.uniq(data, '_id');
-                        $scope.allartist.unshift({
-                            "_id": "0",
-                            name: ""
-                        });
-                    } else {
-                        $scope.allartist = [];
-                    }
-                } else {
-                    $scope.allartist = [];
-                }
-            });
-        } else {
-            NavigationService.userbytype($scope.pagedata.type, ++countcall, function(data, status, n) {
-                if (n == countcall) {
-                    if (data && data.value != false) {
-                        $scope.allartist = data;
-                        $scope.allartist.unshift({
-                            "_id": "0",
-                            name: ""
-                        });
-                    } else {
-                        $scope.allartist = [];
-                    }
-                } else {
-                    $scope.allartist = [];
-                }
-            });
-        }
-    }
-
-    $scope.getmedium = function() {
-        if ($scope.pagedata.type == "") {
-            //          console.log("in if");
-            $scope.change = "";
-            NavigationService.getallmedium($scope.change, function(data, status) {
-                if (data && data.value != false) {
-                    $scope.allmedium = _.uniq(data, '_id');
-                } else {
-                    $scope.allmedium = [];
-                }
-            });
-        } else {
-            //          console.log("in else");
-            $scope.change = {};
-            $scope.change.type = $scope.pagedata.type;
-            NavigationService.getallmedium($scope.change, function(data, status) {
-                if (data && data.value != false) {
-                    $scope.allmedium = _.uniq(data, '_id');
-                } else {
-                    $scope.allmedium = [];
-                }
-            });
-        }
-    }
-    $scope.getallartist();
-    $scope.getDropdown = function(search) {
-        if (search.length >= 1) {
-            $scope.change = {};
-            $scope.change.type = $scope.pagedata.type;
-            $scope.change.search = search;
-            $timeout(function() {
-                NavigationService.getAllArtistDrop($scope.change, function(data) {
-                    if (data && data.value != false) {
-                        $scope.allartist = data;
-                        $scope.allartist.unshift({
-                            "_id": "0",
-                            name: ""
-                        });
-                    } else {
-                        $scope.allartist = [];
-                    }
-                });
-            }, 1000);
-        } else {
-            $scope.getallartist();
-        }
-    }
-
-    $scope.getDropdownMedium = function(search) {
-        if (search.length >= 1) {
-            $scope.change = {};
-            $scope.change.type = $scope.pagedata.type;
-            $scope.change.search = search;
-            $timeout(function() {
-                NavigationService.getallmedium($scope.change, function(data) {
-                    if (data && data.value != false) {
-                        $scope.allmedium = data;
-                        $scope.allmedium.unshift({
-                            "_id": "0",
-                            name: ""
-                        });
-                    } else {
-                        $scope.allmedium = [];
-                    }
-                });
-            }, 1000);
-        } else {
-            $scope.getmedium();
-        }
-    }
-
-    $scope.setSearch = function(select) {
-        $scope.pagedata.search = select.selected.name;
-    }
-    $scope.setMediumSearch = function(select) {
-        $scope.pagedata.medium = select.selected.name;
-    }
-
-    $scope.typejson = [{
-        name: "All",
-        class: "actives"
-    }, {
-        name: "Paintings",
-        class: ""
-    }, {
-        name: "Sculptures",
-        class: ""
-    }, {
-        name: "Photographs",
-        class: ""
-    }, {
-        name: "Prints",
-        class: ""
-    }, {
-        name: "Others",
-        class: ""
-    }]
-
-    $scope.changeHeartColor = function(totalartcont) {
-        if ($scope.isRed == true)
-            totalartcont.heartClass = "fa fa-heart";
-        else
-            totalartcont.heartClass = "fa fa-heart font-color3";
-        $scope.isRed = !$scope.isRed;
-    }
-
-    $scope.makeFav = function(art) {
-        dataNextPre.favorite(art);
-    }
-
-    $scope.addToCart = function(art) {
-        dataNextPre.addToCart(art);
-    }
-
-    $scope.checkForEmpty = function() {
-
-    }
-
-    $scope.reload = function() {
-        cfpLoadingBar.start();
-        //      console.log($scope.pagedata);
-        var filterdata = $scope.pagedata;
-        if (filterdata.minprice == 0) {
-            filterdata.minprice = '';
-            $scope.pagedata.minprice = '';
-        }
-        if (filterdata.maxprice == 10000000) {
-            filterdata.maxprice = '';
-            $scope.pagedata.maxprice = '';
-        }
-
-        if (filterdata.sort == 1) {
-            $scope.lotactive = '';
-            $scope.htlactive = '';
-            $scope.lthactive = '';
-        }
-        NavigationService.artworktype(filterdata, function(data, status) {
-            // console.log(data.data);
-            lastpage = parseInt(data.totalpages);
-            $scope.totalartcont = _.union($scope.totalartcont, data.data);
-            // _.each(data.data, function(n) {
-            //     $scope.totalartcont.push(n);
-            // })
-            $scope.totalartcont = _.uniq($scope.totalartcont, 'artwork._id');
-            $scope.callinfinite = false;
-            cfpLoadingBar.complete();
-        });
-    }
-
-    //    $scope.reload();
-
-    $scope.makeactive = function(type) {
-        //      console.log(type);
-        _.each($scope.typejson, function(n) {
-            var index = n.name.indexOf(type);
-            if (index != -1) {
-                n.class = "actives";
-            } else {
-                n.class = "";
-            }
-        })
-        if (type == "All")
-            type = "";
-        $scope.pagedata.type = type;
-        $scope.totalartcont = [];
-        $scope.pagedata.pagenumber = 1;
-        // $scope.pagedata.search = '';
-        $scope.pagedata.filter = "srno";
-        $scope.pagedata.sort = 1;
-        // $scope.pagedata.medium = '';
-        $scope.checkForEmpty();
-        $scope.reload();
-    }
-
-    //    $scope.loadMore = function () {
-    //        $scope.pagedata.pagenumber++;
-    //        if ($scope.pagedata.pagenumber <= $scope.totalpagecount) {
-    //            $scope.reload();
-    //        }
-    //    };
-
-    $scope.filterresults = function(search) {
-        //      console.log(search);
-        $scope.pagedata.search = _.capitalize(search);
-        $scope.totalartcont = [];
-        $scope.pagedata.pagenumber = 1;
-        $scope.pagedata.filter = "srno";
-        $scope.pagedata.sort = 1;
-        $scope.checkForEmpty();
-        $scope.reload();
-    }
-
-    // $(window).scroll(function() {
-    //     if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-    //         console.log("at bottom");
-    //         $scope.pagedata.pagenumber++;
-    //         $scope.reload();
-    //     }
-    // });
-
-    $scope.addMoreItems = function() {
-        if (lastpage > $scope.pagedata.pagenumber) {
-            $scope.pagedata.pagenumber++;
-            $scope.reload();
-        }
-    }
-
-
-    // set available range
-    $scope.minPrice = 0;
-    $scope.maxPrice = 10000000;
-
-    // default the user's values to the available range
-    $scope.userMinPrice = $scope.minPrice;
-    $scope.userMaxPrice = $scope.maxPrice;
-
-    $scope.imageSrc = 'img/artist/artist1.jpg';
-
-    $scope.artistDetailImg = {};
-    $scope.showDetails = function(oneuser) {
-        //      console.log(oneuser)
-        $scope.artistDetailImg = oneuser;
-        ngDialog.open({
-            scope: $scope,
-            template: 'views/content/quickview-imagedetail.html'
-        });
-    };
-
-    $scope.lauchedSoon = function() {
-        ngDialog.open({
-            template: 'views/content/modal-launch.html'
-        });
-        $timeout(function() {
-            ngDialog.closeAll();
-        }, 3000);
-    };
-
-    $scope.sortBy = function(num, by) {
-        if (num == -1 && by == 'yoc') {
-            $scope.lotactive = 'active';
-            $scope.htlactive = '';
-            $scope.lthactive = '';
-        } else if (num == -1 && by == 'gprice') {
-            $scope.lotactive = '';
-            $scope.htlactive = 'active';
-            $scope.lthactive = '';
-        } else if (num == 1 && by == 'gprice') {
-            $scope.lotactive = '';
-            $scope.htlactive = '';
-            $scope.lthactive = 'active';
-        }
-        $scope.pagedata.sort = num;
-        $scope.pagedata.filter = by;
-        $scope.pagedata.pagenumber = 1;
-        $scope.totalartcont = [];
-        $scope.reload();
-    }
-
-    if ($stateParams.type != -1) {
-        $scope.makeactive($stateParams.type);
+  $scope.goToDetailPage = function(artwork) {
+    //      console.log(artwork);
+    if (artwork.type == "Sculptures") {
+      //          $location.url("/sculpture/" + artwork._id);
+      $state.go('sculpture', {
+        artid: artwork._id
+      });
     } else {
-        $scope.pagedata = $.jStorage.get("filterby");
-        $scope.checkForEmpty();
-        $stateParams.type = "All";
-        if ($.jStorage.get("filterby") && $.jStorage.get("filterby").type == '')
-            $scope.makeactive("All");
-        else
-            $scope.makeactive($.jStorage.get("filterby").type);
+      //          $location.url("/artwork/detail/" + artwork._id);
+      $state.go('detail', {
+        artid: artwork._id
+      });
     }
-
-    $scope.clearfilters = function() {
-        $scope.pagedata.search = "";
-        $scope.pagedata.type = "";
-        $scope.pagedata.pagenumber = 1;
-        $scope.pagedata.pagesize = 20;
-        $scope.pagedata.filter = "";
-        $scope.pagedata.medium = '';
-        $scope.pagedata.sort = 1;
-        $scope.pagedata.minheight = "";
-        $scope.pagedata.maxheight = "";
-        $scope.pagedata.minwidth = "";
-        $scope.pagedata.maxwidth = "";
-        $scope.pagedata.minbreadth = "";
-        $scope.pagedata.maxbreadth = "";
-        $scope.pagedata.minprice = "";
-        $scope.pagedata.maxprice = "";
-        $scope.pagedata.color = "";
-        $scope.pagedata.style = "";
-        $scope.pagedata.element = "";
-
-        $scope.makeactive('All');
-    }
-
-    $scope.goToDetailPage = function(artwork) {
-        //      console.log(artwork);
-        if (artwork.type == "Sculptures") {
-            //          $location.url("/sculpture/" + artwork._id);
-            $state.go('sculpture', {
-                artid: artwork._id
-            });
-        } else {
-            //          $location.url("/artwork/detail/" + artwork._id);
-            $state.go('detail', {
-                artid: artwork._id
-            });
-        }
-    }
+  }
 })
 
 .controller('CheckoutCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, valdr, $state, ngDialog, $filter) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("checkout");
-    $scope.menutitle = NavigationService.makeactive("Checkout");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-    //Valdr
-    $scope.checkout = [];
-    $scope.checkout.isshipping = true;
-    $scope.payment = {};
-    $scope.payment.billing = {};
-    $scope.payment.shipping = {};
-    $scope.showMobErr = false;
-    $scope.showPinErr = false;
-    $scope.checkoutRadio = 'guest';
-    $scope.showInvalidLogin = false;
-    $scope.passwordNotMatch = false;
-    $scope.showAlreadyRegistered = false;
-    $scope.login = {};
-    $scope.register = {};
-    $scope.user = {};
-    $scope.user.shipping = {};
-    $scope.user.shipping.name = "";
-    $scope.user.shipping.country = "";
-    $scope.user.billing = {};
-    $scope.user.billing.country = "";
-    $scope.checked = false;
+  //Used to name the .html file
+  $scope.template = TemplateService.changecontent("checkout");
+  $scope.menutitle = NavigationService.makeactive("Checkout");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
+  //Valdr
+  $scope.checkout = [];
+  $scope.checkout.isshipping = true;
+  $scope.payment = {};
+  $scope.payment.billing = {};
+  $scope.payment.shipping = {};
+  $scope.showMobErr = false;
+  $scope.showPinErr = false;
+  $scope.checkoutRadio = 'guest';
+  $scope.showInvalidLogin = false;
+  $scope.passwordNotMatch = false;
+  $scope.showAlreadyRegistered = false;
+  $scope.login = {};
+  $scope.register = {};
+  $scope.user = {};
+  $scope.user.shipping = {};
+  $scope.user.shipping.name = "";
+  $scope.user.shipping.country = "";
+  $scope.user.billing = {};
+  $scope.user.billing.country = "";
+  $scope.checked = false;
+  $scope.showShipping = false;
+  $scope.showShippingContinue = false;
+  $scope.showCartEnable = false;
+  $scope.showLoginDiv = true;
+
+  NavigationService.getCountryJson(function(data) {
+    $scope.countries = data;
+    // $scope.countries.unshift({
+    //     "name": "Select Country",
+    //     "code": ""
+    // });
+  });
+
+  $scope.showCart = function() {
+    $scope.showCartEnable = true;
+  }
+
+  NavigationService.getuserprofile(function(data) {
+    console.log(data);
+
+    if (data.id) {
+      $scope.user = data;
+      if (!$scope.user.billing) {
+        $scope.user.billing = {};
+        $scope.user.billing.country = "";
+      }
+      if (!$scope.user.shipping) {
+        $scope.user.shipping = {};
+        $scope.user.shipping.country = "";
+      }
+      if (data.billing) {
+        $scope.user.billing.name = data.name;
+        $scope.user.billing.email = data.email;
+        $scope.user.billing.regadd = data.billing.locality;
+        $scope.user.billing.mobileno = data.mob;
+        $scope.user.billing.countrycode = data.cc;
+      }
+      if (data.shipping) {
+        $scope.user.shipping.name = data.name;
+        $scope.user.shipping.email = data.email;
+        $scope.user.shipping.regadd = data.shipping.locality;
+        $scope.user.shipping.mobileno = data.mob;
+        $scope.user.shipping.countrycode = data.cc;
+      }
+      $scope.showShipping = true;
+      $scope.showShippingContinue = true;
+      $scope.showLoginDiv = false;
+      $scope.payment.billing = data;
+    }
+  })
+
+  $scope.continueGuest = function() {
+    console.log($scope.checkoutRadio);
+    console.log($scope.showShipping);
+    if ($scope.checkoutRadio == 'guest') {
+      $scope.showShipping = true;
+      $scope.showShippingContinue = true;
+    } else {
+      $scope.showShipping = false;
+      $scope.showShippingContinue = false;
+    }
+  }
+  $scope.loginRegClick = function() {
     $scope.showShipping = false;
     $scope.showShippingContinue = false;
-    $scope.showCartEnable = false;
-    $scope.showLoginDiv = true;
+  }
 
-    NavigationService.getCountryJson(function(data) {
-        $scope.countries = data;
-        // $scope.countries.unshift({
-        //     "name": "Select Country",
-        //     "code": ""
-        // });
-    });
-
-    $scope.showCart = function() {
-        $scope.showCartEnable = true;
-    }
-
-    NavigationService.getuserprofile(function(data) {
+  $scope.registeruser = function() {
+    if ($scope.register.password === $scope.register.confirmpassword) {
+      $scope.passwordNotMatch = false;
+      $scope.register.accesslevel = "customer";
+      NavigationService.registeruser($scope.register, function(data, status) {
         console.log(data);
-
-        if (data.id) {
-            $scope.user = data;
-            if (!$scope.user.billing) {
-                $scope.user.billing = {};
-                $scope.user.billing.country = "";
-            }
-            if (!$scope.user.shipping) {
-                $scope.user.shipping = {};
-                $scope.user.shipping.country = "";
-            }
-            if (data.billing) {
-                $scope.user.billing.name = data.name;
-                $scope.user.billing.email = data.email;
-                $scope.user.billing.regadd = data.billing.locality;
-                $scope.user.billing.mobileno = data.mob;
-                $scope.user.billing.countrycode = data.cc;
-            }
-            if (data.shipping) {
-                $scope.user.shipping.name = data.name;
-                $scope.user.shipping.email = data.email;
-                $scope.user.shipping.regadd = data.shipping.locality;
-                $scope.user.shipping.mobileno = data.mob;
-                $scope.user.shipping.countrycode = data.cc;
-            }
-            $scope.showShipping = true;
-            $scope.showShippingContinue = true;
-            $scope.showLoginDiv = false;
-            $scope.payment.billing = data;
+        if (data.value != false) {
+          ngDialog.closeAll();
+          window.location.reload();
+        } else if (data.value == false && data.comment == "User already exists") {
+          $scope.showAlreadyRegistered = true;
         }
-    })
-
-    $scope.continueGuest = function() {
-        console.log($scope.checkoutRadio);
-        console.log($scope.showShipping);
-        if ($scope.checkoutRadio == 'guest') {
-            $scope.showShipping = true;
-            $scope.showShippingContinue = true;
-        } else {
-            $scope.showShipping = false;
-            $scope.showShippingContinue = false;
-        }
+      })
+    } else {
+      $scope.passwordNotMatch = true;
     }
-    $scope.loginRegClick = function() {
-        $scope.showShipping = false;
-        $scope.showShippingContinue = false;
-    }
+  };
 
-    $scope.registeruser = function() {
-        if ($scope.register.password === $scope.register.confirmpassword) {
-            $scope.passwordNotMatch = false;
-            $scope.register.accesslevel = "customer";
-            NavigationService.registeruser($scope.register, function(data, status) {
-                console.log(data);
-                if (data.value != false) {
-                    ngDialog.closeAll();
-                    window.location.reload();
-                } else if (data.value == false && data.comment == "User already exists") {
-                    $scope.showAlreadyRegistered = true;
-                }
-            })
-        } else {
-            $scope.passwordNotMatch = true;
-        }
-    };
-
-    $scope.userlogin = function() {
-        NavigationService.userlogin($scope.login, function(data, status) {
-            if (data.value != false) {
-                $scope.showInvalidLogin = false;
-                NavigationService.getuserprofile(function(data) {
-                    console.log("login successfully");
-                    ngDialog.closeAll();
-                    window.location.reload();
-                })
-            } else {
-                $scope.showInvalidLogin = true;
-            }
-
-
-            // if (data.value != false) {
-            //     $scope.showInvalidLogin = false;
-            //     $scope.showWishlist = true;
-            //     //$.jStorage.set("user", data);
-            //     $scope.user.name = data.name;
-            //     ngDialog.closeAll();
-            //     window.location.reload();
-            // } else {
-            //     $scope.showInvalidLogin = true;
-            // }
+  $scope.userlogin = function() {
+    NavigationService.userlogin($scope.login, function(data, status) {
+      if (data.value != false) {
+        $scope.showInvalidLogin = false;
+        NavigationService.getuserprofile(function(data) {
+          console.log("login successfully");
+          ngDialog.closeAll();
+          window.location.reload();
         })
-    };
+      } else {
+        $scope.showInvalidLogin = true;
+      }
 
 
-    valdr.addConstraints({
-        'Person': {
-            'firstName': {
-                'size': {
-                    'min': 3,
-                    'max': 20,
-                    'message': 'First name is required to be between 3 and 20 characters.'
-                },
-                'required': {
-                    'message': 'First name is required.'
-                }
-            }
+      // if (data.value != false) {
+      //     $scope.showInvalidLogin = false;
+      //     $scope.showWishlist = true;
+      //     //$.jStorage.set("user", data);
+      //     $scope.user.name = data.name;
+      //     ngDialog.closeAll();
+      //     window.location.reload();
+      // } else {
+      //     $scope.showInvalidLogin = true;
+      // }
+    })
+  };
+
+
+  valdr.addConstraints({
+    'Person': {
+      'firstName': {
+        'size': {
+          'min': 3,
+          'max': 20,
+          'message': 'First name is required to be between 3 and 20 characters.'
+        },
+        'required': {
+          'message': 'First name is required.'
         }
+      }
+    }
+  });
+
+  $scope.totalCartPrice = 0;
+  $scope.sameAsBilling = false;
+
+  $scope.changeAddress = function(check) {
+    if (check == true) {
+      $scope.sameAsBilling = true;
+    } else {
+      $scope.sameAsBilling = false;
+    }
+
+  }
+
+  cfpLoadingBar.start();
+
+  $scope.getCartItems = function() {
+    NavigationService.getCartItems(function(data) {
+      console.log(data);
+      $scope.cartItems = data;
+      $scope.totalCartPrice = 0;
+      _.each($scope.cartItems, function(n) {
+        console.log(n.artwork.formname);
+        n.artwork.formname = n.artwork.srno;
+        if (n.artwork.gprice != 'N/A')
+          $scope.totalCartPrice += n.artwork.gprice;
+      });
+      $scope.vat = ($scope.totalCartPrice / 100) * 12.5;
+      cfpLoadingBar.complete();
+    });
+  }
+
+  $scope.getCartItems();
+
+  $scope.removeFromCart = function(artid) {
+    NavigationService.removeFromCart(artid, function(data) {
+      console.log(data);
+      if (data.value == true) {
+        dataNextPre.messageBox("Removed from cart");
+        dataNextPre.getCartItems();
+        $scope.getCartItems();
+      }
+    })
+  }
+  $scope.shippingCost = 0;
+  $scope.calculateShipping = function(artwork) {
+    var city = $scope.user.shipping.city;
+    console.log(city.trim());
+    if (artwork.form == "framed" && $filter('lowercase')($scope.user.shipping.city) != "mumbai") {
+      var height = (artwork.height + 6) * 2.54;
+      var width = (artwork.width + 6) * 2.54;
+      if (artwork.breadth != "N/A") {
+        var breadth = (artwork.breadth + 6) * 2.54;
+      } else {
+        var breadth = (0 + 6) * 2.54;
+      }
+      var formula = (height * width * breadth) / 2700;
+      formula = formula * 40;
+      artwork.shippingCost = formula;
+    }
+    console.log($scope.cartItems);
+    $scope.shippingCost = 0;
+    _.each($scope.cartItems, function(n) {
+      if (n.artwork.shippingCost) {
+        $scope.shippingCost = $scope.shippingCost + n.artwork.shippingCost;
+      }
     });
 
-    $scope.totalCartPrice = 0;
-    $scope.sameAsBilling = false;
+  }
 
-    $scope.changeAddress = function(check) {
-        if (check == true) {
-            $scope.sameAsBilling = true;
+  $scope.paymentFunc = function() {
+    var num = 0;
+    _.each($scope.cartItems, function(n) {
+      if (n.artwork.form) {
+        num++;
+      }
+    });
+    if (num == $scope.cartItems.length) {
+      $scope.user.cart = [];
+      $scope.user.cart = $scope.cartItems;
+      $scope.user.subTotal = $scope.totalCartPrice;
+      $scope.user.vat = $scope.vat;
+      $scope.user.grantTotal = $scope.totalCartPrice + $scope.vat;
+      $scope.user.discount = 0;
+      delete $scope.user.id;
+      NavigationService.checkout($scope.user, function(data) {
+        // console.log("incheck");
+        if (data.value != false) {
+          $scope.user.orderid1 = data.id;
+          $scope.user.orderid2 = data.orderid;
+          $timeout(function() {
+            $("form[name='payuForm']").submit();
+          }, 2000);
+          // $state.go('thankyou');
+          // dataNextPre.messageBox("Your order is placed. Thank You !!");
+          // $timeout(function() {
+          //     $state.go('thankyou');
+          // }, 3000);
+
         } else {
-            $scope.sameAsBilling = false;
+          $state.go('sorry');
         }
+      });
+    } else {
+      // alert("Fill all manditory * Fields");
+      dataNextPre.messageBox("Please select in what Form (Rolled or Framed) you want to receive the artwork.");
+    }
+  }
 
+  $scope.toPayment = function(checked) {
+    if (checked == true) {
+      $scope.user.shipping = _.cloneDeep($scope.user.billing);
+      $scope.paymentFunc();
+    } else {
+      $scope.paymentFunc();
     }
 
-    cfpLoadingBar.start();
+  }
 
-    $scope.getCartItems = function() {
-        NavigationService.getCartItems(function(data) {
-            console.log(data);
-            $scope.cartItems = data;
-            $scope.totalCartPrice = 0;
-            _.each($scope.cartItems, function(n) {
-                console.log(n.artwork.formname);
-                n.artwork.formname = n.artwork.srno;
-                if (n.artwork.gprice != 'N/A')
-                    $scope.totalCartPrice += n.artwork.gprice;
-            });
-            $scope.vat = ($scope.totalCartPrice / 100) * 12.5;
-            cfpLoadingBar.complete();
-        });
-    }
-
-    $scope.getCartItems();
-
-    $scope.removeFromCart = function(artid) {
-        NavigationService.removeFromCart(artid, function(data) {
-            console.log(data);
-            if (data.value == true) {
-                dataNextPre.messageBox("Removed from cart");
-                dataNextPre.getCartItems();
-                $scope.getCartItems();
-            }
-        })
-    }
+  //after implementing paymentgateway topayment and viewcart will replace
+  $scope.onFieldChange = function(checked) {
+    $scope.showShippingContinue = true;
+    $scope.showCartEnable = false;
+    _.each($scope.cartItems, function(n) {
+      n.artwork.form = "";
+    });
     $scope.shippingCost = 0;
-    $scope.calculateShipping = function(artwork) {
-        var city = $scope.user.shipping.city;
-        console.log(city.trim());
-        if (artwork.form == "framed" && $filter('lowercase')($scope.user.shipping.city) != "mumbai") {
-            var height = (artwork.height + 6) * 2.54;
-            var width = (artwork.width + 6) * 2.54;
-            if (artwork.breadth != "N/A") {
-                var breadth = (artwork.breadth + 6) * 2.54;
-            } else {
-                var breadth = (0 + 6) * 2.54;
-            }
-            var formula = (height * width * breadth) / 2700;
-            formula = formula * 40;
-            artwork.shippingCost = formula;
-        }
-        console.log($scope.cartItems);
-        $scope.shippingCost = 0;
-        _.each($scope.cartItems, function(n) {
-            if (n.artwork.shippingCost) {
-                $scope.shippingCost = $scope.shippingCost + n.artwork.shippingCost;
-            }
-        });
+  }
+  $scope.viewCart = function(checked) {
 
+    if (checked == true) {
+      $scope.user.shipping = _.cloneDeep($scope.user.billing);
     }
-
-    $scope.paymentFunc = function() {
-        var num = 0;
-        _.each($scope.cartItems, function(n) {
-            if (n.artwork.form) {
-                num++;
-            }
-        });
-        if (num == $scope.cartItems.length) {
-            $scope.user.cart = [];
-            $scope.user.cart = $scope.cartItems;
-            $scope.user.subTotal = $scope.totalCartPrice;
-            $scope.user.vat = $scope.vat;
-            $scope.user.grantTotal = $scope.totalCartPrice + $scope.vat;
-            $scope.user.discount = 0;
-            delete $scope.user.id;
-            NavigationService.checkout($scope.user, function(data) {
-                // console.log("incheck");
-                if (data.value != false) {
-                    $scope.user.orderid1 = data.id;
-                    $scope.user.orderid2 = data.orderid;
-                    $timeout(function() {
-                        $("form[name='payuForm']").submit();
-                    }, 2000);
-                    // $state.go('thankyou');
-                    // dataNextPre.messageBox("Your order is placed. Thank You !!");
-                    // $timeout(function() {
-                    //     $state.go('thankyou');
-                    // }, 3000);
-
-                } else {
-                    $state.go('sorry');
-                }
-            });
-        } else {
-            // alert("Fill all manditory * Fields");
-            dataNextPre.messageBox("Please select in what Form (Rolled or Framed) you want to receive the artwork.");
-        }
+    try {
+      $scope.allvalidation = [{
+        field: $scope.user.billing.name,
+        validation: ""
+      }, {
+        field: $scope.user.billing.email,
+        validation: ""
+      }, {
+        field: $scope.user.billing.countrycode,
+        validation: ""
+      }, {
+        field: $scope.user.billing.mobileno,
+        validation: ""
+      }, {
+        field: $scope.user.billing.flatno,
+        validation: ""
+      }, {
+        field: $scope.user.billing.bldgname,
+        validation: ""
+      }, {
+        field: $scope.user.billing.regadd,
+        validation: ""
+      }, {
+        field: $scope.user.billing.city,
+        validation: ""
+      }, {
+        field: $scope.user.billing.pincode,
+        validation: ""
+      }, {
+        field: $scope.user.billing.state,
+        validation: ""
+      }, {
+        field: $scope.user.billing.country,
+        validation: ""
+      }, {
+        field: $scope.user.shipping.name,
+        validation: ""
+      }, {
+        field: $scope.user.shipping.email,
+        validation: ""
+      }, {
+        field: $scope.user.shipping.countrycode,
+        validation: ""
+      }, {
+        field: $scope.user.shipping.mobileno,
+        validation: ""
+      }, {
+        field: $scope.user.shipping.flatno,
+        validation: ""
+      }, {
+        field: $scope.user.shipping.bldgname,
+        validation: ""
+      }, {
+        field: $scope.user.shipping.regadd,
+        validation: ""
+      }, {
+        field: $scope.user.shipping.city,
+        validation: ""
+      }, {
+        field: $scope.user.shipping.pincode,
+        validation: ""
+      }, {
+        field: $scope.user.shipping.state,
+        validation: ""
+      }, {
+        field: $scope.user.shipping.country,
+        validation: ""
+      }];
+      var check = formvalidation($scope.allvalidation);
+      if (check) {
+        $scope.showCart();
+        $scope.showShippingContinue = false;
+        $(window).scrollTop($(window).height());
+      } else {
+        dataNextPre.messageBox("Fill all manditory * Fields");
+      }
+    } catch (e) {
+      dataNextPre.messageBox("Fill all manditory * Fields");
     }
+  }
 
-    $scope.toPayment = function(checked) {
-        if (checked == true) {
-            $scope.user.shipping = _.cloneDeep($scope.user.billing);
-            $scope.paymentFunc();
-        } else {
-            $scope.paymentFunc();
-        }
-
-    }
-
-    //after implementing paymentgateway topayment and viewcart will replace
-    $scope.onFieldChange = function(checked) {
-        $scope.showShippingContinue = true;
-        $scope.showCartEnable = false;
-        _.each($scope.cartItems, function(n) {
-            n.artwork.form = "";
-        });
-        $scope.shippingCost = 0;
-    }
-    $scope.viewCart = function(checked) {
-
-        if (checked == true) {
-            $scope.user.shipping = _.cloneDeep($scope.user.billing);
-        }
-        try {
-            $scope.allvalidation = [{
-                field: $scope.user.billing.name,
-                validation: ""
-            }, {
-                field: $scope.user.billing.email,
-                validation: ""
-            }, {
-                field: $scope.user.billing.countrycode,
-                validation: ""
-            }, {
-                field: $scope.user.billing.mobileno,
-                validation: ""
-            }, {
-                field: $scope.user.billing.flatno,
-                validation: ""
-            }, {
-                field: $scope.user.billing.bldgname,
-                validation: ""
-            }, {
-                field: $scope.user.billing.regadd,
-                validation: ""
-            }, {
-                field: $scope.user.billing.city,
-                validation: ""
-            }, {
-                field: $scope.user.billing.pincode,
-                validation: ""
-            }, {
-                field: $scope.user.billing.state,
-                validation: ""
-            }, {
-                field: $scope.user.billing.country,
-                validation: ""
-            }, {
-                field: $scope.user.shipping.name,
-                validation: ""
-            }, {
-                field: $scope.user.shipping.email,
-                validation: ""
-            }, {
-                field: $scope.user.shipping.countrycode,
-                validation: ""
-            }, {
-                field: $scope.user.shipping.mobileno,
-                validation: ""
-            }, {
-                field: $scope.user.shipping.flatno,
-                validation: ""
-            }, {
-                field: $scope.user.shipping.bldgname,
-                validation: ""
-            }, {
-                field: $scope.user.shipping.regadd,
-                validation: ""
-            }, {
-                field: $scope.user.shipping.city,
-                validation: ""
-            }, {
-                field: $scope.user.shipping.pincode,
-                validation: ""
-            }, {
-                field: $scope.user.shipping.state,
-                validation: ""
-            }, {
-                field: $scope.user.shipping.country,
-                validation: ""
-            }];
-            var check = formvalidation($scope.allvalidation);
-            if (check) {
-                $scope.showCart();
-                $scope.showShippingContinue = false;
-                $(window).scrollTop($(window).height());
-            } else {
-                dataNextPre.messageBox("Fill all manditory * Fields");
-            }
-        } catch (e) {
-            dataNextPre.messageBox("Fill all manditory * Fields");
-        }
-    }
-
-    $scope.checkout = function() {
-        $scope.user.cart = $scope.cartItems;
-        NavigationService.checkout($scope.user, function(data) {
-            console.log(data);
-        });
-    }
+  $scope.checkout = function() {
+    $scope.user.cart = $scope.cartItems;
+    NavigationService.checkout($scope.user, function(data) {
+      console.log(data);
+    });
+  }
 
 })
 
 .controller('InviteCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $stateParams) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("invite");
-    $scope.menutitle = NavigationService.makeactive("Invite");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+  //Used to name the .html file
+  $scope.template = TemplateService.changecontent("invite");
+  $scope.menutitle = NavigationService.makeactive("Invite");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
 
-    $scope.invitation = $stateParams.img;
+  $scope.invitation = $stateParams.img;
 
 })
 
 .controller('EventsCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("events");
-    $scope.menutitle = NavigationService.makeactive("Events");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-    cfpLoadingBar.start();
+  //Used to name the .html file
+  $scope.template = TemplateService.changecontent("events");
+  $scope.menutitle = NavigationService.makeactive("Events");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
+  cfpLoadingBar.start();
 
-    NavigationService.getAllEvents(function(data, status) {
-        console.log(data);
-        var events = _.groupBy(data, function(n) {
-            return n.year;
-        });
-        $scope.currentYear = parseInt(moment().get("year"));
+  NavigationService.getAllEvents(function(data, status) {
+    console.log(data);
+    var events = _.groupBy(data, function(n) {
+      return n.year;
+    });
+    $scope.currentYear = parseInt(moment().get("year"));
 
-        console.log($scope.events);
-
-        $scope.events = _.groupBy(events, function(key, value) {
-            if (parseInt(value) > $scope.currentYear) {
-                return "upcoming";
-            } else if (parseInt(value) == $scope.currentYear) {
-                return "present"
-            } else if (parseInt(value) < $scope.currentYear) {
-                return "past"
-            }
-        });
-
-        $scope.events.past = _.sortBy($scope.events.past, function(n) {
-            return -1 * n[0].year;
-        });
-        console.log($scope.events);
-        cfpLoadingBar.complete();
-
+    $scope.events = _.groupBy(events, function(key, value) {
+      if (parseInt(value) > $scope.currentYear) {
+        return "upcoming";
+      } else if (parseInt(value) == $scope.currentYear) {
+        return "present"
+      } else if (parseInt(value) < $scope.currentYear) {
+        return "past"
+      }
     });
 
-
-
-    $scope.availableAritist = ['Krishen Khanna', 'Manjit Bawa', 'Paramjit Singh', 'S Yousuf Ali', 'Umesh Varma', 'Arunanshu Chowdhury', '   Yashwant Shirwadkar'];
-
-    $scope.status = {
-        isFirstOpen: true,
-        isFirstDisabled: false
-    };
-
-
-    $scope.availableAritist = ['Krishen Khanna', 'Manjit Bawa', 'Paramjit Singh', 'S Yousuf Ali', 'Umesh Varma', 'Arunanshu Chowdhury', '   Yashwant Shirwadkar'];
-
-    $scope.status = {
-        isFirstOpen: true,
-        isFirstDisabled: false
-    };
-
-    $scope.event2016 = [{
-            name: 'AURA ART CONNECTS THE TWO WORLDS OF ART AND FASHION',
-            detail: ' ITC Grand-Maratha, Sahar Road, Mumbai',
-            img: 'img/event/event1.jpg'
+    if ($scope.events.present) {
+      var toberem = [];
+      if (!$scope.events.upcoming) {
+        $scope.events.upcoming = [];
+        $scope.events.upcoming[0] = [];
+        var count = 0;
+        _.each($scope.events.present[0], function(n) {
+          if (n.startdate) {
+            var eventDate = new Date(n.startdate);
+            var currDate = new Date();
+            if (eventDate > currDate) {
+              $scope.events.upcoming[0].push(n);
+              toberem.push(count);
+            }
+          }
+          count++;
+        })
+      } else {
+        var count = 0;
+        _.each($scope.events.present[0], function(n) {
+          if (n.startdate) {
+            var eventDate = new Date(n.startdate);
+            var currDate = new Date();
+            if (eventDate > currDate) {
+              $scope.events.upcoming[0].push(n);
+              toberem.push(count);
+            }
+          }
+          count++;
+        })
+      }
+      if ($scope.events.upcoming[0] && $scope.events.upcoming[0].length > 0) {
+        for (var i = toberem.length - 1; i >= 0; i--) {
+          $scope.events.present[0].splice(i, 1);
         }
-        // , {
-        //     name: 'Art and Culture exchange between India & China',
-        //     detail: 'Mar 31, 2015 - Mar 31, 2015 ITC Grand-Maratha, Sahar Road, Mumbai',
-        //     img: 'img/event/event2.jpg'
-        // }
-    ];
+      } else {
+        $scope.events.upcoming = [];
+      }
+    }
 
-    $scope.event2015 = [{
-            name: 'The Art Enclave at UBM Index Fairs 2014',
-            detail: ' Oct 09, 2014 - Oct 12, 2014 MMRDA Exhibition Centre, BKC, Mumbai',
-            img: 'img/event/event3.jpg'
-        }
-        // , {
-        //     name: 'Art Partner for The Edutainment Show 2014',
-        //     detail: 'Apr 26, 2014 - Apr 27, 2014 JW Marriott Hotel Mumbai',
-        //     img: ''
-        // }
-        // , {
-        //     name: 'Art Partner for Yes Bank International Polo Cup',
-        //     detail: 'Mar 22, 2014 - Mar 22, 2014 Mahalaxmi Race Course, Mumbai',
-        //     img: ''
-        // }
-    ];
+    $scope.events.past = _.sortBy($scope.events.past, function(n) {
+      return -1 * n[0].year;
+    });
 
-    $scope.event2014 = [{
-        name: 'Art Infrastructure – nobody’s business',
-        detail: 'Dec 14, 2013 - Dec 14, 2013 Taj Lands End',
-        img: 'img/event/event4.jpg'
-    }, {
-        name: 'Aura Art Show 2013 - Oct 15-21, 2013, Jehangir Art Gallery, Mumbai',
-        detail: 'Oct 15, 2013 - Oct 21, 2013 Jehangir Art Gallery, Auditorium Hall',
-        img: 'img/event/event5.jpg'
-    }, {
-        name: 'The Indian Luxury Expo - April 26-28, 2013, Grand Hyatt, Mumbai',
-        detail: 'Apr 26, 2013 - Apr 28, 2013 Grand Hyatt',
-        img: 'img/event/event6.jpg'
-    }, {
-        name: 'Wassup! Andheri, 2013 - A grand Art & Entertainment Festival',
-        detail: 'Feb 28, 2013 - Mar 03, 2013 Chitrakoot Ground, Andheri',
-        img: ''
-    }, {
-        name: 'Aura Art organised live painting demo at AGP Multi Million Race Day',
-        detail: 'Feb 17, 2013 - Feb 17, 2013 Mahalaxmi Race Course',
-        img: ''
-    }, {
-        name: 'Aura Art is delighted to be Exclusive Art Partner for AICOG 2013',
-        detail: 'Jan 16, 2013 - Jan 20, 2013 BKC, Mumbai',
-        img: ''
-    }, {
-        name: 'Group Show at The Capital  -  Fundraiser for Cuddles Foundation',
-        detail: 'Jan 15, 2013 - Jan 21, 2013 The Capital, BKC, Mumbai',
-        img: 'img/event/event7.jpg'
-    }];
+    $scope.events.upcoming = _.sortBy($scope.events.upcoming, function(n) {
+      return -1 * n[0].year;
+    });
+    console.log($scope.events);
+    cfpLoadingBar.complete();
+
+  });
+
+
+
+  $scope.availableAritist = ['Krishen Khanna', 'Manjit Bawa', 'Paramjit Singh', 'S Yousuf Ali', 'Umesh Varma', 'Arunanshu Chowdhury', '   Yashwant Shirwadkar'];
+
+  $scope.status = {
+    isFirstOpen: true,
+    isFirstDisabled: false
+  };
+
+
+  $scope.availableAritist = ['Krishen Khanna', 'Manjit Bawa', 'Paramjit Singh', 'S Yousuf Ali', 'Umesh Varma', 'Arunanshu Chowdhury', '   Yashwant Shirwadkar'];
+
+  $scope.status = {
+    isFirstOpen: true,
+    isFirstDisabled: false
+  };
+
+  $scope.event2016 = [{
+      name: 'AURA ART CONNECTS THE TWO WORLDS OF ART AND FASHION',
+      detail: ' ITC Grand-Maratha, Sahar Road, Mumbai',
+      img: 'img/event/event1.jpg'
+    }
+    // , {
+    //     name: 'Art and Culture exchange between India & China',
+    //     detail: 'Mar 31, 2015 - Mar 31, 2015 ITC Grand-Maratha, Sahar Road, Mumbai',
+    //     img: 'img/event/event2.jpg'
+    // }
+  ];
+
+  $scope.event2015 = [{
+      name: 'The Art Enclave at UBM Index Fairs 2014',
+      detail: ' Oct 09, 2014 - Oct 12, 2014 MMRDA Exhibition Centre, BKC, Mumbai',
+      img: 'img/event/event3.jpg'
+    }
+    // , {
+    //     name: 'Art Partner for The Edutainment Show 2014',
+    //     detail: 'Apr 26, 2014 - Apr 27, 2014 JW Marriott Hotel Mumbai',
+    //     img: ''
+    // }
+    // , {
+    //     name: 'Art Partner for Yes Bank International Polo Cup',
+    //     detail: 'Mar 22, 2014 - Mar 22, 2014 Mahalaxmi Race Course, Mumbai',
+    //     img: ''
+    // }
+  ];
+
+  $scope.event2014 = [{
+    name: 'Art Infrastructure – nobody’s business',
+    detail: 'Dec 14, 2013 - Dec 14, 2013 Taj Lands End',
+    img: 'img/event/event4.jpg'
+  }, {
+    name: 'Aura Art Show 2013 - Oct 15-21, 2013, Jehangir Art Gallery, Mumbai',
+    detail: 'Oct 15, 2013 - Oct 21, 2013 Jehangir Art Gallery, Auditorium Hall',
+    img: 'img/event/event5.jpg'
+  }, {
+    name: 'The Indian Luxury Expo - April 26-28, 2013, Grand Hyatt, Mumbai',
+    detail: 'Apr 26, 2013 - Apr 28, 2013 Grand Hyatt',
+    img: 'img/event/event6.jpg'
+  }, {
+    name: 'Wassup! Andheri, 2013 - A grand Art & Entertainment Festival',
+    detail: 'Feb 28, 2013 - Mar 03, 2013 Chitrakoot Ground, Andheri',
+    img: ''
+  }, {
+    name: 'Aura Art organised live painting demo at AGP Multi Million Race Day',
+    detail: 'Feb 17, 2013 - Feb 17, 2013 Mahalaxmi Race Course',
+    img: ''
+  }, {
+    name: 'Aura Art is delighted to be Exclusive Art Partner for AICOG 2013',
+    detail: 'Jan 16, 2013 - Jan 20, 2013 BKC, Mumbai',
+    img: ''
+  }, {
+    name: 'Group Show at The Capital  -  Fundraiser for Cuddles Foundation',
+    detail: 'Jan 15, 2013 - Jan 21, 2013 The Capital, BKC, Mumbai',
+    img: 'img/event/event7.jpg'
+  }];
 
 
 })
 
 .controller('EventdetailCtrl', function($scope, TemplateService, NavigationService, $timeout, ngDialog, $stateParams, cfpLoadingBar) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("eventdetail");
-    $scope.menutitle = NavigationService.makeactive("Event");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-    cfpLoadingBar.start();
+  //Used to name the .html file
+  $scope.template = TemplateService.changecontent("eventdetail");
+  $scope.menutitle = NavigationService.makeactive("Event");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
+  cfpLoadingBar.start();
 
-    NavigationService.getOneEvents($stateParams.id, function(data) {
-        console.log(data);
-        $scope.eventDetail = data;
-        cfpLoadingBar.complete();
-    })
+  NavigationService.getOneEvents($stateParams.id, function(data) {
+    console.log(data);
+    $scope.eventDetail = data;
+    cfpLoadingBar.complete();
+  })
 
 
-    //    ****** popup lightbox ******
+  //    ****** popup lightbox ******
 
-    $scope.zoomposition = 0;
+  $scope.zoomposition = 0;
 
-    $scope.openModal = function(gal) {
+  $scope.openModal = function(gal) {
 
-        $scope.zoomposition = $scope.eventDetail.photos.indexOf(gal);
+    $scope.zoomposition = $scope.eventDetail.photos.indexOf(gal);
 
-        ngDialog.open({
-            disableAnimation: true,
-            template: 'views/directive/zoomimage.html',
-            scope: $scope
-        });
-    };
+    ngDialog.open({
+      disableAnimation: true,
+      template: 'views/directive/zoomimage.html',
+      scope: $scope
+    });
+  };
 
-    $scope.nextImage = function(oldposition) {
-        if (oldposition == ($scope.eventDetail.photos.length - 1)) {
-            $scope.zoomposition = 0;
-        } else {
-            $scope.zoomposition++;
-        }
-    };
-
-    $scope.previousImage = function(oldposition) {
-        if (oldposition == 0) {
-            $scope.zoomposition = ($scope.eventDetail.photos.length - 1);
-        } else {
-            $scope.zoomposition--;
-        }
-    };
-    $scope.openBox = function(id) {
-        $(id).attr('openbox', 'show');
+  $scope.nextImage = function(oldposition) {
+    if (oldposition == ($scope.eventDetail.photos.length - 1)) {
+      $scope.zoomposition = 0;
+    } else {
+      $scope.zoomposition++;
     }
+  };
+
+  $scope.previousImage = function(oldposition) {
+    if (oldposition == 0) {
+      $scope.zoomposition = ($scope.eventDetail.photos.length - 1);
+    } else {
+      $scope.zoomposition--;
+    }
+  };
+  $scope.openBox = function(id) {
+    $(id).attr('openbox', 'show');
+  }
 
 
 })
 
 .controller('FeatureCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, toaster, ngDialog, valdr) {
-    $scope.template = TemplateService.changecontent("feature");
-    $scope.menutitle = NavigationService.makeactive("Features");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+  $scope.template = TemplateService.changecontent("feature");
+  $scope.menutitle = NavigationService.makeactive("Features");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
 
-    //Angular Loader Example
-    //Start loader
-    $scope.showLoader = function() {
-            cfpLoadingBar.start();
-        }
-        //Complete loader
-    $scope.hideLoader = function() {
-        cfpLoadingBar.complete();
+  //Angular Loader Example
+  //Start loader
+  $scope.showLoader = function() {
+      cfpLoadingBar.start();
     }
+    //Complete loader
+  $scope.hideLoader = function() {
+    cfpLoadingBar.complete();
+  }
 
-    //Angular toaster
-    $scope.showToaster = function() {
-        toaster.pop({
-            type: 'success',
-            title: 'Success!',
-            body: 'Huraaay!',
-            showCloseButton: true
-        });
-    };
-
-    //Tags input
-    $scope.tags = [{
-        text: 'Chintan'
-    }, {
-        text: 'Saloni'
-    }, {
-        text: 'Sohan'
-    }, {
-        text: 'Mahesh'
-    }, {
-        text: 'Jagruti'
-    }];
-
-    //ngDialog
-    $scope.showPopup = function() {
-        ngDialog.open({
-            template: 'demopop'
-        });
-    };
-
-    //Valdr
-    valdr.addConstraints({
-        'Person': {
-            'firstName': {
-                'size': {
-                    'min': 3,
-                    'max': 20,
-                    'message': 'First name is required to be between 3 and 20 characters.'
-                },
-                'required': {
-                    'message': 'First name is required.'
-                }
-            }
-        }
+  //Angular toaster
+  $scope.showToaster = function() {
+    toaster.pop({
+      type: 'success',
+      title: 'Success!',
+      body: 'Huraaay!',
+      showCloseButton: true
     });
+  };
 
-    //Colours for ui-select
-    $scope.availableColors = ['Red', 'Green', 'Blue', 'Yellow', 'Magenta', 'Maroon', 'Umbra', 'Turquoise'];
+  //Tags input
+  $scope.tags = [{
+    text: 'Chintan'
+  }, {
+    text: 'Saloni'
+  }, {
+    text: 'Sohan'
+  }, {
+    text: 'Mahesh'
+  }, {
+    text: 'Jagruti'
+  }];
 
-    //MomentJS
-    $scope.today = new Date();
-    $scope.dateformat = "medium";
+  //ngDialog
+  $scope.showPopup = function() {
+    ngDialog.open({
+      template: 'demopop'
+    });
+  };
+
+  //Valdr
+  valdr.addConstraints({
+    'Person': {
+      'firstName': {
+        'size': {
+          'min': 3,
+          'max': 20,
+          'message': 'First name is required to be between 3 and 20 characters.'
+        },
+        'required': {
+          'message': 'First name is required.'
+        }
+      }
+    }
+  });
+
+  //Colours for ui-select
+  $scope.availableColors = ['Red', 'Green', 'Blue', 'Yellow', 'Magenta', 'Maroon', 'Umbra', 'Turquoise'];
+
+  //MomentJS
+  $scope.today = new Date();
+  $scope.dateformat = "medium";
 
 })
 
 
 .controller('PressCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar) {
-    $scope.template = TemplateService.changecontent("press");
-    $scope.menutitle = NavigationService.makeactive("Press");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+  $scope.template = TemplateService.changecontent("press");
+  $scope.menutitle = NavigationService.makeactive("Press");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
 
-    $scope.press = [];
+  $scope.press = [];
 
-    cfpLoadingBar.start();
+  cfpLoadingBar.start();
 
-    function getPress(data) {
-        cfpLoadingBar.complete();
-        if (data.value != false) {
-            data2 = _.groupBy(data, function(n) {
-                var year = moment(n.date).get("year");
-                return year;
-            }, true);
-            $scope.pressYear = _.keys(data2);
-            // $scope.pressYear = _.orderBy($scope.pressYear,'asc');
-            console.log($scope.pressYear);
+  function getPress(data) {
+    cfpLoadingBar.complete();
+    if (data.value != false) {
+      data2 = _.groupBy(data, function(n) {
+        var year = moment(n.date).get("year");
+        return year;
+      }, true);
+      $scope.pressYear = _.keys(data2);
+      // $scope.pressYear = _.orderBy($scope.pressYear,'asc');
+      console.log($scope.pressYear);
 
-            $scope.press = data2;
-            console.log(data2);
-        }
+      $scope.press = data2;
+      console.log(data2);
     }
-    NavigationService.pressFind(getPress);
+  }
+  NavigationService.pressFind(getPress);
 
-    $scope.oneAtATime = true;
+  $scope.oneAtATime = true;
 
-    $scope.status = {
-        isFirstOpen: true,
-        isFirstDisabled: false
-    };
+  $scope.status = {
+    isFirstOpen: true,
+    isFirstDisabled: false
+  };
 
-    $scope.media2015 = [{
-        name: 'Interiors & Decor',
-        date: ' Sep 30, 2014 ',
-        img: 'img/mediacove/m1.jpg'
-    }, {
-        name: 'Design Matrix',
-        date: 'Oct 30, 2014 ',
-        img: 'img/mediacove/m2.jpg'
-    }, {
-        name: 'IFJ',
-        date: 'Aug 31, 2014',
-        img: 'img/mediacove/m3.jpg'
-    }, {
-        name: 'The Design Source',
-        date: 'Sep 30, 2014',
-        img: 'img/mediacove/m4.jpg'
-    }, {
-        name: 'Sourcing Hardware',
-        date: 'Sep 30, 2014',
-        img: 'img/mediacove/m5.jpg'
-    }, {
-        name: 'Society Interiors',
-        date: 'Sep 30, 2014',
-        img: 'img/mediacove/m6.jpg'
-    }, {
-        name: 'Architecture + Design',
-        date: 'Aug 31, 2014',
-        img: 'img/mediacove/m7.jpg'
-    }, {
-        name: 'Times of India - Full page - Page 13',
-        date: 'Sep 30, 2014',
-        img: 'img/mediacove/m7.jpg'
-    }];
+  $scope.media2015 = [{
+    name: 'Interiors & Decor',
+    date: ' Sep 30, 2014 ',
+    img: 'img/mediacove/m1.jpg'
+  }, {
+    name: 'Design Matrix',
+    date: 'Oct 30, 2014 ',
+    img: 'img/mediacove/m2.jpg'
+  }, {
+    name: 'IFJ',
+    date: 'Aug 31, 2014',
+    img: 'img/mediacove/m3.jpg'
+  }, {
+    name: 'The Design Source',
+    date: 'Sep 30, 2014',
+    img: 'img/mediacove/m4.jpg'
+  }, {
+    name: 'Sourcing Hardware',
+    date: 'Sep 30, 2014',
+    img: 'img/mediacove/m5.jpg'
+  }, {
+    name: 'Society Interiors',
+    date: 'Sep 30, 2014',
+    img: 'img/mediacove/m6.jpg'
+  }, {
+    name: 'Architecture + Design',
+    date: 'Aug 31, 2014',
+    img: 'img/mediacove/m7.jpg'
+  }, {
+    name: 'Times of India - Full page - Page 13',
+    date: 'Sep 30, 2014',
+    img: 'img/mediacove/m7.jpg'
+  }];
 
-    $scope.media2014 = [{
-        name: 'Interiors & Decor',
-        date: ' Sep 30, 2014 ',
-        img: 'img/mediacove/m1.jpg'
-    }, {
-        name: 'Design Matrix',
-        date: 'Oct 30, 2014 ',
-        img: 'img/mediacove/m2.jpg'
-    }, {
-        name: 'IFJ',
-        date: 'Aug 31, 2014',
-        img: 'img/mediacove/m3.jpg'
-    }, {
-        name: 'The Design Source',
-        date: 'Sep 30, 2014',
-        img: 'img/mediacove/m4.jpg'
-    }, {
-        name: 'Sourcing Hardware',
-        date: 'Sep 30, 2014',
-        img: 'img/mediacove/m5.jpg'
-    }, {
-        name: 'Society Interiors',
-        date: 'Sep 30, 2014',
-        img: 'img/mediacove/m6.jpg'
-    }, {
-        name: 'Architecture + Design',
-        date: 'Aug 31, 2014',
-        img: 'img/mediacove/m7.jpg'
-    }, {
-        name: 'Times of India - Full page - Page 13',
-        date: 'Sep 30, 2014',
-        img: 'img/mediacove/m7.jpg'
-    }];
+  $scope.media2014 = [{
+    name: 'Interiors & Decor',
+    date: ' Sep 30, 2014 ',
+    img: 'img/mediacove/m1.jpg'
+  }, {
+    name: 'Design Matrix',
+    date: 'Oct 30, 2014 ',
+    img: 'img/mediacove/m2.jpg'
+  }, {
+    name: 'IFJ',
+    date: 'Aug 31, 2014',
+    img: 'img/mediacove/m3.jpg'
+  }, {
+    name: 'The Design Source',
+    date: 'Sep 30, 2014',
+    img: 'img/mediacove/m4.jpg'
+  }, {
+    name: 'Sourcing Hardware',
+    date: 'Sep 30, 2014',
+    img: 'img/mediacove/m5.jpg'
+  }, {
+    name: 'Society Interiors',
+    date: 'Sep 30, 2014',
+    img: 'img/mediacove/m6.jpg'
+  }, {
+    name: 'Architecture + Design',
+    date: 'Aug 31, 2014',
+    img: 'img/mediacove/m7.jpg'
+  }, {
+    name: 'Times of India - Full page - Page 13',
+    date: 'Sep 30, 2014',
+    img: 'img/mediacove/m7.jpg'
+  }];
 
 
 })
 
 .controller('ArtistDetailImageCtrl', function($scope, TemplateService, NavigationService, ngDialog, $stateParams, $rootScope, $location, cfpLoadingBar, $timeout, $state, $filter) {
-    $scope.template = TemplateService.changecontent("detailimage");
-    $scope.menutitle = NavigationService.makeactive("Artists");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-    $scope.aristImages = [];
-    $scope.allartworks = [];
-    cfpLoadingBar.start();
-    $scope.nextButton = true;
-    $scope.prevButton = true;
+  $scope.template = TemplateService.changecontent("detailimage");
+  $scope.menutitle = NavigationService.makeactive("Artists");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
+  $scope.aristImages = [];
+  $scope.allartworks = [];
+  cfpLoadingBar.start();
+  $scope.nextButton = true;
+  $scope.prevButton = true;
 
-    NavigationService.getuserprofile(function(data) {
-        if (data.id) {
-            userProfile = data;
-            NavigationService.getMyFavourites(data.id, function(favorite) {
-                userProfile.wishlist = favorite;
-                $scope.loadArtWork($stateParams.artid);
-            })
-        } else {
-            $scope.loadArtWork($stateParams.artid);
+  NavigationService.getuserprofile(function(data) {
+    if (data.id) {
+      userProfile = data;
+      NavigationService.getMyFavourites(data.id, function(favorite) {
+        userProfile.wishlist = favorite;
+        $scope.loadArtWork($stateParams.artid);
+      })
+    } else {
+      $scope.loadArtWork($stateParams.artid);
+    }
+  })
+
+  $scope.openReachout = function() {
+    globalFunction.reachOut();
+  }
+
+  $scope.lauchedSoon = function() {
+    ngDialog.open({
+      template: 'views/content/modal-launch.html'
+    });
+    $timeout(function() {
+      ngDialog.closeAll();
+    }, 3000);
+  };
+
+  $scope.loadArtWork = function(id) {
+    NavigationService.getartworkdetail(id, function(data, status) {
+      console.log(data);
+      $scope.aristImages = [];
+      $scope.artid = data[0]._id;
+      NavigationService.getArtistDetail(data[0]._id, function(artistdata, status) {
+        console.log(artistdata);
+        $.jStorage.set("reachout", artistdata);
+        dataNextPre.reachout = artistdata;
+        $scope.artistdetail = artistdata;
+        $scope.allartworks = artistdata;
+        _.each(artistdata.artwork, function(n) {
+          if (n._id != data[0].artwork._id) {
+            $scope.aristImages.push(n);
+          }
+        })
+        $scope.aristImages = _.chunk($scope.aristImages, 6);
+        $scope.aristImages = $scope.aristImages[0];
+        //              console.log($scope.aristImages);
+        cfpLoadingBar.complete();
+      })
+      $scope.artistDetailImg = data[0];
+      $scope.artistDetailImg.heartClass = $filter('showheart')($scope.artistDetailImg.artwork._id);
+      console.log($scope.artistDetailImg);
+      if ($scope.artistDetailImg.artwork.srno == 1) {
+        $scope.prevButton = false;
+      }
+      NavigationService.lastSr(function(data) {
+        if (data.srno == $scope.artistDetailImg.artwork.srno) {
+          $scope.nextButton = false;
         }
+      });
     })
+  }
 
-    $scope.openReachout = function() {
-        globalFunction.reachOut();
-    }
+  $scope.images = [{
+    small: 'img/zoomsmall.jpg',
+    large: 'img/zoomlarge.jpg'
+  }, {
+    small: 'img/zoomsmall.jpg',
+    large: 'img/zoomlarge.jpg'
+  }, {
+    small: 'img/zoomsmall.jpg',
+    large: 'img/zoomlarge.jpg'
+  }];
 
-    $scope.lauchedSoon = function() {
-        ngDialog.open({
-            template: 'views/content/modal-launch.html'
+  $scope.artPrev = function() {
+    NavigationService.nextPrev($scope.artistDetailImg.artwork.srno, 'prev', function(data) {
+      // $scope.artistDetailImg = data;
+      if (data.value != false) {
+        $state.go("detail", {
+          "artid": data.artwork._id
         });
-        $timeout(function() {
-            ngDialog.closeAll();
-        }, 3000);
-    };
+      } else {
+        $scope.prevButton = false;
+      }
+    })
+  }
 
-    $scope.loadArtWork = function(id) {
-        NavigationService.getartworkdetail(id, function(data, status) {
-            console.log(data);
-            $scope.aristImages = [];
-            $scope.artid = data[0]._id;
-            NavigationService.getArtistDetail(data[0]._id, function(artistdata, status) {
-                console.log(artistdata);
-                $.jStorage.set("reachout", artistdata);
-                dataNextPre.reachout = artistdata;
-                $scope.artistdetail = artistdata;
-                $scope.allartworks = artistdata;
-                _.each(artistdata.artwork, function(n) {
-                    if (n._id != data[0].artwork._id) {
-                        $scope.aristImages.push(n);
-                    }
-                })
-                $scope.aristImages = _.chunk($scope.aristImages, 6);
-                $scope.aristImages = $scope.aristImages[0];
-                //              console.log($scope.aristImages);
-                cfpLoadingBar.complete();
-            })
-            $scope.artistDetailImg = data[0];
-            $scope.artistDetailImg.heartClass = $filter('showheart')($scope.artistDetailImg.artwork._id);
-            console.log($scope.artistDetailImg);
-            if ($scope.artistDetailImg.artwork.srno == 1) {
-                $scope.prevButton = false;
-            }
-            NavigationService.lastSr(function(data) {
-                if (data.srno == $scope.artistDetailImg.artwork.srno) {
-                    $scope.nextButton = false;
-                }
-            });
-        })
-    }
+  $scope.artNext = function() {
+    NavigationService.nextPrev($scope.artistDetailImg.artwork.srno, 'next', function(data) {
+      if (data.value != false) {
+        $state.go("detail", {
+          "artid": data.artwork._id
+        });
+      } else {
+        $scope.nextButton = false;
+      }
 
-    $scope.images = [{
-        small: 'img/zoomsmall.jpg',
-        large: 'img/zoomlarge.jpg'
-    }, {
-        small: 'img/zoomsmall.jpg',
-        large: 'img/zoomlarge.jpg'
-    }, {
-        small: 'img/zoomsmall.jpg',
-        large: 'img/zoomlarge.jpg'
-    }];
+    })
+  }
 
-    $scope.artPrev = function() {
-        NavigationService.nextPrev($scope.artistDetailImg.artwork.srno, 'prev', function(data) {
-            // $scope.artistDetailImg = data;
-            if (data.value != false) {
-                $state.go("detail", {
-                    "artid": data.artwork._id
-                });
-            } else {
-                $scope.prevButton = false;
-            }
-        })
-    }
+  $scope.showitabove = function(artwork) {
+    $state.go('detail', {
+      artid: artwork._id
+    })
+  }
 
-    $scope.artNext = function() {
-        NavigationService.nextPrev($scope.artistDetailImg.artwork.srno, 'next', function(data) {
-            if (data.value != false) {
-                $state.go("detail", {
-                    "artid": data.artwork._id
-                });
-            } else {
-                $scope.nextButton = false;
-            }
+  $scope.addToCart = function(art) {
+    dataNextPre.addToCart(art);
+  }
 
-        })
-    }
-
-    $scope.showitabove = function(artwork) {
-        $state.go('detail', {
-            artid: artwork._id
-        })
-    }
-
-    $scope.addToCart = function(art) {
-        dataNextPre.addToCart(art);
-    }
-
-    $scope.addToFav = function(art) {
-        dataNextPre.favorite(art);
-    }
+  $scope.addToFav = function(art) {
+    dataNextPre.favorite(art);
+  }
 
 })
 
 .controller('SculptureCtrl', function($scope, TemplateService, NavigationService, ngDialog, $stateParams, $rootScope, $location, $state, cfpLoadingBar, $filter, $timeout) {
-    $scope.template = TemplateService.changecontent("sculpture");
-    $scope.menutitle = NavigationService.makeactive("Sculpture");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-    $scope.aristImages = [];
-    $scope.allartworks = [];
-    cfpLoadingBar.start();
+  $scope.template = TemplateService.changecontent("sculpture");
+  $scope.menutitle = NavigationService.makeactive("Sculpture");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
+  $scope.aristImages = [];
+  $scope.allartworks = [];
+  cfpLoadingBar.start();
 
-    NavigationService.getuserprofile(function(data) {
-        if (data.id) {
-            console.log(data);
-            userProfile = data;
-            NavigationService.getMyFavourites(data.id, function(favorite) {
-                userProfile.wishlist = favorite;
-                $scope.loadArtWork($stateParams.artid);
-            })
-        } else {
-            $scope.loadArtWork($stateParams.artid);
-        }
+  NavigationService.getuserprofile(function(data) {
+    if (data.id) {
+      console.log(data);
+      userProfile = data;
+      NavigationService.getMyFavourites(data.id, function(favorite) {
+        userProfile.wishlist = favorite;
+        $scope.loadArtWork($stateParams.artid);
+      })
+    } else {
+      $scope.loadArtWork($stateParams.artid);
+    }
+  })
+
+  $scope.openReachout = function() {
+    globalFunction.reachOut();
+  }
+
+  $scope.lauchedSoon = function() {
+    ngDialog.open({
+      template: 'views/content/modal-launch.html'
+    });
+    $timeout(function() {
+      ngDialog.closeAll();
+    }, 3000);
+  };
+
+  $scope.loadArtWork = function(id) {
+    NavigationService.getartworkdetail(id, function(data, status) {
+      console.log(data);
+      $scope.aristImages = [];
+      $scope.artid = data[0]._id;
+      NavigationService.getArtistDetail(data[0]._id, function(artistdata, status) {
+        console.log(artistdata);
+        $.jStorage.set("reachout", artistdata);
+        dataNextPre.reachout = artistdata;
+        $scope.artistdetail = artistdata;
+        $scope.allartworks = artistdata;
+        _.each(artistdata.artwork, function(n) {
+          if (n._id != data[0].artwork._id) {
+            $scope.aristImages.push(n);
+          }
+        })
+        $scope.aristImages = _.chunk($scope.aristImages, 6);
+        $scope.aristImages = $scope.aristImages[0];
+        //              console.log($scope.aristImages);
+        cfpLoadingBar.complete();
+      })
+      $scope.artistDetailImg = data[0];
+      $scope.artistDetailImg.heartClass = $filter('showheart')($scope.artistDetailImg.artwork._id);
+      console.log($scope.artistDetailImg);
     })
+  }
 
-    $scope.openReachout = function() {
-        globalFunction.reachOut();
+  $scope.images = [{
+    small: 'img/smallsculpture.jpg',
+    large: 'img/largesculpture.jpg'
+  }, {
+    small: 'img/smallsculpture.jpg',
+    large: 'img/largesculpture.jpg'
+  }, {
+    small: 'img/smallsculpture.jpg',
+    large: 'img/largesculpture.jpg'
+  }];
+
+  $scope.showitabove = function(artwork) {
+    $state.go('sculpture', {
+      artid: artwork._id
+    });
+  }
+
+  $scope.activeImage = function(imagetopush) {
+    if ($scope.artistDetailImg.artwork.image.length > 1) {
+      $scope.artistDetailImg.artwork.image.splice(_.indexOf($scope.artistDetailImg.artwork.image, imagetopush), 1);
+      $scope.artistDetailImg.artwork.image.unshift(imagetopush);
+      $rootScope.$broadcast('changeImage');
     }
+  }
 
-    $scope.lauchedSoon = function() {
-        ngDialog.open({
-            template: 'views/content/modal-launch.html'
-        });
-        $timeout(function() {
-            ngDialog.closeAll();
-        }, 3000);
-    };
+  $scope.artPrev = function() {
+    NavigationService.nextPrev($scope.artistDetailImg.artwork.srno, 'prev', function(data) {
+      // $scope.artistDetailImg = data;
+      $state.go("detail", {
+        "artid": data.artwork._id
+      });
+    })
+  }
 
-    $scope.loadArtWork = function(id) {
-        NavigationService.getartworkdetail(id, function(data, status) {
-            console.log(data);
-            $scope.aristImages = [];
-            $scope.artid = data[0]._id;
-            NavigationService.getArtistDetail(data[0]._id, function(artistdata, status) {
-                console.log(artistdata);
-                $.jStorage.set("reachout", artistdata);
-                dataNextPre.reachout = artistdata;
-                $scope.artistdetail = artistdata;
-                $scope.allartworks = artistdata;
-                _.each(artistdata.artwork, function(n) {
-                    if (n._id != data[0].artwork._id) {
-                        $scope.aristImages.push(n);
-                    }
-                })
-                $scope.aristImages = _.chunk($scope.aristImages, 6);
-                $scope.aristImages = $scope.aristImages[0];
-                //              console.log($scope.aristImages);
-                cfpLoadingBar.complete();
-            })
-            $scope.artistDetailImg = data[0];
-            $scope.artistDetailImg.heartClass = $filter('showheart')($scope.artistDetailImg.artwork._id);
-            console.log($scope.artistDetailImg);
-        })
-    }
+  $scope.artNext = function() {
+    NavigationService.nextPrev($scope.artistDetailImg.artwork.srno, 'next', function(data) {
+      // $scope.artistDetailImg = data;
+      $state.go("detail", {
+        "artid": data.artwork._id
+      });
+    })
+  }
 
-    $scope.images = [{
-        small: 'img/smallsculpture.jpg',
-        large: 'img/largesculpture.jpg'
-    }, {
-        small: 'img/smallsculpture.jpg',
-        large: 'img/largesculpture.jpg'
-    }, {
-        small: 'img/smallsculpture.jpg',
-        large: 'img/largesculpture.jpg'
-    }];
+  $scope.addToCart = function(art) {
+    dataNextPre.addToCart(art);
+  }
 
-    $scope.showitabove = function(artwork) {
-        $state.go('sculpture', {
-            artid: artwork._id
-        });
-    }
-
-    $scope.activeImage = function(imagetopush) {
-        if ($scope.artistDetailImg.artwork.image.length > 1) {
-            $scope.artistDetailImg.artwork.image.splice(_.indexOf($scope.artistDetailImg.artwork.image, imagetopush), 1);
-            $scope.artistDetailImg.artwork.image.unshift(imagetopush);
-            $rootScope.$broadcast('changeImage');
-        }
-    }
-
-    $scope.artPrev = function() {
-        NavigationService.nextPrev($scope.artistDetailImg.artwork.srno, 'prev', function(data) {
-            // $scope.artistDetailImg = data;
-            $state.go("detail", {
-                "artid": data.artwork._id
-            });
-        })
-    }
-
-    $scope.artNext = function() {
-        NavigationService.nextPrev($scope.artistDetailImg.artwork.srno, 'next', function(data) {
-            // $scope.artistDetailImg = data;
-            $state.go("detail", {
-                "artid": data.artwork._id
-            });
-        })
-    }
-
-    $scope.addToCart = function(art) {
-        dataNextPre.addToCart(art);
-    }
-
-    $scope.addToFav = function(art) {
-        dataNextPre.favorite(art);
-    }
+  $scope.addToFav = function(art) {
+    dataNextPre.favorite(art);
+  }
 
 })
 
 .controller('ThoughtleadershipCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar) {
-    $scope.template = TemplateService.changecontent("thoughtleadership");
-    $scope.menutitle = NavigationService.makeactive("Thoughtleadership");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-    cfpLoadingBar.start();
+  $scope.template = TemplateService.changecontent("thoughtleadership");
+  $scope.menutitle = NavigationService.makeactive("Thoughtleadership");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
+  cfpLoadingBar.start();
 
-    NavigationService.getAllThoughts(function(data) {
-        console.log(data);
-        $scope.thoughts = data;
-        cfpLoadingBar.complete();
-    })
+  NavigationService.getAllThoughts(function(data) {
+    console.log(data);
+    $scope.thoughts = data;
+    cfpLoadingBar.complete();
+  })
 
-    $scope.table = [{
-        sr: '1',
-        date: '06/07/2013',
-        title: 'Aura Art announces ICICI Lombard as Insurance Partner'
+  $scope.table = [{
+    sr: '1',
+    date: '06/07/2013',
+    title: 'Aura Art announces ICICI Lombard as Insurance Partner'
 
-    }, {
-        sr: '2',
-        date: '08/06/2012',
-        title: 'China overtakes the United States to become the worlds largest art and antiques market'
+  }, {
+    sr: '2',
+    date: '08/06/2012',
+    title: 'China overtakes the United States to become the worlds largest art and antiques market'
 
-    }, {
-        sr: '3',
-        date: '24/06/2010',
-        title: 'Hedging Millionaires Buy Jets, Art, Bling...'
+  }, {
+    sr: '3',
+    date: '24/06/2010',
+    title: 'Hedging Millionaires Buy Jets, Art, Bling...'
 
-    }, {
-        sr: '4',
-        date: '24/02/2010',
-        title: 'Aura Art: has moved to an office-cum-gallery in Kalina (off BKC)'
+  }, {
+    sr: '4',
+    date: '24/02/2010',
+    title: 'Aura Art: has moved to an office-cum-gallery in Kalina (off BKC)'
 
-    }, {
-        sr: '5',
-        date: '01/09/2009',
-        title: 'Aura Art goes International'
+  }, {
+    sr: '5',
+    date: '01/09/2009',
+    title: 'Aura Art goes International'
 
-    }, {
-        sr: '6',
-        date: '25/05/2009',
-        title: 'Show se show tak... Change (in Asset Allocation) is the only constant...'
+  }, {
+    sr: '6',
+    date: '25/05/2009',
+    title: 'Show se show tak... Change (in Asset Allocation) is the only constant...'
 
-    }, {
-        sr: '7',
-        date: '01/04/2009',
-        title: 'Malvinder Singh is on to other things — art, photography and Ranbaxy, of course...'
+  }, {
+    sr: '7',
+    date: '01/04/2009',
+    title: 'Malvinder Singh is on to other things — art, photography and Ranbaxy, of course...'
 
-    }, {
-        sr: '8',
-        date: '25/10/2008',
-        title: 'Mumbai-born artist goes for Rs 17 crore'
+  }, {
+    sr: '8',
+    date: '25/10/2008',
+    title: 'Mumbai-born artist goes for Rs 17 crore'
 
-    }, {
-        sr: '9',
-        date: '06/07/2015',
-        title: 'Aura Art Show 2008... thanks...'
+  }, {
+    sr: '9',
+    date: '06/07/2015',
+    title: 'Aura Art Show 2008... thanks...'
 
-    }, {
-        sr: '10',
-        date: '06/05/2013',
-        title: 'Aura Art in the news - Bombay Times and Human Rights Times'
+  }, {
+    sr: '10',
+    date: '06/05/2013',
+    title: 'Aura Art in the news - Bombay Times and Human Rights Times'
 
-    }];
+  }];
 
 })
 
 .controller('ThoughtleadershipdetailCtrl', function($scope, TemplateService, NavigationService, $stateParams, cfpLoadingBar) {
-    $scope.template = TemplateService.changecontent("thoughtleadershipdetail");
-    $scope.menutitle = NavigationService.makeactive("Thoughtleadershipdetail");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-    cfpLoadingBar.start();
+  $scope.template = TemplateService.changecontent("thoughtleadershipdetail");
+  $scope.menutitle = NavigationService.makeactive("Thoughtleadershipdetail");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
+  cfpLoadingBar.start();
 
-    NavigationService.getOneThought($stateParams.id, function(data) {
-        console.log(data);
-        $scope.thoughtdetail = data;
-        cfpLoadingBar.complete();
-    })
+  NavigationService.getOneThought($stateParams.id, function(data) {
+    console.log(data);
+    $scope.thoughtdetail = data;
+    cfpLoadingBar.complete();
+  })
 
-    $scope.table = [{
-        sr: '1',
-        date: '06/07/2013',
-        title: 'Aura Art announces ICICI Lombard as Insurance Partner'
+  $scope.table = [{
+    sr: '1',
+    date: '06/07/2013',
+    title: 'Aura Art announces ICICI Lombard as Insurance Partner'
 
-    }, {
-        sr: '2',
-        date: '08/06/2012',
-        title: 'China overtakes the United States to become the worlds largest art and antiques market'
+  }, {
+    sr: '2',
+    date: '08/06/2012',
+    title: 'China overtakes the United States to become the worlds largest art and antiques market'
 
-    }, {
-        sr: '3',
-        date: '24/06/2010',
-        title: 'Hedging Millionaires Buy Jets, Art, Bling...'
+  }, {
+    sr: '3',
+    date: '24/06/2010',
+    title: 'Hedging Millionaires Buy Jets, Art, Bling...'
 
-    }, {
-        sr: '4',
-        date: '24/02/2010',
-        title: 'Aura Art: has moved to an office-cum-gallery in Kalina (off BKC)'
+  }, {
+    sr: '4',
+    date: '24/02/2010',
+    title: 'Aura Art: has moved to an office-cum-gallery in Kalina (off BKC)'
 
-    }, {
-        sr: '5',
-        date: '01/09/2009',
-        title: 'Aura Art goes International'
+  }, {
+    sr: '5',
+    date: '01/09/2009',
+    title: 'Aura Art goes International'
 
-    }, {
-        sr: '6',
-        date: '25/05/2009',
-        title: 'Show se show tak... Change (in Asset Allocation) is the only constant...'
+  }, {
+    sr: '6',
+    date: '25/05/2009',
+    title: 'Show se show tak... Change (in Asset Allocation) is the only constant...'
 
-    }, {
-        sr: '7',
-        date: '01/04/2009',
-        title: 'Malvinder Singh is on to other things — art, photography and Ranbaxy, of course...'
+  }, {
+    sr: '7',
+    date: '01/04/2009',
+    title: 'Malvinder Singh is on to other things — art, photography and Ranbaxy, of course...'
 
-    }, {
-        sr: '8',
-        date: '25/10/2008',
-        title: 'Mumbai-born artist goes for Rs 17 crore'
+  }, {
+    sr: '8',
+    date: '25/10/2008',
+    title: 'Mumbai-born artist goes for Rs 17 crore'
 
-    }, {
-        sr: '9',
-        date: '06/07/2015',
-        title: 'Aura Art Show 2008... thanks...'
+  }, {
+    sr: '9',
+    date: '06/07/2015',
+    title: 'Aura Art Show 2008... thanks...'
 
-    }, {
-        sr: '10',
-        date: '06/05/2013',
-        title: 'Aura Art in the news - Bombay Times and Human Rights Times'
+  }, {
+    sr: '10',
+    date: '06/05/2013',
+    title: 'Aura Art in the news - Bombay Times and Human Rights Times'
 
-    }];
+  }];
 
 })
 
 .controller('ArtInfrastructureCtrl', function($scope, TemplateService, NavigationService, $location, $stateParams, $document) {
-    $scope.template = TemplateService.changecontent("artinfrastructure");
-    $scope.menutitle = NavigationService.makeactive("Art Infrastructure");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+  $scope.template = TemplateService.changecontent("artinfrastructure");
+  $scope.menutitle = NavigationService.makeactive("Art Infrastructure");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
 
 
-    $scope.$on('$viewContentLoaded', function(event) {
-        setTimeout(function() {
-            makeAnimation($stateParams.id);
-        }, 100);
+  $scope.$on('$viewContentLoaded', function(event) {
+    setTimeout(function() {
+      makeAnimation($stateParams.id);
+    }, 100);
+  });
+
+  function makeAnimation(stateValue) {
+    var goTo = angular.element(document.getElementById(stateValue));
+    $document.scrollToElement(goTo, offset, duration);
+  }
+
+
+
+  $scope.artistDetailImg = [{
+    image: 'img/imagedetail/imagedetail.jpg',
+    id: ' 1527',
+    artistname: 'Veguri Ravindra Babu',
+    title: ' Floating Dreams',
+    typename: 'Untitled',
+    madein: 'Oil on board',
+    size: '19.5 x 23',
+    year: '1978',
+    price: 'Rs.1,00,000/ $6,400'
+  }];
+  $scope.changeURL = function(id) {
+    $state.transitionTo('artInfrastructure', {
+      id: id
+    }, {
+      notify: false
     });
-
-    function makeAnimation(stateValue) {
-        var goTo = angular.element(document.getElementById(stateValue));
-        $document.scrollToElement(goTo, offset, duration);
-    }
-
-
-
-    $scope.artistDetailImg = [{
-        image: 'img/imagedetail/imagedetail.jpg',
-        id: ' 1527',
-        artistname: 'Veguri Ravindra Babu',
-        title: ' Floating Dreams',
-        typename: 'Untitled',
-        madein: 'Oil on board',
-        size: '19.5 x 23',
-        year: '1978',
-        price: 'Rs.1,00,000/ $6,400'
-    }];
-    $scope.changeURL = function(id) {
-        $state.transitionTo('artInfrastructure', {
-            id: id
-        }, {
-            notify: false
-        });
-        makeAnimation(id);
-        $location.replace();
-    };
-    // $scope.changeURL = function(id) {
-    //   console.log(id);
-    //   $location.path("" + id);
-    // };
+    makeAnimation(id);
+    $location.replace();
+  };
+  // $scope.changeURL = function(id) {
+  //   console.log(id);
+  //   $location.path("" + id);
+  // };
 })
 
 
 .controller('ArtistDetailCtrl', function($scope, TemplateService, NavigationService, $stateParams, $location, $state, cfpLoadingBar) {
-    $scope.template = TemplateService.changecontent("artistdetail")
-    $scope.menutitle = NavigationService.makeactive("Artist");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-    $scope.artistid = $stateParams.artistid;
+  $scope.template = TemplateService.changecontent("artistdetail")
+  $scope.menutitle = NavigationService.makeactive("Artist");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
+  $scope.artistid = $stateParams.artistid;
 
-    cfpLoadingBar.start();
-    NavigationService.getArtistDetail($stateParams.artistid, function(data, status) {
-        $.jStorage.set("reachout", data);
-        $scope.artistdetail = data
-        dataNextPre.reachout = data;
-        cfpLoadingBar.complete();
-    })
+  cfpLoadingBar.start();
+  NavigationService.getArtistDetail($stateParams.artistid, function(data, status) {
+    $.jStorage.set("reachout", data);
+    $scope.artistdetail = data
+    dataNextPre.reachout = data;
+    cfpLoadingBar.complete();
+  })
 
-    NavigationService.getuserprofile(function(data) {
-        if (data.id) {
-            userProfile = data;
-            NavigationService.getMyFavourites(data.id, function(favorite) {
-                userProfile.wishlist = favorite;
-            })
-        }
-    })
-
-    $scope.goToDetail = function(artwork) {
-        console.log(artwork);
-        if (artwork.type == "Sculptures") {
-            //          $location.url("/sculpture/" + artwork._id);
-            $state.go('sculpture', {
-                artid: artwork._id
-            });
-        } else {
-            //          $location.url("/artwork/detail/" + artwork._id);
-            $state.go('detail', {
-                artid: artwork._id
-            });
-        }
+  NavigationService.getuserprofile(function(data) {
+    if (data.id) {
+      userProfile = data;
+      NavigationService.getMyFavourites(data.id, function(favorite) {
+        userProfile.wishlist = favorite;
+      })
     }
+  })
 
-    $scope.addToCart = function(art) {
-        var test = {}
-        test.artwork = art;
-        dataNextPre.addToCart(test);
+  $scope.goToDetail = function(artwork) {
+    console.log(artwork);
+    if (artwork.type == "Sculptures") {
+      //          $location.url("/sculpture/" + artwork._id);
+      $state.go('sculpture', {
+        artid: artwork._id
+      });
+    } else {
+      //          $location.url("/artwork/detail/" + artwork._id);
+      $state.go('detail', {
+        artid: artwork._id
+      });
     }
+  }
 
-    $scope.addToFav = function(art) {
-        console.log(art);
-        var test = {}
-        test.artwork = art;
-        test.heartClass = art.heartClass;
-        console.log(test);
-        dataNextPre.favorite(test)
-    }
+  $scope.addToCart = function(art) {
+    var test = {}
+    test.artwork = art;
+    dataNextPre.addToCart(test);
+  }
+
+  $scope.addToFav = function(art) {
+    console.log(art);
+    var test = {}
+    test.artwork = art;
+    test.heartClass = art.heartClass;
+    console.log(test);
+    dataNextPre.favorite(test)
+  }
 })
 
 
 .controller('ArtistCtrl', function($scope, TemplateService, NavigationService, ngDialog, $stateParams, cfpLoadingBar) {
-    $scope.template = TemplateService.changecontent("artist");
-    $scope.menutitle = NavigationService.makeactive("Artists");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-    $scope.tab = 'grid';
-    $scope.pagedata = {};
+  $scope.template = TemplateService.changecontent("artist");
+  $scope.menutitle = NavigationService.makeactive("Artists");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
+  $scope.tab = 'grid';
+  $scope.pagedata = {};
+  $scope.pagedata.pagenumber = 1;
+  $scope.pagedata.pagesize = 18;
+  $scope.pagedata.search = '';
+  $scope.pagedata.searchname = '';
+  $scope.artistimage = [];
+  $scope.listview = [];
+  var lastpage = 2;
+
+  NavigationService.getuserprofile(function(data) {
+    if (data.id) {
+      userProfile = data;
+      NavigationService.getMyFavourites(data.id, function(favorite) {
+        userProfile.wishlist = favorite;
+      })
+    }
+  })
+
+  var countcall = 0;
+  var pno = 1;
+  var totalpages = 2;
+
+  function getAllArtistByAccess() {
+    // var toList = _.cloneDeep($scope.pagedata);
+    // toList.pagenumber = 1;
+    // toList.pagesize = 100000000000;
+    // NavigationService.getallartist(toList, function(data, status) {
+    //     if (data.data) {
+    //         $scope.listview = data.data;
+    //     }
+    // })
+  }
+  getAllArtistByAccess();
+
+  $scope.reload = function() {
+    console.log("reload");
+    cfpLoadingBar.start();
+    if ($scope.pagedata.type == "All") {
+      $scope.pagedata.type = "";
+    }
+    NavigationService.getallartist($scope.pagedata, function(data, status) {
+      $scope.artistimage = data.data
+      $scope.listview = data.data;
+      cfpLoadingBar.complete();
+    });
+  }
+
+  //    $scope.reload();
+  $scope.getartistbyletter = function(letter) {
+    _.each($scope.alphabetjson, function(n) {
+      if (n.name == letter) {
+        n.class = "actived";
+      } else {
+        n.class = "";
+      }
+    });
+    if (letter == "All") {
+      letter = "";
+    }
+    $scope.pagedata.search = letter;
     $scope.pagedata.pagenumber = 1;
-    $scope.pagedata.pagesize = 18;
-    $scope.pagedata.search = '';
+    $scope.artistimage = [];
+    $scope.listview = [];
+    $scope.reload();
+    getAllArtistByAccess();
+  }
+
+  $scope.getartistbyletter('All');
+  $scope.getartistbysearch = function() {
+    $scope.pagedata.pagenumber = 1;
+    $scope.artistimage = [];
+    $scope.listview = [];
+    $scope.reload();
+    getAllArtistByAccess();
+  }
+
+  $scope.makeactive = function(type) {
+    _.each($scope.typejson, function(n) {
+        var index = n.name.indexOf(type);
+        if (index != -1) {
+          n.class = "actives";
+        } else {
+          n.class = "";
+        }
+      })
+      //      if (type == "All")
+      //          type = "";
+    $scope.getartistbyletter('All');
+    //      else {
+    //          $scope.getartistbyletter(type);
+    //      }
+    $scope.pagedata.type = type;
+    $scope.pagedata.pagenumber = 1;
+    //        $scope.pagedata.search = '';
     $scope.pagedata.searchname = '';
     $scope.artistimage = [];
     $scope.listview = [];
-    var lastpage = 2;
+    $scope.reload();
+  }
 
-    NavigationService.getuserprofile(function(data) {
-        if (data.id) {
-            userProfile = data;
-            NavigationService.getMyFavourites(data.id, function(favorite) {
-                userProfile.wishlist = favorite;
-            })
-        }
+  // $(window).scroll(function() {
+  //     if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+  //           console.log("at bottom");
+  //         $scope.pagedata.pagenumber++;
+  //         $scope.reload();
+  //     }
+  // });
+
+  $scope.addMoreItems = function() {
+    // if (lastpage >= $scope.pagedata.pagenumber) {
+    //     $scope.pagedata.pagenumber++;
+    //     $scope.reload();
+    // }
+  }
+
+
+  $scope.artistdetail = {};
+  $scope.showDetail = function(artist) {
+    $scope.artistdetail = artist;
+    var makeit4 = _.chunk($scope.artistdetail.artwork, 4);
+    $scope.artistdetail.artwork = makeit4[0];
+
+    ngDialog.open({
+      scope: $scope,
+      template: 'views/content/quickview-artist.html'
+    });
+  };
+
+  $scope.alphabetjson = [{
+    name: "All",
+    class: "actived"
+  }]
+
+  for (var i = 0; i < 26; i++) {
+    $scope.alphabetjson.push({
+      name: String.fromCharCode(65 + i),
+      class: ''
     })
+  }
 
-    var countcall = 0;
-    var pno = 1;
-    var totalpages = 2;
+  $scope.typejson = [{
+    name: "All",
+    class: "actives"
+  }, {
+    name: "Paintings",
+    class: ""
+  }, {
+    name: "Sculptures",
+    class: ""
+  }, {
+    name: "Photographs",
+    class: ""
+  }, {
+    name: "Prints",
+    class: ""
+  }, {
+    name: "Others",
+    class: ""
+  }]
 
-    function getAllArtistByAccess() {
-        // var toList = _.cloneDeep($scope.pagedata);
-        // toList.pagenumber = 1;
-        // toList.pagesize = 100000000000;
-        // NavigationService.getallartist(toList, function(data, status) {
-        //     if (data.data) {
-        //         $scope.listview = data.data;
-        //     }
-        // })
-    }
-    getAllArtistByAccess();
+  $scope.makeactive($stateParams.type);
 
-    $scope.reload = function() {
-        console.log("reload");
-        cfpLoadingBar.start();
-        if ($scope.pagedata.type == "All") {
-            $scope.pagedata.type = "";
-        }
-        NavigationService.getallartist($scope.pagedata, function(data, status) {
-            $scope.artistimage = data.data
-            $scope.listview = data.data;
-            cfpLoadingBar.complete();
-        });
-    }
+  $scope.addToCart = function(art) {
+    var test = {}
+    test.artwork = art;
+    dataNextPre.addToCart(test);
+  }
 
-    //    $scope.reload();
-    $scope.getartistbyletter = function(letter) {
-        _.each($scope.alphabetjson, function(n) {
-            if (n.name == letter) {
-                n.class = "actived";
-            } else {
-                n.class = "";
-            }
-        });
-        if (letter == "All") {
-            letter = "";
-        }
-        $scope.pagedata.search = letter;
-        $scope.pagedata.pagenumber = 1;
-        $scope.artistimage = [];
-        $scope.listview = [];
-        $scope.reload();
-        getAllArtistByAccess();
-    }
-
-    $scope.getartistbyletter('All');
-    $scope.getartistbysearch = function() {
-        $scope.pagedata.pagenumber = 1;
-        $scope.artistimage = [];
-        $scope.listview = [];
-        $scope.reload();
-        getAllArtistByAccess();
-    }
-
-    $scope.makeactive = function(type) {
-        _.each($scope.typejson, function(n) {
-                var index = n.name.indexOf(type);
-                if (index != -1) {
-                    n.class = "actives";
-                } else {
-                    n.class = "";
-                }
-            })
-            //      if (type == "All")
-            //          type = "";
-        $scope.getartistbyletter('All');
-        //      else {
-        //          $scope.getartistbyletter(type);
-        //      }
-        $scope.pagedata.type = type;
-        $scope.pagedata.pagenumber = 1;
-        //        $scope.pagedata.search = '';
-        $scope.pagedata.searchname = '';
-        $scope.artistimage = [];
-        $scope.listview = [];
-        $scope.reload();
-    }
-
-    // $(window).scroll(function() {
-    //     if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-    //           console.log("at bottom");
-    //         $scope.pagedata.pagenumber++;
-    //         $scope.reload();
-    //     }
-    // });
-
-    $scope.addMoreItems = function() {
-        // if (lastpage >= $scope.pagedata.pagenumber) {
-        //     $scope.pagedata.pagenumber++;
-        //     $scope.reload();
-        // }
-    }
-
-
-    $scope.artistdetail = {};
-    $scope.showDetail = function(artist) {
-        $scope.artistdetail = artist;
-        var makeit4 = _.chunk($scope.artistdetail.artwork, 4);
-        $scope.artistdetail.artwork = makeit4[0];
-
-        ngDialog.open({
-            scope: $scope,
-            template: 'views/content/quickview-artist.html'
-        });
-    };
-
-    $scope.alphabetjson = [{
-        name: "All",
-        class: "actived"
-    }]
-
-    for (var i = 0; i < 26; i++) {
-        $scope.alphabetjson.push({
-            name: String.fromCharCode(65 + i),
-            class: ''
-        })
-    }
-
-    $scope.typejson = [{
-        name: "All",
-        class: "actives"
-    }, {
-        name: "Paintings",
-        class: ""
-    }, {
-        name: "Sculptures",
-        class: ""
-    }, {
-        name: "Photographs",
-        class: ""
-    }, {
-        name: "Prints",
-        class: ""
-    }, {
-        name: "Others",
-        class: ""
-    }]
-
-    $scope.makeactive($stateParams.type);
-
-    $scope.addToCart = function(art) {
-        var test = {}
-        test.artwork = art;
-        dataNextPre.addToCart(test);
-    }
-
-    $scope.addToFav = function(art) {
-        var test = {}
-        test.artwork = art;
-        test.heartClass = art.heartClass;
-        dataNextPre.favorite(test)
-    }
+  $scope.addToFav = function(art) {
+    var test = {}
+    test.artwork = art;
+    test.heartClass = art.heartClass;
+    dataNextPre.favorite(test)
+  }
 
 })
 
 
 .controller('InfiniteCtrl', function($scope, TemplateService, NavigationService) {
-    $scope.template = TemplateService.changecontent("infinite");
-    $scope.menutitle = NavigationService.makeactive("Infinite Scroll");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+  $scope.template = TemplateService.changecontent("infinite");
+  $scope.menutitle = NavigationService.makeactive("Infinite Scroll");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
 
-    //Infinite scroll
-    $scope.images = [1, 2, 3, 4, 5, 6, 7, 8];
-    $scope.loadMore = function() {
-        var last = $scope.images[$scope.images.length - 1];
-        for (var i = 1; i <= 8; i++) {
-            $scope.images.push(last + i);
-        }
-    };
+  //Infinite scroll
+  $scope.images = [1, 2, 3, 4, 5, 6, 7, 8];
+  $scope.loadMore = function() {
+    var last = $scope.images[$scope.images.length - 1];
+    for (var i = 1; i <= 8; i++) {
+      $scope.images.push(last + i);
+    }
+  };
 })
 
 .controller('headerctrl', function($scope, TemplateService, $window, ngDialog, NavigationService, $location, cfpLoadingBar, $state, $stateParams, $timeout, $sce) {
-    $scope.template = TemplateService;
+  $scope.template = TemplateService;
 
-    $scope.adminurl = adminurl;
+  $scope.adminurl = adminurl;
 
-    var scrolled = 0;
-    $scope.logintab = '1';
-    $scope.login = {};
-    $scope.register = {};
-    $scope.register.accesslevel = "customer";
-    $scope.forgot = {};
-    $scope.showInvalidLogin = false;
-    $scope.showAlreadyRegistered = false;
-    $scope.passwordNotMatch = false;
-    $scope.showWishlist = false;
-    $scope.user = {};
-    $scope.user.name = '';
-    $scope.art = {};
-    $scope.art.search = '';
-    $scope.art.pagenumber = 1;
-    $scope.art.pagesize = 5;
-    $scope.showDropDown = true;
-    $scope.filterby = {};
-    $scope.artworkInterested = [];
-    $scope.reachOutForm = {};
-    $scope.reachOutForm.srno = "";
-    $scope.reachOutForm.to = "harmeet@auraart.in; rishiraj@auraart.in";
-    $scope.reachOutForm.action = "1";
-    $scope.searchData = [];
-    $scope.userProfile = {};
-    $scope.cartItems = [];
-    $scope.totalCartPrice = 0;
-    $scope.isLoggedIn == false;
-    $scope.joinus = {};
+  var scrolled = 0;
+  $scope.logintab = '1';
+  $scope.login = {};
+  $scope.register = {};
+  $scope.register.accesslevel = "customer";
+  $scope.forgot = {};
+  $scope.showInvalidLogin = false;
+  $scope.showAlreadyRegistered = false;
+  $scope.passwordNotMatch = false;
+  $scope.showWishlist = false;
+  $scope.user = {};
+  $scope.user.name = '';
+  $scope.art = {};
+  $scope.art.search = '';
+  $scope.art.pagenumber = 1;
+  $scope.art.pagesize = 5;
+  $scope.showDropDown = true;
+  $scope.filterby = {};
+  $scope.artworkInterested = [];
+  $scope.reachOutForm = {};
+  $scope.reachOutForm.srno = "";
+  $scope.reachOutForm.to = "harmeet@auraart.in; rishiraj@auraart.in";
+  $scope.reachOutForm.action = "1";
+  $scope.searchData = [];
+  $scope.userProfile = {};
+  $scope.cartItems = [];
+  $scope.totalCartPrice = 0;
+  $scope.isLoggedIn == false;
+  $scope.joinus = {};
 
-    $scope.reachOutArtistId = 0;
-    // if ($.jStorage.get("searchObj")) {
-    //     $scope.art.search = $.jStorage.get("searchObj").search;
+  $scope.reachOutArtistId = 0;
+  // if ($.jStorage.get("searchObj")) {
+  //     $scope.art.search = $.jStorage.get("searchObj").search;
+  // } else {
+  //     $scope.art.search = "";
+  // }
+
+  $scope.joinUs = function() {
+
+  }
+
+  $scope.becomeSeller = function() {
+    globalFunction.becomeSeller();
+    // if ($scope.isLoggedIn == true) {
+    //   if (userProfile && userProfile.accesslevel == "reseller") {
+    //     $state.go("create-artwork");
+    //   } else {
+    //     $state.go("termcondition");
+    //   }
     // } else {
-    //     $scope.art.search = "";
+    //   ngDialog.open({
+    //     template: 'views/content/sellerRegister.html'
+    //   });
     // }
+  }
+  globalFunction.becomeSeller = function() {
+    if ($scope.isLoggedIn == true) {
+      if (userProfile && userProfile.accesslevel == "reseller") {
+        $state.go("account");
+      } else {
+        $state.go("termcondition");
+      }
+    } else {
+      ngDialog.open({
+        template: 'views/content/sellerRegister.html'
+      });
+    }
+  }
 
-    $scope.joinUs = function() {
-
+  $scope.subMenuClick = function(link) {
+    $scope.redirectu = link.split('/')[1];
+    console.log($scope.redirectu);
+    if ($scope.redirectu == 'termcondition') {
+      if ($scope.isLoggedIn == true) {
+        if (userProfile && userProfile.accesslevel == "reseller") {
+          $state.go("create-artwork");
+        } else {
+          $state.go("termcondition");
+        }
+      } else {
+        ngDialog.open({
+          template: 'views/content/sellerRegister.html'
+        });
+      }
+    } else {
+      $state.go($scope.redirectu);
     }
 
-    $scope.becomeSeller = function() {
-        globalFunction.becomeSeller();
-        // if ($scope.isLoggedIn == true) {
-        //   if (userProfile && userProfile.accesslevel == "reseller") {
-        //     $state.go("create-artwork");
-        //   } else {
-        //     $state.go("termcondition");
-        //   }
-        // } else {
-        //   ngDialog.open({
-        //     template: 'views/content/sellerRegister.html'
-        //   });
-        // }
-    }
-    globalFunction.becomeSeller = function() {
-        if ($scope.isLoggedIn == true) {
-            if (userProfile && userProfile.accesslevel == "reseller") {
-                $state.go("account");
-            } else {
-                $state.go("termcondition");
-            }
-        } else {
-            ngDialog.open({
-                template: 'views/content/sellerRegister.html'
-            });
-        }
-    }
+  }
 
-    $scope.subMenuClick = function(link) {
-        $scope.redirectu = link.split('/')[1];
-        console.log($scope.redirectu);
-        if ($scope.redirectu == 'termcondition') {
-            if ($scope.isLoggedIn == true) {
-                if (userProfile && userProfile.accesslevel == "reseller") {
-                    $state.go("create-artwork");
-                } else {
-                    $state.go("termcondition");
-                }
-            } else {
-                ngDialog.open({
-                    template: 'views/content/sellerRegister.html'
-                });
-            }
-        } else {
-            $state.go($scope.redirectu);
-        }
-
-    }
-
-    $scope.registeruser = function() {
-        if ($scope.register.password === $scope.register.confirmpassword) {
-            $scope.passwordNotMatch = false;
-            $scope.register.accesslevel = "customer";
-            NavigationService.registeruser($scope.register, function(data, status) {
-                console.log(data);
-                if (data.value != false) {
-                    $scope.showAlreadyRegistered = false;
-                    $scope.showWishlist = true;
-                    //$.jStorage.set("user", data);
-                    ngDialog.closeAll();
-                    dataNextPre.messageBoxSignUp();
-                    // $state.go("termcondition");
-                } else if (data.value == false && data.comment == "User already exists") {
-                    $scope.showAlreadyRegistered = true;
-                }
-            })
-        } else {
-            $scope.passwordNotMatch = true;
-        }
-    };
-
-    $scope.userlogin = function() {
-        NavigationService.userlogin($scope.login, function(data, status) {
-            if (data.value != false) {
-                $scope.showInvalidLogin = false;
-                NavigationService.getuserprofile(function(data) {
-                    ngDialog.closeAll();
-                    if (data.id && data.accesslevel == "reseller") {
-                        $state.go("create-artwork");
-                    } else {
-                        $state.go("termcondition");
-                    }
-                })
-            } else {
-                $scope.showInvalidLogin = true;
-            }
-
-        })
-    };
-
-
-
-    NavigationService.getDollarPrice(function(data) {
-        if (data.value != false) {
-            dollarPrice = data[0].price;
-            console.log("Dollar = " + data[0].price);
-        }
-    })
-
-    NavigationService.getuserprofile(function(data) {
-        if (data.id) {
-            $scope.isLoggedIn = true;
-            userProfile = data;
-            NavigationService.getMyFavourites(data.id, function(favorite) {
-                userProfile.wishlist = favorite;
-            })
-        } else {
-            $scope.isLoggedIn = false;
-        }
-    })
-    var countcall = 0;
-    NavigationService.getAllArtistByAccess(++countcall, function(data, status, n) {
-        if (n == countcall) {
-            if (data && data.value != false) {
-                $scope.allartist = _.uniq(data, '_id');
-            } else {
-                $scope.allartist = [];
-            }
-        } else {
-            $scope.allartist = [];
-        }
-        //      console.log($scope.allartist);
-        //      $scope.reachOutForm.artist = $scope.allartist[0].name;
-    });
-
-
-    NavigationService.getuserprofile(function(data) {
-        userProfile = data;
+  $scope.registeruser = function() {
+    if ($scope.register.password === $scope.register.confirmpassword) {
+      $scope.passwordNotMatch = false;
+      $scope.register.accesslevel = "customer";
+      NavigationService.registeruser($scope.register, function(data, status) {
         console.log(data);
-        if (data.name) {
-            $scope.userProfile = data;
-            $scope.user.name = data.name;
-            $scope.showWishlist = true;
+        if (data.value != false) {
+          $scope.showAlreadyRegistered = false;
+          $scope.showWishlist = true;
+          //$.jStorage.set("user", data);
+          ngDialog.closeAll();
+          dataNextPre.messageBoxSignUp();
+          // $state.go("termcondition");
+        } else if (data.value == false && data.comment == "User already exists") {
+          $scope.showAlreadyRegistered = true;
         }
+      })
+    } else {
+      $scope.passwordNotMatch = true;
+    }
+  };
 
+  $scope.userlogin = function() {
+    NavigationService.userlogin($scope.login, function(data, status) {
+      if (data.value != false) {
+        $scope.showInvalidLogin = false;
+        NavigationService.getuserprofile(function(data) {
+          ngDialog.closeAll();
+          if (data.id && data.accesslevel == "reseller") {
+            $state.go("create-artwork");
+          } else {
+            $state.go("termcondition");
+          }
+        })
+      } else {
+        $scope.showInvalidLogin = true;
+      }
+
+    })
+  };
+
+
+
+  NavigationService.getDollarPrice(function(data) {
+    if (data.value != false) {
+      dollarPrice = data[0].price;
+      console.log("Dollar = " + data[0].price);
+    }
+  })
+
+  NavigationService.getuserprofile(function(data) {
+    if (data.id) {
+      $scope.isLoggedIn = true;
+      userProfile = data;
+      NavigationService.getMyFavourites(data.id, function(favorite) {
+        userProfile.wishlist = favorite;
+      })
+    } else {
+      $scope.isLoggedIn = false;
+    }
+  })
+  var countcall = 0;
+  NavigationService.getAllArtistByAccess(++countcall, function(data, status, n) {
+    if (n == countcall) {
+      if (data && data.value != false) {
+        $scope.allartist = _.uniq(data, '_id');
+      } else {
+        $scope.allartist = [];
+      }
+    } else {
+      $scope.allartist = [];
+    }
+    //      console.log($scope.allartist);
+    //      $scope.reachOutForm.artist = $scope.allartist[0].name;
+  });
+
+
+  NavigationService.getuserprofile(function(data) {
+    userProfile = data;
+    console.log(data);
+    if (data.name) {
+      $scope.userProfile = data;
+      $scope.user.name = data.name;
+      $scope.showWishlist = true;
+    }
+
+  });
+
+  $scope.setSearch = function(select) {
+    $scope.reachOutForm.artist = select.selected.name;
+    cfpLoadingBar.start();
+    $scope.reachOutInner(select.selected._id);
+  }
+
+  $scope.setSearchSrno = function(select) {
+    $scope.reachOutForm.srno = select.selected.srno;
+  }
+  $scope.selectSearch = function(name) {
+    console.log("on search");
+    console.log(name);
+    $scope.art.search = name.name;
+    $scope.art.type = name.type;
+    $('#topsearch').focus();
+    $scope.getSearchedArt();
+  }
+
+  $scope.reachOutInner = function(id) {
+    NavigationService.getArtistDetail(id, function(data) {
+      $scope.artworkInterested = data.artwork;
+      if (data.artwork != "") {
+        //              $scope.reachOutForm.srno = data.artwork[0].srno;
+      } else {
+        $scope.reachOutForm.srno = "";
+      }
+      cfpLoadingBar.complete();
     });
+  }
 
-    $scope.setSearch = function(select) {
-        $scope.reachOutForm.artist = select.selected.name;
-        cfpLoadingBar.start();
-        $scope.reachOutInner(select.selected._id);
-    }
+  $scope.changeArtist = function(data) {
 
-    $scope.setSearchSrno = function(select) {
-        $scope.reachOutForm.srno = select.selected.srno;
-    }
-    $scope.selectSearch = function(name) {
-        console.log("on search");
-        console.log(name);
-        $scope.art.search = name.name;
-        $scope.art.type = name.type;
-        $('#topsearch').focus();
-        $scope.getSearchedArt();
-    }
+  }
 
-    $scope.reachOutInner = function(id) {
-        NavigationService.getArtistDetail(id, function(data) {
-            $scope.artworkInterested = data.artwork;
-            if (data.artwork != "") {
-                //              $scope.reachOutForm.srno = data.artwork[0].srno;
+  $scope.reachOut = function() {
+    var reachOutArtist = window.location.hash.split('l/');
+    if (reachOutArtist[0] == "#/artist/detai" || reachOutArtist[0] == "#/artwork/detai" || reachOutArtist[0].indexOf("sculpture") != -1) {
+      $scope.reachOutArtistId = reachOutArtist[1];
+      $scope.artworkInterested = dataNextPre.reachout.artwork;
+      if (reachOutArtist[0] != "#/artist/detai")
+        $scope.reachOutForm.srno = $scope.artworkInterested[0].srno;
+      if (dataNextPre.reachout) {
+        $scope.reachOutForm.artist = dataNextPre.reachout.name;
+        if (reachOutArtist[0] != "#/artist/detai")
+          $scope.reachOutInner(dataNextPre.reachout._id)
+      }
+      ngDialog.open({
+        scope: $scope,
+        template: 'views/content/reach-out.html'
+      });
+    } else {
+      ngDialog.open({
+        scope: $scope,
+        template: 'views/content/reach-out.html'
+      });
+    }
+  }
+
+  globalFunction.reachOut = function() {
+    var reachOutArtist = window.location.hash.split('l/');
+    if (reachOutArtist[0] == "#/artist/detai" || reachOutArtist[0] == "#/artwork/detai" || reachOutArtist[0].indexOf("sculpture") != -1) {
+      $scope.reachOutArtistId = reachOutArtist[1];
+      $scope.artworkInterested = dataNextPre.reachout.artwork;
+      if (reachOutArtist[0] != "#/artist/detai")
+        $scope.reachOutForm.srno = $scope.artworkInterested[0].srno;
+      if (dataNextPre.reachout) {
+        $scope.reachOutForm.artist = dataNextPre.reachout.name;
+        if (reachOutArtist[0] != "#/artist/detai")
+          $scope.reachOutInner(dataNextPre.reachout._id)
+      }
+      ngDialog.open({
+        scope: $scope,
+        template: 'views/content/reach-out.html'
+      });
+    } else {
+      ngDialog.open({
+        scope: $scope,
+        template: 'views/content/reach-out.html'
+      });
+    }
+  }
+
+
+  //  $scope.art.search = $.jStorage.get("searchObj").search;
+  $scope.getSearchedArt = function() {
+    console.log($scope.art);
+
+    if ($scope.art.search != '') {
+      cfpLoadingBar.start();
+      NavigationService.getArtworkbySearch($scope.art, function(data) {
+        console.log(data);
+        $.jStorage.set("searchObj", $scope.art);
+        $.jStorage.set("searchResults", data);
+        console.log($state.current.name);
+        if ($state.current.name == 'searchresults') {
+          window.location.reload();
+        } else {
+          $state.go('searchresults');
+        }
+
+        cfpLoadingBar.complete();
+      })
+    }
+  }
+  var countcall = 0;
+  $scope.onSearchChange = function(search) {
+    if (search != undefined && search != '') {
+      $timeout(function() {
+        NavigationService.getSearchDrop(search, ++countcall, function(data, n) {
+          if (n == countcall) {
+            if (data.value == false) {
+              $scope.showDropDown = true;
             } else {
-                $scope.reachOutForm.srno = "";
+              $scope.showDropDown = false;
+              $scope.searchData = data;
             }
-            cfpLoadingBar.complete();
-        });
+          } else {
+            $scope.showDropDown = true;
+          }
+        })
+      }, 1000);
+    } else {
+      $scope.searchData = '';
     }
+  }
 
-    $scope.changeArtist = function(data) {
-
-    }
-
-    $scope.reachOut = function() {
-        var reachOutArtist = window.location.hash.split('l/');
-        if (reachOutArtist[0] == "#/artist/detai" || reachOutArtist[0] == "#/artwork/detai" || reachOutArtist[0].indexOf("sculpture") != -1) {
-            $scope.reachOutArtistId = reachOutArtist[1];
-            $scope.artworkInterested = dataNextPre.reachout.artwork;
-            if (reachOutArtist[0] != "#/artist/detai")
-                $scope.reachOutForm.srno = $scope.artworkInterested[0].srno;
-            if (dataNextPre.reachout) {
-                $scope.reachOutForm.artist = dataNextPre.reachout.name;
-                if (reachOutArtist[0] != "#/artist/detai")
-                    $scope.reachOutInner(dataNextPre.reachout._id)
-            }
-            ngDialog.open({
-                scope: $scope,
-                template: 'views/content/reach-out.html'
-            });
-        } else {
-            ngDialog.open({
-                scope: $scope,
-                template: 'views/content/reach-out.html'
-            });
-        }
-    }
-
-    globalFunction.reachOut = function() {
-        var reachOutArtist = window.location.hash.split('l/');
-        if (reachOutArtist[0] == "#/artist/detai" || reachOutArtist[0] == "#/artwork/detai" || reachOutArtist[0].indexOf("sculpture") != -1) {
-            $scope.reachOutArtistId = reachOutArtist[1];
-            $scope.artworkInterested = dataNextPre.reachout.artwork;
-            if (reachOutArtist[0] != "#/artist/detai")
-                $scope.reachOutForm.srno = $scope.artworkInterested[0].srno;
-            if (dataNextPre.reachout) {
-                $scope.reachOutForm.artist = dataNextPre.reachout.name;
-                if (reachOutArtist[0] != "#/artist/detai")
-                    $scope.reachOutInner(dataNextPre.reachout._id)
-            }
-            ngDialog.open({
-                scope: $scope,
-                template: 'views/content/reach-out.html'
-            });
-        } else {
-            ngDialog.open({
-                scope: $scope,
-                template: 'views/content/reach-out.html'
-            });
-        }
-    }
-
-
-    //  $scope.art.search = $.jStorage.get("searchObj").search;
-    $scope.getSearchedArt = function() {
-        console.log($scope.art);
-
-        if ($scope.art.search != '') {
-            cfpLoadingBar.start();
-            NavigationService.getArtworkbySearch($scope.art, function(data) {
-                console.log(data);
-                $.jStorage.set("searchObj", $scope.art);
-                $.jStorage.set("searchResults", data);
-
-                window.location.reload();
-                //              $location.url("/searchresults");
-                $state.go('searchresults');
-                cfpLoadingBar.complete();
-            })
-        }
-    }
-    var countcall = 0;
-    $scope.onSearchChange = function(search) {
-        if (search != undefined && search != '') {
-            $timeout(function() {
-                NavigationService.getSearchDrop(search, ++countcall, function(data, n) {
-                    if (n == countcall) {
-                        if (data.value == false) {
-                            $scope.showDropDown = true;
-                        } else {
-                            $scope.showDropDown = false;
-                            $scope.searchData = data;
-                        }
-                    } else {
-                        $scope.showDropDown = true;
-                    }
-                })
-            }, 1000);
-        } else {
-            $scope.searchData = '';
-        }
-    }
-
-    // reach out submit
+  // reach out submit
+  $scope.allvalidation = [{
+    field: $scope.reachOutForm.to,
+    validation: ""
+  }, {
+    field: $scope.reachOutForm.from,
+    validation: ""
+  }, {
+    field: $scope.reachOutForm.action,
+    validation: ""
+  }];
+  $scope.submitReachOut = function() {
     $scope.allvalidation = [{
-        field: $scope.reachOutForm.to,
-        validation: ""
+      field: $scope.reachOutForm.to,
+      validation: ""
     }, {
-        field: $scope.reachOutForm.from,
-        validation: ""
+      field: $scope.reachOutForm.from,
+      validation: ""
     }, {
-        field: $scope.reachOutForm.action,
-        validation: ""
+      field: $scope.reachOutForm.action,
+      validation: ""
     }];
-    $scope.submitReachOut = function() {
-        $scope.allvalidation = [{
-            field: $scope.reachOutForm.to,
-            validation: ""
-        }, {
-            field: $scope.reachOutForm.from,
-            validation: ""
-        }, {
-            field: $scope.reachOutForm.action,
-            validation: ""
-        }];
-        var check = formvalidation($scope.allvalidation);
-        if (check) {
-            NavigationService.reachOutArtist($scope.reachOutForm, function(data) {
-                console.log(data);
-                if (data.value == true) {
-                    alert("Thank you! Your query has been successfully submited.");
-                }
-            });
-        } else {
-            alert("Enter all data");
+    var check = formvalidation($scope.allvalidation);
+    if (check) {
+      NavigationService.reachOutArtist($scope.reachOutForm, function(data) {
+        console.log(data);
+        if (data.value == true) {
+          alert("Thank you! Your query has been successfully submited.");
         }
+      });
+    } else {
+      alert("Enter all data");
     }
-    $scope.resetReachOut = function() {
-        _.each($scope.reachOutForm, function(n, key) {
-            if (key != 'srno' && key != 'to' && key != 'action') {
-                $scope.reachOutForm[key] = "";
-            }
-        });
-    }
+  }
+  $scope.resetReachOut = function() {
+    _.each($scope.reachOutForm, function(n, key) {
+      if (key != 'srno' && key != 'to' && key != 'action') {
+        $scope.reachOutForm[key] = "";
+      }
+    });
+  }
 
 
-    $scope.showLogin = function() {
-        console.log("in login");
-        ngDialog.open({
-            template: 'views/content/login.html',
-            scope: $scope
-        });
-    };
+  $scope.showLogin = function() {
+    console.log("in login");
+    ngDialog.open({
+      template: 'views/content/login.html',
+      scope: $scope
+    });
+  };
 
-    globalFunction.showLogin = function() {
-        console.log("in login");
-        ngDialog.open({
-            template: 'views/content/login.html',
-            scope: $scope
-        });
-    };
+  globalFunction.showLogin = function() {
+    console.log("in login");
+    ngDialog.open({
+      template: 'views/content/login.html',
+      scope: $scope
+    });
+  };
 
-    $scope.changeTab = function(tab) {
-        $scope.logintab = tab;
-    }
+  $scope.changeTab = function(tab) {
+    $scope.logintab = tab;
+  }
 
-    $scope.toaccount = function() {
-        //      $location.url("/account");
-        $state.go('account');
-    }
+  $scope.toaccount = function() {
+    //      $location.url("/account");
+    $state.go('account');
+  }
 
-    if ($.jStorage.get("user")) {
+  if ($.jStorage.get("user")) {
+    $scope.showWishlist = true;
+    $scope.user.name = $.jStorage.get("user").name;
+  }
+
+  $scope.logout = function() {
+    console.log("Logout");
+    NavigationService.logout(function(data) {
+      $scope.showWishlist = false;
+      $scope.cartItems = [];
+      userProfile = data;
+      $state.go('home');
+    });
+  }
+
+  $scope.userlogin = function() {
+    NavigationService.userlogin($scope.login, function(data, status) {
+      console.log(data);
+      if (data.value != false) {
+        $scope.showInvalidLogin = false;
         $scope.showWishlist = true;
-        $scope.user.name = $.jStorage.get("user").name;
-    }
+        //$.jStorage.set("user", data);
+        $scope.user.name = data.name;
+        ngDialog.closeAll();
+        window.location.reload();
+      } else {
+        $scope.showInvalidLogin = true;
+      }
+    })
+  };
 
-    $scope.logout = function() {
-        console.log("Logout");
-        NavigationService.logout(function(data) {
-            $scope.showWishlist = false;
-            $scope.cartItems = [];
-            userProfile = data;
-            $state.go('home');
-        });
-    }
-
-    $scope.userlogin = function() {
-        NavigationService.userlogin($scope.login, function(data, status) {
-            console.log(data);
-            if (data.value != false) {
-                $scope.showInvalidLogin = false;
-                $scope.showWishlist = true;
-                //$.jStorage.set("user", data);
-                $scope.user.name = data.name;
-                ngDialog.closeAll();
-                window.location.reload();
-            } else {
-                $scope.showInvalidLogin = true;
-            }
-        })
-    };
-
-    $scope.registeruser = function() {
-        if ($scope.register.password === $scope.register.confirmpassword) {
-            $scope.passwordNotMatch = false;
-            NavigationService.registeruser($scope.register, function(data, status) {
-                console.log(data);
-                if (data.value != false) {
-                    $scope.showAlreadyRegistered = false;
-                    $scope.showWishlist = true;
-                    //$.jStorage.set("user", data);
-                    $scope.user.name = data.name;
-                    ngDialog.closeAll();
-                    dataNextPre.messageBoxSignUp();
-                    // window.location.reload();
-                } else if (data.value == false && data.comment == "User already exists") {
-                    $scope.showAlreadyRegistered = true;
-                }
-            })
-        } else {
-            $scope.passwordNotMatch = true;
+  $scope.registeruser = function() {
+    if ($scope.register.password === $scope.register.confirmpassword) {
+      $scope.passwordNotMatch = false;
+      NavigationService.registeruser($scope.register, function(data, status) {
+        console.log(data);
+        if (data.value != false) {
+          $scope.showAlreadyRegistered = false;
+          $scope.showWishlist = true;
+          //$.jStorage.set("user", data);
+          $scope.user.name = data.name;
+          ngDialog.closeAll();
+          dataNextPre.messageBoxSignUp();
+          // window.location.reload();
+        } else if (data.value == false && data.comment == "User already exists") {
+          $scope.showAlreadyRegistered = true;
         }
-    };
-
-    $scope.forgotpassword = function() {
-        console.log($scope.forgot);
-        NavigationService.forgotpassword($scope.forgot, function(data, status) {
-            console.log(data);
-            if (data.value == true) {
-                dataNextPre.messageBox("New password has e-mailed to you");
-            }
-        })
+      })
+    } else {
+      $scope.passwordNotMatch = true;
     }
+  };
 
-    //    $scope.$on('event:google-plus-signin-success', function (event, authResult) {
-    //        // Send login to server or save into cookie
-    //          console.log(authResult);
-    //    });
-    //    $scope.$on('event:google-plus-signin-failure', function (event, authResult) {
-    //        // Auth failure or signout detected
-    //          console.log(authResult);
-    //    });
-
-
-    //common function
-    dataNextPre.messageBox = function(msg) {
-        var xyz = ngDialog.open({
-            template: '<div class="pop-up"><h5 class="popup-wishlist">' + msg + '</h5><span class="closepop" ng-click="closeThisDialog(value);">X</span></div>',
-            plain: true
+  $scope.forgotpassword = function() {
+    console.log($scope.forgot);
+    NavigationService.forgotpassword($scope.forgot, function(data, status) {
+      console.log(data);
+      if (data.value == true) {
+        ngDialog.open({
+          template: '<div class="pop-up"><h5 class="popup-wishlist">New password e mailed to you.</h5><span class="closepop" ng-click="closeThisDialog(value);">X</span></div>',
+          plain: true
         });
         $timeout(function() {
-            xyz.close();
+          ngDialog.closeAll();
         }, 3000);
-    }
+        // dataNextPre.messageBox("New password e mailed to you.");
+      }
+    })
+  }
 
-    dataNextPre.messageBoxNoTime = function(msg) {
-        var xyz = ngDialog.open({
-            template: '<div class="pop-up"><h5 class="popup-wishlist">' + msg + '</h5><span class="closepop" ng-click="closeThisDialog(value);">X</span></div>',
-            plain: true
-        });
-    }
+  //    $scope.$on('event:google-plus-signin-success', function (event, authResult) {
+  //        // Send login to server or save into cookie
+  //          console.log(authResult);
+  //    });
+  //    $scope.$on('event:google-plus-signin-failure', function (event, authResult) {
+  //        // Auth failure or signout detected
+  //          console.log(authResult);
+  //    });
 
-    dataNextPre.messageBoxSignUp = function() {
-        var xyz = ngDialog.open({
-            template: '<div class="pop-up"><h5 class="popup-wishlist"><div class="text-center"><h3>Welcome to Aura Art </h3><p>You may update your Profile by clicking <a href="http://www.auraart.in/#/account" ng-click="closeThisDialog(value)">here</a> or continue surfing by clicking X.</p></div></h5><span class="closepop" ng-click="closeThisDialog(value);">X</span></div>',
-            plain: true
-        });
-    }
 
-    dataNextPre.messageBoxWithBtn = function(msg, btnText, funcName) {
-        var xyz = ngDialog.open({
-            scope: $scope,
-            template: '<div class="pop-up"><h5 class="popup-wishlist">Please login to add to favourites</h5><p>Click <a ng-click="showLogin();">here</a> to Login</p><span class="closepop" ng-click="closeThisDialog(value);">X</span></div>',
-            plain: true
-        });
-    }
+  //common function
+  dataNextPre.messageBox = function(msg) {
+    var xyz = ngDialog.open({
+      template: '<div class="pop-up"><h5 class="popup-wishlist">' + msg + '</h5><span class="closepop" ng-click="closeThisDialog(value);">X</span></div>',
+      plain: true
+    });
+    $timeout(function() {
+      xyz.close();
+    }, 3000);
+  }
 
-    $scope.nowAddToFav = function(obj) {
-        console.log(obj);
-        ngDialog.closeAll();
-        cfpLoadingBar.start();
-        NavigationService.addToFav(obj, function(data) {
-            cfpLoadingBar.complete();
-            if (!data.value) {
-                dataNextPre.messageBox("Added to favourites");
-                getMyProfile();
-            } else if (data.value == true && data.comment == "Data already updated") {
-                dataNextPre.messageBox("Already added to favourites");
-                getMyProfile();
-            }
+  dataNextPre.messageBoxNoTime = function(msg) {
+    var xyz = ngDialog.open({
+      template: '<div class="pop-up"><h5 class="popup-wishlist">' + msg + '</h5><span class="closepop" ng-click="closeThisDialog(value);">X</span></div>',
+      plain: true
+    });
+  }
+
+  dataNextPre.messageBoxSignUp = function() {
+    var xyz = ngDialog.open({
+      template: '<div class="pop-up"><h5 class="popup-wishlist"><div class="text-center"><h3>Welcome to Aura Art </h3><p>You may update your Profile by clicking <a href="http://www.auraart.in/#/account" ng-click="closeThisDialog(value)">here</a> or continue surfing by clicking X.</p></div></h5><span class="closepop" ng-click="closeThisDialog(value);">X</span></div>',
+      plain: true
+    });
+  }
+
+  dataNextPre.messageBoxWithBtn = function(msg, btnText, funcName) {
+    var xyz = ngDialog.open({
+      scope: $scope,
+      template: '<div class="pop-up"><h5 class="popup-wishlist">Please login to add to favourites</h5><p>Click <a ng-click="showLogin();">here</a> to Login</p><span class="closepop" ng-click="closeThisDialog(value);">X</span></div>',
+      plain: true
+    });
+  }
+
+  $scope.nowAddToFav = function(obj) {
+    console.log(obj);
+    ngDialog.closeAll();
+    cfpLoadingBar.start();
+    NavigationService.addToFav(obj, function(data) {
+      cfpLoadingBar.complete();
+      if (!data.value) {
+        dataNextPre.messageBox("Added to favourites");
+        getMyProfile();
+      } else if (data.value == true && data.comment == "Data already updated") {
+        dataNextPre.messageBox("Already added to favourites");
+        getMyProfile();
+      }
+    })
+  }
+
+  function getMyProfile() {
+    NavigationService.getuserprofile(function(data) {
+      if (data.id) {
+        userProfile = data;
+        NavigationService.getMyFavourites(data.id, function(favorite) {
+          userProfile.wishlist = favorite;
         })
-    }
+      }
+    })
+  }
 
-    function getMyProfile() {
-        NavigationService.getuserprofile(function(data) {
-            if (data.id) {
-                userProfile = data;
-                NavigationService.getMyFavourites(data.id, function(favorite) {
-                    userProfile.wishlist = favorite;
-                })
-            }
-        })
-    }
-
-    dataNextPre.favorite = function(art) {
-        // art.heartClass = "fa fa-heart font-color3";
-        if ($scope.userProfile.id) {
-            // cfpLoadingBar.start();
-            console.log(art.heartClass);
-            switch (art.heartClass) {
-                case "fa fa-heart":
-                    {
-                        NavigationService.getMyFolders(function(data) {
-                            if (data.value != false) {
-                                $scope.myFolders = data;
-                            } else {
-                                $scope.myFolders = [];
-                            }
-                        })
-                        $scope.favObj = {};
-                        $scope.favObj.artwork = art.artwork._id;
-                        ngDialog.open({
-                            scope: $scope,
-                            template: 'views/content/modal-choose.html'
-                        });
-                        art.heartClass = "fa fa-heart font-color3";
-                        // NavigationService.addToFav($scope.userProfile.id, art.artwork._id, function(data) {
-                        //     cfpLoadingBar.complete();
-                        //     if (!data.value) {
-                        //         // $.jStorage.set("user", data);
-                        //         art.heartClass = "fa fa-heart font-color3";
-                        //         dataNextPre.messageBox("Added to favourites");
-                        //     } else if (data.value == true && data.comment == "Data already updated") {
-                        //         dataNextPre.messageBox("Already added to favourites");
-                        //     }
-                        // })
-                    }
-                    break;
-                case "fa fa-heart font-color3":
-                    {
-                        console.log('in second if');
-                        cfpLoadingBar.complete();
-                        NavigationService.deleteFromFav($scope.userProfile.id, art.artwork._id, function(data) {
-                            if (!data.value) {
-                                // $.jStorage.set("user", data);
-                                art.heartClass = "fa fa-heart";
-                                dataNextPre.messageBox("Removed from favourites");
-                            }
-                        })
-                    }
-                    break;
-                default:
-            }
-            NavigationService.getuserprofile(function(data) {
-                if (data.id) {
-                    userProfile = data;
-                    NavigationService.getMyFavourites(data.id, function(favorite) {
-                        userProfile.wishlist = favorite;
-                    })
-                }
+  dataNextPre.favorite = function(art) {
+    // art.heartClass = "fa fa-heart font-color3";
+    if ($scope.userProfile.id) {
+      // cfpLoadingBar.start();
+      console.log(art.heartClass);
+      switch (art.heartClass) {
+        case "fa fa-heart":
+          {
+            NavigationService.getMyFolders(function(data) {
+              if (data.value != false) {
+                $scope.myFolders = data;
+              } else {
+                $scope.myFolders = [];
+              }
             })
-        } else {
+            $scope.favObj = {};
+            $scope.favObj.artwork = art.artwork._id;
             ngDialog.open({
-                scope: $scope,
-                template: 'views/content/favLogin.html'
+              scope: $scope,
+              template: 'views/content/modal-choose.html'
             });
-        }
-    }
-
-    dataNextPre.getCartItems = function() {
-        NavigationService.getCartItems(function(data) {
-            // console.log(data);
-            $scope.cartItems = data;
-            $scope.totalCartPrice = 0;
-            _.each($scope.cartItems, function(n) {
-                if (n.artwork.gprice != 'N/A')
-                    $scope.totalCartPrice += n.artwork.gprice;
-            });
-        });
-    }
-
-    dataNextPre.getCartItems();
-
-    dataNextPre.addToCart = function(art) {
-        cfpLoadingBar.start();
-        console.log(art);
-        NavigationService.addToCart(art.artwork._id, function(data) {
-            console.log(data);
+            art.heartClass = "fa fa-heart font-color3";
+            // NavigationService.addToFav($scope.userProfile.id, art.artwork._id, function(data) {
+            //     cfpLoadingBar.complete();
+            //     if (!data.value) {
+            //         // $.jStorage.set("user", data);
+            //         art.heartClass = "fa fa-heart font-color3";
+            //         dataNextPre.messageBox("Added to favourites");
+            //     } else if (data.value == true && data.comment == "Data already updated") {
+            //         dataNextPre.messageBox("Already added to favourites");
+            //     }
+            // })
+          }
+          break;
+        case "fa fa-heart font-color3":
+          {
+            console.log('in second if');
             cfpLoadingBar.complete();
-            if (data.value == true) {
-                dataNextPre.messageBox("Added to cart");
-                dataNextPre.getCartItems();
-            } else if (data.value == false) {
-                dataNextPre.messageBox("Already in cart");
-            }
-        })
+            NavigationService.deleteFromFav($scope.userProfile.id, art.artwork._id, function(data) {
+              if (!data.value) {
+                // $.jStorage.set("user", data);
+                art.heartClass = "fa fa-heart";
+                dataNextPre.messageBox("Removed from favourites");
+              }
+            })
+          }
+          break;
+        default:
+      }
+      NavigationService.getuserprofile(function(data) {
+        if (data.id) {
+          userProfile = data;
+          NavigationService.getMyFavourites(data.id, function(favorite) {
+            userProfile.wishlist = favorite;
+          })
+        }
+      })
+    } else {
+      ngDialog.open({
+        scope: $scope,
+        template: 'views/content/favLogin.html'
+      });
     }
+  }
 
-    dataNextPre.removeFromCart = function(artid) {
-        console.log(artid);
-        NavigationService.removeFromCart(artid, function(data) {
-            console.log(data);
-            if (data.value == true) {
-                dataNextPre.messageBox("Removed from cart");
-                dataNextPre.getCartItems();
-            }
-        })
-    }
+  dataNextPre.getCartItems = function() {
+    NavigationService.getCartItems(function(data) {
+      // console.log(data);
+      $scope.cartItems = data;
+      $scope.totalCartPrice = 0;
+      _.each($scope.cartItems, function(n) {
+        if (n.artwork.gprice != 'N/A')
+          $scope.totalCartPrice += n.artwork.gprice;
+      });
+    });
+  }
+
+  dataNextPre.getCartItems();
+
+  dataNextPre.addToCart = function(art) {
+    cfpLoadingBar.start();
+    console.log(art);
+    NavigationService.addToCart(art.artwork._id, function(data) {
+      console.log(data);
+      cfpLoadingBar.complete();
+      if (data.value == true) {
+        dataNextPre.messageBox("Added to cart");
+        dataNextPre.getCartItems();
+      } else if (data.value == false) {
+        dataNextPre.messageBox("Already in cart");
+      }
+    })
+  }
+
+  dataNextPre.removeFromCart = function(artid) {
+    console.log(artid);
+    NavigationService.removeFromCart(artid, function(data) {
+      console.log(data);
+      if (data.value == true) {
+        dataNextPre.messageBox("Removed from cart");
+        dataNextPre.getCartItems();
+      }
+    })
+  }
 
 })
 
 .controller('AccountCtrl', function($scope, TemplateService, NavigationService, $upload, $timeout, $http, cfpLoadingBar, $state, ngDialog) {
 
-    $scope.template = TemplateService.changecontent("account");
-    $scope.menutitle = NavigationService.makeactive("Account");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-    $scope.info = "bolds";
-    $scope.resi = "active";
-    $scope.showSuccess = "";
-    $scope.showFail = "";
-    $scope.showPass = "";
-    $scope.formstatus = false;
-    $scope.ismatch = "";
-    $scope.formstatussec = false;
-    $scope.user = {};
-    $scope.shipping = {};
-    $scope.artistdetail = [];
-    $scope.allfavourites = [];
-    $scope.noFavs = false;
-    $scope.user.bank = {};
-    $scope.user.bank.cancelCheck = '';
-    $scope.tab = '';
-    $scope.tab.url = "views/content/my-artworks.html";
-    $scope.isLoggedIn = false;
-    cfpLoadingBar.start();
+  $scope.template = TemplateService.changecontent("account");
+  $scope.menutitle = NavigationService.makeactive("Account");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
+  $scope.info = "bolds";
+  $scope.resi = "active";
+  $scope.showSuccess = "";
+  $scope.showFail = "";
+  $scope.showPass = "";
+  $scope.formstatus = false;
+  $scope.ismatch = "";
+  $scope.formstatussec = false;
+  $scope.user = {};
+  $scope.shipping = {};
+  $scope.artistdetail = [];
+  $scope.allfavourites = [];
+  $scope.noFavs = false;
+  $scope.user.bank = {};
+  $scope.user.bank.cancelCheck = '';
+  $scope.tab = '';
+  $scope.tab.url = "views/content/my-artworks.html";
+  $scope.isLoggedIn = false;
+  cfpLoadingBar.start();
 
 
-    NavigationService.getuserprofile(function(data) {
-        if (data.id) {
-            userProfile = data;
-            $scope.user = data;
-            cfpLoadingBar.complete();
-            $scope.reload();
-            $scope.isLoggedIn = true;
-            NavigationService.getMyFavourites(data.id, function(favorite) {
-                if (favorite.value != false) {
-                    $scope.noFavs = false;
-                    userProfile.wishlist = favorite;
-                    _.each(favorite, function(n) {
-                        $scope.allfavourites.push({
-                            "_id": n.artwork
-                        });
-                    });
-                    getFavorite($scope.allfavourites)
-                } else {
-                    $scope.noFavs = true;
-                }
+  NavigationService.getuserprofile(function(data) {
+    if (data.id) {
+      userProfile = data;
+      $scope.user = data;
+      cfpLoadingBar.complete();
+      $scope.reload();
+      $scope.isLoggedIn = true;
+      NavigationService.getMyFavourites(data.id, function(favorite) {
+        if (favorite.value != false) {
+          $scope.noFavs = false;
+          userProfile.wishlist = favorite;
+          _.each(favorite, function(n) {
+            $scope.allfavourites.push({
+              "_id": n.artwork
             });
+          });
+          getFavorite($scope.allfavourites)
+        } else {
+          $scope.noFavs = true;
         }
-    });
+      });
+    }
+  });
 
-    NavigationService.findMyArtwork(function(data) {
+  NavigationService.findMyArtwork(function(data) {
+    console.log(data);
+    if (data.value != false) {
+      $scope.myArtworks = _.chunk(data, 3);
+    }
+  });
+
+  function getFavorite(allfavourites) {
+    NavigationService.getAllFavouritesData(allfavourites, function(datas, status) {
+      $scope.artistdetail = datas;
+      $scope.totalfav = datas.length;
+      cfpLoadingBar.complete();
+    });
+  }
+
+  NavigationService.getCountryJson(function(data) {
+    $scope.allcountries = data;
+  });
+
+  NavigationService.getMyOrders(function(data) {
+    console.log(data);
+    $scope.myorderedproducts = data;
+  });
+
+  $scope.callPay = function(order) {
+    $scope.getOrder = order;
+    $scope.getOrder.pinfo = "Purchase of artwork";
+    $timeout(function() {
+      $("form[name='payuForm']").submit();
+    }, 2000);
+  }
+  $scope.reload = function() {
+    $scope.user = "";
+    NavigationService.getoneartist(userProfile.id, function(data) {
+      console.log(data);
+      $scope.user = data;
+      $scope.shipping = data.shipping;
+      if (!$scope.user.bank) {
+        $scope.user.bank = {};
+        $scope.user.bank.cancelCheck = '';
+      }
+      if (!$scope.user.shipping) {
+        $scope.user.shipping = {};
+        $scope.user.shipping.country = "";
+      } else if (!$scope.user.shipping.country) {
+        $scope.user.shipping.country = "";
+      }
+      if (!$scope.user.billing) {
+        $scope.user.billing = {};
+        $scope.user.billing.country = "";
+      } else if (!$scope.user.billing.country) {
+        $scope.user.billing.country = "";
+      }
+    });
+  }
+  $scope.edituser = function() {
+    $scope.user._id = userProfile.id;
+    NavigationService.registeruser($scope.user, function(data) {
+      console.log(data);
+      $scope.closeTab(2);
+      if (data.value != false) {
+        // $scope.reload();
+        $scope.showSuccess = true;
+        $timeout(function() {
+          $scope.showSuccess = false;
+        }, 5000);
+      } else {
+        // $scope.reload();
+        $scope.showFail = true;
+        $timeout(function() {
+          $scope.showFail = false;
+        }, 5000);
+      }
+    });
+  }
+
+  $scope.changepassword = function() {
+    $scope.user._id = userProfile.id;
+    if ($scope.user.editpassword === $scope.user.cnfrmpassword) {
+      $scope.ismatch = false;
+      delete $scope.user.cnfrmpassword;
+      console.log($scope.user);
+      NavigationService.changePassword($scope.user, function(data) {
+        if (data.value == true) {
+          $scope.showSuccess = true;
+          $scope.user.password = "";
+          $scope.user.editpassword = "";
+          $timeout(function() {
+            $scope.showSuccess = false;
+          }, 5000);
+        } else if (data.value == false && data.comment == "Same password") {
+          $scope.showPass = true;
+          $scope.user.password = "";
+          $scope.user.editpassword = "";
+          $timeout(function() {
+            $scope.showPass = false;
+          }, 5000);
+        } else {
+          $scope.showFail = true;
+          $scope.user.password = "";
+          $scope.user.editpassword = "";
+          $timeout(function() {
+            $scope.showFail = false;
+          }, 3000);
+        }
+      });
+    } else {
+      $scope.ismatch = true;
+    }
+  }
+
+  $scope.saveAddress = function() {
+    $scope.user._id = userProfile.id;
+    NavigationService.registeruser($scope.user, function(data) {
+      console.log(data);
+      if (data.value == true) {
+        // $scope.reload();
+        $scope.closeTab(1);
+        $scope.showSuccess = true;
+        $timeout(function() {
+          $scope.showSuccess = false;
+        }, 5000);
+      } else {
+        // $scope.reload();
+        $scope.showFail = true;
+        $timeout(function() {
+          $scope.showFail = false;
+        }, 5000);
+      }
+    });
+  }
+
+  $scope.editArtwork = function(status, id) {
+    if (status === 'revert') {
+      $state.go("edit-artwork", {
+        "id": id
+      });
+    } else {
+      dataNextPre.messageBoxNoTime("For any changes, please write to us at artistsubmit@auraart.in/resellersubmit@auraart.in");
+    }
+  }
+
+  $scope.changeTab = function(tab) {
+    if (tab == 1) {
+      $scope.formstatus = true;
+      //                $scope.formstatussec = false;
+    } else {
+      //                $scope.formstatus = false;
+      $scope.formstatussec = true;
+    }
+
+  }
+  $scope.closeTab = function(tab) {
+    if (tab == 1) {
+      $scope.formstatus = false;
+      $scope.reload();
+      //                $scope.formstatussec = false;
+    } else {
+      //                $scope.formstatus = false;
+      $scope.formstatussec = false;
+    }
+
+  }
+  $scope.changeTabs = function() {
+    $scope.formstatussec = true;
+  }
+
+  $scope.changeresi = function() {
+    $scope.resi = "active";
+    $scope.offce = "";
+  }
+  $scope.changeoffice = function() {
+    $scope.resi = "";
+    $scope.offce = "active";
+  }
+
+  $scope.activeTab = globalFunction.tab;
+  $scope.changeTab = function(data) {
+    $scope.activeTab = data;
+  }
+
+  //imageupload
+  var imagejstupld = "";
+  $scope.usingFlash = FileAPI && FileAPI.upload != null;
+  $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
+  $scope.uploadRightAway = true;
+  $scope.changeAngularVersion = function() {
+    window.location.hash = $scope.angularVersion;
+    window.location.reload(true);
+  };
+  $scope.hasUploader = function(index) {
+    return $scope.upload[index] != null;
+  };
+  $scope.abort = function(index) {
+    $scope.upload[index].abort();
+    $scope.upload[index] = null;
+  };
+  $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
+    window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
+  $scope.onFileSelect = function($files, whichone) {
+    $scope.selectedFiles = [];
+    $scope.progress = [];
+    console.log($files);
+    if ($scope.upload && $scope.upload.length > 0) {
+      for (var i = 0; i < $scope.upload.length; i++) {
+        if ($scope.upload[i] != null) {
+          $scope.upload[i].abort();
+        }
+      }
+    }
+    $scope.upload = [];
+    $scope.uploadResult = uploadres;
+    $scope.selectedFiles = $files;
+    $scope.dataUrls = [];
+    for (var i = 0; i < $files.length; i++) {
+      var $file = $files[i];
+      if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
+        var fileReader = new FileReader();
+        fileReader.readAsDataURL($files[i]);
+        var loadFile = function(fileReader, index) {
+          fileReader.onload = function(e) {
+            $timeout(function() {
+              $scope.dataUrls[index] = e.target.result;
+            });
+          }
+        }(fileReader, i);
+      }
+      $scope.progress[i] = -1;
+      if ($scope.uploadRightAway) {
+        $scope.start(i, whichone);
+      }
+    }
+  };
+
+  $scope.start = function(index, whichone) {
+    $scope.progress[index] = 0;
+    $scope.errorMsg = null;
+    console.log($scope.howToSend = 1);
+    if ($scope.howToSend == 1) {
+      $scope.upload[index] = $upload.upload({
+        url: imgUploadUrl,
+        method: $scope.httpMethod,
+        headers: {
+          'Content-Type': 'Content-Type'
+        },
+        data: {
+          myModel: $scope.myModel
+        },
+        file: $scope.selectedFiles[index],
+        fileFormDataName: 'file'
+      });
+      $scope.upload[index].then(function(response) {
+        $timeout(function() {
+          $scope.uploadResult.push(response.data);
+          imagejstupld = response.data;
+          if (whichone == 1) {
+            if (imagejstupld != "") {
+              $scope.user.bank.cancelCheck = imagejstupld.files[0].fd;
+              imagejstupld = "";
+            }
+          }
+        });
+      }, function(response) {
+        if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+      }, function(evt) {
+        $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+      });
+      $scope.upload[index].xhr(function(xhr) {});
+    } else {
+      var fileReader = new FileReader();
+      fileReader.onload = function(e) {
+        $scope.upload[index] = $upload.http({
+          url: imgUploadUrl,
+          headers: {
+            'Content-Type': $scope.selectedFiles[index].type
+          },
+          data: e.target.result
+        }).then(function(response) {
+          $scope.uploadResult.push(response.data);
+        }, function(response) {
+          if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+        }, function(evt) {
+          $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+        });
+      }
+      fileReader.readAsArrayBuffer($scope.selectedFiles[index]);
+    }
+  };
+
+  $scope.dragOverClass = function($event) {
+    var items = $event.dataTransfer.items;
+    var hasFile = false;
+    if (items != null) {
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].kind == 'file') {
+          hasFile = true;
+          break;
+        }
+      }
+    } else {
+      hasFile = true;
+    }
+    return hasFile ? "dragover" : "dragover-err";
+  };
+
+
+  $scope.becomeSeller = function() {
+    globalFunction.becomeSeller();
+    // if ($scope.isLoggedIn == true) {
+    //   if (userProfile && userProfile.accesslevel == "reseller") {
+    //     $state.go("create-artwork");
+    //   } else {
+    //     $state.go("termcondition");
+    //   }
+    // } else {
+    //   ngDialog.open({
+    //     template: 'views/content/sellerRegister.html'
+    //   });
+    // }
+  }
+
+  $scope.registeruser = function() {
+    if ($scope.register.password === $scope.register.confirmpassword) {
+      $scope.passwordNotMatch = false;
+      $scope.register.accesslevel = "customer";
+      NavigationService.registeruser($scope.register, function(data, status) {
         console.log(data);
         if (data.value != false) {
-            $scope.myArtworks = _.chunk(data, 3);
+          $scope.showAlreadyRegistered = false;
+          $scope.showWishlist = true;
+          //$.jStorage.set("user", data);
+          ngDialog.closeAll();
+          $state.go("termcondition");
+        } else if (data.value == false && data.comment == "User already exists") {
+          $scope.showAlreadyRegistered = true;
         }
-    });
-
-    function getFavorite(allfavourites) {
-        NavigationService.getAllFavouritesData(allfavourites, function(datas, status) {
-            $scope.artistdetail = datas;
-            $scope.totalfav = datas.length;
-            cfpLoadingBar.complete();
-        });
+      })
+    } else {
+      $scope.passwordNotMatch = true;
     }
+  };
 
-    NavigationService.getCountryJson(function(data) {
-        $scope.allcountries = data;
-    });
-
-    NavigationService.getMyOrders(function(data) {
-        console.log(data);
-        $scope.myorderedproducts = data;
-    });
-
-    $scope.callPay = function(order) {
-        $scope.getOrder = order;
-        $scope.getOrder.pinfo = "Purchase of artwork";
-        $timeout(function() {
-            $("form[name='payuForm']").submit();
-        }, 2000);
-    }
-    $scope.reload = function() {
-        $scope.user = "";
-        NavigationService.getoneartist(userProfile.id, function(data) {
-            console.log(data);
-            $scope.user = data;
-            $scope.shipping = data.shipping;
-            if (!$scope.user.bank) {
-                $scope.user.bank = {};
-                $scope.user.bank.cancelCheck = '';
-            }
-            if (!$scope.user.shipping) {
-                $scope.user.shipping = {};
-                $scope.user.shipping.country = "";
-            } else if (!$scope.user.shipping.country) {
-                $scope.user.shipping.country = "";
-            }
-            if (!$scope.user.billing) {
-                $scope.user.billing = {};
-                $scope.user.billing.country = "";
-            } else if (!$scope.user.billing.country) {
-                $scope.user.billing.country = "";
-            }
-        });
-    }
-    $scope.edituser = function() {
-        $scope.user._id = userProfile.id;
-        NavigationService.registeruser($scope.user, function(data) {
-            console.log(data);
-            $scope.closeTab(2);
-            if (data.value != false) {
-                // $scope.reload();
-                $scope.showSuccess = true;
-                $timeout(function() {
-                    $scope.showSuccess = false;
-                }, 5000);
-            } else {
-                // $scope.reload();
-                $scope.showFail = true;
-                $timeout(function() {
-                    $scope.showFail = false;
-                }, 5000);
-            }
-        });
-    }
-
-    $scope.changepassword = function() {
-        $scope.user._id = userProfile.id;
-        if ($scope.user.editpassword === $scope.user.cnfrmpassword) {
-            $scope.ismatch = false;
-            delete $scope.user.cnfrmpassword;
-            console.log($scope.user);
-            NavigationService.changePassword($scope.user, function(data) {
-                if (data.value == true) {
-                    $scope.showSuccess = true;
-                    $scope.user.password = "";
-                    $scope.user.editpassword = "";
-                    $timeout(function() {
-                        $scope.showSuccess = false;
-                    }, 5000);
-                } else if (data.value == false && data.comment == "Same password") {
-                    $scope.showPass = true;
-                    $scope.user.password = "";
-                    $scope.user.editpassword = "";
-                    $timeout(function() {
-                        $scope.showPass = false;
-                    }, 5000);
-                } else {
-                    $scope.showFail = true;
-                    $scope.user.password = "";
-                    $scope.user.editpassword = "";
-                    $timeout(function() {
-                        $scope.showFail = false;
-                    }, 3000);
-                }
-            });
-        } else {
-            $scope.ismatch = true;
-        }
-    }
-
-    $scope.saveAddress = function() {
-        $scope.user._id = userProfile.id;
-        NavigationService.registeruser($scope.user, function(data) {
-            console.log(data);
-            if (data.value == true) {
-                // $scope.reload();
-                $scope.closeTab(1);
-                $scope.showSuccess = true;
-                $timeout(function() {
-                    $scope.showSuccess = false;
-                }, 5000);
-            } else {
-                // $scope.reload();
-                $scope.showFail = true;
-                $timeout(function() {
-                    $scope.showFail = false;
-                }, 5000);
-            }
-        });
-    }
-
-    $scope.editArtwork = function(status, id) {
-        if (status === 'revert') {
-            $state.go("edit-artwork", {
-                "id": id
-            });
-        } else {
-            dataNextPre.messageBoxNoTime("For any changes, please write to us at artistsubmit/resellersubmit@auraart.in");
-        }
-    }
-
-    $scope.changeTab = function(tab) {
-        if (tab == 1) {
-            $scope.formstatus = true;
-            //                $scope.formstatussec = false;
-        } else {
-            //                $scope.formstatus = false;
-            $scope.formstatussec = true;
-        }
-
-    }
-    $scope.closeTab = function(tab) {
-        if (tab == 1) {
-            $scope.formstatus = false;
-            $scope.reload();
-            //                $scope.formstatussec = false;
-        } else {
-            //                $scope.formstatus = false;
-            $scope.formstatussec = false;
-        }
-
-    }
-    $scope.changeTabs = function() {
-        $scope.formstatussec = true;
-    }
-
-    $scope.changeresi = function() {
-        $scope.resi = "active";
-        $scope.offce = "";
-    }
-    $scope.changeoffice = function() {
-        $scope.resi = "";
-        $scope.offce = "active";
-    }
-
-    $scope.activeTab = globalFunction.tab;
-    $scope.changeTab = function(data) {
-        $scope.activeTab = data;
-    }
-
-    //imageupload
-    var imagejstupld = "";
-    $scope.usingFlash = FileAPI && FileAPI.upload != null;
-    $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
-    $scope.uploadRightAway = true;
-    $scope.changeAngularVersion = function() {
-        window.location.hash = $scope.angularVersion;
-        window.location.reload(true);
-    };
-    $scope.hasUploader = function(index) {
-        return $scope.upload[index] != null;
-    };
-    $scope.abort = function(index) {
-        $scope.upload[index].abort();
-        $scope.upload[index] = null;
-    };
-    $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
-        window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
-    $scope.onFileSelect = function($files, whichone) {
-        $scope.selectedFiles = [];
-        $scope.progress = [];
-        console.log($files);
-        if ($scope.upload && $scope.upload.length > 0) {
-            for (var i = 0; i < $scope.upload.length; i++) {
-                if ($scope.upload[i] != null) {
-                    $scope.upload[i].abort();
-                }
-            }
-        }
-        $scope.upload = [];
-        $scope.uploadResult = uploadres;
-        $scope.selectedFiles = $files;
-        $scope.dataUrls = [];
-        for (var i = 0; i < $files.length; i++) {
-            var $file = $files[i];
-            if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
-                var fileReader = new FileReader();
-                fileReader.readAsDataURL($files[i]);
-                var loadFile = function(fileReader, index) {
-                    fileReader.onload = function(e) {
-                        $timeout(function() {
-                            $scope.dataUrls[index] = e.target.result;
-                        });
-                    }
-                }(fileReader, i);
-            }
-            $scope.progress[i] = -1;
-            if ($scope.uploadRightAway) {
-                $scope.start(i, whichone);
-            }
-        }
-    };
-
-    $scope.start = function(index, whichone) {
-        $scope.progress[index] = 0;
-        $scope.errorMsg = null;
-        console.log($scope.howToSend = 1);
-        if ($scope.howToSend == 1) {
-            $scope.upload[index] = $upload.upload({
-                url: imgUploadUrl,
-                method: $scope.httpMethod,
-                headers: {
-                    'Content-Type': 'Content-Type'
-                },
-                data: {
-                    myModel: $scope.myModel
-                },
-                file: $scope.selectedFiles[index],
-                fileFormDataName: 'file'
-            });
-            $scope.upload[index].then(function(response) {
-                $timeout(function() {
-                    $scope.uploadResult.push(response.data);
-                    imagejstupld = response.data;
-                    if (whichone == 1) {
-                        if (imagejstupld != "") {
-                            $scope.user.bank.cancelCheck = imagejstupld.files[0].fd;
-                            imagejstupld = "";
-                        }
-                    }
-                });
-            }, function(response) {
-                if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
-            }, function(evt) {
-                $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-            });
-            $scope.upload[index].xhr(function(xhr) {});
-        } else {
-            var fileReader = new FileReader();
-            fileReader.onload = function(e) {
-                $scope.upload[index] = $upload.http({
-                    url: imgUploadUrl,
-                    headers: {
-                        'Content-Type': $scope.selectedFiles[index].type
-                    },
-                    data: e.target.result
-                }).then(function(response) {
-                    $scope.uploadResult.push(response.data);
-                }, function(response) {
-                    if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
-                }, function(evt) {
-                    $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-                });
-            }
-            fileReader.readAsArrayBuffer($scope.selectedFiles[index]);
-        }
-    };
-
-    $scope.dragOverClass = function($event) {
-        var items = $event.dataTransfer.items;
-        var hasFile = false;
-        if (items != null) {
-            for (var i = 0; i < items.length; i++) {
-                if (items[i].kind == 'file') {
-                    hasFile = true;
-                    break;
-                }
-            }
-        } else {
-            hasFile = true;
-        }
-        return hasFile ? "dragover" : "dragover-err";
-    };
-
-
-    $scope.becomeSeller = function() {
-        globalFunction.becomeSeller();
-        // if ($scope.isLoggedIn == true) {
-        //   if (userProfile && userProfile.accesslevel == "reseller") {
-        //     $state.go("create-artwork");
-        //   } else {
-        //     $state.go("termcondition");
-        //   }
-        // } else {
-        //   ngDialog.open({
-        //     template: 'views/content/sellerRegister.html'
-        //   });
-        // }
-    }
-
-    $scope.registeruser = function() {
-        if ($scope.register.password === $scope.register.confirmpassword) {
-            $scope.passwordNotMatch = false;
-            $scope.register.accesslevel = "customer";
-            NavigationService.registeruser($scope.register, function(data, status) {
-                console.log(data);
-                if (data.value != false) {
-                    $scope.showAlreadyRegistered = false;
-                    $scope.showWishlist = true;
-                    //$.jStorage.set("user", data);
-                    ngDialog.closeAll();
-                    $state.go("termcondition");
-                } else if (data.value == false && data.comment == "User already exists") {
-                    $scope.showAlreadyRegistered = true;
-                }
-            })
-        } else {
-            $scope.passwordNotMatch = true;
-        }
-    };
-
-    $scope.userlogin = function() {
-        NavigationService.userlogin($scope.login, function(data, status) {
-            if (data.value != false) {
-                $scope.showInvalidLogin = false;
-                NavigationService.getuserprofile(function(data) {
-                    ngDialog.closeAll();
-                    if (data.id && data.accesslevel == "reseller") {
-                        $state.go("create-artwork");
-                    } else {
-                        $state.go("termcondition");
-                    }
-                })
-            } else {
-                $scope.showInvalidLogin = true;
-            }
-
-
-            // if (data.value != false) {
-            //     $scope.showInvalidLogin = false;
-            //     $scope.showWishlist = true;
-            //     //$.jStorage.set("user", data);
-            //     $scope.user.name = data.name;
-            //     ngDialog.closeAll();
-            //     window.location.reload();
-            // } else {
-            //     $scope.showInvalidLogin = true;
-            // }
+  $scope.userlogin = function() {
+    NavigationService.userlogin($scope.login, function(data, status) {
+      if (data.value != false) {
+        $scope.showInvalidLogin = false;
+        NavigationService.getuserprofile(function(data) {
+          ngDialog.closeAll();
+          if (data.id && data.accesslevel == "reseller") {
+            $state.go("create-artwork");
+          } else {
+            $state.go("termcondition");
+          }
         })
-    };
+      } else {
+        $scope.showInvalidLogin = true;
+      }
+
+
+      // if (data.value != false) {
+      //     $scope.showInvalidLogin = false;
+      //     $scope.showWishlist = true;
+      //     //$.jStorage.set("user", data);
+      //     $scope.user.name = data.name;
+      //     ngDialog.closeAll();
+      //     window.location.reload();
+      // } else {
+      //     $scope.showInvalidLogin = true;
+      // }
+    })
+  };
 
 })
 
 .controller('ActivitiesCtrl', function($scope, TemplateService, NavigationService) {
-        $scope.template = TemplateService.changecontent("activities");
-        $scope.menutitle = NavigationService.makeactive("Activities");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-    })
-    .controller('ReachOutCtrl', function($scope, TemplateService, NavigationService) {
-        $scope.template = TemplateService.changecontent("reach-out");
-        $scope.menutitle = NavigationService.makeactive("Reach Out");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-    })
-
-.controller('CreateArtworkCtrl', function($scope, TemplateService, NavigationService, $upload, $timeout, $http, $state) {
-    $scope.template = TemplateService.changecontent("create-artwork");
-    $scope.menutitle = NavigationService.makeactive("Upload Artwork");
+    $scope.template = TemplateService.changecontent("activities");
+    $scope.menutitle = NavigationService.makeactive("Activities");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-    window.uploadUrl = 'http://smartsnap.in/user/uploadfile';
+  })
+  .controller('ReachOutCtrl', function($scope, TemplateService, NavigationService) {
+    $scope.template = TemplateService.changecontent("reach-out");
+    $scope.menutitle = NavigationService.makeactive("Reach Out");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+  })
 
-    // window.uploadUrl = 'http://192.168.0.122:1337/user/uploadfile';
-    // $scope.usr = $routeParams.id;
-    $scope.artwork = {};
-    $scope.artwork.type = "Paintings";
-    $scope.multiplesel = false;
-    $scope.artwork.subtype = [];
-    $scope.artwork.tag = [];
-    $scope.showBreadth = false;
-    $scope.onTextClick = function($event) {
-        $event.target.select();
+.controller('CreateArtworkCtrl', function($scope, TemplateService, NavigationService, $upload, $timeout, $http, $state) {
+  $scope.template = TemplateService.changecontent("create-artwork");
+  $scope.menutitle = NavigationService.makeactive("Upload Artwork");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
+  window.uploadUrl = 'http://smartsnap.in/user/uploadfile';
+
+  // window.uploadUrl = 'http://192.168.0.122:1337/user/uploadfile';
+  // $scope.usr = $routeParams.id;
+  $scope.artwork = {};
+  $scope.artwork.type = "Paintings";
+  $scope.multiplesel = false;
+  $scope.artwork.subtype = [];
+  $scope.artwork.tag = [];
+  $scope.showBreadth = false;
+  $scope.onTextClick = function($event) {
+    $event.target.select();
+  }
+  $scope.select2options = {
+    maximumSelectionSize: 5,
+    placeholder: "Select A Medium"
+  };
+  $scope.select2optionstag = {
+    maximumSelectionSize: 5,
+    placeholder: "Select A Tag Word"
+  };
+  $scope.variable = "";
+  $scope.artwork.comm = 33;
+  $scope.artwork.price = 0;
+  $scope.artwork.gprice = 0;
+  $scope.showPaintings = true;
+  $scope.showSculpture = false;
+  $scope.showPrints = false;
+  $scope.showPhotography = false;
+  $scope.artmedium = [];
+  $scope.tag = [];
+  $scope.access = "artist";
+  $scope.commentsub = '';
+  $scope.artwork.address = 'new';
+
+  NavigationService.getCountryJson(function(data) {
+    $scope.allcountries = data;
+  })
+
+  $scope.calcsq = function() {
+    if ($scope.artwork.height && $scope.artwork.width) {
+      if ($scope.artwork.type != "Sculptures") {
+        $scope.artwork.area = ((parseInt($scope.artwork.height) * parseInt($scope.artwork.width)) / 144).toFixed(2);
+      } else if ($scope.artwork.type == "Sculptures" && $scope.artwork.breadth) {
+        $scope.artwork.area = ((parseInt($scope.artwork.height) * parseInt($scope.artwork.width) * parseInt($scope.artwork.breadth)) / 1728).toFixed(2);
+      }
+      if ($scope.artwork.area && $scope.artwork.gprice && $scope.artwork.gprice > 0) {
+        $scope.artwork.pricesq = (parseFloat($scope.artwork.gprice) / $scope.artwork.area).toFixed(2);
+      }
     }
-    $scope.select2options = {
-        maximumSelectionSize: 5,
-        placeholder: "Select A Medium"
-    };
-    $scope.select2optionstag = {
-        maximumSelectionSize: 5,
-        placeholder: "Select A Tag Word"
-    };
-    $scope.variable = "";
-    $scope.artwork.comm = 33;
-    $scope.artwork.price = 0;
-    $scope.artwork.gprice = 0;
-    $scope.showPaintings = true;
-    $scope.showSculpture = false;
-    $scope.showPrints = false;
-    $scope.showPhotography = false;
-    $scope.artmedium = [];
-    $scope.tag = [];
-    $scope.access = "artist";
-    $scope.commentsub = '';
-    $scope.artwork.address = 'new';
+  }
 
-    NavigationService.getCountryJson(function(data) {
-        $scope.allcountries = data;
-    })
+  $scope.otherDetails = "eg. Diptych, Triptych";
 
-    $scope.calcsq = function() {
-        if ($scope.artwork.height && $scope.artwork.width) {
-            if ($scope.artwork.type != "Sculptures") {
-                $scope.artwork.area = ((parseInt($scope.artwork.height) * parseInt($scope.artwork.width)) / 144).toFixed(2);
-            } else if ($scope.artwork.type == "Sculptures" && $scope.artwork.breadth) {
-                $scope.artwork.area = ((parseInt($scope.artwork.height) * parseInt($scope.artwork.width) * parseInt($scope.artwork.breadth)) / 1728).toFixed(2);
-            }
-            if ($scope.artwork.area && $scope.artwork.gprice && $scope.artwork.gprice > 0) {
-                $scope.artwork.pricesq = (parseFloat($scope.artwork.gprice) / $scope.artwork.area).toFixed(2);
-            }
-        }
+  NavigationService.getuserprofile(function(data) {
+    $scope.userData = data;
+  })
+
+  $scope.submitComment = function() {
+    if (!$scope.artwork.chat) {
+      $scope.artwork.chat = [{
+        "name": $scope.userData.name,
+        "comment": $scope.artwork.comment,
+        "accesslevel": "artist"
+      }];
     }
+    // $scope.comment = '';
+  }
 
-    $scope.otherDetails = "eg. Diptych, Triptych";
-
-    NavigationService.getuserprofile(function(data) {
-        $scope.userData = data;
-    })
-
-    $scope.submitComment = function() {
-        if (!$scope.artwork.chat) {
-            $scope.artwork.chat = [{
-                "name": $scope.userData.name,
-                "comment": $scope.artwork.comment,
-                "accesslevel": "artist"
-            }];
-        }
-        // $scope.comment = '';
-    }
-
-    $scope.allartist = [];
-    $scope.getDropdown = function(search) {
-        if (search.length >= 1) {
-            $scope.change = {};
-            $scope.change.type = $scope.artwork.type;
-            $scope.change.search = search;
-            NavigationService.getAllArtistDropArtist($scope.change, function(data) {
-                if (data && data.value != false) {
-                    $scope.allartist = data;
-                } else {
-                    $scope.allartist = [];
-                }
-            });
+  $scope.allartist = [];
+  $scope.getDropdown = function(search) {
+    if (search.length >= 1) {
+      $scope.change = {};
+      $scope.change.type = $scope.artwork.type;
+      $scope.change.search = search;
+      NavigationService.getAllArtistDropArtist($scope.change, function(data) {
+        if (data && data.value != false) {
+          $scope.allartist = data;
         } else {
-            $scope.allartist = [];
+          $scope.allartist = [];
         }
+      });
+    } else {
+      $scope.allartist = [];
     }
+  }
 
-    $scope.resellers = [];
-    $scope.getDropdownReseller = function(search) {
-        if (search.length >= 1) {
-            NavigationService.getAllResellerDrop(search, function(data) {
-                if (data && data.value != false) {
-                    $scope.resellers = data;
-                } else {
-                    $scope.resellers = [];
-                }
-            });
+  $scope.resellers = [];
+  $scope.getDropdownReseller = function(search) {
+    if (search.length >= 1) {
+      NavigationService.getAllResellerDrop(search, function(data) {
+        if (data && data.value != false) {
+          $scope.resellers = data;
         } else {
-            $scope.resellers = [];
+          $scope.resellers = [];
         }
+      });
+    } else {
+      $scope.resellers = [];
+    }
+  }
+
+  $scope.setSearch = function(select) {
+    console.log(select.selected);
+    $scope.variable = select.selected.name;
+    $scope.artwork.user = select.selected;
+    $scope.artwork.artistname = select.selected.name;
+
+    if (select.selected.email) {
+      $scope.artwork.email = select.selected.email;
+    } else {
+      $scope.artwork.email = "";
     }
 
-    $scope.setSearch = function(select) {
-        console.log(select.selected);
-        $scope.variable = select.selected.name;
-        $scope.artwork.user = select.selected;
-        $scope.artwork.artistname = select.selected.name;
+  }
 
-        if (select.selected.email) {
-            $scope.artwork.email = select.selected.email;
-        } else {
-            $scope.artwork.email = "";
-        }
+  $scope.setSearchReseller = function(select) {
+    $scope.variableReseller = select.selected.name;
+  }
 
+  NavigationService.lastSr(function(data, status) {
+    console.log(data);
+    $scope.artwork.srno = parseInt(data.srno) + 1;
+  });
+
+  $scope.calculateprice = function(flag) {
+    $scope.artwork.price = parseFloat($scope.artwork.price);
+    $scope.artwork.gprice = parseFloat($scope.artwork.gprice);
+    $scope.artwork.comm = parseFloat($scope.artwork.comm);
+    if ($scope.artwork.comm > 100 && flag == 1) {
+      $scope.artwork.comm = 100;
+    } else if ($scope.artwork.comm < 1 && flag == 1) {
+      $scope.artwork.comm = 1;
     }
-
-    $scope.setSearchReseller = function(select) {
-        $scope.variableReseller = select.selected.name;
+    // if (_.isNumber($scope.artwork.comm) && _.isNumber($scope.artwork.price) && flag == 1) {
+    //     console.log("first if");
+    //     console.log($scope.artwork.price * $scope.artwork.comm);
+    //     $scope.artwork.gprice = Math.round($scope.artwork.price + ($scope.artwork.price * $scope.artwork.comm / 100));
+    // }
+    if (_.isNumber($scope.artwork.gprice) && _.isNumber($scope.artwork.comm) && flag == 2) {
+      $scope.artwork.price = Math.round($scope.artwork.gprice * (1 - ($scope.artwork.comm / 100)));
     }
+  }
 
-    NavigationService.lastSr(function(data, status) {
-        console.log(data);
-        $scope.artwork.srno = parseInt(data.srno) + 1;
+  $scope.removeimage = function(i) {
+    $scope.artwork.image.splice(i, 1);
+  };
+
+  $scope.show = 0;
+  $scope.showmed = 0;
+
+  $scope.ismatch = function(data, select) {
+    console.log(select.selected);
+    _.each(data, function(n, key) {
+      if (typeof n == 'string') {
+        var item = {
+          _id: _.now(),
+          name: _.capitalize(n),
+          category: $scope.artwork.type
+        };
+        NavigationService.saveartMedium(item, function(data, status) {
+          if (data.value == true) {
+            item._id = data.id;
+          }
+        });
+        select.selected = _.without(select.selected, n);
+        select.selected.push(item);
+        $scope.artwork.subtype = select.selected;
+      }
     });
+    console.log($scope.artwork.subtype);
+  }
+  $scope.ismatchmed = function(data, select) {
+    _.each(data, function(n, key) {
+      if (typeof n == 'string') {
+        // var item = {
+        //     _id: _.now(),
+        //     name: _.capitalize(n),
+        //     category: $scope.artwork.type
+        // };
+        var item = {
+          _id: _.now(),
+          name: _.capitalize(n)
+        };
+        NavigationService.saveTag(item, function(data, status) {
+          if (data.value == true) {
+            item._id = data.id;
+          }
+        });
+        select.selected = _.without(select.selected, n);
+        select.selected.push(item);
+        $scope.artwork.tag = select.selected;
+      }
+    });
+    console.log($scope.artwork.tag);
+  }
 
-    $scope.calculateprice = function(flag) {
-        $scope.artwork.price = parseFloat($scope.artwork.price);
-        $scope.artwork.gprice = parseFloat($scope.artwork.gprice);
-        $scope.artwork.comm = parseFloat($scope.artwork.comm);
-        if ($scope.artwork.comm > 100 && flag == 1) {
-            $scope.artwork.comm = 100;
-        } else if ($scope.artwork.comm < 1 && flag == 1) {
-            $scope.artwork.comm = 1;
+  //imageupload
+  var imagejstupld = "";
+  $scope.artwork.image = [];
+  $scope.artwork.certi = "";
+  $scope.usingFlash = FileAPI && FileAPI.upload != null;
+  $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
+  $scope.uploadRightAway = true;
+  $scope.changeAngularVersion = function() {
+    window.location.hash = $scope.angularVersion;
+    window.location.reload(true);
+  };
+  $scope.hasUploader = function(index) {
+    return $scope.upload[index] != null;
+  };
+  $scope.abort = function(index) {
+    $scope.upload[index].abort();
+    $scope.upload[index] = null;
+  };
+  $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
+    window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
+  $scope.onFileSelect = function($files, whichone) {
+    $scope.selectedFiles = [];
+    $scope.progress = [];
+    console.log($files);
+    if ($scope.upload && $scope.upload.length > 0) {
+      for (var i = 0; i < $scope.upload.length; i++) {
+        if ($scope.upload[i] != null) {
+          $scope.upload[i].abort();
         }
-        // if (_.isNumber($scope.artwork.comm) && _.isNumber($scope.artwork.price) && flag == 1) {
-        //     console.log("first if");
-        //     console.log($scope.artwork.price * $scope.artwork.comm);
-        //     $scope.artwork.gprice = Math.round($scope.artwork.price + ($scope.artwork.price * $scope.artwork.comm / 100));
-        // }
-        if (_.isNumber($scope.artwork.gprice) && _.isNumber($scope.artwork.comm) && flag == 2) {
-            $scope.artwork.price = Math.round($scope.artwork.gprice * (1 - ($scope.artwork.comm / 100)));
-        }
+      }
     }
+    $scope.upload = [];
+    $scope.uploadResult = uploadres;
+    $scope.selectedFiles = $files;
+    $scope.dataUrls = [];
+    for (var i = 0; i < $files.length; i++) {
+      var $file = $files[i];
+      if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
+        var fileReader = new FileReader();
+        fileReader.readAsDataURL($files[i]);
+        var loadFile = function(fileReader, index) {
+          fileReader.onload = function(e) {
+            $timeout(function() {
+              $scope.dataUrls[index] = e.target.result;
+            });
+          }
+        }(fileReader, i);
+      }
+      $scope.progress[i] = -1;
+      if ($scope.uploadRightAway) {
+        $scope.start(i, whichone);
+      }
+    }
+  };
 
-    $scope.removeimage = function(i) {
-        $scope.artwork.image.splice(i, 1);
-    };
+  $scope.start = function(index, whichone) {
+    $scope.progress[index] = 0;
+    $scope.errorMsg = null;
+    console.log($scope.howToSend = 1);
+    if ($scope.howToSend == 1) {
+      $scope.upload[index] = $upload.upload({
+        url: imgUploadUrl,
+        method: $scope.httpMethod,
+        headers: {
+          'Content-Type': 'Content-Type'
+        },
+        data: {
+          myModel: $scope.myModel
+        },
+        file: $scope.selectedFiles[index],
+        fileFormDataName: 'file'
+      });
+      $scope.upload[index].then(function(response) {
+        $timeout(function() {
+          $scope.uploadResult.push(response.data);
+          imagejstupld = response.data;
+          if (whichone == 1) {
+            if (imagejstupld != "") {
+              $scope.artwork.image.push(imagejstupld.files[0].fd);
+              imagejstupld = "";
+            }
+          } else if (whichone == 2) {
+            if (imagejstupld != "") {
+              $scope.artwork.certi = imagejstupld.files[0].fd;
+              imagejstupld = "";
+            }
+          }
+        });
+      }, function(response) {
+        if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+      }, function(evt) {
+        $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+      });
+      $scope.upload[index].xhr(function(xhr) {});
+    } else {
+      var fileReader = new FileReader();
+      fileReader.onload = function(e) {
+        $scope.upload[index] = $upload.http({
+          url: imgUploadUrl,
+          headers: {
+            'Content-Type': $scope.selectedFiles[index].type
+          },
+          data: e.target.result
+        }).then(function(response) {
+          $scope.uploadResult.push(response.data);
+        }, function(response) {
+          if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+        }, function(evt) {
+          $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+        });
+      }
+      fileReader.readAsArrayBuffer($scope.selectedFiles[index]);
+    }
+  };
 
+  $scope.dragOverClass = function($event) {
+    var items = $event.dataTransfer.items;
+    var hasFile = false;
+    if (items != null) {
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].kind == 'file') {
+          hasFile = true;
+          break;
+        }
+      }
+    } else {
+      hasFile = true;
+    }
+    return hasFile ? "dragover" : "dragover-err";
+  };
+  ////
+  $scope.framedStatus = false;
+  $scope.changingStatus = function(data) {
+    var fStatus = data;
+    console.log(data);
+    if (fStatus == 'framed') {
+      $scope.framedStatus = true;
+    } else if (fStatus == 'framed with glass') {
+      $scope.framedStatus = true;
+    } else if (fStatus == 'framed with acrylic sheet') {
+      $scope.framedStatus = true;
+    } else {
+      $scope.framedStatus = false;
+    }
+  }
+
+  $scope.isSculpture = function(type) {
+    $scope.artwork.subtype = [];
     $scope.show = 0;
     $scope.showmed = 0;
-
-    $scope.ismatch = function(data, select) {
-        console.log(select.selected);
-        _.each(data, function(n, key) {
-            if (typeof n == 'string') {
-                var item = {
-                    _id: _.now(),
-                    name: _.capitalize(n),
-                    category: $scope.artwork.type
-                };
-                NavigationService.saveartMedium(item, function(data, status) {
-                    if (data.value == true) {
-                        item._id = data.id;
-                    }
-                });
-                select.selected = _.without(select.selected, n);
-                select.selected.push(item);
-                $scope.artwork.subtype = select.selected;
-            }
-        });
-        console.log($scope.artwork.subtype);
+    if (type == "Sculptures") {
+      $scope.showBreadth = true;
+      $scope.otherDetails = "eg. with pedestal";
+    } else if (type == "Paintings") {
+      $scope.showBreadth = false;
+      $scope.otherDetails = "eg. Diptych, Triptych";
+      $scope.artwork.breadth = '';
+    } else {
+      $scope.showBreadth = false;
+      $scope.otherDetails = "eg. Edition, Diptych, Triptych";
+      $scope.artwork.breadth = '';
     }
-    $scope.ismatchmed = function(data, select) {
-        _.each(data, function(n, key) {
-            if (typeof n == 'string') {
-                // var item = {
-                //     _id: _.now(),
-                //     name: _.capitalize(n),
-                //     category: $scope.artwork.type
-                // };
-                var item = {
-                    _id: _.now(),
-                    name: _.capitalize(n)
-                };
-                NavigationService.saveTag(item, function(data, status) {
-                    if (data.value == true) {
-                        item._id = data.id;
-                    }
-                });
-                select.selected = _.without(select.selected, n);
-                select.selected.push(item);
-                $scope.artwork.tag = select.selected;
-            }
-        });
-        console.log($scope.artwork.tag);
+    $scope.calcsq();
+    switch (type) {
+      case "Paintings":
+        $scope.showPaintings = true;
+        $scope.showSculpture = false;
+        $scope.showPrints = false;
+        $scope.showPhotography = false;
+        $scope.multiplesel = false;
+        break;
+      case "Sculptures":
+        $scope.showPaintings = false;
+        $scope.showSculpture = true;
+        $scope.showPrints = false;
+        $scope.showPhotography = false;
+        $scope.multiplesel = true;
+        break;
+      case "Photographs":
+        $scope.showPaintings = false;
+        $scope.showSculpture = false;
+        $scope.showPrints = false;
+        $scope.showPhotography = true;
+        $scope.multiplesel = false;
+        break;
+      case "Prints":
+        $scope.showPaintings = false;
+        $scope.showSculpture = false;
+        $scope.showPrints = true;
+        $scope.showPhotography = false;
+        $scope.multiplesel = false;
+        break;
     }
+  }
 
-    //imageupload
-    var imagejstupld = "";
-    $scope.artwork.image = [];
-    $scope.artwork.certi = "";
-    $scope.usingFlash = FileAPI && FileAPI.upload != null;
-    $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
-    $scope.uploadRightAway = true;
-    $scope.changeAngularVersion = function() {
-        window.location.hash = $scope.angularVersion;
-        window.location.reload(true);
-    };
-    $scope.hasUploader = function(index) {
-        return $scope.upload[index] != null;
-    };
-    $scope.abort = function(index) {
-        $scope.upload[index].abort();
-        $scope.upload[index] = null;
-    };
-    $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
-        window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
-    $scope.onFileSelect = function($files, whichone) {
-        $scope.selectedFiles = [];
-        $scope.progress = [];
-        console.log($files);
-        if ($scope.upload && $scope.upload.length > 0) {
-            for (var i = 0; i < $scope.upload.length; i++) {
-                if ($scope.upload[i] != null) {
-                    $scope.upload[i].abort();
-                }
-            }
-        }
-        $scope.upload = [];
-        $scope.uploadResult = uploadres;
-        $scope.selectedFiles = $files;
-        $scope.dataUrls = [];
-        for (var i = 0; i < $files.length; i++) {
-            var $file = $files[i];
-            if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
-                var fileReader = new FileReader();
-                fileReader.readAsDataURL($files[i]);
-                var loadFile = function(fileReader, index) {
-                    fileReader.onload = function(e) {
-                        $timeout(function() {
-                            $scope.dataUrls[index] = e.target.result;
-                        });
-                    }
-                }(fileReader, i);
-            }
-            $scope.progress[i] = -1;
-            if ($scope.uploadRightAway) {
-                $scope.start(i, whichone);
-            }
-        }
-    };
+  $scope.showerror = false;
+  $scope.disableSubmit = false;
+  $scope.showProceedTitle = false;
+  $scope.createartwork = function() {
 
-    $scope.start = function(index, whichone) {
-        $scope.progress[index] = 0;
-        $scope.errorMsg = null;
-        console.log($scope.howToSend = 1);
-        if ($scope.howToSend == 1) {
-            $scope.upload[index] = $upload.upload({
-                url: imgUploadUrl,
-                method: $scope.httpMethod,
-                headers: {
-                    'Content-Type': 'Content-Type'
-                },
-                data: {
-                    myModel: $scope.myModel
-                },
-                file: $scope.selectedFiles[index],
-                fileFormDataName: 'file'
-            });
-            $scope.upload[index].then(function(response) {
+    NavigationService.getuserprofile(function(data) {
+      if (data.id && $scope.artwork.user) {
+        $scope.submitComment();
+        // if (!$scope.artwork.chat) {
+        //     $scope.artwork.chat = [];
+        // }
+        $scope.artwork.reseller = [{
+          "_id": data.id,
+          "name": data.name
+        }];
+        $scope.artwork.status = "pending";
+        if (!$scope.artwork.subtype)
+          $scope.artwork.subtype = [];
+        if (!$scope.artwork.tag)
+          $scope.artwork.tag = [];
+        console.log($scope.artwork);
+        if ($scope.artwork.type != "Sculptures") {
+          $scope.artwork.breadth = "";
+          $scope.artwork.weight = "";
+        }
+        if ($scope.artwork.user) {
+          if (!$scope.artwork.name) {
+            $scope.artwork.name = 'Untitled';
+            $scope.showProceedTitle = true;
+            $('html, body').animate({
+              scrollTop: 100
+            }, 1000);
+          } else {
+            $scope.showerror = false;
+            $scope.artwork.user = $scope.artwork.user._id;
+            if ($scope.artwork.tag.length == 0) {
+              $scope.artwork.tag[0] = {
+                _id: "",
+                name: "",
+                category: ""
+              };
+            }
+            // $scope.userData._id = $scope.userData.id;
+            // NavigationService.registeruser($scope.userData, function(data) {
+            //     console.log(data);
+            // });
+            $scope.artwork.status = 'pending';
+            $scope.artwork.selleremail = $scope.userData.email;
+            $scope.artwork.sellername = $scope.userData.name;
+            $scope.artwork.location = $scope.userData.other;
+            if (!$scope.artwork.focused) {
+              $scope.artwork.focused = "nonfocused";
+            }
+
+            NavigationService.saveArtwork($scope.artwork, function(data, status) {
+              console.log(data);
+              if (data.value == true) {
+                $scope.disableSubmit = true;
+                dataNextPre.messageBox("Your art work has been submitted for review.");
+                globalFunction.tab = "myartworks";
                 $timeout(function() {
-                    $scope.uploadResult.push(response.data);
-                    imagejstupld = response.data;
-                    if (whichone == 1) {
-                        if (imagejstupld != "") {
-                            $scope.artwork.image.push(imagejstupld.files[0].fd);
-                            imagejstupld = "";
-                        }
-                    } else if (whichone == 2) {
-                        if (imagejstupld != "") {
-                            $scope.artwork.certi = imagejstupld.files[0].fd;
-                            imagejstupld = "";
-                        }
-                    }
-                });
-            }, function(response) {
-                if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
-            }, function(evt) {
-                $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                  $state.go('account');
+                }, 3000);
+              }
+              // $location.url("/artworkout");
             });
-            $scope.upload[index].xhr(function(xhr) {});
+          }
         } else {
-            var fileReader = new FileReader();
-            fileReader.onload = function(e) {
-                $scope.upload[index] = $upload.http({
-                    url: imgUploadUrl,
-                    headers: {
-                        'Content-Type': $scope.selectedFiles[index].type
-                    },
-                    data: e.target.result
-                }).then(function(response) {
-                    $scope.uploadResult.push(response.data);
-                }, function(response) {
-                    if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
-                }, function(evt) {
-                    $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-                });
-            }
-            fileReader.readAsArrayBuffer($scope.selectedFiles[index]);
+          $scope.showerror = true;
         }
-    };
+      } else {
+        if (!data.id) {
+          dataNextPre.messageBox("Please login to upload artwork");
+        } else if (!$scope.artwork.user) {
+          dataNextPre.messageBox("Please select an artist");
+        }
+      }
+    })
+  }
 
-    $scope.dragOverClass = function($event) {
-        var items = $event.dataTransfer.items;
-        var hasFile = false;
-        if (items != null) {
-            for (var i = 0; i < items.length; i++) {
-                if (items[i].kind == 'file') {
-                    hasFile = true;
-                    break;
-                }
-            }
-        } else {
-            hasFile = true;
-        }
-        return hasFile ? "dragover" : "dragover-err";
-    };
-    ////
-    $scope.framedStatus = false;
-    $scope.changingStatus = function(data) {
-        var fStatus = data;
-        console.log(data);
-        if (fStatus == 'framed') {
-            $scope.framedStatus = true;
-        } else if (fStatus == 'framed with glass') {
-            $scope.framedStatus = true;
-        } else if (fStatus == 'framed with acrylic sheet') {
-            $scope.framedStatus = true;
-        } else {
-            $scope.framedStatus = false;
-        }
-    }
-
-    $scope.isSculpture = function(type) {
+  $scope.refreshArtMedum = function(search, category) {
+    $scope.artmedium = [];
+    if (search) {
+      if (!$scope.artwork.subtype)
         $scope.artwork.subtype = [];
-        $scope.show = 0;
-        $scope.showmed = 0;
-        if (type == "Sculptures") {
-            $scope.showBreadth = true;
-            $scope.otherDetails = "eg. with pedestal";
-        } else if (type == "Paintings") {
-            $scope.showBreadth = false;
-            $scope.otherDetails = "eg. Diptych, Triptych";
-            $scope.artwork.breadth = '';
-        } else {
-            $scope.showBreadth = false;
-            $scope.otherDetails = "eg. Edition, Diptych, Triptych";
-            $scope.artwork.breadth = '';
-        }
-        $scope.calcsq();
-        switch (type) {
-            case "Paintings":
-                $scope.showPaintings = true;
-                $scope.showSculpture = false;
-                $scope.showPrints = false;
-                $scope.showPhotography = false;
-                $scope.multiplesel = false;
-                break;
-            case "Sculptures":
-                $scope.showPaintings = false;
-                $scope.showSculpture = true;
-                $scope.showPrints = false;
-                $scope.showPhotography = false;
-                $scope.multiplesel = true;
-                break;
-            case "Photographs":
-                $scope.showPaintings = false;
-                $scope.showSculpture = false;
-                $scope.showPrints = false;
-                $scope.showPhotography = true;
-                $scope.multiplesel = false;
-                break;
-            case "Prints":
-                $scope.showPaintings = false;
-                $scope.showSculpture = false;
-                $scope.showPrints = true;
-                $scope.showPhotography = false;
-                $scope.multiplesel = false;
-                break;
-        }
+      NavigationService.findArtMedium(search, $scope.artwork.subtype, category, function(data, status) {
+        $scope.artmedium = data;
+      });
     }
-
-    $scope.showerror = false;
-    $scope.disableSubmit = false;
-    $scope.createartwork = function() {
-        NavigationService.getuserprofile(function(data) {
-            if (data.id && $scope.artwork.user) {
-                $scope.submitComment();
-                // if (!$scope.artwork.chat) {
-                //     $scope.artwork.chat = [];
-                // }
-                $scope.artwork.reseller = [{
-                    "_id": data.id,
-                    "name": data.name
-                }];
-                $scope.artwork.status = "pending";
-                if (!$scope.artwork.subtype)
-                    $scope.artwork.subtype = [];
-                if (!$scope.artwork.tag)
-                    $scope.artwork.tag = [];
-                console.log($scope.artwork);
-                if ($scope.artwork.type != "Sculptures") {
-                    $scope.artwork.breadth = "";
-                    $scope.artwork.weight = "";
-                }
-                if ($scope.artwork.user) {
-                    $scope.showerror = false;
-                    $scope.artwork.user = $scope.artwork.user._id;
-                    if ($scope.artwork.tag.length == 0) {
-                        $scope.artwork.tag[0] = {
-                            _id: "",
-                            name: "",
-                            category: ""
-                        };
-                    }
-                    // $scope.userData._id = $scope.userData.id;
-                    // NavigationService.registeruser($scope.userData, function(data) {
-                    //     console.log(data);
-                    // });
-                    $scope.artwork.status = 'pending';
-                    $scope.artwork.selleremail = $scope.userData.email;
-                    $scope.artwork.sellername = $scope.userData.name;
-                    $scope.artwork.location = $scope.userData.other;
-                    if (!$scope.artwork.focused) {
-                        $scope.artwork.focused = "nonfocused";
-                    }
-                    if (!$scope.artwork.name)
-                        $scope.artwork.name = 'Untitled';
-                    NavigationService.saveArtwork($scope.artwork, function(data, status) {
-                        console.log(data);
-                        if (data.value == true) {
-                            $scope.disableSubmit = true;
-                            dataNextPre.messageBox("Your art work has been submitted for review.");
-                            globalFunction.tab = "myartworks";
-                            $timeout(function() {
-                                $state.go('account');
-                            }, 3000);
-                        }
-                        // $location.url("/artworkout");
-                    });
-                } else {
-                    $scope.showerror = true;
-                }
-            } else {
-                if (!data.id) {
-                    dataNextPre.messageBox("Please login to upload artwork");
-                } else if (!$scope.artwork.user) {
-                    dataNextPre.messageBox("Please select an artist");
-                }
-            }
-        })
+  };
+  $scope.refreshTag = function(search, category) {
+    $scope.tag = [];
+    if (search) {
+      if (!$scope.artwork.tag)
+        $scope.artwork.tag = [];
+      NavigationService.findTag(search, $scope.artwork.tag, category, function(data, status) {
+        $scope.tag = _.uniq(data, '_id');
+      });
     }
-
-    $scope.refreshArtMedum = function(search, category) {
-        $scope.artmedium = [];
-        if (search) {
-            if (!$scope.artwork.subtype)
-                $scope.artwork.subtype = [];
-            NavigationService.findArtMedium(search, $scope.artwork.subtype, category, function(data, status) {
-                $scope.artmedium = data;
-            });
-        }
-    };
-    $scope.refreshTag = function(search, category) {
-        $scope.tag = [];
-        if (search) {
-            if (!$scope.artwork.tag)
-                $scope.artwork.tag = [];
-            NavigationService.findTag(search, $scope.artwork.tag, category, function(data, status) {
-                $scope.tag = _.uniq(data, '_id');
-            });
-        }
-    };
+  };
 })
 
 .controller('EditArtworkCtrl', function($scope, TemplateService, NavigationService, $upload, $timeout, $http, $stateParams) {
-    $scope.template = TemplateService.changecontent("edit-artwork");
-    $scope.menutitle = NavigationService.makeactive("Upload Artwork");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-    window.uploadUrl = 'http://smartsnap.in/user/uploadfile';
+  $scope.template = TemplateService.changecontent("edit-artwork");
+  $scope.menutitle = NavigationService.makeactive("Upload Artwork");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
+  window.uploadUrl = 'http://smartsnap.in/user/uploadfile';
 
-    // window.uploadUrl = 'http://192.168.0.122:1337/user/uploadfile';
-    // $scope.usr = $routeParams.id;
-    $scope.artwork = {};
-    $scope.artwork.type = "Paintings";
-    $scope.multiplesel = false;
+  // window.uploadUrl = 'http://192.168.0.122:1337/user/uploadfile';
+  // $scope.usr = $routeParams.id;
+  $scope.artwork = {};
+  $scope.artwork.type = "Paintings";
+  $scope.multiplesel = false;
+  $scope.artwork.subtype = [];
+  $scope.artwork.tag = [];
+  $scope.showBreadth = false;
+  $scope.onTextClick = function($event) {
+    $event.target.select();
+  }
+  $scope.select2options = {
+    maximumSelectionSize: 5,
+    placeholder: "Select A Medium"
+  };
+  $scope.select2optionstag = {
+    maximumSelectionSize: 5,
+    placeholder: "Select A Tag Word"
+  };
+  $scope.variable = "";
+  $scope.artwork.comm = 33;
+  $scope.artwork.price = 0;
+  $scope.artwork.gprice = 0;
+  $scope.showPaintings = true;
+  $scope.showSculpture = false;
+  $scope.showPrints = false;
+  $scope.showPhotography = false;
+  $scope.artmedium = [];
+  $scope.tag = [];
+  $scope.access = "artist";
+  $scope.chat = {};
+
+  $scope.disableSubmit = false;
+
+  $scope.otherDetails = "eg. Diptych, Triptych";
+
+  $scope.calcsq = function() {
+    if ($scope.artwork.height && $scope.artwork.width) {
+      if ($scope.artwork.type != "Sculptures") {
+        $scope.artwork.area = ((parseInt($scope.artwork.height) * parseInt($scope.artwork.width)) / 144).toFixed(2);
+      } else if ($scope.artwork.type == "Sculptures" && $scope.artwork.breadth) {
+        $scope.artwork.area = ((parseInt($scope.artwork.height) * parseInt($scope.artwork.width) * parseInt($scope.artwork.breadth)) / 1728).toFixed(2);
+      }
+      if ($scope.artwork.area && $scope.artwork.gprice && $scope.artwork.gprice > 0) {
+        $scope.artwork.pricesq = (parseFloat($scope.artwork.gprice) / $scope.artwork.area).toFixed(2);
+      }
+    }
+  }
+
+  NavigationService.getuserprofile(function(data) {
+    $scope.userData = data;
+  })
+
+  NavigationService.getartworkdetail($stateParams.id, function(data) {
+    console.log(data);
+    if (data.value != false) {
+      $scope.artwork = data[0].artwork;
+      $scope.changingStatus($scope.artwork.fstatus);
+      $scope.isSculpture($scope.artwork.type);
+      $scope.artwork.user = {
+        "_id": data[0]._id,
+        "name": data[0].name
+      };
+      $scope.variable = data[0].name;
+      if ($scope.artwork.status == "pending") {
+        $scope.disableSubmit = true;
+      }
+      // console.log($scope.artwork)
+    }
+    $scope.calcsq();
+  })
+
+
+  $scope.submitComment = function() {
+    if (!$scope.artwork.chat) {
+      $scope.artwork.chat = [{
+        "name": $scope.userData.name,
+        "comment": $scope.chat.comment,
+        "accesslevel": "artist"
+      }];
+    } else {
+      $scope.artwork.chat.push({
+        "name": $scope.userData.name,
+        "comment": $scope.chat.comment,
+        "accesslevel": "artist"
+      });
+    }
+    $scope.chat.comment = '';
+  }
+
+  $scope.allartist = [];
+  $scope.getDropdown = function(search) {
+    if (search.length >= 1) {
+      $scope.change = {};
+      $scope.change.type = $scope.artwork.type;
+      $scope.change.search = search;
+      NavigationService.getAllArtistDropArtist($scope.change, function(data) {
+        if (data && data.value != false) {
+          $scope.allartist = data;
+        } else {
+          $scope.allartist = [];
+        }
+      });
+    } else {
+      $scope.allartist = [];
+    }
+  }
+
+  $scope.resellers = [];
+  $scope.getDropdownReseller = function(search) {
+    if (search.length >= 1) {
+      NavigationService.getAllResellerDrop(search, function(data) {
+        if (data && data.value != false) {
+          $scope.resellers = data;
+        } else {
+          $scope.resellers = [];
+        }
+      });
+    } else {
+      $scope.resellers = [];
+    }
+  }
+
+  $scope.setSearch = function(select) {
+    console.log(select.selected);
+    $scope.variable = select.selected.name;
+    $scope.artwork.user = select.selected;
+  }
+
+  $scope.setSearchReseller = function(select) {
+    $scope.variableReseller = select.selected.name;
+  }
+
+  // NavigationService.lastSr(function(data, status) {
+  //     console.log(data);
+  //     $scope.artwork.srno = parseInt(data.srno) + 1;
+  // });
+
+  $scope.calculateprice = function(flag) {
+    $scope.artwork.price = parseFloat($scope.artwork.price);
+    $scope.artwork.gprice = parseFloat($scope.artwork.gprice);
+    $scope.artwork.comm = parseFloat($scope.artwork.comm);
+    if ($scope.artwork.comm > 100 && flag == 1) {
+      $scope.artwork.comm = 100;
+    } else if ($scope.artwork.comm < 1 && flag == 1) {
+      $scope.artwork.comm = 1;
+    }
+    // if (_.isNumber($scope.artwork.comm) && _.isNumber($scope.artwork.price) && flag == 1) {
+    //     console.log("first if");
+    //     console.log($scope.artwork.price * $scope.artwork.comm);
+    //     $scope.artwork.gprice = Math.round($scope.artwork.price + ($scope.artwork.price * $scope.artwork.comm / 100));
+    // }
+    if (_.isNumber($scope.artwork.gprice) && _.isNumber($scope.artwork.comm) && flag == 2) {
+      $scope.artwork.price = Math.round($scope.artwork.gprice * (1 - ($scope.artwork.comm / 100)));
+    }
+  }
+
+  $scope.removeimage = function(i) {
+    $scope.artwork.image.splice(i, 1);
+  };
+
+  $scope.show = 0;
+  $scope.showmed = 0;
+
+  $scope.ismatch = function(data, select) {
+    console.log(select.selected);
+    _.each(data, function(n, key) {
+      if (typeof n == 'string') {
+        var item = {
+          _id: _.now(),
+          name: _.capitalize(n),
+          category: $scope.artwork.type
+        };
+        NavigationService.saveartMedium(item, function(data, status) {
+          if (data.value == true) {
+            item._id = data.id;
+          }
+        });
+        select.selected = _.without(select.selected, n);
+        select.selected.push(item);
+        $scope.artwork.subtype = select.selected;
+      }
+    });
+    console.log($scope.artwork.subtype);
+  }
+  $scope.ismatchmed = function(data, select) {
+    _.each(data, function(n, key) {
+      if (typeof n == 'string') {
+        // var item = {
+        //     _id: _.now(),
+        //     name: _.capitalize(n),
+        //     category: $scope.artwork.type
+        // };
+        var item = {
+          _id: _.now(),
+          name: _.capitalize(n)
+        };
+        NavigationService.saveTag(item, function(data, status) {
+          if (data.value == true) {
+            item._id = data.id;
+          }
+        });
+        select.selected = _.without(select.selected, n);
+        select.selected.push(item);
+        $scope.artwork.tag = select.selected;
+      }
+    });
+    console.log($scope.artwork.tag);
+  }
+
+  //imageupload
+  var imagejstupld = "";
+  $scope.artwork.image = [];
+  $scope.artwork.certi = "";
+  $scope.usingFlash = FileAPI && FileAPI.upload != null;
+  $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
+  $scope.uploadRightAway = true;
+  $scope.changeAngularVersion = function() {
+    window.location.hash = $scope.angularVersion;
+    window.location.reload(true);
+  };
+  $scope.hasUploader = function(index) {
+    return $scope.upload[index] != null;
+  };
+  $scope.abort = function(index) {
+    $scope.upload[index].abort();
+    $scope.upload[index] = null;
+  };
+  $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
+    window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
+  $scope.onFileSelect = function($files, whichone) {
+    $scope.selectedFiles = [];
+    $scope.progress = [];
+    console.log($files);
+    if ($scope.upload && $scope.upload.length > 0) {
+      for (var i = 0; i < $scope.upload.length; i++) {
+        if ($scope.upload[i] != null) {
+          $scope.upload[i].abort();
+        }
+      }
+    }
+    $scope.upload = [];
+    $scope.uploadResult = uploadres;
+    $scope.selectedFiles = $files;
+    $scope.dataUrls = [];
+    for (var i = 0; i < $files.length; i++) {
+      var $file = $files[i];
+      if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
+        var fileReader = new FileReader();
+        fileReader.readAsDataURL($files[i]);
+        var loadFile = function(fileReader, index) {
+          fileReader.onload = function(e) {
+            $timeout(function() {
+              $scope.dataUrls[index] = e.target.result;
+            });
+          }
+        }(fileReader, i);
+      }
+      $scope.progress[i] = -1;
+      if ($scope.uploadRightAway) {
+        $scope.start(i, whichone);
+      }
+    }
+  };
+
+  $scope.start = function(index, whichone) {
+    $scope.progress[index] = 0;
+    $scope.errorMsg = null;
+    console.log($scope.howToSend = 1);
+    if ($scope.howToSend == 1) {
+      $scope.upload[index] = $upload.upload({
+        url: imgUploadUrl,
+        method: $scope.httpMethod,
+        headers: {
+          'Content-Type': 'Content-Type'
+        },
+        data: {
+          myModel: $scope.myModel
+        },
+        file: $scope.selectedFiles[index],
+        fileFormDataName: 'file'
+      });
+      $scope.upload[index].then(function(response) {
+        $timeout(function() {
+          $scope.uploadResult.push(response.data);
+          imagejstupld = response.data;
+          if (whichone == 1) {
+            if (imagejstupld != "") {
+              $scope.artwork.image.push(imagejstupld.files[0].fd);
+              imagejstupld = "";
+            }
+          } else if (whichone == 2) {
+            if (imagejstupld != "") {
+              $scope.artwork.certi = imagejstupld.files[0].fd;
+              imagejstupld = "";
+            }
+          }
+        });
+      }, function(response) {
+        if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+      }, function(evt) {
+        $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+      });
+      $scope.upload[index].xhr(function(xhr) {});
+    } else {
+      var fileReader = new FileReader();
+      fileReader.onload = function(e) {
+        $scope.upload[index] = $upload.http({
+          url: imgUploadUrl,
+          headers: {
+            'Content-Type': $scope.selectedFiles[index].type
+          },
+          data: e.target.result
+        }).then(function(response) {
+          $scope.uploadResult.push(response.data);
+        }, function(response) {
+          if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+        }, function(evt) {
+          $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+        });
+      }
+      fileReader.readAsArrayBuffer($scope.selectedFiles[index]);
+    }
+  };
+
+  $scope.dragOverClass = function($event) {
+    var items = $event.dataTransfer.items;
+    var hasFile = false;
+    if (items != null) {
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].kind == 'file') {
+          hasFile = true;
+          break;
+        }
+      }
+    } else {
+      hasFile = true;
+    }
+    return hasFile ? "dragover" : "dragover-err";
+  };
+  ////
+  $scope.framedStatus = false;
+  $scope.changingStatus = function(data) {
+    var fStatus = data;
+    console.log(data);
+    if (fStatus == 'framed') {
+      $scope.framedStatus = true;
+    } else if (fStatus == 'framed with glass') {
+      $scope.framedStatus = true;
+    } else if (fStatus == 'framed with acrylic sheet') {
+      $scope.framedStatus = true;
+    } else {
+      $scope.framedStatus = false;
+    }
+  }
+
+  $scope.isSculpture = function(type) {
+    console.log($scope.artwork.subtype);
+    console.log($scope.artwork.type);
     $scope.artwork.subtype = [];
-    $scope.artwork.tag = [];
-    $scope.showBreadth = false;
-    $scope.onTextClick = function($event) {
-        $event.target.select();
-    }
-    $scope.select2options = {
-        maximumSelectionSize: 5,
-        placeholder: "Select A Medium"
-    };
-    $scope.select2optionstag = {
-        maximumSelectionSize: 5,
-        placeholder: "Select A Tag Word"
-    };
-    $scope.variable = "";
-    $scope.artwork.comm = 33;
-    $scope.artwork.price = 0;
-    $scope.artwork.gprice = 0;
-    $scope.showPaintings = true;
-    $scope.showSculpture = false;
-    $scope.showPrints = false;
-    $scope.showPhotography = false;
-    $scope.artmedium = [];
-    $scope.tag = [];
-    $scope.access = "artist";
-    $scope.chat = {};
-
-    $scope.disableSubmit = false;
-
-    $scope.otherDetails = "eg. Diptych, Triptych";
-
-    $scope.calcsq = function() {
-        if ($scope.artwork.height && $scope.artwork.width) {
-            if ($scope.artwork.type != "Sculptures") {
-                $scope.artwork.area = ((parseInt($scope.artwork.height) * parseInt($scope.artwork.width)) / 144).toFixed(2);
-            } else if ($scope.artwork.type == "Sculptures" && $scope.artwork.breadth) {
-                $scope.artwork.area = ((parseInt($scope.artwork.height) * parseInt($scope.artwork.width) * parseInt($scope.artwork.breadth)) / 1728).toFixed(2);
-            }
-            if ($scope.artwork.area && $scope.artwork.gprice && $scope.artwork.gprice > 0) {
-                $scope.artwork.pricesq = (parseFloat($scope.artwork.gprice) / $scope.artwork.area).toFixed(2);
-            }
-        }
-    }
-
-    NavigationService.getuserprofile(function(data) {
-        $scope.userData = data;
-    })
-
-    NavigationService.getartworkdetail($stateParams.id, function(data) {
-        console.log(data);
-        if (data.value != false) {
-            $scope.artwork = data[0].artwork;
-            $scope.changingStatus($scope.artwork.fstatus);
-            $scope.isSculpture($scope.artwork.type);
-            $scope.artwork.user = {
-                "_id": data[0]._id,
-                "name": data[0].name
-            };
-            $scope.variable = data[0].name;
-            if ($scope.artwork.status == "pending") {
-                $scope.disableSubmit = true;
-            }
-            // console.log($scope.artwork)
-        }
-        $scope.calcsq();
-    })
-
-
-    $scope.submitComment = function() {
-        if (!$scope.artwork.chat) {
-            $scope.artwork.chat = [{
-                "name": $scope.userData.name,
-                "comment": $scope.chat.comment,
-                "accesslevel": "artist"
-            }];
-        } else {
-            $scope.artwork.chat.push({
-                "name": $scope.userData.name,
-                "comment": $scope.chat.comment,
-                "accesslevel": "artist"
-            });
-        }
-        $scope.chat.comment = '';
-    }
-
-    $scope.allartist = [];
-    $scope.getDropdown = function(search) {
-        if (search.length >= 1) {
-            $scope.change = {};
-            $scope.change.type = $scope.artwork.type;
-            $scope.change.search = search;
-            NavigationService.getAllArtistDropArtist($scope.change, function(data) {
-                if (data && data.value != false) {
-                    $scope.allartist = data;
-                } else {
-                    $scope.allartist = [];
-                }
-            });
-        } else {
-            $scope.allartist = [];
-        }
-    }
-
-    $scope.resellers = [];
-    $scope.getDropdownReseller = function(search) {
-        if (search.length >= 1) {
-            NavigationService.getAllResellerDrop(search, function(data) {
-                if (data && data.value != false) {
-                    $scope.resellers = data;
-                } else {
-                    $scope.resellers = [];
-                }
-            });
-        } else {
-            $scope.resellers = [];
-        }
-    }
-
-    $scope.setSearch = function(select) {
-        console.log(select.selected);
-        $scope.variable = select.selected.name;
-        $scope.artwork.user = select.selected;
-    }
-
-    $scope.setSearchReseller = function(select) {
-        $scope.variableReseller = select.selected.name;
-    }
-
-    // NavigationService.lastSr(function(data, status) {
-    //     console.log(data);
-    //     $scope.artwork.srno = parseInt(data.srno) + 1;
-    // });
-
-    $scope.calculateprice = function(flag) {
-        $scope.artwork.price = parseFloat($scope.artwork.price);
-        $scope.artwork.gprice = parseFloat($scope.artwork.gprice);
-        $scope.artwork.comm = parseFloat($scope.artwork.comm);
-        if ($scope.artwork.comm > 100 && flag == 1) {
-            $scope.artwork.comm = 100;
-        } else if ($scope.artwork.comm < 1 && flag == 1) {
-            $scope.artwork.comm = 1;
-        }
-        // if (_.isNumber($scope.artwork.comm) && _.isNumber($scope.artwork.price) && flag == 1) {
-        //     console.log("first if");
-        //     console.log($scope.artwork.price * $scope.artwork.comm);
-        //     $scope.artwork.gprice = Math.round($scope.artwork.price + ($scope.artwork.price * $scope.artwork.comm / 100));
-        // }
-        if (_.isNumber($scope.artwork.gprice) && _.isNumber($scope.artwork.comm) && flag == 2) {
-            $scope.artwork.price = Math.round($scope.artwork.gprice * (1 - ($scope.artwork.comm / 100)));
-        }
-    }
-
-    $scope.removeimage = function(i) {
-        $scope.artwork.image.splice(i, 1);
-    };
-
+    console.log($scope.artwork.subtype);
     $scope.show = 0;
     $scope.showmed = 0;
-
-    $scope.ismatch = function(data, select) {
-        console.log(select.selected);
-        _.each(data, function(n, key) {
-            if (typeof n == 'string') {
-                var item = {
-                    _id: _.now(),
-                    name: _.capitalize(n),
-                    category: $scope.artwork.type
-                };
-                NavigationService.saveartMedium(item, function(data, status) {
-                    if (data.value == true) {
-                        item._id = data.id;
-                    }
-                });
-                select.selected = _.without(select.selected, n);
-                select.selected.push(item);
-                $scope.artwork.subtype = select.selected;
-            }
-        });
-        console.log($scope.artwork.subtype);
+    if (type == "Sculptures") {
+      $scope.showBreadth = true;
+      $scope.otherDetails = "eg. with pedestal";
+    } else if (type == "Paintings") {
+      $scope.showBreadth = false;
+      $scope.otherDetails = "eg. Diptych, Triptych";
+      $scope.artwork.breadth = '';
+    } else {
+      $scope.showBreadth = false;
+      $scope.otherDetails = "eg. Edition, Diptych, Triptych";
+      $scope.artwork.breadth = '';
     }
-    $scope.ismatchmed = function(data, select) {
-        _.each(data, function(n, key) {
-            if (typeof n == 'string') {
-                // var item = {
-                //     _id: _.now(),
-                //     name: _.capitalize(n),
-                //     category: $scope.artwork.type
-                // };
-                var item = {
-                    _id: _.now(),
-                    name: _.capitalize(n)
-                };
-                NavigationService.saveTag(item, function(data, status) {
-                    if (data.value == true) {
-                        item._id = data.id;
-                    }
-                });
-                select.selected = _.without(select.selected, n);
-                select.selected.push(item);
-                $scope.artwork.tag = select.selected;
-            }
-        });
-        console.log($scope.artwork.tag);
+    $scope.calcsq();
+    switch (type) {
+      case "Paintings":
+        $scope.showPaintings = true;
+        $scope.showSculpture = false;
+        $scope.showPrints = false;
+        $scope.showPhotography = false;
+        $scope.multiplesel = false;
+        break;
+      case "Sculptures":
+        $scope.showPaintings = false;
+        $scope.showSculpture = true;
+        $scope.showPrints = false;
+        $scope.showPhotography = false;
+        $scope.multiplesel = true;
+        break;
+      case "Photographs":
+        $scope.showPaintings = false;
+        $scope.showSculpture = false;
+        $scope.showPrints = false;
+        $scope.showPhotography = true;
+        $scope.multiplesel = false;
+        break;
+      case "Prints":
+        $scope.showPaintings = false;
+        $scope.showSculpture = false;
+        $scope.showPrints = true;
+        $scope.showPhotography = false;
+        $scope.multiplesel = false;
+        break;
     }
+  }
 
-    //imageupload
-    var imagejstupld = "";
-    $scope.artwork.image = [];
-    $scope.artwork.certi = "";
-    $scope.usingFlash = FileAPI && FileAPI.upload != null;
-    $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
-    $scope.uploadRightAway = true;
-    $scope.changeAngularVersion = function() {
-        window.location.hash = $scope.angularVersion;
-        window.location.reload(true);
-    };
-    $scope.hasUploader = function(index) {
-        return $scope.upload[index] != null;
-    };
-    $scope.abort = function(index) {
-        $scope.upload[index].abort();
-        $scope.upload[index] = null;
-    };
-    $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
-        window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
-    $scope.onFileSelect = function($files, whichone) {
-        $scope.selectedFiles = [];
-        $scope.progress = [];
-        console.log($files);
-        if ($scope.upload && $scope.upload.length > 0) {
-            for (var i = 0; i < $scope.upload.length; i++) {
-                if ($scope.upload[i] != null) {
-                    $scope.upload[i].abort();
-                }
-            }
+  $scope.showerror = false;
+  $scope.createartwork = function() {
+    NavigationService.getuserprofile(function(data) {
+      if (data.id && $scope.artwork.user) {
+        // console.log($scope.artwork);
+        if (!$scope.artwork.chat) {
+          $scope.artwork.chat = [];
         }
-        $scope.upload = [];
-        $scope.uploadResult = uploadres;
-        $scope.selectedFiles = $files;
-        $scope.dataUrls = [];
-        for (var i = 0; i < $files.length; i++) {
-            var $file = $files[i];
-            if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
-                var fileReader = new FileReader();
-                fileReader.readAsDataURL($files[i]);
-                var loadFile = function(fileReader, index) {
-                    fileReader.onload = function(e) {
-                        $timeout(function() {
-                            $scope.dataUrls[index] = e.target.result;
-                        });
-                    }
-                }(fileReader, i);
-            }
-            $scope.progress[i] = -1;
-            if ($scope.uploadRightAway) {
-                $scope.start(i, whichone);
-            }
+        $scope.artwork.reseller = [{
+          "_id": data.id,
+          "name": data.name
+        }];
+        $scope.artwork.status = "pending";
+        if (!$scope.artwork.subtype)
+          $scope.artwork.subtype = [];
+        if (!$scope.artwork.tag)
+          $scope.artwork.tag = [];
+        console.log($scope.artwork);
+        if ($scope.artwork.type != "Sculptures") {
+          $scope.artwork.breadth = "";
+          $scope.artwork.weight = "";
         }
-    };
-
-    $scope.start = function(index, whichone) {
-        $scope.progress[index] = 0;
-        $scope.errorMsg = null;
-        console.log($scope.howToSend = 1);
-        if ($scope.howToSend == 1) {
-            $scope.upload[index] = $upload.upload({
-                url: imgUploadUrl,
-                method: $scope.httpMethod,
-                headers: {
-                    'Content-Type': 'Content-Type'
-                },
-                data: {
-                    myModel: $scope.myModel
-                },
-                file: $scope.selectedFiles[index],
-                fileFormDataName: 'file'
-            });
-            $scope.upload[index].then(function(response) {
-                $timeout(function() {
-                    $scope.uploadResult.push(response.data);
-                    imagejstupld = response.data;
-                    if (whichone == 1) {
-                        if (imagejstupld != "") {
-                            $scope.artwork.image.push(imagejstupld.files[0].fd);
-                            imagejstupld = "";
-                        }
-                    } else if (whichone == 2) {
-                        if (imagejstupld != "") {
-                            $scope.artwork.certi = imagejstupld.files[0].fd;
-                            imagejstupld = "";
-                        }
-                    }
-                });
-            }, function(response) {
-                if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
-            }, function(evt) {
-                $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-            });
-            $scope.upload[index].xhr(function(xhr) {});
+        if ($scope.artwork.user) {
+          $scope.showerror = false;
+          console.log($scope.artwork)
+          $scope.artwork.user = $scope.artwork.user._id;
+          if ($scope.artwork.tag.length == 0) {
+            $scope.artwork.tag[0] = {
+              _id: "",
+              name: "",
+              category: ""
+            };
+          }
+          $scope.userData._id = $scope.userData.id;
+          NavigationService.registeruser($scope.userData, function(data) {
+            console.log(data);
+          });
+          if (!$scope.artwork.focused) {
+            $scope.artwork.focused = "nonfocused";
+          }
+          NavigationService.saveArtwork($scope.artwork, function(data, status) {
+            console.log(data);
+            if (data.value == true) {
+              $scope.disableSubmit = true;
+              dataNextPre.messageBox("Your art work has been submitted for review.");
+              globalFunction.tab = "myartworks";
+              $timeout(function() {
+                $state.go('account');
+              }, 3000);
+            }
+            // $location.url("/artworkout");
+          });
         } else {
-            var fileReader = new FileReader();
-            fileReader.onload = function(e) {
-                $scope.upload[index] = $upload.http({
-                    url: imgUploadUrl,
-                    headers: {
-                        'Content-Type': $scope.selectedFiles[index].type
-                    },
-                    data: e.target.result
-                }).then(function(response) {
-                    $scope.uploadResult.push(response.data);
-                }, function(response) {
-                    if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
-                }, function(evt) {
-                    $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-                });
-            }
-            fileReader.readAsArrayBuffer($scope.selectedFiles[index]);
+          $scope.showerror = true;
         }
-    };
+      } else {
+        if (!data.id) {
+          dataNextPre.messageBox("Please login to upload artwork");
+        } else if (!$scope.artwork.user) {
+          dataNextPre.messageBox("Please select an artist");
+        }
+      }
+    })
+  }
 
-    $scope.dragOverClass = function($event) {
-        var items = $event.dataTransfer.items;
-        var hasFile = false;
-        if (items != null) {
-            for (var i = 0; i < items.length; i++) {
-                if (items[i].kind == 'file') {
-                    hasFile = true;
-                    break;
-                }
-            }
-        } else {
-            hasFile = true;
-        }
-        return hasFile ? "dragover" : "dragover-err";
-    };
-    ////
-    $scope.framedStatus = false;
-    $scope.changingStatus = function(data) {
-        var fStatus = data;
-        console.log(data);
-        if (fStatus == 'framed') {
-            $scope.framedStatus = true;
-        } else if (fStatus == 'framed with glass') {
-            $scope.framedStatus = true;
-        } else if (fStatus == 'framed with acrylic sheet') {
-            $scope.framedStatus = true;
-        } else {
-            $scope.framedStatus = false;
-        }
-    }
-
-    $scope.isSculpture = function(type) {
-        console.log($scope.artwork.subtype);
-        console.log($scope.artwork.type);
+  $scope.refreshArtMedum = function(search, category) {
+    $scope.artmedium = [];
+    if (search) {
+      if (!$scope.artwork.subtype)
         $scope.artwork.subtype = [];
-        console.log($scope.artwork.subtype);
-        $scope.show = 0;
-        $scope.showmed = 0;
-        if (type == "Sculptures") {
-            $scope.showBreadth = true;
-            $scope.otherDetails = "eg. with pedestal";
-        } else if (type == "Paintings") {
-            $scope.showBreadth = false;
-            $scope.otherDetails = "eg. Diptych, Triptych";
-            $scope.artwork.breadth = '';
-        } else {
-            $scope.showBreadth = false;
-            $scope.otherDetails = "eg. Edition, Diptych, Triptych";
-            $scope.artwork.breadth = '';
-        }
-        $scope.calcsq();
-        switch (type) {
-            case "Paintings":
-                $scope.showPaintings = true;
-                $scope.showSculpture = false;
-                $scope.showPrints = false;
-                $scope.showPhotography = false;
-                $scope.multiplesel = false;
-                break;
-            case "Sculptures":
-                $scope.showPaintings = false;
-                $scope.showSculpture = true;
-                $scope.showPrints = false;
-                $scope.showPhotography = false;
-                $scope.multiplesel = true;
-                break;
-            case "Photographs":
-                $scope.showPaintings = false;
-                $scope.showSculpture = false;
-                $scope.showPrints = false;
-                $scope.showPhotography = true;
-                $scope.multiplesel = false;
-                break;
-            case "Prints":
-                $scope.showPaintings = false;
-                $scope.showSculpture = false;
-                $scope.showPrints = true;
-                $scope.showPhotography = false;
-                $scope.multiplesel = false;
-                break;
-        }
+      NavigationService.findArtMedium(search, $scope.artwork.subtype, category, function(data, status) {
+        $scope.artmedium = data;
+      });
     }
-
-    $scope.showerror = false;
-    $scope.createartwork = function() {
-        NavigationService.getuserprofile(function(data) {
-            if (data.id && $scope.artwork.user) {
-                // console.log($scope.artwork);
-                if (!$scope.artwork.chat) {
-                    $scope.artwork.chat = [];
-                }
-                $scope.artwork.reseller = [{
-                    "_id": data.id,
-                    "name": data.name
-                }];
-                $scope.artwork.status = "pending";
-                if (!$scope.artwork.subtype)
-                    $scope.artwork.subtype = [];
-                if (!$scope.artwork.tag)
-                    $scope.artwork.tag = [];
-                console.log($scope.artwork);
-                if ($scope.artwork.type != "Sculptures") {
-                    $scope.artwork.breadth = "";
-                    $scope.artwork.weight = "";
-                }
-                if ($scope.artwork.user) {
-                    $scope.showerror = false;
-                    console.log($scope.artwork)
-                    $scope.artwork.user = $scope.artwork.user._id;
-                    if ($scope.artwork.tag.length == 0) {
-                        $scope.artwork.tag[0] = {
-                            _id: "",
-                            name: "",
-                            category: ""
-                        };
-                    }
-                    $scope.userData._id = $scope.userData.id;
-                    NavigationService.registeruser($scope.userData, function(data) {
-                        console.log(data);
-                    });
-                    if (!$scope.artwork.focused) {
-                        $scope.artwork.focused = "nonfocused";
-                    }
-                    NavigationService.saveArtwork($scope.artwork, function(data, status) {
-                        console.log(data);
-                        if (data.value == true) {
-                            $scope.disableSubmit = true;
-                            dataNextPre.messageBox("Your art work has been submitted for review.");
-                            globalFunction.tab = "myartworks";
-                            $timeout(function() {
-                                $state.go('account');
-                            }, 3000);
-                        }
-                        // $location.url("/artworkout");
-                    });
-                } else {
-                    $scope.showerror = true;
-                }
-            } else {
-                if (!data.id) {
-                    dataNextPre.messageBox("Please login to upload artwork");
-                } else if (!$scope.artwork.user) {
-                    dataNextPre.messageBox("Please select an artist");
-                }
-            }
-        })
+  };
+  $scope.refreshTag = function(search, category) {
+    $scope.tag = [];
+    if (search) {
+      if (!$scope.artwork.tag)
+        $scope.artwork.tag = [];
+      NavigationService.findTag(search, $scope.artwork.tag, category, function(data, status) {
+        $scope.tag = _.uniq(data, '_id');
+      });
     }
-
-    $scope.refreshArtMedum = function(search, category) {
-        $scope.artmedium = [];
-        if (search) {
-            if (!$scope.artwork.subtype)
-                $scope.artwork.subtype = [];
-            NavigationService.findArtMedium(search, $scope.artwork.subtype, category, function(data, status) {
-                $scope.artmedium = data;
-            });
-        }
-    };
-    $scope.refreshTag = function(search, category) {
-        $scope.tag = [];
-        if (search) {
-            if (!$scope.artwork.tag)
-                $scope.artwork.tag = [];
-            NavigationService.findTag(search, $scope.artwork.tag, category, function(data, status) {
-                $scope.tag = _.uniq(data, '_id');
-            });
-        }
-    };
+  };
 })
 
 .controller('EditArtistCtrl', function($scope, TemplateService, NavigationService, $upload, $timeout, $http, $stateParams) {
-    $scope.template = TemplateService.changecontent("edit-artist");
-    $scope.menutitle = NavigationService.makeactive("Edit Artist");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+  $scope.template = TemplateService.changecontent("edit-artist");
+  $scope.menutitle = NavigationService.makeactive("Edit Artist");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
 
-    $scope.user = {};
-    $scope.user.personal = {};
-    $scope.user.work = {};
-    $scope.user.residence = {};
-    $scope.user.other = {};
-    $scope.user.medium = [];
-    $scope.user.theme = [];
+  $scope.user = {};
+  $scope.user.personal = {};
+  $scope.user.work = {};
+  $scope.user.residence = {};
+  $scope.user.other = {};
+  $scope.user.medium = [];
+  $scope.user.theme = [];
 
-    $scope.isValidEmail = 1;
-    $scope.checked = 0;
-    $scope.medium = [];
-    $scope.theme = [];
+  $scope.isValidEmail = 1;
+  $scope.checked = 0;
+  $scope.medium = [];
+  $scope.theme = [];
 
-    //DEVELOPMENT
+  //DEVELOPMENT
 
-    NavigationService.getuserprofile(function(data) {
-        if (data.id) {
-            $scope.userData = data;
+  NavigationService.getuserprofile(function(data) {
+    if (data.id) {
+      $scope.userData = data;
 
-            $scope.isLoggedIn = true;
-        } else {
-            $scope.isLoggedIn = false;
-        }
-    })
+      $scope.isLoggedIn = true;
+    } else {
+      $scope.isLoggedIn = false;
+    }
+  })
 
-    NavigationService.getArtistDetail($stateParams.id, function(data) {
-        console.log(data);
-        $scope.user = data;
-        if ($scope.userData)
-            $scope.user.selleremail = $scope.userData.email;
+  NavigationService.getArtistDetail($stateParams.id, function(data) {
+    console.log(data);
+    $scope.user = data;
+    if ($scope.userData)
+      $scope.user.selleremail = $scope.userData.email;
+  });
+
+  $scope.select2options = {
+    maximumSelectionSize: 5,
+    placeholder: "Select A Theme"
+  };
+  $scope.select2optionsmed = {
+    maximumSelectionSize: 5,
+    placeholder: "Select A Medium"
+  };
+  $scope.show = 0;
+  $scope.showmed = 0;
+  $scope.ismatch = function(data, select) {
+    _.each(data, function(n, key) {
+      if (typeof n == 'string') {
+        var item = {
+          _id: _.now(),
+          name: _.capitalize(n)
+        };
+        NavigationService.saveTheme(item, function(data, status) {
+          if (data.value == true) {
+            item._id = data.id;
+          }
+        });
+        select.selected = _.without(select.selected, n);
+        select.selected.push(item);
+        $scope.user.theme = select.selected;
+      }
     });
-
-    $scope.select2options = {
-        maximumSelectionSize: 5,
-        placeholder: "Select A Theme"
-    };
-    $scope.select2optionsmed = {
-        maximumSelectionSize: 5,
-        placeholder: "Select A Medium"
-    };
-    $scope.show = 0;
-    $scope.showmed = 0;
-    $scope.ismatch = function(data, select) {
-        _.each(data, function(n, key) {
-            if (typeof n == 'string') {
-                var item = {
-                    _id: _.now(),
-                    name: _.capitalize(n)
-                };
-                NavigationService.saveTheme(item, function(data, status) {
-                    if (data.value == true) {
-                        item._id = data.id;
-                    }
-                });
-                select.selected = _.without(select.selected, n);
-                select.selected.push(item);
-                $scope.user.theme = select.selected;
-            }
+    console.log($scope.user.theme);
+  }
+  $scope.ismatchmed = function(data, select) {
+    _.each(data, function(n, key) {
+      if (typeof n == 'string') {
+        var item = {
+          _id: _.now(),
+          name: _.capitalize(n)
+        };
+        NavigationService.saveMedium(item, function(data, status) {
+          if (data.value == true) {
+            item._id = data.id;
+          }
         });
-        console.log($scope.user.theme);
+        select.selected = _.without(select.selected, n);
+        select.selected.push(item);
+        $scope.user.medium = select.selected;
+      }
+    });
+    console.log($scope.user.medium);
+  }
+
+  $scope.email = function(myemail) {
+    if (myemail) {
+      NavigationService.getOneemail(myemail, function(data, status) {
+        if (data.value == true) {
+          console.log("if");
+          $scope.isValidEmail = 0;
+        } else {
+          console.log("else");
+          $scope.isValidEmail = 1;
+        }
+      });
     }
-    $scope.ismatchmed = function(data, select) {
-        _.each(data, function(n, key) {
-            if (typeof n == 'string') {
-                var item = {
-                    _id: _.now(),
-                    name: _.capitalize(n)
-                };
-                NavigationService.saveMedium(item, function(data, status) {
-                    if (data.value == true) {
-                        item._id = data.id;
-                    }
-                });
-                select.selected = _.without(select.selected, n);
-                select.selected.push(item);
-                $scope.user.medium = select.selected;
-            }
+  }
+  $scope.checking = function() {
+    if ($scope.user.checkboxModel) {
+      $scope.checked = 0;
+    } else {
+      $scope.checked = 1;
+    }
+  }
+
+  $scope.addsolo = function(crdv) {
+    if (!crdv.soloshow) {
+      crdv.soloshow = [{
+        "year": "",
+        "title": "",
+        "gallery": "",
+        "venue": ""
+      }];
+    } else {
+      if (crdv.soloshow.length < 3) {
+        crdv.soloshow.push({
+          "year": "",
+          "title": "",
+          "gallery": "",
+          "venue": ""
         });
-        console.log($scope.user.medium);
+      }
     }
+  };
+  $scope.removesolo = function(i, dev) {
+    dev.splice(i, 1);
+  };
 
-    $scope.email = function(myemail) {
-        if (myemail) {
-            NavigationService.getOneemail(myemail, function(data, status) {
-                if (data.value == true) {
-                    console.log("if");
-                    $scope.isValidEmail = 0;
-                } else {
-                    console.log("else");
-                    $scope.isValidEmail = 1;
-                }
-            });
-        }
+  $scope.addedu = function(crdv) {
+    if (!crdv.edu) {
+      crdv.edu = [{
+        "year": "",
+        "quali": "",
+        "institu": "",
+        "city": ""
+      }];
+    } else {
+      if (crdv.edu.length < 3) {
+        crdv.edu.push({
+          "year": "",
+          "quali": "",
+          "institu": "",
+          "city": ""
+        });
+      }
     }
-    $scope.checking = function() {
-        if ($scope.user.checkboxModel) {
-            $scope.checked = 0;
-        } else {
-            $scope.checked = 1;
-        }
+  };
+  $scope.removeedu = function(i, dev) {
+    dev.splice(i, 1);
+  };
+
+  $scope.addgroup = function(crdv) {
+    if (!crdv.groupshow) {
+      crdv.groupshow = [{
+        "year": "",
+        "title": "",
+        "gallery": "",
+        "venue": ""
+      }];
+    } else {
+      if (crdv.groupshow.length < 3) {
+        crdv.groupshow.push({
+          "year": "",
+          "title": "",
+          "gallery": "",
+          "venue": ""
+        });
+      }
     }
+  };
+  $scope.removegroup = function(i, dev) {
+    dev.splice(i, 1);
+  };
 
-    $scope.addsolo = function(crdv) {
-        if (!crdv.soloshow) {
-            crdv.soloshow = [{
-                "year": "",
-                "title": "",
-                "gallery": "",
-                "venue": ""
-            }];
-        } else {
-            if (crdv.soloshow.length < 3) {
-                crdv.soloshow.push({
-                    "year": "",
-                    "title": "",
-                    "gallery": "",
-                    "venue": ""
-                });
-            }
-        }
-    };
-    $scope.removesolo = function(i, dev) {
-        dev.splice(i, 1);
-    };
+  $scope.addauction = function(crdv) {
+    if (!crdv.auction) {
+      crdv.auction = [{
+        "year": "",
+        "auctionhouse": "",
+        "location": "",
+        "details": ""
+      }];
+    } else {
+      if (crdv.auction.length < 3) {
+        crdv.auction.push({
+          "year": "",
+          "auctionhouse": "",
+          "location": "",
+          "details": ""
+        });
+      }
+    }
+  };
+  $scope.removeauction = function(i, dev) {
+    dev.splice(i, 1);
+  };
+  $scope.addaward = function(crdv) {
+    if (!crdv.award) {
+      crdv.award = [{
+        "year": "",
+        "title": "",
+        "institution": ""
+      }];
+    } else {
+      if (crdv.award.length < 3) {
+        crdv.award.push({
+          "year": "",
+          "title": "",
+          "institution": ""
+        });
+      }
+    }
+  };
+  $scope.removeaward = function(i, dev) {
+    dev.splice(i, 1);
+  };
 
-    $scope.addedu = function(crdv) {
-        if (!crdv.edu) {
-            crdv.edu = [{
-                "year": "",
-                "quali": "",
-                "institu": "",
-                "city": ""
-            }];
-        } else {
-            if (crdv.edu.length < 3) {
-                crdv.edu.push({
-                    "year": "",
-                    "quali": "",
-                    "institu": "",
-                    "city": ""
-                });
-            }
+  $scope.removeimage = function(i) {
+    $scope.user.image = "";;
+  };
+  $scope.removeresume = function(i) {
+    $scope.user.resume = "";
+  };
+  $scope.removeadcer = function(i) {
+    $scope.user.adcer = "";
+  };
+  //imageupload
+  var imagejstupld = "";
+  $scope.usingFlash = FileAPI && FileAPI.upload != null;
+  $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
+  $scope.uploadRightAway = true;
+  $scope.changeAngularVersion = function() {
+    window.location.hash = $scope.angularVersion;
+    window.location.reload(true);
+  };
+  $scope.hasUploader = function(index) {
+    return $scope.upload[index] != null;
+  };
+  $scope.abort = function(index) {
+    $scope.upload[index].abort();
+    $scope.upload[index] = null;
+  };
+  $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
+    window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
+  $scope.onFileSelect = function($files, whichone) {
+    $scope.selectedFiles = [];
+    $scope.progress = [];
+    console.log($files);
+    if ($scope.upload && $scope.upload.length > 0) {
+      for (var i = 0; i < $scope.upload.length; i++) {
+        if ($scope.upload[i] != null) {
+          $scope.upload[i].abort();
         }
-    };
-    $scope.removeedu = function(i, dev) {
-        dev.splice(i, 1);
-    };
-
-    $scope.addgroup = function(crdv) {
-        if (!crdv.groupshow) {
-            crdv.groupshow = [{
-                "year": "",
-                "title": "",
-                "gallery": "",
-                "venue": ""
-            }];
-        } else {
-            if (crdv.groupshow.length < 3) {
-                crdv.groupshow.push({
-                    "year": "",
-                    "title": "",
-                    "gallery": "",
-                    "venue": ""
-                });
-            }
-        }
-    };
-    $scope.removegroup = function(i, dev) {
-        dev.splice(i, 1);
-    };
-
-    $scope.addauction = function(crdv) {
-        if (!crdv.auction) {
-            crdv.auction = [{
-                "year": "",
-                "auctionhouse": "",
-                "location": "",
-                "details": ""
-            }];
-        } else {
-            if (crdv.auction.length < 3) {
-                crdv.auction.push({
-                    "year": "",
-                    "auctionhouse": "",
-                    "location": "",
-                    "details": ""
-                });
-            }
-        }
-    };
-    $scope.removeauction = function(i, dev) {
-        dev.splice(i, 1);
-    };
-    $scope.addaward = function(crdv) {
-        if (!crdv.award) {
-            crdv.award = [{
-                "year": "",
-                "title": "",
-                "institution": ""
-            }];
-        } else {
-            if (crdv.award.length < 3) {
-                crdv.award.push({
-                    "year": "",
-                    "title": "",
-                    "institution": ""
-                });
-            }
-        }
-    };
-    $scope.removeaward = function(i, dev) {
-        dev.splice(i, 1);
-    };
-
-    $scope.removeimage = function(i) {
-        $scope.user.image = "";;
-    };
-    $scope.removeresume = function(i) {
-        $scope.user.resume = "";
-    };
-    $scope.removeadcer = function(i) {
-        $scope.user.adcer = "";
-    };
-    //imageupload
-    var imagejstupld = "";
-    $scope.usingFlash = FileAPI && FileAPI.upload != null;
-    $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
-    $scope.uploadRightAway = true;
-    $scope.changeAngularVersion = function() {
-        window.location.hash = $scope.angularVersion;
-        window.location.reload(true);
-    };
-    $scope.hasUploader = function(index) {
-        return $scope.upload[index] != null;
-    };
-    $scope.abort = function(index) {
-        $scope.upload[index].abort();
-        $scope.upload[index] = null;
-    };
-    $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
-        window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
-    $scope.onFileSelect = function($files, whichone) {
-        $scope.selectedFiles = [];
-        $scope.progress = [];
-        console.log($files);
-        if ($scope.upload && $scope.upload.length > 0) {
-            for (var i = 0; i < $scope.upload.length; i++) {
-                if ($scope.upload[i] != null) {
-                    $scope.upload[i].abort();
-                }
-            }
-        }
-        $scope.upload = [];
-        $scope.uploadResult = uploadres;
-        $scope.selectedFiles = $files;
-        $scope.dataUrls = [];
-        for (var i = 0; i < $files.length; i++) {
-            var $file = $files[i];
-            if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
-                var fileReader = new FileReader();
-                fileReader.readAsDataURL($files[i]);
-                var loadFile = function(fileReader, index) {
-                    fileReader.onload = function(e) {
-                        $timeout(function() {
-                            $scope.dataUrls[index] = e.target.result;
-                        });
-                    }
-                }(fileReader, i);
-            }
-            $scope.progress[i] = -1;
-            if ($scope.uploadRightAway) {
-                $scope.start(i, whichone);
-            }
-        }
-    };
-
-    $scope.start = function(index, whichone) {
-        $scope.progress[index] = 0;
-        $scope.errorMsg = null;
-        console.log($scope.howToSend = 1);
-        if ($scope.howToSend == 1) {
-            $scope.upload[index] = $upload.upload({
-                url: imgUploadUrl,
-                method: $scope.httpMethod,
-                headers: {
-                    'Content-Type': 'Content-Type'
-                },
-                data: {
-                    myModel: $scope.myModel
-                },
-                file: $scope.selectedFiles[index],
-                fileFormDataName: 'file'
+      }
+    }
+    $scope.upload = [];
+    $scope.uploadResult = uploadres;
+    $scope.selectedFiles = $files;
+    $scope.dataUrls = [];
+    for (var i = 0; i < $files.length; i++) {
+      var $file = $files[i];
+      if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
+        var fileReader = new FileReader();
+        fileReader.readAsDataURL($files[i]);
+        var loadFile = function(fileReader, index) {
+          fileReader.onload = function(e) {
+            $timeout(function() {
+              $scope.dataUrls[index] = e.target.result;
             });
-            $scope.upload[index].then(function(response) {
-                $timeout(function() {
-                    $scope.uploadResult.push(response.data);
-                    imagejstupld = response.data;
-                    if (whichone == 1) {
-                        if (imagejstupld != "") {
-                            $scope.user.image = imagejstupld.files[0].fd;
-                            imagejstupld = "";
-                        }
-                    } else if (whichone == 2) {
-                        if (imagejstupld != "") {
-                            $scope.user.resume = imagejstupld.files[0].fd;
-                            imagejstupld = "";
-                        }
-                    } else if (whichone == 3) {
-                        if (imagejstupld != "") {
-                            $scope.user.adcer = imagejstupld.files[0].fd;
-                            imagejstupld = "";
-                        }
-                    }
-                });
-            }, function(response) {
-                if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
-            }, function(evt) {
-                $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-            });
-            $scope.upload[index].xhr(function(xhr) {});
-        } else {
-            var fileReader = new FileReader();
-            fileReader.onload = function(e) {
-                $scope.upload[index] = $upload.http({
-                    url: imgUploadUrl,
-                    headers: {
-                        'Content-Type': $scope.selectedFiles[index].type
-                    },
-                    data: e.target.result
-                }).then(function(response) {
-                    $scope.uploadResult.push(response.data);
-                }, function(response) {
-                    if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
-                }, function(evt) {
-                    $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-                });
+          }
+        }(fileReader, i);
+      }
+      $scope.progress[i] = -1;
+      if ($scope.uploadRightAway) {
+        $scope.start(i, whichone);
+      }
+    }
+  };
+
+  $scope.start = function(index, whichone) {
+    $scope.progress[index] = 0;
+    $scope.errorMsg = null;
+    console.log($scope.howToSend = 1);
+    if ($scope.howToSend == 1) {
+      $scope.upload[index] = $upload.upload({
+        url: imgUploadUrl,
+        method: $scope.httpMethod,
+        headers: {
+          'Content-Type': 'Content-Type'
+        },
+        data: {
+          myModel: $scope.myModel
+        },
+        file: $scope.selectedFiles[index],
+        fileFormDataName: 'file'
+      });
+      $scope.upload[index].then(function(response) {
+        $timeout(function() {
+          $scope.uploadResult.push(response.data);
+          imagejstupld = response.data;
+          if (whichone == 1) {
+            if (imagejstupld != "") {
+              $scope.user.image = imagejstupld.files[0].fd;
+              imagejstupld = "";
             }
-            fileReader.readAsArrayBuffer($scope.selectedFiles[index]);
-        }
-    };
-
-    $scope.dragOverClass = function($event) {
-        var items = $event.dataTransfer.items;
-        var hasFile = false;
-        if (items != null) {
-            for (var i = 0; i < items.length; i++) {
-                if (items[i].kind == 'file') {
-                    hasFile = true;
-                    break;
-                }
+          } else if (whichone == 2) {
+            if (imagejstupld != "") {
+              $scope.user.resume = imagejstupld.files[0].fd;
+              imagejstupld = "";
             }
-        } else {
-            hasFile = true;
-        }
-        return hasFile ? "dragover" : "dragover-err";
-    };
-    ////
-
-
-
-    //save user
-    $scope.disableSubmit = false;
-    $scope.submitForm = function() {
-        console.log($scope.user);
-        if ($scope.isLoggedIn == true) {
-            $scope.user.accesslevel = "artist";
-            $scope.user.reseller = [{
-                "_id": $scope.userData.id,
-                "name": $scope.userData.name,
-                "email": $scope.userData.email
-            }]
-            delete $scope.user.checkboxModel;
-            if (!$scope.user.focused) {
-                $scope.user.focused = "nonfocused";
+          } else if (whichone == 3) {
+            if (imagejstupld != "") {
+              $scope.user.adcer = imagejstupld.files[0].fd;
+              imagejstupld = "";
             }
-            $scope.user.status = "pending";
-            NavigationService.registerArtist($scope.user, function(data, status) {
-                console.log(data);
-                if (data.value != false) {
-                    dataNextPre.messageBox("Your information has been send to AURA");
-                    $scope.disableSubmit = true;
+          }
+        });
+      }, function(response) {
+        if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+      }, function(evt) {
+        $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+      });
+      $scope.upload[index].xhr(function(xhr) {});
+    } else {
+      var fileReader = new FileReader();
+      fileReader.onload = function(e) {
+        $scope.upload[index] = $upload.http({
+          url: imgUploadUrl,
+          headers: {
+            'Content-Type': $scope.selectedFiles[index].type
+          },
+          data: e.target.result
+        }).then(function(response) {
+          $scope.uploadResult.push(response.data);
+        }, function(response) {
+          if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+        }, function(evt) {
+          $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+        });
+      }
+      fileReader.readAsArrayBuffer($scope.selectedFiles[index]);
+    }
+  };
 
-                }
-            });
-        } else {
-            dataNextPre.messageBox("Please login to update an artist");
+  $scope.dragOverClass = function($event) {
+    var items = $event.dataTransfer.items;
+    var hasFile = false;
+    if (items != null) {
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].kind == 'file') {
+          hasFile = true;
+          break;
         }
-    };
+      }
+    } else {
+      hasFile = true;
+    }
+    return hasFile ? "dragover" : "dragover-err";
+  };
+  ////
 
-    $scope.refreshMedium = function(search) {
-        $scope.medium = [];
-        if (search) {
-            if (!$scope.user.medium)
-                $scope.user.medium = [];
-            NavigationService.findMedium(search, $scope.user.medium, function(data, status) {
-                $scope.medium = data;
-            });
+
+
+  //save user
+  $scope.disableSubmit = false;
+  $scope.submitForm = function() {
+    console.log($scope.user);
+    if ($scope.isLoggedIn == true) {
+      $scope.user.accesslevel = "artist";
+      $scope.user.reseller = [{
+        "_id": $scope.userData.id,
+        "name": $scope.userData.name,
+        "email": $scope.userData.email
+      }]
+      delete $scope.user.checkboxModel;
+      if (!$scope.user.focused) {
+        $scope.user.focused = "nonfocused";
+      }
+      $scope.user.status = "pending";
+      NavigationService.registerArtist($scope.user, function(data, status) {
+        console.log(data);
+        if (data.value != false) {
+          dataNextPre.messageBox("Your information has been send to AURA");
+          $scope.disableSubmit = true;
+
         }
-    };
-    $scope.refreshTheme = function(search) {
-        $scope.theme = [];
-        if (search) {
-            if (!$scope.user.theme)
-                $scope.user.theme = [];
-            NavigationService.findTheme(search, $scope.user.theme, function(data, status) {
-                $scope.theme = data;
-            });
-        }
-    };
+      });
+    } else {
+      dataNextPre.messageBox("Please login to update an artist");
+    }
+  };
+
+  $scope.refreshMedium = function(search) {
+    $scope.medium = [];
+    if (search) {
+      if (!$scope.user.medium)
+        $scope.user.medium = [];
+      NavigationService.findMedium(search, $scope.user.medium, function(data, status) {
+        $scope.medium = data;
+      });
+    }
+  };
+  $scope.refreshTheme = function(search) {
+    $scope.theme = [];
+    if (search) {
+      if (!$scope.user.theme)
+        $scope.user.theme = [];
+      NavigationService.findTheme(search, $scope.user.theme, function(data, status) {
+        $scope.theme = data;
+      });
+    }
+  };
 
 })
 
 
 .controller('RegisterArtistCtrl', function($scope, TemplateService, NavigationService, $upload, $timeout, $http, $state) {
-    $scope.template = TemplateService.changecontent("register-artist");
-    $scope.menutitle = NavigationService.makeactive("Register Artist");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+  $scope.template = TemplateService.changecontent("register-artist");
+  $scope.menutitle = NavigationService.makeactive("Register Artist");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
 
-    $scope.user = {};
-    $scope.user.personal = {};
-    $scope.user.work = {};
-    $scope.user.residence = {};
-    $scope.user.other = {};
-    $scope.user.medium = [];
-    $scope.user.theme = [];
-    $scope.user.focused = "nonfocused";
-    $scope.checked = 0;
-    $scope.medium = [];
-    $scope.theme = [];
+  $scope.user = {};
+  $scope.user.personal = {};
+  $scope.user.work = {};
+  $scope.user.residence = {};
+  $scope.user.other = {};
+  $scope.user.medium = [];
+  $scope.user.theme = [];
+  $scope.user.focused = "nonfocused";
+  $scope.checked = 0;
+  $scope.medium = [];
+  $scope.theme = [];
 
-    $scope.select2options = {
-        maximumSelectionSize: 5,
-        placeholder: "Select A Theme"
-    };
-    $scope.select2optionsmed = {
-        maximumSelectionSize: 5,
-        placeholder: "Select A Medium"
-    };
+  $scope.select2options = {
+    maximumSelectionSize: 5,
+    placeholder: "Select A Theme"
+  };
+  $scope.select2optionsmed = {
+    maximumSelectionSize: 5,
+    placeholder: "Select A Medium"
+  };
 
-    NavigationService.getCountryJson(function(data) {
-        $scope.countries = data;
+  NavigationService.getCountryJson(function(data) {
+    $scope.countries = data;
+  });
+
+  $scope.show = 0;
+  $scope.showmed = 0;
+  $scope.ismatch = function(data, select) {
+    _.each(data, function(n, key) {
+      if (typeof n == 'string') {
+        var item = {
+          _id: _.now(),
+          name: _.capitalize(n)
+        };
+        NavigationService.saveTheme(item, function(data, status) {
+          if (data.value == true) {
+            item._id = data.id;
+          }
+        });
+        select.selected = _.without(select.selected, n);
+        select.selected.push(item);
+        $scope.user.theme = select.selected;
+      }
     });
-
-    $scope.show = 0;
-    $scope.showmed = 0;
-    $scope.ismatch = function(data, select) {
-        _.each(data, function(n, key) {
-            if (typeof n == 'string') {
-                var item = {
-                    _id: _.now(),
-                    name: _.capitalize(n)
-                };
-                NavigationService.saveTheme(item, function(data, status) {
-                    if (data.value == true) {
-                        item._id = data.id;
-                    }
-                });
-                select.selected = _.without(select.selected, n);
-                select.selected.push(item);
-                $scope.user.theme = select.selected;
-            }
+    console.log($scope.user.theme);
+  }
+  $scope.ismatchmed = function(data, select) {
+    _.each(data, function(n, key) {
+      if (typeof n == 'string') {
+        var item = {
+          _id: _.now(),
+          name: _.capitalize(n)
+        };
+        NavigationService.saveMedium(item, function(data, status) {
+          if (data.value == true) {
+            item._id = data.id;
+          }
         });
-        console.log($scope.user.theme);
+        select.selected = _.without(select.selected, n);
+        select.selected.push(item);
+        $scope.user.medium = select.selected;
+      }
+    });
+    console.log($scope.user.medium);
+  }
+
+  $scope.checking = function() {
+    if ($scope.user.checkboxModel) {
+      $scope.checked = 0;
+    } else {
+      $scope.checked = 1;
     }
-    $scope.ismatchmed = function(data, select) {
-        _.each(data, function(n, key) {
-            if (typeof n == 'string') {
-                var item = {
-                    _id: _.now(),
-                    name: _.capitalize(n)
-                };
-                NavigationService.saveMedium(item, function(data, status) {
-                    if (data.value == true) {
-                        item._id = data.id;
-                    }
-                });
-                select.selected = _.without(select.selected, n);
-                select.selected.push(item);
-                $scope.user.medium = select.selected;
-            }
+  }
+
+  $scope.addsolo = function(crdv) {
+    if (!crdv.soloshow) {
+      crdv.soloshow = [{
+        "year": "",
+        "title": "",
+        "gallery": "",
+        "venue": ""
+      }];
+    } else {
+      if (crdv.soloshow.length < 3) {
+        crdv.soloshow.push({
+          "year": "",
+          "title": "",
+          "gallery": "",
+          "venue": ""
         });
-        console.log($scope.user.medium);
+      }
     }
+  };
+  $scope.removesolo = function(i, dev) {
+    dev.splice(i, 1);
+  };
 
-    $scope.checking = function() {
-        if ($scope.user.checkboxModel) {
-            $scope.checked = 0;
-        } else {
-            $scope.checked = 1;
-        }
+  $scope.addedu = function(crdv) {
+    if (!crdv.edu) {
+      crdv.edu = [{
+        "year": "",
+        "quali": "",
+        "institu": "",
+        "city": ""
+      }];
+    } else {
+      if (crdv.edu.length < 3) {
+        crdv.edu.push({
+          "year": "",
+          "quali": "",
+          "institu": "",
+          "city": ""
+        });
+      }
     }
+  };
+  $scope.removeedu = function(i, dev) {
+    dev.splice(i, 1);
+  };
 
-    $scope.addsolo = function(crdv) {
-        if (!crdv.soloshow) {
-            crdv.soloshow = [{
-                "year": "",
-                "title": "",
-                "gallery": "",
-                "venue": ""
-            }];
-        } else {
-            if (crdv.soloshow.length < 3) {
-                crdv.soloshow.push({
-                    "year": "",
-                    "title": "",
-                    "gallery": "",
-                    "venue": ""
-                });
-            }
-        }
-    };
-    $scope.removesolo = function(i, dev) {
-        dev.splice(i, 1);
-    };
+  $scope.addgroup = function(crdv) {
+    if (!crdv.groupshow) {
+      crdv.groupshow = [{
+        "year": "",
+        "title": "",
+        "gallery": "",
+        "venue": ""
+      }];
+    } else {
+      if (crdv.groupshow.length < 3) {
+        crdv.groupshow.push({
+          "year": "",
+          "title": "",
+          "gallery": "",
+          "venue": ""
+        });
+      }
+    }
+  };
+  $scope.removegroup = function(i, dev) {
+    dev.splice(i, 1);
+  };
 
-    $scope.addedu = function(crdv) {
-        if (!crdv.edu) {
-            crdv.edu = [{
-                "year": "",
-                "quali": "",
-                "institu": "",
-                "city": ""
-            }];
-        } else {
-            if (crdv.edu.length < 3) {
-                crdv.edu.push({
-                    "year": "",
-                    "quali": "",
-                    "institu": "",
-                    "city": ""
-                });
-            }
-        }
-    };
-    $scope.removeedu = function(i, dev) {
-        dev.splice(i, 1);
-    };
+  $scope.addauction = function(crdv) {
+    if (!crdv.auction) {
+      crdv.auction = [{
+        "year": "",
+        "auctionhouse": "",
+        "location": "",
+        "details": ""
+      }];
+    } else {
+      if (crdv.auction.length < 3) {
+        crdv.auction.push({
+          "year": "",
+          "auctionhouse": "",
+          "location": "",
+          "details": "",
+          "details": ""
+        });
+      }
+    }
+  };
+  $scope.removeauction = function(i, dev) {
+    dev.splice(i, 1);
+  };
+  $scope.addaward = function(crdv) {
+    if (!crdv.award) {
+      crdv.award = [{
+        "year": "",
+        "title": "",
+        "institution": ""
+      }];
+    } else {
+      if (crdv.award.length < 3) {
+        crdv.award.push({
+          "year": "",
+          "title": "",
+          "institution": ""
+        });
+      }
+    }
+  };
+  $scope.removeaward = function(i, dev) {
+    dev.splice(i, 1);
+  };
 
-    $scope.addgroup = function(crdv) {
-        if (!crdv.groupshow) {
-            crdv.groupshow = [{
-                "year": "",
-                "title": "",
-                "gallery": "",
-                "venue": ""
-            }];
-        } else {
-            if (crdv.groupshow.length < 3) {
-                crdv.groupshow.push({
-                    "year": "",
-                    "title": "",
-                    "gallery": "",
-                    "venue": ""
-                });
-            }
+  $scope.removeimage = function(i) {
+    $scope.user.image = "";;
+  };
+  $scope.removeresume = function(i) {
+    $scope.user.resume = "";
+  };
+  $scope.removeadcer = function(i) {
+    $scope.user.adcer = "";
+  };
+  //imageupload
+  var imagejstupld = "";
+  $scope.usingFlash = FileAPI && FileAPI.upload != null;
+  $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
+  $scope.uploadRightAway = true;
+  $scope.changeAngularVersion = function() {
+    window.location.hash = $scope.angularVersion;
+    window.location.reload(true);
+  };
+  $scope.hasUploader = function(index) {
+    return $scope.upload[index] != null;
+  };
+  $scope.abort = function(index) {
+    $scope.upload[index].abort();
+    $scope.upload[index] = null;
+  };
+  $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
+    window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
+  $scope.onFileSelect = function($files, whichone) {
+    $scope.selectedFiles = [];
+    $scope.progress = [];
+    console.log($files);
+    if ($scope.upload && $scope.upload.length > 0) {
+      for (var i = 0; i < $scope.upload.length; i++) {
+        if ($scope.upload[i] != null) {
+          $scope.upload[i].abort();
         }
-    };
-    $scope.removegroup = function(i, dev) {
-        dev.splice(i, 1);
-    };
-
-    $scope.addauction = function(crdv) {
-        if (!crdv.auction) {
-            crdv.auction = [{
-                "year": "",
-                "auctionhouse": "",
-                "location": "",
-                "details": ""
-            }];
-        } else {
-            if (crdv.auction.length < 3) {
-                crdv.auction.push({
-                    "year": "",
-                    "auctionhouse": "",
-                    "location": "",
-                    "details": "",
-                    "details": ""
-                });
-            }
-        }
-    };
-    $scope.removeauction = function(i, dev) {
-        dev.splice(i, 1);
-    };
-    $scope.addaward = function(crdv) {
-        if (!crdv.award) {
-            crdv.award = [{
-                "year": "",
-                "title": "",
-                "institution": ""
-            }];
-        } else {
-            if (crdv.award.length < 3) {
-                crdv.award.push({
-                    "year": "",
-                    "title": "",
-                    "institution": ""
-                });
-            }
-        }
-    };
-    $scope.removeaward = function(i, dev) {
-        dev.splice(i, 1);
-    };
-
-    $scope.removeimage = function(i) {
-        $scope.user.image = "";;
-    };
-    $scope.removeresume = function(i) {
-        $scope.user.resume = "";
-    };
-    $scope.removeadcer = function(i) {
-        $scope.user.adcer = "";
-    };
-    //imageupload
-    var imagejstupld = "";
-    $scope.usingFlash = FileAPI && FileAPI.upload != null;
-    $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
-    $scope.uploadRightAway = true;
-    $scope.changeAngularVersion = function() {
-        window.location.hash = $scope.angularVersion;
-        window.location.reload(true);
-    };
-    $scope.hasUploader = function(index) {
-        return $scope.upload[index] != null;
-    };
-    $scope.abort = function(index) {
-        $scope.upload[index].abort();
-        $scope.upload[index] = null;
-    };
-    $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
-        window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
-    $scope.onFileSelect = function($files, whichone) {
-        $scope.selectedFiles = [];
-        $scope.progress = [];
-        console.log($files);
-        if ($scope.upload && $scope.upload.length > 0) {
-            for (var i = 0; i < $scope.upload.length; i++) {
-                if ($scope.upload[i] != null) {
-                    $scope.upload[i].abort();
-                }
-            }
-        }
-        $scope.upload = [];
-        $scope.uploadResult = uploadres;
-        $scope.selectedFiles = $files;
-        $scope.dataUrls = [];
-        for (var i = 0; i < $files.length; i++) {
-            var $file = $files[i];
-            if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
-                var fileReader = new FileReader();
-                fileReader.readAsDataURL($files[i]);
-                var loadFile = function(fileReader, index) {
-                    fileReader.onload = function(e) {
-                        $timeout(function() {
-                            $scope.dataUrls[index] = e.target.result;
-                        });
-                    }
-                }(fileReader, i);
-            }
-            $scope.progress[i] = -1;
-            if ($scope.uploadRightAway) {
-                $scope.start(i, whichone);
-            }
-        }
-    };
-
-    $scope.start = function(index, whichone) {
-        $scope.progress[index] = 0;
-        $scope.errorMsg = null;
-        console.log($scope.howToSend = 1);
-        if ($scope.howToSend == 1) {
-            $scope.upload[index] = $upload.upload({
-                url: imgUploadUrl,
-                method: $scope.httpMethod,
-                headers: {
-                    'Content-Type': 'Content-Type'
-                },
-                data: {
-                    myModel: $scope.myModel
-                },
-                file: $scope.selectedFiles[index],
-                fileFormDataName: 'file'
+      }
+    }
+    $scope.upload = [];
+    $scope.uploadResult = uploadres;
+    $scope.selectedFiles = $files;
+    $scope.dataUrls = [];
+    for (var i = 0; i < $files.length; i++) {
+      var $file = $files[i];
+      if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
+        var fileReader = new FileReader();
+        fileReader.readAsDataURL($files[i]);
+        var loadFile = function(fileReader, index) {
+          fileReader.onload = function(e) {
+            $timeout(function() {
+              $scope.dataUrls[index] = e.target.result;
             });
-            $scope.upload[index].then(function(response) {
-                $timeout(function() {
-                    $scope.uploadResult.push(response.data);
-                    imagejstupld = response.data;
-                    if (whichone == 1) {
-                        if (imagejstupld != "") {
-                            $scope.user.image = imagejstupld.files[0].fd;
-                            imagejstupld = "";
-                        }
-                    } else if (whichone == 2) {
-                        if (imagejstupld != "") {
-                            $scope.user.resume = imagejstupld.files[0].fd;
-                            imagejstupld = "";
-                        }
-                    } else if (whichone == 3) {
-                        if (imagejstupld != "") {
-                            $scope.user.adcer = imagejstupld.files[0].fd;
-                            imagejstupld = "";
-                        }
-                    }
-                });
-            }, function(response) {
-                if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
-            }, function(evt) {
-                $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-            });
-            $scope.upload[index].xhr(function(xhr) {});
-        } else {
-            var fileReader = new FileReader();
-            fileReader.onload = function(e) {
-                $scope.upload[index] = $upload.http({
-                    url: imgUploadUrl,
-                    headers: {
-                        'Content-Type': $scope.selectedFiles[index].type
-                    },
-                    data: e.target.result
-                }).then(function(response) {
-                    $scope.uploadResult.push(response.data);
-                }, function(response) {
-                    if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
-                }, function(evt) {
-                    $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-                });
-            }
-            fileReader.readAsArrayBuffer($scope.selectedFiles[index]);
-        }
-    };
+          }
+        }(fileReader, i);
+      }
+      $scope.progress[i] = -1;
+      if ($scope.uploadRightAway) {
+        $scope.start(i, whichone);
+      }
+    }
+  };
 
-    $scope.dragOverClass = function($event) {
-        var items = $event.dataTransfer.items;
-        var hasFile = false;
-        if (items != null) {
-            for (var i = 0; i < items.length; i++) {
-                if (items[i].kind == 'file') {
-                    hasFile = true;
-                    break;
-                }
+  $scope.start = function(index, whichone) {
+    $scope.progress[index] = 0;
+    $scope.errorMsg = null;
+    console.log($scope.howToSend = 1);
+    if ($scope.howToSend == 1) {
+      $scope.upload[index] = $upload.upload({
+        url: imgUploadUrl,
+        method: $scope.httpMethod,
+        headers: {
+          'Content-Type': 'Content-Type'
+        },
+        data: {
+          myModel: $scope.myModel
+        },
+        file: $scope.selectedFiles[index],
+        fileFormDataName: 'file'
+      });
+      $scope.upload[index].then(function(response) {
+        $timeout(function() {
+          $scope.uploadResult.push(response.data);
+          imagejstupld = response.data;
+          if (whichone == 1) {
+            if (imagejstupld != "") {
+              $scope.user.image = imagejstupld.files[0].fd;
+              imagejstupld = "";
             }
-        } else {
-            hasFile = true;
+          } else if (whichone == 2) {
+            if (imagejstupld != "") {
+              $scope.user.resume = imagejstupld.files[0].fd;
+              imagejstupld = "";
+            }
+          } else if (whichone == 3) {
+            if (imagejstupld != "") {
+              $scope.user.adcer = imagejstupld.files[0].fd;
+              imagejstupld = "";
+            }
+          }
+        });
+      }, function(response) {
+        if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+      }, function(evt) {
+        $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+      });
+      $scope.upload[index].xhr(function(xhr) {});
+    } else {
+      var fileReader = new FileReader();
+      fileReader.onload = function(e) {
+        $scope.upload[index] = $upload.http({
+          url: imgUploadUrl,
+          headers: {
+            'Content-Type': $scope.selectedFiles[index].type
+          },
+          data: e.target.result
+        }).then(function(response) {
+          $scope.uploadResult.push(response.data);
+        }, function(response) {
+          if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+        }, function(evt) {
+          $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+        });
+      }
+      fileReader.readAsArrayBuffer($scope.selectedFiles[index]);
+    }
+  };
+
+  $scope.dragOverClass = function($event) {
+    var items = $event.dataTransfer.items;
+    var hasFile = false;
+    if (items != null) {
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].kind == 'file') {
+          hasFile = true;
+          break;
         }
-        return hasFile ? "dragover" : "dragover-err";
-    };
-    ////
+      }
+    } else {
+      hasFile = true;
+    }
+    return hasFile ? "dragover" : "dragover-err";
+  };
+  ////
 
 
-    //DEVELOPMENT
+  //DEVELOPMENT
 
-    NavigationService.getuserprofile(function(data) {
-        if (data.id) {
-            $scope.userData = data;
-            $scope.user.selleremail = $scope.userData.email;
-            $scope.isLoggedIn = true;
-            if (!$scope.user.residence) {
-                $scope.user.residence = {};
-                $scope.user.residence.country = "";
-            } else if (!$scope.user.residence.country) {
-                $scope.user.residence.country = "";
-            }
-            if (!$scope.user.work) {
-                $scope.user.work = {};
-                $scope.user.work.country = "";
-            } else if (!$scope.user.work.country) {
-                $scope.user.work.country = "";
-            }
-            if (!$scope.user.other) {
-                $scope.user.other = {};
-                $scope.user.other.country = "";
-            } else if (!$scope.user.other.country) {
-                $scope.user.other.country = "";
-            }
-        } else {
-            $scope.isLoggedIn = false;
-        }
-    })
+  NavigationService.getuserprofile(function(data) {
+    if (data.id) {
+      $scope.userData = data;
+      $scope.user.selleremail = $scope.userData.email;
+      $scope.isLoggedIn = true;
+      if (!$scope.user.residence) {
+        $scope.user.residence = {};
+        $scope.user.residence.country = "";
+      } else if (!$scope.user.residence.country) {
+        $scope.user.residence.country = "";
+      }
+      if (!$scope.user.work) {
+        $scope.user.work = {};
+        $scope.user.work.country = "";
+      } else if (!$scope.user.work.country) {
+        $scope.user.work.country = "";
+      }
+      if (!$scope.user.other) {
+        $scope.user.other = {};
+        $scope.user.other.country = "";
+      } else if (!$scope.user.other.country) {
+        $scope.user.other.country = "";
+      }
+    } else {
+      $scope.isLoggedIn = false;
+    }
+  })
 
-    //save user
-    $scope.disableSubmit = false;
-    $scope.submitForm = function() {
-        console.log($scope.user);
-        if ($scope.isLoggedIn == true) {
-            $scope.user.accesslevel = "artist";
-            $scope.user.status = "pending";
-            $scope.user.reseller = [{
-                "_id": $scope.userData.id,
-                "name": $scope.userData.name,
-                "email": $scope.userData.email
-            }]
-            if ($scope.user.checkboxModel) {
-                delete $scope.user.checkboxModel
-                NavigationService.registerArtist($scope.user, function(data, status) {
-                    console.log(data);
-                    if (data.value != false) {
-                        dataNextPre.messageBox("Artist has been registerd and is in review");
-                        $scope.disableSubmit = true;
-                        $timeout(function() {
-                            $state.go("create-artwork");
-                        }, 3000)
-                    }
-                    // $location.url("/user");
-                });
-            } else {
-                if (!$scope.user.checkboxModel) {
-                    $scope.checked = 1;
-                }
-                console.log("not");
-            }
-        } else {
-            dataNextPre.messageBox("Please login to register an artist");
+  //save user
+  $scope.disableSubmit = false;
+  $scope.submitForm = function() {
+    console.log($scope.user);
+    if ($scope.isLoggedIn == true) {
+      $scope.user.accesslevel = "artist";
+      $scope.user.status = "pending";
+      $scope.user.reseller = [{
+        "_id": $scope.userData.id,
+        "name": $scope.userData.name,
+        "email": $scope.userData.email
+      }]
+      if ($scope.user.checkboxModel) {
+        delete $scope.user.checkboxModel
+        NavigationService.registerArtist($scope.user, function(data, status) {
+          console.log(data);
+          if (data.value != false) {
+            dataNextPre.messageBox("Artist has been registerd and is in review");
+            $scope.disableSubmit = true;
+            $timeout(function() {
+              $state.go("create-artwork");
+            }, 3000)
+          }
+          // $location.url("/user");
+        });
+      } else {
+        if (!$scope.user.checkboxModel) {
+          $scope.checked = 1;
         }
-    };
+        console.log("not");
+      }
+    } else {
+      dataNextPre.messageBox("Please login to register an artist");
+    }
+  };
 
-    $scope.refreshMedium = function(search) {
-        $scope.medium = [];
-        if (search) {
-            if (!$scope.user.medium)
-                $scope.user.medium = [];
-            NavigationService.findMedium(search, $scope.user.medium, function(data, status) {
-                $scope.medium = data;
-            });
-        }
-    };
-    $scope.refreshTheme = function(search) {
-        $scope.theme = [];
-        if (search) {
-            if (!$scope.user.theme)
-                $scope.user.theme = [];
-            NavigationService.findTheme(search, $scope.user.theme, function(data, status) {
-                $scope.theme = data;
-            });
-        }
-    };
+  $scope.refreshMedium = function(search) {
+    $scope.medium = [];
+    if (search) {
+      if (!$scope.user.medium)
+        $scope.user.medium = [];
+      NavigationService.findMedium(search, $scope.user.medium, function(data, status) {
+        $scope.medium = data;
+      });
+    }
+  };
+  $scope.refreshTheme = function(search) {
+    $scope.theme = [];
+    if (search) {
+      if (!$scope.user.theme)
+        $scope.user.theme = [];
+      NavigationService.findTheme(search, $scope.user.theme, function(data, status) {
+        $scope.theme = data;
+      });
+    }
+  };
 })
 
 .controller('FavoriteProductCtrl', function($scope, TemplateService, NavigationService, $stateParams) {
-    $scope.template = TemplateService.changecontent("favorite-product");
-    $scope.menutitle = NavigationService.makeactive("Favorites");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+  $scope.template = TemplateService.changecontent("favorite-product");
+  $scope.menutitle = NavigationService.makeactive("Favorites");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
 
-    NavigationService.getartworkdetail($stateParams.artid, function(data, status) {
-        $scope.artistDetailImg = data[0];
-        console.log($scope.artistDetailImg);
-    });
+  NavigationService.getartworkdetail($stateParams.artid, function(data, status) {
+    $scope.artistDetailImg = data[0];
+    console.log($scope.artistDetailImg);
+  });
 
-    $scope.addToCart = function(art) {
-        dataNextPre.addToCart(art);
-    }
+  $scope.addToCart = function(art) {
+    dataNextPre.addToCart(art);
+  }
 
 })
 
 .controller('BuyersTermConditionCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("buyerstermcondition");
-    $scope.menutitle = NavigationService.makeactive("Buyers Terms ConditionCtrl");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+  //Used to name the .html file
+  $scope.template = TemplateService.changecontent("buyerstermcondition");
+  $scope.menutitle = NavigationService.makeactive("Buyers Terms ConditionCtrl");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
 })
 
 .controller('TermConditionCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("termcondition");
-    $scope.menutitle = NavigationService.makeactive("Term Condition");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+  //Used to name the .html file
+  $scope.template = TemplateService.changecontent("termcondition");
+  $scope.menutitle = NavigationService.makeactive("Term Condition");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
 
-    NavigationService.getuserprofile(function(data) {
-        if (data.id) {
-            NavigationService.getoneartist(data.id, function(artistdata, status) {
-                $scope.userData = artistdata;
-            })
-        }
-    })
-
-    $scope.makeReseller = function() {
-        cfpLoadingBar.start();
-        $scope.userData.accesslevel = "reseller";
-        NavigationService.registeruser($scope.userData, function(data, status) {
-            cfpLoadingBar.complete();
-            console.log(data);
-            if (data.value != false) {
-                dataNextPre.messageBox("You are now a seller");
-                $state.go("account");
-            } else {
-                dataNextPre.messageBox("There's  some problem");
-            }
-        })
+  NavigationService.getuserprofile(function(data) {
+    if (data.id) {
+      NavigationService.getoneartist(data.id, function(artistdata, status) {
+        $scope.userData = artistdata;
+      })
     }
+  })
+
+  $scope.makeReseller = function() {
+    cfpLoadingBar.start();
+    $scope.userData.accesslevel = "reseller";
+    NavigationService.registeruser($scope.userData, function(data, status) {
+      cfpLoadingBar.complete();
+      console.log(data);
+      if (data.value != false) {
+        dataNextPre.messageBox("You are now a seller");
+        $state.go("account");
+      } else {
+        dataNextPre.messageBox("There's  some problem");
+      }
+    })
+  }
 
 })
 
 .controller('SearchResultsCtrl', function($scope, TemplateService, NavigationService, $stateParams, $location, ngDialog, $timeout, $state, cfpLoadingBar) {
-    $scope.template = TemplateService.changecontent("searchresults");
-    $scope.menutitle = NavigationService.makeactive("Search Results");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-    $scope.totalartcont = [];
-    var lastpage = 0;
-    if ($.jStorage.get("searchObj")) {
-        $scope.art = $.jStorage.get("searchObj");
-    }
+  $scope.template = TemplateService.changecontent("searchresults");
+  $scope.menutitle = NavigationService.makeactive("Search Results");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
+  $scope.totalartcont = [];
+  var lastpage = 0;
+  if ($.jStorage.get("searchObj")) {
+    $scope.art = $.jStorage.get("searchObj");
+  }
 
-    if ($.jStorage.get("searchResults")) {
-        $scope.artworks = $.jStorage.get("searchResults");
-        lastpage = $scope.artworks.totalpages;
-        _.each($scope.artworks.data, function(n) {
-            if (n.artwork) {
-                _.each(n.artwork, function(m) {
-                    var item = {};
-                    item._id = n._id;
-                    item.name = n.name;
-                    item.artwork = m;
-                    $scope.totalartcont.push(item);
-                })
-            }
+  if ($.jStorage.get("searchResults")) {
+    $scope.artworks = $.jStorage.get("searchResults");
+    lastpage = $scope.artworks.totalpages;
+    _.each($scope.artworks.data, function(n) {
+      if (n.artwork) {
+        _.each(n.artwork, function(m) {
+          var item = {};
+          item._id = n._id;
+          item.name = n.name;
+          item.artwork = m;
+          $scope.totalartcont.push(item);
         })
-        $scope.totalartcont = _.uniq($scope.totalartcont, 'artwork._id');
-        console.log($scope.totalartcont);
-    }
+      }
+    })
+    $scope.totalartcont = _.uniq($scope.totalartcont, 'artwork._id');
+    console.log($scope.totalartcont);
+  }
 
-    $scope.getSearchedArt = function() {
-        console.log(lastpage);
-        if ($scope.art.search != '' && lastpage >= $scope.art.pagenumber) {
-            cfpLoadingBar.start();
-            NavigationService.getArtworkbySearch($scope.art, function(data) {
-                console.log(data);
-                if (data.value != false) {
-                    lastpage = data.totalpages;
-                    $scope.artworks = data;
-                    _.each($scope.artworks.data, function(n) {
-                        if (n.artwork) {
-                            _.each(n.artwork, function(m) {
-                                var item = {};
-                                item._id = n._id;
-                                item.name = n.name;
-                                item.artwork = m;
-                                $scope.totalartcont.push(item);
-                            })
-                        }
-                    })
-                    $scope.totalartcont = _.uniq($scope.totalartcont, 'artwork._id');
-                }
-                cfpLoadingBar.complete();
-            })
+  $scope.getSearchedArt = function() {
+    console.log(lastpage);
+    if ($scope.art.search != '' && lastpage >= $scope.art.pagenumber) {
+      cfpLoadingBar.start();
+      NavigationService.getArtworkbySearch($scope.art, function(data) {
+        console.log(data);
+        if (data.value != false) {
+          lastpage = data.totalpages;
+          $scope.artworks = data;
+          _.each($scope.artworks.data, function(n) {
+            if (n.artwork) {
+              _.each(n.artwork, function(m) {
+                var item = {};
+                item._id = n._id;
+                item.name = n.name;
+                item.artwork = m;
+                $scope.totalartcont.push(item);
+              })
+            }
+          })
+          $scope.totalartcont = _.uniq($scope.totalartcont, 'artwork._id');
         }
+        cfpLoadingBar.complete();
+      })
     }
+  }
 
-    $scope.addMoreItems = function() {
-        $scope.art.pagenumber++;
-        $scope.getSearchedArt();
+  $scope.addMoreItems = function() {
+    $scope.art.pagenumber++;
+    $scope.getSearchedArt();
+  }
+
+  $scope.showDetails = function(oneuser) {
+    console.log(oneuser)
+    $scope.artistDetailImg = oneuser;
+    ngDialog.open({
+      scope: $scope,
+      template: 'views/content/quickview-imagedetail.html'
+    });
+  };
+
+  $scope.lauchedSoon = function() {
+    ngDialog.open({
+      template: 'views/content/modal-launch.html'
+    });
+    $timeout(function() {
+      ngDialog.closeAll();
+    }, 3000);
+  };
+
+  $scope.goToDetailPage = function(artwork) {
+    console.log(artwork);
+    if (artwork.type == "Sculptures") {
+      //          $location.url("/sculpture/" + artwork._id);
+      $state.go('sculpture', {
+        artid: artwork._id
+      });
+    } else {
+      //          $location.url("/artwork/detail/" + artwork._id);
+      $state.go('detail', {
+        artid: artwork._id
+      });
     }
+  }
 
-    $scope.showDetails = function(oneuser) {
-        console.log(oneuser)
-        $scope.artistDetailImg = oneuser;
-        ngDialog.open({
-            scope: $scope,
-            template: 'views/content/quickview-imagedetail.html'
-        });
-    };
+  $scope.makeFav = function(art) {
+    dataNextPre.favorite(art);
+  }
 
-    $scope.lauchedSoon = function() {
-        ngDialog.open({
-            template: 'views/content/modal-launch.html'
-        });
-        $timeout(function() {
-            ngDialog.closeAll();
-        }, 3000);
-    };
-
-    $scope.goToDetailPage = function(artwork) {
-        console.log(artwork);
-        if (artwork.type == "Sculptures") {
-            //          $location.url("/sculpture/" + artwork._id);
-            $state.go('sculpture', {
-                artid: artwork._id
-            });
-        } else {
-            //          $location.url("/artwork/detail/" + artwork._id);
-            $state.go('detail', {
-                artid: artwork._id
-            });
-        }
-    }
-
-    $scope.makeFav = function(art) {
-        dataNextPre.favorite(art);
-    }
-
-    $scope.addToCart = function(art) {
-        dataNextPre.addToCart(art);
-    }
+  $scope.addToCart = function(art) {
+    dataNextPre.addToCart(art);
+  }
 
 })
 
 .controller('ThankYouCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("thankyou");
-    $scope.menutitle = NavigationService.makeactive("Thank You");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+  //Used to name the .html file
+  $scope.template = TemplateService.changecontent("thankyou");
+  $scope.menutitle = NavigationService.makeactive("Thank You");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
 })
 
 .controller('SorryCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("sorry");
-    $scope.menutitle = NavigationService.makeactive("Sorry");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
+  //Used to name the .html file
+  $scope.template = TemplateService.changecontent("sorry");
+  $scope.menutitle = NavigationService.makeactive("Sorry");
+  TemplateService.title = $scope.menutitle;
+  $scope.navigation = NavigationService.getnav();
 
-    $scope.order = {};
-    $scope.order.orderid = $stateParams.orderId;
+  $scope.order = {};
+  $scope.order.orderid = $stateParams.orderId;
 })
 
 .controller('Error404Ctrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
-        //Used to name the .html file
-        $scope.template = TemplateService.changecontent("error404");
-        $scope.menutitle = NavigationService.makeactive("Home");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-    })
-    .controller('PrivacyPolicyCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
-        //Used to name the .html file
-        $scope.template = TemplateService.changecontent("privacy-policy");
-        $scope.menutitle = NavigationService.makeactive("Privacy Policy");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-    })
-    .controller('Error500Ctrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
-        //Used to name the .html file
-        $scope.template = TemplateService.changecontent("error500");
-        $scope.menutitle = NavigationService.makeactive("Home");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-    });
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("error404");
+    $scope.menutitle = NavigationService.makeactive("Home");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+  })
+  .controller('PrivacyPolicyCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("privacy-policy");
+    $scope.menutitle = NavigationService.makeactive("Privacy Policy");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+  })
+  .controller('Error500Ctrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("error500");
+    $scope.menutitle = NavigationService.makeactive("Home");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+  });
 ;
 var templateservicemod = angular.module('templateservicemod', []);
 templateservicemod.service('TemplateService', function() {

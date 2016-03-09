@@ -1,6 +1,6 @@
 // var adminurl = "http://146.148.34.49/";
-var adminurl = "http://smartsnap.in/";
-// var adminurl = "http://smartsnap.in:81/";
+var adminurl = "http://auraart.in/";
+// var adminurl = "http://auraart.in:81/";
 // var adminurl = "http://192.168.0.126:81/";
 var imgUploadUrl = adminurl + "user/uploadfile";
 
@@ -506,9 +506,7 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 method: "POST",
                 data: {
                     "srno": srno,
-                    "type": type,
-                    "pageno": $.jStorage.get("pageno").pageno,
-                    "lastpage": $.jStorage.get("pageno").lastpage
+                    "type": type
                 }
             }).success(callback);
         },

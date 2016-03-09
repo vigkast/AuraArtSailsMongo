@@ -4395,6 +4395,17 @@ img.fancybox-image {
   padding-bottom: 10px;
   font-weight: 600;
 }
+.panel-heading label {
+  font-size: 12px;
+  font-weight: 600;
+}
+.panel-heading label input {
+  vertical-align: bottom;
+  margin-left: 10px;
+}
+.zoomWindow {
+  border: 1px solid #888888 !important;
+}
 /* Mobile Less */
 @media only screen and (min-width: 1129px) and (max-width: 1199px) {
   .nav li a {

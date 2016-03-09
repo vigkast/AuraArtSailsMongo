@@ -47,10 +47,10 @@
                   <span ng-if="!artistdetails.artwork.srno || artistdetails.artwork.srno==''">
                     N/A
                   </span> -->
-                           <span ng-if="artistdetails.artwork.imageno && artistdetails.artwork.imageno[0]">
-                          {{artistdetails.artwork.imageno[0]}}
+                           <span ng-if="artistdetails.artwork.imageno">
+                          {{artistdetails.artwork.imageno}}
                       </span>
-                           <span ng-if="!artistdetails.artwork.imageno || !artistdetails.artwork.imageno[0]">
+                           <span ng-if="!artistdetails.artwork.imageno">
                           N/A
                       </span>
                            <i class="fa fa-shopping-cart" ng-click="addToCart(artistdetails);" ng-if="artistdetails.artwork.status!='sold'"></i>

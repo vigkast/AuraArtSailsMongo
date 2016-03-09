@@ -1297,11 +1297,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
 
     $scope.goToDetailPage = function(artwork) {
-        //      console.log(artwork);
-        var obj = {};
-        obj.pageno = artwork.pageno;
-        obj.lastpage = lastpage;
-        $.jStorage.set("pageno", obj);
         if (artwork.type == "Sculptures") {
             //          $location.url("/sculpture/" + artwork._id);
             $state.go('sculpture', {
@@ -2171,12 +2166,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }];
 
     $scope.artPrev = function() {
-        NavigationService.nextPrev($scope.artistDetailImg.artwork.srno, 'prev', function(data) {
+        NavigationService.nextPrev($scope.artistDetailImg.artwork.sortsr, 'prev', function(data) {
             // $scope.artistDetailImg = data;
             if (data.value != false) {
-                var obj = $.jStorage.get("pageno");
-                obj.pageno = data.pageno;
-                $.jStorage.set("pageno", obj);
                 $state.go("detail", {
                     "artid": data.artwork._id
                 });
@@ -2187,11 +2179,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
 
     $scope.artNext = function() {
-        NavigationService.nextPrev($scope.artistDetailImg.artwork.srno, 'next', function(data) {
+        NavigationService.nextPrev($scope.artistDetailImg.artwork.sortsr, 'next', function(data) {
             if (data.value != false) {
-                var obj = $.jStorage.get("pageno");
-                obj.pageno = data.pageno;
-                $.jStorage.set("pageno", obj);
                 $state.go("detail", {
                     "artid": data.artwork._id
                 });
@@ -2306,11 +2295,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
 
     $scope.artPrev = function() {
-        NavigationService.nextPrev($scope.artistDetailImg.artwork.srno, 'prev', function(data) {
-            // $scope.artistDetailImg = data;
-            var obj = $.jStorage.get("pageno");
-            obj.pageno = data.pageno;
-            $.jStorage.set("pageno", obj);
+        NavigationService.nextPrev($scope.artistDetailImg.artwork.sortsr, 'prev', function(data) {
             $state.go("detail", {
                 "artid": data.artwork._id
             });
@@ -2318,11 +2303,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
 
     $scope.artNext = function() {
-        NavigationService.nextPrev($scope.artistDetailImg.artwork.srno, 'next', function(data) {
-            // $scope.artistDetailImg = data;
-            var obj = $.jStorage.get("pageno");
-            obj.pageno = data.pageno;
-            $.jStorage.set("pageno", obj);
+        NavigationService.nextPrev($scope.artistDetailImg.artwork.sortsr, 'next', function(data) {
             $state.go("detail", {
                 "artid": data.artwork._id
             });
@@ -3584,7 +3565,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
 
     $scope.editArtwork = function(status, id) {
-        if (status === 'revert' || status === 'pending') {
+        if (status === 'pending') {
             $state.go("edit-artwork", {
                 "id": id
             });
@@ -3843,7 +3824,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.menutitle = NavigationService.makeactive("Upload Artwork");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-    window.uploadUrl = 'http://smartsnap.in/user/uploadfile';
+    window.uploadUrl = 'http://auraart.in/user/uploadfile';
 
     // window.uploadUrl = 'http://192.168.0.122:1337/user/uploadfile';
     // $scope.usr = $routeParams.id;
@@ -4355,7 +4336,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.menutitle = NavigationService.makeactive("Upload Artwork");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-    window.uploadUrl = 'http://smartsnap.in/user/uploadfile';
+    window.uploadUrl = 'http://auraart.in/user/uploadfile';
 
     // window.uploadUrl = 'http://192.168.0.122:1337/user/uploadfile';
     // $scope.usr = $routeParams.id;

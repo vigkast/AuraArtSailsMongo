@@ -1,9 +1,13 @@
 <div class="padding-more terms-cont">
-   <div class="container">
+   <div class="container" ng-init="check='both'">
       <h4 class="head-team">Terms &amp; Conditions</h4>
+      <span>You are : </span>
+      <input type="radio" name="type" value="artist" ng-model="check">Seller (Artist)
+      <input type="radio" name="type" value="seller" ng-model="check">Reseller
+      <input type="radio" name="type" value="both" ng-model="check">Both
       <div class="scroll-y">
-         <h5 class="bold head-terms">Seller (Artist)</h5>
-         <ol>
+         <h5 class="bold head-terms" ng-if="check=='artist' || check=='both'">Seller (Artist)</h5>
+         <ol ng-if="check=='artist' || check=='both'">
             <li>Submission of Artworks on the Website:
                <ol>
                   <li>As an artist, you may submit listings for only those Original Works of Art that you have created and desire to sell through the Aura Art Website (“Website”). </li>
@@ -67,8 +71,8 @@
                </ol>
             </li>
          </ol>
-         <h5 class="bold head-terms">Reseller</h5>
-         <ol>
+         <h5 class="bold head-terms" ng-if="check=='seller' || check=='both'">Reseller</h5>
+         <ol ng-if="check=='seller' || check=='both'">
             <li>
                Submission of Artworks on the Website:
                <ol>

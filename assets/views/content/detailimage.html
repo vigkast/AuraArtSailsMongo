@@ -21,7 +21,7 @@
                <img elevate-zoom image="artistDetailImg" ng-if="artistDetailImg && artistDetailImg.artwork" class="fix-img" />
             </div>
          </div>
-         <div class="col-md-3">
+         <div class="col-md-3" ng-if="artistDetailImg">
             <div class="cont-imagedetail">
                <div class="artist-cont-detail">
                   <div class="painting-details">
@@ -31,8 +31,8 @@
                               <td>
                                  <!-- <span ng-if="artistDetailImg.artwork.srno && artistDetailImg.artwork.srno!=''">{{artistDetailImg.artwork.srno}}
                                             </span> -->
-                                 <span ng-if="artistDetailImg.artwork.imageno && artistDetailImg.artwork.imageno[0]">
-                                    {{artistDetailImg.artwork.imageno[0]}}</span>
+                                 <span ng-if="artistDetailImg.artwork.imageno">
+                                    {{artistDetailImg.artwork.imageno}}</span>
                                  <i class="{{artistDetailImg.heartClass}}" ng-click="addToFav(artistDetailImg);"></i>
                               </td>
                               <td>

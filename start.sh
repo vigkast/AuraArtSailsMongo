@@ -1,2 +1,2 @@
-rm -rf .tmp
-nodemon app.js
+sudo rm -rf .tmp
+sudo nodemon app.js --prod

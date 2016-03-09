@@ -18,8 +18,8 @@
                                  <td>
                                     <!-- <span ng-if="artistDetailImg.artwork.srno && artistDetailImg.artwork.srno!=''">                                                                    {{artistDetailImg.artwork.srno}}
                                             </span> -->
-                                    <span ng-if="artistDetailImg.artwork.imageno && artistDetailImg.artwork.imageno[0]">
-                                               {{artistDetailImg.artwork.imageno[0]}}</span>
+                                    <span ng-if="artistDetailImg.artwork.imageno">
+                                               {{artistDetailImg.artwork.imageno}}</span>
                                     <i class="{{artistDetailImg.heartClass = (artistDetailImg.artwork._id | showheart)}}" ng-click="makeFav(artistDetailImg);"></i>
                                  </td>
                               </tr>
