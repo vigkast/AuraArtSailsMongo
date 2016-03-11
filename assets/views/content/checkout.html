@@ -1,477 +1,477 @@
 <div class="border-top"></div>
 <div class="container">
-   <div class="main-cont checkout-form">
-      <div class="cont-main">
-         <h3 class="font-color3 home-header">Checkout</h3>
-         <div class="row">
-            <div class="col-md-4" ng-show="showLoginDiv">
-               <div class="panel panel-default">
-                  <div class="panel-heading">
-                     <h3 class="panel-title">Checkout Method</h3>
-                  </div>
-
-                  <div class="form-group">
-                     <div class="radio">
-                        <label>
-                           <input name="optradio" ng-model="checkoutRadio" type="radio" value="login" ng-click="loginRegClick()">Login
-                        </label>
-                     </div>
-                     <div class="radio">
-                        <label>
-                           <input name="optradio" ng-model="checkoutRadio" type="radio" value="register" ng-click="loginRegClick()">Register
-                        </label>
-                     </div>
-                     <div class="radio">
-                        <label>
-                           <input name="optradio" ng-model="checkoutRadio" type="radio" value="guest">Checkout as guest
-                        </label>
-                     </div>
-                  </div>
-                  <hr>
-                  <button class="btn btn-sucesses pull-right" type="submit" ng-if="checkoutRadio=='guest'" ng-click="continueGuest()">Continue</button>
-
-                  <div ng-if="checkoutRadio=='login'">
-                     <h5 class="bold">Login</h5>
-                     <form ng-submit="userlogin()">
-                        <div class="form-group">
-                           <input class="form-control" placeholder="Email" ng-model="login.email" required type="email">
-                        </div>
-                        <div class="form-group">
-                           <input class="form-control" placeholder="Password" ng-model="login.password" required type="password">
-                        </div>
-                        <a class="forgetlink" href="">Forgot password ?</a>
-                        <button class="btn btn-sucesses pull-right" type="submit">Login</button>
-                     </form>
-                     <p class="text-center" style="color:red" ng-show="showInvalidLogin">Invalid Login Credentials</p>
-                     <div class="clearfix"></div>
-                  </div>
-
-                  <div ng-if="checkoutRadio=='register'">
-                     <h5 class="bold">Register</h5>
-                     <form ng-submit="registeruser()">
-                        <div class="form-group">
-                           <input class="form-control" placeholder="Email*" required type="email" ng-model="register.email">
-                        </div>
-                        <div class="form-group">
-                           <input class="form-control" placeholder="Name" type="text" required ng-model="register.name">
-                        </div>
-                        <div class="form-group">
-                           <input class="form-control" placeholder="Password*" required type="password" ng-model="register.password">
-                        </div>
-                        <div class="form-group">
-                           <input class="form-control" placeholder="Re-enter Password*" required type="password" ng-model="register.confirmpassword">
-                        </div>
-                        <button class="btn btn-sucesses pull-right" type="submit">Register Now</button>
-                     </form>
-
-                     <p class="text-center" style="color:red" ng-show="showAlreadyRegistered">Email id already registered</p>
-                     <p class="text-center" style="color:red" ng-show="passwordNotMatch">Password and confirm password mismatch</p>
-                     <div class="clearfix"></div>
-                  </div>
-
-                  <div ng-if="checkoutRadio=='login' || checkoutRadio=='register'">
-                     <div class="text-center padding-vertical bold">- Sign In With -</div>
-                     <div class="gogbtn">
-                        <div class="row">
-                           <div class="col-md-4">
-                              <a class="btnsoc gplus" href="http://auraart.in/user/loging">
-                                 <i class="fa fa-google-plus"></i> Google
-                              </a>
-                           </div>
-                           <div class="col-md-4">
-                              <a class="btnsoc fbook" href="http://auraart.in/user/loginf">
-                                 <i class="fa fa-facebook"></i> Facebook
-                              </a>
-                           </div>
-                           <div class="col-md-4">
-                              <a class="btnsoc twit" href="http://auraart.in/user/logint">
-                                 <i class="fa fa-twitter"></i> Twitter
-                              </a>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-
-               </div>
+  <div class="main-cont checkout-form">
+    <div class="cont-main">
+      <h3 class="font-color3 home-header">Checkout</h3>
+      <div class="row">
+        <div class="col-md-4" ng-show="showLoginDiv">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Checkout Method</h3>
             </div>
-            <form>
-               <div class="col-md-4" ng-show="showShipping">
 
-                  <div class="making">
-                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                           <h3 class="panel-title">Billing Information</h3>
-                        </div>
-                        <div class="panel-body">
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.name" ng-change="onFieldChange(checked)" placeholder="Full Name*" required type="text">
-                           </div>
-                           <div class="form-group"></div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.email" ng-change="onFieldChange(checked)" placeholder="Email*" required type="email">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.company" placeholder="Company Name" type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.designation" placeholder="Designation" type="text">
-                           </div>
-                           <div class="form-group">
-                              <div class="tel-box">
-                                 <input class="form-control tel-country" ng-model="user.billing.countrycode" ng-change="onFieldChange(checked)" placeholder="eg. +91*" required only-digits maxlength="8" type="tel">
-                                 <input class="form-control tel-number" ng-model="user.billing.mobileno" ng-change="onFieldChange(checked)" placeholder="Mobile Number*" only-digits maxlength="11" required type="tel">
-                              </div>
-                           </div>
-                           <div class="form-group">
-                              <div class="tel-box house-box">
-                                 <input class="form-control one" ng-model="user.billing.flatno" ng-change="onFieldChange(checked)" placeholder="House No*" required type="text">
-                                 <input class="form-control two" ng-model="user.billing.bldgname" ng-change="onFieldChange(checked)" placeholder="Name of Buliding*" required type="text">
-                              </div>
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.landmark" placeholder="Landmark" type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.street" placeholder="Street" type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.regadd" ng-change="onFieldChange(checked)" placeholder="Locality*" required type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.city" ng-change="onFieldChange(checked)" placeholder="City*" required type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.pincode" ng-change="onFieldChange(checked)" placeholder="Pincode*" only-digits maxlength="6" type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.state" ng-change="onFieldChange(checked)" placeholder="State*" required type="text">
-                           </div>
-                           <div class="form-group">
-                              <select class="form-control" ng-options="country.code as country.name for country in countries" ng-change="onFieldChange(checked)" ng-model="user.billing.country" placeholder="Select county"></select>
-                           </div>
-                        </div>
-                     </div>
+            <div class="form-group">
+              <div class="radio">
+                <label>
+                  <input name="optradio" ng-model="checkoutRadio" type="radio" value="login" ng-click="loginRegClick()">Login
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input name="optradio" ng-model="checkoutRadio" type="radio" value="register" ng-click="loginRegClick()">Register
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input name="optradio" ng-model="checkoutRadio" type="radio" value="guest">Checkout as guest
+                </label>
+              </div>
+            </div>
+            <hr>
+            <button class="btn btn-sucesses pull-right" type="submit" ng-if="checkoutRadio=='guest'" ng-click="continueGuest()">Continue</button>
+
+            <div ng-if="checkoutRadio=='login'">
+              <h5 class="bold">Login</h5>
+              <form ng-submit="userlogin()">
+                <div class="form-group">
+                  <input class="form-control" placeholder="Email" ng-model="login.email" required type="email">
+                </div>
+                <div class="form-group">
+                  <input class="form-control" placeholder="Password" ng-model="login.password" required type="password">
+                </div>
+                <a class="forgetlink" href="">Forgot password ?</a>
+                <button class="btn btn-sucesses pull-right" type="submit">Login</button>
+              </form>
+              <p class="text-center" style="color:red" ng-show="showInvalidLogin">Invalid Login Credentials</p>
+              <div class="clearfix"></div>
+            </div>
+
+            <div ng-if="checkoutRadio=='register'">
+              <h5 class="bold">Register</h5>
+              <form ng-submit="registeruser()">
+                <div class="form-group">
+                  <input class="form-control" placeholder="Email*" required type="email" ng-model="register.email">
+                </div>
+                <div class="form-group">
+                  <input class="form-control" placeholder="Name" type="text" required ng-model="register.name">
+                </div>
+                <div class="form-group">
+                  <input class="form-control" placeholder="Password*" required type="password" ng-model="register.password">
+                </div>
+                <div class="form-group">
+                  <input class="form-control" placeholder="Re-enter Password*" required type="password" ng-model="register.confirmpassword">
+                </div>
+                <button class="btn btn-sucesses pull-right" type="submit">Register Now</button>
+              </form>
+
+              <p class="text-center" style="color:red" ng-show="showAlreadyRegistered">Email id already registered</p>
+              <p class="text-center" style="color:red" ng-show="passwordNotMatch">Password and confirm password mismatch</p>
+              <div class="clearfix"></div>
+            </div>
+
+            <div ng-if="checkoutRadio=='login' || checkoutRadio=='register'">
+              <div class="text-center padding-vertical bold">- Sign In With -</div>
+              <div class="gogbtn">
+                <div class="row">
+                  <div class="col-md-4">
+                    <a class="btnsoc gplus" href="http://auraart.in/user/loging">
+                      <i class="fa fa-google-plus"></i> Google
+                    </a>
                   </div>
-                  <!-- </form> -->
-               </div>
-               <div class="col-md-4" ng-show="showShipping && !sameAsBilling">
-                  <!-- <form ng-submit=""> -->
-                  <div class="making">
-                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                           <h3 class="panel-title">Shipping Information
+                  <div class="col-md-4">
+                    <a class="btnsoc fbook" href="http://auraart.in/user/loginf">
+                      <i class="fa fa-facebook"></i> Facebook
+                    </a>
+                  </div>
+                  <div class="col-md-4">
+                    <a class="btnsoc twit" href="http://auraart.in/user/logint">
+                      <i class="fa fa-twitter"></i> Twitter
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <form>
+          <div class="col-md-4" ng-show="showShipping">
+
+            <div class="making">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Billing Information</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.name" ng-change="onFieldChange(checked)" placeholder="Full Name*" required type="text">
+                  </div>
+                  <div class="form-group"></div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.email" ng-change="onFieldChange(checked)" placeholder="Email*" required type="email">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.company" placeholder="Company Name" type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.designation" placeholder="Designation" type="text">
+                  </div>
+                  <div class="form-group">
+                    <div class="tel-box">
+                      <input class="form-control tel-country" ng-model="user.billing.countrycode" ng-change="onFieldChange(checked)" placeholder="eg. +91*" required only-digits maxlength="8" type="tel">
+                      <input class="form-control tel-number" ng-model="user.billing.mobileno" ng-change="onFieldChange(checked)" placeholder="Mobile Number*" only-digits maxlength="11" required type="tel">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="tel-box house-box">
+                      <input class="form-control one" ng-model="user.billing.flatno" ng-change="onFieldChange(checked)" placeholder="House No*" required type="text">
+                      <input class="form-control two" ng-model="user.billing.bldgname" ng-change="onFieldChange(checked)" placeholder="Name of Buliding*" required type="text">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.landmark" placeholder="Landmark" type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.street" placeholder="Street" type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.regadd" ng-change="onFieldChange(checked)" placeholder="Locality*" required type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.city" ng-change="onFieldChange(checked)" placeholder="City*" required type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.pincode" ng-change="onFieldChange(checked)" placeholder="Pincode*" only-digits maxlength="6" type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.state" ng-change="onFieldChange(checked)" placeholder="State*" required type="text">
+                  </div>
+                  <div class="form-group">
+                    <select class="form-control" ng-options="country.code as country.name for country in countries" ng-change="onFieldChange(checked)" ng-model="user.billing.country" placeholder="Select county"></select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- </form> -->
+          </div>
+          <div class="col-md-4" ng-show="showShipping && !sameAsBilling">
+            <!-- <form ng-submit=""> -->
+            <div class="making">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Shipping Information
                               <label>
                                 <input ng-model="checked" ng-change="changeAddress(checked)" type="checkbox"> Same as billing
                               </label>
                             </h3>
-                        </div>
-                        <div class="panel-body">
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.shipping.name" ng-change="onFieldChange(checked)" placeholder="First Name*" required type="text">
-                           </div>
-                           <div class="form-group"></div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.shipping.email" ng-change="onFieldChange(checked)" placeholder="Email*" required type="email">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.shipping.company" placeholder="Company" type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.shipping.designation" placeholder="Designation" type="text">
-                           </div>
-                           <div class="form-group">
-                              <div class="tel-box">
-                                 <input class="form-control tel-country" ng-model="user.shipping.countrycode" ng-change="onFieldChange(checked)" placeholder="eg. +91*" only-digits maxlength="8" required type="tel">
-                                 <input class="form-control tel-number" ng-model="user.shipping.mobileno" ng-change="onFieldChange(checked)" placeholder="Mobile Number*" only-digits maxlength="11" required type="tel">
-                              </div>
-                           </div>
-                           <div class="form-group">
-                              <div class="tel-box house-box">
-                                 <input class="form-control one" ng-model="user.shipping.flatno" ng-change="onFieldChange(checked)" placeholder="House No*" required type="text">
-                                 <input class="form-control two" ng-model="user.shipping.bldgname" ng-change="onFieldChange(checked)" placeholder="Name of Buliding*" required type="text">
-                              </div>
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.shipping.landmark" placeholder="Landmark" type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.shipping.street" placeholder="Street" type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.shipping.regadd" ng-change="onFieldChange(checked)" placeholder="Locality*" required type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.shipping.city" ng-change="onFieldChange(checked)" placeholder="City*" required type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.shipping.pincode" ng-change="onFieldChange(checked)" placeholder="Pincode*" only-digits maxlength="6" required type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.shipping.state" ng-change="onFieldChange(checked)" placeholder="State*" required type="text">
-                           </div>
-                           <div class="form-group">
-                              <select class="form-control" ng-options="country.code as country.name for country in countries" ng-change="onFieldChange(checked)" ng-model="user.shipping.country" ng-change="viewCart(checked)" placeholder="select Country"></select>
-                           </div>
-                        </div>
-                     </div>
+                </div>
+                <div class="panel-body">
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.shipping.name" ng-change="onFieldChange(checked)" placeholder="First Name*" required type="text">
                   </div>
-                  <!-- </form> -->
-               </div>
-               <div class="col-md-4" ng-show="sameAsBilling">
-                  <!-- <form ng-submit=""> -->
-                  <div class="making">
-                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                           <h3 class="panel-title">Shipping Information
+                  <div class="form-group"></div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.shipping.email" ng-change="onFieldChange(checked)" placeholder="Email*" required type="email">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.shipping.company" placeholder="Company" type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.shipping.designation" placeholder="Designation" type="text">
+                  </div>
+                  <div class="form-group">
+                    <div class="tel-box">
+                      <input class="form-control tel-country" ng-model="user.shipping.countrycode" ng-change="onFieldChange(checked)" placeholder="eg. +91*" only-digits maxlength="8" required type="tel">
+                      <input class="form-control tel-number" ng-model="user.shipping.mobileno" ng-change="onFieldChange(checked)" placeholder="Mobile Number*" only-digits maxlength="11" required type="tel">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="tel-box house-box">
+                      <input class="form-control one" ng-model="user.shipping.flatno" ng-change="onFieldChange(checked)" placeholder="House No*" required type="text">
+                      <input class="form-control two" ng-model="user.shipping.bldgname" ng-change="onFieldChange(checked)" placeholder="Name of Buliding*" required type="text">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.shipping.landmark" placeholder="Landmark" type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.shipping.street" placeholder="Street" type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.shipping.regadd" ng-change="onFieldChange(checked)" placeholder="Locality*" required type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.shipping.city" ng-change="onFieldChange(checked)" placeholder="City*" required type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.shipping.pincode" ng-change="onFieldChange(checked)" placeholder="Pincode*" only-digits maxlength="6" required type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.shipping.state" ng-change="onFieldChange(checked)" placeholder="State*" required type="text">
+                  </div>
+                  <div class="form-group">
+                    <select class="form-control" ng-options="country.code as country.name for country in countries" ng-change="onFieldChange(checked)" ng-model="user.shipping.country" ng-change="viewCart(checked)" placeholder="select Country"></select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- </form> -->
+          </div>
+          <div class="col-md-4" ng-show="sameAsBilling">
+            <!-- <form ng-submit=""> -->
+            <div class="making">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Shipping Information
                              <label>
                                 <input ng-model="checked" ng-change="changeAddress(checked)" type="checkbox"> Same as billing
                              </label>
                            </h3>
-                        </div>
-                        <div class="panel-body">
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.name" ng-change="onFieldChange(checked)" placeholder="First Name*" required type="text">
-                           </div>
-                           <div class="form-group"></div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.email" ng-change="onFieldChange(checked)" placeholder="Email*" required type="email">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.company" placeholder="Company" type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.designation" placeholder="Designation" type="text">
-                           </div>
-                           <div class="form-group">
-                              <div class="tel-box">
-                                 <input class="form-control tel-country" ng-model="user.billing.countrycode" ng-change="onFieldChange(checked)" placeholder="eg. +91*" required type="tel">
-                                 <input class="form-control tel-number" ng-model="user.billing.mobileno" ng-change="onFieldChange(checked)" placeholder="Mobile Number*" required type="tel">
-                              </div>
-                           </div>
-                           <div class="form-group">
-                              <div class="tel-box house-box">
-                                 <input class="form-control one" ng-model="user.billing.flatno" ng-change="onFieldChange(checked)" placeholder="House No*" required type="text">
-                                 <input class="form-control two" ng-model="user.billing.bldgname" ng-change="onFieldChange(checked)" placeholder="Name of Buliding*" required type="text">
-                              </div>
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.landmark" placeholder="Landmark" type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.street" placeholder="Street" type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.regadd" ng-change="onFieldChange(checked)" placeholder="Locality*" required type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.city" ng-change="onFieldChange(checked)" placeholder="City*" required type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.pincode" ng-change="onFieldChange(checked)" placeholder="Pincode*" required type="text">
-                           </div>
-                           <div class="form-group">
-                              <input class="form-control" ng-model="user.billing.state" ng-change="onFieldChange(checked)" placeholder="State*" required type="text">
-                           </div>
-                           <div class="form-group">
-                              <select class="form-control" ng-options="country.code as country.name for country in countries" ng-change="onFieldChange(checked)" ng-model="user.billing.country" value=""></select>
-                           </div>
-                        </div>
-                     </div>
+                </div>
+                <div class="panel-body">
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.name" ng-change="onFieldChange(checked)" placeholder="First Name*" required type="text">
                   </div>
-                  <!-- </form> -->
-               </div>
-
-            </form>
-
-         </div>
-         <button class="btn btn-sucesses" type="submit" ng-show="showShippingContinue" ng-click="viewCart(checked)">Continue</button>
-
-         <div class="clear-fix"></div>
-
-
-         <!-- <form ng-submit="toPayment();"> -->
-         <div class="making" ng-if="showCartEnable">
-            <div class="panel panel-default">
-               <div class="panel-heading">
-                  <h3 class="panel-title">Order Review</h3>
-               </div>
-               <div class="panel-body">
-                  <div class="cart check">
-                     <table class="table table-hover">
-                        <thead>
-                           <tr>
-                              <th>Artwork Image</th>
-                              <th>Artwork No</th>
-                              <th>Artist Name</th>
-                              <th>Title</th>
-                              <th>Size</th>
-                              <th>Price</th>
-                              <th>Form</th>
-                              <th>Action</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <!-- ngRepeat: singlecart in cart -->
-                           <tr class="cart-details" ng-repeat="artwork in cartItems | orderBy : 'artwork.srno'">
-                              <td class="cart-img">
-                                 <img class="img-box" ng-src="{{artwork.artwork.image[0] | uploadthumbnail}}">
-                              </td>
-                              <td>
-                                 <span class="mobile">Artwork No</span> {{artwork.artwork.imageno}}
-                              </td>
-                              <td>
-                                 <span class="mobile">Artist Name</span> {{artwork.name}}
-                              </td>
-                              <td>
-                                 <span class="mobile">Title</span> {{artwork.artwork.name}}
-                              </td>
-                              <td>
-                                 <span class="mobile">Size</span>
-                                 <!-- {{artwork.artwork.dim}} -->
-                                 {{artwork.artwork|makesizestr}}
-                              </td>
-                              <td>
-                                 <span class="mobile">Price</span> Rs {{artwork.artwork.gprice|number:0}} / $ {{artwork.artwork.gprice|indollars}}
-                              </td>
-                              <td>
-                                 <span class="mobile">Form</span>
-                                 <div class="form-group center-radio text-left">
-                                    <div class="radio">
-                                       <label>
-                                          <input name="{{artwork.artwork.formname}}" ng-change="calculateShipping(artwork.artwork)" ng-model="artwork.artwork.form" type="radio" value="rolled">Rolled
-                                       </label>
-                                    </div>
-                                    <div class="radio">
-                                       <label>
-                                          <input name="{{artwork.artwork.formname}}" ng-change="calculateShipping(artwork.artwork)" ng-model="artwork.artwork.form" type="radio" value="framed">Framed
-                                       </label>
-                                    </div>
-                                 </div>
-                              </td>
-                              <td>
-                                 <span class="mobile">Action</span>
-                                 <i class="fa fa-trash-o" ng-click="removeFromCart(artwork.artwork._id);"></i>
-                              </td>
-                           </tr>
-                           <!-- end ngRepeat: singlecart in cart -->
-                        </tbody>
-                     </table>
-                     <div class="padding-bottom"></div>
-                     <div class="row">
-                        <div class="col-md-8">
-                           <span class="bold">Note:</span> Request you to select in what Form (Rolled or Framed) you would like to receive the Paintings. We offer free shipping for Paintings in Rolled condition across India, paintings in Framed condition
-                           within Mumbai and Sculptures within Mumbai. For Framed Paintings and Sculptures shipped outside Mumbai, we charge an estimated amount which is likely to result in a reasonable recovery of packing and shipping costs.
-                        </div>
-                        <div class="col-md-4">
-                           <div class="form-group">
-                              <label>Comments</label>
-                              <textarea rows="3" class="form-control" ng-model="user.comment" placeholder="Please enter if any comments"></textarea>
-                           </div>
-                        </div>
-                     </div>
-                     <hr>
-                     <div class="col-md-offset-8 col-md-4">
-
-                        <div class="padding-bottom">
-                           <div class="row">
-                              <div class="col-xs-6 font-color2 text-right bold">
-                                 <p>Sub Total:</p>
-                                 <p>VAT:</p>
-                                 <p>Packing &amp; Shipping:</p>
-                                 <p>Grand Total:</p>
-                              </div>
-                              <div class="col-xs-6">
-                                 <p>Rs {{totalCartPrice | number:0}} / ${{totalCartPrice|indollars}}</p>
-                                 <p>Rs {{vat | number:0}} / ${{vat | indollars}}</p>
-                                 <p>Rs {{shippingCost | number:0}} / ${{shippingCost | indollars}}</p>
-                                 <p>Rs {{totalCartPrice+vat+shippingCost | number:0}} / ${{totalCartPrice+vat+shippingCost|indollars}}</p>
-                              </div>
-                           </div>
-                        </div>
-
-                     </div>
-                     <div class="text-center" ng-show="showPinErr">
-                        <p>Please enter a valid pincode</p>
-                     </div>
-                     <div class="text-center" ng-show="showMobErr">
-                        <p>Please enter a valid contact number</p>
-                     </div>
-                     <div class="col-md-offset-4 col-md-8">
-                        <button class="btn btn-cont pull-right" type="submit" ng-click="toPayment(checked)">Proceed &amp; Pay</button>
-                     </div>
-                     <div style="display:none;">
-                        <form action="payment.php" method="post" name="payuForm">
-                           <input type="hidden" name="key" value="3gqoHz" />
-                           <input type="text" name="txnid" value="" ng-model="user.orderid1" />
-                           <table>
-                              <tr>
-                                 <td><b>Mandatory Parameters</b></td>
-                              </tr>
-                              <tr>
-                                 <td>Amount: </td>
-                                 <td>
-                                    <input name="amount" value="" ng-model="user.grantTotal" />
-                                 </td>
-                                 <td>First Name: </td>
-                                 <td>
-                                    <input name="firstname" id="firstname" value="" ng-model="user.billing.name" />
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>Email: </td>
-                                 <td>
-                                    <input name="email" id="email" value="" ng-model="user.billing.email" />
-                                 </td>
-                                 <td>Phone: </td>
-                                 <td>
-                                    <input name="phone" value="" ng-model="user.billing.mobileno" />
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>Product Info: </td>
-                                 <td colspan="3">
-                                    <textarea name="productinfo" value="Purchase of artwork"></textarea>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>Success URI: </td>
-                                 <td colspan="3">
-                                    <!-- <input name="surl" value="http://192.168.0.122:81/order/payU" size="64" /> -->
-                                    <input name="surl" value="http://auraart.in/order/payU" size="64" />
-                                    <!-- <input name="surl" value="http://www.auraart.in/manjhi/payumoney/success.php" size="64" /> -->
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>Failure URI: </td>
-                                 <td colspan="3">
-                                    <!-- <input name="furl" value="http://192.168.0.122:81/order/payU" size="64" /> -->
-                                    <input name="furl" value="http://auraart.in/order/payU" size="64" />
-                                    <!-- <input name="furl" value="http://www.auraart.in/manjhi/payumoney/failure.php" size="64" /> -->
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>UDF1: </td>
-                                 <td>
-                                    <input name="udf1" value="" ng-model="user.orderid2" />
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td colspan="3">
-                                    <input type="hidden" name="service_provider" value="" size="64" />
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td colspan="4">
-                                    <input type="submit" value="Submit" />
-                                 </td>
-                              </tr>
-                           </table>
-                        </form>
-                     </div>
+                  <div class="form-group"></div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.email" ng-change="onFieldChange(checked)" placeholder="Email*" required type="email">
                   </div>
-               </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.company" placeholder="Company" type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.designation" placeholder="Designation" type="text">
+                  </div>
+                  <div class="form-group">
+                    <div class="tel-box">
+                      <input class="form-control tel-country" ng-model="user.billing.countrycode" ng-change="onFieldChange(checked)" placeholder="eg. +91*" required type="tel">
+                      <input class="form-control tel-number" ng-model="user.billing.mobileno" ng-change="onFieldChange(checked)" placeholder="Mobile Number*" required type="tel">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="tel-box house-box">
+                      <input class="form-control one" ng-model="user.billing.flatno" ng-change="onFieldChange(checked)" placeholder="House No*" required type="text">
+                      <input class="form-control two" ng-model="user.billing.bldgname" ng-change="onFieldChange(checked)" placeholder="Name of Buliding*" required type="text">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.landmark" placeholder="Landmark" type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.street" placeholder="Street" type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.regadd" ng-change="onFieldChange(checked)" placeholder="Locality*" required type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.city" ng-change="onFieldChange(checked)" placeholder="City*" required type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.pincode" ng-change="onFieldChange(checked)" placeholder="Pincode*" required type="text">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" ng-model="user.billing.state" ng-change="onFieldChange(checked)" placeholder="State*" required type="text">
+                  </div>
+                  <div class="form-group">
+                    <select class="form-control" ng-options="country.code as country.name for country in countries" ng-change="onFieldChange(checked)" ng-model="user.billing.country" value=""></select>
+                  </div>
+                </div>
+              </div>
             </div>
-         </div>
-         <!-- </form> -->
+            <!-- </form> -->
+          </div>
+
+        </form>
+
       </div>
-   </div>
+      <button class="btn btn-sucesses" type="submit" ng-show="showShippingContinue" ng-click="viewCart(checked)">Continue</button>
+
+      <div class="clear-fix"></div>
+
+
+      <!-- <form ng-submit="toPayment();"> -->
+      <div class="making" ng-if="showCartEnable">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Order Review</h3>
+          </div>
+          <div class="panel-body">
+            <div class="cart check">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Artwork Image</th>
+                    <th>Artwork No</th>
+                    <th>Artist Name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th>Price</th>
+                    <th>Form</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- ngRepeat: singlecart in cart -->
+                  <tr class="cart-details" ng-repeat="artwork in cartItems | orderBy : 'artwork.srno'">
+                    <td class="cart-img">
+                      <img class="img-box" ng-src="{{artwork.artwork.image[0] | uploadthumbnail}}">
+                    </td>
+                    <td>
+                      <span class="mobile">Artwork No</span> {{artwork.artwork.imageno}}
+                    </td>
+                    <td>
+                      <span class="mobile">Artist Name</span> {{artwork.name}}
+                    </td>
+                    <td>
+                      <span class="mobile">Title</span> {{artwork.artwork.name}}
+                    </td>
+                    <td>
+                      <span class="mobile">Size</span>
+                      <!-- {{artwork.artwork.dim}} -->
+                      {{artwork.artwork|makesizestr}}
+                    </td>
+                    <td>
+                      <span class="mobile">Price</span> Rs {{artwork.artwork.gprice|number:0}} / $ {{artwork.artwork.gprice|indollars}}
+                    </td>
+                    <td>
+                      <span class="mobile">Form</span>
+                      <div class="form-group center-radio text-left">
+                        <div class="radio">
+                          <label>
+                            <input name="{{artwork.artwork.formname}}" ng-change="calculateShipping(artwork.artwork)" ng-model="artwork.artwork.form" type="radio" value="rolled">Rolled
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label>
+                            <input name="{{artwork.artwork.formname}}" ng-change="calculateShipping(artwork.artwork)" ng-model="artwork.artwork.form" type="radio" value="framed">Framed
+                          </label>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="mobile">Action</span>
+                      <i class="fa fa-trash-o" ng-click="removeFromCart(artwork.artwork._id);"></i>
+                    </td>
+                  </tr>
+                  <!-- end ngRepeat: singlecart in cart -->
+                </tbody>
+              </table>
+              <div class="padding-bottom"></div>
+              <div class="row">
+                <div class="col-md-8">
+                  <span class="bold">Note:</span> Request you to select in what Form (Rolled or Framed) you would like to receive the Paintings. We offer free shipping for Paintings in Rolled condition across India, paintings in Framed condition within
+                  Mumbai and Sculptures within Mumbai. For Framed Paintings and Sculptures shipped outside Mumbai, we charge an estimated amount which is likely to result in a reasonable recovery of packing and shipping costs.
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Comments</label>
+                    <textarea rows="3" class="form-control" ng-model="user.comment" placeholder="Please enter if any comments"></textarea>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="col-md-offset-8 col-md-4">
+
+                <div class="padding-bottom">
+                  <div class="row">
+                    <div class="col-xs-6 font-color2 text-right bold">
+                      <p>Sub Total:</p>
+                      <p>VAT:</p>
+                      <p>Packing &amp; Shipping:</p>
+                      <p>Grand Total:</p>
+                    </div>
+                    <div class="col-xs-6">
+                      <p>Rs {{totalCartPrice | number:0}} / ${{totalCartPrice|indollars}}</p>
+                      <p>Rs {{vat | number:0}} / ${{vat | indollars}}</p>
+                      <p>Rs {{shippingCost | number:0}} / ${{shippingCost | indollars}}</p>
+                      <p>Rs {{totalCartPrice+vat+shippingCost | number:0}} / ${{totalCartPrice+vat+shippingCost|indollars}}</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="text-center" ng-show="showPinErr">
+                <p>Please enter a valid pincode</p>
+              </div>
+              <div class="text-center" ng-show="showMobErr">
+                <p>Please enter a valid contact number</p>
+              </div>
+              <div class="col-md-offset-4 col-md-8">
+                <button class="btn btn-cont pull-right" type="submit" ng-click="toPayment(checked)">Proceed &amp; Pay</button>
+              </div>
+              <div style="display:none;">
+                <form action="http://aura--art.appspot.com/payment.php" method="post" name="payuForm">
+                  <input type="hidden" name="key" value="3gqoHz" />
+                  <input type="text" name="txnid" value="" ng-model="user.orderid1" />
+                  <table>
+                    <tr>
+                      <td><b>Mandatory Parameters</b></td>
+                    </tr>
+                    <tr>
+                      <td>Amount: </td>
+                      <td>
+                        <input name="amount" value="" ng-model="user.grantTotal" />
+                      </td>
+                      <td>First Name: </td>
+                      <td>
+                        <input name="firstname" id="firstname" value="" ng-model="user.billing.name" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Email: </td>
+                      <td>
+                        <input name="email" id="email" value="" ng-model="user.billing.email" />
+                      </td>
+                      <td>Phone: </td>
+                      <td>
+                        <input name="phone" value="" ng-model="user.billing.mobileno" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Product Info: </td>
+                      <td colspan="3">
+                        <textarea name="productinfo" value="Purchase of artwork"></textarea>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Success URI: </td>
+                      <td colspan="3">
+                        <!-- <input name="surl" value="http://192.168.0.122:81/order/payU" size="64" /> -->
+                        <input name="surl" value="http://auraart.in/order/payU" size="64" />
+                        <!-- <input name="surl" value="http://www.auraart.in/manjhi/payumoney/success.php" size="64" /> -->
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Failure URI: </td>
+                      <td colspan="3">
+                        <!-- <input name="furl" value="http://192.168.0.122:81/order/payU" size="64" /> -->
+                        <input name="furl" value="http://auraart.in/order/payU" size="64" />
+                        <!-- <input name="furl" value="http://www.auraart.in/manjhi/payumoney/failure.php" size="64" /> -->
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>UDF1: </td>
+                      <td>
+                        <input name="udf1" value="" ng-model="user.orderid2" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <input type="hidden" name="service_provider" value="" size="64" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="4">
+                        <input type="submit" value="Submit" />
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- </form> -->
+    </div>
+  </div>
