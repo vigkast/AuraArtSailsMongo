@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-    save: function(req, res) {
+    save: function (req, res) {
         if (req.body) {
             if (req.body._id) {
                 if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
@@ -22,7 +22,7 @@ module.exports = {
             }
 
             function user() {
-                var print = function(data) {
+                var print = function (data) {
                     res.json(data);
                 }
                 Projects.save(req.body, print);
@@ -34,10 +34,10 @@ module.exports = {
             });
         }
     },
-    delete: function(req, res) {
+    delete: function (req, res) {
         if (req.body) {
             if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function(data) {
+                var print = function (data) {
                     res.json(data);
                 }
                 Projects.delete(req.body, print);
@@ -54,16 +54,16 @@ module.exports = {
             });
         }
     },
-    find: function(req, res) {
+    find: function (req, res) {
         function callback(data) {
             res.json(data);
         };
         Projects.find(req.body, callback);
     },
-    findone: function(req, res) {
+    findone: function (req, res) {
         if (req.body) {
             if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function(data) {
+                var print = function (data) {
                     res.json(data);
                 }
                 Projects.findone(req.body, print);
@@ -80,7 +80,7 @@ module.exports = {
             });
         }
     },
-    findlimited: function(req, res) {
+    findlimited: function (req, res) {
         if (req.body) {
             if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
                 function callback(data) {
@@ -99,5 +99,25 @@ module.exports = {
                 comment: "Please provide parameters"
             });
         }
-    }
+    },
+    findDrop: function (req, res) {
+        if (req.body) {
+            if (req.body.search && req.body.search != "") {
+                var print = function (data) {
+                    res.json(data);
+                }
+                Projects.findDrop(req.body, print);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
 };
