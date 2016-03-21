@@ -17147,6 +17147,7 @@ firstapp.directive('fancyboxBox', function($document) {
             target.fancybox({
                 openEffect: 'fade',
                 closeEffect: 'fade',
+                padding: '0',
                 closeBtn: true,
                 helpers: {
                     media: {}
