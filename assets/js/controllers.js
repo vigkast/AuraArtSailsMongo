@@ -5770,15 +5770,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.artworks = $.jStorage.get("searchResults");
         lastpage = $scope.artworks.totalpages;
         _.each($scope.artworks.data, function(n) {
-            if (n.artwork) {
-                _.each(n.artwork, function(m) {
-                    var item = {};
-                    item._id = n._id;
-                    item.name = n.name;
-                    item.artwork = m;
-                    $scope.totalartcont.push(item);
-                })
-            }
+          $scope.totalartcont.push(n);
+            // if (n.artwork) {
+            //     _.each(n.artwork, function(m) {
+            //       console.log(m);
+            //         var item = {};
+            //         item._id = n._id;
+            //         item.name = n.name;
+            //         item.artwork = m;
+            //         $scope.totalartcont.push(item);
+            //     })
+            // }
         })
         $scope.totalartcont = _.uniq($scope.totalartcont, 'artwork._id');
         console.log($scope.totalartcont);
@@ -5794,15 +5796,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     lastpage = data.totalpages;
                     $scope.artworks = data;
                     _.each($scope.artworks.data, function(n) {
-                        if (n.artwork) {
-                            _.each(n.artwork, function(m) {
-                                var item = {};
-                                item._id = n._id;
-                                item.name = n.name;
-                                item.artwork = m;
-                                $scope.totalartcont.push(item);
-                            })
-                        }
+                      $scope.totalartcont.push(n);
+                        // if (n.artwork) {
+                        //     _.each(n.artwork, function(m) {
+                        //         var item = {};
+                        //         item._id = n._id;
+                        //         item.name = n.name;
+                        //         item.artwork = m;
+                        //         $scope.totalartcont.push(item);
+                        //     })
+                        // }
                     })
                     $scope.totalartcont = _.uniq($scope.totalartcont, 'artwork._id');
                 }

@@ -84,7 +84,7 @@
                      </ui-select>
                      <label class="above">Style</label>
                      <ui-select ng-model="filterby.style" on-select="setStyleSearch($select);" tagging tagging-label="false">
-                        <ui-select-match class="text-capitalize" placeholder="Eg.  Abstract, Figurative">{{filterby.style}}</ui-select-match>
+                        <ui-select-match class="text-capitalize" placeholder="Eg. Abstract, Figurative">{{filterby.style}}</ui-select-match>
                         <ui-select-choices refresh-delay="0" refresh="getStyleDropdown($select.search)" repeat="person in allStyle track by person._id">
                            <div ng-bind-html="person.name| addhighlight: $select.search"></div>
                         </ui-select-choices>

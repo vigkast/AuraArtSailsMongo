@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="row" infinite-scroll='addMoreItems();' infinite-scroll-distance="0" infinite-scroll-disabled="shouldscroll">
-            <div class="col-xs-20" ng-repeat="totalartconts in totalartcont track by $index | orderBy : 'artwork.srno'">
+            <div class="col-xs-20" ng-repeat="totalartconts in totalartcont track by $index">
                 <div class="aristimg-grp1">
                     <div class="relative">
                         <a ng-click="goToDetailPage(totalartconts.artwork);">

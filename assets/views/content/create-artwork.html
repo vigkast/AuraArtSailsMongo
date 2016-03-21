@@ -1,175 +1,177 @@
 <div class="create-artwork cont-create compact-form">
-   <div class="container">
-      <div class="padding-more">
-         <h4 class="head-team">Upload Artwork</h4>
-         <h4 class="head-team" ng-if="disableSubmit==true">In Review</h4>
-         <div class="row">
-            <div class="col-md-12">
-               <form data-ng-submit="createartwork()">
-                  <section class="panel panel-default" style="border-radius:0px;">
-                     <div class="panel-body">
-                        <div class="row">
-                           <div class="col-md-2">
-                              <div class="form-group">
-                                 <label>Sr. No.</label>
-                                 <input class="form-control" ng-model="artwork.srno" readonly type="text">
-                              </div>
-                           </div>
-                           <div class="col-md-3">
-                              <div class="form-group">
-                                 <label>Order of Display</label>
-                                 <input class="form-control" ng-model="artwork.order" only-digits type="text">
-                              </div>
-                           </div>
-                           <div class="col-md-7">
-                              <div class="form-group">
-                                 <label>Artwork Type / Category</label>
-                                 <select class="form-control" ng-change="isSculpture(artwork.type);" ng-model="artwork.type" required>
-                                    <option value="Paintings">Paintings</option>
-                                    <option value="Sculptures">Sculptures</option>
-                                    <option value="Photographs">Photographs</option>
-                                    <option value="Prints">Prints</option>
-                                 </select>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-md-4">
-                              <div class="form-group">
-                                 <label>Select Artist
-                                    <a class="golden-slim" href="#/register-artist">(Register Artist)</a>
-                                 </label>
-                                 <div class="form-group">
-                                    <ui-select ng-model="artwork.user" on-select="setSearch($select);" tagging tagging-label="false" required>
-                                       <ui-select-match class="text-capitalize" placeholder="Select Artist">{{variable}}</ui-select-match>
-                                       <ui-select-choices refresh-delay="0" refresh="getDropdown($select.search)" repeat="person in allartist track by person._id">
-                                          <div ng-bind-html="person.name| addhighlight: $select.search"></div>
-                                       </ui-select-choices>
-                                    </ui-select>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-md-4" id="artTitle">
-                              <div class="form-group">
-                                 <label>Title</label>
-                                 <input capitalize-first class="form-control" ng-model="artwork.name" placeholder="Title" type="text">
-                                 <!-- <p >Please Select Artist</p> -->
-                                 <label style="color: red;font-weight: 500;" ng-show="showProceedTitle">Press Submit to proceed with this Title.</label>
-                              </div>
-                           </div>
-                           <div class="col-md-4">
-                              <div class="form-group ui-selecter">
-                                 <label>Medium</label>
-                                 <div class="form-group">
-                                    <ui-select multiple ng-model="artwork.subtype" on-select="ismatch(artwork.subtype,$select);" tagging tagging-label="false">
-                                       <ui-select-match placeholder="Select Artwork Medium">{{$item.name}}</ui-select-match>
-                                       <ui-select-choices refresh-delay="0" refresh="refreshArtMedum($select.search,artwork.type)" repeat="person in artmedium track by person._id">
-                                          <div ng-bind-html="person.name"></div>
-                                       </ui-select-choices>
-                                    </ui-select>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <h4 class="title-color">Size</h4>
-                        <hr>
-                        <div class="row">
-                           <div class="col-md-3">
-                              <div class="form-group">
-                                 <label>Height (inches)</label>
-                                 <input class="form-control" ng-model="artwork.height" placeholder="Height" required type="text" ng-change="calcsq();">
-                              </div>
-                           </div>
-                           <div class="col-md-3">
-                              <div class="form-group">
-                                 <label>Width (inches)</label>
-                                 <input class="form-control" ng-model="artwork.width" placeholder="Width" required type="text" ng-change="calcsq();">
-                              </div>
-                           </div>
-                           <div class="col-md-3" ng-show="showBreadth">
-                              <div class="form-group">
-                                 <label>Depth (inches)</label>
-                                 <input class="form-control" ng-model="artwork.breadth" placeholder="Depth" type="text" ng-change="calcsq();">
-                              </div>
-                           </div>
-                           <div class="col-md-3" ng-show="showBreadth">
-                              <div class="form-group">
-                                 <label>Weight (kgs)</label>
-                                 <input class="form-control" ng-model="artwork.weight" placeholder="Weight" type="text">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-md-9">
-                              <div class="form-group">
-                                 <label>Other Details</label>
-                                 <input class="form-control" ng-model="artwork.dim" placeholder="{{otherDetails}}" type="text">
-                              </div>
-                           </div>
-                           <div class="col-md-3">
-                              <div class="form-group">
-                                 <label>Year of Creation</label>
-                                 <input class="form-control" ng-model="artwork.yoc" placeholder="Year" type="text" only-digits ng-trim="false">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-md-4">
-                              <div class="form-group">
-                                 <label>Gallery Price (in Rs)</label>
-                                 <input class="form-control" ng-change="calculateprice(2);calcsq();" ng-model="artwork.gprice" placeholder="Gallery Price" type="text" only-digits ng-trim="false">
-                              </div>
-                           </div>
-                           <div class="col-md-4">
-                              <div class="form-group">
-                                 <label>Gallery Commission (in %)</label>
-                                 <input class="form-control" ng-change="calculateprice(2);calcsq();" ng-model="artwork.comm" placeholder="Gallery Commission" type="text" only-digits ng-trim="false">
-                              </div>
-                           </div>
-                           <div class="col-md-4">
-                              <div class="form-group">
-                                 <label>Artist Price (in Rs)</label>
-                                 <input class="form-control" ng-change="calculateprice(1);calcsq();" ng-model="artwork.price" placeholder="Artist Price" type="text" only-digits ng-trim="false" readonly>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-md-4">
-                              <div class="form-group">
-                                 <label class="above">Color</label>
-                                 <ui-select multiple ng-change="ismatchmed(artwork.color,$select,1);" ng-model="artwork.color" tagging tagging-label="false">
-                                    <ui-select-match placeholder="Select Color">{{$item.name}}</ui-select-match>
-                                    <ui-select-choices refresh-delay="0" refresh="refreshTag($select.search,artwork.type)" repeat="person in tag track by person._id">
-                                       <div ng-bind-html="person.name"></div>
-                                    </ui-select-choices>
-                                 </ui-select>
-                              </div>
-                           </div>
-                           <div class="col-md-4">
-                              <div class="form-group">
-                                 <label class="above">Style</label>
-                                 <ui-select multiple ng-change="ismatchmed(artwork.style,$select,2);" ng-model="artwork.style" tagging tagging-label="false">
-                                    <ui-select-match placeholder="Select Style">{{$item.name}}</ui-select-match>
-                                    <ui-select-choices refresh-delay="0" refresh="refreshTag($select.search,artwork.type)" repeat="person in tag track by person._id">
-                                       <div ng-bind-html="person.name"></div>
-                                    </ui-select-choices>
-                                 </ui-select>
-                              </div>
-                           </div>
-                           <div class="col-md-4">
-                              <div class="form-group">
-                                 <label class="above">Elements</label>
-                                 <ui-select multiple ng-change="ismatchmed(artwork.elements,$select,3);" ng-model="artwork.elements" tagging tagging-label="false">
-                                    <ui-select-match placeholder="Select Elements">{{$item.name}}</ui-select-match>
-                                    <ui-select-choices refresh-delay="0" refresh="refreshTag($select.search,artwork.type)" repeat="person in tag track by person._id">
-                                       <div ng-bind-html="person.name"></div>
-                                    </ui-select-choices>
-                                 </ui-select>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <!-- <div class="col-md-4">
+    <div class="container">
+        <div class="padding-more">
+            <h4 class="head-team">Upload Artwork</h4>
+            <h4 class="head-team" ng-if="disableSubmit==true">In Review</h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <form data-ng-submit="createartwork()">
+                        <section class="panel panel-default" style="border-radius:0px;">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Sr. No.</label>
+                                            <input class="form-control" ng-model="artwork.srno" readonly type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Order of Display</label>
+                                            <input class="form-control" ng-model="artwork.order" only-digits type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="form-group">
+                                            <label>Artwork Type / Category</label>
+                                            <select class="form-control" ng-change="isSculpture(artwork.type);" ng-model="artwork.type" required>
+                                                <option value="Paintings">Paintings</option>
+                                                <option value="Sculptures">Sculptures</option>
+                                                <option value="Photographs">Photographs</option>
+                                                <option value="Prints">Prints</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Select Artist
+                                                <a class="golden-slim" href="#/register-artist">(Register Artist)</a>
+                                            </label>
+                                            <div class="form-group">
+                                                <ui-select ng-model="artwork.user" on-select="setSearch($select);" tagging tagging-label="false" required>
+                                                    <ui-select-match class="text-capitalize" placeholder="Select Artist">{{variable}}</ui-select-match>
+                                                    <ui-select-choices refresh-delay="0" refresh="getDropdown($select.search)" repeat="person in allartist track by person._id">
+                                                        <div ng-bind-html="person.name| addhighlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" id="artTitle">
+                                        <div class="form-group">
+                                            <label>Title</label>
+                                            <input capitalize-first class="form-control" ng-model="artwork.name" placeholder="Title" type="text">
+                                            <!-- <p >Please Select Artist</p> -->
+                                            <label style="color: red;font-weight: 500;" ng-show="showProceedTitle">Press Submit to proceed with this Title.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group ui-selecter">
+                                            <label>Medium</label>
+                                            <div class="form-group">
+                                                <ui-select multiple ng-model="artwork.subtype" on-select="ismatch(artwork.subtype,$select);" tagging tagging-label="false">
+                                                    <ui-select-match placeholder="Select Artwork Medium">{{$item.name}}</ui-select-match>
+                                                    <ui-select-choices refresh-delay="0" refresh="refreshArtMedum($select.search,artwork.type)" repeat="person in artmedium track by person._id">
+                                                        <div ng-bind-html="person.name"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="title-color">Size</h4>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Height (inches)</label>
+                                            <input class="form-control" ng-model="artwork.height" placeholder="Height" required type="text" ng-change="calcsq();">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Width (inches)</label>
+                                            <input class="form-control" ng-model="artwork.width" placeholder="Width" required type="text" ng-change="calcsq();">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" ng-show="showBreadth">
+                                        <div class="form-group">
+                                            <label>Depth (inches)</label>
+                                            <input class="form-control" ng-model="artwork.breadth" placeholder="Depth" type="text" ng-change="calcsq();">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" ng-show="showBreadth">
+                                        <div class="form-group">
+                                            <label>Weight (kgs)</label>
+                                            <input class="form-control" ng-model="artwork.weight" placeholder="Weight" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <label>Other Details</label>
+                                            <input class="form-control" ng-model="artwork.dim" placeholder="{{otherDetails}}" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Year of Creation</label>
+                                            <input class="form-control" ng-model="artwork.yoc" placeholder="Year" type="text" only-digits ng-trim="false">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Gallery Price (in Rs)</label>
+                                            <input class="form-control" ng-change="calculateprice(2);calcsq();" ng-model="artwork.gprice" placeholder="Gallery Price" type="text" only-digits ng-trim="false">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Gallery Commission (in %)</label>
+                                            <input class="form-control" ng-change="calculateprice(2);calcsq();" ng-model="artwork.comm" placeholder="Gallery Commission" type="text" only-digits ng-trim="false">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Artist Price (in Rs)</label>
+                                            <input class="form-control" ng-change="calculateprice(1);calcsq();" ng-model="artwork.price" placeholder="Artist Price" type="text" only-digits ng-trim="false" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="title-color">Keywords</h4>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="above">Color</label>
+                                            <ui-select multiple ng-change="ismatchmed(artwork.color,$select,1);" ng-model="artwork.color" tagging tagging-label="false">
+                                                <ui-select-match placeholder="Eg. Red, Blue, White, Black">{{$item.name}}</ui-select-match>
+                                                <ui-select-choices refresh-delay="0" refresh="refreshTag($select.search,artwork.type)" repeat="person in tag track by person._id">
+                                                    <div ng-bind-html="person.name"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="above">Style</label>
+                                            <ui-select multiple ng-change="ismatchmed(artwork.style,$select,2);" ng-model="artwork.style" tagging tagging-label="false">
+                                                <ui-select-match placeholder="Eg. Abstract, Figurative">{{$item.name}}</ui-select-match>
+                                                <ui-select-choices refresh-delay="0" refresh="refreshTag($select.search,artwork.type)" repeat="person in tag track by person._id">
+                                                    <div ng-bind-html="person.name"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="above">Elements</label>
+                                            <ui-select multiple ng-change="ismatchmed(artwork.elements,$select,3);" ng-model="artwork.elements" tagging tagging-label="false">
+                                                <ui-select-match placeholder="Eg. Buddha, Bird">{{$item.name}}</ui-select-match>
+                                                <ui-select-choices refresh-delay="0" refresh="refreshTag($select.search,artwork.type)" repeat="person in tag track by person._id">
+                                                    <div ng-bind-html="person.name"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- <div class="col-md-4">
                               <div class="form-group ui-selecter">
                                  <label>Tag Word</label>
                                  <div class="form-group">
@@ -182,158 +184,158 @@
                                  </div>
                               </div>
                            </div> -->
-                           <div class="col-md-4">
-                              <div class="form-group">
-                                 <label>Area (sq. feet)</label>
-                                 <input class="form-control" ng-model="artwork.area" placeholder="Area (sq. feet)" type="text" only-digits ng-trim="false">
-                              </div>
-                           </div>
-                           <div class="col-md-4">
-                              <div class="form-group">
-                                 <label>Price in Rs (per sq. feet)</label>
-                                 <input class="form-control" ng-model="artwork.pricesq" placeholder="Price in Rs(per sq. feet)" type="text" only-digits ng-trim="false">
-                              </div>
-                           </div>
-                        </div>
-                        <div ng-if="artwork.type == 'Sculptures'">
-                           <div class="form-group">
-                              <label class="radio-inline">
-                                 <input name="pedestal" ng-model="artwork.pedestal" type="radio" value="with pedestal">With Pedestal</label>
-                              <label class="radio-inline">
-                                 <input name="pedestal" ng-model="artwork.pedestal" type="radio" value="without pedestal">Without Pedestal</label>
-                           </div>
-                           <div ng-if="artwork.pedestal == 'with pedestal'">
-                              <h4 class="title-color">Size
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Area (sq. feet)</label>
+                                            <input class="form-control" ng-model="artwork.area" placeholder="Area (sq. feet)" type="text" only-digits ng-trim="false">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Price in Rs (per sq. feet)</label>
+                                            <input class="form-control" ng-model="artwork.pricesq" placeholder="Price in Rs(per sq. feet)" type="text" only-digits ng-trim="false">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-if="artwork.type == 'Sculptures'">
+                                    <div class="form-group">
+                                        <label class="radio-inline">
+                                            <input name="pedestal" ng-model="artwork.pedestal" type="radio" value="with pedestal">With Pedestal</label>
+                                        <label class="radio-inline">
+                                            <input name="pedestal" ng-model="artwork.pedestal" type="radio" value="without pedestal">Without Pedestal</label>
+                                    </div>
+                                    <div ng-if="artwork.pedestal == 'with pedestal'">
+                                        <h4 class="title-color">Size
                       <span class="lowercase">(with pedestal)</span>
                     </h4>
-                              <hr>
-                              <div class="row">
-                                 <div class="col-md-3">
-                                    <div class="form-group">
-                                       <label>Height (inches)</label>
-                                       <input class="form-control" ng-model="artwork.pedestalheight" placeholder="Height" required type="text">
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Height (inches)</label>
+                                                    <input class="form-control" ng-model="artwork.pedestalheight" placeholder="Height" required type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Width (inches)</label>
+                                                    <input class="form-control" ng-model="artwork.pedestalwidth" placeholder="Width" required type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Depth (inches)</label>
+                                                    <input class="form-control" ng-model="artwork.pedestalbreadth" placeholder="Depth" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Weight (kgs)</label>
+                                                    <input class="form-control" ng-model="artwork.pedestalweight" placeholder="Weight" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                 </div>
-                                 <div class="col-md-3">
-                                    <div class="form-group">
-                                       <label>Width (inches)</label>
-                                       <input class="form-control" ng-model="artwork.pedestalwidth" placeholder="Width" required type="text">
+                                </div>
+                                <div ng-if="artwork.type == 'Paintings'">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Framing Status</label>
+                                                <div>
+                                                    <select class="form-control" ng-change="changingStatus(artwork.fstatus);" ng-model="artwork.fstatus">
+                                                        <option value="">Please select</option>
+                                                        <option value="rolled">Rolled</option>
+                                                        <option value="stretched">Stretched</option>
+                                                        <option value="framed">Framed</option>
+                                                        <option value="framed with glass">Framed (with glass)</option>
+                                                        <option value="framed with acrylic sheet">Framed (with acrylic sheet)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                 </div>
-                                 <div class="col-md-3">
-                                    <div class="form-group">
-                                       <label>Depth (inches)</label>
-                                       <input class="form-control" ng-model="artwork.pedestalbreadth" placeholder="Depth" type="text">
-                                    </div>
-                                 </div>
-                                 <div class="col-md-3">
-                                    <div class="form-group">
-                                       <label>Weight (kgs)</label>
-                                       <input class="form-control" ng-model="artwork.pedestalweight" placeholder="Weight" type="text">
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div ng-if="artwork.type == 'Paintings'">
-                           <div class="row">
-                              <div class="col-md-4">
-                                 <div class="form-group">
-                                    <label>Framing Status</label>
-                                    <div>
-                                       <select class="form-control" ng-change="changingStatus(artwork.fstatus);" ng-model="artwork.fstatus">
-                                          <option value="">Please select</option>
-                                          <option value="rolled">Rolled</option>
-                                          <option value="stretched">Stretched</option>
-                                          <option value="framed">Framed</option>
-                                          <option value="framed with glass">Framed (with glass)</option>
-                                          <option value="framed with acrylic sheet">Framed (with acrylic sheet)</option>
-                                       </select>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div ng-if="framedStatus">
-                              <h4 class="title-color">Size
+                                    <div ng-if="framedStatus">
+                                        <h4 class="title-color">Size
                       <span class="lowercase">(with frame)</span>
                     </h4>
-                              <hr>
-                              <div class="row">
-                                 <div class="col-md-3">
-                                    <div class="form-group">
-                                       <label>Height (inches)</label>
-                                       <input class="form-control" ng-model="artwork.framedheight" placeholder="Height" required type="text">
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Height (inches)</label>
+                                                    <input class="form-control" ng-model="artwork.framedheight" placeholder="Height" required type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Width (inches)</label>
+                                                    <input class="form-control" ng-model="artwork.framedwidth" placeholder="Width" required type="text">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                 </div>
-                                 <div class="col-md-3">
-                                    <div class="form-group">
-                                       <label>Width (inches)</label>
-                                       <input class="form-control" ng-model="artwork.framedwidth" placeholder="Width" required type="text">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea rows="3" class="form-control" ng-model="artwork.description" placeholder="Description"></textarea>
+                                        </div>
                                     </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-md-6">
-                              <div class="form-group">
-                                 <label>Description</label>
-                                 <textarea rows="3" class="form-control" ng-model="artwork.description" placeholder="Description"></textarea>
-                              </div>
-                           </div>
-                           <div class="col-md-6">
-                              <div class="form-group">
-                                 <label>Artwork Location</label>
-                                 <br>
-                                 <label class="radio-inline">
-                                    <input name="address" ng-model="artwork.address" type="radio" value="residence">Use Residence Address</label>
-                                 <br>
-                                 <label class="radio-inline">
-                                    <input name="address" ng-model="artwork.address" type="radio" value="studio">Use Studio Address</label>
-                                 <br>
-                                 <label class="radio-inline">
-                                    <input name="address" ng-model="artwork.address" type="radio" value="new">Enter New Address</label>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="row" ng-if="artwork.address=='new';">
-                           <div class="col-md-6">
-                              <div class="form-group">
-                                 <label>New Address</label>
-                                 <div class="tel-box">
-                                    <input class="form-control tel-country" ng-model="userData.other.flatno" placeholder="House No" required type="text">
-                                    <input class="form-control tel-number" ng-model="userData.other.bldgname" placeholder="Name of Building / Society" required type="text">
-                                 </div>
-                              </div>
-                              <div class="form-group">
-                                 <input class="form-control" ng-model="userData.other.landmark" placeholder="Landmark" required type="text">
-                              </div>
-                              <div class="form-group">
-                                 <input class="form-control" ng-model="userData.other.street" placeholder="Street" required type="text">
-                              </div>
-                              <div class="form-group">
-                                 <input class="form-control" ng-model="userData.other.locality" placeholder="Locality" required type="text">
-                              </div>
-                              <div class="form-group">
-                                 <input class="form-control" ng-model="userData.other.city" placeholder="City" type="text">
-                              </div>
-                              <div class="form-group">
-                                 <input class="form-control" ng-model="userData.other.pincode" placeholder="Pincode" type="text">
-                              </div>
-                              <div class="form-group">
-                                 <input class="form-control" ng-model="userData.other.state" placeholder="State" type="text">
-                              </div>
-                              <div class="form-group">
-                                 <!-- <input class="form-control" ng-model="userData.other.country" placeholder="Country" type="text"> -->
-                                 <!-- <select class="form-control" ng-model="userData.other.country">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Artwork Location</label>
+                                            <br>
+                                            <label class="radio-inline">
+                                                <input name="address" ng-model="artwork.address" type="radio" value="residence">Use Residence Address</label>
+                                            <br>
+                                            <label class="radio-inline">
+                                                <input name="address" ng-model="artwork.address" type="radio" value="studio">Use Studio Address</label>
+                                            <br>
+                                            <label class="radio-inline">
+                                                <input name="address" ng-model="artwork.address" type="radio" value="new">Enter New Address</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" ng-if="artwork.address=='new';">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>New Address</label>
+                                            <div class="tel-box">
+                                                <input class="form-control tel-country" ng-model="userData.other.flatno" placeholder="House No" required type="text">
+                                                <input class="form-control tel-number" ng-model="userData.other.bldgname" placeholder="Name of Building / Society" required type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" ng-model="userData.other.landmark" placeholder="Landmark" required type="text">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" ng-model="userData.other.street" placeholder="Street" required type="text">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" ng-model="userData.other.locality" placeholder="Locality" required type="text">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" ng-model="userData.other.city" placeholder="City" type="text">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" ng-model="userData.other.pincode" placeholder="Pincode" type="text">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" ng-model="userData.other.state" placeholder="State" type="text">
+                                        </div>
+                                        <div class="form-group">
+                                            <!-- <input class="form-control" ng-model="userData.other.country" placeholder="Country" type="text"> -->
+                                            <!-- <select class="form-control" ng-model="userData.other.country">
                                     <option value="">Select Country</option>
                                     <option value="{{country.code}}" ng-repeat="country in allcountries">{{country.name}}</option>
                                  </select> -->
-                                 <select class="form-control" ng-options="country.code as country.name for country in allcountries" ng-change="onFieldChange(checked)" ng-model="userData.other.country" placeholder="Select county"></select>
-                              </div>
-                           </div>
-                        </div>
-                        <!-- <div class="row" ng-if="artwork.address=='studio';">
+                                            <select class="form-control" ng-options="country.code as country.name for country in allcountries" ng-change="onFieldChange(checked)" ng-model="userData.other.country" placeholder="Select county"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="row" ng-if="artwork.address=='studio';">
                            <div class="col-md-6">
                               <div class="form-group">
                                  <label>Studio Address</label>
@@ -365,7 +367,7 @@
                               </div>
                            </div>
                         </div> -->
-                        <!-- <div class="row" ng-if="artwork.address=='residence';">
+                                <!-- <div class="row" ng-if="artwork.address=='residence';">
                            <div class="col-md-6">
                               <div class="form-group">
                                  <label>Residence Address</label>
@@ -397,60 +399,60 @@
                               </div>
                            </div>
                         </div> -->
-                        <div class="form-group">
-                           <label>Image
-                              <span ng-show="artwork.type=='Sculptures'">(Multiple Upload)</span>
-                           </label>
-                           <div class="scroll-x">
-                              <div class="img-box">
-                                 <div class="many-img" ng-repeat="bill in artwork.image">
-                                    <img ng-if="artwork.image.length!=0" ng-src="{{bill | uploadpath}}">
-                                    <button class="btn btn-danger close-btn" ng-click="removeimage(artwork.image.indexOf(bill));" ng-if="artwork.image.length!=0" type="button">
-                                       <i class="glyphicon glyphicon-trash"></i>
-                                    </button>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="upload-div" ng-hide="artwork.type!='Sculptures' && artwork.image.length>=1">
-                              <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
-                              <div class="upload-buttons">
-                                 <input name="file" ng-file-select="onFileSelect($files,1)" onclick="this.value=null" type="file" ng-hide="multiplesel">
-                                 <input multiple name="file" ng-file-select="onFileSelect($files,1)" onclick="this.value=null" type="file" ng-show="multiplesel">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="form-group">
-                           <label>Upload Certificate</label>
-                           <input class="form-control" ng-click="onTextClick($event);" ng-if="artwork.certi" readonly type="url" value="{{artwork.certi | uploadpath}}">
-                           <div class="upload-div">
-                              <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
-                              <div class="upload-buttons">
-                                 <input name="file" ng-file-select="onFileSelect($files,2)" onclick="this.value=null" type="file">
-                              </div>
-                           </div>
-                        </div>
-                        <hr>
+                                <div class="form-group">
+                                    <label>Image
+                                        <span ng-show="artwork.type=='Sculptures'">(Multiple Upload)</span>
+                                    </label>
+                                    <div class="scroll-x">
+                                        <div class="img-box">
+                                            <div class="many-img" ng-repeat="bill in artwork.image">
+                                                <img ng-if="artwork.image.length!=0" ng-src="{{bill | uploadpath}}">
+                                                <button class="btn btn-danger close-btn" ng-click="removeimage(artwork.image.indexOf(bill));" ng-if="artwork.image.length!=0" type="button">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="upload-div" ng-hide="artwork.type!='Sculptures' && artwork.image.length>=1">
+                                        <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
+                                        <div class="upload-buttons">
+                                            <input name="file" ng-file-select="onFileSelect($files,1)" onclick="this.value=null" type="file" ng-hide="multiplesel">
+                                            <input multiple name="file" ng-file-select="onFileSelect($files,1)" onclick="this.value=null" type="file" ng-show="multiplesel">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Upload Certificate</label>
+                                    <input class="form-control" ng-click="onTextClick($event);" ng-if="artwork.certi" readonly type="url" value="{{artwork.certi | uploadpath}}">
+                                    <div class="upload-div">
+                                        <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
+                                        <div class="upload-buttons">
+                                            <input name="file" ng-file-select="onFileSelect($files,2)" onclick="this.value=null" type="file">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
 
-                        <div class="row">
-                           <div class="col-md-6">
-                              <div class="form-group">
-                                 <label>Comments</label>
-                                 <textarea rows="3" class="form-control" ng-model="artwork.comment" placeholder="Comments"></textarea>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="text-center" style="padding-bottom:20px;">
-                           <button class="btn btn-primary all-btn" type="submit" ng-if="disableSubmit==false">Submit</button>
-                           <button class="btn btn-primary all-btn" type="submit" ng-if="disableSubmit==true" ng-disabled="true">Submit</button>
-                        </div>
-                        <div class="text-center" ng-show="showerror" style="padding-bottom:20px;">
-                           <p style="font-size: medium;color: red;font-weight: 500;">Please Select Artist</p>
-                        </div>
-                     </div>
-                  </section>
-               </form>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Comments</label>
+                                            <textarea rows="3" class="form-control" ng-model="artwork.comment" placeholder="Comments"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center" style="padding-bottom:20px;">
+                                    <button class="btn btn-primary all-btn" type="submit" ng-if="disableSubmit==false">Submit</button>
+                                    <button class="btn btn-primary all-btn" type="submit" ng-if="disableSubmit==true" ng-disabled="true">Submit</button>
+                                </div>
+                                <div class="text-center" ng-show="showerror" style="padding-bottom:20px;">
+                                    <p style="font-size: medium;color: red;font-weight: 500;">Please Select Artist</p>
+                                </div>
+                            </div>
+                        </section>
+                    </form>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
