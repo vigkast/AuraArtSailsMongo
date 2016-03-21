@@ -1,7 +1,7 @@
 // var adminurl = "http://146.148.34.49/";
 var adminurl = "http://auraart.in/";
 // var adminurl = "http://auraart.in:81/";
-// var adminurl = "http://192.168.0.126:81/";
+// var adminurl = "http://192.168.0.126:82/";
 var imgUploadUrl = adminurl + "user/uploadfile";
 
 var navigationservice = angular.module('navigationservice', ['ngDialog'])

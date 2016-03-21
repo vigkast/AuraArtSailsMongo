@@ -4406,6 +4406,24 @@ img.fancybox-image {
 .zoomWindow {
   border: 1px solid #888888 !important;
 }
+.negmargin {
+  margin-left: -3px;
+}
+#loading-bar .bar {
+  -webkit-transition: width 350ms;
+  -moz-transition: width 350ms;
+  -o-transition: width 350ms;
+  transition: width 350ms;
+  background: #D4AE70;
+  position: fixed;
+  z-index: 10002;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  border-bottom-right-radius: 1px;
+  border-top-right-radius: 1px;
+}
 /* Mobile Less */
 @media only screen and (min-width: 1129px) and (max-width: 1199px) {
   .nav li a {
