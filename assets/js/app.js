@@ -466,7 +466,7 @@ firstapp.directive('elevateZoom', function($document, $filter) {
                     var ez = $element.data("elevateZoom");
                     if (!ez) {
                         $element.attr('data-zoom-image', $filter('uploadpath')(image));
-                        $element.attr('src', $filter('uploadsmallimage')(image));
+                        $element.attr('src', $filter('uploadpath')(image));
                         $element.elevateZoom();
                     } else {
                         var newImage = $filter('uploadpath')(image);
@@ -509,7 +509,7 @@ firstapp.filter('uploadpath', function() {
     return function(input) {
         if (input && input !== "") {
             if (input.indexOf('.jpg') != -1)
-                return adminurl + "user/resize?width=1500&file=" + input;
+                return adminurl + "user/resize?width=1200&file=" + input;
             else {
                 return adminurl + "user/resize?file=" + input;
             }
