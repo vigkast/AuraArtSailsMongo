@@ -808,6 +808,36 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     })
 
+    function getScrollXY() {
+        var x = 0,
+            y = 0;
+        if (typeof(window.pageYOffset) == 'number') {
+            // Netscape
+            console.log("Netscape");
+            x = window.pageXOffset;
+            y = window.pageYOffset;
+        } else if (document.body && (document.body.scrollLeft || document.body.scrollTop)) {
+            // DOM
+            console.log("DOM");
+            x = document.body.scrollLeft;
+            y = document.body.scrollTop;
+        } else if (document.documentElement && (document.documentElement.scrollLeft || document.documentElement.scrollTop)) {
+            // IE6 standards compliant mode
+            console.log("IE6");
+            x = document.documentElement.scrollLeft;
+            y = document.documentElement.scrollTop;
+        }
+        return [x, y];
+    }
+
+    $scope.getHeight = function() {
+        console.log("getHeight");
+        var xy = getScrollXY();
+        console.log(xy);
+        // $.jStorage.set("artistScroll", xy[1]);
+    }
+
+
     $scope.openReachout = function() {
         globalFunction.reachOut();
     }
@@ -1152,6 +1182,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.totalartcont = _.uniq($scope.totalartcont, 'artwork._id');
             $scope.callinfinite = false;
             cfpLoadingBar.complete();
+            if ($.jStorage.get("artistScroll")) {
+                console.log("in if");
+                window.scrollTo(0, $.jStorage.get("artistScroll"));
+                // window.pageYOffset = $.jStorage.get("artistScroll");
+            }
         });
     }
 
@@ -2606,13 +2641,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         return [x, y];
     }
 
-    $scope.getHeight = function(artistid) {
+    $scope.getHeight = function() {
         console.log("getHeight");
         var xy = getScrollXY();
         console.log(xy);
-        $state.go("artistdetail", {
-            "artistid": artistid
-        });
         $.jStorage.set("artistScroll", xy[1]);
     }
 

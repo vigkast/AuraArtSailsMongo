@@ -16,11 +16,11 @@
                     </ul>
                 </div>
                 <div class="col-md-5 full-mega">
-                  <div class="text-uppercase filter-padding" ng-click="showfilter(0)" ng-mouseleave="hidefilter(0)">
-                    <i class="fa fa-filter"></i> Filter by Artist / Price / Size / Medium
-                    <div class="megamenu" ng-include src="filterval[0]" ng-show="filters[0]">
-                  </div>
-                  </div>
+                    <div class="text-uppercase filter-padding" ng-click="showfilter(0)" ng-mouseleave="hidefilter(0)">
+                        <i class="fa fa-filter"></i> Filter by Artist / Price / Size / Medium
+                        <div class="megamenu" ng-include src="filterval[0]" ng-show="filters[0]">
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-2">
                     <div class="sort-by" ng-click="showfilter(1)" ng-mouseleave="hidefilter(1)">
@@ -34,8 +34,13 @@
         <div class="row">
             <div class="col-xs-20" ng-repeat="totalartconts in totalartcont">
                 <div class="aristimg-grp1">
-                    <div class="relative">
-                        <a ng-click="goToDetailPage(totalartconts.artwork);">
+                    <div class="relative" ng-click="getHeight();">
+                        <a ui-sref="sculpture({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type=='Sculptures'">
+                            <div class="image-holders fixit">
+                                <img class="fix-img" ng-src='{{totalartconts.artwork.image[0]|uploadthumbnail}}'>
+                            </div>
+                        </a>
+                        <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'">
                             <div class="image-holders fixit">
                                 <img class="fix-img" ng-src='{{totalartconts.artwork.image[0]|uploadthumbnail}}'>
                             </div>
@@ -61,15 +66,15 @@
                             <!-- {{totalartconts.artwork.dim}} inches -->
                         </p>
                         <p ng-if="totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A'">
-                           Rs {{totalartconts.artwork.gprice|number:0}} / ${{totalartconts.artwork.gprice|indollars}}
+                            Rs {{totalartconts.artwork.gprice|number:0}} / ${{totalartconts.artwork.gprice|indollars}}
                         </p>
                         <p ng-if="!totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A'">
-                           Price available on request
+                            Price available on request
                         </p>
                     </div>
                 </div>
             </div>
-              <div class="clear-fix"></div>
+            <div class="clear-fix"></div>
         </div>
     </div>
 </div>
