@@ -54,7 +54,8 @@
           <h4 class="text-center">
             {{artistimages.name}}
           </h4>
-          <a ui-sref="artistdetail({artistid:artistimages._id})">
+          <!-- <a ui-sref="artistdetail({artistid:artistimages._id})" ng-click="getHeight(artistimages._id);"> -->
+          <a ng-click="getHeight(artistimages._id);">
             <div class="image-holder">
               <img class="fix-img" ng-src='{{artistimages.artwork[0].image[0]|uploadthumbnail}}'>
             </div>

@@ -60,6 +60,12 @@
                             {{totalartconts.artwork|makesizestr}}
                             <!-- {{totalartconts.artwork.dim}} inches -->
                         </p>
+                        <p ng-if="totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A'">
+                           Rs {{totalartconts.artwork.gprice|number:0}} / ${{totalartconts.artwork.gprice|indollars}}
+                        </p>
+                        <p ng-if="!totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A'">
+                           Price available on request
+                        </p>
                     </div>
                 </div>
             </div>
