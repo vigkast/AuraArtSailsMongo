@@ -1,430 +1,431 @@
 <div class="container after-nav">
-   <div class="row">
-      <aside class="col-md-3 search-box nopad-right">
-         <div class="absolute-box">
-            <div class="accordion-upper">
-               Search
-               <span class="pull-right go-btn" ng-click="applyfilter()">Go
+    <div class="row">
+        <aside class="col-md-3 search-box nopad-right">
+            <div class="absolute-box">
+                <div class="accordion-upper">
+                    Search
+                    <span class="pull-right go-btn" ng-click="applyfilter()">Go
             <i class="fa fa-angle-right"></i>
           </span>
-          <!-- <button type="button" ng-click="openPop();">Open</button> -->
-            </div>
-            <div class="panel panel-default">
-               <div class="panel-heading">
-                  <h4 class="panel-title right">Search For</h4>
-               </div>
-               <div class="panel-body">
-                  <div class="row">
-                     <div class="col-md-6">
-                        <label>
-                           <input name="arttype" ng-change="changetype(1)" ng-click="onclick($event)" ng-model="filterby.type" type="radio" value="Paintings" />Paintings
-                        </label>
-                        <label>
-                           <input name="arttype" ng-change="changetype(2);" ng-click="onclick($event)" ng-model="filterby.type" type="radio" value="Sculptures" />Sculptures
-                        </label>
-                     </div>
-                     <div class="col-md-6">
-                        <label>
-                           <input name="arttype" ng-change="changetype(3);" ng-click="onclick($event)" ng-model="filterby.type" type="radio" value="Photographs" />Photographs</label>
-                        <label>
-                           <input name="arttype" ng-change="changetype(4);" ng-click="onclick($event)" ng-model="filterby.type" type="radio" value="Prints" />Prints</label>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <accordion close-others="true">
-               <accordion-group heading="Search By Artist" ng-click="oon()">
-                  <div class="form-group">
-                     <ui-select demo="{{onfock}}" ng-model="filterby.search" on-select="setSearch($select);" tagging tagging-label="false" uiselect-autofocus>
-                        <ui-select-match class="text-capitalize" placeholder="Select Artist">{{filterby.search}}</ui-select-match>
-                        <ui-select-choices refresh-delay="0" refresh="getDropdown($select.search)" repeat="person in allartist track by person._id">
-                           <div ng-bind-html="person.name| addhighlight: $select.search"></div>
-                        </ui-select-choices>
-                     </ui-select>
-                  </div>
-               </accordion-group>
-               <accordion-group heading="Search By Price">
-                  <label class="above no-margin pull-right">Max</label>
-                  <label class="above no-margin">Min</label>
-                  <input class="maxmin form-control" ng-model="filterby.minprice" placeholder="0" type="number">
-                  <input class="maxmin form-control pull-right" ng-model="filterby.maxprice" placeholder="10000000" type="number">
-               </accordion-group>
-               <accordion-group heading="Search By Size (inches)">
-                  <div class="min-max">
-                     <label class="above no-margin">Height</label>
-                     <input class="maxmin form-control" min="1" ng-model="filterby.minheight" placeholder="Min Height" type="number">
-                     <input class="maxmin form-control pull-right" min="1" ng-model="filterby.maxheight" placeholder="Max Height" type="number">
-                     <label class="above">Width</label>
-                     <input class="maxmin form-control" min="1" ng-model="filterby.minwidth" placeholder="Min Width" type="number">
-                     <input class="maxmin form-control pull-right" min="1" ng-model="filterby.maxwidth" placeholder="Max Width" type="number">
-                     <label class="above">Depth</label>
-                     <input class="maxmin form-control" min="1" ng-model="filterby.minbreadth" placeholder="Min Depth" type="number">
-                     <input class="maxmin form-control pull-right" min="1" ng-model="filterby.maxbreadth" placeholder="Max Depth" type="number">
-                  </div>
-               </accordion-group>
-               <accordion-group heading="Search By Medium">
-                  <div class="form-group">
-                     <!-- <input class="form-control" ng-model="filterby.medium" placeholder="Medium (eg. Oil On Canvas)" type="text"> -->
-                     <ui-select ng-model="filterby.medium" on-select="setMediumSearch($select);" tagging tagging-label="false">
-                        <ui-select-match class="text-capitalize" placeholder="Select Medium">{{filterby.medium}}</ui-select-match>
-                        <ui-select-choices refresh-delay="0" refresh="getDropdownMedium($select.search)" repeat="person in allmedium track by person._id">
-                           <div ng-bind-html="person.name| addhighlight: $select.search"></div>
-                        </ui-select-choices>
-                     </ui-select>
-                  </div>
-               </accordion-group>
-               <accordion-group heading="Search By Keywords">
-                  <div class="form-group">
-                     <label class="above no-margin">Color</label>
-                     <ui-select ng-model="filterby.color" on-select="setColorSearch($select);" tagging tagging-label="false">
-                        <ui-select-match class="text-capitalize" placeholder="Eg. Red, Blue, White, Black">{{filterby.color}}</ui-select-match>
-                        <ui-select-choices refresh-delay="0" refresh="getColorDropdown($select.search)" repeat="person in allColor track by person._id">
-                           <div ng-bind-html="person.name| addhighlight: $select.search"></div>
-                        </ui-select-choices>
-                     </ui-select>
-                     <label class="above">Style</label>
-                     <ui-select ng-model="filterby.style" on-select="setStyleSearch($select);" tagging tagging-label="false">
-                        <ui-select-match class="text-capitalize" placeholder="Eg. Abstract, Figurative">{{filterby.style}}</ui-select-match>
-                        <ui-select-choices refresh-delay="0" refresh="getStyleDropdown($select.search)" repeat="person in allStyle track by person._id">
-                           <div ng-bind-html="person.name| addhighlight: $select.search"></div>
-                        </ui-select-choices>
-                     </ui-select>
-                     <label class="above">Elements</label>
-                     <ui-select ng-model="filterby.element" on-select="setElementSearch($select);" tagging tagging-label="false">
-                        <ui-select-match class="text-capitalize" placeholder="Eg. Buddha, Bird">{{filterby.element}}</ui-select-match>
-                        <ui-select-choices refresh-delay="0" refresh="getElementDropdown($select.search)" repeat="person in allElement track by person._id">
-                           <div ng-bind-html="person.name| addhighlight: $select.search"></div>
-                        </ui-select-choices>
-                     </ui-select>
-                  </div>
-               </accordion-group>
-            </accordion>
-            <!-- <div class="accordion-upper">
+                    <!-- <button type="button" ng-click="openPop();">Open</button> -->
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title right">Search For</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>
+                                    <input name="arttype" ng-change="changetype(1)" ng-click="onclick($event)" ng-model="filterby.type" type="radio" value="Paintings" />Paintings
+                                </label>
+                                <label>
+                                    <input name="arttype" ng-change="changetype(2);" ng-click="onclick($event)" ng-model="filterby.type" type="radio" value="Sculptures" />Sculptures
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>
+                                    <input name="arttype" ng-change="changetype(3);" ng-click="onclick($event)" ng-model="filterby.type" type="radio" value="Photographs" />Photographs</label>
+                                <label>
+                                    <input name="arttype" ng-change="changetype(4);" ng-click="onclick($event)" ng-model="filterby.type" type="radio" value="Prints" />Prints</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <accordion close-others="true">
+                    <accordion-group heading="Search By Artist" ng-click="oon()">
+                        <div class="form-group">
+                            <ui-select demo="{{onfock}}" ng-model="filterby.search" on-select="setSearch($select);" tagging tagging-label="false" uiselect-autofocus>
+                                <ui-select-match class="text-capitalize" placeholder="Select Artist">{{filterby.search}}</ui-select-match>
+                                <ui-select-choices refresh-delay="0" refresh="getDropdown($select.search)" repeat="person in allartist track by person._id">
+                                    <div ng-bind-html="person.name| addhighlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </accordion-group>
+                    <accordion-group heading="Search By Price">
+                        <label class="above no-margin pull-right">Max</label>
+                        <label class="above no-margin">Min</label>
+                        <input class="maxmin form-control" ng-model="filterby.minprice" placeholder="0" type="number">
+                        <input class="maxmin form-control pull-right" ng-model="filterby.maxprice" placeholder="10000000" type="number">
+                    </accordion-group>
+                    <accordion-group heading="Search By Size (inches)">
+                        <div class="min-max">
+                            <label class="above no-margin">Height</label>
+                            <input class="maxmin form-control" min="1" ng-model="filterby.minheight" placeholder="Min Height" type="number">
+                            <input class="maxmin form-control pull-right" min="1" ng-model="filterby.maxheight" placeholder="Max Height" type="number">
+                            <label class="above">Width</label>
+                            <input class="maxmin form-control" min="1" ng-model="filterby.minwidth" placeholder="Min Width" type="number">
+                            <input class="maxmin form-control pull-right" min="1" ng-model="filterby.maxwidth" placeholder="Max Width" type="number">
+                            <label class="above">Depth</label>
+                            <input class="maxmin form-control" min="1" ng-model="filterby.minbreadth" placeholder="Min Depth" type="number">
+                            <input class="maxmin form-control pull-right" min="1" ng-model="filterby.maxbreadth" placeholder="Max Depth" type="number">
+                        </div>
+                    </accordion-group>
+                    <accordion-group heading="Search By Medium">
+                        <div class="form-group">
+                            <!-- <input class="form-control" ng-model="filterby.medium" placeholder="Medium (eg. Oil On Canvas)" type="text"> -->
+                            <ui-select ng-model="filterby.medium" on-select="setMediumSearch($select);" tagging tagging-label="false">
+                                <ui-select-match class="text-capitalize" placeholder="Select Medium">{{filterby.medium}}</ui-select-match>
+                                <ui-select-choices refresh-delay="0" refresh="getDropdownMedium($select.search)" repeat="person in allmedium track by person._id">
+                                    <div ng-bind-html="person.name| addhighlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </accordion-group>
+                    <accordion-group heading="Search By Keywords">
+                        <div class="form-group">
+                            <label class="above no-margin">Color</label>
+                            <ui-select ng-model="filterby.color" on-select="setColorSearch($select);" tagging tagging-label="false">
+                                <ui-select-match class="text-capitalize" placeholder="Eg. Red, Blue, White, Black">{{filterby.color}}</ui-select-match>
+                                <ui-select-choices refresh-delay="0" refresh="getColorDropdown($select.search)" repeat="person in allColor track by person._id">
+                                    <div ng-bind-html="person.name| addhighlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <label class="above">Style</label>
+                            <ui-select ng-model="filterby.style" on-select="setStyleSearch($select);" tagging tagging-label="false">
+                                <ui-select-match class="text-capitalize" placeholder="Eg. Abstract, Figurative">{{filterby.style}}</ui-select-match>
+                                <ui-select-choices refresh-delay="0" refresh="getStyleDropdown($select.search)" repeat="person in allStyle track by person._id">
+                                    <div ng-bind-html="person.name| addhighlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <label class="above">Elements</label>
+                            <ui-select ng-model="filterby.element" on-select="setElementSearch($select);" tagging tagging-label="false">
+                                <ui-select-match class="text-capitalize" placeholder="Eg. Buddha, Bird">{{filterby.element}}</ui-select-match>
+                                <ui-select-choices refresh-delay="0" refresh="getElementDropdown($select.search)" repeat="person in allElement track by person._id">
+                                    <div ng-bind-html="person.name| addhighlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </accordion-group>
+                </accordion>
+                <!-- <div class="accordion-upper">
                <span class="pull-right go-btn" ng-click="applyfilter()">Go
             <i class="fa fa-angle-right"></i>
           </span>
             </div> -->
-         </div>
-      </aside>
-      <div class="col-md-9 nopad-left">
-         <div class="slider-holder">
-            <flex-slider animation-loop="true" animation="fade" class="carousel" flex-slide="s in slides.image track by $index">
-               <li>
-                  <a href="{{s.link}}">
-                     <img alt="" class="img-responsive" ng-src="{{s.image | uploadpath}}">
-                  </a>
-               </li>
-            </flex-slider>
-            <!--                <img src="img/slide1.jpg" alt="" class="img-responsive">-->
-         </div>
-      </div>
-   </div>
-   <div class="row-flex row-unflex sweet-box">
-      <div class="col-flex pointer" ng-click="lauchedSoon();">
-         <div class="black-overlay"></div>
-         <img class="img-responsive" src="img/room.jpg">
-         <span class="text-white">View artwork in your room</span>
-      </div>
-      <div class="col-flex pointer" ng-click="lauchedSoon();">
-         <div class="black-overlay"></div>
-         <img class="img-responsive" src="img/frame.jpg">
-         <span class="text-white">Custom framing</span>
-      </div>
-      <div class="col-flex grey-bg pointer" ng-click="lauchedSoon();">
-         <div class="black-overlay"></div>
-         <img class="img-responsive" src="img/sculpture.jpg">
-         <span class="text-white">Commissioned sculptures</span>
-      </div>
-      <div class="col-flex grey-bg">
-         <div class="info-holder">
-            <h4>
+            </div>
+        </aside>
+        <div class="col-md-9 nopad-left">
+            <div class="slider-holder">
+                <flex-slider animation-loop="true" animation="fade" class="carousel" flex-slide="s in slides.image track by $index">
+                    <li>
+                        <a href="{{s.link}}">
+                            <img alt="" class="img-responsive" ng-src="{{s.image | uploadpath}}">
+                        </a>
+                    </li>
+                </flex-slider>
+                <!--                <img src="img/slide1.jpg" alt="" class="img-responsive">-->
+            </div>
+        </div>
+    </div>
+    <div class="row-flex row-unflex sweet-box">
+        <div class="col-flex pointer" ng-click="lauchedSoon();">
+            <div class="black-overlay"></div>
+            <img class="img-responsive" src="img/room.jpg">
+            <span class="text-white">View artwork in your room</span>
+        </div>
+        <div class="col-flex pointer" ng-click="lauchedSoon();">
+            <div class="black-overlay"></div>
+            <img class="img-responsive" src="img/frame.jpg">
+            <span class="text-white">Custom framing</span>
+        </div>
+        <div class="col-flex grey-bg pointer" ng-click="lauchedSoon();">
+            <div class="black-overlay"></div>
+            <img class="img-responsive" src="img/sculpture.jpg">
+            <span class="text-white">Commissioned sculptures</span>
+        </div>
+        <div class="col-flex grey-bg">
+            <div class="info-holder">
+                <h4>
         <img alt="art_enclave" class="img-responsive" src="img/art_enclave.jpg">
       </h4>
-            <p>An Exclusive Fine Art Section at UBM Index Trade Fairs, Mumbai.</p>
-            <a class="more" href="http://emailer.auraart.in/ApplicationDocket/" target="_blank">Know more...</a>
-         </div>
-      </div>
-      <div class="col-flex grey-bg">
-         <div class="info-holder">
-            <h4>Thought leadership &amp; developments</h4>
-            <p>An Exclusive Fine Art Section at UBM Index Trade Fairs, Mumbai.An Exclusive Fine Art Section at UBM Index Trade Fairs, Mumbai.An Exclusive Fine Art Section at UBM Index Trade Fairs, Mumbai.</p>
-            <a class="more" ui-sref="thoughtleadership">Know more...</a>
-         </div>
-      </div>
-   </div>
-   <div class="artwork-box">
-      <h3 class="font-color3 home-header">Artworks</h3>
-      <div class="row-flex row-unflex">
-         <div class="col-flex pointer" ng-click="goToArtworks('Paintings')">
-            <img alt="painting" class="img-responsive" src="img/painting1.jpg">
-            <span class="text-heading">Paintings</span>
-         </div>
-         <div class="col-flex pointer" ng-click="goToArtworks('Sculptures')">
-            <img alt="sculpture" class="img-responsive" src="img/sculpture1.jpg">
-            <span class="text-heading">Sculptures</span>
-         </div>
-         <div class="col-flex pointer" ng-click="goToArtworks('Photographs')">
-            <img alt="photographs" class="img-responsive" src="img/photograph1.jpg">
-            <span class="text-heading">Photographs</span>
-         </div>
-         <div class="col-flex pointer" ng-click="goToArtworks('Prints')">
-            <img alt="prints" class="img-responsive" src="img/print1.jpg">
-            <span class="text-heading">Prints</span>
-         </div>
-      </div>
-   </div>
+                <p>An Exclusive Fine Art Section at UBM Index Trade Fairs, Mumbai.</p>
+                <a class="more" href="http://emailer.auraart.in/ApplicationDocket/" target="_blank">Know more...</a>
+            </div>
+        </div>
+        <div class="col-flex grey-bg">
+            <div class="info-holder">
+                <h4>Thought leadership &amp; developments</h4>
+                <p>An Exclusive Fine Art Section at UBM Index Trade Fairs, Mumbai.An Exclusive Fine Art Section at UBM Index Trade Fairs, Mumbai.An Exclusive Fine Art Section at UBM Index Trade Fairs, Mumbai.</p>
+                <a class="more" ui-sref="thoughtleadership">Know more...</a>
+            </div>
+        </div>
+    </div>
+    <div class="artwork-box">
+        <h3 class="font-color3 home-header">Artworks</h3>
+        <div class="row-flex row-unflex">
+            <div class="col-flex pointer" ng-click="goToArtworks('Paintings')">
+                <img alt="painting" class="img-responsive" src="img/painting1.jpg">
+                <span class="text-heading">Paintings</span>
+            </div>
+            <div class="col-flex pointer" ng-click="goToArtworks('Sculptures')">
+                <img alt="sculpture" class="img-responsive" src="img/sculpture1.jpg">
+                <span class="text-heading">Sculptures</span>
+            </div>
+            <div class="col-flex pointer" ng-click="goToArtworks('Photographs')">
+                <img alt="photographs" class="img-responsive" src="img/photograph1.jpg">
+                <span class="text-heading">Photographs</span>
+            </div>
+            <div class="col-flex pointer" ng-click="goToArtworks('Prints')">
+                <img alt="prints" class="img-responsive" src="img/print1.jpg">
+                <span class="text-heading">Prints</span>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="style2-bg">
-   <div class="container">
-      <div class="padding-more">
-         <h3 class="home-header">Activities</h3>
-         <p>After a couple of decades of researching and collecting art, Aura Art was formed in April 2006 by the Core Team (comprising of Daljit Singh Sethi and his sons Harmeet and Rishiraj), to fill the gaps in the Indian Art. Aura Art now boasts of some
-            of the most prominent personalities from all walks of life in its
-            <a class="link-page" href="#/team">Team</a>. The Core Team of Aura Art has established Aura Art Development Pvt Ltd (April 2008) and Aura Art eConnect Pvt Ltd (March 2015) to carry out the following activities, to further its primary objective
-            of promoting Indian Art, keeping the long term interest of all stakeholders in perspective.</p>
-         <ul>
-            <li>To collect/ identify, through a tedious process of selection, the choicest works (paintings and sculptures) of artists of caliber, both known and unknown.</li>
-            <li>To give such chosen works of art the widest possible exposure, so that people at large become sensitive to qualities that distinguish the extraordinary from the ordinary.</li>
-            <li>To establish art as an asset class and educate buyers on the opportunities and challenges of wealth creation through art.</li>
-            <li>To provide Integrated Art Offerings to Corporates, Realty Developers, Architects and Interior Designers, including commissioned projects.</li>
-            <li>To provide Art Infrastructure Services to Collectors, Corporates and others.</li>
-         </ul>
-      </div>
-   </div>
+    <div class="container">
+        <div class="padding-more">
+            <h3 class="home-header">Activities</h3>
+            <p>After a couple of decades of researching and collecting art, Aura Art was formed in April 2006 by the Core Team (comprising of Daljit Singh Sethi and his sons Harmeet and Rishiraj), to fill the gaps in the Indian Art. Aura Art now boasts of
+                some of the most prominent personalities from all walks of life in its
+                <a class="link-page" href="#/team">Team</a>. The Core Team of Aura Art has established Aura Art Development Pvt Ltd (April 2008) and Aura Art eConnect Pvt Ltd (March 2015) to carry out the following activities, to further its primary objective
+                of promoting Indian Art, keeping the long term interest of all stakeholders in perspective.</p>
+            <ul>
+                <li>To collect/ identify, through a tedious process of selection, the choicest works (paintings and sculptures) of artists of caliber, both known and unknown.</li>
+                <li>To give such chosen works of art the widest possible exposure, so that people at large become sensitive to qualities that distinguish the extraordinary from the ordinary.</li>
+                <li>To establish art as an asset class and educate buyers on the opportunities and challenges of wealth creation through art.</li>
+                <li>To provide Integrated Art Offerings to Corporates, Realty Developers, Architects and Interior Designers, including commissioned projects.</li>
+                <li>To provide Art Infrastructure Services to Collectors, Corporates and others.</li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 
 <div class="container">
-   <div class="padding-more">
-      <h3 class="home-header font-color3">Art Infrastructure Services</h3>
-      <p>In line with its aspiration to migrate to a fully Integrated Art House, Aura Art Development Pvt Ltd is pleased to offer Art Infrastructure Solutions (through provision of services and products, in-house as well as through Partners), to Collectors,
-         Corporates, Galleries and other Institutions, including, inter-alia, assistance with the following activities.</p>
-      <div class="row-flex row-unflex pad-flex">
-         <div class="col-flex">
-            <div class="box-style1">
-               <div class="img-holder">
-                  <img alt="demo" class="img-responsive" src="img/home/artpress/art3.jpg">
-               </div>
-               <h5>Data Management</h5>
-               <p>Documenting the Collection, photographing and presenting the same online / offline</p>
-               <a class="more2" ui-sref="artInfrastructureID({ id: 'data' })">Click for more</a>
+    <div class="padding-more">
+        <h3 class="home-header font-color3">Art Infrastructure Services</h3>
+        <p>In line with its aspiration to migrate to a fully Integrated Art House, Aura Art Development Pvt Ltd is pleased to offer Art Infrastructure Solutions (through provision of services and products, in-house as well as through Partners), to Collectors,
+            Corporates, Galleries and other Institutions, including, inter-alia, assistance with the following activities.</p>
+        <div class="row-flex row-unflex pad-flex">
+            <div class="col-flex">
+                <div class="box-style1">
+                    <div class="img-holder">
+                        <img alt="demo" class="img-responsive" src="img/home/artpress/art3.jpg">
+                    </div>
+                    <h5>Data Management</h5>
+                    <p>Documenting the Collection, photographing and presenting the same online / offline</p>
+                    <a class="more2" ui-sref="artInfrastructureID({ id: 'data' })">Click for more</a>
+                </div>
             </div>
-         </div>
-         <div class="col-flex">
-            <div class="box-style1">
-               <div class="img-holder">
-                  <img alt="demo" class="img-responsive" src="img/home/artpress/art8.jpg">
-               </div>
-               <h5>Valuation &amp; Insurance</h5>
-               <p>Valuing the Art Collection and providing assistance/ guidance in insuring the same</p>
-               <a ui-sref="artInfrastructureID({ id: 'valuation' })" class="more2">Click for more</a>
+            <div class="col-flex">
+                <div class="box-style1">
+                    <div class="img-holder">
+                        <img alt="demo" class="img-responsive" src="img/home/artpress/art8.jpg">
+                    </div>
+                    <h5>Valuation &amp; Insurance</h5>
+                    <p>Valuing the Art Collection and providing assistance/ guidance in insuring the same</p>
+                    <a ui-sref="artInfrastructureID({ id: 'valuation' })" class="more2">Click for more</a>
+                </div>
             </div>
-         </div>
-         <div class="col-flex">
-            <div class="box-style1">
-               <div class="img-holder">
-                  <img alt="demo" class="img-responsive" src="img/home/artpress/art2.jpg">
-               </div>
-               <h5>Conservation &amp; Restoration</h5>
-               <p>Restoring the collection through professionals and providing guidance on on-going preservation</p>
-               <a class="more2" ui-sref="artInfrastructureID({ id: 'conservation' })">Click for more</a>
+            <div class="col-flex">
+                <div class="box-style1">
+                    <div class="img-holder">
+                        <img alt="demo" class="img-responsive" src="img/home/artpress/art2.jpg">
+                    </div>
+                    <h5>Conservation &amp; Restoration</h5>
+                    <p>Restoring the collection through professionals and providing guidance on on-going preservation</p>
+                    <a class="more2" ui-sref="artInfrastructureID({ id: 'conservation' })">Click for more</a>
+                </div>
             </div>
-         </div>
-         <div class="col-flex">
-            <div class="box-style1">
-               <div class="img-holder">
-                  <img alt="demo" class="img-responsive" src="img/home/artpress/art5.jpg">
-               </div>
-               <h5>Strategy for Art Initiatives including CSR</h5>
-               <p>Integrating art initiatives into the CSR strategy of Corporates, PSUs and other Institutions</p>
-               <a class="more2" ui-sref="artInfrastructureID({ id: 'art' })">Click for more</a>
+            <div class="col-flex">
+                <div class="box-style1">
+                    <div class="img-holder">
+                        <img alt="demo" class="img-responsive" src="img/home/artpress/art5.jpg">
+                    </div>
+                    <h5>Strategy for Art Initiatives including CSR</h5>
+                    <p>Integrating art initiatives into the CSR strategy of Corporates, PSUs and other Institutions</p>
+                    <a class="more2" ui-sref="artInfrastructureID({ id: 'art' })">Click for more</a>
+                </div>
             </div>
-         </div>
-         <div class="col-flex">
-            <div class="box-style1">
-               <div class="img-holder">
-                  <img alt="demo" class="img-responsive" src="img/home/artpress/art4.jpg">
-               </div>
-               <h5>Packing &amp; Logistics</h5>
-               <p>Advice on best practices for packing and provide assistance for transportation</p>
+            <div class="col-flex">
+                <div class="box-style1">
+                    <div class="img-holder">
+                        <img alt="demo" class="img-responsive" src="img/home/artpress/art4.jpg">
+                    </div>
+                    <h5>Packing &amp; Logistics</h5>
+                    <p>Advice on best practices for packing and provide assistance for transportation</p>
+                </div>
             </div>
-         </div>
-         <div class="col-flex">
-            <div class="box-style1">
-               <div class="img-holder">
-                  <img alt="Archival Facility Set-up" class="img-responsive" src="img/home/artpress/art1.jpg">
-               </div>
-               <h5>Archival Facility Set-up</h5>
-               <p>Assistance in developing and implementing plan for setting up archival facility (for non-art objects as well)</p>
+            <div class="col-flex">
+                <div class="box-style1">
+                    <div class="img-holder">
+                        <img alt="Archival Facility Set-up" class="img-responsive" src="img/home/artpress/art1.jpg">
+                    </div>
+                    <h5>Archival Facility Set-up</h5>
+                    <p>Assistance in developing and implementing plan for setting up archival facility (for non-art objects as well)</p>
+                </div>
             </div>
-         </div>
-         <div class="col-flex">
-            <div class="box-style1">
-               <div class="img-holder">
-                  <img alt="demo" class="img-responsive" src="img/home/artpress/art7.jpg">
-               </div>
-               <h5>Trusteeship &amp; Warehousing</h5>
-               <p>Assist in implementing a Trust structure and identifying facilities for securing the Collection</p>
+            <div class="col-flex">
+                <div class="box-style1">
+                    <div class="img-holder">
+                        <img alt="demo" class="img-responsive" src="img/home/artpress/art7.jpg">
+                    </div>
+                    <h5>Trusteeship &amp; Warehousing</h5>
+                    <p>Assist in implementing a Trust structure and identifying facilities for securing the Collection</p>
+                </div>
             </div>
-         </div>
-         <div class="col-flex">
-            <div class="box-style1">
-               <div class="img-holder">
-                  <img alt="demo" class="img-responsive" src="img/home/artpress/art6.jpg">
-               </div>
-               <h5>Training &amp; Workshops</h5>
-               <p>Provide training and workshops on art appreciation and physical management of the Collection</p>
+            <div class="col-flex">
+                <div class="box-style1">
+                    <div class="img-holder">
+                        <img alt="demo" class="img-responsive" src="img/home/artpress/art6.jpg">
+                    </div>
+                    <h5>Training &amp; Workshops</h5>
+                    <p>Provide training and workshops on art appreciation and physical management of the Collection</p>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
 
 
 <div class="style1-bg">
-   <div class="container">
-      <div class="padding-more">
-         <div class="row">
-            <div class="col-md-3">
-               <div class="events">
-                  <h3 class="home-header font-color3" ng-click="goToEvents();">Events</h3>
-                  <p class="bold">{{upcomingEvent.name}}
-                  </p>
-                  <p>
-                     <span class="bold">Date:</span>
-                     <span class="">{{upcomingEvent.startdate | date : 'mediumDate'}}</span>
-                     <span class=""> - {{upcomingEvent.enddate | date : 'mediumDate'}}</span>
-                  </p>
-                  <p>
-                     <span class="bold">Time:</span>
-                     <span class="">{{upcomingEvent.starttime}}</span>
-                     <span class=""> to {{upcomingEvent.endtime}}</span>
-                  </p>
-                  <p>
-                     <span class="bold">Venue:</span>
-                     <span class="">{{upcomingEvent.venue}}</span>
-                  </p>
-               </div>
+    <div class="container">
+        <div class="padding-more">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="events">
+                        <h3 class="home-header font-color3" ng-click="goToEvents();">Events</h3>
+                        <p class="bold">{{upcomingEvent.name}}
+                        </p>
+                        <p>
+                            <span class="bold">Date:</span>
+                            <span class="">{{upcomingEvent.startdate | date : 'mediumDate'}}</span>
+                            <span class=""> - {{upcomingEvent.enddate | date : 'mediumDate'}}</span>
+                        </p>
+                        <p>
+                            <span class="bold">Time:</span>
+                            <span class="">{{upcomingEvent.starttime}}</span>
+                            <span class=""> to {{upcomingEvent.endtime}}</span>
+                        </p>
+                        <p>
+                            <span class="bold">Venue:</span>
+                            <span class="">{{upcomingEvent.venue}}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="some-image">
+                        <div class="row-flex row-unflex image-box text-center">
+                            <div class="col-flex pointer" fancybox-box href="{{upcomingEvent.invitation|uploadpath}}" ng-if="upcomingEvent.invitation">
+                                <div class="col-flex pointer" ng-if="upcomingEvent.invitation">
+                                    <h6>INVITE</h6>
+                                    <img alt="" class="" ng-src="{{upcomingEvent.invitation|uploadthumbnail}}">
+                                    <!-- <a href="http://auraart.in/user/resize?file={{upcomingEvent.invitation}}" download="http://auraart.in/user/resize?file={{upcomingEvent.invitation}}"> -->
+                                    <!-- <img alt="" class="" src="img/vi.jpg"></a> -->
+                                </div>
+                                <div class="col-flex pointer" ng-if="upcomingEvent.catalogue">
+                                    <h6>CATALOGUE</h6>
+                                    <a href="{{upcomingEvent.catalogue|uploadpath}}" target="_blank">
+                                        <img alt="" class="img-responsive" src="img/vc.jpg">
+                                    </a>
+                                </div>
+                                <div class="col-flex pointer" fancybox-box href="{{upcomingEvent.homeimg|uploadpath}}" ng-if="upcomingEvent.homeimg">
+                                    <h6>PHOTO</h6>
+                                    <img alt="" class="img-responsive" ng-src="{{upcomingEvent.homeimg|uploadthumbnail}}">
+                                </div>
+                                <div class="col-flex" fancybox-box href="{{upcomingEvent.pressphoto|uploadpath}}" ng-if="upcomingEvent.pressphoto">
+                                    <h6>PRESS</h6>
+                                    <img alt="" class="img-responsive" ng-src="{{upcomingEvent.pressphoto|uploadthumbnail}}">
+                                </div>
+                                <div class="col-flex pointer fancybox.iframe" fancybox-box ng-href="http://www.youtube.com/embed/{{upcomingEvent.videos}}?autoplay=1" ng-if="upcomingEvent.videos">
+                                    <h6>VIDEO</h6>
+                                    <img ng-src="http://img.youtube.com/vi/{{upcomingEvent.videos}}/default.jpg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-9">
-               <div class="some-image">
-                  <div class="row-flex row-unflex image-box text-center">
-                     <div class="col-flex pointer" fancybox-box href="{{upcomingEvent.invitation|uploadpath}}" ng-if="upcomingEvent.invitation">
-                     <div class="col-flex pointer" ng-if="upcomingEvent.invitation">
-                        <h6>INVITE</h6>
-                        <img alt="" class="" ng-src="{{upcomingEvent.invitation|uploadthumbnail}}">
-                          <!-- <a href="http://auraart.in/user/resize?file={{upcomingEvent.invitation}}" download="http://auraart.in/user/resize?file={{upcomingEvent.invitation}}"> -->
-                            <!-- <img alt="" class="" src="img/vi.jpg"></a> -->
-                     </div>
-                     <div class="col-flex pointer" ng-if="upcomingEvent.catalogue">
-                        <h6>CATALOGUE</h6>
-                        <a href="{{upcomingEvent.catalogue|uploadpath}}" target="_blank">
-                           <img alt="" class="img-responsive" src="img/vc.jpg">
-                        </a>
-                     </div>
-                     <div class="col-flex pointer" fancybox-box href="{{upcomingEvent.homeimg|uploadpath}}" ng-if="upcomingEvent.homeimg">
-                        <h6>PHOTO</h6>
-                        <img alt="" class="img-responsive" ng-src="{{upcomingEvent.homeimg|uploadthumbnail}}">
-                     </div>
-                     <div class="col-flex" fancybox-box href="{{upcomingEvent.pressphoto|uploadpath}}" ng-if="upcomingEvent.pressphoto">
-                        <h6>PRESS</h6>
-                        <img alt="" class="img-responsive" ng-src="{{upcomingEvent.pressphoto|uploadthumbnail}}">
-                     </div>
-                     <div class="col-flex pointer fancybox.iframe" fancybox-box ng-href="http://www.youtube.com/embed/{{upcomingEvent.videos}}?autoplay=1" ng-if="upcomingEvent.videos">
-                        <h6>VIDEO</h6>
-                        <img ng-src="http://img.youtube.com/vi/{{upcomingEvent.videos}}/default.jpg" />
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
 <div class="container" ng-if="press.length>0">
-   <div class="padding-more">
-      <h3 class="home-header font-color3">Press</h3>
-      <div class="row-flex row-unflex image-box">
-         <div class="col-flex col-flex-20" ng-repeat="pressSin in press" ng-if="$index<=4">
-            <a class="col-press" fancybox-box href="{{pressSin.photos|uploadpath}}" rel="press">
-               <img alt="demo" class="img-responsive" ng-src="{{pressSin.photos|uploadsmallimage}}">
-            </a>
-         </div>
-      </div>
-   </div>
+    <div class="padding-more">
+        <h3 class="home-header font-color3">Press</h3>
+        <div class="row-flex row-unflex image-box">
+            <div class="col-flex col-flex-20" ng-repeat="pressSin in press" ng-if="$index<=4">
+                <a class="col-press" fancybox-box href="{{pressSin.photos|uploadpath}}" rel="press">
+                    <img alt="demo" class="img-responsive" ng-src="{{pressSin.photos|uploadsmallimage}}">
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="style2-bg">
-   <div class="container">
-      <div class="padding-more no-justify">
-         <h3 class="home-header">Contact Us</h3>
-         <div class="row">
-            <div class="col-md-4 col-sm-3">
-               <p>
-                  <span class="bold">Harmeet S Sethi</span>
-                  <br>
-                  <a href="tel:+919328877000">+91 93288 77000</a>
-                  <br>
-                  <a href="mailto:harmeet@auraart.in">harmeet@auraart.in</a>
-               </p>
-               <p>
-                  <span class="bold">Rishiraj S Sethi</span>
-                  <br>
-                  <a href="tel:+919820345740">+91 98203 45740</a>
-                  <br>
-                  <a href="mailto:rishiraj@auraart.in">rishiraj@auraart.in</a>
-               </p>
-               <p>
-                  <span class="bold">Daljit S Sethi</span>
-                  <br>
-                  <a href="tel:+919820351667">+91 98203 51667</a>
-               </p>
-            </div>
-            <div class="col-md-4 col-sm-3">
-               <p>
-                  <a href="https://www.google.co.in/maps/place/T+V+Industrial+Estate/@19.0083539,72.8186243,17z/data=!3m1!4b1!4m2!3m1!1s0x3be7ce9666f45875:0x10b9a61ac553343a?hl=en" target="_blank" class="bold"><i class="fa fa-map-marker"></i> Gallery-cum-office</a>
-                  <br>126, TV Industrial Estate
-                  <br>SK Ahire Marg, Worli
-                  <br>Mumbai - 400 030
-                  <br>Tel: <a href="tel:+9124912325">+91 24912325</a>
-               </p>
-               <p>
-                  <a href="https://www.google.co.in/maps/place/Fortune+Tower,+Jetalpur+Rd,+Sarod,+Sayajiganj,+Vadodara,+Gujarat+390001/@22.3083888,73.1834355,17z/data=!3m1!4b1!4m2!3m1!1s0x395fcf524fc2204d:0xdd8fd0161400b0a3?hl=en" target="_blank" class="bold"><i class="fa fa-map-marker"></i> Office</a>
-                  <br>633, Fortune Tower
-                  <br>Sayajigunj
-                  <br>Vadodara - 390 005
-               </p>
-               <p>
-                  <a href="https://www.google.co.in/maps/search/Gulmohar+cross+road+no+7,+Vile+Parle/@19.1141173,72.8356411,20z?hl=en" target="_blank" class="bold"><i class="fa fa-map-marker"></i> Registered Office</a>
-                  <br>Mangal Prabhat, 7th Floor
-                  <br>Gulmohar Cross Road No 7
-                  <br>Vile Parle (W)
-                  <br>Mumbai - 400 049
-               </p>
-            </div>
-            <div class="col-md-4 col-sm-4">
-               <p>
-                  <span class="bold pointer" ng-click="reachOut();"><i class="fa fa-phone"></i> Purchase</span>
-                  <br>
-                  <a href="mailto:connect@auraart.in">connect@auraart.in</a>
-               </p>
+    <div class="container">
+        <div class="padding-more no-justify">
+            <h3 class="home-header">Contact Us</h3>
+            <div class="row">
+                <div class="col-md-4 col-sm-3">
+                    <p>
+                        <span class="bold">Harmeet S Sethi</span>
+                        <br>
+                        <a href="tel:+919328877000">+91 93288 77000</a>
+                        <br>
+                        <a href="mailto:harmeet@auraart.in">harmeet@auraart.in</a>
+                    </p>
+                    <p>
+                        <span class="bold">Rishiraj S Sethi</span>
+                        <br>
+                        <a href="tel:+919820345740">+91 98203 45740</a>
+                        <br>
+                        <a href="mailto:rishiraj@auraart.in">rishiraj@auraart.in</a>
+                    </p>
+                    <p>
+                        <span class="bold">Daljit S Sethi</span>
+                        <br>
+                        <a href="tel:+919820351667">+91 98203 51667</a>
+                    </p>
+                </div>
+                <div class="col-md-4 col-sm-3">
+                    <p>
+                        <a href="https://www.google.co.in/maps/place/T+V+Industrial+Estate/@19.0083539,72.8186243,17z/data=!3m1!4b1!4m2!3m1!1s0x3be7ce9666f45875:0x10b9a61ac553343a?hl=en" target="_blank" class="bold"><i class="fa fa-map-marker"></i> Gallery-cum-office</a>
+                        <br>126, TV Industrial Estate
+                        <br>SK Ahire Marg, Worli
+                        <br>Mumbai - 400 030
+                        <br>Tel: <a href="tel:+9124912325">+91 24912325</a>
+                    </p>
+                    <p>
+                        <a href="https://www.google.co.in/maps/place/Fortune+Tower,+Jetalpur+Rd,+Sarod,+Sayajiganj,+Vadodara,+Gujarat+390001/@22.3083888,73.1834355,17z/data=!3m1!4b1!4m2!3m1!1s0x395fcf524fc2204d:0xdd8fd0161400b0a3?hl=en" target="_blank" class="bold"><i class="fa fa-map-marker"></i> Office</a>
+                        <br>633, Fortune Tower
+                        <br>Sayajigunj
+                        <br>Vadodara - 390 005
+                    </p>
+                    <p>
+                        <a href="https://www.google.co.in/maps/search/Gulmohar+cross+road+no+7,+Vile+Parle/@19.1141173,72.8356411,20z?hl=en" target="_blank" class="bold"><i class="fa fa-map-marker"></i> Registered Office</a>
+                        <br>Mangal Prabhat, 7th Floor
+                        <br>Gulmohar Cross Road No 7
+                        <br>Vile Parle (W)
+                        <br>Mumbai - 400 049
+                    </p>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <p>
+                        <span class="bold pointer" ng-click="reachOut();"><i class="fa fa-phone"></i> Purchase</span>
+                        <br>
+                        <a href="mailto:connect@auraart.in">connect@auraart.in</a>
+                    </p>
 
-               <p>
-                  <span class="bold pointer" ng-click="becomeSeller();"><i class="fa fa-upload"></i> Artist to submit artworks</span>
-                  <br>
-                  <a href="mailto:artistsubmit@auraart.in">artistsubmit@auraart.in</a>
-               </p>
-               <p>
-                  <span class="bold pointer" ng-click="becomeSeller();"><i class="fa fa-upload"></i> Collectors / Galleries to submit artworks</span>
-                  <br>
-                  <a href="mailto:resellersubmit@auraart.in">resellersubmit@auraart.in</a>
-               </p>
-               <p>
-                  <span class="bold pointer" ng-click="reachOut();"><i class="fa fa-phone"></i> The Art Enclave related submissions</span>
-                  <br>
-                  <a href="mailto:theartenclave@auraart.in">theartenclave@auraart.in</a>
-               </p>
+                    <p>
+                        <span class="bold pointer" ng-click="becomeSeller();"><i class="fa fa-upload"></i> Artist to submit artworks</span>
+                        <br>
+                        <a href="mailto:artistsubmit@auraart.in">artistsubmit@auraart.in</a>
+                    </p>
+                    <p>
+                        <span class="bold pointer" ng-click="becomeSeller();"><i class="fa fa-upload"></i> Collectors / Galleries to submit artworks</span>
+                        <br>
+                        <a href="mailto:resellersubmit@auraart.in">resellersubmit@auraart.in</a>
+                    </p>
+                    <p>
+                        <span class="bold pointer" ng-click="reachOut();"><i class="fa fa-phone"></i> The Art Enclave related submissions</span>
+                        <br>
+                        <a href="mailto:theartenclave@auraart.in">theartenclave@auraart.in</a>
+                    </p>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
