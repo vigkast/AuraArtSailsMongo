@@ -11,12 +11,12 @@ var passport = require('passport'),
     TwitterStrategy = require('passport-twitter').Strategy,
     FacebookStrategy = require('passport-facebook').Strategy,
     GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-    passport.use(new TwitterStrategy({
+passport.use(new TwitterStrategy({
         consumerKey: "LPazfO26oP6KrjYCWlQJfUZq1",
         consumerSecret: "SJ8tuzeiGvM7YZvRoHqXSk8LLThpn6DPg2BMtuBrgR9n01DQBD",
         callbackURL: sails.myurl + "user/callbackt"
     },
-    function (token, tokenSecret, profile, done) {
+    function(token, tokenSecret, profile, done) {
         profile.token = token;
         profile.tokenSecret = tokenSecret;
         profile.provider = "Twitter";
@@ -28,7 +28,7 @@ passport.use(new FacebookStrategy({
         clientSecret: "6e46460c7bb3fb4f06182d89eb7514b9",
         callbackURL: sails.myurl + "user/callbackf"
     },
-    function (accessToken, refreshToken, profile, done) {
+    function(accessToken, refreshToken, profile, done) {
         profile.accessToken = accessToken;
         profile.refreshToken = refreshToken;
         profile.provider = "Facebook";
@@ -41,7 +41,7 @@ passport.use(new GoogleStrategy({
         clientSecret: "BYCjnvwCyassATSS444z8_Ok",
         callbackURL: "callbackg"
     },
-    function (token, tokenSecret, profile, done) {
+    function(token, tokenSecret, profile, done) {
         profile.token = token;
         profile.tokenSecret = tokenSecret;
         profile.provider = "Google";
@@ -50,17 +50,17 @@ passport.use(new GoogleStrategy({
     }
 ));
 
-passport.serializeUser(function (user, done) {
+passport.serializeUser(function(user, done) {
     done(null, user);
 });
 
-passport.deserializeUser(function (id, done) {
+passport.deserializeUser(function(id, done) {
     done(null, id);
 });
 module.exports = {
     //////////////////////////////
     // LOGIN FUNCTIONS
-    logint: function (req, res) {
+    logint: function(req, res) {
         if (req.param("url") && req.param("url") != "") {
             frontend = req.param("url");
         }
@@ -69,7 +69,7 @@ module.exports = {
                 consumerSecret: "SJ8tuzeiGvM7YZvRoHqXSk8LLThpn6DPg2BMtuBrgR9n01DQBD",
                 callbackURL: sails.myurl + "user/callbackt"
             },
-            function (token, tokenSecret, profile, done) {
+            function(token, tokenSecret, profile, done) {
                 profile.token = token;
                 profile.tokenSecret = tokenSecret;
                 profile.provider = "Twitter";
@@ -81,7 +81,7 @@ module.exports = {
         req.session.loginid = loginid;
         passport.authenticate('twitter')(req, res);
     },
-    loginf: function (req, res) {
+    loginf: function(req, res) {
         if (req.param("url") && req.param("url") != "") {
             frontend = req.param("url");
         }
@@ -90,7 +90,7 @@ module.exports = {
                 clientSecret: "6e46460c7bb3fb4f06182d89eb7514b9",
                 callbackURL: sails.myurl + "user/callbackf"
             },
-            function (accessToken, refreshToken, profile, done) {
+            function(accessToken, refreshToken, profile, done) {
                 profile.accessToken = accessToken;
                 profile.refreshToken = refreshToken;
                 profile.provider = "Facebook";
@@ -104,7 +104,7 @@ module.exports = {
             scope: 'email,public_profile,publish_actions'
         })(req, res);
     },
-    loging: function (req, res) {
+    loging: function(req, res) {
         if (req.param("url") && req.param("url") != "") {
             frontend = req.param("url");
         }
@@ -113,7 +113,7 @@ module.exports = {
                 clientSecret: "BYCjnvwCyassATSS444z8_Ok",
                 callbackURL: "callbackg"
             },
-            function (token, tokenSecret, profile, done) {
+            function(token, tokenSecret, profile, done) {
                 profile.token = token;
                 profile.provider = "Google";
                 User.findorcreate(profile, done);
@@ -138,12 +138,12 @@ module.exports = {
         successRedirect: '/user/success',
         failureRedirect: '/user/fail'
     }),
-    success: function (req, res, data) {
+    success: function(req, res, data) {
         if (req.session.cart && req.session.cart.items && req.session.cart.items.length > 0) {
             var i = 0;
-            _.each(req.session.cart.items, function (art) {
+            _.each(req.session.cart.items, function(art) {
                 art.id = req.session.passport.user.id;
-                Cart.save(art, function (cartrespo) {
+                Cart.save(art, function(cartrespo) {
                     i++;
                     if (i == req.session.cart.items.length) {
                         req.session.cart = {};
@@ -155,36 +155,36 @@ module.exports = {
             res.redirect(frontend);
         }
     },
-    fail: function (req, res) {
+    fail: function(req, res) {
         sails.sockets.blast("login", {
             loginid: req.session.loginid,
             status: "fail"
         });
         res.view("fail");
     },
-    profile: function (req, res) {
+    profile: function(req, res) {
         if (req.session.passport) {
             res.json(req.session.passport.user);
         } else {
             res.json({});
         }
     },
-    logout: function (req, res) {
-        req.session.destroy(function (err) {
+    logout: function(req, res) {
+        req.session.destroy(function(err) {
             res.send(req.session);
         });
     },
-    findorcreate: function (req, res) {
-        var print = function (data) {
+    findorcreate: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.findorcreate(req.body, print);
     },
     //////////////////////////////
-    uploadfile: function (req, res) {
-        req.file("file").upload(function (err, uploadedFiles) {
+    uploadfile: function(req, res) {
+        req.file("file").upload(function(err, uploadedFiles) {
             if (err) return res.send(500, err);
-            _.each(uploadedFiles, function (n) {
+            _.each(uploadedFiles, function(n) {
                 var oldpath = n.fd;
                 var source = sails.fs.createReadStream(n.fd);
                 n.fd = n.fd.split('\\').pop().split('/').pop();
@@ -192,12 +192,12 @@ module.exports = {
                 n.fd = split[0] + "." + split[1].toLowerCase();
                 var dest = sails.fs.createWriteStream('./auraimg/' + n.fd);
                 source.pipe(dest);
-                source.on('end', function () {
-                    sails.fs.unlink(oldpath, function (data) {
+                source.on('end', function() {
+                    sails.fs.unlink(oldpath, function(data) {
                         console.log(data);
                     });
                 });
-                source.on('error', function (err) {
+                source.on('error', function(err) {
                     console.log(err);
                 });
             });
@@ -207,7 +207,7 @@ module.exports = {
             });
         });
     },
-    jsontoexcel: function (req, res) {
+    jsontoexcel: function(req, res) {
         var json = {
             foo: 'bar',
             qux: 'moo',
@@ -218,7 +218,7 @@ module.exports = {
         res.json("created");
         sails.fs.writeFileSync('./uploads/data.xlsx', xls, 'binary');
     },
-    pdfgene: function (req, res) {
+    pdfgene: function(req, res) {
         var file = req.query.file;
         var filepath = './auraimg/' + file;
         var imagename = file.split('.');
@@ -233,7 +233,7 @@ module.exports = {
             var isfile2 = sails.fs.existsSync(output);
             if (isfile2 == false) {
                 var slide = new sails.PDFImagePack();
-                slide.output(imgs, output, function (err, doc) {
+                slide.output(imgs, output, function(err, doc) {
                     if (err) {
                         console.log(err);
                         res.json("Error");
@@ -253,7 +253,7 @@ module.exports = {
             res.send(pdf);
         }
     },
-    resize: function (req, res) {
+    resize: function(req, res) {
         function showimage(path) {
             var image = sails.fs.readFileSync(path);
             var mimetype = sails.mime.lookup(path);
@@ -273,27 +273,27 @@ module.exports = {
             var isfile2 = sails.fs.existsSync(newfilename);
             if (!isfile2) {
                 console.log("in if");
-                sails.lwip.open(newfilepath, function (err, image) {
-                    if (image && (width < image.width() || height < image.height)) {
-                        var dimensions = {};
-                        dimensions.width = image.width();
-                        dimensions.height = image.height();
-                        if (width == 0) {
-                            width = dimensions.width / dimensions.height * height;
-                        }
-                        if (height == 0) {
-                            height = dimensions.height / dimensions.width * width;
-                        }
-                        image.resize(width, height, "lanczos", function (err, image) {
-                            image.toBuffer(extension, function (err, buffer) {
-                                sails.fs.writeFileSync(newfilename, buffer);
-                                showimage(newfilename);
-                            });
-                        });
-                    } else {
-                        console.log("in else");
-                        showimage(newfilepath);
+                sails.lwip.open(newfilepath, function(err, image) {
+                    // if (image && (width < image.width() || height < image.height)) {
+                    var dimensions = {};
+                    dimensions.width = image.width();
+                    dimensions.height = image.height();
+                    if (width == 0) {
+                        width = dimensions.width / dimensions.height * height;
                     }
+                    if (height == 0) {
+                        height = dimensions.height / dimensions.width * width;
+                    }
+                    image.resize(width, height, "lanczos", function(err, image) {
+                        image.toBuffer(extension, function(err, buffer) {
+                            sails.fs.writeFileSync(newfilename, buffer);
+                            showimage(newfilename);
+                        });
+                    });
+                    // } else {
+                    //     console.log("in else");
+                    //     showimage(newfilepath);
+                    // }
                 });
             } else {
                 console.log("in else");
@@ -327,7 +327,7 @@ module.exports = {
             }
         }
     },
-    save: function (req, res) {
+    save: function(req, res) {
         if (req.body) {
             if (req.body._id) {
                 if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
@@ -343,10 +343,10 @@ module.exports = {
             }
 
             function user() {
-                var print = function (data) {
+                var print = function(data) {
                     if (data.value != false) {
                         if (data.accesslevel == "customer" || data.accesslevel == "reseller") {
-                            User.findone(data, function (respo) {
+                            User.findone(data, function(respo) {
                                 if (respo.value != false) {
                                     respo.id = respo._id;
                                     delete respo._id;
@@ -355,9 +355,9 @@ module.exports = {
                                     };
                                     if (req.session.cart && req.session.cart.items && req.session.cart.items.length > 0) {
                                         var i = 0;
-                                        _.each(req.session.cart.items, function (art) {
+                                        _.each(req.session.cart.items, function(art) {
                                             art.id = req.session.passport.user.id;
-                                            Cart.save(art, function (cartrespo) {
+                                            Cart.save(art, function(cartrespo) {
                                                 i++;
                                                 if (i == req.session.cart.items.length) {
                                                     req.session.cart = {};
@@ -395,15 +395,15 @@ module.exports = {
             });
         }
     },
-    find: function (req, res) {
-        var print = function (data) {
+    find: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.find(req.body, print);
     },
-    findbyletter: function (req, res) {
+    findbyletter: function(req, res) {
         if (req.body) {
-            var print = function (data) {
+            var print = function(data) {
                 res.json(data);
             }
             User.findbyletter(req.body, print);
@@ -414,7 +414,7 @@ module.exports = {
             });
         }
     },
-    findlimited: function (req, res) {
+    findlimited: function(req, res) {
         if (req.body) {
             if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
                 function callback(data) {
@@ -434,11 +434,11 @@ module.exports = {
             });
         }
     },
-    findone: function (req, res) {
+    findone: function(req, res) {
         if (req.body) {
             if (req.session.passport) {
                 req.body._id = req.session.passport.user.id;
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 User.findone(req.body, print);
@@ -455,10 +455,10 @@ module.exports = {
             });
         }
     },
-    findoneBack: function (req, res) {
+    findoneBack: function(req, res) {
         if (req.body) {
             if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 User.findoneBack(req.body, print);
@@ -475,10 +475,10 @@ module.exports = {
             });
         }
     },
-    findoneArtist: function (req, res) {
+    findoneArtist: function(req, res) {
         if (req.body) {
             if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 User.findoneArtist(req.body, print);
@@ -495,10 +495,10 @@ module.exports = {
             });
         }
     },
-    findbyaccess: function (req, res) {
+    findbyaccess: function(req, res) {
         if (req.body) {
             if (req.body.accesslevel && req.body.accesslevel != "") {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 User.findbyaccess(req.body, print);
@@ -515,10 +515,10 @@ module.exports = {
             });
         }
     },
-    searchmail: function (req, res) {
+    searchmail: function(req, res) {
         if (req.body) {
             if (req.body.email && req.body.email != "") {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 User.searchmail(req.body, print);
@@ -535,10 +535,10 @@ module.exports = {
             });
         }
     },
-    delete: function (req, res) {
+    delete: function(req, res) {
         if (req.body) {
             if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 User.delete(req.body, print);
@@ -555,19 +555,19 @@ module.exports = {
             });
         }
     },
-    login: function (req, res) {
+    login: function(req, res) {
         if (req.body) {
             if (req.body.email && req.body.email != "" && req.body.email != "wohlig@wohlig.com" && req.body.password && req.body.password != "") {
-                var print = function (data) {
+                var print = function(data) {
                     if (data.value != false) {
                         req.session.passport = {
                             user: data
                         };
                         if (req.session.cart && req.session.cart.items && req.session.cart.items.length > 0) {
                             var i = 0;
-                            _.each(req.session.cart.items, function (art) {
+                            _.each(req.session.cart.items, function(art) {
                                 art.id = req.session.passport.user.id;
-                                Cart.save(art, function (cartrespo) {
+                                Cart.save(art, function(cartrespo) {
                                     i++;
                                     if (i == req.session.cart.items.length) {
                                         req.session.cart = {};
@@ -600,10 +600,10 @@ module.exports = {
             });
         }
     },
-    adminlogin: function (req, res) {
+    adminlogin: function(req, res) {
         if (req.body) {
             if (req.body.email && req.body.email != "" && req.body.password && req.body.password != "") {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 User.adminlogin(req.body, print);
@@ -620,10 +620,10 @@ module.exports = {
             });
         }
     },
-    changepassword: function (req, res) {
+    changepassword: function(req, res) {
         if (req.body) {
             if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 User.changepassword(req.body, print);
@@ -640,10 +640,10 @@ module.exports = {
             });
         }
     },
-    forgotpassword: function (req, res) {
+    forgotpassword: function(req, res) {
         if (req.body) {
             if (req.body.email && req.body.email != "") {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 User.forgotpassword(req.body, print);
@@ -660,34 +660,34 @@ module.exports = {
             });
         }
     },
-    countusers: function (req, res) {
-        var print = function (data) {
+    countusers: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.countusers(req.body, print);
     },
-    countartwork: function (req, res) {
-        var print = function (data) {
+    countartwork: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.countartwork(req.body, print);
     },
-    saveforexcel: function (req, res) {
-        var print = function (data) {
+    saveforexcel: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.saveforexcel(req.body, print);
     },
-    deletedata: function (req, res) {
-        var print = function (data) {
+    deletedata: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         User.deletedata(req.body, print);
     },
-    findUser: function (req, res) {
+    findUser: function(req, res) {
         if (req.body) {
             if (req.body.search && req.body.search != "") {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 User.findUser(req.body, print);
@@ -704,10 +704,10 @@ module.exports = {
             });
         }
     },
-    findforart: function (req, res) {
+    findforart: function(req, res) {
         if (req.body) {
             if (req.body.search && req.body.search != "") {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 User.findforart(req.body, print);
@@ -724,10 +724,10 @@ module.exports = {
             });
         }
     },
-    findCust: function (req, res) {
+    findCust: function(req, res) {
         if (req.body) {
             if (req.body.search && req.body.search != "") {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 User.findCust(req.body, print);
@@ -744,10 +744,10 @@ module.exports = {
             });
         }
     },
-    userbytype: function (req, res) {
+    userbytype: function(req, res) {
         if (req.body) {
             if (req.body.type && req.body.type != "") {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 User.userbytype(req.body, print);
@@ -764,7 +764,7 @@ module.exports = {
             });
         }
     },
-    saveArtist: function (req, res) {
+    saveArtist: function(req, res) {
         if (req.body) {
             if (req.session.passport) {
                 req.body.selleremail = req.session.passport.user.email;
@@ -777,7 +777,7 @@ module.exports = {
             }
 
             function user() {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 User.saveArtist(req.body, print);
@@ -789,7 +789,7 @@ module.exports = {
             });
         }
     },
-    saveBack: function (req, res) {
+    saveBack: function(req, res) {
         if (req.body) {
             if (req.body._id) {
                 if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
@@ -805,7 +805,7 @@ module.exports = {
             }
 
             function user() {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 User.saveBack(req.body, print);
@@ -817,8 +817,8 @@ module.exports = {
             });
         }
     },
-    sendMail: function (req, res) {
-        sails.query(function (err, db) {
+    sendMail: function(req, res) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 res.json({
@@ -843,7 +843,7 @@ module.exports = {
                 };
                 sails.request.get({
                     url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
-                }, function (err, httpResponse, body) {
+                }, function(err, httpResponse, body) {
                     if (err) {
                         res.json({
                             value: false
@@ -860,10 +860,10 @@ module.exports = {
             }
         });
     },
-    saveArtOrder: function (req, res) {
+    saveArtOrder: function(req, res) {
         if (req.body) {
             if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                User.saveArtOrder(req.body, function (use) {
+                User.saveArtOrder(req.body, function(use) {
                     res.json(use);
                 });
             } else {
@@ -879,11 +879,11 @@ module.exports = {
             });
         }
     },
-    updateId: function (req, res) {
-        User.findArtist(req.body, function (respo) {
+    updateId: function(req, res) {
+        User.findArtist(req.body, function(respo) {
             function abc(num) {
                 more = respo[num];
-                User.updateId(more, function (use) {
+                User.updateId(more, function(use) {
                     num++;
                     console.log(num);
                     if (num == respo.length) {
@@ -898,8 +898,8 @@ module.exports = {
             abc(0);
         });
     },
-    updateFocus: function (req, res) {
-        sails.query(function (err, db) {
+    updateFocus: function(req, res) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 res.json({
@@ -916,7 +916,7 @@ module.exports = {
                     theme: 0,
                     medium: 0,
                     artwork: 0
-                }).toArray(function (err, data2) {
+                }).toArray(function(err, data2) {
                     if (err) {
                         console.log(err);
                         res.json({
@@ -926,9 +926,9 @@ module.exports = {
                         db.close();
                     } else if (data2 && data2.length > 0) {
                         var i = 0;
-                        _.each(data2, function (artist) {
+                        _.each(data2, function(artist) {
                             artist.focused = "nonfocused";
-                            User.updateId(artist, function (respo) {
+                            User.updateId(artist, function(respo) {
                                 i++;
                                 if (i == data2.length) {
                                     res.json({
@@ -950,13 +950,13 @@ module.exports = {
             }
         });
     },
-    updateCart: function (req, res) {
+    updateCart: function(req, res) {
         // var i = 0;
-        User.find(req.body, function (respo) {
+        User.find(req.body, function(respo) {
             // res.json(respo);
             function abc(num) {
                 more = respo[num];
-                User.updateId(more, function (use) {
+                User.updateId(more, function(use) {
                     num++;
                     console.log(num);
                     if (num == respo.length) {
@@ -971,13 +971,13 @@ module.exports = {
             abc(0);
         });
     },
-    excelobject: function (req, res) {
-        sails.query(function (err, db) {
+    excelobject: function(req, res) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
             }
             if (db) {
-                db.open(function (err, db) {
+                db.open(function(err, db) {
                     if (err) {
                         console.log(err);
                     }
@@ -986,11 +986,11 @@ module.exports = {
                         req.connection.setTimeout(200000);
                         var extension = "";
                         var excelimages = [];
-                        req.file("file").upload(function (err, uploadedFiles) {
+                        req.file("file").upload(function(err, uploadedFiles) {
                             if (err) {
                                 console.log(err);
                             }
-                            _.each(uploadedFiles, function (n) {
+                            _.each(uploadedFiles, function(n) {
                                 writedata = n.fd;
                                 excelcall(writedata);
                             });
@@ -1001,21 +1001,21 @@ module.exports = {
                             sails.xlsxj({
                                 input: datapath,
                                 output: outputpath
-                            }, function (err, result) {
+                            }, function(err, result) {
                                 if (err) {
                                     console.error(err);
                                 }
                                 if (result) {
-                                    sails.fs.unlink(datapath, function (data) {
+                                    sails.fs.unlink(datapath, function(data) {
                                         if (data) {
-                                            sails.fs.unlink(outputpath, function (data2) {});
+                                            sails.fs.unlink(outputpath, function(data2) {});
                                         }
                                     });
 
                                     function createart(num) {
                                         excelimages = [];
                                         m = result[num];
-                                        User.saveforexcel(m, function (print) {
+                                        User.saveforexcel(m, function(print) {
                                             m.subtype = [];
                                             m.tag = [];
                                             if (m.tagname == "") {
@@ -1025,7 +1025,7 @@ module.exports = {
                                                 dummy.category = "";
                                                 m.tag.push(dummy);
                                             }
-                                            User.saveCustomer(m, function (printcust) {
+                                            User.saveCustomer(m, function(printcust) {
                                                 if (printcust.value != false) {
                                                     m.reseller = [];
                                                     m.reseller.push(printcust);
@@ -1035,7 +1035,7 @@ module.exports = {
                                                 function createartwork() {
                                                     m.user = print;
                                                     delete m.username;
-                                                    ArtMedium.savemediumexcel(m, function (mediumid) {
+                                                    ArtMedium.savemediumexcel(m, function(mediumid) {
                                                         var mediumdata = {};
                                                         mediumdata._id = mediumid;
                                                         mediumdata.name = m.mediumname;
@@ -1045,12 +1045,12 @@ module.exports = {
                                                         if (m.tagname != "") {
                                                             var tagsplit = m.tagname.split(",");
                                                             var count = 0;
-                                                            _.each(tagsplit, function (q) {
+                                                            _.each(tagsplit, function(q) {
                                                                 q = q.trim();
                                                                 var tagdata = {};
                                                                 tagdata.name = q;
                                                                 tagdata.type = m.type;
-                                                                Tag.savetagexcel(tagdata, function (tagid) {
+                                                                Tag.savetagexcel(tagdata, function(tagid) {
                                                                     tagdata._id = tagid;
                                                                     m.tag.push(tagdata);
                                                                     count++;
@@ -1068,7 +1068,7 @@ module.exports = {
                                                             if (m.gprice && m.gprice != "") {
                                                                 var gprice = m.gprice.split(",");
                                                                 m.gprice = "";
-                                                                _.each(gprice, function (gp) {
+                                                                _.each(gprice, function(gp) {
                                                                     m.gprice += gp;
                                                                 });
                                                                 m.gprice = parseInt(m.gprice);
@@ -1078,7 +1078,7 @@ module.exports = {
                                                             if (m.pricesq && m.pricesq != "") {
                                                                 var pricesq = m.pricesq.split(",");
                                                                 m.pricesq = "";
-                                                                _.each(pricesq, function (ps) {
+                                                                _.each(pricesq, function(ps) {
                                                                     m.pricesq += ps;
                                                                 });
                                                                 m.pricesq = parseInt(m.pricesq);
@@ -1088,7 +1088,7 @@ module.exports = {
                                                             if (m.price && m.price != "") {
                                                                 var price = m.price.split(",");
                                                                 m.price = "";
-                                                                _.each(price, function (p) {
+                                                                _.each(price, function(p) {
                                                                     m.price += p;
                                                                 });
                                                                 m.price = parseInt(m.price);
@@ -1114,7 +1114,7 @@ module.exports = {
                                                                 m.yoc = "N/A";
                                                             }
                                                             m.imageno = m.imageno.split(";");
-                                                            _.each(m.imageno, function (z) {
+                                                            _.each(m.imageno, function(z) {
                                                                 excelimages.push(z.trim() + '.jpg');
                                                                 if (m.imageno.length == excelimages.length) {
                                                                     m.image = excelimages;
@@ -1129,7 +1129,7 @@ module.exports = {
                                                                     console.log(num);
                                                                     num++;
                                                                     if (num < result.length) {
-                                                                        setTimeout(function () {
+                                                                        setTimeout(function() {
                                                                             createart(num);
                                                                         }, 15);
                                                                     } else {
@@ -1152,13 +1152,13 @@ module.exports = {
             }
         });
     },
-    updateArtist: function (req, res) {
-        sails.query(function (err, db) {
+    updateArtist: function(req, res) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
             }
             if (db) {
-                db.open(function (err, db) {
+                db.open(function(err, db) {
                     if (err) {
                         console.log(err);
                     }
@@ -1167,11 +1167,11 @@ module.exports = {
                         req.connection.setTimeout(200000);
                         var extension = "";
                         var excelimages = [];
-                        req.file("file").upload(function (err, uploadedFiles) {
+                        req.file("file").upload(function(err, uploadedFiles) {
                             if (err) {
                                 console.log(err);
                             }
-                            _.each(uploadedFiles, function (n) {
+                            _.each(uploadedFiles, function(n) {
                                 writedata = n.fd;
                                 excelcall(writedata);
                             });
@@ -1182,14 +1182,14 @@ module.exports = {
                             sails.xlsxj({
                                 input: datapath,
                                 output: outputpath
-                            }, function (err, result) {
+                            }, function(err, result) {
                                 if (err) {
                                     console.error(err);
                                 }
                                 if (result) {
-                                    sails.fs.unlink(datapath, function (data) {
+                                    sails.fs.unlink(datapath, function(data) {
                                         if (data) {
-                                            sails.fs.unlink(outputpath, function (data2) {});
+                                            sails.fs.unlink(outputpath, function(data2) {});
                                         }
                                     });
 
@@ -1207,7 +1207,7 @@ module.exports = {
                                             if (m.stateofb) {
                                                 donated.stateofb = m.stateofb;
                                             }
-                                            User.findforexcel(m, function (dorespo) {
+                                            User.findforexcel(m, function(dorespo) {
                                                 if (dorespo.value != false) {
                                                     if (dorespo.edu && dorespo.edu[0]) {
                                                         var newdata = {};
@@ -1406,13 +1406,13 @@ module.exports = {
                                                     function saveupdate() {
 
                                                         if (i == 5) {
-                                                            User.updateId(donated, function (respo) {
+                                                            User.updateId(donated, function(respo) {
                                                                 console.log(respo);
                                                                 if (respo.value && respo.value == true) {
                                                                     num++;
                                                                     console.log(num);
                                                                     if (num < result.length) {
-                                                                        setTimeout(function () {
+                                                                        setTimeout(function() {
                                                                             createteam(num);
                                                                         }, 15);
                                                                     } else {
@@ -1422,7 +1422,7 @@ module.exports = {
                                                                     num++;
                                                                     console.log(num);
                                                                     if (num < result.length) {
-                                                                        setTimeout(function () {
+                                                                        setTimeout(function() {
                                                                             createteam(num);
                                                                         }, 15);
                                                                     } else {
@@ -1436,7 +1436,7 @@ module.exports = {
                                                     num++;
                                                     console.log(num);
                                                     if (num < result.length) {
-                                                        setTimeout(function () {
+                                                        setTimeout(function() {
                                                             createteam(num);
                                                         }, 15);
                                                     } else {
@@ -1448,7 +1448,7 @@ module.exports = {
                                             num++;
                                             console.log(num);
                                             if (num < result.length) {
-                                                setTimeout(function () {
+                                                setTimeout(function() {
                                                     createteam(num);
                                                 }, 15);
                                             } else {
@@ -1465,8 +1465,8 @@ module.exports = {
             }
         });
     },
-    deleteDetails: function (req, res) {
-        User.findArtist(req.body, function (respo) {
+    deleteDetails: function(req, res) {
+        User.findArtist(req.body, function(respo) {
             function abc(num) {
                 more = respo[num];
                 if (more.dob) {
@@ -1493,7 +1493,7 @@ module.exports = {
                 if (more.auction && more.auction.length > 0) {
                     more.auction = [];
                 }
-                User.updateId(more, function (use) {
+                User.updateId(more, function(use) {
                     num++;
                     console.log(num);
                     if (num == respo.length) {
