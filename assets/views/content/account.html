@@ -26,7 +26,7 @@
                   <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'cpassword'}" ng-click="changeTab('cpassword');" ng-if="!user.provider">Change password</li>
                   <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'address'}" ng-click="changeTab('address');">My Address Book</li>
                   <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'orders'}" ng-click="changeTab('orders');">My Orders</li>
-                  <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'trace'}" ng-click="changeTab('trace');">Trace Your Order</li>
+                  <!-- <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'trace'}" ng-click="changeTab('trace');">Track Your Order</li> -->
                   <li class="cat-list cpointer"><a href="#/favorite">My Favourites</a></li>
                   <hr class="line" ng-if="user.accesslevel=='reseller'">
                   <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'banking'}" ng-click="changeTab('banking');" ng-if="user.accesslevel=='reseller'">Banking Details</li>
@@ -339,7 +339,7 @@
          </div>
          <div class="col-md-4" ng-if="activeTab == 'trace'">
             <div class="trck-order">
-               <h5>Trace Your Order:</h5>
+               <h5>Track Your Order:</h5>
                <input class="form-control displ wseve paddbtm" placeholder="Enter Order Id" type="text">
                <span>
             <a class="btn btn-sucesses displ" href="#">Track Now</a>
