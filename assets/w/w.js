@@ -21109,7 +21109,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 "id": id
             });
         } else {
-            dataNextPre.messageBoxNoTime("For any changes, please write to us at artistsubmit@auraart.in/resellersubmit@auraart.in");
+            dataNextPre.messageBoxNoTime("For any changes, please write to us at artistsubmit@auraart.in / resellersubmit@auraart.in");
         }
     }
 
