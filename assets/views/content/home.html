@@ -32,8 +32,8 @@
                         </div>
                     </div>
                 </div>
-                <accordion close-others="true">
-                    <accordion-group heading="Search By Artist" ng-click="oon()">
+                <uib-accordion close-others="true">
+                    <uib-accordion-group heading="Search By Artist" ng-click="oon()">
                         <div class="form-group">
                             <ui-select demo="{{onfock}}" ng-model="filterby.search" on-select="setSearch($select);" tagging tagging-label="false" uiselect-autofocus>
                                 <ui-select-match class="text-capitalize" placeholder="Select Artist">{{filterby.search}}</ui-select-match>
@@ -42,14 +42,14 @@
                                 </ui-select-choices>
                             </ui-select>
                         </div>
-                    </accordion-group>
-                    <accordion-group heading="Search By Price">
+                    </uib-accordion-group>
+                    <uib-accordion-group heading="Search By Price">
                         <label class="above no-margin pull-right">Max</label>
                         <label class="above no-margin">Min</label>
                         <input class="maxmin form-control" ng-model="filterby.minprice" placeholder="0" type="number">
                         <input class="maxmin form-control pull-right" ng-model="filterby.maxprice" placeholder="10000000" type="number">
-                    </accordion-group>
-                    <accordion-group heading="Search By Size (inches)">
+                    </uib-accordion-group>
+                    <uib-accordion-group heading="Search By Size (inches)">
                         <div class="min-max">
                             <label class="above no-margin">Height</label>
                             <input class="maxmin form-control" min="1" ng-model="filterby.minheight" placeholder="Min Height" type="number">
@@ -61,8 +61,8 @@
                             <input class="maxmin form-control" min="1" ng-model="filterby.minbreadth" placeholder="Min Depth" type="number">
                             <input class="maxmin form-control pull-right" min="1" ng-model="filterby.maxbreadth" placeholder="Max Depth" type="number">
                         </div>
-                    </accordion-group>
-                    <accordion-group heading="Search By Medium">
+                    </uib-accordion-group>
+                    <uib-accordion-group heading="Search By Medium">
                         <div class="form-group">
                             <!-- <input class="form-control" ng-model="filterby.medium" placeholder="Medium (eg. Oil On Canvas)" type="text"> -->
                             <ui-select ng-model="filterby.medium" on-select="setMediumSearch($select);" tagging tagging-label="false">
@@ -72,8 +72,8 @@
                                 </ui-select-choices>
                             </ui-select>
                         </div>
-                    </accordion-group>
-                    <accordion-group heading="Search By Keywords">
+                    </uib-accordion-group>
+                    <uib-accordion-group heading="Search By Keywords">
                         <div class="form-group">
                             <label class="above no-margin">Color</label>
                             <ui-select ng-model="filterby.color" on-select="setColorSearch($select);" tagging tagging-label="false">
@@ -97,8 +97,8 @@
                                 </ui-select-choices>
                             </ui-select>
                         </div>
-                    </accordion-group>
-                </accordion>
+                    </uib-accordion-group>
+                </uib-accordion>
                 <!-- <div class="accordion-upper">
                <span class="pull-right go-btn" ng-click="applyfilter()">Go
             <i class="fa fa-angle-right"></i>

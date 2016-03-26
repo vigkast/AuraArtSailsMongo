@@ -5958,23 +5958,33 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 })
 
 .controller('Error404Ctrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
-        //Used to name the .html file
-        $scope.template = TemplateService.changecontent("error404");
-        $scope.menutitle = NavigationService.makeactive("Home");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-    })
-    .controller('PrivacyPolicyCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
-        //Used to name the .html file
-        $scope.template = TemplateService.changecontent("privacy-policy");
-        $scope.menutitle = NavigationService.makeactive("Privacy Policy");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-    })
-    .controller('Error500Ctrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
-        //Used to name the .html file
-        $scope.template = TemplateService.changecontent("error500");
-        $scope.menutitle = NavigationService.makeactive("Home");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-    });
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("error404");
+    $scope.menutitle = NavigationService.makeactive("Home");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+})
+
+.controller('PrivacyPolicyCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("privacy-policy");
+    $scope.menutitle = NavigationService.makeactive("Privacy Policy");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+})
+
+.controller('Error500Ctrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("error500");
+    $scope.menutitle = NavigationService.makeactive("Home");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+})
+
+.controller('RoomViewCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("room-with-a-view");
+    $scope.menutitle = NavigationService.makeactive("View Artwork in Your Room");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+});

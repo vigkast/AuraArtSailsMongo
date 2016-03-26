@@ -254,7 +254,14 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
         url: "/error500",
         templateUrl: "views/template.html",
         controller: 'Error500Ctrl'
-    });
+    })
+
+    .state('room-with-a-view', {
+        url: "/room-with-a-view",
+        templateUrl: "views/template.html",
+        controller: 'RoomViewCtrl'
+    })
+    ;
 
     $urlRouterProvider.otherwise("/home");
 
