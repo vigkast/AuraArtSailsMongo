@@ -713,6 +713,9 @@
                                       name: {
                                           $addToSet: "$name"
                                       },
+                                      focused: {
+                                          $addToSet: "$focused"
+                                      },
                                       artistdesc: {
                                           $addToSet: "$artistdesc"
                                       },
@@ -811,6 +814,7 @@
                                   $project: {
                                       _id: 1,
                                       name: 1,
+                                      focused: 1,
                                       artistdesc: {
                                           $cond: [{
                                                   $eq: ["$artistdesc", []]
@@ -1025,6 +1029,8 @@
                                   }
                               }, {
                                   $unwind: "$name"
+                              }, {
+                                  $unwind: "$focused"
                               }, {
                                   $unwind: "$artistdesc"
                               }, {
@@ -1986,7 +1992,7 @@
               if (db) {
                   var selleremail = data.selleremail;
                   delete data.selleremail;
-                  if (!data._id) {
+                  if (!data.new && !data.old) {
                       data._id = sails.ObjectID();
                       data.status = "approve";
                       db.collection('user').insert(data, function(err, created) {
@@ -2048,12 +2054,12 @@
                   } else {
                       var user = sails.ObjectID(data._id);
                       delete data._id;
-                      var mydata = {};
-                      mydata.comment = data.comment;
                       db.collection("user").update({
                           _id: user
                       }, {
-                          $set: mydata
+                          $set: {
+                              comment: data.new.comment
+                          }
                       }, function(err, updated) {
                           if (err) {
                               console.log(err);
@@ -2063,6 +2069,8 @@
                               });
                               db.close();
                           } else if (updated) {
+                              // callback(sails.diff(data.old, data.new));
+                              // db.close();
                               callback({
                                   value: true,
                                   comment: "Mail sent"

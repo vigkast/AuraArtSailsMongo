@@ -825,28 +825,14 @@ module.exports = {
                     value: false
                 });
             } else {
-                var obj = {
-                    "api_key": "47e02d2b10604fc81304a5837577e286",
-                    "email_details": {
-                        "fromname": sails.fromName,
-                        "subject": "Welcome %23",
-                        "from": sails.fromEmail,
-                        "replytoid": "vigwohlig@gmail.com"
-                    },
-                    "settings": {
-                        "template": "2210",
-                    },
-                    "recipients": ["vigwohlig@gmail.com", "dhaval@wohlig.com"],
-                    "attributes": {
-                        "NAME": ["SION1"]
-                    }
-                };
+                var abcd = "lkjhgcfhbjkpl[pjhgufdxtcgvb";
                 sails.request.get({
-                    url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                    url: "https://api.falconide.com/falconapi/web.send.rest?api_key=47e02d2b10604fc81304a5837577e286&subject=New Password for Aura Art Website &fromname=" + sails.fromName + "&from=" + sails.fromEmail + "&replytoid=vigwohlig@gmail.com&content=<html><body><h1>" + abcd + "</h1></body</html>&recipients=vigwohlig@gmail.com&footer=0"
                 }, function(err, httpResponse, body) {
                     if (err) {
                         res.json({
-                            value: false
+                            value: false,
+                            comment: err
                         });
                         db.close();
                     } else {
