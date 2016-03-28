@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-xs-20" ng-repeat="totalartconts in totalartcont">
                 <div class="aristimg-grp1">
-                    <div class="relative" ng-click="getHeight();">
+                    <div class="relative" ng-click="getHeight(totalartconts);">
                         <a ui-sref="sculpture({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type=='Sculptures'">
                             <div class="image-holders fixit">
                                 <img class="fix-img" ng-src='{{totalartconts.artwork.image[0]|uploadthumbnail}}'>

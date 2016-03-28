@@ -15,6 +15,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 //.controller('AppCtrl')
 .controller('HomeCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("home");
     $scope.menutitle = NavigationService.makeactive("Home");
@@ -677,6 +678,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
     getMyFolders();
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
 })
 
 .controller('CartCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $state) {
@@ -690,6 +692,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     cfpLoadingBar.start();
     $scope.checkCheckout = true;
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     $scope.getCartItems = function() {
         NavigationService.getCartItems(function(data) {
             console.log(data);
@@ -748,6 +751,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
 })
 
 .controller('ArtistPageCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout) {
@@ -765,6 +769,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     $scope.becomeSeller = function() {
         globalFunction.becomeSeller();
     }
@@ -813,30 +818,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             y = 0;
         if (typeof(window.pageYOffset) == 'number') {
             // Netscape
-            console.log("Netscape");
             x = window.pageXOffset;
             y = window.pageYOffset;
         } else if (document.body && (document.body.scrollLeft || document.body.scrollTop)) {
             // DOM
-            console.log("DOM");
             x = document.body.scrollLeft;
             y = document.body.scrollTop;
         } else if (document.documentElement && (document.documentElement.scrollLeft || document.documentElement.scrollTop)) {
             // IE6 standards compliant mode
-            console.log("IE6");
             x = document.documentElement.scrollLeft;
             y = document.documentElement.scrollTop;
         }
         return [x, y];
     }
-
-    $scope.getHeight = function() {
-        console.log("getHeight");
-        var xy = getScrollXY();
-        console.log(xy);
-        // $.jStorage.set("artistScroll", xy[1]);
-    }
-
 
     $scope.openReachout = function() {
         globalFunction.reachOut();
@@ -1182,15 +1176,39 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.totalartcont = _.uniq($scope.totalartcont, 'artwork._id');
             $scope.callinfinite = false;
             cfpLoadingBar.complete();
-            if ($.jStorage.get("artistScroll")) {
-                console.log("in if");
-                window.scrollTo(0, $.jStorage.get("artistScroll"));
-                // window.pageYOffset = $.jStorage.get("artistScroll");
+            if ($.jStorage.get("artworkScroll")) {
+                if (data.page == $.jStorage.get("artworkScroll").pageno) {
+                    window.scrollTo(0, $.jStorage.get("artworkScroll").scroll);
+                } else {
+                    var variablepage = data.page;
+                    $scope.pagedata.pagenumber = ++variablepage;
+                    if ($scope.pagedata.pagenumber <= $.jStorage.get("artworkScroll").pageno) {
+                        $scope.reload();
+                    }
+                }
             }
         });
     }
 
-    //    $scope.reload();
+    $scope.getHeight = function(artwork) {
+        var xy = getScrollXY();
+        var obj = {};
+        obj.pageno = artwork.artwork.pageno;
+        obj.scroll = xy[1];
+        $.jStorage.set("artworkScroll", obj);
+    }
+
+    // if ($.jStorage.get("artworkScroll")) {
+    //     function abcd(pageno) {
+    //         // for (var i = 2; i <= $.jStorage.get("artworkScroll").pageno; i++) {
+    //         console.log(i);
+    //         $scope.pagedata.pagenumber = pageno;
+    //         if(pageno){}
+    //         $scope.reload();
+    //     }
+    //     abcd(2);
+    //     // }
+    // }
 
     $scope.makeactive = function(type) {
         //      console.log(type);
@@ -1381,6 +1399,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.showCartEnable = false;
     $scope.showLoginDiv = true;
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     NavigationService.getCountryJson(function(data) {
         $scope.countries = data;
         // $scope.countries.unshift({
@@ -1732,6 +1751,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     $scope.invitation = $stateParams.img;
 
 })
@@ -1744,6 +1764,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     cfpLoadingBar.start();
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     NavigationService.getAllEvents(function(data, status) {
         console.log(data);
         var events = _.groupBy(data, function(n) {
@@ -1907,6 +1928,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     })
 
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     //    ****** popup lightbox ******
 
     $scope.zoomposition = 0;
@@ -1950,6 +1972,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     //Angular Loader Example
     //Start loader
     $scope.showLoader = function() {
@@ -2022,6 +2045,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     $scope.press = [];
 
     cfpLoadingBar.start();
@@ -2253,7 +2277,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.aristImages = [];
     $scope.allartworks = [];
     cfpLoadingBar.start();
-    $.jStorage.set("artistScroll", null);
     NavigationService.getuserprofile(function(data) {
         if (data.id) {
             console.log(data);
@@ -2365,6 +2388,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     cfpLoadingBar.start();
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     NavigationService.getAllThoughts(function(data) {
         console.log(data);
         $scope.thoughts = data;
@@ -2432,6 +2456,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     cfpLoadingBar.start();
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     NavigationService.getOneThought($stateParams.id, function(data) {
         console.log(data);
         $scope.thoughtdetail = data;
@@ -2499,6 +2524,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
 
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     $scope.$on('$viewContentLoaded', function(event) {
         setTimeout(function() {
             makeAnimation($stateParams.id);
@@ -2609,7 +2635,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.artistimage = [];
     $scope.listview = [];
     var lastpage = 2;
-
+    $.jStorage.set("artworkScroll", null);
     NavigationService.getuserprofile(function(data) {
         if (data.id) {
             userProfile = data;
@@ -3456,6 +3482,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 .controller('AccountCtrl', function($scope, TemplateService, NavigationService, $upload, $timeout, $http, cfpLoadingBar, $state, ngDialog) {
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     $scope.template = TemplateService.changecontent("account");
     $scope.menutitle = NavigationService.makeactive("Account");
     TemplateService.title = $scope.menutitle;
@@ -3899,6 +3926,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     window.uploadUrl = 'http://auraart.in/user/uploadfile';
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     // window.uploadUrl = 'http://192.168.0.122:1337/user/uploadfile';
     // $scope.usr = $routeParams.id;
     $scope.artwork = {};
@@ -4411,6 +4439,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     window.uploadUrl = 'http://auraart.in/user/uploadfile';
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     // window.uploadUrl = 'http://192.168.0.122:1337/user/uploadfile';
     // $scope.usr = $routeParams.id;
     $scope.artwork = {};
@@ -4948,6 +4977,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     //DEVELOPMENT
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     NavigationService.getuserprofile(function(data) {
         if (data.id) {
             $scope.userData = data;
@@ -5351,6 +5381,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     $scope.user = {};
     $scope.user.personal = {};
     $scope.user.work = {};
@@ -5777,6 +5808,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
 
     NavigationService.getartworkdetail($stateParams.artid, function(data, status) {
         $scope.artistDetailImg = data[0];
@@ -5804,6 +5836,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
 
     NavigationService.getuserprofile(function(data) {
         if (data.id) {
@@ -5838,6 +5871,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.totalartcont = [];
     var lastpage = 0;
     $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
     if ($.jStorage.get("searchObj")) {
         $scope.art = $.jStorage.get("searchObj");
     }
