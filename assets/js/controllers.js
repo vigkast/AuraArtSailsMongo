@@ -4991,7 +4991,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     NavigationService.getArtistDetail($stateParams.id, function(data) {
         console.log(data);
         $scope.user = data;
-        $scope.oldUserData = _.cloneDeep(data);
         if ($scope.userData)
             $scope.user.selleremail = $scope.userData.email;
     });
@@ -5340,10 +5339,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.user.focused = "nonfocused";
             }
             $scope.user.status = "pending";
-            var obj = {};
-            obj.old = $scope.oldUserData;
-            obj.new = $scope.user;
-            NavigationService.registerArtist(obj, function(data, status) {
+            NavigationService.registerArtist($scope.user, function(data, status) {
                 console.log(data);
                 if (data.value != false) {
                     dataNextPre.messageBox("Your request for additions / modifications has been sent to Aura Art");
