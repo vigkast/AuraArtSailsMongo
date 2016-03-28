@@ -5,7 +5,6 @@
 @import (inline) "../lib/flexislider/flexslider.css";
 @import (inline) "../bower_components/angular-loading-bar/build/loading-bar.min.css";
 @import (inline) "../bower_components/angularjs-toaster/toaster.min.css";
-// @import (inline) "../bower_components/ng-tags-input/ng-tags-input.min.css";
 @import (inline) "../bower_components/ngDialog/css/ngDialog.min.css";
 @import (inline) "../bower_components/font-awesome/css/font-awesome.min.css";
 @import (inline) "../bower_components/angular-rangeslider/angular.rangeSlider.css";
@@ -17,6 +16,7 @@
 @color2: #D4AE70;
 @color3: #ff4f4f;
 @color4: #0fba66;
+
 @color-gray: #e6e7e9;
 @color-base: #313131;
 @color-base-light: #666;
@@ -32,6 +32,7 @@
 @menu-color: #ffd011;
 @menu-color-light: #fff5eb;
 @menu-color-hover: #eee;
+
 .lh(@n) {
   line-height: @n;
 }
@@ -62,6 +63,9 @@ i {
 .flexslider {
   margin: 0;
 }
+:focus {
+    outline: -webkit-focus-ring-color auto 0px !important;
+}
 a:hover {
   color: @color-base;
 }
@@ -75,6 +79,13 @@ h6 {
 }
 .btn {
   border-radius: 0;
+  .transition(all 300ms ease);
+  &.btn.btn-full {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    text-transform: uppercase;
+  }
 }
 .border-top {
   border-top: 1px solid @abbr-border-color;
@@ -250,7 +261,7 @@ textarea {
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
   outline: 0 !important;
-  .transition(all 0.5s ease);
+  .transition(all 0.3s ease);
 }
 .ingroup {
   font-family: @font-family-head;
@@ -627,7 +638,7 @@ h4 {
   li {
     a {
       .background-image(linear-gradient(to bottom, @menu-color-light 0%, @menu-color 100%));
-      .transition(all 0.5s ease);
+      .transition(all 0.3s ease);
     }
     .slant-menu {
       height: 100%;
@@ -638,7 +649,7 @@ h4 {
       .background-image(linear-gradient(to bottom, @menu-color-light 0%, @menu-color 100%));
       .skew(-20deg);
       z-index: -1;
-      .transition(all 0.5s ease);
+      .transition(all 0.3s ease);
     }
     a:after {
       right: -10px;
@@ -853,7 +864,7 @@ h4 {
   .aristimg-grp1 {
     padding: 20px 0;
     position: relative;
-    .transition(all 1s ease);
+    .transition(all 0.3s ease);
     overflow: hidden;
     &:hover .hover-look {
       opacity: 1;
@@ -1004,7 +1015,7 @@ nav.pagination-artist {
   background: @color2;
   border-radius: 0;
   color: #fff;
-  .transition(all 1s ease);
+  .transition(all 0.3s ease);
   &:hover {
     background: #fff!important;
     border: 1px solid @color2 !important;
@@ -1023,7 +1034,7 @@ nav.pagination-artist {
   .artist-cont-detail {
     padding-bottom: 15px;
   }
-  button.btn.btn-block {
+  .btn.btn-block {
     &:hover {
       border: 1px solid #ddd;
       background-color: #cecece;
@@ -1582,7 +1593,7 @@ ul.artist-crisp.pad-less {
   bottom: -4px;
   opacity: 0;
   width: 100%;
-  .transition(all 0.5s ease);
+  .transition(all 0.3s ease);
   .btn {
     color: @color2;
     margin: 4px 0;
@@ -1793,7 +1804,7 @@ textarea {
   color: #fff;
   //    margin: 5px 0;
   .border-radius(0px);
-  .transition(all 1s ease);
+  .transition(all 0.3s ease);
   &:hover {
     background-color: #fff;
     border-color: @color2;
@@ -2008,7 +2019,7 @@ a.forgetlink {
       }
     }
   }
-  button.btn.btn-primary.btn-outline {
+  .btn.btn-primary.btn-outline {
     padding: 4px 6px 5px;
     font-size: 12px;
   }
@@ -2031,7 +2042,7 @@ a.forgetlink {
   text-transform: uppercase;
 }
 div.read-morecont {
-  .transition(all 1s);
+  .transition(all 0.3s);
   overflow: hidden;
 }
 ul.read-inner {
@@ -2412,7 +2423,7 @@ a {
       border-radius: 0;
       color: #fff;
       border: 1px solid @color2;
-      .transition( all 1s);
+      .transition( all 0.3s);
       &:hover {
         color: @color2;
         background-color: #fff;
@@ -2494,7 +2505,7 @@ img.loading {
 }
 img {
   opacity: 0;
-  .transition(all 1s ease);
+  .transition(all 0.3s ease);
 }
 img.doneLoading {
   opacity: 1;
@@ -2683,27 +2694,23 @@ img.fancybox-image {
   color: #D4AE70;
   background-color: #fff;
   border-color: #D4AE70;
-  &:hover {
+  &:hover, &:active:hover, &:focus, &:active:focus {
     color: #fff;
     background-color: #D4AE70;
     border-color: #D4AE70;
   }
-  &:focus {
+  &.fill-up {
     color: #fff;
     background-color: #D4AE70;
     border-color: #D4AE70;
-  }
-  &:active:focus {
-    color: #fff;
-    background-color: #D4AE70;
-    border-color: #D4AE70;
-  }
-  &:active:hover {
-    color: #fff;
-    background-color: #D4AE70;
-    border-color: #D4AE70;
+    &:hover {
+      color: #D4AE70;
+      background-color: white;
+      border-color: #D4AE70;
+    }
   }
 }
+
 .checkout-form {
   font-size: 12px;
   h5 {
@@ -2972,7 +2979,7 @@ img.fancybox-image {
   a {
     color: @color-base-light;
     &:hover {
-      color: darken(@color-base-light,30%);
+      color: darken(@color-base-light, 30%);
     }
   }
 }
@@ -2983,7 +2990,8 @@ img.fancybox-image {
   ol {
     counter-reset: item;
     li:before {
-      content: counters(item, ".") " ";
+      content: counters(item, ".")
+       " ";
       counter-increment: item;
     }
     li {
@@ -3029,7 +3037,7 @@ img.fancybox-image {
   min-height: 280px;
 }
 .fancybox-overlay {
-  background: rgba(0, 0, 0, 0.75)!important;
+  background: rgba(0, 0, 0, 0.75) !important;
   z-index: 100000000!important;
 }
 .fancybox-opened {
@@ -3078,16 +3086,13 @@ img.fancybox-image {
   }
 }
 .zoomWindow {
-  border: 1px solid rgb(136, 136, 136)!important;
+  border: 1px solid rgb(136, 136, 136) !important;
 }
 .negmargin {
   margin-left: -3px;
 }
 #loading-bar .bar {
-    -webkit-transition: width 350ms;
-    -moz-transition: width 350ms;
-    -o-transition: width 350ms;
-    transition: width 350ms;
+    .transition(width 350ms);
     background: #D4AE70;
     position: fixed;
     z-index: 10002;
@@ -3098,8 +3103,92 @@ img.fancybox-image {
     border-bottom-right-radius: 1px;
     border-top-right-radius: 1px;
 }
-
+.room-options {
+  width: 300px;
+  .panel-group {
+    margin-bottom: 0;
+    .panel {
+      border-radius: 0;
+      border: 0;
+      box-shadow: none;
+      +.panel {
+        margin-top: 0;
+      }
+      &.panel-default {
+        >.panel-heading {
+          color: #333;
+          background-color: transparent;
+          border-color: #ddd;
+          text-transform: uppercase;
+          padding: 0;
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+        }
+      }
+      .panel-heading {
+        a {
+          display: block;
+          padding: 10px 5px;
+          border-bottom: 1px solid #ddd;
+          font-size: 15px;
+        }
+        +.panel-collapse {
+          >.panel-body {
+            border-top: 0 solid #ddd;
+            padding: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+.small-input {
+    height: 26px;
+    width: 50px;
+    padding: 3px 5px;
+    border: 1px solid #ddd;
+}
+.color-box {
+    display: block;
+    height: 26px;
+    width: 80px;
+    border: 1px solid #ddd;
+}
+.part-row {
+  line-height: 26px;
+  h3 {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  +.part-row {
+    margin-top: 10px;
+  }
+}
+.file-upload {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 13px;
+    input.btn-upload {
+       position: absolute;
+       top: 0;
+       right: 0;
+       width: 100%;
+       bottom: 0;
+       left: 0;
+       margin: 0;
+       padding: 0;
+       cursor: pointer;
+       opacity: 0;
+       filter: alpha(opacity=0);
+   }
+}
+a.col-press {
+    display: block;
+    position: relative;
+}
 /* Mobile Less */
-//@import "other.less";
 @import "../less/fancybox-override.less";
 @import "../less/mobile.less";
