@@ -689,5 +689,16 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 method: "POST",
             }).success(callback);
         },
+        shareFolder: function(shareobj, callback) {
+            $http({
+                url: adminurl + "wishlistfolder/shareFolder",
+                method: "POST",
+                data: {
+                    "name": shareobj.name,
+                    "wishlistfolder": shareobj._id,
+                    "email": shareobj.emailid
+                }
+            }).success(callback);
+        },
     }
 });

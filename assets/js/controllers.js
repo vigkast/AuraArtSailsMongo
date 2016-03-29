@@ -652,6 +652,15 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         });
     }
 
+    $scope.openSharePop = function(folder) {
+        console.log(folder);
+        $scope.share = folder;
+        ngDialog.open({
+            scope: $scope,
+            template: 'views/content/modal-share.html'
+        });
+    }
+
     $scope.createFolder = function(name) {
         if (name && name != '') {
             ngDialog.closeAll();
@@ -664,6 +673,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 })
             }
         }
+    }
+
+    $scope.folderShare = function() {
+        console.log($scope.share);
+        NavigationService.shareFolder($scope.share, function(data) {
+            ngDialog.closeAll();
+            console.log(data);
+            if (data.value != false) {
+                dataNextPre.messageBox("Folder Shared");
+            } else {
+                dataNextPre.messageBox(data.comment);
+            }
+        })
     }
 
     function getMyFolders() {
