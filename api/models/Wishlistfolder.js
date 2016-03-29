@@ -346,36 +346,129 @@ module.exports = {
             }
         });
     },
-    accessfolder: function(data, callback) {
-        var user = sails.ObjectID(data.user);
+    getWishlist: function(data, callback) {
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
-                    value: false
+                    value: false,
+                    comment: "Error"
                 });
-            }
-            if (db) {
-                db.collection("user").find({
-                    "_id": user,
-                    "wishlistfolder._id": sails.ObjectID(data._id),
-                    "wishlistfolder.password": data.password
+            } else {
+                db.collection("user").aggregate([{
+                    $match: {
+                        _id: sails.ObjectID(data.user)
+                    }
                 }, {
-                    "wishlistfolder.$": 1
-                }).toArray(function(err, data2) {
-                    if (data2 && data2[0]) {
-                        callback(data2[0].wishlistfolder[0]);
-                        db.close();
-                    } else if (err) {
+                    $unwind: "$wishlist"
+                }, {
+                    $match: {
+                        "wishlist.wishlistfolder": sails.ObjectID(data.wishlistfolder)
+                    }
+                }, {
+                    $project: {
+                        _id: 0,
+                        wishlist: 1
+                    }
+                }]).toArray(function(err, found) {
+                    if (err) {
                         console.log(err);
                         callback({
-                            value: false
+                            value: false,
+                            comment: "Error"
                         });
                         db.close();
+                    } else if (found && found.length > 0) {
+                        var i = 0;
+                        var lastresult = [];
+                        _.each(found, function(z) {
+                            lastresult.push(z.wishlist);
+                            i++;
+                            if (i == found.length) {
+                                callback(lastresult);
+                            }
+                        });
                     } else {
                         callback({
                             value: false,
                             comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    },
+    shareFolder: function(data, callback) {
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false,
+                    comment: "Something went wrong. Please try again"
+                });
+            } else {
+                db.collection("user").find({
+                    email: data.email
+                }).toArray(function(err, data2) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false,
+                            comment: "Something went wrong. Please try again"
+                        });
+                        db.close();
+                    } else if (data2 && data2.length > 0) {
+                        Wishlistfolder.getWishlist({
+                            user: data.user,
+                            wishlistfolder: data.wishlistfolder
+                        }, function(getRespo) {
+                            if (getRespo.value != false) {
+                                Wishlistfolder.save({
+                                    user: data2[0]._id,
+                                    name: data.name
+                                }, function(wishrespo) {
+                                    if (wishrespo.value != false) {
+                                        function callsave(num) {
+                                            var abcd = getRespo[num];
+                                            Wishlist.saveForFolder({
+                                                user: data2[0]._id,
+                                                wishlistfolder: wishrespo.id,
+                                                artwork: abcd.artwork
+                                            }, function(saveRespo) {
+                                                num++;
+                                                if (num == getRespo.length) {
+                                                    callback({
+                                                        value: true,
+                                                        comment: "Folder shared"
+                                                    });
+                                                    db.close();
+                                                } else {
+                                                    callsave(num);
+                                                }
+                                            });
+                                        }
+                                        callsave(0);
+                                    } else {
+                                        callback({
+                                            value: false,
+                                            comment: "Something went wrong. Please try again"
+                                        });
+                                        db.close();
+                                    }
+                                });
+                            } else {
+                                callback({
+                                    value: false,
+                                    comment: "No artworks found in your folder"
+                                });
+                                db.close();
+                            }
+                        });
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "Email-Id is not registered  with Aura Art"
                         });
                         db.close();
                     }

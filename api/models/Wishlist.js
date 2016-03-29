@@ -89,6 +89,97 @@ module.exports = {
             }
         });
     },
+    saveForFolder: function(data, callback) {
+        var user = sails.ObjectID(data.user);
+        if (data.wishlistfolder) {
+            data.wishlistfolder = sails.ObjectID(data.wishlistfolder);
+        }
+        if (data.artwork) {
+            data.artwork = sails.ObjectID(data.artwork);
+        }
+        if (data.srno && data.srno != "") {
+            data.srno = parseInt(data.srno);
+        }
+        delete data.user;
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                if (!data._id) {
+                    data._id = sails.ObjectID();
+                    db.collection("user").update({
+                        _id: user
+                    }, {
+                        $push: {
+                            wishlist: data
+                        }
+                    }, function(err, updated) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else if (updated) {
+                            callback({
+                                value: true,
+                                id: data._id
+                            });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "Not created"
+                            });
+                            db.close();
+                        }
+                    });
+                } else {
+                    data._id = sails.ObjectID(data._id);
+                    var tobechanged = {};
+                    var attribute = "wishlist.$.";
+                    _.forIn(data, function(value, key) {
+                        tobechanged[attribute + key] = value;
+                    });
+                    db.collection("user").update({
+                        "_id": user,
+                        "wishlist._id": data._id
+                    }, {
+                        $set: tobechanged
+                    }, function(err, updated) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+                            callback({
+                                value: true
+                            });
+                            db.close();
+                        } else if (updated.result.nModified == 0 && updated.result.n != 0) {
+                            callback({
+                                value: true,
+                                comment: "Data already updated"
+                            });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "No data found"
+                            });
+                            db.close();
+                        }
+                    });
+                }
+            }
+        });
+    },
     delete: function(data, callback) {
         var user = sails.ObjectID(data.user);
         delete data.user;

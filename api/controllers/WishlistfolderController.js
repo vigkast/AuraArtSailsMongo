@@ -118,6 +118,61 @@ module.exports = {
             });
         }
     },
+    getWishlist: function(req, res) {
+        if (req.body) {
+            if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
+                if (req.body.wishlistfolder && req.body.wishlistfolder != "" && sails.ObjectID.isValid(req.body.wishlistfolder)) {
+                    var print = function(data) {
+                        res.json(data);
+                    }
+                    Wishlistfolder.getWishlist(req.body, print);
+                } else {
+                    res.json({
+                        value: false,
+                        comment: "Wishlistfolder-id is incorrect"
+                    });
+                }
+            } else {
+                res.json({
+                    value: false,
+                    comment: "user-id is incorrect "
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    shareFolder: function(req, res) {
+        if (req.body) {
+            if (req.session.passport) {
+                req.body.user = req.session.passport.user.id;
+                if (req.body.wishlistfolder && req.body.wishlistfolder != "" && sails.ObjectID.isValid(req.body.wishlistfolder)) {
+                    var print = function(data) {
+                        res.json(data);
+                    }
+                    Wishlistfolder.shareFolder(req.body, print);
+                } else {
+                    res.json({
+                        value: false,
+                        comment: "Wishlistfolder-id is incorrect"
+                    });
+                }
+            } else {
+                res.json({
+                    value: false,
+                    comment: "User not logged-in"
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
     findlimited: function(req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
@@ -136,28 +191,6 @@ module.exports = {
                 res.json({
                     value: false,
                     comment: "user-id is incorrect "
-                });
-            }
-        } else {
-            res.json({
-                value: false,
-                comment: "Please provide parameters"
-            });
-        }
-    },
-    accessfolder: function(req, res) {
-        if (req.body) {
-            if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user) && req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                if (req.body.password && req.body.password != "") {
-                    function callback(data) {
-                        res.json(data);
-                    };
-                    Wishlistfolder.accessfolder(req.body, callback);
-                }
-            } else {
-                res.json({
-                    value: false,
-                    comment: "Please provide parameters"
                 });
             }
         } else {
