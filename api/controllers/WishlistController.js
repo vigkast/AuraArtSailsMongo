@@ -42,6 +42,41 @@ module.exports = {
             });
         }
     },
+    saveForFolder: function(req, res) {
+        if (req.body) {
+            if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
+                if (req.body._id) {
+                    if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                        feed();
+                    } else {
+                        res.json({
+                            value: false,
+                            comment: "Wishlist-id is incorrect"
+                        });
+                    }
+                } else {
+                    feed();
+                }
+            } else {
+                res.json({
+                    value: false,
+                    comment: "User-Id is incorrect"
+                });
+            }
+
+            function feed() {
+                var print = function(data) {
+                    res.json(data);
+                }
+                Wishlist.saveForFolder(req.body, print);
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
     delete: function(req, res) {
         if (req.body) {
             if (req.session.passport) {
