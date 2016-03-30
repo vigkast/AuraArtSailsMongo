@@ -17388,6 +17388,19 @@ firstapp.directive('clickme', function() {
     };
 });
 
+firstapp.directive('wallRatio', function() {
+  return {
+      restrict: 'EA',
+      replace: false,
+      link: function(scope, element, attr) {
+          var $element = $(element);
+          var width = $(element).width(); // width is 13.33ft.
+          var height = (width-290)/1.33; // height is 10ft.
+          $('.height-holder').css('height', height);
+      }
+  };
+});
+
 firstapp.directive('youtube', function($sce) {
     return {
         restrict: 'A',
@@ -17483,7 +17496,7 @@ var duration = 2000;
 var offset = 70;
 globalFunction.tab = "info";
 
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'cfp.loadingBar', 'infinite-scroll', 'duScroll', 'toaster', 'ngAnimate', 'ngAutocomplete', 'ngDialog', 'valdr', 'ngSanitize', 'ui.select', 'angular-flexslider', 'ui-rangeSlider', 'angularFileUpload'])
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'cfp.loadingBar', 'infinite-scroll', 'duScroll', 'toaster', 'ngAnimate', 'ngAutocomplete', 'ngDialog', 'valdr', 'ngSanitize', 'ui.select', 'angular-flexslider', 'ui-rangeSlider', 'angularFileUpload','colorpicker.module'])
 
 //.controller('AppCtrl')
 .controller('HomeCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
@@ -23516,6 +23529,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.menutitle = NavigationService.makeactive("View Artwork in Your Room");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
+
+    $scope.wall = [];
+    $scope.wall.color = '#dddddd';
+    $scope.wall.height = 10;
+    $scope.wall.width = 13.33;
 });
 ;
 var templateservicemod = angular.module('templateservicemod', []);

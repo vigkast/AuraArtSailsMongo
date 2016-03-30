@@ -684,6 +684,19 @@ firstapp.directive('clickme', function() {
     };
 });
 
+firstapp.directive('wallRatio', function() {
+  return {
+      restrict: 'EA',
+      replace: false,
+      link: function(scope, element, attr) {
+          var $element = $(element);
+          var width = $(element).width(); // width is 13.33ft.
+          var height = (width-290)/1.33; // height is 10ft.
+          $('.height-holder').css('height', height);
+      }
+  };
+});
+
 firstapp.directive('youtube', function($sce) {
     return {
         restrict: 'A',

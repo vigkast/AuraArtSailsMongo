@@ -11,9 +11,11 @@
 @import (inline) "../bower_components/fancyBox/source/jquery.fancybox.css";
 @import (inline) "../bower_components/select2/dist/css/select2.min.css";
 @import (inline) "../bower_components/ui-select/dist/select.min.css";
+@import (inline) "../bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css";
+@import "../less/toggle.less";
 /*Author Wohlig Technology*/
-@color1: #e6e7e9;
 @color2: #D4AE70;
+@color1: #e6e7e9;
 @color3: #ff4f4f;
 @color4: #0fba66;
 
@@ -3103,14 +3105,31 @@ img.fancybox-image {
     border-bottom-right-radius: 1px;
     border-top-right-radius: 1px;
 }
+.height-holder {
+  position: relative;
+}
+.wall-builder {
+    padding-right: 290px;
+    width: 100%;
+}
 .room-options {
-  width: 300px;
+  width: 280px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 9;
   .panel-group {
     margin-bottom: 0;
     .panel {
       border-radius: 0;
       border: 0;
       box-shadow: none;
+
+      .in {
+        .panel-body {
+          border-bottom: 1px solid #ddd;
+        }
+      }
       +.panel {
         margin-top: 0;
       }
@@ -3144,8 +3163,8 @@ img.fancybox-image {
 }
 .small-input {
     height: 26px;
-    width: 50px;
-    padding: 3px 5px;
+    width: 45px;
+    padding: 3px;
     border: 1px solid #ddd;
 }
 .color-box {
@@ -3189,6 +3208,9 @@ img.fancybox-image {
 a.col-press {
     display: block;
     position: relative;
+}
+.mr-right {
+    margin-right: 10px;
 }
 /* Mobile Less */
 @import "../less/fancybox-override.less";

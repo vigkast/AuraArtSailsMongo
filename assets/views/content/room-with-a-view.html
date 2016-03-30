@@ -3,6 +3,11 @@
     <div class="container">
         <div class="pad-top-btm">
             <h4 class="head-team">VIEW ARTWORK IN YOUR ROOM</h4>
+<div class="relative">
+  <div class="wall-builder" wall-ratio>
+    <div class="height-holder" ng-style="{'background-color': wall.color}"></div>
+  </div>
+
             <div class="room-options">
                 <uib-accordion>
                     <uib-accordion-group>
@@ -66,11 +71,11 @@
                             <div class="part-row">
                                 Wall Size:
                                 <div class="pull-right">
-                                    <span>H
-                                        <input type="text" class="small-input">
+                                    <span class="mr-right">H
+                                        <input type="text" class="small-input" ng-model="wall.height">
                                         ft.</span>
                                     <span>W
-                                        <input type="text" class="small-input">
+                                        <input type="text" class="small-input" ng-model="wall.width">
                                         ft.</span>
                                 </div>
                                 <div class="clearfix"></div>
@@ -78,7 +83,7 @@
                             <div class="part-row">
                                 Wall Colour:
                                 <div class="pull-right">
-                                    <span class="color-box"></span>
+                                    <span class="color-box" colorpicker-position="top" colorpicker ng-model="wall.color" ng-style="{'background-color': wall.color}"></span>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -86,13 +91,24 @@
 
                         <div class="part">
                             <div class="part-row">
+                              <div class="pull-right">
+                                <div class="pull-right">
+                                <div class="onoffswitch">
+                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forfurniture" checked>
+                                  <label class="onoffswitch-label" for="forfurniture">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                  </label>
+                                </div>
+                              </div></div>
                                 <h3>Select Funriture:</h3>
+                                <div class="clearfix"></div>
                             </div>
 
                             <div class="part-row">
                                 Furniture Size:
                                 <div class="pull-right">
-                                    <span>H
+                                    <span class="mr-right">H
                                         <input type="text" class="small-input">
                                         ft.</span>
                                     <span>W
@@ -101,7 +117,7 @@
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="part-two">
+                            <div class="part-row">
                                 <div class="row">
                                     <div class="col-md-3"></div>
                                     <div class="col-md-3"></div>
@@ -118,7 +134,7 @@
                             <div class="part-row">
                                 Wall Size:
                                 <div class="pull-right">
-                                    <span>H
+                                    <span class="mr-right">H
                                         <input type="text" class="small-input">
                                         ft.</span>
                                     <span>W
@@ -137,7 +153,15 @@
 
                             <div class="part-row">
                                 Show Grid:
-                                <div class="pull-right"></div>
+                                <div class="pull-right">
+                                  <div class="onoffswitch">
+                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forgrid1" checked>
+                                    <label class="onoffswitch-label" for="forgrid1">
+                                      <span class="onoffswitch-inner"></span>
+                                      <span class="onoffswitch-switch"></span>
+                                    </label>
+                                  </div>
+                                </div>
                                 <div class="clearfix"></div>
                             </div>
 
@@ -158,7 +182,15 @@
                         <div class="part">
                             <div class="part-row">
                                 Show Grid:
-                                <div class="pull-right"></div>
+                                <div class="pull-right">
+                                  <div class="onoffswitch">
+                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forgrid" checked>
+                                    <label class="onoffswitch-label" for="forgrid">
+                                      <span class="onoffswitch-inner"></span>
+                                      <span class="onoffswitch-switch"></span>
+                                    </label>
+                                  </div>
+                                </div>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="part-row">
@@ -167,7 +199,7 @@
                                     <input type="range">
                                 </div>
                             </div>
-                            <div class="part-two">
+                            <div class="part-row">
                                 Select Templates:
                                 <div class="row">
                                     <div class="col-md-3"></div>
@@ -182,7 +214,7 @@
                         <uib-accordion-heading>Custom Framing<i class="fa fa-chevron-down pull-right"></i>
                         </uib-accordion-heading>
                         <div class="part">
-                            <div class="part-two">
+                            <div class="part-row">
                                 Select Frames:
                                 <div class="row">
                                     <div class="col-md-3"></div>
@@ -193,13 +225,23 @@
                             <div class="part-row">
                                 Wall Colour:
                                 <div class="pull-right">
-                                    <span class="color-box"></span>
+                                  <span class="color-box" colorpicker-position="top" colorpicker ng-model="wall.color" ng-style="{'background-color': wall.color}"></span>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
 
                             <div class="part-row">
-                                <h3>Select Funriture:</h3>
+                              <div class="pull-right">
+                                <div class="onoffswitch">
+                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="formount" checked>
+                                  <label class="onoffswitch-label" for="formount">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                  </label>
+                                </div>
+                              </div>
+                                <h3>Select Mount:</h3>
+                                <div class="clearfix"></div>
                             </div>
 
                             <div class="part-row">
@@ -212,7 +254,7 @@
                             <div class="part-row">
                                 Mount Colour:
                                 <div class="pull-right">
-                                    <span class="color-box"></span>
+                                  <span class="color-box" colorpicker-position="top" colorpicker ng-model="mountColor" ng-style="{'background-color': mountColor}"></span>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -222,6 +264,9 @@
 
                 <button class="btn btn-outline btn-primary btn-full">Download View</button>
                 <button class="btn btn-outline btn-primary btn-full">Save to Profile</button>
+
+            </div>
+
 
             </div>
         </div>
