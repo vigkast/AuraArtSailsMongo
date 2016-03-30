@@ -79,6 +79,7 @@ module.exports = function(grunt) {
                     './bower_components/lodash/lodash.js',
                     './bower_components/angular-rangeslider/angular.rangeSlider.js',
                     './bower_components/angular-scroll/angular-scroll.min.js',
+                    './bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
                     './lib/js/angular-file-upload.js',
                     './lib/js/FileAPI.min.js',
                     './lib/js/upload.js',
