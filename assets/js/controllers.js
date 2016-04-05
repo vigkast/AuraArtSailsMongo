@@ -3946,7 +3946,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.menutitle = NavigationService.makeactive("Upload Artwork");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-    window.uploadUrl = 'http://auraart.in/user/uploadfile';
+    window.uploadUrl = 'http://www.auraart.in/user/uploadfile';
     $.jStorage.set("artistScroll", null);
     $.jStorage.set("artworkScroll", null);
     // window.uploadUrl = 'http://192.168.0.122:1337/user/uploadfile';
@@ -4459,7 +4459,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.menutitle = NavigationService.makeactive("Upload Artwork");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-    window.uploadUrl = 'http://auraart.in/user/uploadfile';
+    window.uploadUrl = 'http://www.auraart.in/user/uploadfile';
     $.jStorage.set("artistScroll", null);
     $.jStorage.set("artworkScroll", null);
     // window.uploadUrl = 'http://192.168.0.122:1337/user/uploadfile';
