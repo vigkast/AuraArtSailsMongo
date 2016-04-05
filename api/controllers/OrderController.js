@@ -4,16 +4,16 @@
  * @description :: Server-side logic for managing users
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-var frontend = "http://auraart.in/#";
+var frontend = "http://www.auraart.in/#";
 //var frontend = "http://www.auraart.in/manjhi/#";
 module.exports = {
-    save: function (req, res) {
+    save: function(req, res) {
         if (req.body) {
             if (req.session.passport) {
                 req.body._id = req.session.passport.user.id;
                 save();
             } else {
-                Order.saveGuest(req.body, function (orderRespo) {
+                Order.saveGuest(req.body, function(orderRespo) {
                     if (orderRespo.value != false) {
                         req.session.cart = {};
                         res.json(orderRespo);
@@ -24,7 +24,7 @@ module.exports = {
             }
 
             function save() {
-                User.findone(req.body, function (respo) {
+                User.findone(req.body, function(respo) {
                     respo.user = respo._id;
                     var userid = {
                         _id: respo._id
@@ -38,9 +38,9 @@ module.exports = {
                     respo.comment = req.body.comment;
                     respo.cart = req.body.cart;
                     delete respo._id;
-                    Order.save(respo, function (data2) {
+                    Order.save(respo, function(data2) {
                         if (data2.value != false) {
-                            User.findone(userid, function (userRespo) {
+                            User.findone(userid, function(userRespo) {
                                 if (userRespo.value != false) {
                                     userRespo.id = userRespo._id;
                                     delete userRespo._id;
@@ -68,10 +68,10 @@ module.exports = {
             });
         }
     },
-    delete: function (req, res) {
+    delete: function(req, res) {
         if (req.body) {
             if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 Order.delete(req.body, print);
@@ -88,16 +88,16 @@ module.exports = {
             });
         }
     },
-    find: function (req, res) {
-        var print = function (data) {
+    find: function(req, res) {
+        var print = function(data) {
             res.json(data);
         }
         Order.find(req.body, print);
     },
-    findOrders: function (req, res) {
+    findOrders: function(req, res) {
         if (req.session.passport) {
             req.body.user = req.session.passport.user.id;
-            var print = function (data) {
+            var print = function(data) {
                 res.json(data);
             }
             Order.findOrders(req.body, print);
@@ -105,10 +105,10 @@ module.exports = {
             res.json([]);
         }
     },
-    findone: function (req, res) {
+    findone: function(req, res) {
         if (req.body) {
             if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 Order.findone(req.body, print);
@@ -125,7 +125,7 @@ module.exports = {
             });
         }
     },
-    findlimited: function (req, res) {
+    findlimited: function(req, res) {
         if (req.body) {
             if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
                 function callback(data) {
@@ -145,10 +145,10 @@ module.exports = {
             });
         }
     },
-    editOrder: function (req, res) {
+    editOrder: function(req, res) {
         if (req.body) {
             if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 Order.editOrder(req.body, print);
@@ -165,9 +165,9 @@ module.exports = {
             });
         }
     },
-    payU: function (req, res) {
+    payU: function(req, res) {
         if (req.body) {
-            Order.payU(req.body, function (respo) {
+            Order.payU(req.body, function(respo) {
                 if (respo.value != false) {
                     res.redirect(frontend + "/thankyou");
                 } else {
@@ -181,15 +181,15 @@ module.exports = {
             });
         }
     },
-    deleteall: function (req, res) {
-        sails.query(function (err, db) {
+    deleteall: function(req, res) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 res.json({
                     value: false
                 });
             }
-            db.collection('order').remove({}, function (err, deleted) {
+            db.collection('order').remove({}, function(err, deleted) {
                 if (deleted) {
                     res.json({
                         value: true
