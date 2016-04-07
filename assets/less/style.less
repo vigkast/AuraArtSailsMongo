@@ -3214,6 +3214,8 @@ a.col-press {
 .mr-right {
     margin-right: 10px;
 }
+@feet-px: 85px;
+@grid-color: blue;
 .grid-holder {
   position: relative;
   top: 0;
@@ -3226,8 +3228,8 @@ a.col-press {
     .horizontal-line {
         width: 100%;
         height: 1px;
-        background-color: blue;
-        margin-top: 41px;
+        background-color: @grid-color;
+        margin-top: @feet-px;
     }
 }
 .vertical-holder {
@@ -3240,8 +3242,8 @@ a.col-press {
         height: 100%;
         position: relative;
         width: 1px;
-        background-color: blue;
-        margin-left: 41px;
+        background-color: @grid-color;
+        margin-left: @feet-px;
         display: inline-block;
     }
 }

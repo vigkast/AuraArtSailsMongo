@@ -691,7 +691,7 @@ firstapp.directive('wallRatio', function() {
       link: function(scope, element, attr) {
           var $element = $(element);
           var width = $(element).width(); // width is 13.33ft.
-          var height = (width-290)/1.33; // height is 10ft.
+          var height = (width)/1.33; // height is 10ft.
           $('.height-holder').css('height', height);
       }
   };
