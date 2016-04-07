@@ -3,270 +3,278 @@
     <div class="container">
         <div class="pad-top-btm">
             <h4 class="head-team">VIEW ARTWORK IN YOUR ROOM</h4>
-<div class="relative">
-  <div class="wall-builder" wall-ratio>
-    <div class="height-holder" ng-style="{'background-color': wall.color}"></div>
-  </div>
+            <div class="relative">
 
-            <div class="room-options">
-                <uib-accordion>
-                    <uib-accordion-group>
-                        <uib-accordion-heading>Artwork Detail
-                            <i class="fa fa-chevron-down pull-right"></i>
-                        </uib-accordion-heading>
-                        <div class="painting-details">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <span>2004</span>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                    <tr class="font-color3">
-                                        <td class="labels">Artist:</td>
-                                        <td>
-                                            Ajay De
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="labels">Title:</td>
-                                        <td>
-                                            Horse Car
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="labels">Medium:
-                                        </td>
-                                        <td>
-                                            Charcoal on paper
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="labels">Size:</td>
-                                        <td>15 x 15 inches</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="labels">Year:</td>
-                                        <td>2013</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="labels">Price:
-                                        </td>
-                                        <td>Rs 150,000 / $2,239
-                                            <br>
-                                            <span>(excluding VAT)</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button class="btn btn-primary btn-full fill-up">Add to Cart</button>
+                <div class="wall-builder" wall-ratio>
+                    <div class="height-holder" ng-style="{'background-color': wall.color}">
+                      <div class="grid-holder">
+                        <div class="horizontal-line" ng-repeat="i in [1,2,3,4,56,7,89,9,122,12]"></div>
+                        <div class="vertical-holder">
+                          <div class="vertical-line" ng-repeat="i in [1,2,3,4,56,7,89,9,122,12]"></div>
                         </div>
-                    </uib-accordion-group>
+                      </div>
+                    </div>
+                </div>
 
-                    <uib-accordion-group>
-                        <uib-accordion-heading>Create your wall<i class="fa fa-chevron-down pull-right"></i>
-                        </uib-accordion-heading>
-                        <div class="part">
-                            <div class="part-row">
-                                Wall Size:
-                                <div class="pull-right">
-                                    <span class="mr-right">H
-                                        <input type="text" class="small-input" ng-model="wall.height">
-                                        ft.</span>
-                                    <span>W
-                                        <input type="text" class="small-input" ng-model="wall.width">
-                                        ft.</span>
-                                </div>
-                                <div class="clearfix"></div>
+                <div class="room-options">
+                    <uib-accordion>
+                        <uib-accordion-group>
+                            <uib-accordion-heading>Artwork Detail
+                                <i class="fa fa-chevron-down pull-right"></i>
+                            </uib-accordion-heading>
+                            <div class="painting-details">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <span>2004</span>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr class="font-color3">
+                                            <td class="labels">Artist:</td>
+                                            <td>
+                                                Ajay De
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="labels">Title:</td>
+                                            <td>
+                                                Horse Car
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="labels">Medium:
+                                            </td>
+                                            <td>
+                                                Charcoal on paper
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="labels">Size:</td>
+                                            <td>15 x 15 inches</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="labels">Year:</td>
+                                            <td>2013</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="labels">Price:
+                                            </td>
+                                            <td>Rs 150,000 / $2,239
+                                                <br>
+                                                <span>(excluding VAT)</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button class="btn btn-primary btn-full fill-up">Add to Cart</button>
                             </div>
-                            <div class="part-row">
-                                Wall Colour:
-                                <div class="pull-right">
-                                    <span class="color-box" colorpicker-position="top" colorpicker ng-model="wall.color" ng-style="{'background-color': wall.color}"></span>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
+                        </uib-accordion-group>
 
-                        <div class="part">
-                            <div class="part-row">
-                              <div class="pull-right">
-                                <div class="pull-right">
-                                <div class="onoffswitch">
-                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forfurniture" checked>
-                                  <label class="onoffswitch-label" for="forfurniture">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                  </label>
+                        <uib-accordion-group>
+                            <uib-accordion-heading>Create your wall<i class="fa fa-chevron-down pull-right"></i>
+                            </uib-accordion-heading>
+                            <div class="part">
+                                <div class="part-row">
+                                    Wall Size:
+                                    <div class="pull-right">
+                                        <span class="mr-right">H
+                                            <input type="text" class="small-input" ng-model="wall.height">
+                                            ft.</span>
+                                        <span>W
+                                            <input type="text" class="small-input" ng-model="wall.width">
+                                            ft.</span>
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
-                              </div></div>
-                                <h3>Select Funriture:</h3>
-                                <div class="clearfix"></div>
+                                <div class="part-row">
+                                    Wall Colour:
+                                    <div class="pull-right">
+                                        <span class="color-box" colorpicker-position="top" colorpicker ng-model="wall.color" ng-style="{'background-color': wall.color}"></span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
                             </div>
 
-                            <div class="part-row">
-                                Furniture Size:
-                                <div class="pull-right">
-                                    <span class="mr-right">H
+                            <div class="part">
+                                <div class="part-row">
+                                    <div class="pull-right">
+                                        <div class="pull-right">
+                                            <div class="onoffswitch">
+                                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forfurniture" checked>
+                                                <label class="onoffswitch-label" for="forfurniture">
+                                                    <span class="onoffswitch-inner"></span>
+                                                    <span class="onoffswitch-switch"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h3>Select Funriture:</h3>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="part-row">
+                                    Furniture Size:
+                                    <div class="pull-right">
+                                        <span class="mr-right">H
+                                            <input type="text" class="small-input">
+                                            ft.</span>
+                                        <span>W
+                                            <input type="text" class="small-input">
+                                            ft.</span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="part-row">
+                                    <div class="row">
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-accordion-group>
+
+                        <uib-accordion-group>
+                            <uib-accordion-heading>Upload your wall<i class="fa fa-chevron-down pull-right"></i>
+                            </uib-accordion-heading>
+                            <div class="part">
+                                <div class="part-row">
+                                    Wall Size:
+                                    <div class="pull-right">
+                                        <span class="mr-right">H
+                                            <input type="text" class="small-input">
+                                            ft.</span>
+                                        <span>W
+                                            <input type="text" class="small-input">
+                                            ft.</span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="part-row">
+                                    <div class="file-upload btn btn-primary">
+                                        <span>Upload Image</span>
+                                        <input class="btn-upload" type="file">
+                                    </div>
+                                </div>
+
+                                <div class="part-row">
+                                    Show Grid:
+                                    <div class="pull-right">
+                                        <div class="onoffswitch">
+                                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forgrid1" checked>
+                                            <label class="onoffswitch-label" for="forgrid1">
+                                                <span class="onoffswitch-inner"></span>
+                                                <span class="onoffswitch-switch"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="part-row">
+                                    Zoom Image:
+                                    <div class="full-width">
+                                        <input type="range">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </uib-accordion-group>
+
+                        <uib-accordion-group>
+                            <uib-accordion-heading>Use wall templates<i class="fa fa-chevron-down pull-right"></i>
+                            </uib-accordion-heading>
+                            <div class="part">
+                                <div class="part-row">
+                                    Show Grid:
+                                    <div class="pull-right">
+                                        <div class="onoffswitch">
+                                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forgrid" checked>
+                                            <label class="onoffswitch-label" for="forgrid">
+                                                <span class="onoffswitch-inner"></span>
+                                                <span class="onoffswitch-switch"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="part-row">
+                                    Zoom Image:
+                                    <div class="full-width">
+                                        <input type="range">
+                                    </div>
+                                </div>
+                                <div class="part-row">
+                                    Select Templates:
+                                    <div class="row">
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-accordion-group>
+
+                        <uib-accordion-group>
+                            <uib-accordion-heading>Custom Framing<i class="fa fa-chevron-down pull-right"></i>
+                            </uib-accordion-heading>
+                            <div class="part">
+                                <div class="part-row">
+                                    Select Frames:
+                                    <div class="row">
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-3"></div>
+                                    </div>
+                                </div>
+                                <div class="part-row">
+                                    Wall Colour:
+                                    <div class="pull-right">
+                                        <span class="color-box" colorpicker-position="top" colorpicker ng-model="wall.color" ng-style="{'background-color': wall.color}"></span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="part-row">
+                                    <div class="pull-right">
+                                        <div class="onoffswitch">
+                                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="formount" checked>
+                                            <label class="onoffswitch-label" for="formount">
+                                                <span class="onoffswitch-inner"></span>
+                                                <span class="onoffswitch-switch"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <h3>Select Mount:</h3>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="part-row">
+                                    Mount Width (inches):
+                                    <div class="pull-right">
                                         <input type="text" class="small-input">
-                                        ft.</span>
-                                    <span>W
-                                        <input type="text" class="small-input">
-                                        ft.</span>
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="part-row">
-                                <div class="row">
-                                    <div class="col-md-3"></div>
-                                    <div class="col-md-3"></div>
-                                    <div class="col-md-3"></div>
+                                <div class="part-row">
+                                    Mount Colour:
+                                    <div class="pull-right">
+                                        <span class="color-box" colorpicker-position="top" colorpicker ng-model="mountColor" ng-style="{'background-color': mountColor}"></span>
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
                             </div>
-                        </div>
-                    </uib-accordion-group>
+                        </uib-accordion-group>
+                    </uib-accordion>
 
-                    <uib-accordion-group>
-                        <uib-accordion-heading>Upload your wall<i class="fa fa-chevron-down pull-right"></i>
-                        </uib-accordion-heading>
-                        <div class="part">
-                            <div class="part-row">
-                                Wall Size:
-                                <div class="pull-right">
-                                    <span class="mr-right">H
-                                        <input type="text" class="small-input">
-                                        ft.</span>
-                                    <span>W
-                                        <input type="text" class="small-input">
-                                        ft.</span>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
+                    <button class="btn btn-outline btn-primary btn-full">Download View</button>
+                    <button class="btn btn-outline btn-primary btn-full">Save to Profile</button>
 
-                            <div class="part-row">
-                                <div class="file-upload btn btn-primary">
-                                    <span>Upload Image</span>
-                                    <input class="btn-upload" type="file">
-                                </div>
-                            </div>
-
-                            <div class="part-row">
-                                Show Grid:
-                                <div class="pull-right">
-                                  <div class="onoffswitch">
-                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forgrid1" checked>
-                                    <label class="onoffswitch-label" for="forgrid1">
-                                      <span class="onoffswitch-inner"></span>
-                                      <span class="onoffswitch-switch"></span>
-                                    </label>
-                                  </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-
-                            <div class="part-row">
-                                Zoom Image:
-                                <div class="full-width">
-                                    <input type="range">
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </uib-accordion-group>
-
-                    <uib-accordion-group>
-                        <uib-accordion-heading>Use wall templates<i class="fa fa-chevron-down pull-right"></i>
-                        </uib-accordion-heading>
-                        <div class="part">
-                            <div class="part-row">
-                                Show Grid:
-                                <div class="pull-right">
-                                  <div class="onoffswitch">
-                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forgrid" checked>
-                                    <label class="onoffswitch-label" for="forgrid">
-                                      <span class="onoffswitch-inner"></span>
-                                      <span class="onoffswitch-switch"></span>
-                                    </label>
-                                  </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="part-row">
-                                Zoom Image:
-                                <div class="full-width">
-                                    <input type="range">
-                                </div>
-                            </div>
-                            <div class="part-row">
-                                Select Templates:
-                                <div class="row">
-                                    <div class="col-md-3"></div>
-                                    <div class="col-md-3"></div>
-                                    <div class="col-md-3"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </uib-accordion-group>
-
-                    <uib-accordion-group>
-                        <uib-accordion-heading>Custom Framing<i class="fa fa-chevron-down pull-right"></i>
-                        </uib-accordion-heading>
-                        <div class="part">
-                            <div class="part-row">
-                                Select Frames:
-                                <div class="row">
-                                    <div class="col-md-3"></div>
-                                    <div class="col-md-3"></div>
-                                    <div class="col-md-3"></div>
-                                </div>
-                            </div>
-                            <div class="part-row">
-                                Wall Colour:
-                                <div class="pull-right">
-                                  <span class="color-box" colorpicker-position="top" colorpicker ng-model="wall.color" ng-style="{'background-color': wall.color}"></span>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-
-                            <div class="part-row">
-                              <div class="pull-right">
-                                <div class="onoffswitch">
-                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="formount" checked>
-                                  <label class="onoffswitch-label" for="formount">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                  </label>
-                                </div>
-                              </div>
-                                <h3>Select Mount:</h3>
-                                <div class="clearfix"></div>
-                            </div>
-
-                            <div class="part-row">
-                                Mount Width (inches):
-                                <div class="pull-right">
-                                    <input type="text" class="small-input">
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="part-row">
-                                Mount Colour:
-                                <div class="pull-right">
-                                  <span class="color-box" colorpicker-position="top" colorpicker ng-model="mountColor" ng-style="{'background-color': mountColor}"></span>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </uib-accordion-group>
-                </uib-accordion>
-
-                <button class="btn btn-outline btn-primary btn-full">Download View</button>
-                <button class="btn btn-outline btn-primary btn-full">Save to Profile</button>
-
-            </div>
-
+                </div>
 
             </div>
         </div>
