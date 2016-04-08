@@ -6056,9 +6056,28 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.uploadwall.zoom = 100;
 
     $scope.grid = [];
-    $scope.grid.status = false;
+    $scope.grid.status = true;
     $scope.getTimes = function(n) {
+        console.log("getTimes : " + n);
+        n = Math.ceil(n);
         return new Array(n);
     };
+
+    $scope.calcCount = function() {
+        $scope.uploadwall.horizontalCount = $scope.uploadwall.height;
+        $scope.uploadwall.pixelCount = 500 / $scope.uploadwall.horizontalCount;
+        $scope.uploadwall.verticalCount = 665 / $scope.uploadwall.pixelCount;
+        $scope.uploadwall.pixels = $scope.uploadwall.pixelCount + "px";
+        console.log("horizontalCount : " + $scope.uploadwall.horizontalCount);
+        console.log("pixelCount : " + $scope.uploadwall.pixelCount);
+        console.log("verticalCount : " + $scope.uploadwall.verticalCount);
+        console.log("pixels : " + $scope.uploadwall.pixels);
+    }
+
+    $scope.calcHeigthWidth = function() {
+        $scope.uploadwall.width = parseInt($scope.uploadwall.height) * 1.33;
+        $scope.calcCount();
+    }
+    $scope.calcCount();
 
 });

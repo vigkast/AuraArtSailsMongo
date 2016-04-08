@@ -10,9 +10,9 @@
 
 
                       <div class="grid-holder" ng-if="grid.status">
-                        <div class="horizontal-line" ng-repeat="i in [1,2,3,4,56,7,89,9,122,12]"></div>
+                        <div class="horizontal-line" ng-repeat="i in getTimes(uploadwall.horizontalCount) track by $index" ng-style="{'margin-bottom' : uploadwall.pixels}"></div>
                         <div class="vertical-holder">
-                          <div class="vertical-line" ng-repeat="i in [1,2,3,4,56,7,89,9,122,12,32,43,22]"></div>
+                          <div class="vertical-line" ng-repeat="i in getTimes(uploadwall.verticalCount) track by $index" ng-style="{'margin-left' : uploadwall.pixels}"></div>
                         </div>
                       </div>
 
@@ -148,10 +148,10 @@
                                     Wall Size:
                                     <div class="pull-right">
                                         <span class="mr-right">H
-                                            <input type="text" class="small-input">
+                                            <input type="text" class="small-input" ng-model="uploadwall.height" ng-change="calcHeigthWidth();">
                                             ft.</span>
                                         <span>W
-                                            <input type="text" class="small-input">
+                                            <input type="text" class="small-input" ng-model="uploadwall.width" disabled>
                                             ft.</span>
                                     </div>
                                     <div class="clearfix"></div>
