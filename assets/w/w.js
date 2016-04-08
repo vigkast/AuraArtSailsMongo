@@ -24123,6 +24123,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.uploadwall.width = 13.33;
     $scope.uploadwall.zoom = 100;
 
+    $scope.grid = [];
+    $scope.grid.status = false;
     $scope.getTimes = function(n) {
         return new Array(n);
     };
