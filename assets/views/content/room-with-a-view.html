@@ -5,14 +5,18 @@
             <h4 class="head-team">VIEW ARTWORK IN YOUR ROOM</h4>
             <div class="relative">
 
-                <div class="wall-builder" wall-ratio>
+                <div class="wall-builder">
                     <div class="height-holder" ng-style="{'background-color': wall.color}">
-                      <div class="grid-holder">
+
+
+                      <div class="grid-holder" ng-init="grid=true" ng-if="grid">
                         <div class="horizontal-line" ng-repeat="i in [1,2,3,4,56,7,89,9,122,12]"></div>
                         <div class="vertical-holder">
                           <div class="vertical-line" ng-repeat="i in [1,2,3,4,56,7,89,9,122,12,32,43,22]"></div>
                         </div>
                       </div>
+
+
                     </div>
                 </div>
 
@@ -164,7 +168,7 @@
                                     Show Grid:
                                     <div class="pull-right">
                                         <div class="onoffswitch">
-                                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forgrid1" checked>
+                                            <input type="checkbox" ng-model="grid" name="onoffswitch" class="onoffswitch-checkbox" id="forgrid1" checked>
                                             <label class="onoffswitch-label" for="forgrid1">
                                                 <span class="onoffswitch-inner"></span>
                                                 <span class="onoffswitch-switch"></span>

@@ -3111,7 +3111,7 @@ img.fancybox-image {
     height: 100%;
 }
 .wall-builder {
-    padding-right: 290px;
+    padding-right: 310px;
     width: 100%;
 }
 .room-options {
@@ -3120,6 +3120,7 @@ img.fancybox-image {
   top: 0;
   right: 0;
   z-index: 9;
+  padding: 0 10px;
   .panel-group {
     margin-bottom: 0;
     .panel {
@@ -3214,7 +3215,7 @@ a.col-press {
 .mr-right {
     margin-right: 10px;
 }
-@feet-px: 63px;
+@feet-px: 49px;
 @grid-color: blue;
 .grid-holder {
   position: relative;
@@ -3229,7 +3230,7 @@ a.col-press {
         width: 100%;
         height: 1px;
         background-color: @grid-color;
-        margin-top: @feet-px;
+        margin-bottom: @feet-px;
     }
 }
 .vertical-holder {
@@ -3246,6 +3247,13 @@ a.col-press {
         margin-left: @feet-px;
         display: inline-block;
     }
+}
+.wall-builder {
+  .height-holder {
+    height: 500px;
+    width: 665px;
+    margin: 0 auto;
+  }
 }
 /* Mobile Less */
 @import "../less/fancybox-override.less";

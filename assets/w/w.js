@@ -18078,7 +18078,7 @@ var duration = 2000;
 var offset = 70;
 globalFunction.tab = "info";
 
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'cfp.loadingBar', 'infinite-scroll', 'duScroll', 'toaster', 'ngAnimate', 'ngAutocomplete', 'ngDialog', 'valdr', 'ngSanitize', 'ui.select', 'angular-flexslider', 'ui-rangeSlider', 'angularFileUpload','colorpicker.module'])
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'cfp.loadingBar', 'infinite-scroll', 'duScroll', 'toaster', 'ngAnimate', 'ngAutocomplete', 'ngDialog', 'valdr', 'ngSanitize', 'ui.select', 'angular-flexslider', 'ui-rangeSlider', 'angularFileUpload', 'colorpicker.module'])
 
 //.controller('AppCtrl')
 .controller('HomeCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
@@ -24116,6 +24116,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.wall.color = '#dddddd';
     $scope.wall.height = 10;
     $scope.wall.width = 13.33;
+
+    $scope.uploadwall = {};
+    $scope.uploadwall.color = '#dddddd';
+    $scope.uploadwall.height = 10;
+    $scope.uploadwall.width = 13.33;
+    $scope.uploadwall.zoom = 100;
+
+    $scope.getTimes = function(n) {
+        return new Array(n);
+    };
+
 });
 ;
 var templateservicemod = angular.module('templateservicemod', []);
