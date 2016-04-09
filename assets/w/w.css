@@ -1331,6 +1331,17 @@ h5,
 h6 {
   font-family: 'Open Sans';
 }
+.full-size,
+.file-upload input.btn-upload,
+.grid-holder,
+.vertical-holder,
+.wall-image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
 .btn {
   border-radius: 0;
   -webkit-transition: all 300ms ease;
@@ -4589,6 +4600,7 @@ img.fancybox-image {
   right: 0;
   z-index: 9;
   padding: 0 10px;
+  background-color: white;
 }
 .room-options .panel-group {
   margin-bottom: 0;
@@ -4655,12 +4667,6 @@ img.fancybox-image {
   font-size: 13px;
 }
 .file-upload input.btn-upload {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  bottom: 0;
-  left: 0;
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -4676,33 +4682,21 @@ a.col-press {
 }
 .grid-holder {
   position: relative;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  left: 0;
   background-color: rgba(0, 0, 0, 0.25);
-  height: 100%;
   min-height: 100%;
   overflow: hidden;
 }
 .grid-holder .horizontal-line {
   width: 100%;
   height: 1px;
-  background-color: blue;
+  background-color: #2E77D2;
   margin-bottom: 49px;
-}
-.vertical-holder {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
 }
 .vertical-holder .vertical-line {
   height: 100%;
   position: relative;
   width: 1px;
-  background-color: blue;
+  background-color: #2E77D2;
   margin-left: 49px;
   display: inline-block;
 }
@@ -4710,6 +4704,27 @@ a.col-press {
   height: 500px;
   width: 665px;
   margin: 0 auto;
+}
+.wall-image {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% auto;
+}
+.furni-box {
+  background-color: #e6e7e9;
+  border: 1px solid transparent;
+  cursor: pointer;
+  -webkit-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+.furni-box.selected,
+.furni-box:hover {
+  border: 1px solid #333;
+}
+.furni-name {
+  font-size: 10px;
 }
 /* Mobile Less */
 #fancybox-loading,
