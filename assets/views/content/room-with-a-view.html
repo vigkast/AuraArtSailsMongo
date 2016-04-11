@@ -8,18 +8,18 @@
                 <div class="wall-builder">
                     <div class="height-holder" ng-style="{'background-color': wall.color}">
 
-                      <div class="wall-image" id="wall"  ng-style="{'background-image':'url(http://www.the-brick-house.com/wp-content/uploads/2011/08/DSC00305-copy2.jpg)'}"></div>
+                        <div class="wall-image" id="wall" ng-style="{'background-image':'url(http://www.the-brick-house.com/wp-content/uploads/2011/08/DSC00305-copy2.jpg)'}"></div>
 
-                      <div class="painting-holder">
-                        <img src="http://www.auraart.in/user/resize?width=1200&file=1526.jpg" alt="Painting" width="300">
-                      </div>
-
-                      <div class="grid-holder" ng-if="grid.status">
-                        <div class="horizontal-line" ng-repeat="i in getTimes(uploadwall.horizontalCount) track by $index" ng-style="{'margin-bottom' : uploadwall.pixels}"></div>
-                        <div class="vertical-holder">
-                          <div class="vertical-line" ng-repeat="i in getTimes(uploadwall.verticalCount) track by $index" ng-style="{'margin-left' : uploadwall.pixels}"></div>
+                        <div class="painting-holder" id="draggable-element">
+                            <img src="http://www.auraart.in/user/resize?file=1526.jpg" alt="Painting" width="300">
                         </div>
-                      </div>
+
+                        <div class="grid-holder" ng-if="grid.status">
+                            <div class="horizontal-line" ng-repeat="i in getTimes(uploadwall.horizontalCount) track by $index" ng-style="{'margin-bottom' : uploadwall.pixels}"></div>
+                            <div class="vertical-holder">
+                                <div class="vertical-line" ng-repeat="i in getTimes(uploadwall.verticalCount) track by $index" ng-style="{'margin-left' : uploadwall.pixels}"></div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -137,26 +137,26 @@
                                 <div class="part-row text-center">
                                     <div class="row">
                                         <div class="col-md-4">
-                                          <div class="furni-box selected">
-                                            <img src="img/room-view/thumb-cabinet.png" class="img-responsive">
-                                          </div>
-                                          <span class="furni-name">
+                                            <div class="furni-box selected">
+                                                <img src="img/room-view/thumb-cabinet.png" class="img-responsive">
+                                            </div>
+                                            <span class="furni-name">
                                             Cabinet
                                           </span>
                                         </div>
                                         <div class="col-md-4">
-                                          <div class="furni-box">
-                                            <img src="img/room-view/thumb-sofa.png" class="img-responsive">
-                                          </div>
-                                          <span class="furni-name">
+                                            <div class="furni-box">
+                                                <img src="img/room-view/thumb-sofa.png" class="img-responsive">
+                                            </div>
+                                            <span class="furni-name">
                                             Sofa
                                           </span>
                                         </div>
                                         <div class="col-md-4">
-                                          <div class="furni-box">
-                                            <img src="img/room-view/thumb-dining-table.png" class="img-responsive">
-                                          </div>
-                                          <span class="furni-name">
+                                            <div class="furni-box">
+                                                <img src="img/room-view/thumb-dining-table.png" class="img-responsive">
+                                            </div>
+                                            <span class="furni-name">
                                             Dining Table
                                           </span>
                                         </div>

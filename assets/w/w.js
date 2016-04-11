@@ -24200,68 +24200,53 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
     })();
 
-    function startDrag(e) {
-        // determine event object
-        if (!e) {
-            var e = window.event;
+    var selected = null, // Object of the element to be moved
+        x_pos = 0,
+        y_pos = 0, // Stores x & y coordinates of the mouse pointer
+        x_elem = 0,
+        y_elem = 0; // Stores top, left values (edge) of the element
+
+    // Will be called when user starts dragging an element
+    function _drag_init(elem) {
+        // Store the object of the element which needs to be moved
+        selected = elem;
+        x_elem = x_pos - selected.offsetLeft;
+        y_elem = y_pos - selected.offsetTop;
+    }
+
+    // Will be called when user dragging an element
+    function _move_elem(e) {
+        x_pos = document.all ? window.event.clientX : e.pageX;
+        y_pos = document.all ? window.event.clientY : e.pageY;
+        if (selected !== null) {
+            selected.style.left = (x_pos - x_elem) + 'px';
+            selected.style.top = (y_pos - y_elem) + 'px';
+            console.log("left = " + (x_pos - x_elem) + 'px');
+            console.log("top = " + (y_pos - y_elem) + 'px');
         }
-        if (e.preventDefault) e.preventDefault();
-
-        // IE uses srcElement, others use target
-        targ = e.target ? e.target : e.srcElement;
-
-        if (targ.className != 'painting-holder') {
-            return
-        };
-        // calculate event X, Y coordinates
-        offsetX = e.clientX;
-        offsetY = e.clientY;
-
-        // assign default values for top and left properties
-        if (!targ.style.left) {
-            targ.style.left = '0px'
-        };
-        if (!targ.style.top) {
-            targ.style.top = '0px'
-        };
-
-        // calculate integer values for top and left
-        // properties
-        coordX = parseInt(targ.style.left);
-        coordY = parseInt(targ.style.top);
-        drag = true;
-
-        // move div element
-        document.onmousemove = dragDiv;
-        return false;
-
     }
 
-    function dragDiv(e) {
-        if (!drag) {
-            return
-        };
-        if (!e) {
-            var e = window.event
-        };
-        // var targ=e.target?e.target:e.srcElement;
-        // move div element
-        targ.style.left = coordX + e.clientX - offsetX + 'px';
-        targ.style.top = coordY + e.clientY - offsetY + 'px';
-        return false;
+    // Destroy the object when we are done
+    function _destroy() {
+        selected = null;
     }
 
-    function stopDrag() {
-        drag = false;
-    }
+
+
+
 
     var map = '';
     window.onload = function() {
         console.log("loaded");
         map = document.getElementById('wall');
         AttachDragTo(map);
-        document.onmousedown = startDrag;
-        document.onmouseup = stopDrag;
+        // Bind the functions...
+        document.getElementById('draggable-element').onmousedown = function() {
+            _drag_init(this);
+            return false;
+        };
+        document.onmousemove = _move_elem;
+        document.onmouseup = _destroy;
     }
 
 });

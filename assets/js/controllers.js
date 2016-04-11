@@ -6067,10 +6067,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.uploadwall.pixelCount = 500 / $scope.uploadwall.horizontalCount;
         $scope.uploadwall.verticalCount = 665 / $scope.uploadwall.pixelCount;
         $scope.uploadwall.pixels = $scope.uploadwall.pixelCount + "px";
-        console.log("horizontalCount : " + $scope.uploadwall.horizontalCount);
-        console.log("pixelCount : " + $scope.uploadwall.pixelCount);
-        console.log("verticalCount : " + $scope.uploadwall.verticalCount);
-        console.log("pixels : " + $scope.uploadwall.pixels);
+        // console.log("horizontalCount : " + $scope.uploadwall.horizontalCount);
+        // console.log("pixelCount : " + $scope.uploadwall.pixelCount);
+        // console.log("verticalCount : " + $scope.uploadwall.verticalCount);
+        // console.log("pixels : " + $scope.uploadwall.pixels);
     }
 
     $scope.calcHeigthWidth = function() {
@@ -6115,7 +6115,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             },
 
             init: function() {
-                console.log("init");
+                // console.log("init");
                 var styles = getComputedStyle(this.el);
                 this.origin_bg_pos_x = parseInt(styles.getPropertyValue('background-position-x'), 10);
                 this.origin_bg_pos_y = parseInt(styles.getPropertyValue('background-position-y'), 10);
@@ -6132,68 +6132,53 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
     })();
 
-    function startDrag(e) {
-        // determine event object
-        if (!e) {
-            var e = window.event;
+    var selected = null, // Object of the element to be moved
+        x_pos = 0,
+        y_pos = 0, // Stores x & y coordinates of the mouse pointer
+        x_elem = 0,
+        y_elem = 0; // Stores top, left values (edge) of the element
+
+    // Will be called when user starts dragging an element
+    function _drag_init(elem) {
+        // Store the object of the element which needs to be moved
+        selected = elem;
+        x_elem = x_pos - selected.offsetLeft;
+        y_elem = y_pos - selected.offsetTop;
+    }
+
+    // Will be called when user dragging an element
+    function _move_elem(e) {
+        x_pos = document.all ? window.event.clientX : e.pageX;
+        y_pos = document.all ? window.event.clientY : e.pageY;
+        if (selected !== null) {
+            var left = (x_pos - x_elem);
+            var top = (y_pos - y_elem)
+            if (left >= 0 && left < selected.parentNode.offsetWidth - selected.offsetWidth) {
+                selected.style.left = left + 'px';
+            }
+            if (top >= 0 && top < selected.parentNode.offsetHeight - selected.offsetHeight) {
+                selected.style.top = top + 'px';
+            }
         }
-        if (e.preventDefault) e.preventDefault();
-
-        // IE uses srcElement, others use target
-        targ = e.target ? e.target : e.srcElement;
-
-        if (targ.className != 'painting-holder') {
-            return
-        };
-        // calculate event X, Y coordinates
-        offsetX = e.clientX;
-        offsetY = e.clientY;
-
-        // assign default values for top and left properties
-        if (!targ.style.left) {
-            targ.style.left = '0px'
-        };
-        if (!targ.style.top) {
-            targ.style.top = '0px'
-        };
-
-        // calculate integer values for top and left
-        // properties
-        coordX = parseInt(targ.style.left);
-        coordY = parseInt(targ.style.top);
-        drag = true;
-
-        // move div element
-        document.onmousemove = dragDiv;
-        return false;
-
     }
 
-    function dragDiv(e) {
-        if (!drag) {
-            return
-        };
-        if (!e) {
-            var e = window.event
-        };
-        // var targ=e.target?e.target:e.srcElement;
-        // move div element
-        targ.style.left = coordX + e.clientX - offsetX + 'px';
-        targ.style.top = coordY + e.clientY - offsetY + 'px';
-        return false;
-    }
-
-    function stopDrag() {
-        drag = false;
+    // Destroy the object when we are done
+    function _destroy() {
+        selected = null;
     }
 
     var map = '';
     window.onload = function() {
-        console.log("loaded");
+        // console.log("loaded");
         map = document.getElementById('wall');
         AttachDragTo(map);
-        document.onmousedown = startDrag;
-        document.onmouseup = stopDrag;
+        // Bind the functions...
+        document.getElementById('draggable-element').onmousedown = function() {
+            _drag_init(this);
+            return false;
+        };
+        document.onmousemove = _move_elem;
+        document.onmouseup = _destroy;
     }
 
 });
