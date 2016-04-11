@@ -1335,7 +1335,7 @@ h6 {
 .file-upload input.btn-upload,
 .grid-holder,
 .vertical-holder,
-.wall-image {
+.painting-holder {
   position: absolute;
   left: 0;
   top: 0;
@@ -4588,6 +4588,7 @@ img.fancybox-image {
   position: relative;
   min-height: 100%;
   height: 100%;
+  overflow: hidden;
 }
 .wall-builder {
   padding-right: 310px;
@@ -4705,9 +4706,15 @@ a.col-press {
   width: 665px;
   margin: 0 auto;
 }
+.painting-holder {
+  height: auto;
+  width: auto;
+  left: 30%;
+  top: 52px;
+}
 .wall-image {
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: 50% 50%;
   background-size: 100% auto;
 }
 .furni-box {
