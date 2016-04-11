@@ -8,6 +8,7 @@
                 <div class="wall-builder">
                     <div class="height-holder" ng-style="{'background-color': wall.color}">
 
+                      <div class="wall-image" ng-style="{'background-image':'url(http://www.the-brick-house.com/wp-content/uploads/2011/08/DSC00305-copy2.jpg)'}"></div>
 
                       <div class="grid-holder" ng-if="grid.status">
                         <div class="horizontal-line" ng-repeat="i in getTimes(uploadwall.horizontalCount) track by $index" ng-style="{'margin-bottom' : uploadwall.pixels}"></div>
@@ -15,8 +16,6 @@
                           <div class="vertical-line" ng-repeat="i in getTimes(uploadwall.verticalCount) track by $index" ng-style="{'margin-left' : uploadwall.pixels}"></div>
                         </div>
                       </div>
-
-                      <div class="wall-image"></div>
 
                     </div>
                 </div>
