@@ -2878,7 +2878,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     };
 })
 
-.controller('headerctrl', function($scope, TemplateService, $window, ngDialog, NavigationService, $location, cfpLoadingBar, $state, $stateParams, $timeout, $sce) {
+.controller('headerctrl', function($scope, TemplateService, $window, ngDialog, NavigationService, $location, cfpLoadingBar, $state, $stateParams, $timeout, $sce, $upload, $http) {
     $scope.template = TemplateService;
 
     $scope.adminurl = adminurl;
@@ -3499,7 +3499,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
         })
     }
-
 })
 
 .controller('AccountCtrl', function($scope, TemplateService, NavigationService, $upload, $timeout, $http, cfpLoadingBar, $state, ngDialog) {
@@ -6037,7 +6036,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
 })
 
-.controller('RoomViewCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
+.controller('RoomViewCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog, $upload, $http) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("room-with-a-view");
     $scope.menutitle = NavigationService.makeactive("View Artwork in Your Room");
@@ -6061,6 +6060,20 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         n = Math.ceil(n);
         return new Array(n);
     };
+
+    $scope.onFileSelect = function($files, whichone, uploadtype) {
+        globalFunction.onFileSelect($files, function(image) {
+            if (whichone == 1) {
+                $scope.uploadwall.wallImage = image;
+                if (uploadtype == 'single') {
+                    $scope.uploadwall.wallImage = image[0];
+                }
+            }
+            var background = document.getElementById('wall');
+            if (background)
+                AttachDragTo(background);
+        })
+    }
 
     $scope.zoomBackground = function() {
         document.getElementById('wall').style.backgroundSize = $scope.uploadwall.backZoom + "% " + $scope.uploadwall.backZoom + "%";
@@ -6107,8 +6120,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 var backLeft = x - this.origin_x + this.origin_bg_pos_x;
                 var backTop = y - this.origin_y + this.origin_bg_pos_y;
                 // if (backLeft >= 0 && backTop >= 0) {
-                    tg.style.backgroundPositionX = x - this.origin_x + this.origin_bg_pos_x + 'px';
-                    tg.style.backgroundPositionY = y - this.origin_y + this.origin_bg_pos_y + 'px';
+                tg.style.backgroundPositionX = x - this.origin_x + this.origin_bg_pos_x + 'px';
+                tg.style.backgroundPositionY = y - this.origin_y + this.origin_bg_pos_y + 'px';
                 // }
             },
 
@@ -6185,7 +6198,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     window.onload = function() {
         // console.log("loaded");
         map = document.getElementById('wall');
-        AttachDragTo(map);
+        if (map)
+            AttachDragTo(map);
 
         positionPainting();
         // Bind the functions...
@@ -6203,5 +6217,135 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop - 100) + "px";
         }
     }
+
+    //imageupload
+    var imagejstupld = "";
+    $scope.usingFlash = FileAPI && FileAPI.upload != null;
+    $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
+    $scope.uploadRightAway = true;
+    $scope.changeAngularVersion = function() {
+        window.location.hash = $scope.angularVersion;
+        window.location.reload(true);
+    };
+    $scope.hasUploader = function(index) {
+        return $scope.upload[index] != null;
+    };
+    $scope.abort = function(index) {
+        $scope.upload[index].abort();
+        $scope.upload[index] = null;
+    };
+    $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
+        window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
+    $scope.onFileSelect = function($files, whichone) {
+        $scope.selectedFiles = [];
+        $scope.progress = [];
+        console.log($files);
+        if ($scope.upload && $scope.upload.length > 0) {
+            for (var i = 0; i < $scope.upload.length; i++) {
+                if ($scope.upload[i] != null) {
+                    $scope.upload[i].abort();
+                }
+            }
+        }
+        $scope.upload = [];
+        $scope.uploadResult = uploadres;
+        $scope.selectedFiles = $files;
+        $scope.dataUrls = [];
+        for (var i = 0; i < $files.length; i++) {
+            var $file = $files[i];
+            if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
+                var fileReader = new FileReader();
+                fileReader.readAsDataURL($files[i]);
+                var loadFile = function(fileReader, index) {
+                    fileReader.onload = function(e) {
+                        $timeout(function() {
+                            $scope.dataUrls[index] = e.target.result;
+                        });
+                    }
+                }(fileReader, i);
+            }
+            $scope.progress[i] = -1;
+            if ($scope.uploadRightAway) {
+                $scope.start(i, whichone);
+            }
+        }
+    };
+
+    $scope.start = function(index, whichone) {
+        $scope.progress[index] = 0;
+        $scope.errorMsg = null;
+        console.log($scope.howToSend = 1);
+        if ($scope.howToSend == 1) {
+            $scope.upload[index] = $upload.upload({
+                url: wallUploadUrl,
+                method: $scope.httpMethod,
+                headers: {
+                    'Content-Type': 'Content-Type'
+                },
+                data: {
+                    myModel: $scope.myModel
+                },
+                file: $scope.selectedFiles[index],
+                fileFormDataName: 'file'
+            });
+            $scope.upload[index].then(function(response) {
+                $timeout(function() {
+                    $scope.uploadResult.push(response.data);
+                    imagejstupld = response.data;
+                    if (whichone == 1) {
+                        if (imagejstupld != "") {
+                            $scope.uploadwall.wallImage = imagejstupld.files[0].fd;
+                            imagejstupld = "";
+                            $timeout(function() {
+                                var background = document.getElementById('wall');
+                                console.log(background);
+                                if (background)
+                                    AttachDragTo(background);
+                            }, 5000);
+                        }
+                    }
+                });
+            }, function(response) {
+                if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+            }, function(evt) {
+                $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+            });
+            $scope.upload[index].xhr(function(xhr) {});
+        } else {
+            var fileReader = new FileReader();
+            fileReader.onload = function(e) {
+                $scope.upload[index] = $upload.http({
+                    url: imgUploadUrl,
+                    headers: {
+                        'Content-Type': $scope.selectedFiles[index].type
+                    },
+                    data: e.target.result
+                }).then(function(response) {
+                    $scope.uploadResult.push(response.data);
+                }, function(response) {
+                    if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+                }, function(evt) {
+                    $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                });
+            }
+            fileReader.readAsArrayBuffer($scope.selectedFiles[index]);
+        }
+    };
+
+    $scope.dragOverClass = function($event) {
+        var items = $event.dataTransfer.items;
+        var hasFile = false;
+        if (items != null) {
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].kind == 'file') {
+                    hasFile = true;
+                    break;
+                }
+            }
+        } else {
+            hasFile = true;
+        }
+        return hasFile ? "dragover" : "dragover-err";
+    };
 
 });

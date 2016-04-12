@@ -512,6 +512,17 @@ firstapp.filter('uploadthumbnail', function() {
     };
 });
 
+firstapp.filter('wallpath', function() {
+    return function(input) {
+        if (input && input !== "") {
+            return adminurl + "user/wallResize?file=" + input;
+            // return adminurl + "user/resize?file=" + input;
+        } else {
+            return "img/noimg.jpg";
+        }
+    };
+});
+
 firstapp.filter('uploadpath', function() {
     return function(input) {
         if (input && input !== "") {
