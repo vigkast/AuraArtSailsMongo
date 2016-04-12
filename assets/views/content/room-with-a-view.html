@@ -11,7 +11,7 @@
                         <div class="wall-image" id="wall" ng-style="{'background-image':'url({{uploadwall.wallImage | wallpath}})'}" ng-if="uploadwall.wallImage"></div>
 
                         <div class="painting-holder" id="draggable-element">
-                            <img ng-src="{{uploadwall.paintingImage|uploadpath}}" alt="Painting" height="{{uploadwall.paintingHeight}}" ng-if="uploadwall.paintingImage">
+                            <img ng-src="{{uploadwall.paintingImage|uploadpath}}" alt="Painting" height="{{uploadwall.paintingHeight}}" ng-if="uploadwall.paintingImage" id="paintingImg">
                         </div>
 
                         <!-- <div class="furniture-holder">

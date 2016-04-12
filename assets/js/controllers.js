@@ -6066,43 +6066,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     };
 
     var map = '';
-    // window.onload = function() {
-    //     console.log("loaded");
-    //     map = document.getElementById('wall');
-    //     if (map)
-    //         AttachDragTo(map);
-    //
-    //     positionPainting();
-    //     // Bind the functions...
-    //     document.getElementById('draggable-element').onmousedown = function() {
-    //         _drag_init(this);
-    //         return false;
-    //     };
-    //     document.onmousemove = _move_elem;
-    //     document.onmouseup = _destroy;
-    // }
-
     NavigationService.getartworkdetail($stateParams.id, function(data) {
         console.log(data);
         if (data.value != false) {
             $scope.artworkDetail = data[0];
             $scope.uploadwall.paintingImage = $scope.artworkDetail.artwork.image[0];
             $scope.calcCount();
-            $timeout(function() {
-                console.log("loaded");
-                map = document.getElementById('wall');
-                if (map)
-                    AttachDragTo(map);
+            $("img").one("load", function() {
+                // do stuff
+            }).each(function() {
+                if (this.complete) {
+                    map = document.getElementById('wall');
+                    if (map)
+                        AttachDragTo(map);
 
-                positionPainting();
-                // Bind the functions...
-                document.getElementById('draggable-element').onmousedown = function() {
-                    _drag_init(this);
-                    return false;
-                };
-                document.onmousemove = _move_elem;
-                document.onmouseup = _destroy;
-            }, 5000);
+                    positionPainting();
+                    // Bind the functions...
+                    document.getElementById('draggable-element').onmousedown = function() {
+                        _drag_init(this);
+                        return false;
+                    };
+                    document.onmousemove = _move_elem;
+                    document.onmouseup = _destroy;
+                }
+            });
         }
     })
 
@@ -6139,7 +6126,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         var _AttachDragTo = function(el) {
             this.el = el;
             this.mouse_is_down = false;
-
             this.init();
         };
 
@@ -6158,7 +6144,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             },
 
             onMousedown: function(e) {
-                console.log("down");
                 this.mouse_is_down = true;
                 this.origin_x = e.clientX;
                 this.origin_y = e.clientY;
@@ -6167,7 +6152,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             onMouseup: function(e) {
                 var tg = e.target,
                     styles = getComputedStyle(tg);
-
                 this.mouse_is_down = false;
                 this.origin_bg_pos_x = parseInt(styles.getPropertyValue('background-position-x'), 10);
                 this.origin_bg_pos_y = parseInt(styles.getPropertyValue('background-position-y'), 10);
