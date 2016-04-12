@@ -24130,15 +24130,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         return new Array(n);
     };
 
+    $scope.zoomBackground = function() {
+        document.getElementById('wall').style.backgroundSize = $scope.uploadwall.backZoom + "% " + $scope.uploadwall.backZoom + "%";
+    }
+
     $scope.calcCount = function() {
         $scope.uploadwall.horizontalCount = $scope.uploadwall.height;
         $scope.uploadwall.pixelCount = 500 / $scope.uploadwall.horizontalCount;
         $scope.uploadwall.verticalCount = 665 / $scope.uploadwall.pixelCount;
         $scope.uploadwall.pixels = $scope.uploadwall.pixelCount + "px";
-        console.log("horizontalCount : " + $scope.uploadwall.horizontalCount);
-        console.log("pixelCount : " + $scope.uploadwall.pixelCount);
-        console.log("verticalCount : " + $scope.uploadwall.verticalCount);
-        console.log("pixels : " + $scope.uploadwall.pixels);
+        $scope.uploadwall.paintingWidth = (23 / 12) * $scope.uploadwall.pixelCount;
+        $scope.uploadwall.paintingHeight = (19.5 / 12) * $scope.uploadwall.pixelCount;
+        $scope.uploadwall.paintingLeft = 332.5 - ($scope.uploadwall.paintingWidth / 2);
+        $scope.uploadwall.paintingTop = 250 - ($scope.uploadwall.paintingHeight / 2);
+        $scope.uploadwall.backZoom = 100;
+        positionPainting();
+
+        // console.log("horizontalCount : " + $scope.uploadwall.horizontalCount);
+        // console.log("pixelCount : " + $scope.uploadwall.pixelCount);
+        // console.log("verticalCount : " + $scope.uploadwall.verticalCount);
+        // console.log("pixels : " + $scope.uploadwall.pixels);
     }
 
     $scope.calcHeigthWidth = function() {
@@ -24161,9 +24172,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 var tg = e.target,
                     x = e.clientX,
                     y = e.clientY;
-
-                tg.style.backgroundPositionX = x - this.origin_x + this.origin_bg_pos_x + 'px';
-                tg.style.backgroundPositionY = y - this.origin_y + this.origin_bg_pos_y + 'px';
+                var backLeft = x - this.origin_x + this.origin_bg_pos_x;
+                var backTop = y - this.origin_y + this.origin_bg_pos_y;
+                // if (backLeft >= 0 && backTop >= 0) {
+                    tg.style.backgroundPositionX = x - this.origin_x + this.origin_bg_pos_x + 'px';
+                    tg.style.backgroundPositionY = y - this.origin_y + this.origin_bg_pos_y + 'px';
+                // }
             },
 
             onMousedown: function(e) {
@@ -24183,7 +24197,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             },
 
             init: function() {
-                console.log("init");
+                // console.log("init");
                 var styles = getComputedStyle(this.el);
                 this.origin_bg_pos_x = parseInt(styles.getPropertyValue('background-position-x'), 10);
                 this.origin_bg_pos_y = parseInt(styles.getPropertyValue('background-position-y'), 10);
@@ -24219,10 +24233,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         x_pos = document.all ? window.event.clientX : e.pageX;
         y_pos = document.all ? window.event.clientY : e.pageY;
         if (selected !== null) {
-            selected.style.left = (x_pos - x_elem) + 'px';
-            selected.style.top = (y_pos - y_elem) + 'px';
-            console.log("left = " + (x_pos - x_elem) + 'px');
-            console.log("top = " + (y_pos - y_elem) + 'px');
+            var left = (x_pos - x_elem);
+            var top = (y_pos - y_elem)
+            if (left >= 0 && left < selected.parentNode.offsetWidth - selected.offsetWidth) {
+                selected.style.left = left + 'px';
+            }
+            if (top >= 0 && top < selected.parentNode.offsetHeight - selected.offsetHeight) {
+                selected.style.top = top + 'px';
+            }
         }
     }
 
@@ -24231,15 +24249,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         selected = null;
     }
 
-
-
-
-
     var map = '';
     window.onload = function() {
-        console.log("loaded");
+        // console.log("loaded");
         map = document.getElementById('wall');
         AttachDragTo(map);
+
+        positionPainting();
         // Bind the functions...
         document.getElementById('draggable-element').onmousedown = function() {
             _drag_init(this);
@@ -24247,6 +24263,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         document.onmousemove = _move_elem;
         document.onmouseup = _destroy;
+    }
+
+    function positionPainting() {
+        if (document.getElementById("draggable-element")) {
+            document.getElementById("draggable-element").style.left = $scope.uploadwall.paintingLeft + "px";
+            document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop - 100) + "px";
+        }
     }
 
 });

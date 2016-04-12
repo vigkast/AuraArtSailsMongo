@@ -11,7 +11,7 @@
                         <div class="wall-image" id="wall" ng-style="{'background-image':'url(http://www.the-brick-house.com/wp-content/uploads/2011/08/DSC00305-copy2.jpg)'}"></div>
 
                         <div class="painting-holder" id="draggable-element">
-                            <img src="http://www.auraart.in/user/resize?file=1526.jpg" alt="Painting" width="300">
+                            <img src="http://www.auraart.in/user/resize?file=1526.jpg" alt="Painting" height="{{uploadwall.paintingHeight}}">
                         </div>
 
                         <div class="grid-holder" ng-if="grid.status">
@@ -206,7 +206,7 @@
                                 <div class="part-row">
                                     Zoom Image:
                                     <div class="full-width">
-                                        <input type="range">
+                                        <input type="range" min="50" max="150" ng-model="uploadwall.backZoom" ng-change="zoomBackground();">
                                     </div>
                                 </div>
 
