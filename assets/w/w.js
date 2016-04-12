@@ -17543,7 +17543,7 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
     })
 
     .state('room-with-a-view', {
-        url: "/room-with-a-view",
+        url: "/room-with-a-view/:id",
         templateUrl: "views/template.html",
         controller: 'RoomViewCtrl'
     })
@@ -24136,26 +24136,59 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.grid = [];
     $scope.grid.status = true;
     $scope.getTimes = function(n) {
-        n = Math.ceil(n);
-        return new Array(n);
+        if (n) {
+            n = Math.ceil(n);
+            return new Array(n);
+        } else {
+            return new Array(0);
+        }
     };
 
-    $scope.onFileSelect = function($files, whichone, uploadtype) {
-        globalFunction.onFileSelect($files, function(image) {
-            if (whichone == 1) {
-                $scope.uploadwall.wallImage = image;
-                if (uploadtype == 'single') {
-                    $scope.uploadwall.wallImage = image[0];
-                }
-            }
-            var background = document.getElementById('wall');
-            if (background)
-                AttachDragTo(background);
-        })
-    }
+    var map = '';
+    // window.onload = function() {
+    //     console.log("loaded");
+    //     map = document.getElementById('wall');
+    //     if (map)
+    //         AttachDragTo(map);
+    //
+    //     positionPainting();
+    //     // Bind the functions...
+    //     document.getElementById('draggable-element').onmousedown = function() {
+    //         _drag_init(this);
+    //         return false;
+    //     };
+    //     document.onmousemove = _move_elem;
+    //     document.onmouseup = _destroy;
+    // }
+
+    NavigationService.getartworkdetail($stateParams.id, function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.artworkDetail = data[0];
+            $scope.uploadwall.paintingImage = $scope.artworkDetail.artwork.image[0];
+            $scope.calcCount();
+            $timeout(function() {
+                console.log("loaded");
+                map = document.getElementById('wall');
+                if (map)
+                    AttachDragTo(map);
+
+                positionPainting();
+                // Bind the functions...
+                document.getElementById('draggable-element').onmousedown = function() {
+                    _drag_init(this);
+                    return false;
+                };
+                document.onmousemove = _move_elem;
+                document.onmouseup = _destroy;
+            }, 5000);
+        }
+    })
 
     $scope.zoomBackground = function() {
-        document.getElementById('wall').style.backgroundSize = $scope.uploadwall.backZoom + "% " + $scope.uploadwall.backZoom + "%";
+        if (document.getElementById('wall')) {
+            document.getElementById('wall').style.backgroundSize = $scope.uploadwall.backZoom + "% " + $scope.uploadwall.backZoom + "%";
+        }
     }
 
     $scope.calcCount = function() {
@@ -24163,8 +24196,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.uploadwall.pixelCount = 500 / $scope.uploadwall.horizontalCount;
         $scope.uploadwall.verticalCount = 665 / $scope.uploadwall.pixelCount;
         $scope.uploadwall.pixels = $scope.uploadwall.pixelCount + "px";
-        $scope.uploadwall.paintingWidth = (23 / 12) * $scope.uploadwall.pixelCount;
-        $scope.uploadwall.paintingHeight = (19.5 / 12) * $scope.uploadwall.pixelCount;
+        $scope.uploadwall.paintingWidth = ($scope.artworkDetail.artwork.width / 12) * $scope.uploadwall.pixelCount;
+        $scope.uploadwall.paintingHeight = ($scope.artworkDetail.artwork.height / 12) * $scope.uploadwall.pixelCount;
         $scope.uploadwall.paintingLeft = 332.5 - ($scope.uploadwall.paintingWidth / 2);
         $scope.uploadwall.paintingTop = 250 - ($scope.uploadwall.paintingHeight / 2);
         $scope.uploadwall.backZoom = 100;
@@ -24180,7 +24213,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.uploadwall.width = parseInt($scope.uploadwall.height) * 1.33;
         $scope.calcCount();
     }
-    $scope.calcCount();
 
     var AttachDragTo = (function() {
         var _AttachDragTo = function(el) {
@@ -24271,23 +24303,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     // Destroy the object when we are done
     function _destroy() {
         selected = null;
-    }
-
-    var map = '';
-    window.onload = function() {
-        // console.log("loaded");
-        map = document.getElementById('wall');
-        if (map)
-            AttachDragTo(map);
-
-        positionPainting();
-        // Bind the functions...
-        document.getElementById('draggable-element').onmousedown = function() {
-            _drag_init(this);
-            return false;
-        };
-        document.onmousemove = _move_elem;
-        document.onmouseup = _destroy;
     }
 
     function positionPainting() {

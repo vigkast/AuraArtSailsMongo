@@ -257,7 +257,7 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
     })
 
     .state('room-with-a-view', {
-        url: "/room-with-a-view",
+        url: "/room-with-a-view/:id",
         templateUrl: "views/template.html",
         controller: 'RoomViewCtrl'
     })
