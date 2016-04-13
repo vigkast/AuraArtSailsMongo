@@ -139,28 +139,12 @@
                                 </div>
                                 <div class="part-row text-center">
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-4" ng-repeat="furniture in furnitureJson" ng-click="changeFurniture(furniture);">
                                             <div class="furni-box selected">
-                                                <img src="img/room-view/thumb-cabinet.png" class="img-responsive">
+                                                <img ng-src="{{furniture.thumbnail}}" class="img-responsive">
                                             </div>
                                             <span class="furni-name">
-                                                Cabinet
-                                            </span>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="furni-box">
-                                                <img src="img/room-view/thumb-sofa.png" class="img-responsive">
-                                            </div>
-                                            <span class="furni-name">
-                                                Sofa
-                                            </span>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="furni-box">
-                                                <img src="img/room-view/thumb-dining-table.png" class="img-responsive">
-                                            </div>
-                                            <span class="furni-name">
-                                                Dining Table
+                                                {{furniture.name}}
                                             </span>
                                         </div>
                                     </div>

@@ -24156,6 +24156,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.uploadwall.width = 13.33;
     $scope.uploadwall.zoom = 100;
     $scope.uploadwall.gridstatus = true;
+    $scope.uploadwall.furnitureImage = "";
 
     var map = '';
     NavigationService.getartworkdetail($stateParams.id, function(data) {
@@ -24174,6 +24175,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
                     positionPainting();
                     // Bind the functions...
+
                     document.getElementById('draggable-element').onmousedown = function() {
                         _drag_init(this);
                         return false;
@@ -24196,11 +24198,18 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.uploadwall.pixelCount = 500 / $scope.uploadwall.horizontalCount;
         $scope.uploadwall.verticalCount = 665 / $scope.uploadwall.pixelCount;
         $scope.uploadwall.pixels = $scope.uploadwall.pixelCount + "px";
-        $scope.uploadwall.paintingWidth = ($scope.artworkDetail.artwork.width / 12) * $scope.uploadwall.pixelCount;
-        $scope.uploadwall.paintingHeight = ($scope.artworkDetail.artwork.height / 12) * $scope.uploadwall.pixelCount;
+        $scope.uploadwall.paintingWidth = (parseFloat($scope.artworkDetail.artwork.width) / 12) * $scope.uploadwall.pixelCount;
+        $scope.uploadwall.paintingHeight = (parseFloat($scope.artworkDetail.artwork.height) / 12) * $scope.uploadwall.pixelCount;
         $scope.uploadwall.paintingLeft = 332.5 - ($scope.uploadwall.paintingWidth / 2);
         $scope.uploadwall.paintingTop = 250 - ($scope.uploadwall.paintingHeight / 2);
+        if ($scope.uploadwall.furnitureImage) {
+            $scope.uploadwall.furnitureWidth = $scope.uploadwall.fwidth * $scope.uploadwall.pixelCount;
+            $scope.uploadwall.furnitureHeight = $scope.uploadwall.fheight * $scope.uploadwall.pixelCount;
+            $scope.uploadwall.furnitureLeft = 332.5 - ($scope.uploadwall.furnitureWidth / 2);
+            $scope.uploadwall.furnitureTop = 500 - $scope.uploadwall.furnitureHeight;
+        }
         $scope.uploadwall.backZoom = 100;
+        console.log($scope.uploadwall);
         positionPainting();
 
         // console.log("horizontalCount : " + $scope.uploadwall.horizontalCount);
@@ -24211,6 +24220,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     $scope.calcHeigthWidth = function() {
         $scope.uploadwall.width = parseInt($scope.uploadwall.height) * 1.33;
+        $scope.calcCount();
+    }
+
+    $scope.changeFurniture = function(value) {
+        $scope.uploadwall.furnitureImage = value.image;
+        $scope.uploadwall.fwidth = value.width;
+        $scope.uploadwall.fheight = value.height;
         $scope.calcCount();
     }
 
@@ -24305,13 +24321,37 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     function positionPainting() {
         if (document.getElementById("draggable-element")) {
             document.getElementById("draggable-element").style.left = $scope.uploadwall.paintingLeft + "px";
-            document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop - 100) + "px";
+            document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop - 75) + "px";
+        }
+        if (document.getElementById("draggable-furni")) {
+            document.getElementById("draggable-furni").style.left = $scope.uploadwall.furnitureLeft + "px";
+            document.getElementById("draggable-furni").style.top = ($scope.uploadwall.furnitureTop - 1) + "px";
         }
     }
 
     $scope.$watchCollection('uploadwall', function(newNames, oldNames) {
         $rootScope.$broadcast('updateWall', {});
     });
+
+    $scope.furnitureJson = [{
+        "image": "img/room-view/cabinet.png",
+        "thumbnail": "img/room-view/thumb-cabinet.png",
+        "name": "Cabinet",
+        "height": 3.5,
+        "width": 10
+    }, {
+        "image": "img/room-view/sofa.png",
+        "thumbnail": "img/room-view/thumb-sofa.png",
+        "name": "Sofa ",
+        "height": 3,
+        "width": 7
+    }, {
+        "image": "img/room-view/dining-table.png",
+        "thumbnail": "img/room-view/thumb-dining-table.png",
+        "name": "Dining Table",
+        "height": 3,
+        "width": 6
+    }]
 
     //imageupload
     var imagejstupld = "";
@@ -24510,7 +24550,7 @@ templateservicemod.controller('cartdropctrl', ['$scope', 'TemplateService',
 // var adminurl = "http://146.148.34.49/";
 var adminurl = "http://www.auraart.in/";
 // var adminurl = "http://auraart.in:81/";
-var adminurl = "http://192.168.1.122:82/";
+// var adminurl = "http://192.168.1.122:82/";
 var imgUploadUrl = adminurl + "user/uploadfile";
 var wallUploadUrl = adminurl + "user/wallUpload";
 
