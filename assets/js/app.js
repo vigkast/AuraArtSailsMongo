@@ -260,8 +260,7 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
         url: "/room-with-a-view/:id",
         templateUrl: "views/template.html",
         controller: 'RoomViewCtrl'
-    })
-    ;
+    });
 
     $urlRouterProvider.otherwise("/home");
 
@@ -442,7 +441,7 @@ firstapp.directive('fancyboxBox', function($document) {
             var $element = $(element);
             var target;
             if (attr.rel) {
-               target = $("[rel='" + attr.rel + "']");
+                target = $("[rel='" + attr.rel + "']");
             } else {
                 target = element;
             }
@@ -663,12 +662,12 @@ firstapp.directive('onlyDigits', function() {
         restrict: 'A',
         link: function(scope, element, attr, ctrl) {
             function inputValue(val) {
-              var digits;
+                var digits;
                 if (val) {
                     if (attr.type == "tel") {
-                         digits = val.replace(/[^0-9\+\\]/g, '');
+                        digits = val.replace(/[^0-9\+\\]/g, '');
                     } else {
-                         digits = val.replace(/[^0-9\-\\]/g, '');
+                        digits = val.replace(/[^0-9\-\\]/g, '');
                     }
 
 
@@ -696,16 +695,16 @@ firstapp.directive('clickme', function() {
 });
 
 firstapp.directive('wallRatio', function() {
-  return {
-      restrict: 'EA',
-      replace: false,
-      link: function(scope, element, attr) {
-          var $element = $(element);
-          var width = $(element).width(); // width is 13.33ft.
-          var height = (width)/1.33; // height is 10ft.
-          $('.height-holder').css('height', height);
-      }
-  };
+    return {
+        restrict: 'EA',
+        replace: false,
+        link: function(scope, element, attr) {
+            var $element = $(element);
+            var width = $(element).width(); // width is 13.33ft.
+            var height = (width) / 1.33; // height is 10ft.
+            $('.height-holder').css('height', height);
+        }
+    };
 });
 
 firstapp.directive('youtube', function($sce) {
@@ -790,3 +789,28 @@ var clearFields = function(allvalidation) {
     }
     return isvalid2;
 };
+
+firstapp.directive('wallBuilder', function($http) {
+    return {
+        templateUrl: 'views/directive/wallbuilder.html',
+        scope: {
+            model: '=ngModel'
+        },
+        link: function($scope, element, attrs) {
+            $scope.updateWall = function() {
+                $scope.grid = [];
+                $scope.grid.status = true;
+                $scope.getTimes = function(n) {
+                    if (n) {
+                        n = Math.ceil(n);
+                        return new Array(n);
+                    } else {
+                        return new Array(0);
+                    }
+                };
+                console.log($scope.model);
+            };
+            $scope.updateWall();
+        }
+    };
+});

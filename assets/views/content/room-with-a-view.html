@@ -5,18 +5,17 @@
             <h4 class="head-team">VIEW ARTWORK IN YOUR ROOM</h4>
             <div class="relative">
 
-                <div class="wall-builder">
+                <!-- <div class="wall-builder">
                     <div class="height-holder" ng-style="{'background-color': wall.color}">
-
                         <div class="wall-image" id="wall" ng-style="{'background-image':'url({{uploadwall.wallImage | wallpath}})'}" ng-if="uploadwall.wallImage"></div>
 
                         <div class="painting-holder" id="draggable-element">
                             <img ng-src="{{uploadwall.paintingImage|uploadpath}}" alt="Painting" height="{{uploadwall.paintingHeight}}" ng-if="uploadwall.paintingImage" id="paintingImg">
                         </div>
 
-                        <!-- <div class="furniture-holder">
+                        <div class="furniture-holder">
                           <img src="img/room-view/sofa.png" alt="sofa">
-                        </div> -->
+                        </div>
 
                         <div class="grid-holder" ng-if="grid.status">
                             <div class="horizontal-line" ng-repeat="i in getTimes(uploadwall.horizontalCount) track by $index" ng-style="{'margin-bottom' : uploadwall.pixels}"></div>
@@ -26,7 +25,8 @@
                         </div>
 
                     </div>
-                </div>
+                </div> -->
+                <wall-builder ng-model="uploadwall"></wall-builder>
 
                 <div class="room-options">
                     <uib-accordion>
@@ -74,7 +74,7 @@
                                             <td class="labels">Price:
                                             </td>
                                             <td>Rs {{artworkDetail.artwork.gprice|number:0}} / ${{artworkDetail.artwork.gprice|indollars}}
-                                              <br>  <span>(excluding VAT)</span>
+                                                <br> <span>(excluding VAT)</span>
                                             </td>
                                         </tr>
                                     </tbody>
