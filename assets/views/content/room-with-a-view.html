@@ -5,20 +5,28 @@
             <h4 class="head-team">VIEW ARTWORK IN YOUR ROOM</h4>
             <div class="relative">
 
-                <div class="wall-builder">
+                <!-- <div class="wall-builder">
                     <div class="height-holder" ng-style="{'background-color': wall.color}">
+                        <div class="wall-image" id="wall" ng-style="{'background-image':'url({{uploadwall.wallImage | wallpath}})'}" ng-if="uploadwall.wallImage"></div>
 
-
-                      <div class="grid-holder" ng-if="grid.status">
-                        <div class="horizontal-line" ng-repeat="i in getTimes(uploadwall.horizontalCount) track by $index" ng-style="{'margin-bottom' : uploadwall.pixels}"></div>
-                        <div class="vertical-holder">
-                          <div class="vertical-line" ng-repeat="i in getTimes(uploadwall.verticalCount) track by $index" ng-style="{'margin-left' : uploadwall.pixels}"></div>
+                        <div class="painting-holder" id="draggable-element">
+                            <img ng-src="{{uploadwall.paintingImage|uploadpath}}" alt="Painting" height="{{uploadwall.paintingHeight}}" ng-if="uploadwall.paintingImage" id="paintingImg">
                         </div>
-                      </div>
 
+                        <div class="furniture-holder">
+                          <img src="img/room-view/sofa.png" alt="sofa">
+                        </div>
+
+                        <div class="grid-holder" ng-if="grid.status">
+                            <div class="horizontal-line" ng-repeat="i in getTimes(uploadwall.horizontalCount) track by $index" ng-style="{'margin-bottom' : uploadwall.pixels}"></div>
+                            <div class="vertical-holder">
+                                <div class="vertical-line" ng-repeat="i in getTimes(uploadwall.verticalCount) track by $index" ng-style="{'margin-left' : uploadwall.pixels}"></div>
+                            </div>
+                        </div>
 
                     </div>
-                </div>
+                </div> -->
+                <wall-builder ng-model="uploadwall"></wall-builder>
 
                 <div class="room-options">
                     <uib-accordion>
@@ -31,32 +39,32 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <span>2004</span>
+                                                <span>{{artworkDetail.artwork.yoc}}</span>
                                             </td>
                                             <td></td>
                                         </tr>
                                         <tr class="font-color3">
                                             <td class="labels">Artist:</td>
                                             <td>
-                                                Ajay De
+                                                {{artworkDetail.name}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="labels">Title:</td>
                                             <td>
-                                                Horse Car
+                                                {{artworkDetail.artwork.name}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="labels">Medium:
                                             </td>
                                             <td>
-                                                Charcoal on paper
+                                                {{artworkDetail.artwork.subtype[0].name}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="labels">Size:</td>
-                                            <td>15 x 15 inches</td>
+                                            <td>{{artworkDetail.artwork|makesizestr}}</td>
                                         </tr>
                                         <tr>
                                             <td class="labels">Year:</td>
@@ -65,9 +73,8 @@
                                         <tr>
                                             <td class="labels">Price:
                                             </td>
-                                            <td>Rs 150,000 / $2,239
-                                                <br>
-                                                <span>(excluding VAT)</span>
+                                            <td>Rs {{artworkDetail.artwork.gprice|number:0}} / ${{artworkDetail.artwork.gprice|indollars}}
+                                                <br> <span>(excluding VAT)</span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -84,11 +91,11 @@
                                     Wall Size:
                                     <div class="pull-right">
                                         <span class="mr-right">H
-                                            <input type="text" class="small-input" ng-model="wall.height">
-                                            ft.</span>
+                                            <input type="text" class="small-input" ng-model="wall.height"> ft.
+                                        </span>
                                         <span>W
-                                            <input type="text" class="small-input" ng-model="wall.width">
-                                            ft.</span>
+                                            <input type="text" class="small-input" ng-model="wall.width"> ft.
+                                        </span>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -119,22 +126,43 @@
                                 </div>
 
                                 <div class="part-row">
-                                    Furniture Size:
+                                    Size:
                                     <div class="pull-right">
                                         <span class="mr-right">H
-                                            <input type="text" class="small-input">
-                                            ft.</span>
+                                            <input type="text" class="small-input"> ft.
+                                        </span>
                                         <span>W
-                                            <input type="text" class="small-input">
-                                            ft.</span>
+                                            <input type="text" class="small-input"> ft.
+                                        </span>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
-                                <div class="part-row">
+                                <div class="part-row text-center">
                                     <div class="row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-3"></div>
+                                        <div class="col-md-4">
+                                            <div class="furni-box selected">
+                                                <img src="img/room-view/thumb-cabinet.png" class="img-responsive">
+                                            </div>
+                                            <span class="furni-name">
+                                                Cabinet
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="furni-box">
+                                                <img src="img/room-view/thumb-sofa.png" class="img-responsive">
+                                            </div>
+                                            <span class="furni-name">
+                                                Sofa
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="furni-box">
+                                                <img src="img/room-view/thumb-dining-table.png" class="img-responsive">
+                                            </div>
+                                            <span class="furni-name">
+                                                Dining Table
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -148,19 +176,19 @@
                                     Wall Size:
                                     <div class="pull-right">
                                         <span class="mr-right">H
-                                            <input type="text" class="small-input" ng-model="uploadwall.height" ng-change="calcHeigthWidth();">
-                                            ft.</span>
+                                            <input type="text" class="small-input" ng-model="uploadwall.height" ng-change="calcHeigthWidth();"> ft.
+                                        </span>
                                         <span>W
-                                            <input type="text" class="small-input" ng-model="uploadwall.width" disabled>
-                                            ft.</span>
+                                            <input type="text" class="small-input" ng-model="uploadwall.width" disabled> ft.
+                                        </span>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
 
                                 <div class="part-row">
-                                    <div class="file-upload btn btn-primary">
+                                    <div class="file-upload btn btn-primary" ng-init="httpMethod = 'POST';howToSend = 1;">
                                         <span>Upload Image</span>
-                                        <input class="btn-upload" type="file">
+                                        <input class="btn-upload" type='file' name='file' ng-file-select='onFileSelect($files,1)' onclick='this.value=null'>
                                     </div>
                                 </div>
 
@@ -181,7 +209,7 @@
                                 <div class="part-row">
                                     Zoom Image:
                                     <div class="full-width">
-                                        <input type="range">
+                                        <input type="range" min="50" max="150" ng-model="uploadwall.backZoom" ng-change="zoomBackground();">
                                     </div>
                                 </div>
 
