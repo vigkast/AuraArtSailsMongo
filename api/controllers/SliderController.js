@@ -99,5 +99,47 @@ module.exports = {
                 comment: "Please provide parameters"
             });
         }
-    }
+    },
+    downloadImage: function(req, res) {
+        var dimension = {};
+        var isfile = sails.fs.existsSync('./auraimg/' + req.query.image);
+        if (isfile == true) {
+            sails.lwip.open('./auraimg/' + req.query.image, function(err, image) {
+                dimension.width = image.width() + 20;
+                dimension.height = image.height() + 130;
+                var html = sails.fs.readFileSync('auraart.html', 'utf-8');
+                html = html.split("artist").join(req.query.artist);
+                html = html.split("artwork").join(req.query.artwork);
+                html = html.split("medium").join(req.query.medium);
+                html = html.split("dim").join(req.query.dim);
+                html = html.split("file=").join("file=" + req.query.image);
+                var options = {
+                    windowSize: dimension,
+                    siteType: 'html'
+                };
+                if (html && html != "") {
+                    sails.webshot(html, req.query.image, options, function(err) {
+                        console.log(err);
+                        var path = req.query.image;
+                        var image = sails.fs.readFileSync(path);
+                        var mimetype = sails.mime.lookup(path);
+                        res.set('Content-Type', "application/octet-stream");
+                        res.set('Content-Disposition', "attachment;filename=" + path);
+                        res.send(image);
+                        setTimeout(function() {
+                            sails.fs.unlink(path, function(data) {
+                                console.log(data);
+                            });
+                        }, 10000);
+                    });
+                }
+            });
+        } else {
+            var path = './auraimg/noimage.jpg';
+            var image = sails.fs.readFileSync(path);
+            var mimetype = sails.mime.lookup(path);
+            res.set('Content-Type', mimetype);
+            res.send(image);
+        }
+    },
 };
