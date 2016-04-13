@@ -4719,6 +4719,9 @@ a.col-press {
   background-position: 50% 50%;
   background-size: 100% auto;
 }
+.furniture-holder {
+  position: absolute;
+}
 .furni-box {
   background-color: #e6e7e9;
   border: 1px solid transparent;

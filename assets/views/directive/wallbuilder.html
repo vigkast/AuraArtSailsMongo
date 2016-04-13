@@ -3,12 +3,12 @@
         <div class="wall-image" id="wall" ng-style="{'background-image':'url({{model.wallImage | wallpath}})'}" ng-if="model.wallImage"></div>
 
         <div class="painting-holder" id="draggable-element">
-            <img ng-src="{{model.paintingImage|uploadpath}}" alt="Painting" height="{{model.paintingHeight}}" ng-if="model.paintingImage" id="paintingImg">
+            <img ng-src="{{model.paintingImage|uploadpath}}" alt="Painting" height="{{model.paintingHeight}}" width="{{model.paintingWidth}}" ng-if="model.paintingImage" id="paintingImg">
         </div>
 
-        <!-- <div class="furniture-holder">
-          <img src="img/room-view/sofa.png" alt="sofa">
-        </div> -->
+        <div class="furniture-holder" id="draggable-furni">
+          <img ng-src="{{model.furnitureImage}}" alt="sofa" height="{{model.furnitureHeight}}" width="{{model.furnitureWidth}}" ng-if="model.furnitureImage">
+        </div>
 
         <div class="grid-holder" ng-if="model.gridstatus">
             <div class="horizontal-line" ng-repeat="i in getTimes(model.horizontalCount) track by $index" ng-style="{'margin-bottom' : model.pixels}"></div>
