@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-    save: function (req, res) {
+    save: function(req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
                 if (req.body._id) {
@@ -29,7 +29,7 @@ module.exports = {
             }
 
             function artwork() {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 Artwork.save(req.body, print);
@@ -41,7 +41,7 @@ module.exports = {
             });
         }
     },
-    saveFront: function (req, res) {
+    saveFront: function(req, res) {
         if (req.body) {
             if (req.session.passport) {
                 req.body.selleremail = req.session.passport.user.email;
@@ -55,7 +55,7 @@ module.exports = {
             }
 
             function artwork() {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 Artwork.saveFront(req.body, print);
@@ -67,11 +67,11 @@ module.exports = {
             });
         }
     },
-    saveBack: function (req, res) {
+    saveBack: function(req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
                 if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                    var print = function (data) {
+                    var print = function(data) {
                         res.json(data);
                     }
                     Artwork.saveBack(req.body, print);
@@ -94,11 +94,11 @@ module.exports = {
             });
         }
     },
-    delete: function (req, res) {
+    delete: function(req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
                 if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                    var print = function (data) {
+                    var print = function(data) {
                         res.json(data);
                     }
                     Artwork.delete(req.body, print);
@@ -121,7 +121,7 @@ module.exports = {
             });
         }
     },
-    find: function (req, res) {
+    find: function(req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
                 function callback(data) {
@@ -141,10 +141,10 @@ module.exports = {
             });
         }
     },
-    findbyid: function (req, res) {
+    findbyid: function(req, res) {
         if (req.body) {
             if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function (data) {
+                var print = function(data) {
                     res.json(data);
                 }
                 Artwork.findbyid(req.body, print);
@@ -161,13 +161,13 @@ module.exports = {
             });
         }
     },
-    findall: function (req, res) {
+    findall: function(req, res) {
         function callback(data) {
             res.json(data);
         };
         Artwork.findall(req.body, callback);
     },
-    findlimited: function (req, res) {
+    findlimited: function(req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
                 if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
@@ -194,7 +194,7 @@ module.exports = {
             });
         }
     },
-    findlimitedout: function (req, res) {
+    findlimitedout: function(req, res) {
         if (req.body) {
             if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
                 function callback(data) {
@@ -214,11 +214,11 @@ module.exports = {
             });
         }
     },
-    findone: function (req, res) {
+    findone: function(req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
                 if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                    var print = function (data) {
+                    var print = function(data) {
                         res.json(data);
                     }
                     Artwork.findone(req.body, print);
@@ -241,11 +241,11 @@ module.exports = {
             });
         }
     },
-    deleteout: function (req, res) {
+    deleteout: function(req, res) {
         if (req.body) {
             if (req.body.user && req.body.user != "" && sails.ObjectID.isValid(req.body.user)) {
                 if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                    var print = function (data) {
+                    var print = function(data) {
                         res.json(data);
                     }
                     Artwork.deleteout(req.body, print);
@@ -268,7 +268,7 @@ module.exports = {
             });
         }
     },
-    lastsr: function (req, res) {
+    lastsr: function(req, res) {
         if (req.body) {
             function callback(data) {
                 res.json(data);
@@ -281,7 +281,7 @@ module.exports = {
             });
         }
     },
-    lastImage: function (req, res) {
+    lastImage: function(req, res) {
         if (req.body) {
             function callback(data) {
                 res.json(data);
@@ -294,7 +294,7 @@ module.exports = {
             });
         }
     },
-    artworktype: function (req, res) {
+    artworktype: function(req, res) {
         if (req.body) {
             if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
                 function callback(data) {
@@ -314,7 +314,7 @@ module.exports = {
             });
         }
     },
-    favoriteartwork: function (req, res) {
+    favoriteartwork: function(req, res) {
         if (req.body) {
             if (req.body.artwork && req.body.artwork.length > 0) {
                 function callback(data) {
@@ -334,7 +334,7 @@ module.exports = {
             });
         }
     },
-    searchartwork: function (req, res) {
+    searchartwork: function(req, res) {
         if (req.body) {
             if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
                 function callback(data) {
@@ -354,7 +354,7 @@ module.exports = {
             });
         }
     },
-    searchdrop: function (req, res) {
+    searchdrop: function(req, res) {
         if (req.body) {
             if (req.body.search && req.body.search != "") {
                 function callback(data) {
@@ -374,7 +374,7 @@ module.exports = {
             });
         }
     },
-    findMyArtwork: function (req, res) {
+    findMyArtwork: function(req, res) {
         if (req.body) {
             if (req.session.passport && req.session.passport.user) {
                 req.body.user = req.session.passport.user.id;
@@ -396,11 +396,11 @@ module.exports = {
             });
         }
     },
-    downloadImage: function (req, res) {
+    downloadImage: function(req, res) {
         var dimension = {};
         var isfile = sails.fs.existsSync('./auraimg/' + req.query.image);
         if (isfile == true) {
-            sails.lwip.open('./auraimg/' + req.query.image, function (err, image) {
+            sails.lwip.open('./auraimg/' + req.query.image, function(err, image) {
                 dimension.width = image.width() + 20;
                 dimension.height = image.height() + 130;
                 var html = sails.fs.readFileSync('auraart.html', 'utf-8');
@@ -414,7 +414,7 @@ module.exports = {
                     siteType: 'html'
                 };
                 if (html && html != "") {
-                    sails.webshot(html, req.query.image, options, function (err) {
+                    sails.webshot(html, req.query.image, options, function(err) {
                         console.log(err);
                         var path = req.query.image;
                         var image = sails.fs.readFileSync(path);
@@ -422,8 +422,8 @@ module.exports = {
                         res.set('Content-Type', "application/octet-stream");
                         res.set('Content-Disposition', "attachment;filename=" + path);
                         res.send(image);
-                        setTimeout(function () {
-                            sails.fs.unlink(path, function (data) {
+                        setTimeout(function() {
+                            sails.fs.unlink(path, function(data) {
                                 console.log(data);
                             });
                         }, 10000);
@@ -438,7 +438,7 @@ module.exports = {
             res.send(image);
         }
     },
-    nextartwork: function (req, res) {
+    nextartwork: function(req, res) {
         if (req.body) {
             if (req.body.srno && req.body.srno != "" && req.body.type && req.body.type != "") {
                 function callback(data) {
@@ -458,13 +458,13 @@ module.exports = {
             });
         }
     },
-    excelobject: function (req, res) {
-        sails.query(function (err, db) {
+    excelobject: function(req, res) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
             }
             if (db) {
-                db.open(function (err, db) {
+                db.open(function(err, db) {
                     if (err) {
                         console.log(err);
                     }
@@ -473,11 +473,11 @@ module.exports = {
                         req.connection.setTimeout(200000);
                         var extension = "";
                         var excelimages = [];
-                        req.file("file").upload(function (err, uploadedFiles) {
+                        req.file("file").upload(function(err, uploadedFiles) {
                             if (err) {
                                 console.log(err);
                             }
-                            _.each(uploadedFiles, function (n) {
+                            _.each(uploadedFiles, function(n) {
                                 writedata = n.fd;
                                 excelcall(writedata);
                             });
@@ -488,14 +488,14 @@ module.exports = {
                             sails.xlsxj({
                                 input: datapath,
                                 output: outputpath
-                            }, function (err, result) {
+                            }, function(err, result) {
                                 if (err) {
                                     console.error(err);
                                 }
                                 if (result) {
-                                    sails.fs.unlink(datapath, function (data) {
+                                    sails.fs.unlink(datapath, function(data) {
                                         if (data) {
-                                            sails.fs.unlink(outputpath, function (data2) {});
+                                            sails.fs.unlink(outputpath, function(data2) {});
                                         }
                                     });
 
@@ -507,7 +507,7 @@ module.exports = {
                                             $match: {
                                                 "artwork.imageno": m.imageno
                                             }
-                                        }]).toArray(function (err, data2) {
+                                        }]).toArray(function(err, data2) {
                                             if (err) {
                                                 console.log(err);
                                                 res.json({
@@ -519,25 +519,31 @@ module.exports = {
                                                 Artwork.save({
                                                     user: data2[0]._id,
                                                     _id: data2[0].artwork._id,
-                                                    imageno: m.newno
-                                                }, function (respo) {
+                                                    imageno: m.newno.toString()
+                                                }, function(respo) {
                                                     num++;
-                                                    console.log(num);
                                                     if (num == result.length) {
                                                         res.json({
                                                             value: "true",
                                                             comment: "Done"
                                                         });
+                                                        db.close();
                                                     } else {
                                                         createart(num);
                                                     }
                                                 });
                                             } else {
-                                                res.json({
-                                                    value: false,
-                                                    comment: "No data found"
-                                                });
-                                                db.close();
+                                                num++;
+                                                if (num == result.length) {
+                                                    res.json({
+                                                        value: "true",
+                                                        comment: "Done"
+                                                    });
+                                                    db.close();
+                                                } else {
+                                                    createart(num);
+                                                }
+
                                             }
                                         });
                                     }
@@ -550,10 +556,10 @@ module.exports = {
             }
         });
     },
-    unwindImage: function (req, res) {
+    unwindImage: function(req, res) {
         res.connection.setTimeout(200000);
         req.connection.setTimeout(200000);
-        User.findArtist(req.body, function (respo) {
+        User.findArtist(req.body, function(respo) {
             function abc(num) {
                 x = respo[num];
                 if (x.artwork && x.artwork.length > 0) {
@@ -564,7 +570,7 @@ module.exports = {
                                 user: x._id,
                                 _id: y._id,
                                 imageno: y.imageno[0]
-                            }, function (artRespo) {
+                            }, function(artRespo) {
                                 num2++;
                                 if (num2 == x.artwork.length) {
                                     num++;
@@ -616,8 +622,8 @@ module.exports = {
             abc(0);
         });
     },
-    updateSortSr: function (req, res) {
-        sails.query(function (err, db) {
+    updateSortSr: function(req, res) {
+        sails.query(function(err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -651,7 +657,7 @@ module.exports = {
                         artwork: 1,
                         focused: 1
                     }
-                }]).sort(sort).toArray(function (err, found) {
+                }]).sort(sort).toArray(function(err, found) {
                     if (found && found[0]) {
                         function saveMe(num) {
                             data3 = found[num];
@@ -661,7 +667,7 @@ module.exports = {
                                     _id: data3.artwork._id,
                                     user: data3._id,
                                     sortsr: num2
-                                }, function (respo) {
+                                }, function(respo) {
                                     num++;
                                     console.log(num);
                                     if (num == found.length) {
