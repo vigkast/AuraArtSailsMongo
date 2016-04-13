@@ -10,7 +10,7 @@
           <img src="img/room-view/sofa.png" alt="sofa">
         </div> -->
 
-        <div class="grid-holder" ng-if="grid.status">
+        <div class="grid-holder" ng-if="model.gridstatus">
             <div class="horizontal-line" ng-repeat="i in getTimes(model.horizontalCount) track by $index" ng-style="{'margin-bottom' : model.pixels}"></div>
             <div class="vertical-holder">
                 <div class="vertical-line" ng-repeat="i in getTimes(model.verticalCount) track by $index" ng-style="{'margin-left' : model.pixels}"></div>

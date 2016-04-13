@@ -18083,20 +18083,19 @@ firstapp.directive('wallBuilder', function($http) {
             model: '=ngModel'
         },
         link: function($scope, element, attrs) {
-            $scope.updateWall = function() {
-                $scope.grid = [];
-                $scope.grid.status = true;
-                $scope.getTimes = function(n) {
-                    if (n) {
-                        n = Math.ceil(n);
-                        return new Array(n);
-                    } else {
-                        return new Array(0);
-                    }
-                };
-                console.log($scope.model);
+            $scope.getTimes = function(n) {
+                if (n) {
+                    n = Math.ceil(n);
+                    return new Array(n);
+                } else {
+                    return new Array(0);
+                }
             };
+            $scope.updateWall = function() {};
             $scope.updateWall();
+            $scope.$on('updateWall', function(event, data) {
+                $scope.updateWall();
+            });
         }
     };
 });
@@ -24139,7 +24138,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
 })
 
-.controller('RoomViewCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog, $upload, $http) {
+.controller('RoomViewCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog, $upload, $http, $rootScope) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("room-with-a-view");
     $scope.menutitle = NavigationService.makeactive("View Artwork in Your Room");
@@ -24156,17 +24155,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.uploadwall.height = 10;
     $scope.uploadwall.width = 13.33;
     $scope.uploadwall.zoom = 100;
-
-    $scope.grid = [];
-    $scope.grid.status = true;
-    $scope.getTimes = function(n) {
-        if (n) {
-            n = Math.ceil(n);
-            return new Array(n);
-        } else {
-            return new Array(0);
-        }
-    };
+    $scope.uploadwall.gridstatus = true;
 
     var map = '';
     NavigationService.getartworkdetail($stateParams.id, function(data) {
@@ -24319,6 +24308,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop - 100) + "px";
         }
     }
+
+    $scope.$watchCollection('uploadwall', function(newNames, oldNames) {
+        $rootScope.$broadcast('updateWall', {});
+    });
 
     //imageupload
     var imagejstupld = "";
@@ -24517,7 +24510,7 @@ templateservicemod.controller('cartdropctrl', ['$scope', 'TemplateService',
 // var adminurl = "http://146.148.34.49/";
 var adminurl = "http://www.auraart.in/";
 // var adminurl = "http://auraart.in:81/";
-// var adminurl = "http://192.168.1.122:82/";
+var adminurl = "http://192.168.1.122:82/";
 var imgUploadUrl = adminurl + "user/uploadfile";
 var wallUploadUrl = adminurl + "user/wallUpload";
 

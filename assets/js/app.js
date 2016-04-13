@@ -797,20 +797,19 @@ firstapp.directive('wallBuilder', function($http) {
             model: '=ngModel'
         },
         link: function($scope, element, attrs) {
-            $scope.updateWall = function() {
-                $scope.grid = [];
-                $scope.grid.status = true;
-                $scope.getTimes = function(n) {
-                    if (n) {
-                        n = Math.ceil(n);
-                        return new Array(n);
-                    } else {
-                        return new Array(0);
-                    }
-                };
-                console.log($scope.model);
+            $scope.getTimes = function(n) {
+                if (n) {
+                    n = Math.ceil(n);
+                    return new Array(n);
+                } else {
+                    return new Array(0);
+                }
             };
+            $scope.updateWall = function() {};
             $scope.updateWall();
+            $scope.$on('updateWall', function(event, data) {
+                $scope.updateWall();
+            });
         }
     };
 });
