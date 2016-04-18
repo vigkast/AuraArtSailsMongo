@@ -6056,6 +6056,18 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.uploadwall.gridstatus = true;
     $scope.uploadwall.furnitureImage = "";
 
+    $scope.sendDiv = function() {
+        var html = $("<div />").append($(".wall-builder").clone()).html();
+        console.log(html);
+        var x = document.getElementsByClassName("wall-builder");
+        // console.log(x);
+        NavigationService.createImage(html, function(data) {
+            if (data.value != false) {
+                window.open(adminurl + "slider/downloadImage?file=" + data.comment);
+            }
+        })
+    }
+
     var map = '';
     NavigationService.getartworkdetail($stateParams.id, function(data) {
         console.log(data);
@@ -6107,7 +6119,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.uploadwall.furnitureTop = 500 - $scope.uploadwall.furnitureHeight;
         }
         $scope.uploadwall.backZoom = 100;
-        console.log($scope.uploadwall);
         positionPainting();
 
         // console.log("horizontalCount : " + $scope.uploadwall.horizontalCount);

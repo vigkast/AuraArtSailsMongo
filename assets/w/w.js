@@ -24158,6 +24158,18 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.uploadwall.gridstatus = true;
     $scope.uploadwall.furnitureImage = "";
 
+    $scope.sendDiv = function() {
+        var html = $("<div />").append($(".wall-builder").clone()).html();
+        console.log(html);
+        var x = document.getElementsByClassName("wall-builder");
+        // console.log(x);
+        NavigationService.createImage(html, function(data) {
+            if (data.value != false) {
+                window.open(adminurl + "slider/downloadImage?file=" + data.comment);
+            }
+        })
+    }
+
     var map = '';
     NavigationService.getartworkdetail($stateParams.id, function(data) {
         console.log(data);
@@ -24209,7 +24221,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.uploadwall.furnitureTop = 500 - $scope.uploadwall.furnitureHeight;
         }
         $scope.uploadwall.backZoom = 100;
-        console.log($scope.uploadwall);
         positionPainting();
 
         // console.log("horizontalCount : " + $scope.uploadwall.horizontalCount);
@@ -24548,9 +24559,9 @@ templateservicemod.controller('cartdropctrl', ['$scope', 'TemplateService',
 ]);
 ;
 // var adminurl = "http://146.148.34.49/";
-var adminurl = "http://www.auraart.in/";
+// var adminurl = "http://www.auraart.in/";
 // var adminurl = "http://auraart.in:81/";
-// var adminurl = "http://192.168.1.122:82/";
+var adminurl = "http://192.168.1.122:82/";
 var imgUploadUrl = adminurl + "user/uploadfile";
 var wallUploadUrl = adminurl + "user/wallUpload";
 
@@ -25247,6 +25258,15 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                     "name": shareobj.name,
                     "wishlistfolder": shareobj._id,
                     "email": shareobj.emailid
+                }
+            }).success(callback);
+        },
+        createImage: function(html, callback) {
+            $http({
+                url: adminurl + "slider/createImage",
+                method: "POST",
+                data: {
+                    "image": html
                 }
             }).success(callback);
         },
