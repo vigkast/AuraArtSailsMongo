@@ -24161,9 +24161,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.sendDiv = function() {
         var html = $("<div />").append($(".wall-builder").clone()).html();
         console.log(html);
-        var x = document.getElementsByClassName("wall-builder");
-        // console.log(x);
-        NavigationService.createImage(html, function(data) {
+        var obj = {};
+        obj.html = html;
+        obj.rotate = rotate;
+        NavigationService.createImage(obj, function(data) {
             if (data.value != false) {
                 window.open(adminurl + "slider/downloadImage?file=" + data.comment);
             }
@@ -24205,6 +24206,24 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         if (document.getElementById('wall')) {
             document.getElementById('wall').style.backgroundSize = $scope.uploadwall.backZoom + "% " + $scope.uploadwall.backZoom + "%";
         }
+    }
+    var rotate = 0;
+    $scope.rotateBackground = function() {
+        if ($('#wall')) {
+            if (rotate == -360) {
+                rotate = 0;
+            }
+            rotate -= 90;
+            $('#wall').css({
+                '-webkit-transform': 'rotate(' + rotate + 'deg)',
+                '-moz-transform': 'rotate(' + rotate + 'deg)',
+                '-ms-transform': 'rotate(' + rotate + 'deg)',
+                'transform': 'rotate(' + rotate + 'deg)'
+            });
+        }
+        map = document.getElementById('wall');
+        if (map)
+            AttachDragTo(map);
     }
 
     $scope.calcCount = function() {
@@ -24498,10 +24517,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     };
 
     $scope.viewFav = function() {
-      ngDialog.open({
-          template: 'views/content/modal-fav.html',
-          className: 'ngdialog-lg'
-      });
+        ngDialog.open({
+            template: 'views/content/modal-fav.html',
+            className: 'ngdialog-lg'
+        });
     }
 });
 ;
@@ -24567,9 +24586,9 @@ templateservicemod.controller('cartdropctrl', ['$scope', 'TemplateService',
 ]);
 ;
 // var adminurl = "http://146.148.34.49/";
-// var adminurl = "http://www.auraart.in/";
+var adminurl = "http://www.auraart.in/";
 // var adminurl = "http://auraart.in:81/";
-var adminurl = "http://192.168.1.122:82/";
+// var adminurl = "http://192.168.1.122:82/";
 var imgUploadUrl = adminurl + "user/uploadfile";
 var wallUploadUrl = adminurl + "user/wallUpload";
 
@@ -25269,12 +25288,13 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 }
             }).success(callback);
         },
-        createImage: function(html, callback) {
+        createImage: function(obj, callback) {
             $http({
                 url: adminurl + "slider/createImage",
                 method: "POST",
                 data: {
-                    "image": html
+                    "image": obj.html,
+                    "rotate": obj.rotate
                 }
             }).success(callback);
         },

@@ -99,8 +99,8 @@
                <button type="button" class="btn btn-block uppercase" ng-click="openReachout();" ng-if="!artistDetailImg.artwork.gprice || artistDetailImg.artwork.gprice=='N/A'">
                   REQUEST FOR PRICE
                </button>
-               <!-- <button type="button" class="btn btn-block uppercase" ng-click="lauchedSoon();"> -->
-               <button type="button" class="btn btn-block uppercase" ui-sref="room-with-a-view({id:artistDetailImg.artwork._id})">
+               <button type="button" class="btn btn-block uppercase" ng-click="lauchedSoon();">
+               <!-- <button type="button" class="btn btn-block uppercase" ui-sref="room-with-a-view({id:artistDetailImg.artwork._id})"> -->
                   VIEW ARTWORK IN YOUR ROOM
                </button>
                <a type="button" class="btn btn-primarys btn-block uppercase" ng-click="addToCart(artistDetailImg);" ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A' && artistDetailImg.artwork.status!='sold'">

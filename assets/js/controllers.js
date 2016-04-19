@@ -6059,9 +6059,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.sendDiv = function() {
         var html = $("<div />").append($(".wall-builder").clone()).html();
         console.log(html);
-        var x = document.getElementsByClassName("wall-builder");
-        // console.log(x);
-        NavigationService.createImage(html, function(data) {
+        var obj = {};
+        obj.html = html;
+        obj.rotate = rotate;
+        NavigationService.createImage(obj, function(data) {
             if (data.value != false) {
                 window.open(adminurl + "slider/downloadImage?file=" + data.comment);
             }
@@ -6103,6 +6104,24 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         if (document.getElementById('wall')) {
             document.getElementById('wall').style.backgroundSize = $scope.uploadwall.backZoom + "% " + $scope.uploadwall.backZoom + "%";
         }
+    }
+    var rotate = 0;
+    $scope.rotateBackground = function() {
+        if ($('#wall')) {
+            if (rotate == -360) {
+                rotate = 0;
+            }
+            rotate -= 90;
+            $('#wall').css({
+                '-webkit-transform': 'rotate(' + rotate + 'deg)',
+                '-moz-transform': 'rotate(' + rotate + 'deg)',
+                '-ms-transform': 'rotate(' + rotate + 'deg)',
+                'transform': 'rotate(' + rotate + 'deg)'
+            });
+        }
+        map = document.getElementById('wall');
+        if (map)
+            AttachDragTo(map);
     }
 
     $scope.calcCount = function() {
@@ -6396,9 +6415,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     };
 
     $scope.viewFav = function() {
-      ngDialog.open({
-          template: 'views/content/modal-fav.html',
-          className: 'ngdialog-lg'
-      });
+        ngDialog.open({
+            template: 'views/content/modal-fav.html',
+            className: 'ngdialog-lg'
+        });
     }
 });
