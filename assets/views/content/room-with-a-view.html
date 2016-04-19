@@ -84,7 +84,7 @@
                         </uib-accordion-group>
 
                         <uib-accordion-group>
-                            <uib-accordion-heading>Create your wall<i class="fa fa-chevron-down pull-right"></i>
+                            <uib-accordion-heading>Create your wall <span class="small">(OPTION 1)</span><i class="fa fa-chevron-down pull-right"></i>
                             </uib-accordion-heading>
                             <div class="part">
                                 <div class="part-row">
@@ -121,11 +121,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h3>Select Funriture:</h3>
+                                    <h3>Select Furniture:</h3>
                                     <div class="clearfix"></div>
                                 </div>
 
-                                <div class="part-row">
+                                <!-- <div class="part-row">
                                     Size:
                                     <div class="pull-right">
                                         <span class="mr-right">H
@@ -136,7 +136,8 @@
                                         </span>
                                     </div>
                                     <div class="clearfix"></div>
-                                </div>
+                                </div> -->
+
                                 <div class="part-row text-center">
                                     <div class="row">
                                         <div class="col-md-4" ng-repeat="furniture in furnitureJson" ng-click="changeFurniture(furniture);">
@@ -153,7 +154,7 @@
                         </uib-accordion-group>
 
                         <uib-accordion-group>
-                            <uib-accordion-heading>Upload your wall<i class="fa fa-chevron-down pull-right"></i>
+                            <uib-accordion-heading>Upload your wall <span class="small">(OPTION 2)</span><i class="fa fa-chevron-down pull-right"></i>
                             </uib-accordion-heading>
                             <div class="part">
                                 <div class="part-row">
@@ -191,6 +192,14 @@
                                 </div>
 
                                 <div class="part-row">
+                                    Rotate Image:
+                                    <div class="pull-right">
+                                        <button class="btn btn-default pad-less"><i class="fa fa-repeat"></i></button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="part-row">
                                     Zoom Image:
                                     <div class="full-width">
                                         <input type="range" min="50" max="150" ng-model="uploadwall.backZoom" ng-change="zoomBackground();">
@@ -202,7 +211,7 @@
                         </uib-accordion-group>
 
                         <uib-accordion-group>
-                            <uib-accordion-heading>Use wall templates<i class="fa fa-chevron-down pull-right"></i>
+                            <uib-accordion-heading>Use wall templates <span class="small">(OPTION 3)</span><i class="fa fa-chevron-down pull-right"></i>
                             </uib-accordion-heading>
                             <div class="part">
                                 <div class="part-row">
@@ -295,4 +304,20 @@
             </div>
         </div>
     </div>
+
+    <div class="style1-bg margin-btm-top">
+      <div class="container">
+        <div class="padding-more">
+          <h4 class="head-more">FAVOURITES<span class="link-viewall" ng-click="viewFav();">VIEW ALL</span></h4>
+          <div class="row">
+            <div class="col-md-2 col-sm-4">
+              <div class="image-holder selected">
+                <img class="fix-img" ng-src="http://192.168.1.122:82/user/resize?height=190&file=136.jpg" alt="Painting">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 </section>

@@ -57,6 +57,7 @@ body {
 a {
   color: @color-base;
   text-decoration: none !important;
+  cursor: pointer;
   .transition(all 300ms ease);
 }
 i {
@@ -152,6 +153,9 @@ header.stickyheader {
 }
 .light-shade {
   color: #8f9fab;
+}
+.pad-less {
+  padding: 0 10px;
 }
 .flexer(@width) {
   .flex(0 0 @width);
@@ -1081,10 +1085,11 @@ nav.pagination-artist {
 .margin-btm {
   margin-bottom: 10px;
 }
-a.link-viewall {
+.link-viewall {
   font-size: 10px;
   padding-left: 10px;
   color: @color3;
+  cursor: pointer;
 }
 .margintp {
   margin-bottom: 40px;
@@ -1532,8 +1537,8 @@ h4.head-more {
 .col-lg-20 {
   position: relative;
   min-height: 1px;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 .col-xs-20 {
   width: 20%;
@@ -3280,6 +3285,18 @@ a.col-press {
 }
 .furni-name {
   font-size: 10px;
+}
+.ngdialog-lg {
+   .popup-dialogbox {
+    position: absolute;
+    width: auto;
+    top: 50px;
+    left: 50px;
+    right: 50px;
+    bottom: 50px;
+    overflow-x: scroll;
+    .translate(0%, 0%);
+  }
 }
 /* Mobile Less */
 @import "../less/fancybox-override.less";

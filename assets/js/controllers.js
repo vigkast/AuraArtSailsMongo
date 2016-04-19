@@ -6068,6 +6068,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         })
     }
 
+
+
     var map = '';
     NavigationService.getartworkdetail($stateParams.id, function(data) {
         console.log(data);
@@ -6393,4 +6395,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         return hasFile ? "dragover" : "dragover-err";
     };
 
+    $scope.viewFav = function() {
+      ngDialog.open({
+          template: 'views/content/modal-fav.html',
+          className: 'ngdialog-lg'
+      });
+    }
 });
