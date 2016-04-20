@@ -83,7 +83,7 @@
                             </div>
                         </uib-accordion-group>
 
-                        <uib-accordion-group>
+                        <uib-accordion-group is-open="true" ng-click="changeAccordian(1);">
                             <uib-accordion-heading>Create your wall <span class="small">(OPTION 1)</span><i class="fa fa-chevron-down pull-right"></i>
                             </uib-accordion-heading>
                             <div class="part">
@@ -91,10 +91,10 @@
                                     Wall Size:
                                     <div class="pull-right">
                                         <span class="mr-right">H
-                                            <input type="text" class="small-input" ng-model="wall.height"> ft.
+                                            <input type="text" class="small-input" ng-model="uploadwall.height" ng-change="calcHeigthWidth();"> ft.
                                         </span>
                                         <span>W
-                                            <input type="text" class="small-input" ng-model="wall.width"> ft.
+                                            <input type="text" class="small-input" ng-model="uploadwall.width" disabled> ft.
                                         </span>
                                     </div>
                                     <div class="clearfix"></div>
@@ -102,7 +102,7 @@
                                 <div class="part-row">
                                     Wall Colour:
                                     <div class="pull-right">
-                                        <span class="color-box" colorpicker-position="top" colorpicker ng-model="wall.color" ng-style="{'background-color': wall.color}"></span>
+                                        <span class="color-box" colorpicker-position="top" colorpicker ng-model="uploadwall.color" ng-style="{'background-color': uploadwall.color}"></span>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -113,7 +113,7 @@
                                     <div class="pull-right">
                                         <div class="pull-right">
                                             <div class="onoffswitch">
-                                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forfurniture" checked>
+                                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forfurniture" ng-model="uploadwall.furniturestatus" ng-change="onOrOffFurniture();">
                                                 <label class="onoffswitch-label" for="forfurniture">
                                                     <span class="onoffswitch-inner"></span>
                                                     <span class="onoffswitch-switch"></span>
@@ -138,7 +138,7 @@
                                     <div class="clearfix"></div>
                                 </div> -->
 
-                                <div class="part-row text-center">
+                                <div class="part-row text-center" ng-show="uploadwall.furniturestatus">
                                     <div class="row">
                                         <div class="col-md-4" ng-repeat="furniture in furnitureJson" ng-click="changeFurniture(furniture);">
                                             <div class="furni-box selected">
@@ -153,7 +153,7 @@
                             </div>
                         </uib-accordion-group>
 
-                        <uib-accordion-group>
+                        <uib-accordion-group ng-click="changeAccordian(2);">
                             <uib-accordion-heading>Upload your wall <span class="small">(OPTION 2)</span><i class="fa fa-chevron-down pull-right"></i>
                             </uib-accordion-heading>
                             <div class="part">
@@ -210,7 +210,7 @@
 
                         </uib-accordion-group>
 
-                        <uib-accordion-group>
+                        <uib-accordion-group ng-click="changeAccordian(3);">
                             <uib-accordion-heading>Use wall templates <span class="small">(OPTION 3)</span><i class="fa fa-chevron-down pull-right"></i>
                             </uib-accordion-heading>
                             <div class="part">
@@ -218,7 +218,7 @@
                                     Show Grid:
                                     <div class="pull-right">
                                         <div class="onoffswitch">
-                                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forgrid" checked>
+                                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forgrid" ng-model="uploadwall.gridstatus">
                                             <label class="onoffswitch-label" for="forgrid">
                                                 <span class="onoffswitch-inner"></span>
                                                 <span class="onoffswitch-switch"></span>
@@ -244,7 +244,7 @@
                             </div>
                         </uib-accordion-group>
 
-                        <uib-accordion-group>
+                        <uib-accordion-group ng-click="changeAccordian(4);">
                             <uib-accordion-heading>Custom Framing<i class="fa fa-chevron-down pull-right"></i>
                             </uib-accordion-heading>
                             <div class="part">
@@ -259,7 +259,7 @@
                                 <div class="part-row">
                                     Wall Colour:
                                     <div class="pull-right">
-                                        <span class="color-box" colorpicker-position="top" colorpicker ng-model="wall.color" ng-style="{'background-color': wall.color}"></span>
+                                        <span class="color-box" colorpicker-position="top" colorpicker ng-model="uploadwall.color" ng-style="{'background-color': wall.color}"></span>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
