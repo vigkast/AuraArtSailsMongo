@@ -6042,7 +6042,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.menutitle = NavigationService.makeactive("View Artwork in Your Room");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-
+    $.jStorage.flush();
     // $scope.wall = [];
     // $scope.wall.color = '#dddddd';
     // $scope.wall.height = 10;
@@ -6057,11 +6057,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.uploadwall.height = 10;
     $scope.uploadwall.width = 13.33;
     $scope.uploadwall.zoom = 100;
-    $scope.uploadwall.gridstatus = true;
+    // $scope.uploadwall.gridstatus = true;
     $scope.uploadwall.furnitureImage = "";
 
     $scope.reset = function() {
-        console.log("reser called");
         $scope.uploadwall.color = '#dddddd';
         $scope.uploadwall.height = 10;
         $scope.uploadwall.width = 13.33;
@@ -6070,6 +6069,36 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.uploadwall.furnitureImage = "";
         $scope.uploadwall.wallImage = "";
         $scope.calcCount();
+    }
+
+    $scope.resetCustom = function() {
+        $scope.uploadwall.color = '#dddddd';
+        $scope.uploadwall.height = 10;
+        $scope.uploadwall.width = 13.33;
+        $scope.uploadwall.zoom = 100;
+        $scope.uploadwall.gridstatus = true;
+        $scope.uploadwall.furnitureImage = "";
+        $scope.uploadwall.wallImage = "";
+        $scope.uploadwall.mountColor = "#00000";
+        $scope.calcCount();
+        if ($scope.uploadwall.paintingHeight > $scope.uploadwall.paintingWidth) {
+            $scope.uploadwall.scalePainting = 450 / $scope.uploadwall.paintingHeight;
+        } else {
+            $scope.uploadwall.scalePainting = 585 / $scope.uploadwall.paintingWidth;
+        }
+        if (document.getElementById("paintingImg"))
+            document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+    }
+
+    $scope.changeMountWidth = function() {
+        $scope.uploadwall.mountWidthPixel = ($scope.uploadwall.mountWidth / 12) * $scope.uploadwall.pixelCount;
+        if (document.getElementById("paintingImg")) {
+            if ($scope.uploadwall.mountWidthPixel != 0) {
+                document.getElementById("paintingImg").style.border = $scope.uploadwall.mountWidthPixel + "px solid " + $scope.uploadwall.mountColor;
+            } else {
+                document.getElementById("paintingImg").style.border = "none";
+            }
+        }
     }
 
     $scope.sendDiv = function() {
@@ -6086,6 +6115,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
     var zoomInterval = '';
     $scope.changeAccordian = function(val) {
+        if (val == 4) {
+            $scope.disableDrag();
+        } else {
+            $scope.enableDrag();
+        }
         var obj = {};
         if (activeAccordian == 1 && val == 2) {
             if (!$.jStorage.get("roomView")) {
@@ -6125,9 +6159,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $.jStorage.set("roomView", obj);
             if ($.jStorage.get("roomView") && $.jStorage.get("roomView").customFraming) {
                 $scope.uploadwall = $.jStorage.get("roomView").customFraming;
+                if (document.getElementById("paintingImg"))
+                    document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+                $scope.changeMountWidth();
             } else {
-                $scope.reset();
+                $scope.resetCustom();
             }
+            $scope.uploadwall.gridstatus = false;
         } else if (activeAccordian == 2 && val == 1) {
             if (!$.jStorage.get("roomView")) {
                 obj.uploadWall = $scope.uploadwall;
@@ -6141,6 +6179,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             } else {
                 $scope.reset();
             }
+            $scope.uploadwall.gridstatus = false;
         } else if (activeAccordian == 2 && val == 3) {
             if (!$.jStorage.get("roomView")) {
                 obj.uploadWall = $scope.uploadwall;
@@ -6164,9 +6203,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $.jStorage.set("roomView", obj);
             if ($.jStorage.get("roomView") && $.jStorage.get("roomView").customFraming) {
                 $scope.uploadwall = $.jStorage.get("roomView").customFraming;
+                if (document.getElementById("paintingImg"))
+                    document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+                $scope.changeMountWidth();
             } else {
-                $scope.reset();
+                $scope.resetCustom();
             }
+            $scope.uploadwall.gridstatus = false;
         } else if (activeAccordian == 3 && val == 1) {
             if (!$.jStorage.get("roomView")) {
                 obj.wallTemplate = $scope.uploadwall;
@@ -6180,6 +6223,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             } else {
                 $scope.reset();
             }
+            $scope.uploadwall.gridstatus = false;
         } else if (activeAccordian == 3 && val == 2) {
             if (!$.jStorage.get("roomView")) {
                 obj.wallTemplate = $scope.uploadwall;
@@ -6203,9 +6247,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $.jStorage.set("roomView", obj);
             if ($.jStorage.get("roomView") && $.jStorage.get("roomView").customFraming) {
                 $scope.uploadwall = $.jStorage.get("roomView").customFraming;
+                if (document.getElementById("paintingImg"))
+                    document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+                $scope.changeMountWidth();
             } else {
-                $scope.reset();
+                $scope.resetCustom();
             }
+            $scope.uploadwall.gridstatus = false;
         } else if (activeAccordian == 4 && val == 1) {
             if (!$.jStorage.get("roomView")) {
                 obj.customFraming = $scope.uploadwall;
@@ -6219,6 +6267,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             } else {
                 $scope.reset();
             }
+            if (document.getElementById("paintingImg"))
+                document.getElementById("paintingImg").style.transform = "scale(1)";
+            $scope.uploadwall.mountWidth = 0;
+            $scope.changeMountWidth();
+            $scope.uploadwall.gridstatus = false;
         } else if (activeAccordian == 4 && val == 2) {
             if (!$.jStorage.get("roomView")) {
                 obj.customFraming = $scope.uploadwall;
@@ -6232,6 +6285,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             } else {
                 $scope.reset();
             }
+            if (document.getElementById("paintingImg"))
+                document.getElementById("paintingImg").style.transform = "scale(1)";
+            $scope.uploadwall.mountWidth = 0;
+            $scope.changeMountWidth();
         } else if (activeAccordian == 4 && val == 3) {
             if (!$.jStorage.get("roomView")) {
                 obj.customFraming = $scope.uploadwall;
@@ -6245,6 +6302,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             } else {
                 $scope.reset();
             }
+            if (document.getElementById("paintingImg"))
+                document.getElementById("paintingImg").style.transform = "scale(1)";
+            $scope.uploadwall.mountWidth = 0;
+            $scope.changeMountWidth();
         }
         // $scope.uploadwall.gridstatus = true;
         if (document.getElementById("draggable-element")) {
@@ -6296,6 +6357,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
         }
     })
+
+    $scope.enableDrag = function() {
+        document.getElementById('draggable-element').onmousedown = function() {
+            _drag_init(this);
+            return false;
+        };
+        document.onmousemove = _move_elem;
+        document.onmouseup = _destroy;
+    }
+
+    $scope.disableDrag = function() {
+        document.getElementById('draggable-element').onmousedown = null;
+        document.onmousemove = null;
+        document.onmouseup = null;
+    }
 
     $scope.zoomBackground = function() {
         if ($scope.uploadwall.backZoom) {
@@ -6359,7 +6435,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.uploadwall.furnitureImage = value.image;
         $scope.uploadwall.fwidth = value.width;
         $scope.uploadwall.fheight = value.height;
-        $scope.calcCount();
+        if ($scope.uploadwall.furnitureImage) {
+            $scope.uploadwall.furnitureWidth = $scope.uploadwall.fwidth * $scope.uploadwall.pixelCount;
+            $scope.uploadwall.furnitureHeight = $scope.uploadwall.fheight * $scope.uploadwall.pixelCount;
+            $scope.uploadwall.furnitureLeft = 332.5 - ($scope.uploadwall.furnitureWidth / 2);
+            $scope.uploadwall.furnitureTop = 500 - $scope.uploadwall.furnitureHeight;
+        }
+        if (document.getElementById("draggable-furni")) {
+            document.getElementById("draggable-furni").style.left = $scope.uploadwall.furnitureLeft + "px";
+            document.getElementById("draggable-furni").style.top = ($scope.uploadwall.furnitureTop - 1) + "px";
+        }
     }
 
     var AttachDragTo = (function() {
@@ -6455,7 +6540,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     function positionPainting() {
         if (document.getElementById("draggable-element")) {
             document.getElementById("draggable-element").style.left = $scope.uploadwall.paintingLeft + "px";
-            document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop - 75) + "px";
+            document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop) + "px";
         }
         if (document.getElementById("draggable-furni")) {
             document.getElementById("draggable-furni").style.left = $scope.uploadwall.furnitureLeft + "px";

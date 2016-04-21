@@ -259,7 +259,7 @@
                                 <div class="part-row">
                                     Wall Colour:
                                     <div class="pull-right">
-                                        <span class="color-box" colorpicker-position="top" colorpicker ng-model="uploadwall.color" ng-style="{'background-color': wall.color}"></span>
+                                        <span class="color-box" colorpicker-position="top" colorpicker ng-model="uploadwall.color" ng-style="{'background-color': uploadwall.color}"></span>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -277,18 +277,17 @@
                                     <h3>Select Mount:</h3>
                                     <div class="clearfix"></div>
                                 </div>
-
                                 <div class="part-row">
                                     Mount Width (inches):
                                     <div class="pull-right">
-                                        <input type="text" class="small-input">
+                                        <input type="text" class="small-input" ng-model="uploadwall.mountWidth" ng-change="changeMountWidth();">
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="part-row">
                                     Mount Colour:
                                     <div class="pull-right">
-                                        <span class="color-box" colorpicker-position="top" colorpicker ng-model="mountColor" ng-style="{'background-color': mountColor}"></span>
+                                        <span class="color-box" colorpicker-position="top" colorpicker ng-model="uploadwall.mountColor" ng-style="{'background-color': uploadwall.mountColor}" ng-change="changeMountWidth();"></span>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
