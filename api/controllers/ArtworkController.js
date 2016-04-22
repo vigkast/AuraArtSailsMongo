@@ -401,13 +401,13 @@ module.exports = {
         var isfile = sails.fs.existsSync('./auraimg/' + req.query.image);
         if (isfile == true) {
             sails.lwip.open('./auraimg/' + req.query.image, function(err, image) {
-                dimension.width = image.width() + 20;
-                dimension.height = image.height() + 130;
+                dimension.width = 864;
+                dimension.height = image.height();
                 var html = sails.fs.readFileSync('auraart.html', 'utf-8');
-                html = html.split("artist").join(req.query.artist);
-                html = html.split("artwork").join(req.query.artwork);
-                html = html.split("medium").join(req.query.medium);
-                html = html.split("dim").join(req.query.dim);
+                html = html.split("Artist").join(req.query.artist);
+                html = html.split("Artwork").join(req.query.artwork);
+                html = html.split("Medium").join(req.query.medium);
+                html = html.split("Dim").join(req.query.dim);
                 html = html.split("file=").join("file=" + req.query.image);
                 var options = {
                     windowSize: dimension,
