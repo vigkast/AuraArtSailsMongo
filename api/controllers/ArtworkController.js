@@ -398,38 +398,135 @@ module.exports = {
     },
     downloadImage: function(req, res) {
         var dimension = {};
+        var imagepath = "./assets/" + req.query.image;
+        var patti = './assets/patti.jpg';
+        var imageHeight = "";
+        var arr = [];
         var isfile = sails.fs.existsSync('./auraimg/' + req.query.image);
         if (isfile == true) {
             sails.lwip.open('./auraimg/' + req.query.image, function(err, image) {
                 dimension.width = 864;
                 dimension.height = image.height();
-                var html = sails.fs.readFileSync('auraart.html', 'utf-8');
-                html = html.split("Artist").join(req.query.artist);
-                html = html.split("Artwork").join(req.query.artwork);
-                html = html.split("Medium").join(req.query.medium);
-                html = html.split("Dim").join(req.query.dim);
+                imageHeight = image.height();
+                var html = sails.fs.readFileSync('auraart1.html', 'utf-8');
                 html = html.split("file=").join("file=" + req.query.image);
                 var options = {
                     windowSize: dimension,
                     siteType: 'html'
                 };
                 if (html && html != "") {
-                    sails.webshot(html, req.query.image, options, function(err) {
-                        console.log(err);
-                        var path = req.query.image;
-                        var image = sails.fs.readFileSync(path);
-                        var mimetype = sails.mime.lookup(path);
-                        res.set('Content-Type', "application/octet-stream");
-                        res.set('Content-Disposition', "attachment;filename=" + path);
-                        res.send(image);
-                        setTimeout(function() {
-                            sails.fs.unlink(path, function(data) {
-                                console.log(data);
+                    sails.webshot(html, imagepath, options, function(err) {
+                        if (err) {
+                            console.log(err);
+                            res.json({
+                                value: false,
+                                comment: err
                             });
-                        }, 10000);
+                        } else {
+                            arr.push({
+                                image: imagepath,
+                                left: 0,
+                                top: 0
+                            });
+                            callPatti();
+                        }
                     });
                 }
             });
+
+            function callPatti() {
+                dimension.width = 864;
+                dimension.height = 126;
+                var html = sails.fs.readFileSync('auraart2.html', 'utf-8');
+                html = html.split("Artist").join(req.query.artist);
+                html = html.split("Artwork").join(req.query.artwork);
+                html = html.split("Medium").join(req.query.medium);
+                html = html.split("Dim").join(req.query.dim);
+                var options = {
+                    windowSize: dimension,
+                    siteType: 'html'
+                };
+                if (html && html != "") {
+                    sails.webshot(html, patti, options, function(err) {
+                        if (err) {
+                            console.log(err);
+                            res.json({
+                                value: false,
+                                comment: err
+                            });
+                        } else {
+                            arr.push({
+                                image: patti,
+                                left: 0,
+                                top: imageHeight
+                            });
+                            sails.lwip.create(864, imageHeight + 126, function(err, createImage) {
+                                if (err) {
+                                    console.log(err);
+                                    res.json({
+                                        value: false,
+                                        comment: Error
+                                    });
+                                } else {
+                                    function callPaste(num) {
+                                        var obj = arr[num];
+                                        sails.lwip.open(obj.image, function(err, openImage) {
+                                            if (err) {
+                                                console.log(err);
+                                                res.json({
+                                                    value: false,
+                                                    comment: Error
+                                                });
+                                            } else {
+                                                createImage.paste(obj.left, obj.top, openImage, function(err, pasteImage) {
+                                                    if (err) {
+                                                        console.log(err);
+                                                        res.json({
+                                                            value: false,
+                                                            comment: Error
+                                                        });
+                                                    } else {
+                                                        createImage = pasteImage;
+                                                        num++;
+                                                        if (num == arr.length) {
+                                                            pasteImage.toBuffer('jpg', {}, function(err, buffer) {
+                                                                if (err) {
+                                                                    console.log(err);
+                                                                    res.json({
+                                                                        value: false,
+                                                                        comment: Error
+                                                                    });
+                                                                } else {
+                                                                    sails.fs.writeFileSync(req.query.image, buffer);
+                                                                    var path = req.query.image;
+                                                                    var image = sails.fs.readFileSync(path);
+                                                                    res.set('Content-Type', "application/octet-stream");
+                                                                    res.set('Content-Disposition', "attachment;filename=" + path);
+                                                                    res.send(image);
+                                                                    setTimeout(function() {
+                                                                        sails.fs.unlink(path, function(data) {
+                                                                            sails.fs.unlink(imagepath, function(data) {
+                                                                                sails.fs.unlink(patti, function(data) {});
+                                                                            });
+                                                                        });
+                                                                    }, 10000);
+                                                                }
+                                                            });
+                                                        } else {
+                                                            callPaste(num);
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                    callPaste(0);
+                                }
+                            });
+                        }
+                    });
+                }
+            }
         } else {
             var path = './auraimg/noimage.jpg';
             var image = sails.fs.readFileSync(path);
