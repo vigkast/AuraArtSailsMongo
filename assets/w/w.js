@@ -18105,7 +18105,7 @@ var userProfile = {};
 var uploadres = [];
 var dollarPrice = '';
 var globalFunction = {};
-
+var abc = '';
 var top = 200;
 var duration = 2000;
 
@@ -24144,19 +24144,64 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.menutitle = NavigationService.makeactive("View Artwork in Your Room");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
+    $.jStorage.flush();
+    // $scope.wall = [];
+    // $scope.wall.color = '#dddddd';
+    // $scope.wall.height = 10;
+    // $scope.wall.width = 13.33;
 
-    $scope.wall = [];
-    $scope.wall.color = '#dddddd';
-    $scope.wall.height = 10;
-    $scope.wall.width = 13.33;
+    abc = $scope;
+
+    var activeAccordian = 1;
 
     $scope.uploadwall = {};
     $scope.uploadwall.color = '#dddddd';
     $scope.uploadwall.height = 10;
     $scope.uploadwall.width = 13.33;
     $scope.uploadwall.zoom = 100;
-    $scope.uploadwall.gridstatus = true;
+    // $scope.uploadwall.gridstatus = true;
     $scope.uploadwall.furnitureImage = "";
+
+    $scope.reset = function() {
+        $scope.uploadwall.color = '#dddddd';
+        $scope.uploadwall.height = 10;
+        $scope.uploadwall.width = 13.33;
+        $scope.uploadwall.zoom = 100;
+        $scope.uploadwall.gridstatus = true;
+        $scope.uploadwall.furnitureImage = "";
+        $scope.uploadwall.wallImage = "";
+        $scope.calcCount();
+    }
+
+    $scope.resetCustom = function() {
+        $scope.uploadwall.color = '#dddddd';
+        $scope.uploadwall.height = 10;
+        $scope.uploadwall.width = 13.33;
+        $scope.uploadwall.zoom = 100;
+        $scope.uploadwall.gridstatus = true;
+        $scope.uploadwall.furnitureImage = "";
+        $scope.uploadwall.wallImage = "";
+        $scope.uploadwall.mountColor = "#00000";
+        $scope.calcCount();
+        if ($scope.uploadwall.paintingHeight > $scope.uploadwall.paintingWidth) {
+            $scope.uploadwall.scalePainting = 450 / $scope.uploadwall.paintingHeight;
+        } else {
+            $scope.uploadwall.scalePainting = 585 / $scope.uploadwall.paintingWidth;
+        }
+        if (document.getElementById("paintingImg"))
+            document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+    }
+
+    $scope.changeMountWidth = function() {
+        $scope.uploadwall.mountWidthPixel = ($scope.uploadwall.mountWidth / 12) * $scope.uploadwall.pixelCount;
+        if (document.getElementById("paintingImg")) {
+            if ($scope.uploadwall.mountWidthPixel != 0) {
+                document.getElementById("paintingImg").style.border = $scope.uploadwall.mountWidthPixel + "px solid " + $scope.uploadwall.mountColor;
+            } else {
+                document.getElementById("paintingImg").style.border = "none";
+            }
+        }
+    }
 
     $scope.sendDiv = function() {
         var html = $("<div />").append($(".wall-builder").clone()).html();
@@ -24170,8 +24215,221 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
         })
     }
+    var zoomInterval = '';
+    $scope.changeAccordian = function(val) {
+        if (val == 4) {
+            $scope.disableDrag();
+        } else {
+            $scope.enableDrag();
+        }
+        var obj = {};
+        if (activeAccordian == 1 && val == 2) {
+            if (!$.jStorage.get("roomView")) {
+                obj.createWall = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.createWall = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").uploadWall) {
+                $scope.uploadwall = $.jStorage.get("roomView").uploadWall;
+            } else {
+                $scope.reset();
+            }
+        } else if (activeAccordian == 1 && val == 3) {
+            if (!$.jStorage.get("roomView")) {
+                obj.createWall = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.createWall = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").wallTemplate) {
+                console.log("here1", $.jStorage.get("roomView").wallTemplate);
+                $scope.uploadwall = $.jStorage.get("roomView").wallTemplate;
+            } else {
+                console.log("here2");
+                $scope.reset();
+            }
+        } else if (activeAccordian == 1 && val == 4) {
+            if (!$.jStorage.get("roomView")) {
+                obj.createWall = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.createWall = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").customFraming) {
+                $scope.uploadwall = $.jStorage.get("roomView").customFraming;
+                if (document.getElementById("paintingImg"))
+                    document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+                $scope.changeMountWidth();
+            } else {
+                $scope.resetCustom();
+            }
+            $scope.uploadwall.gridstatus = false;
+        } else if (activeAccordian == 2 && val == 1) {
+            if (!$.jStorage.get("roomView")) {
+                obj.uploadWall = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.uploadWall = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").createWall) {
+                $scope.uploadwall = $.jStorage.get("roomView").createWall;
+            } else {
+                $scope.reset();
+            }
+            $scope.uploadwall.gridstatus = false;
+        } else if (activeAccordian == 2 && val == 3) {
+            if (!$.jStorage.get("roomView")) {
+                obj.uploadWall = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.uploadWall = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").wallTemplate) {
+                $scope.uploadwall = $.jStorage.get("roomView").wallTemplate;
+            } else {
+                $scope.reset();
+            }
+        } else if (activeAccordian == 2 && val == 4) {
+            if (!$.jStorage.get("roomView")) {
+                obj.uploadWall = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.uploadWall = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").customFraming) {
+                $scope.uploadwall = $.jStorage.get("roomView").customFraming;
+                if (document.getElementById("paintingImg"))
+                    document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+                $scope.changeMountWidth();
+            } else {
+                $scope.resetCustom();
+            }
+            $scope.uploadwall.gridstatus = false;
+        } else if (activeAccordian == 3 && val == 1) {
+            if (!$.jStorage.get("roomView")) {
+                obj.wallTemplate = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.wallTemplate = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").createWall) {
+                $scope.uploadwall = $.jStorage.get("roomView").createWall;
+            } else {
+                $scope.reset();
+            }
+            $scope.uploadwall.gridstatus = false;
+        } else if (activeAccordian == 3 && val == 2) {
+            if (!$.jStorage.get("roomView")) {
+                obj.wallTemplate = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.wallTemplate = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").uploadWall) {
+                $scope.uploadwall = $.jStorage.get("roomView").uploadWall;
+            } else {
+                $scope.reset();
+            }
+        } else if (activeAccordian == 3 && val == 4) {
+            if (!$.jStorage.get("roomView")) {
+                obj.wallTemplate = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.wallTemplate = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").customFraming) {
+                $scope.uploadwall = $.jStorage.get("roomView").customFraming;
+                if (document.getElementById("paintingImg"))
+                    document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+                $scope.changeMountWidth();
+            } else {
+                $scope.resetCustom();
+            }
+            $scope.uploadwall.gridstatus = false;
+        } else if (activeAccordian == 4 && val == 1) {
+            if (!$.jStorage.get("roomView")) {
+                obj.customFraming = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.customFraming = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").createWall) {
+                $scope.uploadwall = $.jStorage.get("roomView").createWall;
+            } else {
+                $scope.reset();
+            }
+            if (document.getElementById("paintingImg"))
+                document.getElementById("paintingImg").style.transform = "scale(1)";
+            $scope.uploadwall.mountWidth = 0;
+            $scope.changeMountWidth();
+            $scope.uploadwall.gridstatus = false;
+        } else if (activeAccordian == 4 && val == 2) {
+            if (!$.jStorage.get("roomView")) {
+                obj.customFraming = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.customFraming = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").uploadWall) {
+                $scope.uploadwall = $.jStorage.get("roomView").uploadWall;
+            } else {
+                $scope.reset();
+            }
+            if (document.getElementById("paintingImg"))
+                document.getElementById("paintingImg").style.transform = "scale(1)";
+            $scope.uploadwall.mountWidth = 0;
+            $scope.changeMountWidth();
+        } else if (activeAccordian == 4 && val == 3) {
+            if (!$.jStorage.get("roomView")) {
+                obj.customFraming = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.customFraming = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").wallTemplate) {
+                $scope.uploadwall = $.jStorage.get("roomView").wallTemplate;
+            } else {
+                $scope.reset();
+            }
+            if (document.getElementById("paintingImg"))
+                document.getElementById("paintingImg").style.transform = "scale(1)";
+            $scope.uploadwall.mountWidth = 0;
+            $scope.changeMountWidth();
+        }
+        // $scope.uploadwall.gridstatus = true;
+        if (document.getElementById("draggable-element")) {
+            document.getElementById("draggable-element").style.left = $scope.uploadwall.paintingLeft + "px";
+            if ($scope.uploadwall.paintingTop != 162.5)
+                document.getElementById("draggable-element").style.top = $scope.uploadwall.paintingTop + "px";
+            else
+                document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop - 75) + "px";
+        }
+        if ($scope.uploadwall.wallImage) {
+            zoomInterval = setInterval(function() {
+                $scope.zoomBackground();
+            }, 500);
+        }
+        activeAccordian = val;
+    }
 
-
+    $scope.onOrOffFurniture = function() {
+        if (!$scope.uploadwall.furniturestatus) {
+            $scope.uploadwall.furnitureImage = "";
+        }
+    }
 
     var map = '';
     NavigationService.getartworkdetail($stateParams.id, function(data) {
@@ -24202,9 +24460,29 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     })
 
+    $scope.enableDrag = function() {
+        document.getElementById('draggable-element').onmousedown = function() {
+            _drag_init(this);
+            return false;
+        };
+        document.onmousemove = _move_elem;
+        document.onmouseup = _destroy;
+    }
+
+    $scope.disableDrag = function() {
+        document.getElementById('draggable-element').onmousedown = null;
+        document.onmousemove = null;
+        document.onmouseup = null;
+    }
+
     $scope.zoomBackground = function() {
+        if ($scope.uploadwall.backZoom) {
+            $scope.uploadwall.backZoom = parseInt($scope.uploadwall.backZoom);
+        }
         if (document.getElementById('wall')) {
             document.getElementById('wall').style.backgroundSize = $scope.uploadwall.backZoom + "% " + $scope.uploadwall.backZoom + "%";
+            if (zoomInterval)
+                clearInterval(zoomInterval);
         }
     }
     var rotate = 0;
@@ -24259,7 +24537,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.uploadwall.furnitureImage = value.image;
         $scope.uploadwall.fwidth = value.width;
         $scope.uploadwall.fheight = value.height;
-        $scope.calcCount();
+        if ($scope.uploadwall.furnitureImage) {
+            $scope.uploadwall.furnitureWidth = $scope.uploadwall.fwidth * $scope.uploadwall.pixelCount;
+            $scope.uploadwall.furnitureHeight = $scope.uploadwall.fheight * $scope.uploadwall.pixelCount;
+            $scope.uploadwall.furnitureLeft = 332.5 - ($scope.uploadwall.furnitureWidth / 2);
+            $scope.uploadwall.furnitureTop = 500 - $scope.uploadwall.furnitureHeight;
+        }
+        if (document.getElementById("draggable-furni")) {
+            document.getElementById("draggable-furni").style.left = $scope.uploadwall.furnitureLeft + "px";
+            document.getElementById("draggable-furni").style.top = ($scope.uploadwall.furnitureTop - 1) + "px";
+        }
     }
 
     var AttachDragTo = (function() {
@@ -24338,9 +24625,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             var top = (y_pos - y_elem)
             if (left >= 0 && left < selected.parentNode.offsetWidth - selected.offsetWidth) {
                 selected.style.left = left + 'px';
+                $scope.uploadwall.paintingLeft = left;
             }
             if (top >= 0 && top < selected.parentNode.offsetHeight - selected.offsetHeight) {
                 selected.style.top = top + 'px';
+                $scope.uploadwall.paintingTop = top;
             }
         }
     }
@@ -24353,7 +24642,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     function positionPainting() {
         if (document.getElementById("draggable-element")) {
             document.getElementById("draggable-element").style.left = $scope.uploadwall.paintingLeft + "px";
-            document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop - 75) + "px";
+            document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop) + "px";
         }
         if (document.getElementById("draggable-furni")) {
             document.getElementById("draggable-furni").style.left = $scope.uploadwall.furnitureLeft + "px";
@@ -24384,6 +24673,65 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         "height": 3,
         "width": 6
     }]
+
+    $scope.allfavourites = [];
+    NavigationService.getuserprofile(function(data) {
+        if (data.id) {
+            $scope.showLogin = false;
+            userProfile = data;
+            $scope.userProfile = data;
+            NavigationService.getMyFavourites(data.id, function(favorite) {
+                console.log(favorite);
+                if (favorite.value != false) {
+                    $scope.noFavs = false;
+                    userProfile.wishlist = favorite;
+                    _.each(favorite, function(n) {
+                        if (n.wishlistfolder) {
+                            $scope.allfavourites.push({
+                                "_id": n.artwork,
+                                "wishlistfolder": n.wishlistfolder
+                            });
+                        } else {
+                            $scope.totalfav++;
+                            $scope.allfavourites.push({
+                                "_id": n.artwork
+                            });
+                        }
+                    });
+                    getFavorite($scope.allfavourites)
+                } else {
+                    cfpLoadingBar.complete();
+                    $scope.noFavs = true;
+                }
+            })
+        } else {
+            $scope.showLogin = true;
+        }
+    })
+
+    function getFavorite(allfavourites) {
+        $scope.myArtists = [];
+        NavigationService.getAllFavouritesData(allfavourites, function(datas, status) {
+            console.log("favorite data");
+            console.log(datas);
+            $scope.myFavourites = datas;
+        })
+    }
+
+    $scope.viewFav = function() {
+        ngDialog.open({
+            template: 'views/content/modal-fav.html',
+            className: 'ngdialog-lg',
+            scope: $scope
+        });
+    }
+
+    $scope.showThisPainting = function(artid) {
+        ngDialog.closeAll();
+        $state.go("room-with-a-view", {
+            "id": artid
+        });
+    }
 
     //imageupload
     var imagejstupld = "";
@@ -24515,13 +24863,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
         return hasFile ? "dragover" : "dragover-err";
     };
-
-    $scope.viewFav = function() {
-        ngDialog.open({
-            template: 'views/content/modal-fav.html',
-            className: 'ngdialog-lg'
-        });
-    }
 });
 ;
 var templateservicemod = angular.module('templateservicemod', []);
@@ -24586,9 +24927,9 @@ templateservicemod.controller('cartdropctrl', ['$scope', 'TemplateService',
 ]);
 ;
 // var adminurl = "http://146.148.34.49/";
-var adminurl = "http://www.auraart.in/";
+// var adminurl = "http://www.auraart.in/";
 // var adminurl = "http://auraart.in:81/";
-// var adminurl = "http://192.168.1.122:82/";
+var adminurl = "http://192.168.1.122:82/";
 var imgUploadUrl = adminurl + "user/uploadfile";
 var wallUploadUrl = adminurl + "user/wallUpload";
 

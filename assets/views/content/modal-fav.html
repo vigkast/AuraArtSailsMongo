@@ -1,27 +1,25 @@
 <div class="container">
-  <div class="popup-dialogbox">
-    <div class="ngdialog-close close floating"></div>
-    <h4 class="head-team">Choose from Favourites</h4>
-
-    <div class="artist">
-      <div class="row">
-          <div class="col-xs-20">
-              <div class="aristimg-grp1">
-                  <div class="relative">
-                      <div class="image-holders fixit">
-                          <img class="fix-img" ng-src='http://192.168.1.122:82/user/resize?height=190&file=136.jpg'>
-                      </div>
-                  </div>
-                  <div class="artist-cont-detail">
-                      <p>1</p>
-                      <p>Artist Name</p>
-                      <p>Rs.65000 / 1000$</p>
-                  </div>
-              </div>
-          </div>
-          <div class="clear-fix"></div>
-      </div>
+    <div class="popup-dialogbox">
+        <div class="ngdialog-close close floating"></div>
+        <h4 class="head-team">Choose from Favourites</h4>
+        <div class="artist">
+            <div class="row">
+                <div class="col-xs-20" ng-repeat="fav in myFavourites">
+                    <div class="aristimg-grp1" ng-click="showThisPainting(fav.artwork._id);">
+                        <div class="relative">
+                            <div class="image-holders fixit">
+                                <img class="fix-img" ng-src='{{fav.artwork.image[0]|uploadpath}}'>
+                            </div>
+                        </div>
+                        <div class="artist-cont-detail">
+                            <p>{{fav.artwork.imageno}}</p>
+                            <p>{{fav.name}}</p>
+                            <p>Rs {{fav.artwork.gprice|number:0}} / ${{fav.artwork.gprice|indollars}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear-fix"></div>
+            </div>
+        </div>
     </div>
-
-  </div>
 </div>

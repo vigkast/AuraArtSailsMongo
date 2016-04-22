@@ -6572,6 +6572,65 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         "width": 6
     }]
 
+    $scope.allfavourites = [];
+    NavigationService.getuserprofile(function(data) {
+        if (data.id) {
+            $scope.showLogin = false;
+            userProfile = data;
+            $scope.userProfile = data;
+            NavigationService.getMyFavourites(data.id, function(favorite) {
+                console.log(favorite);
+                if (favorite.value != false) {
+                    $scope.noFavs = false;
+                    userProfile.wishlist = favorite;
+                    _.each(favorite, function(n) {
+                        if (n.wishlistfolder) {
+                            $scope.allfavourites.push({
+                                "_id": n.artwork,
+                                "wishlistfolder": n.wishlistfolder
+                            });
+                        } else {
+                            $scope.totalfav++;
+                            $scope.allfavourites.push({
+                                "_id": n.artwork
+                            });
+                        }
+                    });
+                    getFavorite($scope.allfavourites)
+                } else {
+                    cfpLoadingBar.complete();
+                    $scope.noFavs = true;
+                }
+            })
+        } else {
+            $scope.showLogin = true;
+        }
+    })
+
+    function getFavorite(allfavourites) {
+        $scope.myArtists = [];
+        NavigationService.getAllFavouritesData(allfavourites, function(datas, status) {
+            console.log("favorite data");
+            console.log(datas);
+            $scope.myFavourites = datas;
+        })
+    }
+
+    $scope.viewFav = function() {
+        ngDialog.open({
+            template: 'views/content/modal-fav.html',
+            className: 'ngdialog-lg',
+            scope: $scope
+        });
+    }
+
+    $scope.showThisPainting = function(artid) {
+        ngDialog.closeAll();
+        $state.go("room-with-a-view", {
+            "id": artid
+        });
+    }
+
     //imageupload
     var imagejstupld = "";
     $scope.usingFlash = FileAPI && FileAPI.upload != null;
@@ -6702,11 +6761,4 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
         return hasFile ? "dragover" : "dragover-err";
     };
-
-    $scope.viewFav = function() {
-        ngDialog.open({
-            template: 'views/content/modal-fav.html',
-            className: 'ngdialog-lg'
-        });
-    }
 });

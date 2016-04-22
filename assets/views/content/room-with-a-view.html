@@ -306,15 +306,24 @@
 
     <div class="style1-bg margin-btm-top">
         <div class="container">
-            <div class="padding-more">
-                <h4 class="head-more">FAVOURITES<span class="link-viewall" ng-click="viewFav();">VIEW ALL</span></h4>
-                <div class="row">
-                    <div class="col-md-2 col-sm-4">
-                        <div class="image-holder selected">
-                            <img class="fix-img" ng-src="http://192.168.1.122:82/user/resize?height=190&file=136.jpg" alt="Painting">
+            <div class="" ng-hide="noFavs">
+                <div class="padding-more" ng-hide="showLogin">
+                    <h4 class="head-more">FAVOURITES<span class="link-viewall" ng-click="viewFav();">VIEW ALL</span></h4>
+                    <div class="row">
+                        <div class="col-md-2 col-sm-4" ng-repeat="fav in myFavourites | limitTo:6">
+                            <div class="image-holder selected" ui-sref="room-with-a-view({id:fav.artwork._id})">
+                                <img class="fix-img" ng-src="{{fav.artwork.image[0]|uploadpath}}" alt="Painting">
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row" ng-show="noFavs">
+                <p class="text-center font-special">You have not added any artworks to favourites yet.
+                    <br>Click <i class="fa fa-heart" style="color:#cbcdd1;"></i> to add to favourites.</p>
+            </div>
+            <div class="padding-more text-center" ng-show="showLogin">
+                <h4>Please login to view your favourites.</h4>
             </div>
         </div>
     </div>
