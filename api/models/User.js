@@ -1344,7 +1344,10 @@
               }
               if (db) {
                   db.collection('user').find({
-                      email: data.email
+                      email: data.email,
+                      provider: {
+                          $exists: false
+                      }
                   }).toArray(function(err, data2) {
                       if (err) {
                           console.log(err);

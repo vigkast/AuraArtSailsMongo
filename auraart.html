@@ -1,78 +1,104 @@
-<html>
-
-<head>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         Aura Art
     </title>
     <style>
-    @font-face{
-      	font-family:"Arial Unicode MS";
-      	src:url("http://auraart.in/fonts/arialuni.ttf");
+    @font-face {
+        font-family: "Arial Unicode MS";
+        /*src: url("http://auraart.in/fonts/arialuni.ttf");*/
+        src: url("http://localhost:82/fonts/arialuni.ttf");
     }
+
     body {
         margin: 0px;
         font-family: "Arial Unicode MS";
         display: inline-block;
     }
+
     p {
         margin: 0;
         line-height: 150%;
         font-size: 12pt;
         text-align: left;
     }
+
     .pull-left {
-      float: left;
+        float: left;
     }
+
     .pull-right {
-      float: right;
+        float: right;
     }
+
     .image-box {
         display: inline-block;
-        /*min-width: 500px;*/
+        width: 864px;
         text-align: center;
     }
+
     .image-box img {
         text-align: center;
         max-width: 864px;
         max-height: 1344px;
     }
+
     .logo-box {
-      text-align: right;
+        text-align: right;
     }
+
     .logo-img {
-      max-width: 100%;
-      width: 250px;
+        max-width: 100%;
+        width: 250px;
     }
+
     .row-box {
-      padding: 15px 20px;
+        padding: 15px 20px;
     }
-    .clearfix:before,.clearfix:after{display:table;content:" "}.clearfix:after{clear:both}.clearfix:before,.clearfix:after{display:table;content:" "}.clearfix:after{clear:both}
+
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        content: " "
+    }
+
+    .clearfix:after {
+        clear: both
+    }
+
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        content: " "
+    }
+
+    .clearfix:after {
+        clear: both
+    }
     </style>
 </head>
 
 <body style="background-color:white">
-
-
-        <div class="image-box">
-            <img src="http://www.auraart.in/user/resize?width=1200&file=2494.jpg">
-            <!-- <img src="http://www.auraart.in/user/resize?width=1200&file=dc583fa7-1592-4f26-bdec-75a2ecbbbed6.jpg"> -->
-            <!-- <img src="http://www.auraart.in/user/resize?width=1200&file=295.jpg"> -->
-
-            <div class="row-box">
-              <div class="content pull-left">
+    <div class="image-box">
+        <!-- <img src="http://www.auraart.in/user/resize?width=1200&file="> -->
+        <img src="http://localhost:82/user/resize?&file=">
+        <div class="row-box">
+            <div class="content pull-left">
                 <p>Artist</p>
                 <p>Artwork</p>
                 <p>Medium</p>
                 <p>Dim</p>
-              </div>
-              <div class="logo-box pull-right">
-                  <img src="http://auraart.in/img/emailer.png" class="logo-img">
-              </div>
-              <div class="clearfix"></div>
             </div>
-
+            <div class="logo-box pull-right">
+                <!-- <img src="http://auraart.in/img/emailer.png" class="logo-img"> -->
+                <img src="http://192.168.1.122:82/img/emailer.png" class="logo-img">
+            </div>
+            <div class="clearfix"></div>
         </div>
-
+    </div>
 </body>
 
 </html>
