@@ -113,7 +113,6 @@ module.exports = {
         data.srno = parseInt(data.srno);
         var user = sails.ObjectID(data.user);
         delete data.user;
-        data.reseller[0].email = data.selleremail;
         var email = data.email;
         var selleremail = data.selleremail;
         var sellername = data.sellername;
@@ -122,6 +121,11 @@ module.exports = {
         delete data.selleremail;
         delete data.sellername;
         delete data.artistname;
+        if (data.reseller && !Array.isArray(data.reseller)) {
+            data.reseller = [data.reseller];
+        }
+        console.log(data);
+        data.reseller[0].email = data.selleremail;
         if (data.reseller && data.reseller.length > 0) {
             _.each(data.reseller, function(x) {
                 if (x._id && x._id != "") {
@@ -297,6 +301,9 @@ module.exports = {
         delete data.cart;
         delete data.wishlist;
         data.srno = parseInt(data.srno);
+        if (data.reseller && !Array.isArray(data.reseller)) {
+            data.reseller = [data.reseller];
+        }
         if (data.reseller && data.reseller.length > 0) {
             _.each(data.reseller, function(x) {
                 if (x._id && x._id != "") {
