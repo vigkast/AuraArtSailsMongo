@@ -1,19 +1,26 @@
 <div class="container">
-<div class="copy">
+    <div class="copy">
         <div class="row">
-            <div class="col-md-4">
-                <p>Copyright &copy; {{template.year}} Aura Art Development Pvt Ltd, Aura Art eConnect Pvt Ltd</p>
-            </div>
-			<div class="col-md-4">
-				<div class="text-center footer-terms">
+            <div class="col-md-8">
+                <p>Copyright &copy;
+                    {{template.year}}
+                    Aura Art Development Pvt. Ltd., Aura Art eConnect Pvt. Ltd. | 
+                    <span class="footer-terms">
+                      <a ui-sref="buyerstermcondition">Terms &amp; Conditions</a>
+                      |
+                      <a ui-sref="privacypolicy">Privacy Policy</a>
+                    </span>
+                  </p>
+                <div class="text-center footer-terms">
 
-					<a ui-sref="buyerstermcondition">Terms &amp; Conditions</a> | <a ui-sref="privacypolicy">Privacy Policy</a>
-
-				</div>
+                </div>
             </div>
+
             <div class="col-md-4">
                 <div class="pull-right">
-                    <p>Developed by <a href="http://www.wohlig.com" target="_blank">Wohlig Technology</a></p>
+                    <p>Developed by
+                        <a href="http://www.wohlig.com" target="_blank">Wohlig Technology</a>
+                    </p>
                 </div>
             </div>
         </div>
