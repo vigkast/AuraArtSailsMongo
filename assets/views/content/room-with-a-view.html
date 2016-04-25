@@ -141,7 +141,7 @@
                                 <div class="part-row text-center" ng-show="uploadwall.furniturestatus">
                                     <div class="row">
                                         <div class="col-md-4" ng-repeat="furniture in furnitureJson" ng-click="changeFurniture(furniture);">
-                                            <div class="furni-box selected">
+                                            <div class="furni-box" ng-class="{'selected' : furniture.image==uploadwall.furnitureImage}">
                                                 <img ng-src="{{furniture.thumbnail}}" class="img-responsive">
                                             </div>
                                             <span class="furni-name">
