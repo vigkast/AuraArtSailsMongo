@@ -4727,6 +4727,7 @@ a.col-press {
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: 100% auto;
+  cursor: move;
 }
 .furniture-holder {
   position: absolute;
