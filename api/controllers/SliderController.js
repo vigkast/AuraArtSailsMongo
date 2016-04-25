@@ -100,6 +100,35 @@ module.exports = {
             });
         }
     },
+    createImage: function(req, res) {
+        var html = req.body.image;
+        // html = html.split("img/").join("http://localhost:82/img/");
+        html = html.split("img/").join("http://www.auraart.in/img/");
+        var css = "body {margin:0}.height-holder { height: 500px;   width: 665px; position: relative;   min-height: 100%;   height: 100%;   overflow: hidden;}.wall-builder { height: 500px;   width: 665px;   margin: 0 auto; padding-right: 310px;   width: 100%;}.painting-holder { position: absolute; left: 0; top: 0; height: 100%; width: 100%; height: auto; width: auto; left: 30%; top: 52px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);}.wall-image { position: absolute; left: 0; top: 0; height: 100%; width: 100%; background-repeat: no-repeat; background-position: 50% 50%; background-size: 100% auto;}.dim {  position: absolute;  color: white;  text-shadow: 0 0 4px rgba(0, 0, 0, 0.35);  font-size: 14px;  text-transform: uppercase;}.dim.dim-h {  top: 50%;  left: -20px;}.dim.dim-w {  top: -20px;  left: 0px;  width: 100%;  text-align: center;}.furniture-holder {position:absolute}";
+        var options = {
+            windowSize: {
+                width: 665,
+                height: 500
+            },
+            siteType: "html",
+            customCSS: css
+        };
+        var path = "./abcd.jpg";
+        sails.webshot(html, path, options, function(err) {
+            if (err) {
+                console.log(err);
+                res.json({
+                    value: false,
+                    comment: err
+                });
+            } else {
+                res.json({
+                    value: true,
+                    comment: path
+                });
+            }
+        });
+    },
     downloadImage: function(req, res) {
         var path = "./" + req.query.file;
         var image = sails.fs.readFileSync(path);
