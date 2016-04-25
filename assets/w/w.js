@@ -24161,6 +24161,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.uploadwall.zoom = 100;
     // $scope.uploadwall.gridstatus = true;
     $scope.uploadwall.furnitureImage = "";
+    $scope.uploadwall.furniturestatus = true;
 
     $scope.reset = function() {
         $scope.uploadwall.color = '#dddddd';

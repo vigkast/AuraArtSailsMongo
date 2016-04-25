@@ -6036,7 +6036,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
 })
 
-.controller('RoomViewCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog, $upload, $http, $rootScope) {
+.controller('RoomViewCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog, $upload, $http, $rootScope, $filter) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("room-with-a-view");
     $scope.menutitle = NavigationService.makeactive("View Artwork in Your Room");
@@ -6059,6 +6059,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.uploadwall.zoom = 100;
     // $scope.uploadwall.gridstatus = true;
     $scope.uploadwall.furnitureImage = "";
+    $scope.uploadwall.furniturestatus = true;
+
+    $scope.getTimes = function(n) {
+        if (n) {
+            n = Math.ceil(n);
+            return new Array(n);
+        } else {
+            return new Array(0);
+        }
+    };
 
     $scope.reset = function() {
         $scope.uploadwall.color = '#dddddd';
@@ -6103,6 +6113,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     $scope.sendDiv = function() {
         var html = $("<div />").append($(".wall-builder").clone()).html();
+        html = html.split('&quot;').join('');
         console.log(html);
         var obj = {};
         obj.html = html;
@@ -6316,11 +6327,15 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop - 75) + "px";
         }
         if ($scope.uploadwall.wallImage) {
+            document.getElementById('wall').style.backgroundImage = "url('" + $filter('wallpath')($scope.uploadwall.wallImage) + "')";
             zoomInterval = setInterval(function() {
                 $scope.zoomBackground();
             }, 500);
         }
         activeAccordian = val;
+        $timeout(function() {
+            $scope.$apply();
+        }, 10);
     }
 
     $scope.onOrOffFurniture = function() {
@@ -6572,6 +6587,29 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         "width": 6
     }]
 
+    $scope.changeWallTemplate = function(wall) {
+        $scope.uploadwall.wallImage = "";
+        $scope.uploadwall.wallImage = wall.image;
+        $scope.uploadwall.wallid = wall.id;
+        $timeout(function() {
+            var background = document.getElementById('wall');
+            console.log(background);
+            if (background)
+                AttachDragTo(background);
+        }, 5000);
+    }
+
+    $scope.wallTemplateJson = [{
+        "image": "img/templates/1.jpg",
+        "id": 1
+    }, {
+        "image": "img/templates/1.jpg",
+        "id": 2
+    }, {
+        "image": "img/templates/1.jpg",
+        "id": 3
+    }]
+
     $scope.allfavourites = [];
     NavigationService.getuserprofile(function(data) {
         if (data.id) {
@@ -6710,6 +6748,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                         if (imagejstupld != "") {
                             $scope.uploadwall.wallImage = imagejstupld.files[0].fd;
                             imagejstupld = "";
+                            $timeout(function() {
+                                document.getElementById('wall').style.backgroundImage = "url('" + $filter('wallpath')($scope.uploadwall.wallImage) + "')";
+                            }, 1000);
                             $timeout(function() {
                                 var background = document.getElementById('wall');
                                 console.log(background);

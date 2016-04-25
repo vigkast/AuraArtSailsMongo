@@ -5,28 +5,36 @@
             <h4 class="head-team">VIEW ARTWORK IN YOUR ROOM</h4>
             <div class="relative">
 
-                <!-- <div class="wall-builder">
-                    <div class="height-holder" ng-style="{'background-color': wall.color}">
-                        <div class="wall-image" id="wall" ng-style="{'background-image':'url({{uploadwall.wallImage | wallpath}})'}" ng-if="uploadwall.wallImage"></div>
+                <div class="scroller-area">
+                    <div class="wall-builder">
+                        <div class="height-holder" ng-style="{'background-color': uploadwall.color}">
+                            <div class="wall-image" id="wall" ng-if="uploadwall.wallImage"></div>
 
-                        <div class="painting-holder" id="draggable-element">
-                            <img ng-src="{{uploadwall.paintingImage|uploadpath}}" alt="Painting" height="{{uploadwall.paintingHeight}}" ng-if="uploadwall.paintingImage" id="paintingImg">
-                        </div>
-
-                        <div class="furniture-holder">
-                          <img src="img/room-view/sofa.png" alt="sofa">
-                        </div>
-
-                        <div class="grid-holder" ng-if="grid.status">
-                            <div class="horizontal-line" ng-repeat="i in getTimes(uploadwall.horizontalCount) track by $index" ng-style="{'margin-bottom' : uploadwall.pixels}"></div>
-                            <div class="vertical-holder">
-                                <div class="vertical-line" ng-repeat="i in getTimes(uploadwall.verticalCount) track by $index" ng-style="{'margin-left' : uploadwall.pixels}"></div>
+                            <div class="painting-holder" id="draggable-element">
+                                <img ng-src="{{uploadwall.paintingImage|uploadpath}}" alt="Painting" height="{{uploadwall.paintingHeight}}" width="{{uploadwall.paintingWidth}}" ng-if="uploadwall.paintingImage" id="paintingImg">
                             </div>
-                        </div>
 
+                            <div class="furniture-holder" id="draggable-furni">
+                                <div class="dim dim-h">{{uploadwall.fheight}}ft.</div>
+                                <div class="dim dim-w">{{uploadwall.fwidth}}ft.</div>
+                                <img ng-src="{{uploadwall.furnitureImage}}" alt="sofa" height="{{uploadwall.furnitureHeight}}" width="{{uploadwall.furnitureWidth}}" ng-if="uploadwall.furnitureImage">
+                            </div>
+
+                            <div class="grid-holder" ng-if="uploadwall.gridstatus">
+                                <div class="white-text">
+                                    Grid size is 1ft. x 1ft. Please <span class="btn-line" ng-click="uploadwall.gridstatus=!uploadwall.gridstatus">turn off</span> the grid to move the painting.
+                                </div>
+                                <div class="horizontal-line" ng-repeat="i in getTimes(uploadwall.horizontalCount) track by $index" ng-style="{'margin-bottom' : uploadwall.pixels}"></div>
+                                <div class="vertical-holder">
+                                    <div class="vertical-line" ng-repeat="i in getTimes(uploadwall.verticalCount) track by $index" ng-style="{'margin-left' : uploadwall.pixels}"></div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                </div> -->
-                <wall-builder ng-model="uploadwall"></wall-builder>
+                </div>
+
+                <!-- <wall-builder ng-model="uploadwall"></wall-builder> -->
 
                 <div class="room-options">
                     <uib-accordion>
@@ -111,14 +119,14 @@
                             <div class="part">
                                 <div class="part-row">
                                     <div class="pull-right">
-                                            <div class="onoffswitch">
-                                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forfurniture" ng-model="uploadwall.furniturestatus" ng-change="onOrOffFurniture();">
-                                                <label class="onoffswitch-label" for="forfurniture">
-                                                    <span class="onoffswitch-inner"></span>
-                                                    <span class="onoffswitch-switch"></span>
-                                                </label>
-                                            </div>
+                                        <div class="onoffswitch">
+                                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forfurniture" ng-model="uploadwall.furniturestatus" ng-change="onOrOffFurniture();">
+                                            <label class="onoffswitch-label" for="forfurniture">
+                                                <span class="onoffswitch-inner"></span>
+                                                <span class="onoffswitch-switch"></span>
+                                            </label>
                                         </div>
+                                    </div>
                                     <h3>Select Furniture:</h3>
                                     <div class="clearfix"></div>
                                 </div>
@@ -228,15 +236,17 @@
                                 <div class="part-row">
                                     Zoom Image:
                                     <div class="full-width">
-                                        <input type="range">
+                                        <input type="range" min="50" max="150" ng-model="uploadwall.backZoom" ng-change="zoomBackground();">
                                     </div>
                                 </div>
                                 <div class="part-row">
                                     Select Templates:
                                     <div class="fix-row">
-                                      <div class="col-hw75 selected" ng-style="{'background-image': 'url(img/templates/1.jpg)'}"></div>
-                                      <div class="col-hw75" ng-style="{'background-image': 'url(img/templates/1.jpg)'}"></div>
-                                      <div class="col-hw75" ng-style="{'background-image': 'url(img/templates/1.jpg)'}"></div>
+                                        <div class="col-hw75" ng-repeat="wall in wallTemplateJson" ng-style="{'background-image': 'url({{wall.image}})'}" ng-class="{'selected':wall.id==uploadwall.wallid}" ng-click="changeWallTemplate(wall);">
+
+                                        </div>
+                                        <!-- <div class="col-hw75" ng-style="{'background-image': 'url(img/templates/1.jpg)'}"></div>
+                                        <div class="col-hw75" ng-style="{'background-image': 'url(img/templates/1.jpg)'}"></div> -->
                                     </div>
                                 </div>
                             </div>
