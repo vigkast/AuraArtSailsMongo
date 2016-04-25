@@ -6048,6 +6048,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     // $scope.wall.height = 10;
     // $scope.wall.width = 13.33;
 
+    $scope.openLogin = function() {
+        globalFunction.showLogin();
+    }
+
     abc = $scope;
 
     var activeAccordian = 1;
