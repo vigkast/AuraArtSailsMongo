@@ -4734,16 +4734,16 @@ a.col-press {
 }
 .furni-box {
   background-color: #e6e7e9;
-  border: 1px solid transparent;
   cursor: pointer;
   -webkit-transition: all 300ms ease;
   -moz-transition: all 300ms ease;
   -o-transition: all 300ms ease;
   transition: all 300ms ease;
+  border: 1px solid transparent;
 }
 .furni-box.selected,
 .furni-box:hover {
-  border: 1px solid #333;
+  border-color: #333;
 }
 .furni-name {
   font-size: 10px;
@@ -4808,6 +4808,25 @@ a.col-press {
 }
 .scroller-area {
   overflow-x: auto;
+}
+.col-hw75 {
+  -webkit-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+  height: 75px;
+  width: 75px;
+  float: left;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0 2.5px 5px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.col-hw75.selected,
+.col-hw75:hover {
+  border-color: #333;
 }
 /* Mobile Less */
 #fancybox-loading,

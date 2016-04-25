@@ -3281,8 +3281,9 @@ a.col-press {
     border: 1px solid transparent;
     cursor: pointer;
     .transition(all 300ms ease);
+    border: 1px solid transparent;
     &.selected,&:hover {
-      border: 1px solid #333;
+      border-color: #333;
     }
 }
 .furni-name {
@@ -3343,6 +3344,21 @@ a.col-press {
 }
 .scroller-area {
     overflow-x: auto;
+}
+.col-hw75 {
+  .transition(all 300ms ease);
+  height: 75px;
+  width: 75px;
+  float: left;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0 2.5px 5px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  &.selected, &:hover {
+    border-color: #333;
+  }
 }
 /* Mobile Less */
 @import "../less/fancybox-override.less";
