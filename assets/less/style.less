@@ -3126,6 +3126,7 @@ img.fancybox-image {
 .wall-builder {
     padding-right: 310px;
     width: 100%;
+    .user-select(none);
 }
 .room-options {
   width: 280px;
@@ -3229,7 +3230,6 @@ a.col-press {
 .grid-holder {
   &:extend(.full-size);
   position: relative;
-  background-color: rgba(0, 0, 0, 0.25);
   min-height: 100%;
   overflow: hidden;
     .horizontal-line {
@@ -3264,6 +3264,7 @@ a.col-press {
   left: 30%;
   top: 52px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  cursor: move;
 }
 .wall-image {
   &:extend(.full-size);
@@ -3286,6 +3287,30 @@ a.col-press {
 .furni-name {
   font-size: 10px;
 }
+.white-text {
+    padding: 10px 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    z-index: 9;
+    color: white;
+    font-size: 14px;
+    text-transform: uppercase;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.35);
+}
+.btn-line {
+    cursor: pointer;
+    .transition(all 300ms ease);
+    text-decoration: underline;
+    &:hover {
+        padding: 2px 3px;
+        text-decoration: none;
+        background: white;
+        color: #333;
+    }
+}
 .ngdialog-lg {
    .popup-dialogbox {
     position: absolute;
@@ -3297,6 +3322,26 @@ a.col-press {
     overflow-x: scroll;
     .translate(0%, 0%);
   }
+}
+.dim {
+  position: absolute;
+  color: white;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
+  font-size: 14px;
+  text-transform: uppercase;
+  &.dim-h {
+    top: 50%;
+    left: -20px;
+  }
+  &.dim-w {
+    top: -20px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+  }
+}
+.scroller-area {
+    overflow-x: auto;
 }
 /* Mobile Less */
 @import "../less/fancybox-override.less";
