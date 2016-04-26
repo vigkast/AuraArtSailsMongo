@@ -6331,15 +6331,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop - 75) + "px";
         }
         if ($scope.uploadwall.wallImage) {
-            document.getElementById('wall').style.backgroundImage = "url('" + $filter('wallpath')($scope.uploadwall.wallImage) + "')";
             zoomInterval = setInterval(function() {
                 $scope.zoomBackground();
             }, 500);
         }
         activeAccordian = val;
-        $timeout(function() {
-            $scope.$apply();
-        }, 10);
     }
 
     $scope.onOrOffFurniture = function() {
@@ -6397,6 +6393,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.uploadwall.backZoom = parseInt($scope.uploadwall.backZoom);
         }
         if (document.getElementById('wall')) {
+            document.getElementById('wall').style.backgroundImage = "url('" + $filter('wallpath')($scope.uploadwall.wallImage) + "')";
             document.getElementById('wall').style.backgroundSize = $scope.uploadwall.backZoom + "% " + $scope.uploadwall.backZoom + "%";
             if (zoomInterval)
                 clearInterval(zoomInterval);
