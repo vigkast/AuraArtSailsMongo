@@ -1,56 +1,62 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="firstapp">
-
 <head ng-controller="headerctrl">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="After a couple of decades of researching and collecting art, Aura Art was formed in April 2006 by the Core Team (comprising of Daljit Singh Sethi and his sons Harmeet and Rishiraj), to fill the gaps in the Indian Art Industry - identifying and discovering value amongst the best of Indian art, utilising every available platform to promote art, assisting art lovers in building and maintaining their collections, working closely with the design space to meet their aesthetic requirements - with an aspiration to migrate to a fully Integrated Art House.  Aura Art now boasts of some of the most prominent personalities from all walks of life in its Team.">
-    <meta name="author" content="Aura Art Development Pvt Ltd | Aura Art eConnect Pvt Ltd">
-    <meta property="og:site_name" content="Aura Art">
-    <meta property="og:title" content="Aura Art" />
-    <meta property="og:description" content="After a couple of decades of researching and collecting art, Aura Art was formed in April 2006 by the Core Team (comprising of Daljit Singh Sethi and his sons Harmeet and Rishiraj), to fill the gaps in the Indian Art Industry - identifying and discovering value amongst the best of Indian art, utilising every available platform to promote art, assisting art lovers in building and maintaining their collections, working closely with the design space to meet their aesthetic requirements - with an aspiration to migrate to a fully Integrated Art House.  Aura Art now boasts of some of the most prominent personalities from all walks of life in its Team." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="http://auraart.in/img/fb-banner.jpg">
-    <title ng-bind="'Aura Art - '+template.title">Aura Art</title>
-    <link rel="shortcut icon" href="img/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="w/w.css" />
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/select2/dist/js/select2.min.js"></script>
-    <script src="lib/flexislider/jquery.flexslider.js"></script>
-    <script src="bower_components/fancyBox/source/jquery.fancybox.pack.js"></script>
-    <script src="bower_components/moment/min/moment.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/elevatezoom/jquery.elevatezoom.js"></script>
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="lib/flexislider/angular-flexslider.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="bower_components/ui-router/release/angular-ui-router.min.js"></script>
-    <script src="bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
-    <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
-    <script src="bower_components/angularjs-toaster/toaster.min.js"></script>
-    <script src="bower_components/valdr/valdr.min.js"></script>
-    <script src="bower_components/valdr/valdr-message.min.js"></script>
-    <script src="bower_components/ngDialog/js/ngDialog.min.js"></script>
-    <script src="bower_components/ngAutocomplete/src/ngAutocomplete.js"></script>
-    <script src="bower_components/ui-select/dist/select.min.js"></script>
-    <script src="bower_components/lodash/lodash.js"></script>
-    <script src="bower_components/angular-rangeslider/angular.rangeSlider.js"></script>
-    <script src="bower_components/angular-scroll/angular-scroll.min.js"></script>
-    <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
-    <script src="lib/js/angular-file-upload.js"></script>
-    <script src="lib/js/FileAPI.min.js"></script>
-    <script src="lib/js/upload.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/templateservice.js"></script>
-    <script src="js/navigation.js"></script>
-    <script src="lib/js/jstorage.js"></script>
-    <!--[if IE]>
+  <!-- <base href="http://auraart.in/"> -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="After a couple of decades of researching and collecting art, Aura Art was formed in April 2006 by the Core Team (comprising of Daljit Singh Sethi and his sons Harmeet and Rishiraj), to fill the gaps in the Indian Art Industry - identifying and discovering value amongst the best of Indian art, utilising every available platform to promote art, assisting art lovers in building and maintaining their collections, working closely with the design space to meet their aesthetic requirements - with an aspiration to migrate to a fully Integrated Art House.  Aura Art now boasts of some of the most prominent personalities from all walks of life in its Team.">
+  <meta name="author" content="Aura Art Development Pvt Ltd | Aura Art eConnect Pvt Ltd">
+  <meta property="og:site_name" content="Aura Art">
+  <meta property="og:title" content="Aura Art" />
+  <meta property="og:description" content="After a couple of decades of researching and collecting art, Aura Art was formed in April 2006 by the Core Team (comprising of Daljit Singh Sethi and his sons Harmeet and Rishiraj), to fill the gaps in the Indian Art Industry - identifying and discovering value amongst the best of Indian art, utilising every available platform to promote art, assisting art lovers in building and maintaining their collections, working closely with the design space to meet their aesthetic requirements - with an aspiration to migrate to a fully Integrated Art House.  Aura Art now boasts of some of the most prominent personalities from all walks of life in its Team." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="http://auraart.in/img/fb-banner.jpg">
+  <!-- <link rel="canonical" href="http://auraart.in/"> -->
+  <title ng-bind="'Aura Art - '+template.title">Aura Art</title>
+  <link rel="shortcut icon" href="img/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="w/w.css" />
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/select2/dist/js/select2.min.js"></script>
+  <script src="lib/flexislider/jquery.flexslider.js"></script>
+  <script src="bower_components/fancyBox/source/jquery.fancybox.pack.js"></script>
+  <script src="bower_components/moment/min/moment.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/elevatezoom/jquery.elevatezoom.js"></script>
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="lib/flexislider/angular-flexslider.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="bower_components/ui-router/release/angular-ui-router.min.js"></script>
+  <script src="bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
+  <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+  <script src="bower_components/angularjs-toaster/toaster.min.js"></script>
+  <script src="bower_components/valdr/valdr.min.js"></script>
+  <script src="bower_components/valdr/valdr-message.min.js"></script>
+  <script src="bower_components/ngDialog/js/ngDialog.min.js"></script>
+  <script src="bower_components/ngAutocomplete/src/ngAutocomplete.js"></script>
+  <script src="bower_components/ui-select/dist/select.min.js"></script>
+  <script src="bower_components/lodash/lodash.js"></script>
+  <script src="bower_components/angular-rangeslider/angular.rangeSlider.js"></script>
+  <script src="bower_components/angular-scroll/angular-scroll.min.js"></script>
+  <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+  <script src="lib/js/angular-file-upload.js"></script>
+  <script src="lib/js/FileAPI.min.js"></script>
+  <script src="lib/js/upload.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/templateservice.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="lib/js/jstorage.js"></script>
+
+  <script>
+    var isproduction = false;
+  </script>
+
+  <!--[if IE]>
         <script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
