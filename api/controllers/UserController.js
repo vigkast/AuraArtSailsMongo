@@ -298,16 +298,11 @@ module.exports = {
             var newfilename = newfilestart + "_" + width + "_" + height + newfileend;
             var isfile2 = sails.fs.existsSync(newfilename);
             if (!isfile2) {
-                console.log("in if" + newfilepath);
+                console.log("in if");
                 sails.lwip.open(newfilepath, function(err, image) {
                     if (err) {
                         console.log(err);
-                        var path = './auraimg/noimage.jpg';
-                        var split = path.substr(path.length - 3);
-                        var image = sails.fs.readFileSync(path);
-                        var mimetype = sails.mime.lookup(split);
-                        res.set('Content-Type', mimetype);
-                        res.send(image);
+                        showimage(filepath);
                     } else {
                         // if (image && (width < image.width() || height < image.height)) {
                         var dimensions = {};
