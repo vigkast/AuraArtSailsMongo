@@ -16,7 +16,7 @@ firstapp.run(function($rootScope, NavigationService) {
     };
 });
 
-firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, $httpProvider) {
+firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, $httpProvider, $locationProvider) {
     //Turn the spinner on or off
 
     $httpProvider.defaults.withCredentials = true;
@@ -261,6 +261,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
         templateUrl: "views/template.html",
         controller: 'RoomViewCtrl'
     });
+
+    if(isproduction)
+   {
+     $locationProvider.html5Mode(isproduction);
+   }
 
     $urlRouterProvider.otherwise("/home");
 

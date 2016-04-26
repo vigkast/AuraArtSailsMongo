@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="firstapp">
-
 <head ng-controller="headerctrl">
+  <!-- <base href="http://auraart.in/"> -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -13,6 +13,8 @@
   <meta property="og:description" content="After a couple of decades of researching and collecting art, Aura Art was formed in April 2006 by the Core Team (comprising of Daljit Singh Sethi and his sons Harmeet and Rishiraj), to fill the gaps in the Indian Art Industry - identifying and discovering value amongst the best of Indian art, utilising every available platform to promote art, assisting art lovers in building and maintaining their collections, working closely with the design space to meet their aesthetic requirements - with an aspiration to migrate to a fully Integrated Art House.  Aura Art now boasts of some of the most prominent personalities from all walks of life in its Team." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="http://auraart.in/img/fb-banner.jpg">
+
+  <!-- <link rel="canonical" href="http://auraart.in/"> -->
 
   <title ng-bind="'Aura Art - '+template.title">Aura Art</title>
 
@@ -55,6 +57,10 @@
   <script src="js/templateservice.js"></script>
   <script src="js/navigation.js"></script>
   <script src="lib/js/jstorage.js"></script>
+
+  <script>
+    var isproduction = false;
+  </script>
 
   <!--[if IE]>
         <script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -101,5 +107,4 @@
 
 </script>
 </body>
-
 </html>
