@@ -300,26 +300,36 @@ module.exports = {
             if (!isfile2) {
                 console.log("in if" + newfilepath);
                 sails.lwip.open(newfilepath, function(err, image) {
-                    // if (image && (width < image.width() || height < image.height)) {
-                    var dimensions = {};
-                    dimensions.width = image.width();
-                    dimensions.height = image.height();
-                    if (width == 0) {
-                        width = dimensions.width / dimensions.height * height;
-                    }
-                    if (height == 0) {
-                        height = dimensions.height / dimensions.width * width;
-                    }
-                    image.resize(width, height, "lanczos", function(err, image) {
-                        image.toBuffer(extension, function(err, buffer) {
-                            sails.fs.writeFileSync(newfilename, buffer);
-                            showimage(newfilename);
+                    if (err) {
+                        console.log(err);
+                        var path = './auraimg/noimage.jpg';
+                        var split = path.substr(path.length - 3);
+                        var image = sails.fs.readFileSync(path);
+                        var mimetype = sails.mime.lookup(split);
+                        res.set('Content-Type', mimetype);
+                        res.send(image);
+                    } else {
+                        // if (image && (width < image.width() || height < image.height)) {
+                        var dimensions = {};
+                        dimensions.width = image.width();
+                        dimensions.height = image.height();
+                        if (width == 0) {
+                            width = dimensions.width / dimensions.height * height;
+                        }
+                        if (height == 0) {
+                            height = dimensions.height / dimensions.width * width;
+                        }
+                        image.resize(width, height, "lanczos", function(err, image) {
+                            image.toBuffer(extension, function(err, buffer) {
+                                sails.fs.writeFileSync(newfilename, buffer);
+                                showimage(newfilename);
+                            });
                         });
-                    });
-                    // } else {
-                    //     console.log("in else");
-                    //     showimage(newfilepath);
-                    // }
+                        // } else {
+                        //     console.log("in else");
+                        //     showimage(newfilepath);
+                        // }
+                    }
                 });
             } else {
                 console.log("in else");
