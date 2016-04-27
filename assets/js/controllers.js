@@ -198,7 +198,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         //      console.log($scope.filterby);
         console.log($scope.filterby);
         $.jStorage.set("filterby", $scope.filterby);
-            //      $location.url("/artwork/-1");
+        //      $location.url("/artwork/-1");
         $state.go('totalartpage', {
             type: -1
         });
@@ -6042,7 +6042,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.menutitle = NavigationService.makeactive("View Artwork in Your Room");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-    $.jStorage.flush();
+    // $.jStorage.flush();
     // $scope.wall = [];
     // $scope.wall.color = '#dddddd';
     // $scope.wall.height = 10;
@@ -6055,15 +6055,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     abc = $scope;
 
     var activeAccordian = 1;
-
-    $scope.uploadwall = {};
-    $scope.uploadwall.color = '#dddddd';
-    $scope.uploadwall.height = 10;
-    $scope.uploadwall.width = 13.33;
-    $scope.uploadwall.zoom = 100;
-    // $scope.uploadwall.gridstatus = true;
-    $scope.uploadwall.furnitureImage = "";
-    $scope.uploadwall.furniturestatus = true;
 
     $scope.getTimes = function(n) {
         if (n) {
@@ -6128,215 +6119,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
         })
     }
-    var zoomInterval = '';
-    $scope.changeAccordian = function(val) {
-        if (val == 4) {
-            $scope.disableDrag();
-        } else {
-            $scope.enableDrag();
-        }
-        var obj = {};
-        if (activeAccordian == 1 && val == 2) {
-            if (!$.jStorage.get("roomView")) {
-                obj.createWall = $scope.uploadwall;
-            } else {
-                obj = $.jStorage.get("roomView");
-                obj.createWall = $scope.uploadwall;
-            }
-            $.jStorage.set("roomView", obj);
-            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").uploadWall) {
-                $scope.uploadwall = $.jStorage.get("roomView").uploadWall;
-            } else {
-                $scope.reset();
-            }
-        } else if (activeAccordian == 1 && val == 3) {
-            if (!$.jStorage.get("roomView")) {
-                obj.createWall = $scope.uploadwall;
-            } else {
-                obj = $.jStorage.get("roomView");
-                obj.createWall = $scope.uploadwall;
-            }
-            $.jStorage.set("roomView", obj);
-            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").wallTemplate) {
-                console.log("here1", $.jStorage.get("roomView").wallTemplate);
-                $scope.uploadwall = $.jStorage.get("roomView").wallTemplate;
-            } else {
-                console.log("here2");
-                $scope.reset();
-            }
-        } else if (activeAccordian == 1 && val == 4) {
-            if (!$.jStorage.get("roomView")) {
-                obj.createWall = $scope.uploadwall;
-            } else {
-                obj = $.jStorage.get("roomView");
-                obj.createWall = $scope.uploadwall;
-            }
-            $.jStorage.set("roomView", obj);
-            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").customFraming) {
-                $scope.uploadwall = $.jStorage.get("roomView").customFraming;
-                if (document.getElementById("paintingImg"))
-                    document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
-                $scope.changeMountWidth();
-            } else {
-                $scope.resetCustom();
-            }
-            $scope.uploadwall.gridstatus = false;
-        } else if (activeAccordian == 2 && val == 1) {
-            if (!$.jStorage.get("roomView")) {
-                obj.uploadWall = $scope.uploadwall;
-            } else {
-                obj = $.jStorage.get("roomView");
-                obj.uploadWall = $scope.uploadwall;
-            }
-            $.jStorage.set("roomView", obj);
-            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").createWall) {
-                $scope.uploadwall = $.jStorage.get("roomView").createWall;
-            } else {
-                $scope.reset();
-            }
-            $scope.uploadwall.gridstatus = false;
-        } else if (activeAccordian == 2 && val == 3) {
-            if (!$.jStorage.get("roomView")) {
-                obj.uploadWall = $scope.uploadwall;
-            } else {
-                obj = $.jStorage.get("roomView");
-                obj.uploadWall = $scope.uploadwall;
-            }
-            $.jStorage.set("roomView", obj);
-            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").wallTemplate) {
-                $scope.uploadwall = $.jStorage.get("roomView").wallTemplate;
-            } else {
-                $scope.reset();
-            }
-        } else if (activeAccordian == 2 && val == 4) {
-            if (!$.jStorage.get("roomView")) {
-                obj.uploadWall = $scope.uploadwall;
-            } else {
-                obj = $.jStorage.get("roomView");
-                obj.uploadWall = $scope.uploadwall;
-            }
-            $.jStorage.set("roomView", obj);
-            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").customFraming) {
-                $scope.uploadwall = $.jStorage.get("roomView").customFraming;
-                if (document.getElementById("paintingImg"))
-                    document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
-                $scope.changeMountWidth();
-            } else {
-                $scope.resetCustom();
-            }
-            $scope.uploadwall.gridstatus = false;
-        } else if (activeAccordian == 3 && val == 1) {
-            if (!$.jStorage.get("roomView")) {
-                obj.wallTemplate = $scope.uploadwall;
-            } else {
-                obj = $.jStorage.get("roomView");
-                obj.wallTemplate = $scope.uploadwall;
-            }
-            $.jStorage.set("roomView", obj);
-            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").createWall) {
-                $scope.uploadwall = $.jStorage.get("roomView").createWall;
-            } else {
-                $scope.reset();
-            }
-            $scope.uploadwall.gridstatus = false;
-        } else if (activeAccordian == 3 && val == 2) {
-            if (!$.jStorage.get("roomView")) {
-                obj.wallTemplate = $scope.uploadwall;
-            } else {
-                obj = $.jStorage.get("roomView");
-                obj.wallTemplate = $scope.uploadwall;
-            }
-            $.jStorage.set("roomView", obj);
-            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").uploadWall) {
-                $scope.uploadwall = $.jStorage.get("roomView").uploadWall;
-            } else {
-                $scope.reset();
-            }
-        } else if (activeAccordian == 3 && val == 4) {
-            if (!$.jStorage.get("roomView")) {
-                obj.wallTemplate = $scope.uploadwall;
-            } else {
-                obj = $.jStorage.get("roomView");
-                obj.wallTemplate = $scope.uploadwall;
-            }
-            $.jStorage.set("roomView", obj);
-            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").customFraming) {
-                $scope.uploadwall = $.jStorage.get("roomView").customFraming;
-                if (document.getElementById("paintingImg"))
-                    document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
-                $scope.changeMountWidth();
-            } else {
-                $scope.resetCustom();
-            }
-            $scope.uploadwall.gridstatus = false;
-        } else if (activeAccordian == 4 && val == 1) {
-            if (!$.jStorage.get("roomView")) {
-                obj.customFraming = $scope.uploadwall;
-            } else {
-                obj = $.jStorage.get("roomView");
-                obj.customFraming = $scope.uploadwall;
-            }
-            $.jStorage.set("roomView", obj);
-            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").createWall) {
-                $scope.uploadwall = $.jStorage.get("roomView").createWall;
-            } else {
-                $scope.reset();
-            }
-            if (document.getElementById("paintingImg"))
-                document.getElementById("paintingImg").style.transform = "scale(1)";
-            $scope.uploadwall.mountWidth = 0;
-            $scope.changeMountWidth();
-            $scope.uploadwall.gridstatus = false;
-        } else if (activeAccordian == 4 && val == 2) {
-            if (!$.jStorage.get("roomView")) {
-                obj.customFraming = $scope.uploadwall;
-            } else {
-                obj = $.jStorage.get("roomView");
-                obj.customFraming = $scope.uploadwall;
-            }
-            $.jStorage.set("roomView", obj);
-            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").uploadWall) {
-                $scope.uploadwall = $.jStorage.get("roomView").uploadWall;
-            } else {
-                $scope.reset();
-            }
-            if (document.getElementById("paintingImg"))
-                document.getElementById("paintingImg").style.transform = "scale(1)";
-            $scope.uploadwall.mountWidth = 0;
-            $scope.changeMountWidth();
-        } else if (activeAccordian == 4 && val == 3) {
-            if (!$.jStorage.get("roomView")) {
-                obj.customFraming = $scope.uploadwall;
-            } else {
-                obj = $.jStorage.get("roomView");
-                obj.customFraming = $scope.uploadwall;
-            }
-            $.jStorage.set("roomView", obj);
-            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").wallTemplate) {
-                $scope.uploadwall = $.jStorage.get("roomView").wallTemplate;
-            } else {
-                $scope.reset();
-            }
-            if (document.getElementById("paintingImg"))
-                document.getElementById("paintingImg").style.transform = "scale(1)";
-            $scope.uploadwall.mountWidth = 0;
-            $scope.changeMountWidth();
-        }
-        // $scope.uploadwall.gridstatus = true;
-        if (document.getElementById("draggable-element")) {
-            document.getElementById("draggable-element").style.left = $scope.uploadwall.paintingLeft + "px";
-            if ($scope.uploadwall.paintingTop != 162.5)
-                document.getElementById("draggable-element").style.top = $scope.uploadwall.paintingTop + "px";
-            else
-                document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop - 75) + "px";
-        }
-        if ($scope.uploadwall.wallImage) {
-            zoomInterval = setInterval(function() {
-                $scope.zoomBackground();
-            }, 500);
-        }
-        activeAccordian = val;
-    }
 
     $scope.onOrOffFurniture = function() {
         if (!$scope.uploadwall.furniturestatus) {
@@ -6349,6 +6131,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         console.log(data);
         if (data.value != false) {
             $scope.artworkDetail = data[0];
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").createWall) {
+                console.log($.jStorage.get("roomView"));
+                $scope.uploadwall = $.jStorage.get("roomView").createWall;
+            } else {
+                $scope.uploadwall = {};
+                $scope.uploadwall.color = '#dddddd';
+                $scope.uploadwall.height = 10;
+                $scope.uploadwall.width = 13.33;
+                $scope.uploadwall.zoom = 100;
+                // $scope.uploadwall.gridstatus = true;
+                $scope.uploadwall.furnitureImage = "";
+                $scope.uploadwall.furniturestatus = true;
+            }
             $scope.uploadwall.paintingImage = $scope.artworkDetail.artwork.image[0];
             $scope.calcCount();
             $("img").one("load", function() {
@@ -6425,8 +6220,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.uploadwall.pixels = $scope.uploadwall.pixelCount + "px";
         $scope.uploadwall.paintingWidth = (parseFloat($scope.artworkDetail.artwork.width) / 12) * $scope.uploadwall.pixelCount;
         $scope.uploadwall.paintingHeight = (parseFloat($scope.artworkDetail.artwork.height) / 12) * $scope.uploadwall.pixelCount;
-        $scope.uploadwall.paintingLeft = 332.5 - ($scope.uploadwall.paintingWidth / 2);
-        $scope.uploadwall.paintingTop = 250 - ($scope.uploadwall.paintingHeight / 2);
+        if (!$scope.uploadwall.paintingLeft)
+            $scope.uploadwall.paintingLeft = 332.5 - ($scope.uploadwall.paintingWidth / 2);
+        if (!$scope.uploadwall.paintingTop)
+            $scope.uploadwall.paintingTop = 250 - ($scope.uploadwall.paintingHeight / 2);
         if ($scope.uploadwall.furnitureImage) {
             $scope.uploadwall.furnitureWidth = $scope.uploadwall.fwidth * $scope.uploadwall.pixelCount;
             $scope.uploadwall.furnitureHeight = $scope.uploadwall.fheight * $scope.uploadwall.pixelCount;
@@ -6668,6 +6465,251 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $state.go("room-with-a-view", {
             "id": artid
         });
+    }
+
+    $scope.setRoomView = function() {
+        var obj = {};
+        if (activeAccordian == 1) {
+            if (!$.jStorage.get("roomView")) {
+                obj.createWall = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.createWall = $scope.uploadwall;
+            }
+        } else if (activeAccordian == 2) {
+            if (!$.jStorage.get("roomView")) {
+                obj.uploadWall = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.uploadWall = $scope.uploadwall;
+            }
+        } else if (activeAccordian == 3) {
+            if (!$.jStorage.get("roomView")) {
+                obj.wallTemplate = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.wallTemplate = $scope.uploadwall;
+            }
+        } else if (activeAccordian == 4) {
+            if (!$.jStorage.get("roomView")) {
+                obj.customFraming = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.customFraming = $scope.uploadwall;
+            }
+        }
+        $.jStorage.set("roomView", obj);
+        console.log("Saved");
+    }
+
+    var zoomInterval = '';
+    $scope.changeAccordian = function(val) {
+        if (val == 4) {
+            $scope.disableDrag();
+        } else {
+            $scope.enableDrag();
+        }
+        var obj = {};
+        if (activeAccordian == 1 && val == 2) {
+            if (!$.jStorage.get("roomView")) {
+                obj.createWall = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.createWall = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").uploadWall) {
+                $scope.uploadwall = $.jStorage.get("roomView").uploadWall;
+            } else {
+                $scope.reset();
+            }
+        } else if (activeAccordian == 1 && val == 3) {
+            if (!$.jStorage.get("roomView")) {
+                obj.createWall = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.createWall = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").wallTemplate) {
+                console.log("here1", $.jStorage.get("roomView").wallTemplate);
+                $scope.uploadwall = $.jStorage.get("roomView").wallTemplate;
+            } else {
+                console.log("here2");
+                $scope.reset();
+            }
+        } else if (activeAccordian == 1 && val == 4) {
+            if (!$.jStorage.get("roomView")) {
+                obj.createWall = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.createWall = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").customFraming) {
+                $scope.uploadwall = $.jStorage.get("roomView").customFraming;
+                if (document.getElementById("paintingImg"))
+                    document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+                $scope.changeMountWidth();
+            } else {
+                $scope.resetCustom();
+            }
+            $scope.uploadwall.gridstatus = false;
+        } else if (activeAccordian == 2 && val == 1) {
+            if (!$.jStorage.get("roomView")) {
+                obj.uploadWall = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.uploadWall = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").createWall) {
+                $scope.uploadwall = $.jStorage.get("roomView").createWall;
+            } else {
+                $scope.reset();
+            }
+            $scope.uploadwall.gridstatus = false;
+        } else if (activeAccordian == 2 && val == 3) {
+            if (!$.jStorage.get("roomView")) {
+                obj.uploadWall = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.uploadWall = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").wallTemplate) {
+                $scope.uploadwall = $.jStorage.get("roomView").wallTemplate;
+            } else {
+                $scope.reset();
+            }
+        } else if (activeAccordian == 2 && val == 4) {
+            if (!$.jStorage.get("roomView")) {
+                obj.uploadWall = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.uploadWall = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").customFraming) {
+                $scope.uploadwall = $.jStorage.get("roomView").customFraming;
+                if (document.getElementById("paintingImg"))
+                    document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+                $scope.changeMountWidth();
+            } else {
+                $scope.resetCustom();
+            }
+            $scope.uploadwall.gridstatus = false;
+        } else if (activeAccordian == 3 && val == 1) {
+            if (!$.jStorage.get("roomView")) {
+                obj.wallTemplate = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.wallTemplate = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").createWall) {
+                $scope.uploadwall = $.jStorage.get("roomView").createWall;
+            } else {
+                $scope.reset();
+            }
+            $scope.uploadwall.gridstatus = false;
+        } else if (activeAccordian == 3 && val == 2) {
+            if (!$.jStorage.get("roomView")) {
+                obj.wallTemplate = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.wallTemplate = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").uploadWall) {
+                $scope.uploadwall = $.jStorage.get("roomView").uploadWall;
+            } else {
+                $scope.reset();
+            }
+        } else if (activeAccordian == 3 && val == 4) {
+            if (!$.jStorage.get("roomView")) {
+                obj.wallTemplate = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.wallTemplate = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").customFraming) {
+                $scope.uploadwall = $.jStorage.get("roomView").customFraming;
+                if (document.getElementById("paintingImg"))
+                    document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+                $scope.changeMountWidth();
+            } else {
+                $scope.resetCustom();
+            }
+            $scope.uploadwall.gridstatus = false;
+        } else if (activeAccordian == 4 && val == 1) {
+            if (!$.jStorage.get("roomView")) {
+                obj.customFraming = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.customFraming = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").createWall) {
+                $scope.uploadwall = $.jStorage.get("roomView").createWall;
+            } else {
+                $scope.reset();
+            }
+            if (document.getElementById("paintingImg"))
+                document.getElementById("paintingImg").style.transform = "scale(1)";
+            $scope.uploadwall.mountWidth = 0;
+            $scope.changeMountWidth();
+            $scope.uploadwall.gridstatus = false;
+        } else if (activeAccordian == 4 && val == 2) {
+            if (!$.jStorage.get("roomView")) {
+                obj.customFraming = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.customFraming = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").uploadWall) {
+                $scope.uploadwall = $.jStorage.get("roomView").uploadWall;
+            } else {
+                $scope.reset();
+            }
+            if (document.getElementById("paintingImg"))
+                document.getElementById("paintingImg").style.transform = "scale(1)";
+            $scope.uploadwall.mountWidth = 0;
+            $scope.changeMountWidth();
+        } else if (activeAccordian == 4 && val == 3) {
+            if (!$.jStorage.get("roomView")) {
+                obj.customFraming = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.customFraming = $scope.uploadwall;
+            }
+            $.jStorage.set("roomView", obj);
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").wallTemplate) {
+                $scope.uploadwall = $.jStorage.get("roomView").wallTemplate;
+            } else {
+                $scope.reset();
+            }
+            if (document.getElementById("paintingImg"))
+                document.getElementById("paintingImg").style.transform = "scale(1)";
+            $scope.uploadwall.mountWidth = 0;
+            $scope.changeMountWidth();
+        }
+        // $scope.uploadwall.gridstatus = true;
+        if (document.getElementById("draggable-element")) {
+            document.getElementById("draggable-element").style.left = $scope.uploadwall.paintingLeft + "px";
+            if ($scope.uploadwall.paintingTop != 162.5)
+                document.getElementById("draggable-element").style.top = $scope.uploadwall.paintingTop + "px";
+            else
+                document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop - 75) + "px";
+        }
+        if ($scope.uploadwall.wallImage) {
+            zoomInterval = setInterval(function() {
+                $scope.zoomBackground();
+            }, 500);
+        }
+        activeAccordian = val;
     }
 
     //imageupload

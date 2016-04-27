@@ -1,10 +1,12 @@
-var adminurl = "http://www.auraart.in/";
 // var adminurl = "http://146.148.34.49/";
+// var adminurl = "http://www.auraart.in:1337/";
 // var adminurl = "http://auraart.in:81/";
-// var adminurl = "http://192.168.1.131:82/";
+var adminurl = "http://192.168.1.131:82/";
 var imgUploadUrl = adminurl + "user/uploadfile";
 var wallUploadUrl = adminurl + "user/wallUpload";
+
 var navigationservice = angular.module('navigationservice', ['ngDialog'])
+
 .factory('NavigationService', function($http, ngDialog) {
     var navigation = [{
         name: "Home",
@@ -202,7 +204,7 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
             return menuname;
         },
         registeruser: function(register, callback) {
-            delete register.confirmpassword;
+            delete register.confirmpassword
             $http({
                 url: adminurl + "user/save",
                 method: "POST",
@@ -210,7 +212,7 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
             }).success(callback);
         },
         registerArtist: function(register, callback) {
-            delete register.confirmpassword;
+            delete register.confirmpassword
             $http({
                 url: adminurl + "user/saveArtist",
                 method: "POST",
@@ -486,7 +488,7 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
             $http({
                 url: adminurl + "slider/find",
                 method: "POST"
-            }).success(callback);
+            }).success(callback)
         },
         getSearchDrop: function(search, n, callback) {
             $http({
@@ -497,7 +499,7 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 }
             }).success(function(data) {
                 callback(data, n);
-            });
+            })
         },
         nextPrev: function(srno, type, callback) {
             $http({
@@ -709,5 +711,5 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 }
             }).success(callback);
         },
-    };
+    }
 });
