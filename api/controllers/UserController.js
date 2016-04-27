@@ -171,7 +171,13 @@ module.exports = {
     },
     logout: function(req, res) {
         req.session.destroy(function(err) {
-            res.send(req.session);
+            if (err) {
+                res.send({ value: false });
+            } else {
+                setTimeout(function() {
+                    res.send({ value: true });
+                }, 3000);
+            }
         });
     },
     findorcreate: function(req, res) {
