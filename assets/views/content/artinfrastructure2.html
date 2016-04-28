@@ -1,6 +1,6 @@
 <div class="border-top"></div>
 <div class="container" id="infra-services">
-	<div class="padding-more">
+	<div class="padding-more brd-btm">
 		<h3 class="home-header font-color3">Art Infrastructure Services</h3>
 
 		<h5 class="home-header font-color3">ACTIVITIES</h5>
@@ -91,9 +91,81 @@
 		</div>
 	</div>
 </div>
-
-
 <div class="container">
+	<!-- New HTML -->
+	<div class="partners padding-more brd-btm">
+		<h5 class="home-header font-color3">partners</h5>
+		<div class="row">
+			<div class="col-md-6" ng-repeat="data in project">
+				<ul class="row-flex list-unstyled">
+					<li class="img-holder inline-box-infra">
+						<figure>
+							<img ng-src="{{data.image}}" alt="">
+						</figure>
+					</li>
+					<li class="title inline-box-infra pl10">
+						<p class="bold">{{data.name}}</p>
+						<p>{{data.title}}</p>
+						<p>{{data.assocaite}}</p>
+						Link to download <a href="#" target="_blank">Concept pdf</a>
+						</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="partners padding-more brd-btm">
+		<h5 class="home-header font-color3">PROJECTS EXECUTED</h5>
+		<div class="row">
+			<div class="col-md-6" ng-repeat="data in prjexecuted">
+				<ul class="row-flex list-unstyled">
+					<li class="img-holder inline-box-infra">
+						<figure>
+							<img ng-src="{{data.image}}" alt="">
+						</figure>
+					</li>
+					<li class="title inline-box-infra pl10">
+						<p class="bold">{{data.title}}</p>
+						<p>{{data.category}}</p>
+						<p>{{data.period}}</p>
+						<p>{{data.description}}</p>
+						</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="partners padding-more testimonial brd-btm">
+		<h5 class="home-header font-color3">TESTIMONIALS</h5>
+		<div class="row">
+			<flex-slider animation-loop="true" animation="fade" class="carousel" flex-slide="s in slides track by $index">
+				<li>
+					<div class="row">
+						<div class="col-md-offset-2 col-md-8">
+							<ul class="row-flex list-unstyled">
+								<li class="img-holder inline-box-infra">
+									<figure>
+										<img ng-src="{{s.image}}" alt="">
+									</figure>
+								</li>
+								<li class="title inline-box-infra pl10">
+									<p class="title">{{s.title}}</p>
+									<p class="name">{{s.name}}, <span class="font-color3">{{s.designation}}</span></p>
+									<p class="designation"></p>
+									<p class="category">{{s.category}}</p>
+									<div class="description" ng-bind-html=s.description>
+									</div>
+									</p>
+									</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</li>
+			</flex-slider>
+		</div>
+	</div>
+	<!--End New New HTML -->
 	<div class="data-managment" id="data">
 		<div class="row-head">
 			<p class="font-color3">Data Management</p>

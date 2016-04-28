@@ -2629,6 +2629,44 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $location.replace();
     };
 
+    $scope.slides = [{
+        image: "img/patners.jpg",
+        title: "Documentation of India's largest private stamp collection",
+        name: "Mr BP Chaudhury",
+        designation: " Director – Sun Exports Pvt Ltd.",
+        category: "Data Management",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    }, {
+        image: "img/patners.jpg",
+        title: "Documentation of India's largest private stamp collection",
+        name: "Mr BP Chaudhury",
+        designation: " Director – Sun Exports Pvt Ltd.",
+        category: "Data Management",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    }];
+
+    $scope.project = [{
+        image: "img/patners.jpg",
+        name: "ICICI Lombard",
+        title: "Leading Private General Insurarer",
+        assocaite: "Association with Aura Art",
+    }, {
+        image: "img/patners.jpg",
+        name: "ICICI Lombard",
+        title: "Leading Private General Insurarer",
+        assocaite: "Association with Aura Art",
+    }];
+    $scope.prjexecuted = [{
+        image: "img/patners.jpg",
+        title: "Documentation of India's largest private stamp collection",
+        period: "Jan – June 2014",
+        description: "Cataloguing of  India's largest private collection of  approximately  100000 mint stamps and 40000 First Day Covers.",
+    }, {
+        image: "img/patners.jpg",
+        title: "Documentation of India's largest private stamp collection",
+        period: "Jan – June 2014",
+        description: "Cataloguing of  India's largest private collection of  approximately  100000 mint stamps and 40000 First Day Covers.",
+    }];
 })
 
 
