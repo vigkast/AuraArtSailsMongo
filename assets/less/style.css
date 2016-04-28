@@ -4542,3 +4542,20 @@ img.fancybox-image {
     width: 100%;
   }
 }
+
+h5.home-header {
+  text-transform: uppercase;
+}
+.partners .flex-direction-nav a {
+  opacity: 1 !important;
+  background-color: #ffffff;
+}
+.partners .flex-direction-nav a:before {
+  color: #FF4F4F;
+}
+.partners .inline-box-infra {
+  padding: 10px;
+}
+.partners ol.flex-control-nav.flex-control-paging {
+  display: none;
+}
