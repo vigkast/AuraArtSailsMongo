@@ -15,8 +15,8 @@
                             </div>
 
                             <div class="furniture-holder" id="draggable-furni">
-                                <div class="dim dim-h">{{uploadwall.fheight}}ft.</div>
-                                <div class="dim dim-w">{{uploadwall.fwidth}}ft.</div>
+                                <div class="dim dim-h" ng-if="uploadwall.furnitureImage">{{uploadwall.fheight}}ft.</div>
+                                <div class="dim dim-w" ng-if="uploadwall.furnitureImage">{{uploadwall.fwidth}}ft.</div>
                                 <img ng-src="{{uploadwall.furnitureImage}}" alt="sofa" height="{{uploadwall.furnitureHeight}}" width="{{uploadwall.furnitureWidth}}" ng-if="uploadwall.furnitureImage">
                             </div>
 
@@ -317,7 +317,7 @@
                     <h4 class="head-more">FAVOURITES<span class="link-viewall" ng-click="viewFav();">VIEW ALL</span></h4>
                     <div class="row">
                         <div class="col-md-2 col-sm-4" ng-repeat="fav in myFavourites | limitTo:6">
-                            <div class="image-holder selected" ui-sref="room-with-a-view({id:fav.artwork._id})">
+                            <div class="image-holder selected" ng-click="showThisPainting(fav.artwork._id);">
                                 <img class="fix-img" ng-src="{{fav.artwork.image[0]|uploadpath}}" alt="Painting">
                             </div>
                         </div>

@@ -6506,6 +6506,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
 
     $scope.showThisPainting = function(artid) {
+        $scope.setRoomView();
         ngDialog.closeAll();
         $state.go("room-with-a-view", {
             "id": artid
