@@ -2587,6 +2587,51 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 })
 
 
+.controller('ArtInfrastructure2Ctrl', function($scope, TemplateService, NavigationService, $location, $stateParams, $document) {
+    $scope.template = TemplateService.changecontent("artinfrastructure2");
+    $scope.menutitle = NavigationService.makeactive("Art Infrastructure");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+
+    $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
+    $scope.$on('$viewContentLoaded', function(event) {
+        setTimeout(function() {
+            makeAnimation($stateParams.id);
+        }, 100);
+    });
+
+    function makeAnimation(stateValue) {
+        var goTo = angular.element(document.getElementById(stateValue));
+        $document.scrollToElement(goTo, offset, duration);
+    }
+
+
+
+    $scope.artistDetailImg = [{
+        image: 'img/imagedetail/imagedetail.jpg',
+        id: ' 1527',
+        artistname: 'Veguri Ravindra Babu',
+        title: ' Floating Dreams',
+        typename: 'Untitled',
+        madein: 'Oil on board',
+        size: '19.5 x 23',
+        year: '1978',
+        price: 'Rs.1,00,000/ $6,400'
+    }];
+    $scope.changeURL = function(id) {
+        $state.transitionTo('artInfrastructure', {
+            id: id
+        }, {
+            notify: false
+        });
+        makeAnimation(id);
+        $location.replace();
+    };
+
+})
+
+
 .controller('ArtistDetailCtrl', function($scope, TemplateService, NavigationService, $stateParams, $location, $state, cfpLoadingBar, $timeout) {
     $scope.template = TemplateService.changecontent("artistdetail")
     $scope.menutitle = NavigationService.makeactive("Artist");
