@@ -396,22 +396,150 @@ module.exports = {
             });
         }
     },
+    resizeImage: function(filename, width, height, style, res) {
+        var readstream = sails.fs.createReadStream({
+            filename: filename
+        });
+        readstream.on('error', function(err) {
+            res.json({
+                value: false,
+                error: err
+            });
+        });
+
+        function writer2(filename, gridFSFilename, metaValue) {
+            var writestream2 = sails.fs.createWriteStream({
+                filename: gridFSFilename
+            });
+            writestream2.on('finish', function() {
+                sails.fs.unlink(filename);
+            });
+            sails.fs.createReadStream(filename).pipe(res);
+            sails.fs.createReadStream(filename).pipe(writestream2);
+        }
+
+        function read2(filename2) {
+            var readstream2 = sails.fs.createReadStream({
+                filename: filename2
+            });
+            readstream2.on('error', function(err) {
+                res.json({
+                    value: false,
+                    error: err
+                });
+            });
+            readstream2.pipe(res);
+        }
+        var onlyName = filename.split(".")[0];
+        var extension = filename.split(".").pop();
+        if ((extension == "jpg" || extension == "png" || extension == "gif") && ((width && width > 0) || (height && height > 0))) {
+            //attempt to get same size image and serve
+            var newName = onlyName;
+            if (width > 0) {
+                newName += "-" + width;
+            } else {
+                newName += "-" + 0;
+            }
+            if (height) {
+                newName += "-" + height;
+            } else {
+                newName += "-" + 0;
+            }
+            if (style && (style == "fill" || style == "cover")) {
+                newName += "-" + style;
+            } else {
+                newName += "-" + 0;
+            }
+            var newNameExtire = newName + "." + extension;
+            var isfile = sails.fs.existsSync(newNameExtire);
+            if (found) {
+                read2(newNameExtire);
+            } else {
+                var imageStream = fs.createWriteStream('./auraimg/' + filename);
+                readstream.pipe(imageStream);
+                imageStream.on("finish", function() {
+                    sails.lwip.open('./auraimg/' + filename, function(err, image) {
+                        ImageWidth = image.width();
+                        ImageHeight = image.height();
+                        var newWidth = 0;
+                        var newHeight = 0;
+                        var pRatio = width / height;
+                        var iRatio = ImageWidth / ImageHeight;
+                        if (width && height) {
+                            newWidth = width;
+                            newHeight = height;
+                            switch (style) {
+                                case "fill":
+                                    if (pRatio > iRatio) {
+                                        newHeight = height;
+                                        newWidth = height * (ImageWidth / ImageHeight);
+                                    } else {
+                                        newWidth = width;
+                                        newHeight = width / (ImageWidth / ImageHeight);
+                                    }
+                                    break;
+                                case "cover":
+                                    if (pRatio < iRatio) {
+                                        newHeight = height;
+                                        newWidth = height * (ImageWidth / ImageHeight);
+                                    } else {
+                                        newWidth = width;
+                                        newHeight = width / (ImageWidth / ImageHeight);
+                                    }
+                                    break;
+                            }
+                        } else if (width) {
+                            newWidth = width;
+                            newHeight = width / (ImageWidth / ImageHeight);
+                        } else if (height) {
+                            newWidth = height * (ImageWidth / ImageHeight);
+                            newHeight = height;
+                        }
+                        image.resize(parseInt(newWidth), parseInt(newHeight), function(err, image2) {
+                            image2.writeFile('./auraimg/' + filename, function(err) {
+                                writer2('./auraimg/' + filename, newNameExtire, {
+                                    width: newWidth,
+                                    height: newHeight
+                                });
+                            });
+                        });
+                    });
+                });
+                //else create a resized image and serve
+            }
+        } else {
+            readstream.pipe(res);
+        }
+    },
     downloadImage: function(req, res) {
         var dimension = {};
         var imagepath = "./assets/" + req.query.image;
         var patti = './assets/patti.jpg';
         var imageHeight = "";
+        var imageWidth = "";
         var arr = [];
         var isfile = sails.fs.existsSync('./auraimg/' + req.query.image);
         if (isfile == true) {
+            var html = sails.fs.readFileSync('auraart1.html', 'utf-8');
             sails.lwip.open('./auraimg/' + req.query.image, function(err, image) {
-                dimension.width = 864;
-                dimension.height = image.height();
-                imageHeight = image.height();
-                var html = sails.fs.readFileSync('auraart1.html', 'utf-8');
-                html = html.split("file=").join("file=" + req.query.image);
+                if ((image.width() / image.height()) > (14 / 9)) {
+                    dimension.width = 1008;
+                    dimension.height = image.height();
+                    html = html.split("file=").join("file=" + req.query.image + "&width=1008");
+                } else {
+                    dimension.width = image.width();
+                    dimension.height = 648;
+                    html = html.split("file=").join("file=" + req.query.image + "&height=648");
+                }
+                // dimension.width = 864;
+                // dimension.height = image.height();
+                imageWidth = dimension.width;
+                imageHeight = dimension.height;
                 var options = {
-                    windowSize: dimension,
+                    windowSize: {
+                        width: 1008,
+                        height: imageHeight
+                    },
                     siteType: 'html'
                 };
                 if (html && html != "") {
@@ -435,7 +563,7 @@ module.exports = {
             });
 
             function callPatti() {
-                dimension.width = 864;
+                dimension.width = 1008;
                 dimension.height = 126;
                 var html = sails.fs.readFileSync('auraart2.html', 'utf-8');
                 html = html.split("Artist").join(req.query.artist);
@@ -460,7 +588,7 @@ module.exports = {
                                 left: 0,
                                 top: imageHeight
                             });
-                            sails.lwip.create(864, imageHeight + 126, function(err, createImage) {
+                            sails.lwip.create(1008, imageHeight + 126, function(err, createImage) {
                                 if (err) {
                                     console.log(err);
                                     res.json({

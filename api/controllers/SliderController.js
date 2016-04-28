@@ -113,7 +113,13 @@ module.exports = {
             siteType: "html",
             customCSS: css
         };
-        var path = "./abcd.jpg";
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for (var i = 0; i < 12; i++) {
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        var imageName = text + ".jpg";
+        var path = "./profileUploads/" + imageName;
         sails.webshot(html, path, options, function(err) {
             if (err) {
                 console.log(err);
@@ -124,17 +130,31 @@ module.exports = {
             } else {
                 res.json({
                     value: true,
-                    comment: path
+                    comment: imageName
                 });
+                setTimeout(function() {
+                    sails.fs.unlink(path, function() {});
+                }, 120000);
             }
         });
     },
     downloadImage: function(req, res) {
-        var path = "./" + req.query.file;
-        var image = sails.fs.readFileSync(path);
-        var mimetype = sails.mime.lookup(path);
-        res.set('Content-Type', "application/octet-stream");
-        res.set('Content-Disposition', "attachment;filename=" + path);
-        res.send(image);
+        var filename = req.query.file;
+        var isfile = sails.fs.existsSync('./profileUploads/' + filename);
+        if (isfile) {
+            var path = "./profileUploads/" + filename;
+            var image = sails.fs.readFileSync(path);
+            var mimetype = sails.mime.lookup(path);
+            res.set('Content-Type', "application/octet-stream");
+            res.set('Content-Disposition', "attachment;filename=" + path);
+            res.send(image);
+        } else {
+            var path = "./profileUploads/noimage.jpg";
+            var image = sails.fs.readFileSync(path);
+            var mimetype = sails.mime.lookup(path);
+            res.set('Content-Type', "application/octet-stream");
+            res.set('Content-Disposition', "attachment;filename=" + path);
+            res.send(image);
+        }
     }
 };

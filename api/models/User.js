@@ -374,6 +374,47 @@
               }
           });
       },
+      viewInMyRoomPic: function(data, callback) {
+          var user = sails.ObjectID(data._id);
+          delete data._id;
+          delete data.image;
+          sails.query(function(err, db) {
+              if (err) {
+                  console.log(err);
+                  callback({
+                      value: false,
+                      comment: "Error"
+                  });
+              } else {
+                  db.collection("user").update({
+                      _id: user
+                  }, {
+                      $push: {
+                          room: data
+                      }
+                  }, function(err, updated) {
+                      if (err) {
+                          console.log(err);
+                          callback({
+                              value: false
+                          });
+                          db.close();
+                      } else if (updated) {
+                          callback({
+                              value: true,
+                              comment: "Room updated"
+                          });
+                          db.close();
+                      } else {
+                          callback({
+                              value: false,
+                              comment: "Not updated"
+                          });
+                      }
+                  });
+              }
+          });
+      },
       findlimited: function(data, callback) {
           var newreturns = {};
           newreturns.data = [];
