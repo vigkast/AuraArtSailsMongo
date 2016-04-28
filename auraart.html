@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         Aura Art
     </title>
@@ -11,7 +8,7 @@
     @font-face {
         font-family: "Arial Unicode MS";
         src: url("http://auraart.in/fonts/arialuni.ttf");
-        /*src: url("http://localhost:82/fonts/arialuni.ttf");*/
+        /*src: url("http://192.168.1.131:82/fonts/arialuni.ttf");*/
     }
     
     body {
@@ -23,7 +20,7 @@
     p {
         margin: 0;
         line-height: 150%;
-        font-size: 12pt;
+        font-size: 16px;
         text-align: left;
     }
     
@@ -37,14 +34,11 @@
     
     .image-box {
         display: inline-block;
-        width: 864px;
         text-align: center;
     }
     
     .image-box img {
         text-align: center;
-        max-width: 864px;
-        max-height: 1344px;
     }
     
     .logo-box {
@@ -53,11 +47,12 @@
     
     .logo-img {
         max-width: 100%;
-        width: 250px;
+        width: 200px;
     }
     
     .row-box {
-        padding: 15px 20px;
+        margin: 15px 20px;
+        /*widthrow*/
     }
     
     .clearfix:before,
@@ -84,6 +79,8 @@
 
 <body style="background-color:white">
     <div class="image-box">
+        <img src="http://www.auraart.in/user/resize?file=">
+        <!-- <img src="http://192.168.1.131:82/user/resize?file="> -->
         <div class="row-box">
             <div class="content pull-left">
                 <p>Artist</p>
@@ -93,7 +90,7 @@
             </div>
             <div class="logo-box pull-right">
                 <img src="http://auraart.in/img/emailer.png" class="logo-img">
-                <!-- <img src="http://localhost:82/img/emailer.png" class="logo-img"> -->
+                <!-- <img src="http://192.168.1.131:82/img/emailer.png" class="logo-img"> -->
             </div>
             <div class="clearfix"></div>
         </div>
