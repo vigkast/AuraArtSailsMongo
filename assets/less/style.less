@@ -1085,6 +1085,9 @@ nav.pagination-artist {
 .margin-btm {
   margin-bottom: 10px;
 }
+.margin-top-20 {
+  margin-top: 20px;
+}
 .link-viewall {
   font-size: 10px;
   padding-left: 10px;
@@ -3121,7 +3124,6 @@ img.fancybox-image {
     position: relative;
     min-height: 100%;
     height: 100%;
-    overflow: hidden;
 }
 .wall-builder {
     padding-right: 330px;
@@ -3180,10 +3182,14 @@ img.fancybox-image {
   }
 }
 .small-input {
-    height: 26px;
-    width: 45px;
-    padding: 3px;
-    border: 1px solid #ddd;
+  height: 20px;
+  width: 40px;
+  padding: 3px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+.fs-small {
+  font-size: 12px;
 }
 .color-box {
     display: block;
@@ -3223,7 +3229,7 @@ a.col-press {
     position: relative;
 }
 .mr-right {
-    margin-right: 10px;
+    margin-right: 5px;
 }
 @feet-px: 49px;
 @grid-color: #2E77D2;
@@ -3255,6 +3261,7 @@ a.col-press {
     height: 500px;
     width: 665px;
     margin: 0 auto;
+    margin-top: 25px;
   }
 }
 .painting-holder {
@@ -3325,20 +3332,56 @@ a.col-press {
     .translate(0%, 0%);
   }
 }
+
 .dim {
   position: absolute;
   color: black;
   font-size: 14px;
+
   &.dim-h {
-    top: 50%;
+    height: 100%;
+    top: 0%;
     left: -5px;
-    .translate(-100%, -50%);
+    .translate(-100%, 0%);
+    .display(flex);
+    .align-items(center);
+    &:after {
+      top: 0;
+    }
+    &:before {
+      bottom: 0;
+    }
+    &:before, &:after {
+      position: absolute;
+      content: '';
+      left: 50%;
+      .translateX(-50%);
+      background-color: black;
+      height: calc(50% - 10px);
+      width: 1px;
+    }
   }
+
   &.dim-w {
     top: -25px;
     left: 0px;
     width: 100%;
     text-align: center;
+    &:after {
+      left: 0;
+    }
+    &:before {
+      right: 0;
+    }
+    &:before, &:after {
+      position: absolute;
+      content: '';
+      top: 50%;
+      .translateY(-50%);
+      height: 1px;
+      background-color: black;
+      width: calc(50% - 10px);
+    }
   }
 }
 .scroller-area {

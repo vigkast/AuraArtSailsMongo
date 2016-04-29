@@ -8,6 +8,9 @@
                 <div class="scroller-area">
                     <div class="wall-builder">
                         <div class="height-holder" ng-style="{'background-color': uploadwall.color}">
+                          <div class="dim dim-h" ng-if="uploadwall.height">{{uploadwall.height}} feet</div>
+                          <div class="dim dim-w" ng-if="uploadwall.width">{{uploadwall.width}} feet</div>
+
                             <div class="wall-image" id="wall" ng-if="uploadwall.wallImage"></div>
 
                             <div class="painting-holder" id="draggable-element">
@@ -98,12 +101,12 @@
                             <div class="part">
                                 <div class="part-row">
                                     Wall Size:
-                                    <div class="pull-right">
-                                        <span class="mr-right">H
-                                            <input type="text" class="small-input" ng-model="uploadwall.height" ng-change="calcHeigthWidth();"> ft.
+                                    <div class="pull-right fs-small">
+                                        <span class="mr-right">Height
+                                          <input type="text" class="small-input" ng-model="uploadwall.height" ng-change="calcHeigthWidth();"> feet
                                         </span>
-                                        <span>W
-                                            <input type="text" class="small-input" ng-model="uploadwall.width" disabled> ft.
+                                        <span>Width
+                                          <input type="text" class="small-input" ng-model="uploadwall.width" disabled> feet
                                         </span>
                                     </div>
                                     <div class="clearfix"></div>
@@ -111,7 +114,7 @@
                                 <div class="part-row">
                                     Wall Colour:
                                     <div class="pull-right">
-                                        <span class="color-box" colorpicker-position="top" colorpicker ng-model="uploadwall.color" ng-style="{'background-color': uploadwall.color}"></span>
+                                        <span class="color-box" colorpicker-size="180" colorpicker-position="left" colorpicker ng-model="uploadwall.color" ng-style="{'background-color': uploadwall.color}"></span>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -202,12 +205,12 @@
                             <div class="part">
                                 <div class="part-row">
                                     Wall Size:
-                                    <div class="pull-right">
-                                        <span class="mr-right">H
-                                            <input type="text" class="small-input" ng-model="uploadwall.height" ng-change="calcHeigthWidth();"> ft.
+                                    <div class="pull-right fs-small">
+                                        <span class="mr-right">Height
+                                            <input type="text" class="small-input" ng-model="uploadwall.height" ng-change="calcHeigthWidth();"> feet
                                         </span>
-                                        <span>W
-                                            <input type="text" class="small-input" ng-model="uploadwall.width" disabled> ft.
+                                        <span>Width
+                                            <input type="text" class="small-input" ng-model="uploadwall.width" disabled> feet
                                         </span>
                                     </div>
                                     <div class="clearfix"></div>
@@ -268,7 +271,7 @@
                                 <div class="part-row">
                                     Wall Colour:
                                     <div class="pull-right">
-                                        <span class="color-box" colorpicker-position="top" colorpicker ng-model="uploadwall.color" ng-style="{'background-color': uploadwall.color}"></span>
+                                        <span class="color-box" colorpicker-size="180" colorpicker-position="left" colorpicker ng-model="uploadwall.color" ng-style="{'background-color': uploadwall.color}"></span>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -296,7 +299,7 @@
                                 <div class="part-row" ng-show="uploadwall.mountEnabled">
                                     Mount Colour:
                                     <div class="pull-right">
-                                        <span class="color-box" colorpicker-position="top" colorpicker ng-model="uploadwall.mountColor" ng-style="{'background-color': uploadwall.mountColor}" ng-change="changeMountWidth();"></span>
+                                        <span class="color-box" colorpicker-size="180" colorpicker-position="left" colorpicker ng-model="uploadwall.mountColor" ng-style="{'background-color': uploadwall.mountColor}" ng-change="changeMountWidth();"></span>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -311,7 +314,7 @@
         </div>
     </div>
 
-    <div class="style1-bg margin-btm-top">
+    <div class="style1-bg margin-top-20">
         <div class="container">
             <div class="" ng-hide="noFavs">
                 <div class="padding-more" ng-hide="showLogin">
