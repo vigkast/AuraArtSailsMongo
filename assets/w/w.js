@@ -17302,7 +17302,7 @@ firstapp.run(function($rootScope, NavigationService) {
     };
 });
 
-firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, $httpProvider) {
+firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, $httpProvider, $locationProvider) {
     //Turn the spinner on or off
 
     $httpProvider.defaults.withCredentials = true;
@@ -17380,7 +17380,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
         templateUrl: "views/template.html",
         controller: 'TeamCtrl'
     })
-
+    .state('artInfrastructure2', {
+            url: "/infra-services2",
+            templateUrl: "views/template.html",
+            controller: 'ArtInfrastructure2Ctrl'
+        })
     .state('artInfrastructure', {
             url: "/infra-services",
             templateUrl: "views/template.html",
@@ -17547,6 +17551,11 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
         templateUrl: "views/template.html",
         controller: 'RoomViewCtrl'
     });
+
+    if(isproduction)
+   {
+     $locationProvider.html5Mode(isproduction);
+   }
 
     $urlRouterProvider.otherwise("/home");
 
@@ -17800,8 +17809,11 @@ firstapp.filter('uploadthumbnail', function() {
 firstapp.filter('wallpath', function() {
     return function(input) {
         if (input && input !== "") {
-            return adminurl + "user/wallResize?file=" + input;
-            // return adminurl + "user/resize?file=" + input;
+            if (input.indexOf('img/') == -1) {
+                return adminurl + "user/wallResize?file=" + input;
+            } else {
+                return input;
+            }
         } else {
             return "img/noimg.jpg";
         }
@@ -18253,7 +18265,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     NavigationService.pressFind(getPress);
 
     NavigationService.getupcomingevents(function(data) {
-        if (data.value != false)
+        if (data.value !== false)
             $scope.upcomingEvent = data;
         console.log(data);
     });
@@ -18264,23 +18276,23 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             userProfile = data;
             NavigationService.getMyFavourites(data.id, function(favorite) {
                 userProfile.wishlist = favorite;
-            })
+            });
         } else {
             $scope.isLoggedIn = false;
         }
-    })
+    });
 
     $scope.onfock = "";
     $scope.oon = function() {
-        if ($scope.onfock == "") {
+        if ($scope.onfock === "") {
             $scope.onfock = "sdfs";
         } else {
             $scope.onfock = "";
         }
-    }
+    };
     dataNextPre.setData = function(data) {
         //      console.log(data);
-    }
+    };
     $scope.changeUI = 0;
     // set available range
     $scope.minPrice = 0;
@@ -18299,37 +18311,37 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.applyfilter = function() {
         //      console.log($scope.filterby);
         console.log($scope.filterby);
-        $.jStorage.set("filterby", $scope.filterby)
-            //      $location.url("/artwork/-1");
+        $.jStorage.set("filterby", $scope.filterby);
+        //      $location.url("/artwork/-1");
         $state.go('totalartpage', {
             type: -1
         });
-    }
+    };
 
     $scope.goToArtworks = function(type) {
         //      $location.url("/artwork/" + type);
         $state.go('totalartpage', {
             type: type
         });
-    }
+    };
 
     $scope.goToEvents = function() {
         $state.go('events');
-    }
+    };
 
     $scope.onclick = function(value) {
         $scope.filterby.checked
-    }
-    var lastChecked = null
+    };
+    var lastChecked = null;
     $scope.onclick = function(event) {
         if (event.target.value === lastChecked) {
             $scope.filterby.type = "";
             $scope.getallartist();
-            lastChecked = null
+            lastChecked = null;
         } else {
-            lastChecked = event.target.value
+            lastChecked = event.target.value;
         }
-    }
+    };
     $scope.changetype = function(chang) {
         if (chang == 1) {
             $scope.filterby.type = "Paintings";
@@ -18360,30 +18372,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.getElm();
             $scope.getStl();
         }
-    }
+    };
     $scope.setSearch = function(select) {
         $scope.filterby.search = select.selected.name;
-    }
+    };
     $scope.setMediumSearch = function(select) {
         $scope.filterby.medium = select.selected.name;
-    }
+    };
     $scope.setColorSearch = function(select) {
         $scope.filterby.color = select.selected.name;
-    }
+    };
     $scope.setStyleSearch = function(select) {
         $scope.filterby.style = select.selected.name;
-    }
+    };
     $scope.setElementSearch = function(select) {
         $scope.filterby.element = select.selected.name;
-    }
+    };
     $scope.allartist = [];
     $scope.allmedium = [];
     $scope.getmedium = function() {
-        if ($scope.filterby.type == "") {
+        if ($scope.filterby.type === "") {
             //          console.log("in if");
             $scope.change = "";
             NavigationService.getallmedium($scope.change, function(data, status) {
-                if (data && data.value != false) {
+                if (data && data.value !== false) {
                     $scope.allmedium = _.uniq(data, '_id');
                 } else {
                     $scope.allmedium = [];
@@ -18394,14 +18406,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.change = {};
             $scope.change.type = $scope.filterby.type;
             NavigationService.getallmedium($scope.change, function(data, status) {
-                if (data && data.value != false) {
+                if (data && data.value !== false) {
                     $scope.allmedium = _.uniq(data, '_id');
                 } else {
                     $scope.allmedium = [];
                 }
             });
         }
-    }
+    };
 
     $scope.getClr = function() {
         if ($scope.filterby.type == "") {
@@ -18423,7 +18435,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.change = {};
             $scope.change.type = $scope.filterby.type;
             NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
+                if (data && data.value !== false) {
                     $scope.allColor = _.uniq(data, '_id');
                     $scope.allColor.unshift({
                         "_id": "0",
@@ -18434,13 +18446,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             });
         }
-    }
+    };
     $scope.getStl = function() {
-        if ($scope.filterby.type == "") {
+        if ($scope.filterby.type === "") {
             //          console.log("in if");
             $scope.change = "";
             NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
+                if (data && data.value !== false) {
                     $scope.allStyle = _.uniq(data, '_id');
                     $scope.allStyle.unshift({
                         "_id": "0",
@@ -18455,7 +18467,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.change = {};
             $scope.change.type = $scope.filterby.type;
             NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
+                if (data && data.value !== false) {
                     $scope.allStyle = _.uniq(data, '_id');
                     $scope.allStyle.unshift({
                         "_id": "0",
@@ -18466,13 +18478,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             });
         }
-    }
+    };
     $scope.getElm = function() {
-        if ($scope.filterby.type == "") {
+        if ($scope.filterby.type === "") {
             //          console.log("in if");
             $scope.change = "";
             NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
+                if (data && data.value !== false) {
                     $scope.allElement = _.uniq(data, '_id');
                     $scope.allElement.unshift({
                         "_id": "0",
@@ -18487,7 +18499,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.change = {};
             $scope.change.type = $scope.filterby.type;
             NavigationService.tagSearchType($scope.change, "", function(data, status) {
-                if (data && data.value != false) {
+                if (data && data.value !== false) {
                     $scope.allElement = _.uniq(data, '_id');
                     $scope.allElement.unshift({
                         "_id": "0",
@@ -18498,16 +18510,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             });
         }
-    }
+    };
     $scope.getClr();
     $scope.getElm();
     $scope.getStl();
     var countcall = 0;
     $scope.getallartist = function() {
-        if ($scope.filterby.type == "") {
+        if ($scope.filterby.type === "") {
             NavigationService.getAllArtistByAccess(++countcall, function(data, status, n) {
                 if (n == countcall) {
-                    if (data && data.value != false) {
+                    if (data && data.value !== false) {
                         $scope.allartist = _.uniq(data, '_id');
                         $scope.allartist.unshift({
                             "_id": "0",
@@ -18523,7 +18535,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else {
             NavigationService.userbytype($scope.filterby.type, ++countcall, function(data, status, n) {
                 if (n == countcall) {
-                    if (data && data.value != false) {
+                    if (data && data.value !== false) {
                         $scope.allartist = data;
                         $scope.allartist.unshift({
                             "_id": "0",
@@ -18538,7 +18550,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
             });
         }
-    }
+    };
     $scope.getDropdown = function(search) {
         if (search.length >= 1) {
             $scope.change = {};
@@ -18638,7 +18650,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 .controller('FavoriteCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $state, $stateParams, ngDialog) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("favorite");
-    $scope.menutitle = NavigationService.makeactive("Favorite");
+    $scope.menutitle = NavigationService.makeactive("Favourite");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $scope.artistdetail = [];
@@ -20507,7 +20519,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 .controller('ThoughtleadershipCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar) {
     $scope.template = TemplateService.changecontent("thoughtleadership");
-    $scope.menutitle = NavigationService.makeactive("Thoughtleadership");
+    $scope.menutitle = NavigationService.makeactive("Thought Leadership");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     cfpLoadingBar.start();
@@ -20575,7 +20587,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 .controller('ThoughtleadershipdetailCtrl', function($scope, TemplateService, NavigationService, $stateParams, cfpLoadingBar) {
     $scope.template = TemplateService.changecontent("thoughtleadershipdetail");
-    $scope.menutitle = NavigationService.makeactive("Thoughtleadershipdetail");
+    $scope.menutitle = NavigationService.makeactive("Thought Leadership");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     cfpLoadingBar.start();
@@ -20686,6 +20698,89 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     //   console.log(id);
     //   $location.path("" + id);
     // };
+})
+
+
+.controller('ArtInfrastructure2Ctrl', function($scope, TemplateService, NavigationService, $location, $stateParams, $document) {
+    $scope.template = TemplateService.changecontent("artinfrastructure2");
+    $scope.menutitle = NavigationService.makeactive("Art Infrastructure");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+
+    $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
+    $scope.$on('$viewContentLoaded', function(event) {
+        setTimeout(function() {
+            makeAnimation($stateParams.id);
+        }, 100);
+    });
+
+    function makeAnimation(stateValue) {
+        var goTo = angular.element(document.getElementById(stateValue));
+        $document.scrollToElement(goTo, offset, duration);
+    }
+
+
+
+    $scope.artistDetailImg = [{
+        image: 'img/imagedetail/imagedetail.jpg',
+        id: ' 1527',
+        artistname: 'Veguri Ravindra Babu',
+        title: ' Floating Dreams',
+        typename: 'Untitled',
+        madein: 'Oil on board',
+        size: '19.5 x 23',
+        year: '1978',
+        price: 'Rs.1,00,000/ $6,400'
+    }];
+    $scope.changeURL = function(id) {
+        $state.transitionTo('artInfrastructure', {
+            id: id
+        }, {
+            notify: false
+        });
+        makeAnimation(id);
+        $location.replace();
+    };
+
+    $scope.slides = [{
+        image: "img/patners.jpg",
+        title: "Documentation of India's largest private stamp collection",
+        name: "Mr BP Chaudhury",
+        designation: " Director – Sun Exports Pvt Ltd.",
+        category: "Data Management",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    }, {
+        image: "img/patners.jpg",
+        title: "Documentation of India's largest private stamp collection",
+        name: "Mr BP Chaudhury",
+        designation: " Director – Sun Exports Pvt Ltd.",
+        category: "Data Management",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    }];
+
+    $scope.project = [{
+        image: "img/patners.jpg",
+        name: "ICICI Lombard",
+        title: "Leading Private General Insurarer",
+        assocaite: "Association with Aura Art",
+    }, {
+        image: "img/patners.jpg",
+        name: "ICICI Lombard",
+        title: "Leading Private General Insurarer",
+        assocaite: "Association with Aura Art",
+    }];
+    $scope.prjexecuted = [{
+        image: "img/patners.jpg",
+        title: "Documentation of India's largest private stamp collection",
+        period: "Jan – June 2014",
+        description: "Cataloguing of  India's largest private collection of  approximately  100000 mint stamps and 40000 First Day Covers.",
+    }, {
+        image: "img/patners.jpg",
+        title: "Documentation of India's largest private stamp collection",
+        period: "Jan – June 2014",
+        description: "Cataloguing of  India's largest private collection of  approximately  100000 mint stamps and 40000 First Day Covers.",
+    }];
 })
 
 
@@ -23947,7 +24042,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 .controller('BuyersTermConditionCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("buyerstermcondition");
-    $scope.menutitle = NavigationService.makeactive("Buyers Terms ConditionCtrl");
+    $scope.menutitle = NavigationService.makeactive("Buyers Terms Condition");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
 })
@@ -23955,7 +24050,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 .controller('TermConditionCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("termcondition");
-    $scope.menutitle = NavigationService.makeactive("Term Condition");
+    $scope.menutitle = NavigationService.makeactive("Terms & Condition");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
     $.jStorage.set("artistScroll", null);
@@ -24138,60 +24233,34 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
 })
 
-.controller('RoomViewCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog, $upload, $http, $rootScope) {
+.controller('RoomViewCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog, $upload, $http, $rootScope, $filter) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("room-with-a-view");
     $scope.menutitle = NavigationService.makeactive("View Artwork in Your Room");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-    $.jStorage.flush();
+    // $.jStorage.flush();
     // $scope.wall = [];
     // $scope.wall.color = '#dddddd';
     // $scope.wall.height = 10;
     // $scope.wall.width = 13.33;
 
+    $scope.openLogin = function() {
+        globalFunction.showLogin();
+    }
+
     abc = $scope;
 
     var activeAccordian = 1;
 
-    $scope.uploadwall = {};
-    $scope.uploadwall.color = '#dddddd';
-    $scope.uploadwall.height = 10;
-    $scope.uploadwall.width = 13.33;
-    $scope.uploadwall.zoom = 100;
-    // $scope.uploadwall.gridstatus = true;
-    $scope.uploadwall.furnitureImage = "";
-    $scope.uploadwall.furniturestatus = true;
-
-    $scope.reset = function() {
-        $scope.uploadwall.color = '#dddddd';
-        $scope.uploadwall.height = 10;
-        $scope.uploadwall.width = 13.33;
-        $scope.uploadwall.zoom = 100;
-        $scope.uploadwall.gridstatus = true;
-        $scope.uploadwall.furnitureImage = "";
-        $scope.uploadwall.wallImage = "";
-        $scope.calcCount();
-    }
-
-    $scope.resetCustom = function() {
-        $scope.uploadwall.color = '#dddddd';
-        $scope.uploadwall.height = 10;
-        $scope.uploadwall.width = 13.33;
-        $scope.uploadwall.zoom = 100;
-        $scope.uploadwall.gridstatus = true;
-        $scope.uploadwall.furnitureImage = "";
-        $scope.uploadwall.wallImage = "";
-        $scope.uploadwall.mountColor = "#00000";
-        $scope.calcCount();
-        if ($scope.uploadwall.paintingHeight > $scope.uploadwall.paintingWidth) {
-            $scope.uploadwall.scalePainting = 450 / $scope.uploadwall.paintingHeight;
+    $scope.getTimes = function(n) {
+        if (n) {
+            n = Math.ceil(n);
+            return new Array(n);
         } else {
-            $scope.uploadwall.scalePainting = 585 / $scope.uploadwall.paintingWidth;
+            return new Array(0);
         }
-        if (document.getElementById("paintingImg"))
-            document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
-    }
+    };
 
     $scope.changeMountWidth = function() {
         $scope.uploadwall.mountWidthPixel = ($scope.uploadwall.mountWidth / 12) * $scope.uploadwall.pixelCount;
@@ -24204,8 +24273,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     }
 
+    $scope.onOrOffMount = function() {
+        if (!$scope.uploadwall.mountEnabled) {
+            $scope.uploadwall.mountWidth = 0;
+            $scope.changeMountWidth();
+        }
+    }
+
     $scope.sendDiv = function() {
         var html = $("<div />").append($(".wall-builder").clone()).html();
+        html = html.split('&quot;').join('');
         console.log(html);
         var obj = {};
         obj.html = html;
@@ -24216,8 +24293,453 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
         })
     }
+
+    $scope.onOrOffFurniture = function() {
+        if (!$scope.uploadwall.furniturestatus) {
+            $scope.uploadwall.furnitureImage = "";
+        }
+    }
+
+    var map = '';
+    NavigationService.getartworkdetail($stateParams.id, function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.artworkDetail = data[0];
+            if ($.jStorage.get("roomView") && $.jStorage.get("roomView").createWall) {
+                console.log($.jStorage.get("roomView"));
+                $scope.uploadwall = $.jStorage.get("roomView").createWall;
+                $scope.uploadwall.mountEnabled = true;
+            } else {
+                $scope.uploadwall = {};
+                $scope.uploadwall.color = '#dddddd';
+                $scope.uploadwall.height = 10;
+                $scope.uploadwall.width = 13.33;
+                $scope.uploadwall.zoom = 100;
+                // $scope.uploadwall.gridstatus = true;
+                $scope.uploadwall.furnitureImage = "";
+                $scope.uploadwall.furniturestatus = true;
+                $scope.uploadwall.mountEnabled = true;
+            }
+            var roomViewObj = $.jStorage.get("roomView");
+            if (roomViewObj && roomViewObj.createWall) {
+                roomViewObj.createWall.paintingImage = $scope.artworkDetail.artwork.image[0];
+            }
+            if (roomViewObj && roomViewObj.uploadWall) {
+                roomViewObj.uploadWall.paintingImage = $scope.artworkDetail.artwork.image[0];
+            }
+            if (roomViewObj && roomViewObj.wallTemplate) {
+                roomViewObj.wallTemplate.paintingImage = $scope.artworkDetail.artwork.image[0];
+            }
+            if (roomViewObj && roomViewObj.customFraming) {
+                roomViewObj.customFraming.paintingImage = $scope.artworkDetail.artwork.image[0];
+            }
+            $.jStorage.set("roomView", roomViewObj);
+            $scope.uploadwall.paintingImage = $scope.artworkDetail.artwork.image[0];
+            $scope.calcCount();
+            $("img").one("load", function() {
+                // do stuff
+            }).each(function() {
+                if (this.complete) {
+                    map = document.getElementById('wall');
+                    if (map)
+                        AttachDragTo(map);
+
+                    positionPainting();
+                    // Bind the functions...
+
+                    document.getElementById('draggable-element').onmousedown = function() {
+                        _drag_init(this);
+                        return false;
+                    };
+                    document.onmousemove = _move_elem;
+                    document.onmouseup = _destroy;
+                }
+            });
+        }
+    })
+
+    $scope.enableDrag = function() {
+        document.getElementById('draggable-element').onmousedown = function() {
+            _drag_init(this);
+            return false;
+        };
+        document.onmousemove = _move_elem;
+        document.onmouseup = _destroy;
+    }
+
+    $scope.disableDrag = function() {
+        document.getElementById('draggable-element').onmousedown = null;
+        document.onmousemove = null;
+        document.onmouseup = null;
+    }
+
+    $scope.zoomBackground = function() {
+        if ($scope.uploadwall.backZoom) {
+            $scope.uploadwall.backZoom = parseInt($scope.uploadwall.backZoom);
+        }
+        if (document.getElementById('wall')) {
+            document.getElementById('wall').style.backgroundImage = "url('" + $filter('wallpath')($scope.uploadwall.wallImage) + "')";
+            document.getElementById('wall').style.backgroundSize = $scope.uploadwall.backZoom + "% " + $scope.uploadwall.backZoom + "%";
+            if (zoomInterval)
+                clearInterval(zoomInterval);
+        }
+    }
+    var rotate = 0;
+    $scope.rotateBackground = function() {
+        if ($('#wall')) {
+            if (rotate == -360) {
+                rotate = 0;
+            }
+            rotate -= 90;
+            $('#wall').css({
+                '-webkit-transform': 'rotate(' + rotate + 'deg)',
+                '-moz-transform': 'rotate(' + rotate + 'deg)',
+                '-ms-transform': 'rotate(' + rotate + 'deg)',
+                'transform': 'rotate(' + rotate + 'deg)'
+            });
+        }
+        map = document.getElementById('wall');
+        if (map)
+            AttachDragTo(map);
+    }
+
+    $scope.calcCount = function() {
+        $scope.uploadwall.horizontalCount = $scope.uploadwall.height;
+        $scope.uploadwall.pixelCount = 500 / $scope.uploadwall.horizontalCount;
+        $scope.uploadwall.verticalCount = 665 / $scope.uploadwall.pixelCount;
+        $scope.uploadwall.pixels = $scope.uploadwall.pixelCount + "px";
+        $scope.uploadwall.paintingWidth = (parseFloat($scope.artworkDetail.artwork.width) / 12) * $scope.uploadwall.pixelCount;
+        $scope.uploadwall.paintingHeight = (parseFloat($scope.artworkDetail.artwork.height) / 12) * $scope.uploadwall.pixelCount;
+        $scope.uploadwall.paintingLeft = 332.5 - ($scope.uploadwall.paintingWidth / 2);
+        $scope.uploadwall.paintingTop = 250 - ($scope.uploadwall.paintingHeight / 2);
+        if ($scope.uploadwall.furnitureImage) {
+            $scope.uploadwall.furnitureWidth = $scope.uploadwall.fwidth * $scope.uploadwall.pixelCount;
+            $scope.uploadwall.furnitureHeight = $scope.uploadwall.fheight * $scope.uploadwall.pixelCount;
+            $scope.uploadwall.furnitureLeft = 332.5 - ($scope.uploadwall.furnitureWidth / 2);
+            $scope.uploadwall.furnitureTop = 500 - $scope.uploadwall.furnitureHeight;
+        }
+        $scope.uploadwall.backZoom = 100;
+        positionPainting();
+
+        // console.log("horizontalCount : " + $scope.uploadwall.horizontalCount);
+        // console.log("pixelCount : " + $scope.uploadwall.pixelCount);
+        // console.log("verticalCount : " + $scope.uploadwall.verticalCount);
+        // console.log("pixels : " + $scope.uploadwall.pixels);
+    }
+
+    $scope.calcHeigthWidth = function() {
+        $scope.uploadwall.width = parseInt($scope.uploadwall.height) * 1.33;
+        $scope.calcCount();
+    }
+
+    $scope.changeFurniture = function(value) {
+        $scope.uploadwall.furnitureImage = value.image;
+        $scope.uploadwall.fwidth = value.width;
+        $scope.uploadwall.fheight = value.height;
+        if ($scope.uploadwall.furnitureImage) {
+            $scope.uploadwall.furnitureWidth = $scope.uploadwall.fwidth * $scope.uploadwall.pixelCount;
+            $scope.uploadwall.furnitureHeight = $scope.uploadwall.fheight * $scope.uploadwall.pixelCount;
+            $scope.uploadwall.furnitureLeft = 332.5 - ($scope.uploadwall.furnitureWidth / 2);
+            $scope.uploadwall.furnitureTop = 500 - $scope.uploadwall.furnitureHeight;
+        }
+        if (document.getElementById("draggable-furni")) {
+            document.getElementById("draggable-furni").style.left = $scope.uploadwall.furnitureLeft + "px";
+            document.getElementById("draggable-furni").style.top = ($scope.uploadwall.furnitureTop - 1) + "px";
+        }
+    }
+
+    var AttachDragTo = (function() {
+        var _AttachDragTo = function(el) {
+            this.el = el;
+            this.mouse_is_down = false;
+            this.init();
+        };
+
+        _AttachDragTo.prototype = {
+            onMousemove: function(e) {
+                if (!this.mouse_is_down) return;
+                var tg = e.target,
+                    x = e.clientX,
+                    y = e.clientY;
+                var backLeft = x - this.origin_x + this.origin_bg_pos_x;
+                var backTop = y - this.origin_y + this.origin_bg_pos_y;
+                // if (backLeft >= 0 && backTop >= 0) {
+                tg.style.backgroundPositionX = x - this.origin_x + this.origin_bg_pos_x + 'px';
+                tg.style.backgroundPositionY = y - this.origin_y + this.origin_bg_pos_y + 'px';
+                // }
+            },
+
+            onMousedown: function(e) {
+                this.mouse_is_down = true;
+                this.origin_x = e.clientX;
+                this.origin_y = e.clientY;
+            },
+
+            onMouseup: function(e) {
+                var tg = e.target,
+                    styles = getComputedStyle(tg);
+                this.mouse_is_down = false;
+                this.origin_bg_pos_x = parseInt(styles.getPropertyValue('background-position-x'), 10);
+                this.origin_bg_pos_y = parseInt(styles.getPropertyValue('background-position-y'), 10);
+            },
+
+            init: function() {
+                // console.log("init");
+                var styles = getComputedStyle(this.el);
+                this.origin_bg_pos_x = parseInt(styles.getPropertyValue('background-position-x'), 10);
+                this.origin_bg_pos_y = parseInt(styles.getPropertyValue('background-position-y'), 10);
+
+                //attach events
+                this.el.addEventListener('mousedown', this.onMousedown.bind(this), false);
+                this.el.addEventListener('mouseup', this.onMouseup.bind(this), false);
+                this.el.addEventListener('mousemove', this.onMousemove.bind(this), false);
+            }
+        };
+
+        return function(el) {
+            new _AttachDragTo(el);
+        };
+    })();
+
+    var selected = null, // Object of the element to be moved
+        x_pos = 0,
+        y_pos = 0, // Stores x & y coordinates of the mouse pointer
+        x_elem = 0,
+        y_elem = 0; // Stores top, left values (edge) of the element
+
+    // Will be called when user starts dragging an element
+    function _drag_init(elem) {
+        // Store the object of the element which needs to be moved
+        selected = elem;
+        x_elem = x_pos - selected.offsetLeft;
+        y_elem = y_pos - selected.offsetTop;
+    }
+
+    // Will be called when user dragging an element
+    function _move_elem(e) {
+        x_pos = document.all ? window.event.clientX : e.pageX;
+        y_pos = document.all ? window.event.clientY : e.pageY;
+        if (selected !== null) {
+            var left = (x_pos - x_elem);
+            var top = (y_pos - y_elem)
+            if (left >= 0 && left < selected.parentNode.offsetWidth - selected.offsetWidth) {
+                selected.style.left = left + 'px';
+                $scope.uploadwall.paintingLeft = left;
+            }
+            if (top >= 0 && top < selected.parentNode.offsetHeight - selected.offsetHeight) {
+                selected.style.top = top + 'px';
+                $scope.uploadwall.paintingTop = top;
+            }
+        }
+    }
+
+    // Destroy the object when we are done
+    function _destroy() {
+        selected = null;
+    }
+
+    function positionPainting() {
+        if (document.getElementById("draggable-element")) {
+            var roomViewObj = $.jStorage.get("roomView");
+            if (roomViewObj && roomViewObj.createWall && makeActiveAccordian == 1) {
+                $scope.uploadwall.paintingLeft = roomViewObj.createWall.paintingLeft;
+                $scope.uploadwall.paintingTop = roomViewObj.createWall.paintingTop;
+            }
+            if (roomViewObj && roomViewObj.uploadWall && makeActiveAccordian == 2) {
+                $scope.uploadwall.paintingLeft = roomViewObj.uploadWall.paintingLeft;
+                $scope.uploadwall.paintingTop = roomViewObj.uploadWall.paintingTop;
+            }
+            if (roomViewObj && roomViewObj.wallTemplate && makeActiveAccordian == 3) {
+                $scope.uploadwall.paintingLeft = roomViewObj.wallTemplate.paintingLeft;
+                $scope.uploadwall.paintingTop = roomViewObj.wallTemplate.paintingTop;
+            }
+            if (roomViewObj && roomViewObj.customFraming && makeActiveAccordian == 4) {
+                $scope.uploadwall.paintingLeft = roomViewObj.customFraming.paintingLeft;
+                $scope.uploadwall.paintingTop = roomViewObj.customFraming.paintingTop;
+            }
+            document.getElementById("draggable-element").style.left = $scope.uploadwall.paintingLeft + "px";
+            document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop) + "px";
+        }
+        if (document.getElementById("draggable-furni")) {
+            document.getElementById("draggable-furni").style.left = $scope.uploadwall.furnitureLeft + "px";
+            document.getElementById("draggable-furni").style.top = ($scope.uploadwall.furnitureTop - 1) + "px";
+        }
+    }
+
+    $scope.furnitureJson = [{
+        "image": "img/room-view/cabinet.png",
+        "thumbnail": "img/room-view/thumb-cabinet.png",
+        "name": "Cabinet",
+        "height": 3.5,
+        "width": 10
+    }, {
+        "image": "img/room-view/sofa.png",
+        "thumbnail": "img/room-view/thumb-sofa.png",
+        "name": "Sofa ",
+        "height": 3,
+        "width": 7
+    }, {
+        "image": "img/room-view/dining-table.png",
+        "thumbnail": "img/room-view/thumb-dining-table.png",
+        "name": "Dining Table",
+        "height": 3,
+        "width": 6
+    }]
+
+    $scope.changeWallTemplate = function(wall) {
+        $scope.uploadwall.wallImage = "";
+        $scope.uploadwall.wallImage = wall.image;
+        $scope.uploadwall.wallid = wall.id;
+        $timeout(function() {
+            var background = document.getElementById('wall');
+            console.log(background);
+            if (background)
+                AttachDragTo(background);
+        }, 5000);
+    }
+
+    $scope.wallTemplateJson = [{
+        "image": "img/templates/1.jpg",
+        "id": 1
+    }, {
+        "image": "img/templates/1.jpg",
+        "id": 2
+    }, {
+        "image": "img/templates/1.jpg",
+        "id": 3
+    }]
+
+    $scope.allfavourites = [];
+    NavigationService.getuserprofile(function(data) {
+        if (data.id) {
+            $scope.showLogin = false;
+            userProfile = data;
+            $scope.userProfile = data;
+            NavigationService.getMyFavourites(data.id, function(favorite) {
+                console.log(favorite);
+                if (favorite.value != false) {
+                    $scope.noFavs = false;
+                    userProfile.wishlist = favorite;
+                    _.each(favorite, function(n) {
+                        if (n.wishlistfolder) {
+                            $scope.allfavourites.push({
+                                "_id": n.artwork,
+                                "wishlistfolder": n.wishlistfolder
+                            });
+                        } else {
+                            $scope.totalfav++;
+                            $scope.allfavourites.push({
+                                "_id": n.artwork
+                            });
+                        }
+                    });
+                    getFavorite($scope.allfavourites)
+                } else {
+                    cfpLoadingBar.complete();
+                    $scope.noFavs = true;
+                }
+            })
+        } else {
+            $scope.showLogin = true;
+        }
+    })
+
+    function getFavorite(allfavourites) {
+        $scope.myArtists = [];
+        NavigationService.getAllFavouritesData(allfavourites, function(datas, status) {
+            console.log("favorite data");
+            console.log(datas);
+            $scope.myFavourites = datas;
+        })
+    }
+
+    $scope.viewFav = function() {
+        ngDialog.open({
+            template: 'views/content/modal-fav.html',
+            className: 'ngdialog-lg',
+            scope: $scope
+        });
+    }
+
+    $scope.showThisPainting = function(artid) {
+        $scope.setRoomView();
+        ngDialog.closeAll();
+        $state.go("room-with-a-view", {
+            "id": artid
+        });
+    }
+
+    $scope.setRoomView = function() {
+        var obj = {};
+        if (activeAccordian == 1) {
+            if (!$.jStorage.get("roomView")) {
+                obj.createWall = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.createWall = $scope.uploadwall;
+            }
+        } else if (activeAccordian == 2) {
+            if (!$.jStorage.get("roomView")) {
+                obj.uploadWall = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.uploadWall = $scope.uploadwall;
+            }
+        } else if (activeAccordian == 3) {
+            if (!$.jStorage.get("roomView")) {
+                obj.wallTemplate = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.wallTemplate = $scope.uploadwall;
+            }
+        } else if (activeAccordian == 4) {
+            if (!$.jStorage.get("roomView")) {
+                obj.customFraming = $scope.uploadwall;
+            } else {
+                obj = $.jStorage.get("roomView");
+                obj.customFraming = $scope.uploadwall;
+            }
+        }
+        $.jStorage.set("roomView", obj);
+        console.log("Saved");
+    }
+
+    $scope.reset = function() {
+        $scope.uploadwall.color = '#dddddd';
+        $scope.uploadwall.height = 10;
+        $scope.uploadwall.width = 13.33;
+        $scope.uploadwall.zoom = 100;
+        $scope.uploadwall.gridstatus = true;
+        $scope.uploadwall.furnitureImage = "";
+        $scope.uploadwall.wallImage = "";
+        $scope.uploadwall.mountEnabled = true;
+        $scope.calcCount();
+    }
+
+    $scope.resetCustom = function() {
+        $scope.uploadwall.color = '#dddddd';
+        $scope.uploadwall.height = 10;
+        $scope.uploadwall.width = 13.33;
+        $scope.uploadwall.zoom = 100;
+        $scope.uploadwall.gridstatus = true;
+        $scope.uploadwall.furnitureImage = "";
+        $scope.uploadwall.wallImage = "";
+        $scope.uploadwall.mountColor = "#00000";
+        $scope.uploadwall.mountEnabled = true;
+        $scope.calcCount();
+        if ($scope.uploadwall.paintingHeight > $scope.uploadwall.paintingWidth) {
+            $scope.uploadwall.scalePainting = 400 / $scope.uploadwall.paintingHeight;
+        } else {
+            $scope.uploadwall.scalePainting = 532 / $scope.uploadwall.paintingWidth;
+        }
+        if (document.getElementById("paintingImg"))
+            document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+    }
+
     var zoomInterval = '';
+    var makeActiveAccordian = 1;
     $scope.changeAccordian = function(val) {
+        makeActiveAccordian = val;
         if (val == 4) {
             $scope.disableDrag();
         } else {
@@ -24426,314 +24948,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         activeAccordian = val;
     }
 
-    $scope.onOrOffFurniture = function() {
-        if (!$scope.uploadwall.furniturestatus) {
-            $scope.uploadwall.furnitureImage = "";
-        }
-    }
-
-    var map = '';
-    NavigationService.getartworkdetail($stateParams.id, function(data) {
-        console.log(data);
-        if (data.value != false) {
-            $scope.artworkDetail = data[0];
-            $scope.uploadwall.paintingImage = $scope.artworkDetail.artwork.image[0];
-            $scope.calcCount();
-            $("img").one("load", function() {
-                // do stuff
-            }).each(function() {
-                if (this.complete) {
-                    map = document.getElementById('wall');
-                    if (map)
-                        AttachDragTo(map);
-
-                    positionPainting();
-                    // Bind the functions...
-
-                    document.getElementById('draggable-element').onmousedown = function() {
-                        _drag_init(this);
-                        return false;
-                    };
-                    document.onmousemove = _move_elem;
-                    document.onmouseup = _destroy;
-                }
-            });
-        }
-    })
-
-    $scope.enableDrag = function() {
-        document.getElementById('draggable-element').onmousedown = function() {
-            _drag_init(this);
-            return false;
-        };
-        document.onmousemove = _move_elem;
-        document.onmouseup = _destroy;
-    }
-
-    $scope.disableDrag = function() {
-        document.getElementById('draggable-element').onmousedown = null;
-        document.onmousemove = null;
-        document.onmouseup = null;
-    }
-
-    $scope.zoomBackground = function() {
-        if ($scope.uploadwall.backZoom) {
-            $scope.uploadwall.backZoom = parseInt($scope.uploadwall.backZoom);
-        }
-        if (document.getElementById('wall')) {
-            document.getElementById('wall').style.backgroundSize = $scope.uploadwall.backZoom + "% " + $scope.uploadwall.backZoom + "%";
-            if (zoomInterval)
-                clearInterval(zoomInterval);
-        }
-    }
-    var rotate = 0;
-    $scope.rotateBackground = function() {
-        if ($('#wall')) {
-            if (rotate == -360) {
-                rotate = 0;
-            }
-            rotate -= 90;
-            $('#wall').css({
-                '-webkit-transform': 'rotate(' + rotate + 'deg)',
-                '-moz-transform': 'rotate(' + rotate + 'deg)',
-                '-ms-transform': 'rotate(' + rotate + 'deg)',
-                'transform': 'rotate(' + rotate + 'deg)'
-            });
-        }
-        map = document.getElementById('wall');
-        if (map)
-            AttachDragTo(map);
-    }
-
-    $scope.calcCount = function() {
-        $scope.uploadwall.horizontalCount = $scope.uploadwall.height;
-        $scope.uploadwall.pixelCount = 500 / $scope.uploadwall.horizontalCount;
-        $scope.uploadwall.verticalCount = 665 / $scope.uploadwall.pixelCount;
-        $scope.uploadwall.pixels = $scope.uploadwall.pixelCount + "px";
-        $scope.uploadwall.paintingWidth = (parseFloat($scope.artworkDetail.artwork.width) / 12) * $scope.uploadwall.pixelCount;
-        $scope.uploadwall.paintingHeight = (parseFloat($scope.artworkDetail.artwork.height) / 12) * $scope.uploadwall.pixelCount;
-        $scope.uploadwall.paintingLeft = 332.5 - ($scope.uploadwall.paintingWidth / 2);
-        $scope.uploadwall.paintingTop = 250 - ($scope.uploadwall.paintingHeight / 2);
-        if ($scope.uploadwall.furnitureImage) {
-            $scope.uploadwall.furnitureWidth = $scope.uploadwall.fwidth * $scope.uploadwall.pixelCount;
-            $scope.uploadwall.furnitureHeight = $scope.uploadwall.fheight * $scope.uploadwall.pixelCount;
-            $scope.uploadwall.furnitureLeft = 332.5 - ($scope.uploadwall.furnitureWidth / 2);
-            $scope.uploadwall.furnitureTop = 500 - $scope.uploadwall.furnitureHeight;
-        }
-        $scope.uploadwall.backZoom = 100;
-        positionPainting();
-
-        // console.log("horizontalCount : " + $scope.uploadwall.horizontalCount);
-        // console.log("pixelCount : " + $scope.uploadwall.pixelCount);
-        // console.log("verticalCount : " + $scope.uploadwall.verticalCount);
-        // console.log("pixels : " + $scope.uploadwall.pixels);
-    }
-
-    $scope.calcHeigthWidth = function() {
-        $scope.uploadwall.width = parseInt($scope.uploadwall.height) * 1.33;
-        $scope.calcCount();
-    }
-
-    $scope.changeFurniture = function(value) {
-        $scope.uploadwall.furnitureImage = value.image;
-        $scope.uploadwall.fwidth = value.width;
-        $scope.uploadwall.fheight = value.height;
-        if ($scope.uploadwall.furnitureImage) {
-            $scope.uploadwall.furnitureWidth = $scope.uploadwall.fwidth * $scope.uploadwall.pixelCount;
-            $scope.uploadwall.furnitureHeight = $scope.uploadwall.fheight * $scope.uploadwall.pixelCount;
-            $scope.uploadwall.furnitureLeft = 332.5 - ($scope.uploadwall.furnitureWidth / 2);
-            $scope.uploadwall.furnitureTop = 500 - $scope.uploadwall.furnitureHeight;
-        }
-        if (document.getElementById("draggable-furni")) {
-            document.getElementById("draggable-furni").style.left = $scope.uploadwall.furnitureLeft + "px";
-            document.getElementById("draggable-furni").style.top = ($scope.uploadwall.furnitureTop - 1) + "px";
-        }
-    }
-
-    var AttachDragTo = (function() {
-        var _AttachDragTo = function(el) {
-            this.el = el;
-            this.mouse_is_down = false;
-            this.init();
-        };
-
-        _AttachDragTo.prototype = {
-            onMousemove: function(e) {
-                if (!this.mouse_is_down) return;
-                var tg = e.target,
-                    x = e.clientX,
-                    y = e.clientY;
-                var backLeft = x - this.origin_x + this.origin_bg_pos_x;
-                var backTop = y - this.origin_y + this.origin_bg_pos_y;
-                // if (backLeft >= 0 && backTop >= 0) {
-                tg.style.backgroundPositionX = x - this.origin_x + this.origin_bg_pos_x + 'px';
-                tg.style.backgroundPositionY = y - this.origin_y + this.origin_bg_pos_y + 'px';
-                // }
-            },
-
-            onMousedown: function(e) {
-                this.mouse_is_down = true;
-                this.origin_x = e.clientX;
-                this.origin_y = e.clientY;
-            },
-
-            onMouseup: function(e) {
-                var tg = e.target,
-                    styles = getComputedStyle(tg);
-                this.mouse_is_down = false;
-                this.origin_bg_pos_x = parseInt(styles.getPropertyValue('background-position-x'), 10);
-                this.origin_bg_pos_y = parseInt(styles.getPropertyValue('background-position-y'), 10);
-            },
-
-            init: function() {
-                // console.log("init");
-                var styles = getComputedStyle(this.el);
-                this.origin_bg_pos_x = parseInt(styles.getPropertyValue('background-position-x'), 10);
-                this.origin_bg_pos_y = parseInt(styles.getPropertyValue('background-position-y'), 10);
-
-                //attach events
-                this.el.addEventListener('mousedown', this.onMousedown.bind(this), false);
-                this.el.addEventListener('mouseup', this.onMouseup.bind(this), false);
-                this.el.addEventListener('mousemove', this.onMousemove.bind(this), false);
-            }
-        };
-
-        return function(el) {
-            new _AttachDragTo(el);
-        };
-    })();
-
-    var selected = null, // Object of the element to be moved
-        x_pos = 0,
-        y_pos = 0, // Stores x & y coordinates of the mouse pointer
-        x_elem = 0,
-        y_elem = 0; // Stores top, left values (edge) of the element
-
-    // Will be called when user starts dragging an element
-    function _drag_init(elem) {
-        // Store the object of the element which needs to be moved
-        selected = elem;
-        x_elem = x_pos - selected.offsetLeft;
-        y_elem = y_pos - selected.offsetTop;
-    }
-
-    // Will be called when user dragging an element
-    function _move_elem(e) {
-        x_pos = document.all ? window.event.clientX : e.pageX;
-        y_pos = document.all ? window.event.clientY : e.pageY;
-        if (selected !== null) {
-            var left = (x_pos - x_elem);
-            var top = (y_pos - y_elem)
-            if (left >= 0 && left < selected.parentNode.offsetWidth - selected.offsetWidth) {
-                selected.style.left = left + 'px';
-                $scope.uploadwall.paintingLeft = left;
-            }
-            if (top >= 0 && top < selected.parentNode.offsetHeight - selected.offsetHeight) {
-                selected.style.top = top + 'px';
-                $scope.uploadwall.paintingTop = top;
-            }
-        }
-    }
-
-    // Destroy the object when we are done
-    function _destroy() {
-        selected = null;
-    }
-
-    function positionPainting() {
-        if (document.getElementById("draggable-element")) {
-            document.getElementById("draggable-element").style.left = $scope.uploadwall.paintingLeft + "px";
-            document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop) + "px";
-        }
-        if (document.getElementById("draggable-furni")) {
-            document.getElementById("draggable-furni").style.left = $scope.uploadwall.furnitureLeft + "px";
-            document.getElementById("draggable-furni").style.top = ($scope.uploadwall.furnitureTop - 1) + "px";
-        }
-    }
-
-    $scope.$watchCollection('uploadwall', function(newNames, oldNames) {
-        $rootScope.$broadcast('updateWall', {});
-    });
-
-    $scope.furnitureJson = [{
-        "image": "img/room-view/cabinet.png",
-        "thumbnail": "img/room-view/thumb-cabinet.png",
-        "name": "Cabinet",
-        "height": 3.5,
-        "width": 10
-    }, {
-        "image": "img/room-view/sofa.png",
-        "thumbnail": "img/room-view/thumb-sofa.png",
-        "name": "Sofa ",
-        "height": 3,
-        "width": 7
-    }, {
-        "image": "img/room-view/dining-table.png",
-        "thumbnail": "img/room-view/thumb-dining-table.png",
-        "name": "Dining Table",
-        "height": 3,
-        "width": 6
-    }]
-
-    $scope.allfavourites = [];
-    NavigationService.getuserprofile(function(data) {
-        if (data.id) {
-            $scope.showLogin = false;
-            userProfile = data;
-            $scope.userProfile = data;
-            NavigationService.getMyFavourites(data.id, function(favorite) {
-                console.log(favorite);
-                if (favorite.value != false) {
-                    $scope.noFavs = false;
-                    userProfile.wishlist = favorite;
-                    _.each(favorite, function(n) {
-                        if (n.wishlistfolder) {
-                            $scope.allfavourites.push({
-                                "_id": n.artwork,
-                                "wishlistfolder": n.wishlistfolder
-                            });
-                        } else {
-                            $scope.totalfav++;
-                            $scope.allfavourites.push({
-                                "_id": n.artwork
-                            });
-                        }
-                    });
-                    getFavorite($scope.allfavourites)
-                } else {
-                    cfpLoadingBar.complete();
-                    $scope.noFavs = true;
-                }
-            })
-        } else {
-            $scope.showLogin = true;
-        }
-    })
-
-    function getFavorite(allfavourites) {
-        $scope.myArtists = [];
-        NavigationService.getAllFavouritesData(allfavourites, function(datas, status) {
-            console.log("favorite data");
-            console.log(datas);
-            $scope.myFavourites = datas;
-        })
-    }
-
-    $scope.viewFav = function() {
-        ngDialog.open({
-            template: 'views/content/modal-fav.html',
-            className: 'ngdialog-lg',
-            scope: $scope
-        });
-    }
-
-    $scope.showThisPainting = function(artid) {
-        ngDialog.closeAll();
-        $state.go("room-with-a-view", {
-            "id": artid
-        });
-    }
-
     //imageupload
     var imagejstupld = "";
     $scope.usingFlash = FileAPI && FileAPI.upload != null;
@@ -24813,6 +25027,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                         if (imagejstupld != "") {
                             $scope.uploadwall.wallImage = imagejstupld.files[0].fd;
                             imagejstupld = "";
+                            $timeout(function() {
+                                document.getElementById('wall').style.backgroundImage = "url('" + $filter('wallpath')($scope.uploadwall.wallImage) + "')";
+                            }, 1000);
                             $timeout(function() {
                                 var background = document.getElementById('wall');
                                 console.log(background);
@@ -24927,10 +25144,8 @@ templateservicemod.controller('cartdropctrl', ['$scope', 'TemplateService',
   }
 ]);
 ;
-// var adminurl = "http://146.148.34.49/";
 var adminurl = "http://www.auraart.in/";
-// var adminurl = "http://auraart.in:81/";
-// var adminurl = "http://192.168.1.122:82/";
+// var adminurl = "http://192.168.1.131:82/";
 var imgUploadUrl = adminurl + "user/uploadfile";
 var wallUploadUrl = adminurl + "user/wallUpload";
 
