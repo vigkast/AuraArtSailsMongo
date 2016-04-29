@@ -1,7 +1,5 @@
-// var adminurl = "http://146.148.34.49/";
-// var adminurl = "http://www.auraart.in:1337/";
-// var adminurl = "http://auraart.in:81/";
-var adminurl = "http://192.168.1.131:82/";
+var adminurl = "http://www.auraart.in/";
+// var adminurl = "http://192.168.1.131:82/";
 var imgUploadUrl = adminurl + "user/uploadfile";
 var wallUploadUrl = adminurl + "user/wallUpload";
 
