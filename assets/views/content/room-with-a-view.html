@@ -15,14 +15,15 @@
                             </div>
 
                             <div class="furniture-holder" id="draggable-furni">
-                                <div class="dim dim-h" ng-if="uploadwall.furnitureImage">{{uploadwall.fheight}}ft.</div>
-                                <div class="dim dim-w" ng-if="uploadwall.furnitureImage">{{uploadwall.fwidth}}ft.</div>
+                                <div class="dim dim-h" ng-if="uploadwall.furnitureImage">{{uploadwall.fheight}} feet</div>
+                                <div class="dim dim-w" ng-if="uploadwall.furnitureImage">{{uploadwall.fwidth}} feet</div>
                                 <img ng-src="{{uploadwall.furnitureImage}}" alt="sofa" height="{{uploadwall.furnitureHeight}}" width="{{uploadwall.furnitureWidth}}" ng-if="uploadwall.furnitureImage">
                             </div>
 
                             <div class="grid-holder" ng-if="uploadwall.gridstatus">
                                 <div class="white-text">
-                                    Grid size is 1ft. x 1ft. Please <span class="btn-line" ng-click="uploadwall.gridstatus=!uploadwall.gridstatus">turn off</span> the grid to move the painting.
+                                    Grid size is 1 feet x 1 feet.
+                                    <!-- <div class="btn-line pull-right" ng-click="uploadwall.gridstatus=!uploadwall.gridstatus">Turn Off Grid</div> -->
                                 </div>
                                 <div class="horizontal-line" ng-repeat="i in getTimes(uploadwall.horizontalCount) track by $index" ng-style="{'margin-bottom' : uploadwall.pixels}"></div>
                                 <div class="vertical-holder">
@@ -159,8 +160,44 @@
                             </div>
                         </uib-accordion-group>
 
+                        <uib-accordion-group ng-click="changeAccordian(3);">
+                            <uib-accordion-heading>Use wall templates <span class="small">(OPTION 2)</span><i class="fa fa-chevron-down pull-right"></i>
+                            </uib-accordion-heading>
+                            <div class="part">
+                                <div class="part-row">
+                                    Show Grid:
+                                    <div class="pull-right">
+                                        <div class="onoffswitch">
+                                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forgrid" ng-model="uploadwall.gridstatus">
+                                            <label class="onoffswitch-label" for="forgrid">
+                                                <span class="onoffswitch-inner"></span>
+                                                <span class="onoffswitch-switch"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="part-row">
+                                    Zoom Image:
+                                    <div class="full-width">
+                                        <input type="range" min="50" max="150" ng-model="uploadwall.backZoom" ng-change="zoomBackground();">
+                                    </div>
+                                </div>
+                                <div class="part-row">
+                                    Select Templates:
+                                    <div class="fix-row">
+                                        <div class="col-hw75" ng-repeat="wall in wallTemplateJson" ng-style="{'background-image': 'url({{wall.image}})'}" ng-class="{'selected':wall.id==uploadwall.wallid}" ng-click="changeWallTemplate(wall);">
+
+                                        </div>
+                                        <!-- <div class="col-hw75" ng-style="{'background-image': 'url(img/templates/1.jpg)'}"></div>
+                                        <div class="col-hw75" ng-style="{'background-image': 'url(img/templates/1.jpg)'}"></div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-accordion-group>
+
                         <uib-accordion-group ng-click="changeAccordian(2);">
-                            <uib-accordion-heading>Upload your wall <span class="small">(OPTION 2)</span><i class="fa fa-chevron-down pull-right"></i>
+                            <uib-accordion-heading>Upload your wall <span class="small">(OPTION 3)</span><i class="fa fa-chevron-down pull-right"></i>
                             </uib-accordion-heading>
                             <div class="part">
                                 <div class="part-row">
@@ -214,42 +251,6 @@
 
                             </div>
 
-                        </uib-accordion-group>
-
-                        <uib-accordion-group ng-click="changeAccordian(3);">
-                            <uib-accordion-heading>Use wall templates <span class="small">(OPTION 3)</span><i class="fa fa-chevron-down pull-right"></i>
-                            </uib-accordion-heading>
-                            <div class="part">
-                                <div class="part-row">
-                                    Show Grid:
-                                    <div class="pull-right">
-                                        <div class="onoffswitch">
-                                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forgrid" ng-model="uploadwall.gridstatus">
-                                            <label class="onoffswitch-label" for="forgrid">
-                                                <span class="onoffswitch-inner"></span>
-                                                <span class="onoffswitch-switch"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="part-row">
-                                    Zoom Image:
-                                    <div class="full-width">
-                                        <input type="range" min="50" max="150" ng-model="uploadwall.backZoom" ng-change="zoomBackground();">
-                                    </div>
-                                </div>
-                                <div class="part-row">
-                                    Select Templates:
-                                    <div class="fix-row">
-                                        <div class="col-hw75" ng-repeat="wall in wallTemplateJson" ng-style="{'background-image': 'url({{wall.image}})'}" ng-class="{'selected':wall.id==uploadwall.wallid}" ng-click="changeWallTemplate(wall);">
-
-                                        </div>
-                                        <!-- <div class="col-hw75" ng-style="{'background-image': 'url(img/templates/1.jpg)'}"></div>
-                                        <div class="col-hw75" ng-style="{'background-image': 'url(img/templates/1.jpg)'}"></div> -->
-                                    </div>
-                                </div>
-                            </div>
                         </uib-accordion-group>
 
                         <uib-accordion-group ng-click="changeAccordian(4);">
