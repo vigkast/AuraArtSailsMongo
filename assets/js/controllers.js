@@ -2595,6 +2595,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     $.jStorage.set("artistScroll", null);
     $.jStorage.set("artworkScroll", null);
+
+    NavigationService.getAllActivities(function(data) {
+        console.log(data);
+        if (data.value !=false) {
+            $scope.activities = data;
+        }
+    })
+
+    NavigationService.getAllPartners(function(data) {
+        console.log(data);
+        if (data.value !=false) {
+            $scope.partners = data;
+        }
+    })
+
     $scope.$on('$viewContentLoaded', function(event) {
         setTimeout(function() {
             makeAnimation($stateParams.id);
@@ -2605,29 +2620,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         var goTo = angular.element(document.getElementById(stateValue));
         $document.scrollToElement(goTo, offset, duration);
     }
-
-
-
-    $scope.artistDetailImg = [{
-        image: 'img/imagedetail/imagedetail.jpg',
-        id: ' 1527',
-        artistname: 'Veguri Ravindra Babu',
-        title: ' Floating Dreams',
-        typename: 'Untitled',
-        madein: 'Oil on board',
-        size: '19.5 x 23',
-        year: '1978',
-        price: 'Rs.1,00,000/ $6,400'
-    }];
-    $scope.changeURL = function(id) {
-        $state.transitionTo('artInfrastructure', {
-            id: id
-        }, {
-            notify: false
-        });
-        makeAnimation(id);
-        $location.replace();
-    };
 
     $scope.slides = [{
         image: "img/patners.jpg",

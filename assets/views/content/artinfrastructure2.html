@@ -8,17 +8,17 @@
 			Corporates, Galleries and other Institutions, including, inter-alia, assistance with the following activities.</p>
 
 		<div class="row-flex row-unflex pad-flex">
-			<div class="col-flex">
+			<div class="col-flex" ng-repeat="activity in activities">
 				<div class="box-style1">
 					<div class="img-holder">
-						<img alt="demo" class="img-responsive" src="img/home/artpress/art3.jpg">
+						<img alt="demo" class="img-responsive" ng-src="{{activity.homeimage|uploadpath}}">
 					</div>
-					<h5>Data Management</h5>
-					<p>Documenting the Collection, photographing and presenting the same online / offline</p>
+					<h5>{{activity.name}}</h5>
+					<p ng-bind-html="activity.activityinbrief"></p>
 					<a class="more2" ui-sref="artInfrastructureID({ id: 'data' })">Click for more</a>
 				</div>
 			</div>
-			<div class="col-flex">
+			<!-- <div class="col-flex">
 				<div class="box-style1">
 					<div class="img-holder">
 						<img alt="demo" class="img-responsive" src="img/home/artpress/art8.jpg">
@@ -55,7 +55,6 @@
 					</div>
 					<h5>Packing &amp; Logistics</h5>
 					<p>Advice on best practices for packing and provide assistance for transportation</p>
-					<!-- <a class="more2" href="#">Click for more</a> -->
 				</div>
 			</div>
 			<div class="col-flex">
@@ -65,7 +64,6 @@
 					</div>
 					<h5>Archival Facility Set-up</h5>
 					<p>Assistance in developing and implementing plan for setting up archival facility (for non-art objects as well)</p>
-					<!-- <a class="more2" href="#">Click for more</a> -->
 				</div>
 			</div>
 			<div class="col-flex">
@@ -75,7 +73,6 @@
 					</div>
 					<h5>Trusteeship &amp; Warehousing</h5>
 					<p>Assist in implementing a Trust structure and identifying facilities for securing the Collection</p>
-					<!-- <a class="more2" href="#">Click for more</a> -->
 				</div>
 			</div>
 			<div class="col-flex">
@@ -85,29 +82,28 @@
 					</div>
 					<h5>Training &amp; Workshops</h5>
 					<p>Provide training and workshops on art appreciation and physical management of the Collection</p>
-					<!-- <a class="more2" href="#">Click for more</a> -->
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </div>
 <div class="container">
 	<!-- New HTML -->
 	<div class="partners padding-more brd-btm">
-		<h5 class="home-header font-color3">partners</h5>
+		<h5 class="home-header font-color3">PARTNERS</h5>
 		<div class="row">
-			<div class="col-md-6" ng-repeat="data in project">
+			<div class="col-md-6" ng-repeat="data in partners">
 				<ul class="row-flex list-unstyled">
 					<li class="img-holder inline-box-infra">
 						<figure>
-							<img ng-src="{{data.image}}" alt="">
+							<img ng-src="{{data.image | uploadpath}}" alt="">
 						</figure>
 					</li>
 					<li class="title inline-box-infra pl10">
 						<p class="bold">{{data.name}}</p>
-						<p>{{data.title}}</p>
-						<p>{{data.assocaite}}</p>
-						Link to download <a href="#" target="_blank">Concept pdf</a>
+						<p ng-bind-html="data.profileofpartner"></p>
+						<p ng-bind-html="data.associationwithauraart"></p>
+						<a href="{{data.pdf | uploadpath}}" target="_blank">{{data.pdf | uploadpath}}</a>
 						</p>
 					</li>
 				</ul>
