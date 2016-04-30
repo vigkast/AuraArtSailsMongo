@@ -24604,11 +24604,32 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         "image": "img/templates/1.jpg",
         "id": 1
     }, {
-        "image": "img/templates/1.jpg",
+        "image": "img/templates/2.jpg",
         "id": 2
     }, {
-        "image": "img/templates/1.jpg",
+        "image": "img/templates/3.jpg",
         "id": 3
+    }, {
+        "image": "img/templates/4.jpg",
+        "id": 4
+    }, {
+        "image": "img/templates/5.jpg",
+        "id": 5
+    }, {
+        "image": "img/templates/6.jpg",
+        "id": 6
+    }, {
+        "image": "img/templates/7.jpg",
+        "id": 7
+    }, {
+        "image": "img/templates/8.jpg",
+        "id": 8
+    }, {
+        "image": "img/templates/9.jpg",
+        "id": 9
+    }, {
+        "image": "img/templates/10.jpg",
+        "id": 10
     }]
 
     $scope.allfavourites = [];
