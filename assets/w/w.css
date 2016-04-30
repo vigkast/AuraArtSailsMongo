@@ -4731,6 +4731,9 @@ a.col-press {
   cursor: move;
   z-index: 9;
 }
+.painting-holder img {
+  vertical-align: bottom;
+}
 .wall-image {
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -4739,6 +4742,9 @@ a.col-press {
 }
 .furniture-holder {
   position: absolute;
+}
+.furniture-holder img {
+  vertical-align: bottom;
 }
 .furni-box {
   background-color: #e6e7e9;
