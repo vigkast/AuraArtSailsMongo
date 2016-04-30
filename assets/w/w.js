@@ -24340,19 +24340,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 // do stuff
             }).each(function() {
                 if (this.complete) {
-                    map = document.getElementById('wall');
-                    if (map)
-                        AttachDragTo(map);
+                    $timeout(function() {
+                        map = document.getElementById('wall');
+                        if (map)
+                            AttachDragTo(map);
 
-                    positionPainting();
-                    // Bind the functions...
+                        positionPainting();
+                        // Bind the functions...
 
-                    document.getElementById('draggable-element').onmousedown = function() {
-                        _drag_init(this);
-                        return false;
-                    };
-                    document.onmousemove = _move_elem;
-                    document.onmouseup = _destroy;
+                        document.getElementById('draggable-element').onmousedown = function() {
+                            _drag_init(this);
+                            return false;
+                        };
+                        document.onmousemove = _move_elem;
+                        document.onmouseup = _destroy;
+                    }, 500);
                 }
             });
         }
@@ -24946,6 +24948,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }, 500);
         }
         activeAccordian = val;
+    }
+
+    $scope.addToCart = function(art) {
+        dataNextPre.addToCart(art);
     }
 
     //imageupload

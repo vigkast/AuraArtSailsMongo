@@ -8,8 +8,8 @@
                 <div class="scroller-area">
                     <div class="wall-builder">
                         <div class="height-holder" ng-style="{'background-color': uploadwall.color}">
-                          <div class="dim dim-h" ng-if="uploadwall.height">{{uploadwall.height}} feet</div>
-                          <div class="dim dim-w" ng-if="uploadwall.width">{{uploadwall.width}} feet</div>
+                          <div class="dim dim-h" ng-if="uploadwall.height">{{uploadwall.height | number:2}} feet</div>
+                          <div class="dim dim-w" ng-if="uploadwall.width">{{uploadwall.width | number:2}} feet</div>
 
                             <div class="wall-image" id="wall" ng-if="uploadwall.wallImage"></div>
 
@@ -40,7 +40,7 @@
 
                 <!-- <wall-builder ng-model="uploadwall"></wall-builder> -->
 
-                <div class="room-options">
+                <div class="room-options" ng-if="artworkDetail">
                     <uib-accordion>
                         <uib-accordion-group>
                             <uib-accordion-heading>Artwork Detail
@@ -91,7 +91,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button class="btn btn-primary btn-full fill-up">Add to Cart</button>
+                                <button class="btn btn-primary btn-full fill-up" ng-click="addToCart(artworkDetail);">Add to Cart</button>
                             </div>
                         </uib-accordion-group>
 
