@@ -27,8 +27,16 @@
                             </div>
 
                             <div class="furniture-holder" id="draggable-furni">
-                                <div class="dim dim-h" ng-if="uploadwall.furnitureImage">{{uploadwall.fheight}} feet</div>
-                                <div class="dim dim-w" ng-if="uploadwall.furnitureImage">{{uploadwall.fwidth}} feet</div>
+                                <div class="dim dim-h" ng-if="uploadwall.furnitureImage">
+                                  <div class="abs blacke l-tb toped"><i class="fa fa-caret-up"></i></div>
+                                  <div class="abs blacke l-tb bottomed"><i class="fa fa-caret-down"></i></div>
+                                  {{uploadwall.fheight}} feet
+                                </div>
+                                <div class="dim dim-w" ng-if="uploadwall.furnitureImage">
+                                  <div class="abs blacke t-rl righted"><i class="fa fa-caret-right"></i></div>
+                                  <div class="abs blacke t-rl lefted"><i class="fa fa-caret-left"></i></div>
+                                  {{uploadwall.fwidth}} feet
+                                </div>
                                 <img ng-src="{{uploadwall.furnitureImage}}" alt="sofa" height="{{uploadwall.furnitureHeight}}" width="{{uploadwall.furnitureWidth}}" ng-if="uploadwall.furnitureImage">
                             </div>
 
@@ -317,8 +325,8 @@
                         </uib-accordion-group>
                     </uib-accordion>
 
-                    <button class="btn btn-outline btn-primary btn-full" ng-click="sendDiv();">Download View</button>
-                    <button class="btn btn-outline btn-primary btn-full" ng-click="setRoomView();">Save to Profile</button>
+                    <button class="btn btn-outline btn-primary btn-full" ng-click="sendDiv(1);">Download View</button>
+                    <button class="btn btn-outline btn-primary btn-full" ng-click="sendDiv(2);">Save to Profile</button>
                 </div>
             </div>
         </div>
