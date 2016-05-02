@@ -3347,7 +3347,7 @@ a.col-press {
 .dim {
   position: absolute;
   color: black;
-  font-size: 14px;
+  font-size: 13px;
 
   &.dim-h {
     height: 100%;
@@ -3406,6 +3406,9 @@ a.col-press {
   }
 }
 .abs {
+  &.blacke {
+    color: black;
+  }
   color: #ddd;
   position: absolute;
   font-size: 20px;
@@ -3433,6 +3436,7 @@ a.col-press {
 }
 .scroller-area {
     overflow-x: auto;
+    overflow-y: hidden;
 }
 .col-hw75 {
   .transition(all 300ms ease);
@@ -3451,6 +3455,10 @@ a.col-press {
 }
 .over-flowing {
   overflow: hidden;
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
 }
 /* Mobile Less */
 @import "../less/fancybox-override.less";

@@ -4811,7 +4811,7 @@ a.col-press {
 .dim {
   position: absolute;
   color: black;
-  font-size: 14px;
+  font-size: 13px;
 }
 .dim.dim-h {
   height: 100%;
@@ -4892,6 +4892,9 @@ a.col-press {
   position: absolute;
   font-size: 20px;
 }
+.abs.blacke {
+  color: black;
+}
 .abs.t-rl {
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -4923,6 +4926,7 @@ a.col-press {
 }
 .scroller-area {
   overflow-x: auto;
+  overflow-y: hidden;
 }
 .col-hw75 {
   -webkit-transition: all 300ms ease;
@@ -4945,6 +4949,10 @@ a.col-press {
 }
 .over-flowing {
   overflow: hidden;
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
 }
 /* Mobile Less */
 #fancybox-loading,
