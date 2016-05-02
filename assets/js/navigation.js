@@ -709,6 +709,16 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 }
             }).success(callback);
         },
+        saveToProfile: function(obj, callback) {
+            $http({
+                url: adminurl + "slider/saveToProfile",
+                method: "POST",
+                data: {
+                    "image": obj.html,
+                    "rotate": obj.rotate
+                }
+            }).success(callback);
+        },
         getAllActivities: function(callback) {
             $http({
                 url: adminurl + "activities/find",

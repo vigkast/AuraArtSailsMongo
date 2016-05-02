@@ -36,7 +36,7 @@
                         <p>
                             {{totalartconts.artwork|makesizestr}}
                         </p>
-                        <p ng-if="totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A'">
+                        <p ng-if="totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold'">
                             Rs {{totalartconts.artwork.gprice|number:0}} / ${{totalartconts.artwork.gprice|indollars}}
                         </p>
                         <p ng-if="!totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A'">
