@@ -6663,8 +6663,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     var zoomInterval = '';
     var makeActiveAccordian = 1;
+    $scope.nowActive = 1;
     $scope.changeAccordian = function(val) {
         makeActiveAccordian = val;
+        $scope.nowActive = val;
         if (val == 4) {
             $scope.disableDrag();
         } else {

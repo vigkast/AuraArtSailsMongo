@@ -8,12 +8,12 @@
                 <div class="scroller-area">
                     <div class="wall-builder">
                         <div class="height-holder" ng-style="{'background-color': uploadwall.color}">
-                          <div class="dim dim-h light" ng-if="uploadwall.height">
+                          <div class="dim dim-h light" ng-if="uploadwall.height && nowActive!=3">
                             <div class="abs l-tb toped"><i class="fa fa-caret-up"></i></div>
                             <div class="abs l-tb bottomed"><i class="fa fa-caret-down"></i></div>
                             {{uploadwall.height | number:2}} feet
                           </div>
-                          <div class="dim dim-w light" ng-if="uploadwall.width">
+                          <div class="dim dim-w light" ng-if="uploadwall.width && nowActive!=3">
                             <div class="abs t-rl righted"><i class="fa fa-caret-right"></i></div>
                             <div class="abs t-rl lefted"><i class="fa fa-caret-left"></i></div>
                             {{uploadwall.width | number:2}} feet
