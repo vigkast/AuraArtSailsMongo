@@ -3138,6 +3138,12 @@ img.fancybox-image {
   z-index: 9;
   padding: 0 10px;
   background-color: white;
+  .panel-body {
+    font-size: 13px;
+    .pull-right {
+      font-weight: 300;
+    }
+  }
   .panel-group {
     margin-bottom: 0;
     .panel {
@@ -3169,7 +3175,7 @@ img.fancybox-image {
           display: block;
           padding: 10px 5px;
           border-bottom: 1px solid #ddd;
-          font-size: 14px;
+          font-size: 13px;
         }
         +.panel-collapse {
           >.panel-body {
@@ -3368,7 +3374,7 @@ a.col-press {
       .translateX(-50%);
       background-color: black;
       height: calc(50% - 10px);
-      width: 0.7px;
+      width: 1px;
     }
   }
 
@@ -3393,7 +3399,7 @@ a.col-press {
       content: '';
       top: 50%;
       .translateY(-50%);
-      height: 0.7px;
+      height: 1px;
       background-color: black;
       width: 44%;
     }

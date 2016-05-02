@@ -4615,6 +4615,12 @@ img.fancybox-image {
   padding: 0 10px;
   background-color: white;
 }
+.room-options .panel-body {
+  font-size: 13px;
+}
+.room-options .panel-body .pull-right {
+  font-weight: 300;
+}
 .room-options .panel-group {
   margin-bottom: 0;
 }
@@ -4642,7 +4648,7 @@ img.fancybox-image {
   display: block;
   padding: 10px 5px;
   border-bottom: 1px solid #ddd;
-  font-size: 14px;
+  font-size: 13px;
 }
 .room-options .panel-group .panel .panel-heading + .panel-collapse > .panel-body {
   border-top: 0 solid #ddd;
@@ -4849,7 +4855,7 @@ a.col-press {
   transform: translateX(-50%);
   background-color: black;
   height: calc(40%);
-  width: 0.7px;
+  width: 1px;
 }
 .dim.dim-w {
   top: -25px;
@@ -4877,7 +4883,7 @@ a.col-press {
   -o-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-  height: 0.7px;
+  height: 1px;
   background-color: black;
   width: 44%;
 }
