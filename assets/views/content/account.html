@@ -27,7 +27,8 @@
                   <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'address'}" ng-click="changeTab('address');">My Address Book</li>
                   <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'orders'}" ng-click="changeTab('orders');">My Orders</li>
                   <!-- <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'trace'}" ng-click="changeTab('trace');">Track Your Order</li> -->
-                  <li class="cat-list cpointer"><a href="#/favorite">My Favourites</a></li>
+                  <li class="cat-list cpointer" ><a href="#/favorite">My Favourites</a></li>
+                  <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'views'}" ng-click="changeTab('views');">My Saved Views</li>
                   <hr class="line" ng-if="user.accesslevel=='reseller'">
                   <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'banking'}" ng-click="changeTab('banking');" ng-if="user.accesslevel=='reseller'">Banking Details</li>
                   <li class="cat-list cpointer" ng-if="user.accesslevel=='reseller'"> <a href="#/create-artwork">Upload Artwork</a></li>
@@ -210,6 +211,14 @@
             </div>
          </div>
 
+         <div class="col-md-10" ng-if="activeTab == 'views'">
+           <div class="row">
+             <div class="col-md-4">
+               <div class="hover-look"></div>
+               <img src="http://www.auraart.in/user/resize?width=1200&file=bdd72f50-f417-4693-878c-238222bb8ea5.jpg" class="full-image"/>
+             </div>
+           </div>
+         </div>
 
 
          <div class="col-md-10" ng-if="activeTab == 'orders'">
