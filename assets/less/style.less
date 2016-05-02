@@ -3138,6 +3138,12 @@ img.fancybox-image {
   z-index: 9;
   padding: 0 10px;
   background-color: white;
+  .panel-body {
+    font-size: 13px;
+    .pull-right {
+      font-weight: 300;
+    }
+  }
   .panel-group {
     margin-bottom: 0;
     .panel {
@@ -3169,7 +3175,7 @@ img.fancybox-image {
           display: block;
           padding: 10px 5px;
           border-bottom: 1px solid #ddd;
-          font-size: 15px;
+          font-size: 13px;
         }
         +.panel-collapse {
           >.panel-body {
@@ -3182,7 +3188,7 @@ img.fancybox-image {
   }
 }
 .small-input {
-  height: 20px;
+  height: 27px;
   width: 40px;
   padding: 3px;
   border: 1px solid #ddd;
@@ -3338,11 +3344,10 @@ a.col-press {
     .translate(0%, 0%);
   }
 }
-
 .dim {
   position: absolute;
   color: black;
-  font-size: 14px;
+  font-size: 13px;
 
   &.dim-h {
     height: 100%;
@@ -3352,10 +3357,15 @@ a.col-press {
     .display(flex);
     .align-items(center);
     &:after {
-      top: 0;
+      top: 5px;
     }
     &:before {
-      bottom: 0;
+      bottom: 5px;
+    }
+    &.light {
+      &:before, &:after {
+        background-color: #ddd;
+      }
     }
     &:before, &:after {
       position: absolute;
@@ -3374,10 +3384,15 @@ a.col-press {
     width: 100%;
     text-align: center;
     &:after {
-      left: 0;
+      left: 5px;
     }
     &:before {
-      right: 0;
+      right: 5px;
+    }
+    &.light {
+      &:before, &:after {
+        background-color: #ddd;
+      }
     }
     &:before, &:after {
       position: absolute;
@@ -3386,12 +3401,42 @@ a.col-press {
       .translateY(-50%);
       height: 1px;
       background-color: black;
-      width: calc(50% - 10px);
+      width: 44%;
     }
+  }
+}
+.abs {
+  &.blacke {
+    color: black;
+  }
+  color: #ddd;
+  position: absolute;
+  font-size: 20px;
+  &.t-rl {
+    top: 50%;
+    .translateY(-50%);
+  }
+  &.l-tb {
+    left: 50%;
+    .translateX(-50%);
+    line-height: 0;
+  }
+  &.righted {
+    right: 0px;
+  }
+  &.lefted {
+    left: 0px;
+  }
+  &.toped {
+    top: -5px;
+  }
+  &.bottomed {
+    bottom: -5px;
   }
 }
 .scroller-area {
     overflow-x: auto;
+    overflow-y: hidden;
 }
 .col-hw75 {
   .transition(all 300ms ease);
@@ -3407,6 +3452,13 @@ a.col-press {
   &.selected, &:hover {
     border-color: #333;
   }
+}
+.over-flowing {
+  overflow: hidden;
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
 }
 /* Mobile Less */
 @import "../less/fancybox-override.less";

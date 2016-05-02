@@ -4615,6 +4615,12 @@ img.fancybox-image {
   padding: 0 10px;
   background-color: white;
 }
+.room-options .panel-body {
+  font-size: 13px;
+}
+.room-options .panel-body .pull-right {
+  font-weight: 300;
+}
 .room-options .panel-group {
   margin-bottom: 0;
 }
@@ -4642,14 +4648,14 @@ img.fancybox-image {
   display: block;
   padding: 10px 5px;
   border-bottom: 1px solid #ddd;
-  font-size: 15px;
+  font-size: 13px;
 }
 .room-options .panel-group .panel .panel-heading + .panel-collapse > .panel-body {
   border-top: 0 solid #ddd;
   padding: 10px;
 }
 .small-input {
-  height: 20px;
+  height: 27px;
   width: 40px;
   padding: 3px;
   border: 1px solid #ddd;
@@ -4805,7 +4811,7 @@ a.col-press {
 .dim {
   position: absolute;
   color: black;
-  font-size: 14px;
+  font-size: 13px;
 }
 .dim.dim-h {
   height: 100%;
@@ -4828,10 +4834,14 @@ a.col-press {
   align-items: center;
 }
 .dim.dim-h:after {
-  top: 0;
+  top: 5px;
 }
 .dim.dim-h:before {
-  bottom: 0;
+  bottom: 5px;
+}
+.dim.dim-h.light:before,
+.dim.dim-h.light:after {
+  background-color: #ddd;
 }
 .dim.dim-h:before,
 .dim.dim-h:after {
@@ -4854,10 +4864,14 @@ a.col-press {
   text-align: center;
 }
 .dim.dim-w:after {
-  left: 0;
+  left: 5px;
 }
 .dim.dim-w:before {
-  right: 0;
+  right: 5px;
+}
+.dim.dim-w.light:before,
+.dim.dim-w.light:after {
+  background-color: #ddd;
 }
 .dim.dim-w:before,
 .dim.dim-w:after {
@@ -4871,10 +4885,48 @@ a.col-press {
   transform: translateY(-50%);
   height: 1px;
   background-color: black;
-  width: calc(40%);
+  width: 44%;
+}
+.abs {
+  color: #ddd;
+  position: absolute;
+  font-size: 20px;
+}
+.abs.blacke {
+  color: black;
+}
+.abs.t-rl {
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.abs.l-tb {
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  line-height: 0;
+}
+.abs.righted {
+  right: 0px;
+}
+.abs.lefted {
+  left: 0px;
+}
+.abs.toped {
+  top: -5px;
+}
+.abs.bottomed {
+  bottom: -5px;
 }
 .scroller-area {
   overflow-x: auto;
+  overflow-y: hidden;
 }
 .col-hw75 {
   -webkit-transition: all 300ms ease;
@@ -4894,6 +4946,13 @@ a.col-press {
 .col-hw75.selected,
 .col-hw75:hover {
   border-color: #333;
+}
+.over-flowing {
+  overflow: hidden;
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
 }
 /* Mobile Less */
 #fancybox-loading,

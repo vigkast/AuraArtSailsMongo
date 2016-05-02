@@ -20709,6 +20709,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     $.jStorage.set("artistScroll", null);
     $.jStorage.set("artworkScroll", null);
+
+    NavigationService.getAllActivities(function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.activities = data;
+        }
+    })
+
+    NavigationService.getAllPartners(function(data) {
+        console.log(data);
+        if (data.value != false) {
+            $scope.partners = data;
+        }
+    })
+
     $scope.$on('$viewContentLoaded', function(event) {
         setTimeout(function() {
             makeAnimation($stateParams.id);
@@ -20719,29 +20734,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         var goTo = angular.element(document.getElementById(stateValue));
         $document.scrollToElement(goTo, offset, duration);
     }
-
-
-
-    $scope.artistDetailImg = [{
-        image: 'img/imagedetail/imagedetail.jpg',
-        id: ' 1527',
-        artistname: 'Veguri Ravindra Babu',
-        title: ' Floating Dreams',
-        typename: 'Untitled',
-        madein: 'Oil on board',
-        size: '19.5 x 23',
-        year: '1978',
-        price: 'Rs.1,00,000/ $6,400'
-    }];
-    $scope.changeURL = function(id) {
-        $state.transitionTo('artInfrastructure', {
-            id: id
-        }, {
-            notify: false
-        });
-        makeAnimation(id);
-        $location.replace();
-    };
 
     $scope.slides = [{
         image: "img/patners.jpg",
@@ -21429,6 +21421,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     $scope.showLogin = function() {
         console.log("in login");
+        if (window.location.href.indexOf('room-with-a-view') != -1) {
+            console.log("here");
+            globalFunction.setRoomView();
+        }
         ngDialog.open({
             template: 'views/content/login.html',
             scope: $scope
@@ -21558,6 +21554,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
 
     dataNextPre.messageBoxWithBtn = function(msg, btnText, funcName) {
+        ngDialog.closeAll();
         var xyz = ngDialog.open({
             scope: $scope,
             template: '<div class="pop-up"><h5 class="popup-wishlist">Please login to add to favourites</h5><p>Click <a ng-click="showLogin();">here</a> to Login</p><span class="closepop" ng-click="closeThisDialog(value);">X</span></div>',
@@ -24246,6 +24243,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     // $scope.wall.width = 13.33;
 
     $scope.openLogin = function() {
+        $scope.setRoomView();
         globalFunction.showLogin();
     }
 
@@ -24280,18 +24278,29 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     }
 
-    $scope.sendDiv = function() {
+    $scope.sendDiv = function(val) {
         var html = $("<div />").append($(".wall-builder").clone()).html();
         html = html.split('&quot;').join('');
         console.log(html);
         var obj = {};
         obj.html = html;
         obj.rotate = rotate;
-        NavigationService.createImage(obj, function(data) {
-            if (data.value != false) {
-                window.open(adminurl + "slider/downloadImage?file=" + data.comment);
-            }
-        })
+        if (val == 1) {
+            NavigationService.createImage(obj, function(data) {
+                if (data.value != false) {
+                    window.open(adminurl + "slider/downloadImage?file=" + data.comment);
+                }
+            })
+        } else if (val == 2) {
+            NavigationService.saveToProfile(obj, function(data) {
+                console.log(data);
+                if (data.value != false) {
+                    dataNextPre.messageBox("Saved to your profile.");
+                } else {
+                    dataNextPre.messageBox("Please login to save to your profile.");
+                }
+            })
+        }
     }
 
     $scope.onOrOffFurniture = function() {
@@ -24312,7 +24321,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             } else {
                 $scope.uploadwall = {};
                 $scope.uploadwall.color = '#dddddd';
-                $scope.uploadwall.height = 10;
+                $scope.uploadwall.height = 10.00;
                 $scope.uploadwall.width = 13.33;
                 $scope.uploadwall.zoom = 100;
                 // $scope.uploadwall.gridstatus = true;
@@ -24408,16 +24417,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.calcCount = function() {
         $scope.uploadwall.horizontalCount = $scope.uploadwall.height;
         $scope.uploadwall.pixelCount = 500 / $scope.uploadwall.horizontalCount;
-        $scope.uploadwall.verticalCount = 665 / $scope.uploadwall.pixelCount;
+        $scope.uploadwall.verticalCount = (500 * (4 / 3)) / $scope.uploadwall.pixelCount;
         $scope.uploadwall.pixels = $scope.uploadwall.pixelCount + "px";
         $scope.uploadwall.paintingWidth = (parseFloat($scope.artworkDetail.artwork.width) / 12) * $scope.uploadwall.pixelCount;
         $scope.uploadwall.paintingHeight = (parseFloat($scope.artworkDetail.artwork.height) / 12) * $scope.uploadwall.pixelCount;
-        $scope.uploadwall.paintingLeft = 332.5 - ($scope.uploadwall.paintingWidth / 2);
+        $scope.uploadwall.paintingLeft = (250 * (4 / 3)) - ($scope.uploadwall.paintingWidth / 2);
         $scope.uploadwall.paintingTop = 250 - ($scope.uploadwall.paintingHeight / 2);
         if ($scope.uploadwall.furnitureImage) {
             $scope.uploadwall.furnitureWidth = $scope.uploadwall.fwidth * $scope.uploadwall.pixelCount;
             $scope.uploadwall.furnitureHeight = $scope.uploadwall.fheight * $scope.uploadwall.pixelCount;
-            $scope.uploadwall.furnitureLeft = 332.5 - ($scope.uploadwall.furnitureWidth / 2);
+            $scope.uploadwall.furnitureLeft = (250 * (4 / 3)) - ($scope.uploadwall.furnitureWidth / 2);
             $scope.uploadwall.furnitureTop = 500 - $scope.uploadwall.furnitureHeight;
         }
         $scope.uploadwall.backZoom = 100;
@@ -24430,7 +24439,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
 
     $scope.calcHeigthWidth = function() {
-        $scope.uploadwall.width = parseInt($scope.uploadwall.height) * 1.33;
+        $scope.uploadwall.width = parseInt($scope.uploadwall.height) * (4 / 3);
         $scope.calcCount();
     }
 
@@ -24441,7 +24450,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         if ($scope.uploadwall.furnitureImage) {
             $scope.uploadwall.furnitureWidth = $scope.uploadwall.fwidth * $scope.uploadwall.pixelCount;
             $scope.uploadwall.furnitureHeight = $scope.uploadwall.fheight * $scope.uploadwall.pixelCount;
-            $scope.uploadwall.furnitureLeft = 332.5 - ($scope.uploadwall.furnitureWidth / 2);
+            $scope.uploadwall.furnitureLeft = (250 * (4 / 3)) - ($scope.uploadwall.furnitureWidth / 2);
             $scope.uploadwall.furnitureTop = 500 - $scope.uploadwall.furnitureHeight;
         }
         if (document.getElementById("draggable-furni")) {
@@ -24630,6 +24639,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }, {
         "image": "img/templates/10.jpg",
         "id": 10
+    }, {
+        "image": "img/templates/11.jpg",
+        "id": 11
     }]
 
     $scope.allfavourites = [];
@@ -24727,9 +24739,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         console.log("Saved");
     }
 
+    globalFunction.setRoomView = function() {
+        $scope.setRoomView();
+    }
+
     $scope.reset = function() {
         $scope.uploadwall.color = '#dddddd';
-        $scope.uploadwall.height = 10;
+        $scope.uploadwall.height = 10.00;
         $scope.uploadwall.width = 13.33;
         $scope.uploadwall.zoom = 100;
         $scope.uploadwall.gridstatus = true;
@@ -24741,7 +24757,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     $scope.resetCustom = function() {
         $scope.uploadwall.color = '#dddddd';
-        $scope.uploadwall.height = 10;
+        $scope.uploadwall.height = 10.00;
         $scope.uploadwall.width = 13.33;
         $scope.uploadwall.zoom = 100;
         $scope.uploadwall.gridstatus = true;
@@ -24753,7 +24769,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         if ($scope.uploadwall.paintingHeight > $scope.uploadwall.paintingWidth) {
             $scope.uploadwall.scalePainting = 400 / $scope.uploadwall.paintingHeight;
         } else {
-            $scope.uploadwall.scalePainting = 532 / $scope.uploadwall.paintingWidth;
+            $scope.uploadwall.scalePainting = (400 * (4 / 3)) / $scope.uploadwall.paintingWidth;
         }
         if (document.getElementById("paintingImg"))
             document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
@@ -25880,6 +25896,28 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                     "image": obj.html,
                     "rotate": obj.rotate
                 }
+            }).success(callback);
+        },
+        saveToProfile: function(obj, callback) {
+            $http({
+                url: adminurl + "slider/saveToProfile",
+                method: "POST",
+                data: {
+                    "image": obj.html,
+                    "rotate": obj.rotate
+                }
+            }).success(callback);
+        },
+        getAllActivities: function(callback) {
+            $http({
+                url: adminurl + "activities/find",
+                method: "POST",
+            }).success(callback);
+        },
+        getAllPartners: function(callback) {
+            $http({
+                url: adminurl + "partners/find",
+                method: "POST",
             }).success(callback);
         },
     }

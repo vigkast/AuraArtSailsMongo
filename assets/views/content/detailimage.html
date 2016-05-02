@@ -83,7 +83,7 @@
                                             N/A
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr ng-if="artistDetailImg.artwork.status!='sold'">
                                         <td class="labels">Price: </td>
                                         <td ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A'">
                                             Rs {{artistDetailImg.artwork.gprice|number:0}} / ${{artistDetailImg.artwork.gprice|indollars}} <span>(excluding VAT)</span>
