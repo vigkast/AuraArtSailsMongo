@@ -4642,14 +4642,14 @@ img.fancybox-image {
   display: block;
   padding: 10px 5px;
   border-bottom: 1px solid #ddd;
-  font-size: 15px;
+  font-size: 14px;
 }
 .room-options .panel-group .panel .panel-heading + .panel-collapse > .panel-body {
   border-top: 0 solid #ddd;
   padding: 10px;
 }
 .small-input {
-  height: 20px;
+  height: 27px;
   width: 40px;
   padding: 3px;
   border: 1px solid #ddd;
