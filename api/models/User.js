@@ -390,7 +390,7 @@
                       _id: user
                   }, {
                       $push: {
-                          room: data
+                          room: data.imageName
                       }
                   }, function(err, updated) {
                       if (err) {
