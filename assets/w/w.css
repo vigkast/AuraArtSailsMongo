@@ -4958,6 +4958,14 @@ a.col-press {
   width: 100%;
   height: 100%;
 }
+.tr-fit {
+  background-color: #D4AE70;
+  padding: 10px 0;
+  color: white;
+  bottom: 20px;
+  text-align: center;
+  font-size: 13px;
+}
 /* Mobile Less */
 #fancybox-loading,
 .fancybox-close,
