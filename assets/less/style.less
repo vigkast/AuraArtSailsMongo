@@ -3338,7 +3338,6 @@ a.col-press {
     .translate(0%, 0%);
   }
 }
-
 .dim {
   position: absolute;
   color: black;
@@ -3352,10 +3351,15 @@ a.col-press {
     .display(flex);
     .align-items(center);
     &:after {
-      top: 0;
+      top: 5px;
     }
     &:before {
-      bottom: 0;
+      bottom: 5px;
+    }
+    &.light {
+      &:before, &:after {
+        background-color: #ddd;
+      }
     }
     &:before, &:after {
       position: absolute;
@@ -3364,7 +3368,7 @@ a.col-press {
       .translateX(-50%);
       background-color: black;
       height: calc(50% - 10px);
-      width: 1px;
+      width: 0.7px;
     }
   }
 
@@ -3374,20 +3378,51 @@ a.col-press {
     width: 100%;
     text-align: center;
     &:after {
-      left: 0;
+      left: 5px;
     }
     &:before {
-      right: 0;
+      right: 5px;
+    }
+    &.light {
+      &:before, &:after {
+        background-color: #ddd;
+      }
     }
     &:before, &:after {
       position: absolute;
       content: '';
       top: 50%;
       .translateY(-50%);
-      height: 1px;
+      height: 0.7px;
       background-color: black;
-      width: calc(50% - 10px);
+      width: 44%;
     }
+  }
+}
+.abs {
+  color: #ddd;
+  position: absolute;
+  font-size: 20px;
+  &.t-rl {
+    top: 50%;
+    .translateY(-50%);
+  }
+  &.l-tb {
+    left: 50%;
+    .translateX(-50%);
+    line-height: 0;
+  }
+  &.righted {
+    right: 0px;
+  }
+  &.lefted {
+    left: 0px;
+  }
+  &.toped {
+    top: -5px;
+  }
+  &.bottomed {
+    bottom: -5px;
   }
 }
 .scroller-area {
@@ -3407,6 +3442,9 @@ a.col-press {
   &.selected, &:hover {
     border-color: #333;
   }
+}
+.over-flowing {
+  overflow: hidden;
 }
 /* Mobile Less */
 @import "../less/fancybox-override.less";

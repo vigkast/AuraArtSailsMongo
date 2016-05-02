@@ -8,10 +8,19 @@
                 <div class="scroller-area">
                     <div class="wall-builder">
                         <div class="height-holder" ng-style="{'background-color': uploadwall.color}">
-                          <div class="dim dim-h" ng-if="uploadwall.height">{{uploadwall.height | number:2}} feet</div>
-                          <div class="dim dim-w" ng-if="uploadwall.width">{{uploadwall.width | number:2}} feet</div>
+                          <div class="dim dim-h light" ng-if="uploadwall.height">
+                            <div class="abs l-tb toped"><i class="fa fa-caret-up"></i></div>
+                            <div class="abs l-tb bottomed"><i class="fa fa-caret-down"></i></div>
+                            {{uploadwall.height | number:2}} feet
+                          </div>
+                          <div class="dim dim-w light" ng-if="uploadwall.width">
+                            <div class="abs t-rl righted"><i class="fa fa-caret-right"></i></div>
+                            <div class="abs t-rl lefted"><i class="fa fa-caret-left"></i></div>
+                            {{uploadwall.width | number:2}} feet
+                          </div>
 
-                            <div class="wall-image" id="wall" ng-if="uploadwall.wallImage"></div>
+                          <div class="over-flowing">
+                              <div class="wall-image" id="wall" ng-if="uploadwall.wallImage"></div>
 
                             <div class="painting-holder" id="draggable-element">
                                 <img ng-src="{{uploadwall.paintingImage|uploadpath}}" alt="Painting" height="{{uploadwall.paintingHeight}}" width="{{uploadwall.paintingWidth}}" ng-if="uploadwall.paintingImage" id="paintingImg">
@@ -33,6 +42,7 @@
                                     <div class="vertical-line" ng-repeat="i in getTimes(uploadwall.verticalCount) track by $index" ng-style="{'margin-left' : uploadwall.pixels}"></div>
                                 </div>
                             </div>
+                          </div>
 
                         </div>
                     </div>
