@@ -24,8 +24,8 @@
     <div class="row">
         <div class="all-events search-box">
             <h3 class="font-color3 home-header padtop">Upcoming Events</h3>
-            <accordion close-others="true">
-                <accordion-group heading="2016">
+            <uib-accordion close-others="true">
+                <uib-accordion-group heading="2016">
                     <div class="row">
                         <div class="col-md-3" ng-repeat="event in event2016">
                             <div class="event-detail ">
@@ -43,15 +43,15 @@
                             </div>
                         </div>
                     </div>
-                </accordion-group>
-            </accordion>
+                </uib-accordion-group>
+            </uib-accordion>
         </div>
     </div>
     <div class="row">
         <div class="all-events search-box">
             <h3 class="font-color3 home-header padtop">Present Events</h3>
-            <accordion close-others="true">
-                <accordion-group heading="2015">
+            <uib-accordion close-others="true">
+                <uib-accordion-group heading="2015">
                     <div class="row">
                         <div class="col-md-3" ng-repeat="event in event2015">
                             <div class="event-detail ">
@@ -69,15 +69,15 @@
                         </div>
 
                     </div>
-                </accordion-group>
-            </accordion>
+                </uib-accordion-group>
+            </uib-accordion>
         </div>
     </div>
     <div class="row">
         <div class="all-events search-box">
             <h3 class="font-color3 home-header padtop">Past Events</h3>
-            <accordion close-others="true">
-                <accordion-group heading="2014">
+            <uib-accordion close-others="true">
+                <uib-accordion-group heading="2014">
                     <div class="row">
                         <div class="col-md-3" ng-repeat="event in event2014">
                             <div class="event-detail ">
@@ -93,8 +93,8 @@
                             </div>
                         </div>
                     </div>
-                </accordion-group>
-                <accordion-group heading="2013">
+                </uib-accordion-group>
+                <uib-accordion-group heading="2013">
                     <div class="col-md-3" ng-repeat="event in event2014">
                         <div class="event-detail ">
                             <div class="data">
@@ -109,8 +109,8 @@
 
                         </div>
                     </div>
-                </accordion-group>
-            </accordion>
+                </uib-accordion-group>
+            </uib-accordion>
         </div>
     </div>
 -->
@@ -140,8 +140,8 @@
     <div class="row" ng-if="events.upcoming && events.upcoming.length>0">
         <div class="all-events search-box">
             <h3 class="font-color3 home-header padtop">Upcoming Events</h3>
-            <accordion close-others="true">
-                <accordion-group heading="{{event1[0].year}}" ng-repeat="event1 in events.upcoming">
+            <uib-accordion close-others="true">
+                <uib-accordion-group heading="{{event1[0].year}}" ng-repeat="event1 in events.upcoming">
                     <div class="row">
                         <div class="col-md-3" ng-repeat="event in event1">
                             <div class="event-detail ">
@@ -160,8 +160,8 @@
                             </div>
                         </div>
                     </div>
-                </accordion-group>
-            </accordion>
+                </uib-accordion-group>
+            </uib-accordion>
         </div>
     </div>
     <div class="row" ng-if="events.present && events.present.length>0">
@@ -190,8 +190,8 @@
     <div class="row" ng-if="events.past && events.past.length>0">
         <div class="all-events search-box">
             <h3 class="font-color3 home-header padtop">Past Events</h3>
-            <accordion close-others="true">
-                <accordion-group heading="{{event1[0].year}}" ng-repeat="event1 in events.past">
+            <uib-accordion close-others="true">
+                <uib-accordion-group heading="{{event1[0].year}}" ng-repeat="event1 in events.past">
                     <div class="row">
                         <div class="col-md-3" ng-repeat="event in event1">
                             <div class="event-detail ">
@@ -210,8 +210,8 @@
                             </div>
                         </div>
                     </div>
-                </accordion-group>
-            </accordion>
+                </uib-accordion-group>
+            </uib-accordion>
         </div>
     </div>
 </div>
