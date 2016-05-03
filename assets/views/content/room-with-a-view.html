@@ -23,7 +23,7 @@
                               <div class="wall-image" id="wall" ng-if="uploadwall.wallImage"></div>
 
                             <div class="painting-holder" id="draggable-element">
-                                <img ng-src="{{uploadwall.paintingImage|uploadpath}}" alt="Painting" height="{{uploadwall.paintingHeight}}" width="{{uploadwall.paintingWidth}}" ng-if="uploadwall.paintingImage" id="paintingImg">
+                                <img ng-src="{{uploadwall.paintingImage|uploadpath}}" alt="Painting" height="{{uploadwall.paintingHeight}}" ng-if="uploadwall.paintingImage" id="paintingImg">
                             </div>
 
                             <div class="furniture-holder" id="draggable-furni">
@@ -37,7 +37,7 @@
                                   <div class="abs blacke t-rl lefted"><i class="fa fa-caret-left"></i></div>
                                   {{uploadwall.fwidth}} feet
                                 </div>
-                                <img ng-src="{{uploadwall.furnitureImage}}" alt="sofa" height="{{uploadwall.furnitureHeight}}" width="{{uploadwall.furnitureWidth}}" ng-if="uploadwall.furnitureImage">
+                                <img ng-src="{{uploadwall.furnitureImage}}" alt="sofa" height="{{uploadwall.furnitureHeight}}"  ng-if="uploadwall.furnitureImage">
                             </div>
 
                             <div class="grid-holder" ng-if="uploadwall.gridstatus">
