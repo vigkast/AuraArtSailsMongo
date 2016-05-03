@@ -4865,7 +4865,6 @@ a.col-press {
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
   background-color: black;
-  height: calc(40%);
   width: 1px;
 }
 .dim.dim-w {
@@ -4896,7 +4895,6 @@ a.col-press {
   transform: translateY(-50%);
   height: 1px;
   background-color: black;
-  width: 43.5%;
 }
 .abs {
   color: #ddd;
@@ -5423,4 +5421,12 @@ a.col-press {
     padding-bottom: 15px;
   }
 }
+.dim.dim-w:before, .dim.dim-w:after {
+  width: calc(50% - 40px);
+}
+
+.dim.dim-h:before, .dim.dim-h:after {
+  height: calc(50% - 20px);
+}
+
 /*# sourceMappingURL=w.css.map */

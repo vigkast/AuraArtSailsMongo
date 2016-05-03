@@ -3380,7 +3380,6 @@ a.col-press {
       left: 50%;
       .translateX(-50%);
       background-color: black;
-      height: calc(50% - 10px);
       width: 1px;
     }
   }
@@ -3408,7 +3407,6 @@ a.col-press {
       .translateY(-50%);
       height: 1px;
       background-color: black;
-      width: 43.5%;
     }
   }
 }
@@ -3468,12 +3466,12 @@ a.col-press {
   height: 100%;
 }
 .tr-fit {
-    background-color: @color2;
-    padding: 10px 0;
-    color: white;
-    bottom: 20px;
-    text-align: center;
-    font-size: 13px;
+  background-color: @color2;
+  padding: 10px 0;
+  color: white;
+  bottom: 20px;
+  text-align: center;
+  font-size: 13px;
 }
 .inner-shadow {
   position: absolute;
@@ -3486,3 +3484,4 @@ a.col-press {
 /* Mobile Less */
 @import "../less/fancybox-override.less";
 @import "../less/mobile.less";
+@import (inline) "dim.css";
