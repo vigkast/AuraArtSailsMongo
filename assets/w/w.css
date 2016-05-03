@@ -4865,7 +4865,7 @@ a.col-press {
   -o-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
-  background-color: black;
+  background-color: #555;
   width: 1px;
 }
 .dim.dim-w {
@@ -4895,7 +4895,7 @@ a.col-press {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   height: 1px;
-  background-color: black;
+  background-color: #555;
 }
 .abs {
   color: #ddd;
@@ -4903,7 +4903,7 @@ a.col-press {
   font-size: 20px;
 }
 .abs.blacke {
-  color: black;
+  color: #555;
 }
 .abs.t-rl {
   top: 50%;
