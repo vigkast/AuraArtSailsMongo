@@ -24809,8 +24809,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else {
             $scope.uploadwall.scalePainting = (400 * (4 / 3)) / $scope.uploadwall.paintingWidth;
         }
-        if (document.getElementById("paintingImg"))
-            document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+        if (document.getElementById("draggable-element"))
+            document.getElementById("draggable-element").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
     }
 
     $scope.rescalePainting = function() {
@@ -24823,8 +24823,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
         document.getElementById("draggable-element").style.left = $scope.uploadwall.paintingLeft + "px";
         document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop) + "px";
-        if (document.getElementById("paintingImg"))
-            document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+        if (document.getElementById("draggable-element"))
+            document.getElementById("draggable-element").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
     }
 
     var zoomInterval = '';
@@ -24982,8 +24982,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             } else {
                 $scope.reset();
             }
-            if (document.getElementById("paintingImg"))
-                document.getElementById("paintingImg").style.transform = "scale(1)";
+            if (document.getElementById("draggable-element"))
+                document.getElementById("draggable-element").style.transform = "scale(1)";
             $scope.uploadwall.mountWidth = 0;
             $scope.changeMountWidth();
             $scope.uploadwall.gridstatus = false;
@@ -25000,8 +25000,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             } else {
                 $scope.reset();
             }
-            if (document.getElementById("paintingImg"))
-                document.getElementById("paintingImg").style.transform = "scale(1)";
+            if (document.getElementById("draggable-element"))
+                document.getElementById("draggable-element").style.transform = "scale(1)";
             $scope.uploadwall.mountWidth = 0;
             $scope.changeMountWidth();
         } else if (activeAccordian == 4 && val == 3) {
@@ -25017,8 +25017,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             } else {
                 $scope.reset();
             }
-            if (document.getElementById("paintingImg"))
-                document.getElementById("paintingImg").style.transform = "scale(1)";
+            if (document.getElementById("draggable-element"))
+                document.getElementById("draggable-element").style.transform = "scale(1)";
             $scope.uploadwall.mountWidth = 0;
             $scope.changeMountWidth();
         }
@@ -25043,6 +25043,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }
 
     //imageupload
+    $scope.uploading = false;
     var imagejstupld = "";
     $scope.usingFlash = FileAPI && FileAPI.upload != null;
     $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
@@ -25061,6 +25062,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
         window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
     $scope.onFileSelect = function($files, whichone) {
+        $scope.uploading = true;
         $scope.uploadwall.wallImage = '';
         $scope.selectedFiles = [];
         $scope.progress = [];
@@ -25123,6 +25125,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                             imagejstupld = "";
                             $timeout(function() {
                                 document.getElementById('wall').style.backgroundImage = "url('" + $filter('wallpath')($scope.uploadwall.wallImage) + "')";
+                                $scope.uploading = false;
                             }, 1000);
                             $timeout(function() {
                                 var background = document.getElementById('wall');
