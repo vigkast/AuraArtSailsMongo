@@ -24289,23 +24289,25 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     };
 
     $scope.changeMountWidth = function() {
-        $scope.uploadwall.mountWidthPixel = ($scope.uploadwall.mountWidth / 12) * $scope.uploadwall.pixelCount;
-        if (document.getElementById("paintingImg")) {
-            if ($scope.uploadwall.mountWidthPixel != 0) {
-                document.getElementById("paintingImg").style.border = $scope.uploadwall.mountWidthPixel + "px solid " + $scope.uploadwall.mountColor;
-            } else {
-                document.getElementById("paintingImg").style.border = "none";
+        $timeout(function() {
+            $scope.uploadwall.mountWidthPixel = ($scope.uploadwall.mountWidth / 12) * $scope.uploadwall.pixelCount;
+            if (document.getElementById("paintingImg")) {
+                if ($scope.uploadwall.mountWidthPixel != 0) {
+                    document.getElementById("paintingImg").style.border = $scope.uploadwall.mountWidthPixel + "px solid " + $scope.uploadwall.mountColor;
+                } else {
+                    document.getElementById("paintingImg").style.border = "none";
+                }
             }
-        }
 
-        $scope.uploadwall.frameWidthPixel = ($scope.uploadwall.frameWidth / 12) * $scope.uploadwall.pixelCount;
-        if (document.getElementById("draggable-element")) {
-            if ($scope.uploadwall.frameWidthPixel != 0) {
-                document.getElementById("draggable-element").style.border = $scope.uploadwall.frameWidthPixel + "px solid " + $scope.uploadwall.frameColor;
-            } else {
-                document.getElementById("draggable-element").style.border = "none";
+            $scope.uploadwall.frameWidthPixel = ($scope.uploadwall.frameWidth / 12) * $scope.uploadwall.pixelCount;
+            if (document.getElementById("draggable-element")) {
+                if ($scope.uploadwall.frameWidthPixel != 0) {
+                    document.getElementById("draggable-element").style.border = $scope.uploadwall.frameWidthPixel + "px solid " + $scope.uploadwall.frameColor;
+                } else {
+                    document.getElementById("draggable-element").style.border = "none";
+                }
             }
-        }
+        }, 3000);
     }
 
     $scope.onOrOffMount = function() {
@@ -25266,7 +25268,7 @@ templateservicemod.controller('cartdropctrl', ['$scope', 'TemplateService',
 ]);
 ;
 var adminurl = "http://www.auraart.in/";
-var adminurl = "http://192.168.1.131:82/";
+// var adminurl = "http://192.168.1.131:82/";
 var imgUploadUrl = adminurl + "user/uploadfile";
 var wallUploadUrl = adminurl + "user/wallUpload";
 
