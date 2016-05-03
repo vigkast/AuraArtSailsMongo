@@ -1281,7 +1281,7 @@ body.ngrs-touching {
   filter: alpha(opacity=100);
   opacity: 1;
 }
-/*Author Wohlig Technology*/
+/* Author Wohlig Technology */
 body {
   font-family: 'Open Sans';
   font-size: 13px;
@@ -4677,6 +4677,7 @@ img.fancybox-image {
 }
 .part-row {
   line-height: 26px;
+  font-size: 12px;
 }
 .part-row h3 {
   text-transform: uppercase;
@@ -4889,7 +4890,7 @@ a.col-press {
   transform: translateY(-50%);
   height: 1px;
   background-color: black;
-  width: 44%;
+  width: 43.5%;
 }
 .abs {
   color: #ddd;
