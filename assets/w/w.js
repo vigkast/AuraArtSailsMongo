@@ -24628,20 +24628,20 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         "image": "img/room-view/cabinet.png",
         "thumbnail": "img/room-view/thumb-cabinet.png",
         "name": "Cabinet",
-        "height": 3.5,
-        "width": 10
+        "height": 3.50,
+        "width": 10.00
     }, {
         "image": "img/room-view/sofa.png",
         "thumbnail": "img/room-view/thumb-sofa.png",
         "name": "Sofa ",
-        "height": 3,
-        "width": 7
+        "height": 3.00,
+        "width": 7.00
     }, {
         "image": "img/room-view/dining-table.png",
         "thumbnail": "img/room-view/thumb-dining-table.png",
         "name": "Dining Table",
-        "height": 3,
-        "width": 6
+        "height": 3.00,
+        "width": 6.00
     }]
 
     $scope.changeWallTemplate = function(wall) {
