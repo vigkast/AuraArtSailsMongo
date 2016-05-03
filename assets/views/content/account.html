@@ -1,449 +1,452 @@
 <div class="border-top"></div>
 <div class="info min-cont">
-   <div class="container">
-      <div class="row">
-         <div class="myaccnthead col-md-12">
-            <div class="alert alert-success" ng-show="showSuccess">
-               <strong>Success!</strong> User updated successfully.
-            </div>
-            <div class="alert alert-danger" ng-show="showFail">
-               <strong>Failed!</strong> Failed to update user info.
-            </div>
-            <div class="alert alert-warning" ng-show="showPass">
-               <strong>Warning!</strong> Don't use same password. Please use different password.
-            </div>
-            <h4>My Account
+    <div class="container">
+        <div class="row">
+            <div class="myaccnthead col-md-12">
+                <div class="alert alert-success" ng-show="showSuccess">
+                    <strong>Success!</strong> User updated successfully.
+                </div>
+                <div class="alert alert-danger" ng-show="showFail">
+                    <strong>Failed!</strong> Failed to update user info.
+                </div>
+                <div class="alert alert-warning" ng-show="showPass">
+                    <strong>Warning!</strong> Don't use same password. Please use different password.
+                </div>
+                <h4>My Account
           <span class="pull-right regular-link" ng-if="user.accesslevel!='reseller'" ng-click="becomeSeller()">
             <i class="fa fa-upload"></i> Upload Artwork for sale
           </span>
         </h4>
-         </div>
-
-         <div class="col-md-2">
-            <div class="info-cont">
-               <ul class="info-li">
-                  <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'info'}" ng-click="changeTab('info');">Personal Info</li>
-                  <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'cpassword'}" ng-click="changeTab('cpassword');" ng-if="!user.provider">Change password</li>
-                  <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'address'}" ng-click="changeTab('address');">My Address Book</li>
-                  <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'orders'}" ng-click="changeTab('orders');">My Orders</li>
-                  <!-- <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'trace'}" ng-click="changeTab('trace');">Track Your Order</li> -->
-                  <li class="cat-list cpointer" ><a href="#/favorite">My Favourites</a></li>
-                  <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'views'}" ng-click="changeTab('views');">My Saved Views</li>
-                  <hr class="line" ng-if="user.accesslevel=='reseller'">
-                  <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'banking'}" ng-click="changeTab('banking');" ng-if="user.accesslevel=='reseller'">Banking Details</li>
-                  <li class="cat-list cpointer" ng-if="user.accesslevel=='reseller'"> <a href="#/create-artwork">Upload Artwork</a></li>
-                  <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'myartworks'}" ng-click="changeTab('myartworks');" ng-if="user.accesslevel=='reseller'">My Artworks</li>
-               </ul>
             </div>
-         </div>
-         <div class="col-md-5" ng-if="activeTab == 'info'">
-            <div class="chngpswd-cont">
-               <div class="form-group">
-                  <div class="input-id">
-                     <input class="form-control" ng-model="user.name" placeholder="Name" required type="text">
-                  </div>
-                  <div class="input-id">
-                     <input class="form-control" ng-model="user.email" placeholder="Email ID" required type="email">
-                  </div>
-                  <div class="input-id">
-                     <input class="form-control" ng-model="user.secemail" placeholder="Secondary Email ID" type="email">
-                  </div>
-                  <!-- <div class="input-id">
+
+            <div class="col-md-2">
+                <div class="info-cont">
+                    <ul class="info-li">
+                        <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'info'}" ng-click="changeTab('info');">Personal Info</li>
+                        <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'cpassword'}" ng-click="changeTab('cpassword');" ng-if="!user.provider">Change password</li>
+                        <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'address'}" ng-click="changeTab('address');">My Address Book</li>
+                        <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'orders'}" ng-click="changeTab('orders');">My Orders</li>
+                        <!-- <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'trace'}" ng-click="changeTab('trace');">Track Your Order</li> -->
+                        <li class="cat-list cpointer"><a href="#/favorite">My Favourites</a></li>
+                        <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'views'}" ng-click="changeTab('views');">My Saved Views</li>
+                        <hr class="line" ng-if="user.accesslevel=='reseller'">
+                        <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'banking'}" ng-click="changeTab('banking');" ng-if="user.accesslevel=='reseller'">Banking Details</li>
+                        <li class="cat-list cpointer" ng-if="user.accesslevel=='reseller'"> <a href="#/create-artwork">Upload Artwork</a></li>
+                        <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'myartworks'}" ng-click="changeTab('myartworks');" ng-if="user.accesslevel=='reseller'">My Artworks</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-5" ng-if="activeTab == 'info'">
+                <div class="chngpswd-cont">
+                    <div class="form-group">
+                        <div class="input-id">
+                            <input class="form-control" ng-model="user.name" placeholder="Name" required type="text">
+                        </div>
+                        <div class="input-id">
+                            <input class="form-control" ng-model="user.email" placeholder="Email ID" required type="email">
+                        </div>
+                        <div class="input-id">
+                            <input class="form-control" ng-model="user.secemail" placeholder="Secondary Email ID" type="email">
+                        </div>
+                        <!-- <div class="input-id">
                             <input class="form-control" maxlength="10" ng-model="user.mob" only-digits placeholder="Phone No" type="text">
                         </div> -->
-                  <div class="tel-box">
-                     <input type="text" class="form-control tel-country" ng-model="user.cc" placeholder="eg. +91" required>
-                     <input type="text" class="form-control tel-number" ng-model="user.mob" placeholder="Phone No" required>
-                  </div>
-                  <div class="input-id">
-                     <label class="radio-inline">
-                        <input name="optradio" ng-model="user.gender" type="radio" value="male">Male
-                     </label>
-                     <label class="radio-inline">
-                        <input name="optradio" ng-model="user.gender" type="radio" value="female">Female
-                     </label>
-                  </div>
-                  <a class="btn btn-sucesses" ng-click="edituser()">Save</a>
-               </div>
-            </div>
-         </div>
-         <div class="col-md-4" ng-if="activeTab == 'cpassword'">
-            <form ng-submit="changepassword()">
-               <div class="chngpswd-cont">
-                  <div class="form-group">
-                     <div class="input-id">
-                        <input class="form-control" ng-model="user.password" placeholder="Old Password" required type="password">
-                     </div>
-                     <div class="input-id">
-                        <input class="form-control" ng-model="user.editpassword" placeholder="New Password" required type="password">
-                     </div>
-                     <div class="input-id">
-                        <input class="form-control" ng-model="user.cnfrmpassword" placeholder="Confirm Password" required type="password">
-                        <span ng-show="ismatch" style="color:red;">Password did not match!!</span>
-                     </div>
-                     <button class="btn btn-sucesses" type="submit">Save</button>
-                  </div>
-               </div>
-            </form>
-         </div>
-
-         <div class="col-md-10" ng-if="activeTab == 'address'">
-            <div class="address-book compact-form">
-               <div class="row">
-                  <div class="col-md-6">
-                     <form ng-submit="saveAddress();">
-                        <div class="chngpswd-cont">
-                           <div class="addcat">
-                              <h5 class="displ">Default Billing Address</h5>
-                           </div>
-                           <div class="form-group">
-                              <div class="tel-box">
-                                 <input type="text" class="form-control tel-country" ng-model="user.billing.flatno" placeholder="House No" required>
-                                 <input type="text" class="form-control tel-number" ng-model="user.billing.bldgname" placeholder="Name Of Buliding" required>
-                              </div>
-                           </div>
-                           <div class="form-group">
-                              <input type="text" class="form-control" ng-model="user.billing.landmark" placeholder="Landmark" required>
-                           </div>
-                           <div class="form-group">
-                              <input type="text" class="form-control" ng-model="user.billing.street" placeholder="Street" required>
-                           </div>
-                           <div class="form-group">
-                              <input type="text" class="form-control" ng-model="user.billing.locality" placeholder="Locality" required>
-                           </div>
-                           <div class="form-group">
-                              <input type="text" class="form-control" ng-model="user.billing.city" placeholder="City" required>
-                           </div>
-                           <div class="form-group">
-                              <input type="text" class="form-control" ng-model="user.billing.pincode" placeholder="Pincode" ng-trim="false" only-digits maxlength="6" required>
-                           </div>
-                           <div class="form-group">
-                              <input type="text" class="form-control" ng-model="user.billing.state" placeholder="State" required>
-                           </div>
-                           <div class="input-id">
-                              <select class="form-control" ng-options="country.code as country.name for country in allcountries" ng-change="onFieldChange(checked)" ng-model="user.billing.country" placeholder="Select Country"></select>
-                           </div>
-                           <button class="btn btn-sucesses" type="submit">Save</button>
-                           <a class="btn btn-sucesses" ng-click="closeTab(2)">Cancel</a>
+                        <div class="tel-box">
+                            <input type="text" class="form-control tel-country" ng-model="user.cc" placeholder="eg. +91" required>
+                            <input type="text" class="form-control tel-number" ng-model="user.mob" placeholder="Phone No" required>
                         </div>
-                     </form>
-                  </div>
-                  <div class="col-md-6">
-                     <form ng-submit="saveAddress();">
-                        <div class="chngpswd-cont">
-                           <div class="addcat">
-                              <h5 class="displ">Default Shipping Address</h5>
-                              <div class="form-group">
-                                 <div class="tel-box">
-                                    <input type="text" class="form-control tel-country" ng-model="user.shipping.flatno" placeholder="House No" required>
-                                    <input type="text" class="form-control tel-number" ng-model="user.shipping.bldgname" placeholder="Name Of Buliding" required>
-                                 </div>
-                              </div>
-                              <div class="form-group">
-                                 <input type="text" class="form-control" ng-model="user.shipping.landmark" placeholder="Landmark" required>
-                              </div>
-                              <div class="form-group">
-                                 <input type="text" class="form-control" ng-model="user.shipping.street" placeholder="Street" required>
-                              </div>
-                              <div class="form-group">
-                                 <input type="text" class="form-control" ng-model="user.shipping.locality" placeholder="Locality" required>
-                              </div>
-                              <div class="form-group">
-                                 <input type="text" class="form-control" ng-model="user.shipping.city" placeholder="City" required>
-                              </div>
-                              <div class="form-group">
-                                 <input type="text" class="form-control" ng-model="user.shipping.pincode" placeholder="Pincode" ng-trim="false" only-digits maxlength="6" required>
-                              </div>
-                              <div class="form-group">
-                                 <input type="text" class="form-control" ng-model="user.shipping.state" placeholder="State" required>
-                              </div>
-                              <div class="input-id">
-                                 <select class="form-control" ng-options="country.code as country.name for country in allcountries" ng-change="onFieldChange(checked)" ng-model="user.shipping.country" placeholder="Select county"></select>
-                              </div>
-                              <button class="btn btn-sucesses" type="submit">Save</button>
-                              <a class="btn btn-sucesses" ng-click="closeTab(2)">Cancel</a>
-                           </div>
+                        <div class="input-id">
+                            <label class="radio-inline">
+                                <input name="optradio" ng-model="user.gender" type="radio" value="male">Male
+                            </label>
+                            <label class="radio-inline">
+                                <input name="optradio" ng-model="user.gender" type="radio" value="female">Female
+                            </label>
                         </div>
-                     </form>
-                  </div>
-                  <div class="col-md-6" ng-if="user.accesslevel!='customer'">
-                     <form ng-submit="saveAddress();">
-                        <div class="chngpswd-cont">
-                           <div class="addcat">
-                              <h5 class="displ">Studio Address</h5>
-                           </div>
-                           <div class="form-group">
-                              <div class="tel-box">
-                                 <input type="text" class="form-control tel-country" ng-model="user.work.flatno" placeholder="House No" required>
-                                 <input type="text" class="form-control tel-number" ng-model="user.work.bldgname" placeholder="Name Of Buliding" required>
-                              </div>
-                           </div>
-                           <div class="form-group">
-                              <input type="text" class="form-control" ng-model="user.work.landmark" placeholder="Landmark" required>
-                           </div>
-                           <div class="form-group">
-                              <input type="text" class="form-control" ng-model="user.work.street" placeholder="Street" required>
-                           </div>
-                           <div class="form-group">
-                              <input type="text" class="form-control" ng-model="user.work.locality" placeholder="Locality" required>
-                           </div>
-                           <div class="form-group">
-                              <input type="text" class="form-control" ng-model="user.work.city" placeholder="City" required>
-                           </div>
-                           <div class="form-group">
-                              <input type="text" class="form-control" ng-model="user.work.pincode" placeholder="Pincode" ng-trim="false" only-digits maxlength="6" required>
-                           </div>
-                           <div class="form-group">
-                              <input type="text" class="form-control" ng-model="user.work.state" placeholder="State" required>
-                           </div>
-                           <div class="input-id">
-                              <select class="form-control" ng-model="user.work.country" placeholder="Country" required>
-                                 <option value="">Select Country</option>
-                                 <option value="{{country.code}}" ng-repeat="country in allcountries">{{country.name}}</option>
-                              </select>
-                           </div>
-                           <button class="btn btn-sucesses" type="submit">Save</button>
-                           <a class="btn btn-sucesses" ng-click="closeTab(2)">Cancel</a>
+                        <a class="btn btn-sucesses" ng-click="edituser()">Save</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" ng-if="activeTab == 'cpassword'">
+                <form ng-submit="changepassword()">
+                    <div class="chngpswd-cont">
+                        <div class="form-group">
+                            <div class="input-id">
+                                <input class="form-control" ng-model="user.password" placeholder="Old Password" required type="password">
+                            </div>
+                            <div class="input-id">
+                                <input class="form-control" ng-model="user.editpassword" placeholder="New Password" required type="password">
+                            </div>
+                            <div class="input-id">
+                                <input class="form-control" ng-model="user.cnfrmpassword" placeholder="Confirm Password" required type="password">
+                                <span ng-show="ismatch" style="color:red;">Password did not match!!</span>
+                            </div>
+                            <button class="btn btn-sucesses" type="submit">Save</button>
                         </div>
-                     </form>
-                  </div>
-               </div>
+                    </div>
+                </form>
             </div>
-         </div>
 
-         <div class="col-md-10" ng-if="activeTab == 'views'">
-          <div class="artist">
-             <div class="row">
-              <div class="col-md-4">
-               <div class="aristimg-grp1">
-                    <div class="hover-look tr-fit pointer">
-                   <i class="fa fa-download"></i> Download View
-                 </div>
-                 <img src="http://www.auraart.in/user/resize?width=1200&file=bdd72f50-f417-4693-878c-238222bb8ea5.jpg" class="full-image"/>
-               </div>
-               </div>
+            <div class="col-md-10" ng-if="activeTab == 'address'">
+                <div class="address-book compact-form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form ng-submit="saveAddress();">
+                                <div class="chngpswd-cont">
+                                    <div class="addcat">
+                                        <h5 class="displ">Default Billing Address</h5>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="tel-box">
+                                            <input type="text" class="form-control tel-country" ng-model="user.billing.flatno" placeholder="House No" required>
+                                            <input type="text" class="form-control tel-number" ng-model="user.billing.bldgname" placeholder="Name Of Buliding" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="user.billing.landmark" placeholder="Landmark" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="user.billing.street" placeholder="Street" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="user.billing.locality" placeholder="Locality" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="user.billing.city" placeholder="City" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="user.billing.pincode" placeholder="Pincode" ng-trim="false" only-digits maxlength="6" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="user.billing.state" placeholder="State" required>
+                                    </div>
+                                    <div class="input-id">
+                                        <select class="form-control" ng-options="country.code as country.name for country in allcountries" ng-change="onFieldChange(checked)" ng-model="user.billing.country" placeholder="Select Country"></select>
+                                    </div>
+                                    <button class="btn btn-sucesses" type="submit">Save</button>
+                                    <a class="btn btn-sucesses" ng-click="closeTab(2)">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <form ng-submit="saveAddress();">
+                                <div class="chngpswd-cont">
+                                    <div class="addcat">
+                                        <h5 class="displ">Default Shipping Address</h5>
+                                        <div class="form-group">
+                                            <div class="tel-box">
+                                                <input type="text" class="form-control tel-country" ng-model="user.shipping.flatno" placeholder="House No" required>
+                                                <input type="text" class="form-control tel-number" ng-model="user.shipping.bldgname" placeholder="Name Of Buliding" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.shipping.landmark" placeholder="Landmark" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.shipping.street" placeholder="Street" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.shipping.locality" placeholder="Locality" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.shipping.city" placeholder="City" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.shipping.pincode" placeholder="Pincode" ng-trim="false" only-digits maxlength="6" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="user.shipping.state" placeholder="State" required>
+                                        </div>
+                                        <div class="input-id">
+                                            <select class="form-control" ng-options="country.code as country.name for country in allcountries" ng-change="onFieldChange(checked)" ng-model="user.shipping.country" placeholder="Select county"></select>
+                                        </div>
+                                        <button class="btn btn-sucesses" type="submit">Save</button>
+                                        <a class="btn btn-sucesses" ng-click="closeTab(2)">Cancel</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6" ng-if="user.accesslevel!='customer'">
+                            <form ng-submit="saveAddress();">
+                                <div class="chngpswd-cont">
+                                    <div class="addcat">
+                                        <h5 class="displ">Studio Address</h5>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="tel-box">
+                                            <input type="text" class="form-control tel-country" ng-model="user.work.flatno" placeholder="House No" required>
+                                            <input type="text" class="form-control tel-number" ng-model="user.work.bldgname" placeholder="Name Of Buliding" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="user.work.landmark" placeholder="Landmark" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="user.work.street" placeholder="Street" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="user.work.locality" placeholder="Locality" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="user.work.city" placeholder="City" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="user.work.pincode" placeholder="Pincode" ng-trim="false" only-digits maxlength="6" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="user.work.state" placeholder="State" required>
+                                    </div>
+                                    <div class="input-id">
+                                        <select class="form-control" ng-model="user.work.country" placeholder="Country" required>
+                                            <option value="">Select Country</option>
+                                            <option value="{{country.code}}" ng-repeat="country in allcountries">{{country.name}}</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-sucesses" type="submit">Save</button>
+                                    <a class="btn btn-sucesses" ng-click="closeTab(2)">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-         </div>
+
+            <div class="col-md-10" ng-if="activeTab == 'views'">
+                <div class="artist">
+                    <div class="row" ng-repeat="views in mySavedViews" ng-hide="showNoRooms">
+                        <div class="col-md-4" ng-repeat="view in views">
+                            <div class="aristimg-grp1">
+                                <div class="hover-look tr-fit pointer" ng-click="downloadView(view)">
+                                    <i class="fa fa-download"></i> Download View
+                                </div>
+                                <img ng-src="{{view | roompath}}" class="full-image" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center" ng-show="showNoRooms">
+                        <p class="">No saved views</p>
+                    </div>
+                </div>
+            </div>
 
 
-         <div class="col-md-10" ng-if="activeTab == 'orders'">
-            <div class="cart orders" ng-repeat="orders in myorderedproducts" ng-if="myorderedproducts.length>0">
-               <h5>
+            <div class="col-md-10" ng-if="activeTab == 'orders'">
+                <div class="cart orders" ng-repeat="orders in myorderedproducts" ng-if="myorderedproducts.length>0">
+                    <h5>
                         <div class="row">
                             <div class="col-md-4 pull-left"><span class="bold">Order Id : {{orders.orderid}}</span></div>
                             <div class="col-md-4 text-center"><span class="bold">Status : {{orders.status | touppercase}}</span></div>
                             <div class="col-md-4"><span class="pull-right bold">Date : {{orders.timestamp | date:'MMMM dd, yyyy'}}</span></div>
                         </div>
                   </h5>
-               <table class="table table-hover content-static">
-                  <thead>
-                     <tr>
-                        <th>Image</th>
-                        <th>Title</th>
-                        <th>Artist Name</th>
-                        <th>Seller</th>
-                        <!--                                <th>Status</th>-->
-                        <th>Price</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <tr ng-repeat="artwork in orders.cart track by $index">
-                        <td fancybox-box href="{{artwork.artwork.image[0] | uploadthumbnail}}">
-                           <img ng-src="{{artwork.artwork.image[0] | uploadsmallimage}}" height="30" />
-                        </td>
-                        <td>{{artwork.artwork.name}}</td>
-                        <td>{{artwork.name}}</td>
-                        <td>{{artwork.artwork.reseller[0].name}}</td>
-                        <!--                                <td>{{orders.status}}</td>-->
-                        <td>Rs {{artwork.artwork.gprice | number:0}} / ${{artwork.artwork.gprice|indollars}}</td>
-                     </tr>
-                  </tbody>
-               </table>
+                    <table class="table table-hover content-static">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Title</th>
+                                <th>Artist Name</th>
+                                <th>Seller</th>
+                                <!--                                <th>Status</th>-->
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="artwork in orders.cart track by $index">
+                                <td fancybox-box href="{{artwork.artwork.image[0] | uploadthumbnail}}">
+                                    <img ng-src="{{artwork.artwork.image[0] | uploadsmallimage}}" height="30" />
+                                </td>
+                                <td>{{artwork.artwork.name}}</td>
+                                <td>{{artwork.name}}</td>
+                                <td>{{artwork.artwork.reseller[0].name}}</td>
+                                <!--                                <td>{{orders.status}}</td>-->
+                                <td>Rs {{artwork.artwork.gprice | number:0}} / ${{artwork.artwork.gprice|indollars}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-               <div class="row">
-                  <div class="col-md-offset-8 col-md-4">
+                    <div class="row">
+                        <div class="col-md-offset-8 col-md-4">
 
-                     <div class="padding-bottom">
-                        <div class="row">
-                           <div class="col-xs-6 font-color2 text-right bold">
-                              <p>Grand Total:</p>
-                           </div>
-                           <div class="col-xs-6">
-                              <p>Rs {{orders.grantTotal | number:0}} / ${{orders.grantTotal |indollars}}</p>
-                              <button class="btn btn-sucesses" ng-if="orders.status == 'pending'" ng-click="callPay(orders);">Pay Now</button>
-                           </div>
+                            <div class="padding-bottom">
+                                <div class="row">
+                                    <div class="col-xs-6 font-color2 text-right bold">
+                                        <p>Grand Total:</p>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <p>Rs {{orders.grantTotal | number:0}} / ${{orders.grantTotal |indollars}}</p>
+                                        <button class="btn btn-sucesses" ng-if="orders.status == 'pending'" ng-click="callPay(orders);">Pay Now</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                  </div>
-               </div>
+                    </div>
+                </div>
+                <div class="text-center" ng-if="myorderedproducts.length==0">
+                    <p class="text-center font-special">You haven't placed any orders yet.
+                        <br><a href="#/artwork/All" class="btn btn-sucesses">Shop Now</a></p>
+                </div>
+                <div style="display:none;">
+                    <form action="http://aura--art.appspot.com/payment.php" method="post" name="payuForm">
+                        <input type="hidden" name="key" value="3gqoHz" />
+                        <input type="text" name="txnid" value="" ng-model="getOrder._id" />
+                        <table>
+                            <tr>
+                                <td><b>Mandatory Parameters</b></td>
+                            </tr>
+                            <tr>
+                                <td>Amount: </td>
+                                <td>
+                                    <input name="amount" value="" ng-model="getOrder.grantTotal" />
+                                </td>
+                                <td>First Name: </td>
+                                <td>
+                                    <input name="firstname" id="firstname" value="" ng-model="getOrder.billing.name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Email: </td>
+                                <td>
+                                    <input name="email" id="email" value="" ng-model="getOrder.billing.email" />
+                                </td>
+                                <td>Phone: </td>
+                                <td>
+                                    <input name="phone" value="" ng-model="getOrder.billing.mobileno" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Product Info: </td>
+                                <td colspan="3">
+                                    <textarea name="productinfo" value="Purchase of artwork" ng-model="getOrder.pinfo"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Success URI: </td>
+                                <td colspan="3">
+                                    <!--                                    <input name="surl" value="http://192.168.0.109:81/order/payU" size="64" />-->
+                                    <input name="surl" value="http://www.auraart.in/order/payU" size="64" />
+                                    <!-- <input name="surl" value="http://www.auraart.in/manjhi/payumoney/success.php" size="64" /> -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Failure URI: </td>
+                                <td colspan="3">
+                                    <!--                                    <input name="furl" value="http://192.168.0.109:81/order/payU" size="64" />-->
+                                    <input name="furl" value="http://www.auraart.in/order/payU" size="64" />
+                                    <!-- <input name="furl" value="http://www.auraart.in/manjhi/payumoney/failure.php" size="64" /> -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>UDF1: </td>
+                                <td>
+                                    <input name="udf1" value="" ng-model="getOrder.orderid" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <input type="hidden" name="service_provider" value="" size="64" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <input type="submit" value="Submit" />
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
             </div>
-            <div class="text-center" ng-if="myorderedproducts.length==0">
-               <p class="text-center font-special">You haven't placed any orders yet.
-                  <br><a href="#/artwork/All" class="btn btn-sucesses">Shop Now</a></p>
-            </div>
-            <div style="display:none;">
-               <form action="http://aura--art.appspot.com/payment.php" method="post" name="payuForm">
-                  <input type="hidden" name="key" value="3gqoHz" />
-                  <input type="text" name="txnid" value="" ng-model="getOrder._id" />
-                  <table>
-                     <tr>
-                        <td><b>Mandatory Parameters</b></td>
-                     </tr>
-                     <tr>
-                        <td>Amount: </td>
-                        <td>
-                           <input name="amount" value="" ng-model="getOrder.grantTotal" />
-                        </td>
-                        <td>First Name: </td>
-                        <td>
-                           <input name="firstname" id="firstname" value="" ng-model="getOrder.billing.name" />
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>Email: </td>
-                        <td>
-                           <input name="email" id="email" value="" ng-model="getOrder.billing.email" />
-                        </td>
-                        <td>Phone: </td>
-                        <td>
-                           <input name="phone" value="" ng-model="getOrder.billing.mobileno" />
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>Product Info: </td>
-                        <td colspan="3">
-                           <textarea name="productinfo" value="Purchase of artwork" ng-model="getOrder.pinfo"></textarea>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>Success URI: </td>
-                        <td colspan="3">
-                           <!--                                    <input name="surl" value="http://192.168.0.109:81/order/payU" size="64" />-->
-                           <input name="surl" value="http://www.auraart.in/order/payU" size="64" />
-                           <!-- <input name="surl" value="http://www.auraart.in/manjhi/payumoney/success.php" size="64" /> -->
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>Failure URI: </td>
-                        <td colspan="3">
-                           <!--                                    <input name="furl" value="http://192.168.0.109:81/order/payU" size="64" />-->
-                           <input name="furl" value="http://www.auraart.in/order/payU" size="64" />
-                           <!-- <input name="furl" value="http://www.auraart.in/manjhi/payumoney/failure.php" size="64" /> -->
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>UDF1: </td>
-                        <td>
-                           <input name="udf1" value="" ng-model="getOrder.orderid" />
-                        </td>
-                     </tr>
-                     <tr>
-                        <td colspan="3">
-                           <input type="hidden" name="service_provider" value="" size="64" />
-                        </td>
-                     </tr>
-                     <tr>
-                        <td colspan="4">
-                           <input type="submit" value="Submit" />
-                        </td>
-                     </tr>
-                  </table>
-               </form>
-            </div>
-         </div>
-         <div class="col-md-4" ng-if="activeTab == 'trace'">
-            <div class="trck-order">
-               <h5>Track Your Order:</h5>
-               <input class="form-control displ wseve paddbtm" placeholder="Enter Order Id" type="text">
-               <span>
+            <div class="col-md-4" ng-if="activeTab == 'trace'">
+                <div class="trck-order">
+                    <h5>Track Your Order:</h5>
+                    <input class="form-control displ wseve paddbtm" placeholder="Enter Order Id" type="text">
+                    <span>
             <a class="btn btn-sucesses displ" href="#">Track Now</a>
           </span>
+                </div>
+                <p class="pending bolds" ng-if="trace!=''">Your Order Status Is :
+                    <br>
+                    <span class="normal">The shipment was sent through: Ekart Logistics Shipment Tracking ID: WSRC4251982428</span>
+                </p>
             </div>
-            <p class="pending bolds" ng-if="trace!=''">Your Order Status Is :
-               <br>
-               <span class="normal">The shipment was sent through: Ekart Logistics Shipment Tracking ID: WSRC4251982428</span>
-            </p>
-         </div>
-         <div class="col-md-9" ng-if="activeTab == 'banking'">
-            <div class="trck-order">
-               <h5 class="title-color">Bank Details</h5>
-            </div>
-            <form ng-submit="edituser();">
-               <div class="row">
-                  <div class="col-md-6">
-                     <div class="form-group">
-                        <label>Name of Account Holder as it appears in the Account</label>
-                        <input type="text" class="form-control" ng-model="user.bank.holderName" placeholder="Name of Account Holder as it appears in the Account">
-                     </div>
-                     <div class="form-group">
-                        <label>Type of Account</label>
-                        <div>
-                           <select class="form-control" ng-model="user.bank.accountType">
-                              <option value="">Please Select</option>
-                              <option value="savings">Savings</option>
-                              <option value="current">Current</option>
-                           </select>
+            <div class="col-md-9" ng-if="activeTab == 'banking'">
+                <div class="trck-order">
+                    <h5 class="title-color">Bank Details</h5>
+                </div>
+                <form ng-submit="edituser();">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Name of Account Holder as it appears in the Account</label>
+                                <input type="text" class="form-control" ng-model="user.bank.holderName" placeholder="Name of Account Holder as it appears in the Account">
+                            </div>
+                            <div class="form-group">
+                                <label>Type of Account</label>
+                                <div>
+                                    <select class="form-control" ng-model="user.bank.accountType">
+                                        <option value="">Please Select</option>
+                                        <option value="savings">Savings</option>
+                                        <option value="current">Current</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Name of Bank</label>
+                                <input type="text" class="form-control" ng-model="user.bank.bankName" placeholder="Name of Bank">
+                            </div>
+                            <div class="form-group">
+                                <label>Bank Branch Address</label>
+                                <textarea class="form-control" ng-model="user.bank.branchAdd" placeholder="Bank Branch Address"></textarea>
+                            </div>
                         </div>
-                     </div>
-                     <div class="form-group">
-                        <label>Name of Bank</label>
-                        <input type="text" class="form-control" ng-model="user.bank.bankName" placeholder="Name of Bank">
-                     </div>
-                     <div class="form-group">
-                        <label>Bank Branch Address</label>
-                        <textarea class="form-control" ng-model="user.bank.branchAdd" placeholder="Bank Branch Address"></textarea>
-                     </div>
-                  </div>
-                  <div class="col-md-6">
-                     <div class="form-group">
-                        <label>Address of Account Holder (if different from stated above)</label>
-                        <textarea class="form-control" ng-model="user.bank.holderAdd" placeholder="Address of Account Holder (if different from stated above)"></textarea>
-                     </div>
-                     <div class="form-group">
-                        <label>Account Number</label>
-                        <input type="text" class="form-control" ng-model="user.bank.accountNumber" placeholder="Account Number">
-                     </div>
-                     <div class="form-group">
-                        <label>RTGS / NEFT IFSC Code</label>
-                        <input type="text" class="form-control" ng-model="user.bank.ifsc" placeholder="RTGS / NEFT IFS Code">
-                     </div>
-                     <div class="form-group">
-                        <label>Upload canceled cheque</label>
-                        <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
-                        <input multiple name="file" class="form-control" ng-file-select="onFileSelect($files,1)" onclick="this.value=null" type="file">
-                     </div>
-                  </div>
-                  <div class="row text-center">
-                     <button class="btn btn-sucesses" type="submit">Save</button>
-                  </div>
-               </div>
-            </form>
-         </div>
-         <div class="col-md-10" ng-if="activeTab == 'myartworks';">
-            <div class="artist">
-               <div class="">
-                  <div class="row" ng-repeat="artworks in myArtworks">
-                     <div class="col-xs-4" ng-repeat="artwork in artworks" ng-click="editArtwork(artwork.artwork.status,artwork.artwork._id);">
-                        <div class="aristimg-grp1">
-                           <div class="relative">
-                              <div class="image-holders">
-                                 <img ng-src="{{artwork.artwork.image[0]|uploadpath}}" alt="my-artwork" />
-                              </div>
-                           </div>
-                           <div class="artist-cont-detail">
-                              <p>{{artwork.artwork.imageno}} <i class="fa fa-pencil"></i></p>
-                              <p>{{artwork.name}}</p>
-                              <!-- <p>{{artwork.artwork.dim}}</p> -->
-                              <p>{{artwork.artwork|makesizestr}}</p>
-                              <p class="status-color">{{artwork.artwork.status}}</p>
-                           </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Address of Account Holder (if different from stated above)</label>
+                                <textarea class="form-control" ng-model="user.bank.holderAdd" placeholder="Address of Account Holder (if different from stated above)"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Account Number</label>
+                                <input type="text" class="form-control" ng-model="user.bank.accountNumber" placeholder="Account Number">
+                            </div>
+                            <div class="form-group">
+                                <label>RTGS / NEFT IFSC Code</label>
+                                <input type="text" class="form-control" ng-model="user.bank.ifsc" placeholder="RTGS / NEFT IFS Code">
+                            </div>
+                            <div class="form-group">
+                                <label>Upload canceled cheque</label>
+                                <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
+                                <input multiple name="file" class="form-control" ng-file-select="onFileSelect($files,1)" onclick="this.value=null" type="file">
+                            </div>
                         </div>
-                     </div>
-                  </div>
-               </div>
+                        <div class="row text-center">
+                            <button class="btn btn-sucesses" type="submit">Save</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-         </div>
-      </div>
-   </div>
+            <div class="col-md-10" ng-if="activeTab == 'myartworks';">
+                <div class="artist">
+                    <div class="">
+                        <div class="row" ng-repeat="artworks in myArtworks">
+                            <div class="col-xs-4" ng-repeat="artwork in artworks" ng-click="editArtwork(artwork.artwork.status,artwork.artwork._id);">
+                                <div class="aristimg-grp1">
+                                    <div class="relative">
+                                        <div class="image-holders">
+                                            <img ng-src="{{artwork.artwork.image[0]|uploadpath}}" alt="my-artwork" />
+                                        </div>
+                                    </div>
+                                    <div class="artist-cont-detail">
+                                        <p>{{artwork.artwork.imageno}} <i class="fa fa-pencil"></i></p>
+                                        <p>{{artwork.name}}</p>
+                                        <!-- <p>{{artwork.artwork.dim}}</p> -->
+                                        <p>{{artwork.artwork|makesizestr}}</p>
+                                        <p class="status-color">{{artwork.artwork.status}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

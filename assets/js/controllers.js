@@ -3608,6 +3608,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.isLoggedIn = false;
     cfpLoadingBar.start();
 
+    $scope.downloadView = function(image) {
+        window.open(adminurl + "slider/downloadImage?file=" + image);
+    }
 
     NavigationService.getuserprofile(function(data) {
         if (data.id) {
@@ -3616,6 +3619,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             cfpLoadingBar.complete();
             $scope.reload();
             $scope.isLoggedIn = true;
+            if (data.room && data.room.length > 0) {
+                $scope.showNoRooms = false;
+                $scope.mySavedViews = _.chunk(data.room, 3);
+            } else {
+                $scope.showNoRooms = true;
+            }
             NavigationService.getMyFavourites(data.id, function(favorite) {
                 if (favorite.value != false) {
                     $scope.noFavs = false;
@@ -3630,15 +3639,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     $scope.noFavs = true;
                 }
             });
+            getOthers();
+        } else {
+            $state.go('home');
+            window.location.reload();
         }
     });
 
-    NavigationService.findMyArtwork(function(data) {
-        console.log(data);
-        if (data.value != false) {
-            $scope.myArtworks = _.chunk(data, 3);
-        }
-    });
+    function getOthers() {
+        NavigationService.findMyArtwork(function(data) {
+            console.log(data);
+            if (data.value != false) {
+                $scope.myArtworks = _.chunk(data, 3);
+            }
+        });
+
+        NavigationService.getMyOrders(function(data) {
+            console.log(data);
+            $scope.myorderedproducts = data;
+        });
+    }
 
     function getFavorite(allfavourites) {
         NavigationService.getAllFavouritesData(allfavourites, function(datas, status) {
@@ -3650,11 +3670,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     NavigationService.getCountryJson(function(data) {
         $scope.allcountries = data;
-    });
-
-    NavigationService.getMyOrders(function(data) {
-        console.log(data);
-        $scope.myorderedproducts = data;
     });
 
     $scope.callPay = function(order) {
@@ -6215,19 +6230,28 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.uploadwall.furniturestatus = true;
                 $scope.uploadwall.mountEnabled = true;
             }
-            var roomViewObj = $.jStorage.get("roomView");
+            var newPaintingWidth = (parseFloat($scope.artworkDetail.artwork.width) / 12) * $scope.uploadwall.pixelCount;
+            var newPaintingHeight = (parseFloat($scope.artworkDetail.artwork.height) / 12) * $scope.uploadwall.pixelCount;
+            var roomViewObj = _.cloneDeep($.jStorage.get("roomView"));
             if (roomViewObj && roomViewObj.createWall) {
                 roomViewObj.createWall.paintingImage = $scope.artworkDetail.artwork.image[0];
             }
             if (roomViewObj && roomViewObj.uploadWall) {
                 roomViewObj.uploadWall.paintingImage = $scope.artworkDetail.artwork.image[0];
+                roomViewObj.uploadWall.paintingWidth = newPaintingWidth;
+                roomViewObj.uploadWall.paintingHeight = newPaintingHeight;
             }
             if (roomViewObj && roomViewObj.wallTemplate) {
                 roomViewObj.wallTemplate.paintingImage = $scope.artworkDetail.artwork.image[0];
+                roomViewObj.wallTemplate.paintingWidth = newPaintingWidth;
+                roomViewObj.wallTemplate.paintingHeight = newPaintingHeight;
             }
             if (roomViewObj && roomViewObj.customFraming) {
                 roomViewObj.customFraming.paintingImage = $scope.artworkDetail.artwork.image[0];
+                roomViewObj.customFraming.paintingWidth = newPaintingWidth;
+                roomViewObj.customFraming.paintingHeight = newPaintingHeight;
             }
+
             $.jStorage.set("roomView", roomViewObj);
             $scope.uploadwall.paintingImage = $scope.artworkDetail.artwork.image[0];
             $scope.calcCount();
@@ -6277,6 +6301,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         if (document.getElementById('wall')) {
             document.getElementById('wall').style.backgroundImage = "url('" + $filter('wallpath')($scope.uploadwall.wallImage) + "')";
             document.getElementById('wall').style.backgroundSize = $scope.uploadwall.backZoom + "% " + $scope.uploadwall.backZoom + "%";
+            AttachDragTo(document.getElementById('wall'));
             if (zoomInterval)
                 clearInterval(zoomInterval);
         }
@@ -6661,6 +6686,20 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
     }
 
+    $scope.rescalePainting = function() {
+        $scope.uploadwall.paintingLeft = (250 * (4 / 3)) - ($scope.uploadwall.paintingWidth / 2);
+        $scope.uploadwall.paintingTop = 250 - ($scope.uploadwall.paintingHeight / 2);
+        if ($scope.uploadwall.paintingHeight > $scope.uploadwall.paintingWidth) {
+            $scope.uploadwall.scalePainting = 400 / $scope.uploadwall.paintingHeight;
+        } else {
+            $scope.uploadwall.scalePainting = (400 * (4 / 3)) / $scope.uploadwall.paintingWidth;
+        }
+        document.getElementById("draggable-element").style.left = $scope.uploadwall.paintingLeft + "px";
+        document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop) + "px";
+        if (document.getElementById("paintingImg"))
+            document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+    }
+
     var zoomInterval = '';
     var makeActiveAccordian = 1;
     $scope.nowActive = 1;
@@ -6711,8 +6750,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $.jStorage.set("roomView", obj);
             if ($.jStorage.get("roomView") && $.jStorage.get("roomView").customFraming) {
                 $scope.uploadwall = $.jStorage.get("roomView").customFraming;
-                if (document.getElementById("paintingImg"))
-                    document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+                $scope.rescalePainting();
                 $scope.changeMountWidth();
             } else {
                 $scope.resetCustom();
@@ -6755,8 +6793,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $.jStorage.set("roomView", obj);
             if ($.jStorage.get("roomView") && $.jStorage.get("roomView").customFraming) {
                 $scope.uploadwall = $.jStorage.get("roomView").customFraming;
-                if (document.getElementById("paintingImg"))
-                    document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+                $scope.rescalePainting();
                 $scope.changeMountWidth();
             } else {
                 $scope.resetCustom();
@@ -6799,8 +6836,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $.jStorage.set("roomView", obj);
             if ($.jStorage.get("roomView") && $.jStorage.get("roomView").customFraming) {
                 $scope.uploadwall = $.jStorage.get("roomView").customFraming;
-                if (document.getElementById("paintingImg"))
-                    document.getElementById("paintingImg").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
+                $scope.rescalePainting();
                 $scope.changeMountWidth();
             } else {
                 $scope.resetCustom();
