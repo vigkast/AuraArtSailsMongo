@@ -1,0 +1,7 @@
+.dim.dim-w:before, .dim.dim-w:after {
+  width: calc(50% - 40px);
+}
+
+.dim.dim-h:before, .dim.dim-h:after {
+  height: calc(50% - 20px);
+}
