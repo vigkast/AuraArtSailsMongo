@@ -4677,6 +4677,7 @@ img.fancybox-image {
 }
 .part-row {
   line-height: 26px;
+  font-size: 12px;
 }
 .part-row h3 {
   text-transform: uppercase;
