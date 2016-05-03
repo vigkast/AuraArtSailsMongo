@@ -6,8 +6,8 @@
         <a class="readmore" ng-init="status.open = false;" ng-click="status.open = !status.open;">View Profile</a>
         <a class="readmore" ui-sref="editartist({id:artistid})" ng-show="status.open">Edit</a>
       </h4>
-         <accordion>
-            <accordion-group is-open="status.open">
+         <uib-accordion>
+            <uib-accordion-group is-open="status.open">
                <div class="row">
                   <div class="col-md-6">
                      <p>
@@ -82,8 +82,8 @@
                      </p>
                   </div>
                </div>
-            </accordion-group>
-         </accordion>
+            </uib-accordion-group>
+         </uib-accordion>
       </div>
       <div class="row">
          <div class="col-md-3 col-sm-6" ng-repeat="artistdetails in artistdetail.artwork">
