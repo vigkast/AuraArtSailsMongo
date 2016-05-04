@@ -2036,7 +2036,7 @@
               if (db) {
                   var selleremail = data.selleremail;
                   delete data.selleremail;
-                  if (!data.new && !data.old) {
+                  if (!data._id) {
                       data._id = sails.ObjectID();
                       data.status = "approve";
                       db.collection('user').insert(data, function(err, created) {
@@ -2102,7 +2102,7 @@
                           _id: user
                       }, {
                           $set: {
-                              comment: data.new.comment
+                              comment: data.comment
                           }
                       }, function(err, updated) {
                           if (err) {
