@@ -1,0 +1,40 @@
+<div class="scroller-area">
+    <div class="wall-builder" style="display: inline-block;padding-right: 0;width: auto;">
+        <div class="height-holder" ng-style="{'background-color': uploadwall.color}" style="margin-top: 0px;">
+            <div class="over-flowing">
+                <div class="wall-image" id="wall" ng-if="uploadwall.wallImage"></div>
+
+                <div class="painting-holder" id="draggable-element">
+                    <img ng-src="{{uploadwall.paintingImage|uploadpath}}" alt="Painting" height="{{uploadwall.paintingHeight}}" ng-if="uploadwall.paintingImage" id="paintingImg">
+                    <div class="inner-shadow" ng-if="nowActive==4"></div>
+                </div>
+
+                <div class="furniture-holder" id="draggable-furni">
+                    <div class="dim dim-h" ng-if="uploadwall.furnitureImage">
+                        <div class="abs blacke l-tb toped"><i class="fa fa-caret-up"></i></div>
+                        <div class="abs blacke l-tb bottomed"><i class="fa fa-caret-down"></i></div>
+                        {{uploadwall.fheight | number:2}} feet
+                    </div>
+                    <div class="dim dim-w" ng-if="uploadwall.furnitureImage">
+                        <div class="abs blacke t-rl righted"><i class="fa fa-caret-right"></i></div>
+                        <div class="abs blacke t-rl lefted"><i class="fa fa-caret-left"></i></div>
+                        {{uploadwall.fwidth | number:2}} feet
+                    </div>
+                    <img ng-src="{{uploadwall.furnitureImage}}" alt="sofa" height="{{uploadwall.furnitureHeight}}" width="{{uploadwall.furnitureWidth}}" ng-if="uploadwall.furnitureImage">
+                </div>
+
+                <div class="grid-holder" ng-if="uploadwall.gridstatus">
+                    <div class="white-text">
+                        Grid size is 1 feet x 1 feet
+                        <!-- <div class="btn-line pull-right" ng-click="uploadwall.gridstatus=!uploadwall.gridstatus">Turn Off Grid</div> -->
+                    </div>
+                    <div class="horizontal-line" ng-repeat="i in getTimes(uploadwall.horizontalCount) track by $index" ng-style="{'margin-bottom' : uploadwall.pixels}"></div>
+                    <div class="vertical-holder">
+                        <div class="vertical-line" ng-repeat="i in getTimes(uploadwall.verticalCount) track by $index" ng-style="{'margin-left' : uploadwall.pixels}"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
