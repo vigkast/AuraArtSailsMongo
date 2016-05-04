@@ -215,7 +215,7 @@
                 <div class="artist">
                     <div class="row" ng-repeat="views in mySavedViews" ng-hide="showNoRooms">
                         <div class="col-md-4" ng-repeat="view in views">
-                            <div class="aristimg-grp1">
+                            <div class="aristimg-grp1" fancybox-box ng-href="{{view | roompath}}">
                                 <div class="hover-look tr-fit pointer" ng-click="downloadView(view)">
                                     <i class="fa fa-download"></i> Download View
                                 </div>
