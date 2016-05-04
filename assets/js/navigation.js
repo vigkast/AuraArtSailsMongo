@@ -719,6 +719,40 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 }
             }).success(callback);
         },
+        newcreateImage: function(id, callback) {
+            $http({
+                url: adminurl + "shot/createImage",
+                method: "POST",
+                data: {
+                    "url": id
+                }
+            }).success(callback);
+        },
+        newsaveToProfile: function(id, callback) {
+            $http({
+                url: adminurl + "shot/saveToProfile",
+                method: "POST",
+                data: {
+                    "url": id
+                }
+            }).success(callback);
+        },
+        saveShot: function(obj, callback) {
+            $http({
+                url: adminurl + "shot/save",
+                method: "POST",
+                data: obj
+            }).success(callback);
+        },
+        getOneShot: function(id, callback) {
+            $http({
+                url: adminurl + "shot/findone",
+                method: "POST",
+                data: {
+                    _id: id
+                }
+            }).success(callback);
+        },
         getAllActivities: function(callback) {
             $http({
                 url: adminurl + "activities/find",
