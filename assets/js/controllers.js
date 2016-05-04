@@ -3422,7 +3422,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         });
         $timeout(function() {
             xyz.close();
-        }, 3000);
+        }, 5000);
     }
 
     dataNextPre.messageBoxNoTime = function(msg) {
@@ -4504,7 +4504,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                             console.log(data);
                             if (data.value == true) {
                                 $scope.disableSubmit = true;
-                                dataNextPre.messageBox("Your artwork has been submitted for review");
+                                dataNextPre.messageBox("Your artwork has been submitted");
                                 globalFunction.tab = "myartworks";
                                 $timeout(function() {
                                     $state.go('account');
@@ -5029,7 +5029,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                         console.log(data);
                         if (data.value == true) {
                             $scope.disableSubmit = true;
-                            dataNextPre.messageBox("Your artwork has been submitted for review");
+                            dataNextPre.messageBox("Your artwork has been submitted");
                             globalFunction.tab = "myartworks";
                             $timeout(function() {
                                 $state.go('account');
@@ -6162,6 +6162,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     };
 
     $scope.changeMountWidth = function() {
+        if ($scope.uploadwall.mountWidth > 9) {
+            $scope.uploadwall.mountWidth = 9;
+        }
+        if ($scope.uploadwall.frameWidth > 9) {
+            $scope.uploadwall.frameWidth = 9;
+        }
         $scope.uploadwall.mountWidthPixel = ($scope.uploadwall.mountWidth / 12) * $scope.uploadwall.pixelCount;
         if (document.getElementById("paintingImg")) {
             if ($scope.uploadwall.mountWidthPixel != 0) {
