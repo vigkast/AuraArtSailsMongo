@@ -281,12 +281,21 @@
                             </uib-accordion-heading>
                             <div class="part">
                                 <div class="part-row">
-                                    Select Frames:
-                                    <div class="row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-3"></div>
+                                    Select Frame Color:
+                                    <div class="color-boxes">
+                                      <div class="sq-box black"></div>
+                                      <div class="sq-box dark-brown"></div>
+                                      <div class="sq-box brown"></div>
+                                      <div class="sq-box natural"></div>
                                     </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="part-row" ng-show="uploadwall.mountEnabled">
+                                    Frame Width (inches):
+                                    <div class="pull-right">
+                                        <input type="text" class="small-input" ng-model="uploadwall.frameWidth" ng-change="changeFrameWidth();">
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
                                 <div class="part-row">
                                     Wall Colour:

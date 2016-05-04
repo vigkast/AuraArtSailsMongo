@@ -3482,6 +3482,32 @@ a.col-press {
   top: 0;
   left: 0;
 }
+.vertical-top {
+  vertical-align: text-top;
+}
+.sq-box {
+  .square(50px);
+  float: left;
+  border: 1px solid #ddd;
+  +.sq-box {
+    margin-left: 5px;
+  }
+  &.selected {
+    border-color: black;
+  }
+  &.brown {
+    background-color: #2E190D;
+  }
+  &.dark-brown {
+    background-color: #220E05;
+  }
+  &.natural {
+    background-color: #E0CFBA;
+  }
+  &.black {
+    background-color: black;
+  }
+}
 /* Mobile Less */
 @import "../less/fancybox-override.less";
 @import "../less/mobile.less";

@@ -24311,8 +24311,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.onOrOffMount = function() {
         if (!$scope.uploadwall.mountEnabled) {
             $scope.uploadwall.mountWidth = 0;
-            $scope.changeMountWidth();
+        } else {
+            if ($scope.uploadwall.mountWidth == 0) {
+                $scope.uploadwall.mountWidth = 3;
+            }
         }
+        $scope.changeMountWidth();
     }
 
     $scope.sendDiv = function(val) {
@@ -24810,10 +24814,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.uploadwall.gridstatus = true;
         $scope.uploadwall.furnitureImage = "";
         $scope.uploadwall.wallImage = "";
-        $scope.uploadwall.mountColor = "#fffff";
-        $scope.uploadwall.frameColor = "#00000";
-        $scope.uploadwall.mountEnabled = true;
-        $scope.uploadwall.mountWidth = 3;
+        $scope.uploadwall.mountColor = "#fff";
+        $scope.uploadwall.frameColor = "#000";
+        $scope.uploadwall.mountEnabled = false;
+        $scope.uploadwall.mountWidth = 0;
         $scope.uploadwall.frameWidth = 1;
         // $scope.calcCount();
         // if ($scope.uploadwall.paintingHeight > $scope.uploadwall.paintingWidth) {
@@ -24824,13 +24828,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         // if (document.getElementById("draggable-element"))
         //     document.getElementById("draggable-element").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
         $scope.rescalePainting();
-        $scope.uploadwall.mountWidthPixel = (3 / 12) * $scope.uploadwall.pixelCount;
+        $scope.uploadwall.mountWidthPixel = ($scope.uploadwall.mountWidth / 12) * $scope.uploadwall.pixelCount;
         if (document.getElementById("paintingImg")) {
-            document.getElementById("paintingImg").style.border = $scope.uploadwall.mountWidthPixel + "px solid #fff";
+            document.getElementById("paintingImg").style.border = $scope.uploadwall.mountWidthPixel + "px solid " + $scope.uploadwall.mountColor;
         }
-        $scope.uploadwall.frameWidthPixel = (1 / 12) * $scope.uploadwall.pixelCount;
+        $scope.uploadwall.frameWidthPixel = ($scope.uploadwall.frameWidth / 12) * $scope.uploadwall.pixelCount;
         if (document.getElementById("draggable-element")) {
-            document.getElementById("draggable-element").style.border = $scope.uploadwall.frameWidthPixel + "px solid #000";
+            document.getElementById("draggable-element").style.border = $scope.uploadwall.frameWidthPixel + "px solid " + $scope.uploadwall.frameColor;
         }
     }
 

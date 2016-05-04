@@ -4980,6 +4980,33 @@ a.col-press {
   top: 0;
   left: 0;
 }
+.vertical-top {
+  vertical-align: text-top;
+}
+.sq-box {
+  width: 50px;
+  height: 50px;
+  float: left;
+  border: 1px solid #ddd;
+}
+.sq-box + .sq-box {
+  margin-left: 5px;
+}
+.sq-box.selected {
+  border-color: black;
+}
+.sq-box.brown {
+  background-color: #2E190D;
+}
+.sq-box.dark-brown {
+  background-color: #220E05;
+}
+.sq-box.natural {
+  background-color: #E0CFBA;
+}
+.sq-box.black {
+  background-color: black;
+}
 /* Mobile Less */
 #fancybox-loading,
 .fancybox-close,
