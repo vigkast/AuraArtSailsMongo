@@ -264,6 +264,12 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
         url: "/room-with-a-view/:id",
         templateUrl: "views/template.html",
         controller: 'RoomViewCtrl'
+    })
+
+    .state('room-shot', {
+        url: "/room-shot/:id",
+        templateUrl: "views/template.html",
+        controller: 'RoomShotCtrl'
     });
 
     if(isproduction)
