@@ -695,14 +695,14 @@ module.exports = {
                 sort['artwork.srno'] = 1;
                 var matchobj = {
                     status: "approve",
+                    artwork: {
+                        $exists: true
+                    },
                     $or: [{
                         "artwork.status": "approve"
                     }, {
                         "artwork.status": "sold"
-                    }],
-                    artwork: {
-                        $exists: true
-                    }
+                    }]
                 };
                 db.collection("user").aggregate([{
                     $match: matchobj
@@ -721,25 +721,11 @@ module.exports = {
                         function saveMe(num) {
                             data3 = found[num];
                             var num2 = num + 1;
-                            if (data3.artwork.sortsr && data3.artwork.sortsr != num2) {
-                                Artwork.save({
-                                    _id: data3.artwork._id,
-                                    user: data3._id,
-                                    sortsr: num2
-                                }, function(respo) {
-                                    num++;
-                                    console.log(num);
-                                    if (num == found.length) {
-                                        res.json({
-                                            value: true,
-                                            comment: "Done"
-                                        });
-                                        db.close();
-                                    } else {
-                                        saveMe(num);
-                                    }
-                                });
-                            } else {
+                            Artwork.save({
+                                _id: data3.artwork._id,
+                                user: data3._id,
+                                sortsr: num2
+                            }, function(respo) {
                                 num++;
                                 console.log(num);
                                 if (num == found.length) {
@@ -751,7 +737,7 @@ module.exports = {
                                 } else {
                                     saveMe(num);
                                 }
-                            }
+                            });
                         }
                         saveMe(0);
                     } else if (err) {
