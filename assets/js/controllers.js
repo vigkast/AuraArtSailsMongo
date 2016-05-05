@@ -6170,8 +6170,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         if ($scope.uploadwall.mountWidth > 9) {
             $scope.uploadwall.mountWidth = 9;
         }
-        if ($scope.uploadwall.frameWidth > 9) {
-            $scope.uploadwall.frameWidth = 9;
+        if ($scope.uploadwall.frameWidth > 3) {
+            $scope.uploadwall.frameWidth = 3;
         }
         $scope.uploadwall.mountWidthPixel = ($scope.uploadwall.mountWidth / 12) * $scope.uploadwall.pixelCount;
         if (document.getElementById("paintingImg")) {
@@ -6190,6 +6190,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 document.getElementById("draggable-element").style.border = "none";
             }
         }
+
+        var newLeft = $scope.uploadwall.paintingLeft - $scope.uploadwall.frameWidthPixel;
+        var newTop = $scope.uploadwall.paintingTop - $scope.uploadwall.frameWidthPixel;
+        document.getElementById("draggable-element").style.left = newLeft + "px";
+        document.getElementById("draggable-element").style.top = newTop + "px";
     }
 
     $scope.onOrOffMount = function() {
@@ -6200,6 +6205,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.uploadwall.mountWidth = 3;
             }
         }
+        $scope.rescalePainting();
         $scope.changeMountWidth();
     }
 
@@ -6207,15 +6213,18 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         var obj = _.cloneDeep($scope.uploadwall);
         obj.makeactive = activeAccordian;
         obj.artid = $stateParams.id;
-
+        cfpLoadingBar.start();
         if (val == 1) {
             NavigationService.saveShot(obj, function(data) {
                 console.log(data);
                 if (data.value != false) {
                     NavigationService.newcreateImage(data.comment, function(newdata) {
+                        cfpLoadingBar.complete();
                         if (newdata.value != false)
                             window.open(adminurl + "slider/downloadImage?file=" + newdata.comment);
                     })
+                } else {
+                    cfpLoadingBar.complete();
                 }
             })
         } else if (val == 2) {
@@ -6223,6 +6232,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 console.log(data);
                 if (data.value != false) {
                     NavigationService.newsaveToProfile(data.comment, function(newdata) {
+                        cfpLoadingBar.complete();
                         console.log(newdata);
                         if (newdata.value != false) {
                             dataNextPre.messageBox("Saved to your profile.");
@@ -6230,6 +6240,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                             dataNextPre.messageBox("Please login to save to your profile.");
                         }
                     })
+                } else {
+                    cfpLoadingBar.complete();
                 }
             })
         }
@@ -6757,13 +6769,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.rescalePainting = function() {
         $scope.uploadwall.paintingLeft = (250 * (4 / 3)) - ($scope.uploadwall.paintingWidth / 2);
         $scope.uploadwall.paintingTop = 250 - ($scope.uploadwall.paintingHeight / 2);
-        if ($scope.uploadwall.paintingHeight > $scope.uploadwall.paintingWidth) {
-            $scope.uploadwall.scalePainting = 400 / $scope.uploadwall.paintingHeight;
+        if ($scope.uploadwall.paintingHeight >= $scope.uploadwall.paintingWidth) {
+            $scope.uploadwall.scalePainting = 300 / $scope.uploadwall.paintingHeight;
         } else {
-            $scope.uploadwall.scalePainting = (400 * (4 / 3)) / $scope.uploadwall.paintingWidth;
+            $scope.uploadwall.scalePainting = (300 * (4 / 3)) / $scope.uploadwall.paintingWidth;
         }
-        document.getElementById("draggable-element").style.left = $scope.uploadwall.paintingLeft + "px";
-        document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop) + "px";
+        var newLeft = $scope.uploadwall.paintingLeft - $scope.uploadwall.frameWidthPixel;
+        var newTop = $scope.uploadwall.paintingTop - $scope.uploadwall.frameWidthPixel;
+        document.getElementById("draggable-element").style.left = newLeft + "px";
+        document.getElementById("draggable-element").style.top = newTop + "px";
+        // document.getElementById("draggable-element").style.left = $scope.uploadwall.paintingLeft + "px";
+        // document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop) + "px";
         if (document.getElementById("draggable-element"))
             document.getElementById("draggable-element").style.transform = "scale(" + $scope.uploadwall.scalePainting + ")";
     }
@@ -7006,6 +7022,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
         window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
     $scope.onFileSelect = function($files, whichone) {
+        cfpLoadingBar.start();
         $scope.uploading = true;
         $scope.uploadwall.wallImage = '';
         $scope.selectedFiles = [];
@@ -7070,6 +7087,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                             $timeout(function() {
                                 document.getElementById('wall').style.backgroundImage = "url('" + $filter('wallpath')($scope.uploadwall.wallImage) + "')";
                                 $scope.uploading = false;
+                                cfpLoadingBar.complete();
                             }, 1000);
                             $timeout(function() {
                                 var background = document.getElementById('wall');
@@ -7147,9 +7165,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         console.log(document.getElementsByClassName('zopim'));
         if (document.getElementsByClassName('zopim')) {
 
-                document.getElementsByClassName('zopim')[0].style.display = "none";
-            
-                document.getElementsByClassName('zopim')[1].style.display = "none";
+            document.getElementsByClassName('zopim')[0].style.display = "none";
+
+            document.getElementsByClassName('zopim')[1].style.display = "none";
             clearInterval(zopim);
         }
     }, 500);
@@ -7196,6 +7214,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 document.getElementById("draggable-element").style.border = "none";
             }
         }
+
+        var newLeft = $scope.uploadwall.paintingLeft - $scope.uploadwall.frameWidthPixel;
+        var newTop = $scope.uploadwall.paintingTop - $scope.uploadwall.frameWidthPixel;
+        document.getElementById("draggable-element").style.left = newLeft + "px";
+        document.getElementById("draggable-element").style.top = newTop + "px";
     }
 
     $scope.onOrOffMount = function() {
@@ -7627,10 +7650,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.rescalePainting = function() {
         $scope.uploadwall.paintingLeft = (250 * (4 / 3)) - ($scope.uploadwall.paintingWidth / 2);
         $scope.uploadwall.paintingTop = 250 - ($scope.uploadwall.paintingHeight / 2);
-        if ($scope.uploadwall.paintingHeight > $scope.uploadwall.paintingWidth) {
-            $scope.uploadwall.scalePainting = 400 / $scope.uploadwall.paintingHeight;
+        if ($scope.uploadwall.paintingHeight >= $scope.uploadwall.paintingWidth) {
+            $scope.uploadwall.scalePainting = 300 / $scope.uploadwall.paintingHeight;
         } else {
-            $scope.uploadwall.scalePainting = (400 * (4 / 3)) / $scope.uploadwall.paintingWidth;
+            $scope.uploadwall.scalePainting = (300 * (4 / 3)) / $scope.uploadwall.paintingWidth;
         }
         document.getElementById("draggable-element").style.left = $scope.uploadwall.paintingLeft + "px";
         document.getElementById("draggable-element").style.top = ($scope.uploadwall.paintingTop) + "px";
