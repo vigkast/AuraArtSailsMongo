@@ -23,16 +23,15 @@
                     <img ng-src="{{uploadwall.furnitureImage}}" alt="sofa" height="{{uploadwall.furnitureHeight}}" width="{{uploadwall.furnitureWidth}}" ng-if="uploadwall.furnitureImage">
                 </div>
 
-                <div class="grid-holder" ng-if="uploadwall.gridstatus">
+                <!-- <div class="grid-holder" ng-if="uploadwall.gridstatus">
                     <div class="white-text">
                         Grid size is 1 feet x 1 feet
-                        <!-- <div class="btn-line pull-right" ng-click="uploadwall.gridstatus=!uploadwall.gridstatus">Turn Off Grid</div> -->
                     </div>
                     <div class="horizontal-line" ng-repeat="i in getTimes(uploadwall.horizontalCount) track by $index" ng-style="{'margin-bottom' : uploadwall.pixels}"></div>
                     <div class="vertical-holder">
                         <div class="vertical-line" ng-repeat="i in getTimes(uploadwall.verticalCount) track by $index" ng-style="{'margin-left' : uploadwall.pixels}"></div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </div>

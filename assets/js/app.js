@@ -530,7 +530,7 @@ firstapp.filter('wallpath', function() {
     return function(input) {
         if (input && input !== "") {
             if (input.indexOf('img/') == -1) {
-                return adminurl + "user/wallResize?file=" + input;
+                return adminurl + "user/wallResize?width=1500&file=" + input;
             } else {
                 return input;
             }
