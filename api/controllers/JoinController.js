@@ -55,15 +55,19 @@ module.exports = {
                     }]).each(function(err, found) {
                         if (_.isEmpty(found)) {
                             var xls = sails.json2xls(arr);
-                            sails.fs.writeFileSync('./data.xlsx', xls, 'binary');
-                            var path = './data.xlsx';
-                            var excel = sails.fs.readFileSync('./data.xlsx');
-                            var mimetype = sails.mime.lookup('./data.xlsx');
+                            var path = './' + arr[0]["Name of Artist"] + '.xlsx';
+                            sails.fs.writeFileSync(path, xls, 'binary');
+                            var excel = sails.fs.readFileSync(path);
+                            var mimetype = sails.mime.lookup(path);
                             res.set('Content-Type', "application/octet-stream");
                             res.set('Content-Disposition', "attachment;filename=" + path);
                             res.send(excel);
+                            setTimeout(function() {
+                                sails.fs.unlink(path, function(err) {
+                                    console.log(err);
+                                });
+                            }, 30000);
                             db.close();
-                            // res.json(arr);
                         } else if (err) {
                             console.log(err);
                         } else {
