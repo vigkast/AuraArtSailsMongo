@@ -284,10 +284,17 @@ module.exports = {
     },
     lastImage: function(req, res) {
         if (req.body) {
-            function callback(data) {
-                res.json(data);
-            };
-            Artwork.lastImage(req.body, callback);
+            if (req.body.type && req.body.type != "") {
+                function callback(data) {
+                    res.json(data);
+                };
+                Artwork.lastImage(req.body, callback);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Please provide parameters"
+                });
+            }
         } else {
             res.json({
                 value: false,
@@ -663,6 +670,64 @@ module.exports = {
                                 artCall(num2);
                             }
                         }
+                    }
+                    artCall(0);
+                } else {
+                    num++;
+                    console.log(num);
+                    if (num == respo.length) {
+                        res.json({
+                            value: "true",
+                            comment: "Done"
+                        });
+                    } else {
+                        abc(num);
+                    }
+                }
+            }
+            abc(0);
+        });
+    },
+    parseImage: function(req, res) {
+        res.connection.setTimeout(200000);
+        req.connection.setTimeout(200000);
+        User.findArtist(req.body, function(respo) {
+            function abc(num) {
+                x = respo[num];
+                if (x.artwork && x.artwork.length > 0) {
+                    function artCall(num2) {
+                        y = x.artwork[num2];
+                        var updateObj = {};
+                        if (y.imageno && y.imageno != "") {
+                            updateObj = {
+                                user: x._id,
+                                _id: y._id,
+                                imageno: parseInt(y.imageno)
+                            };
+                        } else {
+                            updateObj = {
+                                user: x._id,
+                                _id: y._id,
+                                imageno: -1
+                            };
+                        }
+                        Artwork.save(updateObj, function(artRespo) {
+                            num2++;
+                            if (num2 == x.artwork.length) {
+                                num++;
+                                console.log(num);
+                                if (num == respo.length) {
+                                    res.json({
+                                        value: "true",
+                                        comment: "Done"
+                                    });
+                                } else {
+                                    abc(num);
+                                }
+                            } else {
+                                artCall(num2);
+                            }
+                        });
                     }
                     artCall(0);
                 } else {

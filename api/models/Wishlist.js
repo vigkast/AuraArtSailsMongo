@@ -17,6 +17,9 @@ module.exports = {
         if (data.srno && data.srno != "") {
             data.srno = parseInt(data.srno);
         }
+        if (data.imageno && data.imageno != "") {
+            data.imageno = parseInt(data.imageno);
+        }
         delete data.user;
         sails.query(function(err, db) {
             if (err) {
@@ -99,6 +102,9 @@ module.exports = {
         }
         if (data.srno && data.srno != "") {
             data.srno = parseInt(data.srno);
+        }
+        if (data.imageno && data.imageno != "") {
+            data.imageno = parseInt(data.imageno);
         }
         delete data.user;
         sails.query(function(err, db) {
@@ -185,6 +191,9 @@ module.exports = {
         delete data.user;
         if (data.srno && data.srno != "") {
             data.srno = parseInt(data.srno);
+        }
+        if (data.imageno && data.imageno != "") {
+            data.imageno = parseInt(data.imageno);
         }
         sails.query(function(err, db) {
             if (err) {

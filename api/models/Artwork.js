@@ -9,6 +9,9 @@ module.exports = {
         if (data.srno) {
             data.srno = parseInt(data.srno);
         }
+        if (data.imageno && data.imageno != "") {
+            data.imageno = parseInt(data.imageno);
+        }
         var user = sails.ObjectID(data.user);
         delete data.user;
         delete data.cart;
@@ -111,6 +114,9 @@ module.exports = {
         delete data.cart;
         delete data.wishlist;
         data.srno = parseInt(data.srno);
+        if (data.imageno && data.imageno != "") {
+            data.imageno = parseInt(data.imageno);
+        }
         var user = sails.ObjectID(data.user);
         delete data.user;
         var email = data.email;
@@ -124,7 +130,6 @@ module.exports = {
         if (data.reseller && !Array.isArray(data.reseller)) {
             data.reseller = [data.reseller];
         }
-        console.log(data);
         data.reseller[0].email = data.selleremail;
         if (data.reseller && data.reseller.length > 0) {
             _.each(data.reseller, function(x) {
@@ -301,6 +306,9 @@ module.exports = {
         delete data.cart;
         delete data.wishlist;
         data.srno = parseInt(data.srno);
+        if (data.imageno && data.imageno != "") {
+            data.imageno = parseInt(data.imageno);
+        }
         if (data.reseller && !Array.isArray(data.reseller)) {
             data.reseller = [data.reseller];
         }
@@ -339,92 +347,100 @@ module.exports = {
         delete data.sellername;
         delete data.artistname;
         if (data.status == "approve") {
-            if (data.approveTimestamp) {
+            if (data.approveTimestamp && data.approveTimestamp != "") {
                 data.approveTimestamp = new Date(data.approveTimestamp);
+                callMe();
             } else {
                 data.approveTimestamp = new Date();
+                Artwork.lastImage(data, function(lastRespo) {
+                    data.imageno = parseInt(lastRespo.imageno) + 1;
+                    callMe();
+                });
             }
         }
-        sails.query(function(err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false,
-                    comment: "Error"
-                });
-            } else {
-                data._id = sails.ObjectID(data._id);
-                tobechanged = {};
-                var attribute = "artwork.$.";
-                _.forIn(data, function(value, key) {
-                    tobechanged[attribute + key] = value;
-                });
-                db.collection("user").update({
-                    "_id": user,
-                    "artwork._id": data._id
-                }, {
-                    $set: tobechanged
-                }, function(err, updated) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false
-                        });
-                        db.close();
-                    } else if (updated) {
-                        callback({
-                            value: true,
-                            comment: "Mail sent"
-                        });
-                        db.close();
-                        // var obj = {
-                        //     "api_key": "47e02d2b10604fc81304a5837577e286",
-                        //     "email_details": {
-                        //         "fromname": sails.fromName,
-                        //         "subject": "Data of Artworks submitted on www.auraart.in",
-                        //         "from": sails.fromEmail,
-                        //         "replytoid": selleremail
-                        //     },
-                        //     "settings": {
-                        //         "template": "2211",
-                        //     },
-                        //     "recipients": [selleremail],
-                        //     "attributes": {
-                        //         "ANAME": [artistname]
-                        //     }
-                        // };
-                        // sails.request.get({
-                        //     url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
-                        // }, function (err, httpResponse, body) {
-                        //     if (err) {
-                        //         callback({
-                        //             value: false
-                        //         });
-                        //         db.close();
-                        //     } else if (body && body == "success") {
-                        //         callback({
-                        //             value: true,
-                        //             comment: "Mail sent"
-                        //         });
-                        //         db.close();
-                        //     } else {
-                        //         callback({
-                        //             value: false,
-                        //             comment: "Error"
-                        //         });
-                        //         db.close();
-                        //     }
-                        // });
-                    } else {
-                        callback({
-                            value: false,
-                            comment: "No data found"
-                        });
-                        db.close();
-                    }
-                });
-            }
-        });
+
+        function callMe() {
+            sails.query(function(err, db) {
+                if (err) {
+                    console.log(err);
+                    callback({
+                        value: false,
+                        comment: "Error"
+                    });
+                } else {
+                    data._id = sails.ObjectID(data._id);
+                    tobechanged = {};
+                    var attribute = "artwork.$.";
+                    _.forIn(data, function(value, key) {
+                        tobechanged[attribute + key] = value;
+                    });
+                    db.collection("user").update({
+                        "_id": user,
+                        "artwork._id": data._id
+                    }, {
+                        $set: tobechanged
+                    }, function(err, updated) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else if (updated) {
+                            callback({
+                                value: true,
+                                comment: "Mail sent"
+                            });
+                            db.close();
+                            // var obj = {
+                            //     "api_key": "47e02d2b10604fc81304a5837577e286",
+                            //     "email_details": {
+                            //         "fromname": sails.fromName,
+                            //         "subject": "Data of Artworks submitted on www.auraart.in",
+                            //         "from": sails.fromEmail,
+                            //         "replytoid": selleremail
+                            //     },
+                            //     "settings": {
+                            //         "template": "2211",
+                            //     },
+                            //     "recipients": [selleremail],
+                            //     "attributes": {
+                            //         "ANAME": [artistname]
+                            //     }
+                            // };
+                            // sails.request.get({
+                            //     url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                            // }, function (err, httpResponse, body) {
+                            //     if (err) {
+                            //         callback({
+                            //             value: false
+                            //         });
+                            //         db.close();
+                            //     } else if (body && body == "success") {
+                            //         callback({
+                            //             value: true,
+                            //             comment: "Mail sent"
+                            //         });
+                            //         db.close();
+                            //     } else {
+                            //         callback({
+                            //             value: false,
+                            //             comment: "Error"
+                            //         });
+                            //         db.close();
+                            //     }
+                            // });
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "No data found"
+                            });
+                            db.close();
+                        }
+                    });
+                }
+            });
+        }
     },
     delete: function(data, callback) {
         delete data.cart;
@@ -455,6 +471,9 @@ module.exports = {
         data._id = sails.ObjectID(data._id);
         if (data.srno && data.srno != "") {
             data.srno = parseInt(data.srno);
+        }
+        if (data.imageno && data.imageno != "") {
+            data.imageno = parseInt(data.imageno);
         }
         sails.query(function(err, db) {
             if (err) {
@@ -823,6 +842,9 @@ module.exports = {
         if (data.srno && data.srno != "") {
             data.srno = parseInt(data.srno);
         }
+        if (data.imageno && data.imageno != "") {
+            data.imageno = parseInt(data.imageno);
+        }
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -1031,6 +1053,10 @@ module.exports = {
                 db.collection("user").aggregate([{
                     $unwind: "$artwork"
                 }, {
+                    $match: {
+                        "artwork.type": data.type
+                    }
+                }, {
                     $project: {
                         _id: 0,
                         "artwork.imageno": 1
@@ -1070,6 +1096,9 @@ module.exports = {
         delete data.user;
         data._id = sails.ObjectID();
         data.srno = parseInt(data.srno);
+        if (data.imageno && data.imageno != "") {
+            data.imageno = parseInt(data.imageno);
+        }
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -1120,9 +1149,13 @@ module.exports = {
                     sort.focused = 1;
                     sort.name = 1;
                     sort['artwork.srno'] = 1;
-                } else {
+                } else if (data.filter == "yoc") {
                     sort = {};
                     sort.focused = 1;
+                    sort['artwork.' + data.filter] = sortnum;
+                    sort.name = 1;
+                } else {
+                    sort = {};
                     sort['artwork.' + data.filter] = sortnum;
                     sort.name = 1;
                 }
@@ -1219,6 +1252,11 @@ module.exports = {
                 }
                 if (data.minbreadth == 0 && data.maxbreadth == 0) {
                     delete matchobj["artwork.breadth"];
+                }
+                if (data.filter == "gprice") {
+                    matchobj["artwork.gprice"] = {
+                        $nin: ["", null, 0]
+                    };
                 }
                 callme();
 
