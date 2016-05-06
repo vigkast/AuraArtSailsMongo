@@ -1787,74 +1787,143 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     cfpLoadingBar.start();
     $.jStorage.set("artistScroll", null);
     $.jStorage.set("artworkScroll", null);
+
+    $scope.events = {};
+    $scope.events.upcoming = [];
+    $scope.events.current = [];
+    $scope.events.past = [];
+
     NavigationService.getAllEvents(function(data, status) {
         console.log(data);
-        var events = _.groupBy(data, function(n) {
-            return n.year;
-        });
-        $scope.currentYear = parseInt(moment().get("year"));
-
-        $scope.events = _.groupBy(events, function(key, value) {
-            if (parseInt(value) > $scope.currentYear) {
-                return "upcoming";
-            } else if (parseInt(value) == $scope.currentYear) {
-                return "present"
-            } else if (parseInt(value) < $scope.currentYear) {
-                return "past"
-            }
-        });
-
-        if ($scope.events.present) {
-            var toberem = [];
-            if (!$scope.events.upcoming) {
-                $scope.events.upcoming = [];
-                $scope.events.upcoming[0] = [];
-                var count = 0;
-                _.each($scope.events.present[0], function(n) {
-                    if (n.startdate) {
-                        var eventDate = new Date(n.startdate);
-                        var currDate = new Date();
-                        if (eventDate > currDate) {
-                            $scope.events.upcoming[0].push(n);
-                            toberem.push(count);
-                        }
-                    }
-                    count++;
-                })
-            } else {
-                var count = 0;
-                _.each($scope.events.present[0], function(n) {
-                    if (n.startdate) {
-                        var eventDate = new Date(n.startdate);
-                        var currDate = new Date();
-                        if (eventDate > currDate) {
-                            $scope.events.upcoming[0].push(n);
-                            toberem.push(count);
-                        }
-                    }
-                    count++;
-                })
-            }
-            if ($scope.events.upcoming[0] && $scope.events.upcoming[0].length > 0) {
-                for (var i = toberem.length - 1; i >= 0; i--) {
-                    $scope.events.present[0].splice(i, 1);
+        _.each(data, function(n) {
+            if (n.enddate) {
+                var eventDate = new Date(n.enddate);
+                var currDate = new Date();
+                if (eventDate > currDate) {
+                    $scope.events.upcoming.push(n);
+                } else if (eventDate == currDate) {
+                    $scope.events.current.push(n);
+                } else if (eventDate < currDate) {
+                    $scope.events.past.push(n);
                 }
-            } else {
-                $scope.events.upcoming = [];
             }
+        })
+
+        if ($scope.events.upcoming && $scope.events.upcoming.length > 0) {
+            $scope.events.upcoming = _.groupBy($scope.events.upcoming, function(n) {
+                return n.year;
+            });
+            var arr = [];
+            _.each($scope.events.upcoming, function(value, key) {
+                arr.push(value);
+            })
+            $scope.events.upcoming = arr;
+        }
+        if ($scope.events.current && $scope.events.current.length > 0) {
+            $scope.events.current = _.groupBy($scope.events.current, function(n) {
+                return n.year;
+            });
+            var arr = [];
+            _.each($scope.events.current, function(value, key) {
+                arr.push(value);
+            })
+            $scope.events.current = arr;
+        }
+        if ($scope.events.past && $scope.events.past.length > 0) {
+            $scope.events.past = _.groupBy($scope.events.past, function(n) {
+                return n.year;
+            });
+            var arr = [];
+            _.each($scope.events.past, function(value, key) {
+                arr.push(value);
+            })
+            $scope.events.past = arr;
         }
 
-        $scope.events.past = _.sortBy($scope.events.past, function(n) {
+        $scope.events.current = _.sortBy($scope.events.current, function(n) {
             return -1 * n[0].year;
         });
 
         $scope.events.upcoming = _.sortBy($scope.events.upcoming, function(n) {
             return -1 * n[0].year;
         });
-        console.log($scope.events);
-        cfpLoadingBar.complete();
 
+        $scope.events.past = _.sortBy($scope.events.past, function(n) {
+            return -1 * n[0].year;
+        });
+
+        console.log($scope.events);
+
+        cfpLoadingBar.complete();
     });
+
+    // NavigationService.getAllEvents(function(data, status) {
+    //     console.log(data);
+    //     var events = _.groupBy(data, function(n) {
+    //         return n.year;
+    //     });
+    //     $scope.currentYear = parseInt(moment().get("year"));
+    //
+    //     $scope.events = _.groupBy(events, function(key, value) {
+    //         if (parseInt(value) > $scope.currentYear) {
+    //             return "upcoming";
+    //         } else if (parseInt(value) == $scope.currentYear) {
+    //             return "current"
+    //         } else if (parseInt(value) < $scope.currentYear) {
+    //             return "past"
+    //         }
+    //     });
+    //     console.log($scope.events);
+    //     if ($scope.events.present) {
+    //         var toberem = [];
+    //         if (!$scope.events.upcoming) {
+    //             $scope.events.upcoming = [];
+    //             $scope.events.upcoming[0] = [];
+    //             var count = 0;
+    //             _.each($scope.events.present[0], function(n) {
+    //                 if (n.startdate) {
+    //                     var eventDate = new Date(n.startdate);
+    //                     var currDate = new Date();
+    //                     if (eventDate > currDate) {
+    //                         $scope.events.upcoming[0].push(n);
+    //                         toberem.push(count);
+    //                     }
+    //                 }
+    //                 count++;
+    //             })
+    //         } else {
+    //             var count = 0;
+    //             _.each($scope.events.present[0], function(n) {
+    //                 if (n.startdate) {
+    //                     var eventDate = new Date(n.startdate);
+    //                     var currDate = new Date();
+    //                     if (eventDate > currDate) {
+    //                         $scope.events.upcoming[0].push(n);
+    //                         toberem.push(count);
+    //                     }
+    //                 }
+    //                 count++;
+    //             })
+    //         }
+    //         if ($scope.events.upcoming[0] && $scope.events.upcoming[0].length > 0) {
+    //             for (var i = toberem.length - 1; i >= 0; i--) {
+    //                 $scope.events.present[0].splice(i, 1);
+    //             }
+    //         } else {
+    //             $scope.events.upcoming = [];
+    //         }
+    //     }
+    //
+    //     $scope.events.past = _.sortBy($scope.events.past, function(n) {
+    //         return -1 * n[0].year;
+    //     });
+    //
+    //     $scope.events.upcoming = _.sortBy($scope.events.upcoming, function(n) {
+    //         return -1 * n[0].year;
+    //     });
+    //     cfpLoadingBar.complete();
+    //
+    // });
 
 
 
