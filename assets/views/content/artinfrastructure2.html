@@ -11,7 +11,7 @@
 			<div class="col-flex" ng-repeat="activity in activities">
 				<div class="box-style1">
 					<div class="img-holder">
-						<img alt="demo" class="img-responsive" ng-src="{{activity.homeimage|uploadpath}}">
+						<img alt="demo" class="img-responsive" ng-src="{{activity.homeimage | uploadthumbnail}}">
 					</div>
 					<h5>{{activity.name}}</h5>
 					<p ng-bind-html="activity.activityinbrief"></p>
@@ -96,7 +96,7 @@
 				<ul class="row-flex list-unstyled">
 					<li class="img-holder inline-box-infra">
 						<figure>
-							<img ng-src="{{data.image | uploadpath}}" alt="">
+							<img ng-src="{{data.image | uploadthumbnail}}" alt="">
 						</figure>
 					</li>
 					<li class="title inline-box-infra pl10">
@@ -112,19 +112,19 @@
 	</div>
 	<div class="partners padding-more brd-btm">
 		<h5 class="home-header font-color3">PROJECTS EXECUTED</h5>
-		<div class="row">
-			<div class="col-md-6" ng-repeat="data in prjexecuted">
+		<div class="row" ng-repeat="project in projects">
+			<div class="col-md-6" ng-repeat="data in project">
 				<ul class="row-flex list-unstyled">
 					<li class="img-holder inline-box-infra">
 						<figure>
-							<img ng-src="{{data.image}}" alt="">
+							<img ng-src="{{data.image | uploadthumbnail}}" alt="">
 						</figure>
 					</li>
 					<li class="title inline-box-infra pl10">
 						<p class="bold">{{data.title}}</p>
-						<p>{{data.category}}</p>
-						<p>{{data.period}}</p>
-						<p>{{data.description}}</p>
+						<p ng-if="data.activity">{{data.activity.name}}</p>
+						<p>{{data.periodofproject}}</p>
+						<p ng-bind-html="data.briefprojectdescription"></p>
 						</p>
 					</li>
 				</ul>
@@ -134,22 +134,22 @@
 	<div class="partners padding-more testimonial brd-btm">
 		<h5 class="home-header font-color3">TESTIMONIALS</h5>
 		<div class="row">
-			<flex-slider animation-loop="true" animation="fade" class="carousel" flex-slide="s in slides track by $index">
+			<flex-slider animation-loop="true" animation="fade" class="carousel" flex-slide="testimonial in testimonials">
 				<li>
 					<div class="row">
 						<div class="col-md-offset-2 col-md-8">
 							<ul class="row-flex list-unstyled">
 								<li class="img-holder inline-box-infra">
 									<figure>
-										<img ng-src="{{s.image}}" alt="">
+										<img ng-src="{{testimonial.image | uploadthumbnail}}" alt="">
 									</figure>
 								</li>
 								<li class="title inline-box-infra pl10">
-									<p class="title">{{s.title}}</p>
-									<p class="name">{{s.name}}, <span class="font-color3">{{s.designation}}</span></p>
+									<p class="title">{{testimonial.projecttitle}}</p>
+									<p class="name">{{testimonial.name}}, <span class="font-color3">{{testimonial.designation}}</span></p>
 									<p class="designation"></p>
-									<p class="category">{{s.category}}</p>
-									<div class="description" ng-bind-html=s.description>
+									<p class="category">{{testimonial.activity.name}}</p>
+									<div class="description" ng-bind-html=testimonial.testimonial>
 									</div>
 									</p>
 									</p>
@@ -162,14 +162,14 @@
 		</div>
 	</div>
 	<!--End New New HTML -->
-	<div class="data-managment" id="data">
+	<div class="data-managment" id="data" ng-repeat="activity in activities">
 		<div class="row-head">
-			<p class="font-color3">Data Management</p>
+			<p class="font-color3">{{activity.name}}</p>
 		</div>
 		<div class="row margintp">
 			<div class="col-md-6">
-				<div class="row-headleft">
-					<span>1. Planning Stage</span>
+				<div class="row-headleft" ng-bind-html="activity.detail1">
+					<!-- <span>1. Planning Stage</span>
 					<ul>
 						<li><strong>Identify the Collection </strong>to be mapped including various categories (paintings, sculptures, prints etc)</li>
 						<li>Assess the number of items under each category, to ascertain the total collection size</li>
@@ -181,12 +181,12 @@
 						<li>Engage a <strong>professional photographer</strong> with experience in photographing fine art</li>
 						<li>May include unpacking framed works, stretching of rolled canvases, unframing of glass works to get high quality photos</li>
 						<li> <strong>Editing</strong> the photos, including <strong>color correction, cropping and conversion</strong> to Jpeg format (300dpi)</li>
-					</ul>
+					</ul> -->
 				</div>
 			</div>
 			<div class="col-md-6">
-				<div class="row-headleft">
-					<span>3. Data Collection</span>
+				<div class="row-headleft" ng-bind-html="activity.detail2">
+					<!-- <span>3. Data Collection</span>
 					<ul>
 						<li>Collect the <strong>necessary documents</strong>, like invoices, authentication certificates, condition report (if any previous restoration done), featured in any catalogue (auction/show) etc.</li>
 						<li><strong>Measure</strong> each Item in the Collection (with and without frame)</li>
@@ -198,8 +198,7 @@
 						<li>Compile all the gathered data in Excel</li>
 						<li> <strong>Identify information gaps</strong> in the collection</li>
 						<li>Map the final data on an <strong>online platform (database)</strong> or present the findings in a <strong>catalogue/coffee table book</strong></li>
-
-					</ul>
+					</ul> -->
 				</div>
 			</div>
 		</div>

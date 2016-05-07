@@ -2666,16 +2666,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $.jStorage.set("artworkScroll", null);
 
     NavigationService.getAllActivities(function(data) {
-        console.log(data);
+        console.log("activities", data);
         if (data.value != false) {
             $scope.activities = data;
         }
     })
 
     NavigationService.getAllPartners(function(data) {
-        console.log(data);
+        console.log("partners", data);
         if (data.value != false) {
             $scope.partners = data;
+        }
+    })
+
+    NavigationService.getAllProjects(function(data) {
+        console.log("projects", data);
+        if (data.value != false) {
+            $scope.projects = _.chunk(data, 2);
+        }
+    })
+
+    NavigationService.getAllTestimonials(function(data) {
+        console.log("testimonials", data);
+        if (data.value != false) {
+            $scope.testimonials = data;
         }
     })
 

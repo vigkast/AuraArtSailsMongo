@@ -765,5 +765,17 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 method: "POST",
             }).success(callback);
         },
+        getAllProjects: function(callback) {
+            $http({
+                url: adminurl + "projects/find",
+                method: "POST",
+            }).success(callback);
+        },
+        getAllTestimonials: function(callback) {
+            $http({
+                url: adminurl + "testimonials/find",
+                method: "POST",
+            }).success(callback);
+        },
     }
 });
