@@ -281,8 +281,15 @@
                               Custom Framing<i class="fa fa-chevron-down pull-right"></i>
                             </uib-accordion-heading>
                             <div class="part">
+                              <div class="part-row">
+                                <span class="bold">Wall Colour:</span>
+                                <div class="pull-right">
+                                    <span class="color-box" colorpicker-size="180" colorpicker-position="left" colorpicker ng-model="uploadwall.color" ng-style="{'background-color': uploadwall.color}"></span>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
                                 <div class="part-row">
-                                    Select Frame Color:
+                                    <span class="bold">Frame Color:</span>
                                     <div class="color-boxes">
                                       <div class="sq-box black" ng-click="uploadwall.frameColor='#000';changeMountWidth();"></div>
                                       <div class="sq-box dark-brown" ng-click="uploadwall.frameColor='#220E05';changeMountWidth();"></div>
@@ -298,13 +305,6 @@
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
-                                <div class="part-row">
-                                    Wall Colour:
-                                    <div class="pull-right">
-                                        <span class="color-box" colorpicker-size="180" colorpicker-position="left" colorpicker ng-model="uploadwall.color" ng-style="{'background-color': uploadwall.color}"></span>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
 
                                 <div class="part-row">
                                     <div class="pull-right">
@@ -316,14 +316,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <h3>Select Mount:</h3>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="part-row" ng-show="uploadwall.mountEnabled">
-                                    Mount Width (inches):
-                                    <div class="pull-right">
-                                        <input type="text" class="small-input" ng-model="uploadwall.mountWidth" ng-change="changeMountWidth();" onkeypress='return event.charCode >= 46 && event.charCode <= 57'>
-                                    </div>
+                                    <div class="bold">Select Mount:</div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="part-row" ng-show="uploadwall.mountEnabled">
@@ -333,6 +326,14 @@
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
+                                <div class="part-row" ng-show="uploadwall.mountEnabled">
+                                    Mount Width (inches):
+                                    <div class="pull-right">
+                                        <input type="text" class="small-input" ng-model="uploadwall.mountWidth" ng-change="changeMountWidth();" onkeypress='return event.charCode >= 46 && event.charCode <= 57'>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
                             </div>
                         </uib-accordion-group>
                     </uib-accordion>
