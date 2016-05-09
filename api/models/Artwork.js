@@ -357,6 +357,8 @@ module.exports = {
                     callMe();
                 });
             }
+        } else {
+            callMe();
         }
 
         function callMe() {
