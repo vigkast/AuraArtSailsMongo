@@ -3193,19 +3193,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     })
     var countcall = 0;
-    NavigationService.getAllArtistByAccess(++countcall, function(data, status, n) {
-        if (n == countcall) {
-            if (data && data.value != false) {
-                $scope.allartist = _.uniq(data, '_id');
-            } else {
-                $scope.allartist = [];
-            }
-        } else {
-            $scope.allartist = [];
-        }
-        //      console.log($scope.allartist);
-        //      $scope.reachOutForm.artist = $scope.allartist[0].name;
-    });
+    // NavigationService.getAllArtistByAccess(++countcall, function(data, status, n) {
+    //     if (n == countcall) {
+    //         if (data && data.value != false) {
+    //             $scope.allartist = _.uniq(data, '_id');
+    //         } else {
+    //             $scope.allartist = [];
+    //         }
+    //     } else {
+    //         $scope.allartist = [];
+    //     }
+    // });
 
 
     NavigationService.getuserprofile(function(data) {
