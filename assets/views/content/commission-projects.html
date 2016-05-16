@@ -1,0 +1,222 @@
+<div class="border-top"></div>
+<div class="info min-cont">
+    <div class="container">
+        <div class="row">
+            <div class="myaccnthead col-md-12">
+                <h4>COMMISSION SCULPTURES</h4>
+            </div>
+            <div class="col-md-2">
+                <div class="info-cont">
+                    <ul class="info-li">
+                        <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'profile'}" ng-click="changeTab('profile');">User Profile</li>
+                        <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'projects'}" ng-click="changeTab('projects');">Projects <a href="" class="uppercase">+new</a></li>
+                        <li class="cat-list sub-catpointer" ng-class="{'bolds' : activeTab == 'projectschat'}" ng-click="changeTab('projectschat');">Project 1</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- <div class="col-md-5" ng-if="activeTab == 'profile'"> -->
+            <div class="col-md-10" ng-if="activeTab == 'profile'">
+                <div class="chngpswd-cont userprofile-com">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-id">
+                                    <input class="form-control" ng-model="user.name" placeholder="Name*" required type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-id">
+                                    <input class="form-control" ng-model="user.email" placeholder="Email ID*" required type="email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ui-select tagging tagging-label="('new')" ng-model="singleDemo.userprofile" theme="bootstrap" title="Select user Profile">
+                                    <ui-select-match placeholder="Select user Profile...">{{$select.selected}}</ui-select-match>
+                                    <ui-select-choices repeat="userprofile in userprofiles | filter: $select.search">
+                                        <div ng-bind-html="userprofile | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-id">
+                                    <input class="form-control" ng-model="user.contact" placeholder="Contact*" required type="tel">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-id">
+                                    <input class="form-control" ng-model="user.username" placeholder="Username" required type="text">
+                                </div>
+                                <div class="input-id">
+                                    <input class="form-control" ng-model="user.password" placeholder="Password" required type="password">
+                                </div>
+                                <div class="input-id">
+                                    <input class="form-control" ng-model="user.password" placeholder="Re-enter password" required type="password">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-id">
+                                    <textarea class="form-control" name="" ng-model="user.address" placeholder="Address" required id="" cols="30" rows="6"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center super-margin">
+                            <button class="btn btn-primarys uppercase" type="submit">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10" ng-if="activeTab == 'projects'">
+                <div class="row">
+                    <div class=" col-md-offset-1 col-md-11">
+                        <div class="profile-img left">
+                        </div>
+                        <div class="chngpswd-cont userprofile-chat userprofile-com">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-id">
+                                            <input class="form-control" ng-model="user.title" placeholder="Project Title*" required type="text">
+                                        </div>
+                                        <div class="input-id">
+                                            <textarea class="form-control" name="" ng-model="user.brief" placeholder="Project Brief" required id="" cols="30"></textarea>
+                                        </div>
+                                        <div class="input-id">
+                                            <ui-select tagging tagging-label="('new')" ng-model="singleDemo.userprofile" theme="bootstrap" title="Choose Conference">
+                                                <ui-select-match placeholder="Choose Conference">{{$select.selected}}</ui-select-match>
+                                                <ui-select-choices repeat="userprofile in userprofiles | filter: $select.search">
+                                                    <div ng-bind-html="userprofile | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-id">
+                                            <input class="form-control" ng-model="user.material" placeholder="Preferred Material to be Used" required type="text">
+                                        </div>
+                                        <div class="input-id">
+                                            <input class="form-control" ng-model="user.size" placeholder="Specific Size" required type="text">
+                                        </div>
+                                        <div class="input-id">
+                                            <input class="form-control" ng-model="user.budget" placeholder="Budget" required type="text">
+                                        </div>
+                                        <div class="input-id">
+                                            <input class="form-control" ng-model="user.addinfo" placeholder="Any additional information" required type="text">
+                                        </div>
+                                        <div class="input-id">
+                                            <input class="form-control" ng-model="user.time" placeholder="Lead Time" required type="time">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center super-margin">
+                                    <button class="btn btn-primarys uppercase" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10" ng-if="activeTab == 'projectschat'">
+                <div class="row">
+                    <div class=" col-md-offset-1 col-md-11">
+                        <div class="profile-img left">
+
+                        </div>
+                        <div class="chngpswd-cont userprofile-chat userprofile-com mb20">
+                            <div class="form-group">
+                                <div class="user-made">
+                                    <h5 class="title font-color2 bold">Project One</h5>
+                                    <p>
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                    </p>
+                                </div>
+                                <div class="made-madein">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <h5 class="title font-color2">References</h5>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="img-inline-box">
+                                                <img src="img/sculpture1.jpg" alt="">
+                                            </div>
+                                            <div class="img-inline-box">
+                                                <img src="img/sculpture1.jpg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <h5 class="title font-color2">Material</h5>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="material-cont">
+                                                <p>Wood,brozen,fiber glass</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <h5 class="title font-color2">Specific Size</h5>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="material-cont">
+                                                <p>15.45 inches</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <h5 class="title font-color2">Budget</h5>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="material-cont">
+                                                <p>Rs. 15,4222</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <h5 class="title font-color2">Additional Info</h5>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="material-cont">
+                                                <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <h5 class="title font-color2">Lead Time</h5>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="material-cont">
+                                                <p> One Week</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-md-offset-1 col-md-10 ">
+                        <div class="profile-img right">
+                            <h5 class="bold text-center">A</h5>
+                        </div>
+                        <div class="box-right pull-right mb20">
+                            <div class="user-response">
+                                <h5>Hello Mr. XYZ,</h5>
+                                <p>
+                                    We have recieved your request for commisioned sculpture. We will go through all your specification and get back to in 2 days.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

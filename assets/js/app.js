@@ -39,25 +39,40 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
     })
 
     .state('infinite', {
-            url: "/infinite",
-            templateUrl: "views/template.html",
-            controller: 'InfiniteCtrl'
-        })
-        .state('termcondition', {
-            url: "/terms-condition",
-            templateUrl: "views/template.html",
-            controller: 'TermConditionCtrl'
-        })
-        .state('buyerstermcondition', {
-            url: "/buyers-terms-condition",
-            templateUrl: "views/template.html",
-            controller: 'BuyersTermConditionCtrl'
-        })
-        .state('privacypolicy', {
-            url: "/privacy-policy",
-            templateUrl: "views/template.html",
-            controller: 'PrivacyPolicyCtrl'
-        })
+        url: "/infinite",
+        templateUrl: "views/template.html",
+        controller: 'InfiniteCtrl'
+    })
+
+    .state('termcondition', {
+        url: "/terms-condition",
+        templateUrl: "views/template.html",
+        controller: 'TermConditionCtrl'
+    })
+
+    .state('buyerstermcondition', {
+        url: "/buyers-terms-condition",
+        templateUrl: "views/template.html",
+        controller: 'BuyersTermConditionCtrl'
+    })
+
+    .state('privacypolicy', {
+        url: "/privacy-policy",
+        templateUrl: "views/template.html",
+        controller: 'PrivacyPolicyCtrl'
+    })
+
+    .state('commission-sculptures', {
+        url: "/commission-sculptures",
+        templateUrl: "views/template.html",
+        controller: 'CommissionSculpturesCtrl'
+    })
+
+    .state('commission-projects', {
+        url: "/commission-projects",
+        templateUrl: "views/template.html",
+        controller: 'CommissionProjectsCtrl'
+    })
 
     .state('cart', {
         url: "/cart",
@@ -94,21 +109,24 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
         templateUrl: "views/template.html",
         controller: 'TeamCtrl'
     })
+
     .state('artInfrastructure2', {
-            url: "/infra-services2",
-            templateUrl: "views/template.html",
-            controller: 'ArtInfrastructure2Ctrl'
-        })
+        url: "/infra-services2",
+        templateUrl: "views/template.html",
+        controller: 'ArtInfrastructure2Ctrl'
+    })
+
     .state('artInfrastructure', {
-            url: "/infra-services",
-            templateUrl: "views/template.html",
-            controller: 'ArtInfrastructureCtrl'
-        })
-        .state('artInfrastructureID', {
-            url: "/infra-services/:id",
-            templateUrl: "views/template.html",
-            controller: 'ArtInfrastructureCtrl'
-        })
+        url: "/infra-services",
+        templateUrl: "views/template.html",
+        controller: 'ArtInfrastructureCtrl'
+    })
+
+    .state('artInfrastructureID', {
+        url: "/infra-services/:id",
+        templateUrl: "views/template.html",
+        controller: 'ArtInfrastructureCtrl'
+    })
 
 
     .state('events', {
@@ -166,15 +184,16 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
     })
 
     .state('favorite', {
-            url: "/favorite",
-            templateUrl: "views/template.html",
-            controller: 'FavoriteCtrl'
-        })
-        .state('favorites', {
-            url: "/favorite/:artist",
-            templateUrl: "views/template.html",
-            controller: 'FavoriteCtrl'
-        })
+        url: "/favorite",
+        templateUrl: "views/template.html",
+        controller: 'FavoriteCtrl'
+    })
+
+    .state('favorites', {
+        url: "/favorite/:artist",
+        templateUrl: "views/template.html",
+        controller: 'FavoriteCtrl'
+    })
 
     .state('artistpage', {
         url: "/artistpage",
@@ -272,10 +291,9 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
         controller: 'RoomShotCtrl'
     });
 
-    if(isproduction)
-   {
-     $locationProvider.html5Mode(isproduction);
-   }
+    if (isproduction) {
+        $locationProvider.html5Mode(isproduction);
+    }
 
     $urlRouterProvider.otherwise("/home");
 

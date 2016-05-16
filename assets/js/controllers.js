@@ -6204,6 +6204,43 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
 })
 
+.controller('CommissionSculpturesCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("commission-sculptures");
+        $scope.menutitle = NavigationService.makeactive("Commission Sculptures");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.imgsculpture = [{
+            img: "img/sculpture.jpg"
+        }, {
+            img: "img/sculpture1.jpg"
+        }, {
+            img: "img/painting1.jpg"
+        }, {
+            img: "img/sculpture1.jpg"
+        }, {
+            img: "img/sculpture.jpg"
+        }, {
+            img: "img/painting1.jpg"
+        }, ]
+    })
+    .controller('CommissionProjectsCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("commission-projects");
+        $scope.menutitle = NavigationService.makeactive("Commission Projects");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.userprofiles = [
+            'Artist',
+            'Buyer'
+      ]
+
+        $scope.activeTab = "profile";
+        $scope.changeTab = function(data) {
+            $scope.activeTab = data;
+        }
+    })
+
 .controller('Error500Ctrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("error500");

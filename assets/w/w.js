@@ -17325,25 +17325,40 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
     })
 
     .state('infinite', {
-            url: "/infinite",
-            templateUrl: "views/template.html",
-            controller: 'InfiniteCtrl'
-        })
-        .state('termcondition', {
-            url: "/terms-condition",
-            templateUrl: "views/template.html",
-            controller: 'TermConditionCtrl'
-        })
-        .state('buyerstermcondition', {
-            url: "/buyers-terms-condition",
-            templateUrl: "views/template.html",
-            controller: 'BuyersTermConditionCtrl'
-        })
-        .state('privacypolicy', {
-            url: "/privacy-policy",
-            templateUrl: "views/template.html",
-            controller: 'PrivacyPolicyCtrl'
-        })
+        url: "/infinite",
+        templateUrl: "views/template.html",
+        controller: 'InfiniteCtrl'
+    })
+
+    .state('termcondition', {
+        url: "/terms-condition",
+        templateUrl: "views/template.html",
+        controller: 'TermConditionCtrl'
+    })
+
+    .state('buyerstermcondition', {
+        url: "/buyers-terms-condition",
+        templateUrl: "views/template.html",
+        controller: 'BuyersTermConditionCtrl'
+    })
+
+    .state('privacypolicy', {
+        url: "/privacy-policy",
+        templateUrl: "views/template.html",
+        controller: 'PrivacyPolicyCtrl'
+    })
+
+    .state('commission-sculptures', {
+        url: "/commission-sculptures",
+        templateUrl: "views/template.html",
+        controller: 'CommissionSculpturesCtrl'
+    })
+
+    .state('commission-projects', {
+        url: "/commission-projects",
+        templateUrl: "views/template.html",
+        controller: 'CommissionProjectsCtrl'
+    })
 
     .state('cart', {
         url: "/cart",
@@ -17380,21 +17395,24 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
         templateUrl: "views/template.html",
         controller: 'TeamCtrl'
     })
+
     .state('artInfrastructure2', {
-            url: "/infra-services2",
-            templateUrl: "views/template.html",
-            controller: 'ArtInfrastructure2Ctrl'
-        })
+        url: "/infra-services2",
+        templateUrl: "views/template.html",
+        controller: 'ArtInfrastructure2Ctrl'
+    })
+
     .state('artInfrastructure', {
-            url: "/infra-services",
-            templateUrl: "views/template.html",
-            controller: 'ArtInfrastructureCtrl'
-        })
-        .state('artInfrastructureID', {
-            url: "/infra-services/:id",
-            templateUrl: "views/template.html",
-            controller: 'ArtInfrastructureCtrl'
-        })
+        url: "/infra-services",
+        templateUrl: "views/template.html",
+        controller: 'ArtInfrastructureCtrl'
+    })
+
+    .state('artInfrastructureID', {
+        url: "/infra-services/:id",
+        templateUrl: "views/template.html",
+        controller: 'ArtInfrastructureCtrl'
+    })
 
 
     .state('events', {
@@ -17452,15 +17470,16 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
     })
 
     .state('favorite', {
-            url: "/favorite",
-            templateUrl: "views/template.html",
-            controller: 'FavoriteCtrl'
-        })
-        .state('favorites', {
-            url: "/favorite/:artist",
-            templateUrl: "views/template.html",
-            controller: 'FavoriteCtrl'
-        })
+        url: "/favorite",
+        templateUrl: "views/template.html",
+        controller: 'FavoriteCtrl'
+    })
+
+    .state('favorites', {
+        url: "/favorite/:artist",
+        templateUrl: "views/template.html",
+        controller: 'FavoriteCtrl'
+    })
 
     .state('artistpage', {
         url: "/artistpage",
@@ -17558,10 +17577,9 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
         controller: 'RoomShotCtrl'
     });
 
-    if(isproduction)
-   {
-     $locationProvider.html5Mode(isproduction);
-   }
+    if (isproduction) {
+        $locationProvider.html5Mode(isproduction);
+    }
 
     $urlRouterProvider.otherwise("/home");
 
@@ -21326,19 +21344,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     })
     var countcall = 0;
-    NavigationService.getAllArtistByAccess(++countcall, function(data, status, n) {
-        if (n == countcall) {
-            if (data && data.value != false) {
-                $scope.allartist = _.uniq(data, '_id');
-            } else {
-                $scope.allartist = [];
-            }
-        } else {
-            $scope.allartist = [];
-        }
-        //      console.log($scope.allartist);
-        //      $scope.reachOutForm.artist = $scope.allartist[0].name;
-    });
+    // NavigationService.getAllArtistByAccess(++countcall, function(data, status, n) {
+    //     if (n == countcall) {
+    //         if (data && data.value != false) {
+    //             $scope.allartist = _.uniq(data, '_id');
+    //         } else {
+    //             $scope.allartist = [];
+    //         }
+    //     } else {
+    //         $scope.allartist = [];
+    //     }
+    // });
 
 
     NavigationService.getuserprofile(function(data) {
@@ -24338,6 +24354,43 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
 })
+
+.controller('CommissionSculpturesCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("commission-sculptures");
+        $scope.menutitle = NavigationService.makeactive("Commission Sculptures");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.imgsculpture = [{
+            img: "img/sculpture.jpg"
+        }, {
+            img: "img/sculpture1.jpg"
+        }, {
+            img: "img/painting1.jpg"
+        }, {
+            img: "img/sculpture1.jpg"
+        }, {
+            img: "img/sculpture.jpg"
+        }, {
+            img: "img/painting1.jpg"
+        }, ]
+    })
+    .controller('CommissionProjectsCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("commission-projects");
+        $scope.menutitle = NavigationService.makeactive("Commission Projects");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.userprofiles = [
+            'Artist',
+            'Buyer'
+      ]
+
+        $scope.activeTab = "profile";
+        $scope.changeTab = function(data) {
+            $scope.activeTab = data;
+        }
+    })
 
 .controller('Error500Ctrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
     //Used to name the .html file

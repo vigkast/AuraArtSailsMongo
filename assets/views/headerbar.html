@@ -16,16 +16,16 @@
         <div class="social-icons">
             <ul>
                 <li>
-                  <a href="https://www.facebook.com/Aura-Art-226467107365879/" target="_blank"><i class="fa fa-facebook-square"></i></a>
+                    <a href="https://www.facebook.com/Aura-Art-226467107365879/" target="_blank"><i class="fa fa-facebook-square"></i></a>
                 </li>
                 <li>
-                  <a href="https://twitter.com/auraarteconnect"  target="_blank"><i class="fa fa-twitter-square"></i></a>
+                    <a href="https://twitter.com/auraarteconnect" target="_blank"><i class="fa fa-twitter-square"></i></a>
                 </li>
                 <li>
-                  <a href="https://www.instagram.com/auraarteconnect/" target="_blank"><i class="fa fa-instagram"></i></a>
+                    <a href="https://www.instagram.com/auraarteconnect/" target="_blank"><i class="fa fa-instagram"></i></a>
                 </li>
                 <li>
-                  <a href="https://www.youtube.com/user/auraartdpl/" target="_blank"><i class="fa fa-youtube-square"></i></a>
+                    <a href="https://www.youtube.com/user/auraartdpl/" target="_blank"><i class="fa fa-youtube-square"></i></a>
                 </li>
             </ul>
         </div>
@@ -43,14 +43,13 @@
             </div>
             <div class="inline-box">Login</div>
         </div>
-        <div class="col-flex box-height" ng-show="showWishlist" ng-click="toaccount();">
-            <div class="style4-bg small-box"><i class="fa fa-user"></i>
+        <div class="col-flex box-height" ng-show="showWishlist">
+            <div class="" ng-click="toaccount();">
+                <div class="style4-bg small-box"><i class="fa fa-user"></i>
+                </div>
+                <div class="inline-box">{{user.name}}</div>
             </div>
-            <div class="inline-box">{{user.name}}</div>
             <div class="sub-menu logout" ng-click="logout();">
-                <!-- <div class="style3-bg small-box">
-                    <i class="fa fa-sign-out"></i>
-                </div> -->
                 <div class="text-center">Logout</div>
             </div>
         </div>

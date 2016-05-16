@@ -26,7 +26,8 @@
                         <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'cpassword'}" ng-click="changeTab('cpassword');" ng-if="!user.provider">Change password</li>
                         <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'address'}" ng-click="changeTab('address');">My Address Book</li>
                         <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'orders'}" ng-click="changeTab('orders');">My Orders</li>
-                        <!-- <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'trace'}" ng-click="changeTab('trace');">Track Your Order</li> -->
+                        <!-- <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'commission'}" ng-click="changeTab('commission');">Commission Sculptures</li> -->
+                        <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'commission'}"><a href="#/commission-sculptures">Commission Sculptures</a></li>
                         <li class="cat-list cpointer"><a href="#/favorite">My Favourites</a></li>
                         <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'views'}" ng-click="changeTab('views');">My Saved Views</li>
                         <hr class="line" ng-if="user.accesslevel=='reseller'">
@@ -355,19 +356,11 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-4" ng-if="activeTab == 'trace'">
-                <div class="trck-order">
-                    <h5>Track Your Order:</h5>
-                    <input class="form-control displ wseve paddbtm" placeholder="Enter Order Id" type="text">
-                    <span>
-            <a class="btn btn-sucesses displ" href="#">Track Now</a>
-          </span>
+            <!-- <div class="col-md-10" ng-if="activeTab == 'commission'">
+                <div class="commission-sculptures">
+
                 </div>
-                <p class="pending bolds" ng-if="trace!=''">Your Order Status Is :
-                    <br>
-                    <span class="normal">The shipment was sent through: Ekart Logistics Shipment Tracking ID: WSRC4251982428</span>
-                </p>
-            </div>
+            </div> -->
             <div class="col-md-9" ng-if="activeTab == 'banking'">
                 <div class="trck-order">
                     <h5 class="title-color">Bank Details</h5>
