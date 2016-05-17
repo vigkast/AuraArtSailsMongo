@@ -3446,7 +3446,7 @@ a.forgetlink:hover {
   cursor: pointer;
   text-transform: uppercase;
 }
-.info .info-cont ul.info-li li a {
+.info .info-cont ul.info-li li a.addnew {
   font-size: 10px;
   float: right;
   padding: 0 10px;
@@ -3489,7 +3489,7 @@ a.forgetlink:hover {
 .info .info-cont ul.info-li li.cat-list.cpointer.bolds a.active {
   color: #D4AE70;
 }
-.info .info-cont ul.info-li li.cat-list.sub-catpointer {
+.info .info-cont ul.info-li li.cat-list.sub-catpointers {
   margin-left: 10px;
   font-size: 12px;
   text-transform: capitalize!important;
