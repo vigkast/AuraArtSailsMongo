@@ -24109,7 +24109,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             NavigationService.registerArtist($scope.user, function(data, status) {
                 console.log(data);
                 if (data.value != false) {
-                    dataNextPre.messageBox("Artist has been registerd and is in review");
+                    dataNextPre.messageBox("Artist has been registered");
                     $scope.disableSubmit = true;
                     $timeout(function() {
                         $state.go("create-artwork");
