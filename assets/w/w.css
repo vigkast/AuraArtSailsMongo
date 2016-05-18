@@ -2616,7 +2616,6 @@ nav.pagination-artist label.grid-view:before {
   overflow: hidden;
 }
 .event-set .event-detail .event-img {
-  width: 100%;
   margin: 0 auto;
   height: 215px;
   overflow: hidden;
