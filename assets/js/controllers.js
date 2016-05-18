@@ -1803,13 +1803,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 currDate.setHours(0, 0, 0, 0);
                 $scope.currentYear = currDate.getFullYear();
                 // console.log(n.startdate + " / eventDate = " + eventDate + " / currDate = " + currDate + " / " + (eventDate == currDate));
-                if (eventDate > currDate) {
+                if (moment(eventDate).isAfter(currDate)) {
                     $scope.events.upcoming.push(n);
-                } else if (eventDate.getFullYear() === currDate.getFullYear() &&
-                    eventDate.getMonth() === currDate.getMonth() &&
-                    eventDate.getDate() === currDate.getDate()) {
+                } else if (moment(eventDate).isSame(currDate)) {
                     $scope.events.current.push(n);
-                } else if (eventDate < currDate) {
+                } else if (moment(eventDate).isBefore(currDate)) {
                     $scope.events.past.push(n);
                 }
             }
