@@ -1909,7 +1909,7 @@ ul.decimal {
 }
 .artwork-box .text-heading {
   position: absolute;
-  bottom: 0;
+  top: 0;
   color: white;
   text-transform: uppercase;
   width: 100%;
@@ -2549,6 +2549,13 @@ nav.pagination-artist label.grid-view:before {
   padding-left: 29px;
   font-weight: 600;
   line-height: 260%;
+}
+.colorblack span {
+  color: #000!important;
+  padding-left: 0;
+}
+.art-initiative li {
+  line-height: 200%;
 }
 .panel-set {
   margin-top: 25px;
@@ -5103,6 +5110,17 @@ a.col-press {
 }
 .mb20 {
   margin-bottom: 20px;
+}
+li.title.inline-box-infra {
+  margin-left: 20px;
+}
+.no-pl {
+  padding-left: 0 !important;
+}
+.col-mix {
+  width: 11%;
+  display: inline-block;
+  margin: 0 2px;
 }
 /* Mobile Less */
 #fancybox-loading,
