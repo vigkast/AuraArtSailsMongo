@@ -164,12 +164,38 @@
             </uib-accordion>
         </div>
     </div>
+    <!-- <div class="row" ng-if="events.current && events.current.length>0">
+        <div class="all-events search-box">
+            <h3 class="font-color3 home-header padtop">Current Events</h3>
+            <uib-accordion close-others="false">
+                <uib-accordion-group heading="{{event1[0].year}}" is-disabled="true" is-open="true" ng-repeat="event1 in events.current">
+                    <div class="row">
+                        <div class="col-md-3" ng-repeat="event in event1">
+                            <div class="event-detail" ui-sref="eventdetail({id:event._id})">
+                                <div class="data">
+                                    <h6 class="font-color2">{{event.name}}</h6>
+                                    <p>{{event.detail}}</p>
+                                </div>
+                                <a>
+                                    <div class="event-img text-center">
+                                        <figure>
+                                            <img ng-src="{{event.photos[0]|uploadthumbnail}}" class="img-responsive">
+                                        </figure>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </uib-accordion-group>
+            </uib-accordion>
+        </div>
+    </div> -->
     <div class="row" ng-if="events.current && events.current.length>0">
         <div class="all-events search-box">
             <h3 class="font-color3 home-header padtop">Current Events</h3>
             <p class="head">{{currentYear}}</p>
-            <div class="row">
-                <div class="col-md-3" ng-repeat="event in events.present[0]">
+            <div class="row" ng-repeat="event1 in events.current">
+                <div class="col-md-3" ng-repeat="event in event1">
                     <div class="event-detail" ui-sref="eventdetail({id:event._id})">
                         <div class="data">
                             <h6 class="font-color2">{{event.name}}</h6>

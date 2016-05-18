@@ -1794,20 +1794,27 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.events.past = [];
 
     NavigationService.getAllEvents(function(data, status) {
-        console.log(data);
+        // console.log(data);
         _.each(data, function(n) {
-            if (n.enddate) {
-                var eventDate = new Date(n.enddate);
+            if (n.startdate) {
+                var eventDate = new Date(n.startdate);
+                eventDate.setHours(0, 0, 0, 0);
                 var currDate = new Date();
+                currDate.setHours(0, 0, 0, 0);
+                $scope.currentYear = currDate.getFullYear();
+                // console.log(n.startdate + " / eventDate = " + eventDate + " / currDate = " + currDate + " / " + (eventDate == currDate));
                 if (eventDate > currDate) {
                     $scope.events.upcoming.push(n);
-                } else if (eventDate == currDate) {
+                } else if (eventDate.getFullYear() === currDate.getFullYear() &&
+                    eventDate.getMonth() === currDate.getMonth() &&
+                    eventDate.getDate() === currDate.getDate()) {
                     $scope.events.current.push(n);
                 } else if (eventDate < currDate) {
                     $scope.events.past.push(n);
                 }
             }
-        })
+        });
+        // console.log($scope.events);
 
         if ($scope.events.upcoming && $scope.events.upcoming.length > 0) {
             $scope.events.upcoming = _.groupBy($scope.events.upcoming, function(n) {
@@ -6233,7 +6240,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.userprofiles = [
             'Artist',
             'Buyer'
-      ]
+        ]
 
         $scope.activeTab = "profile";
         $scope.changeTab = function(data) {
