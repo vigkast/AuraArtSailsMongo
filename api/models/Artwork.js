@@ -1154,7 +1154,7 @@ module.exports = {
                 } else if (data.filter == "yoc") {
                     sort = {};
                     sort.focused = 1;
-                    sort['artwork.' + data.filter] = sortnum;
+                    sort['artwork.approveTimestamp'] = sortnum;
                     sort.name = 1;
                 } else {
                     sort = {};
@@ -1254,6 +1254,17 @@ module.exports = {
                 }
                 if (data.minbreadth == 0 && data.maxbreadth == 0) {
                     delete matchobj["artwork.breadth"];
+                }
+                if (data.filter && data.filter == "srno" && (data.minprice != 0 || data.maxprice != 0)) {
+                    sort = {};
+                    sort['artwork.gprice'] = 1;
+                    sort.focused = 1;
+                    sort.name = 1;
+                    matchobj["artwork.gprice"] = {
+                        $nin: ["", null, 0],
+                        $gte: data.minprice,
+                        $lte: data.maxprice
+                    };
                 }
                 if (data.filter == "gprice") {
                     matchobj["artwork.gprice"] = {
