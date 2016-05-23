@@ -51,6 +51,8 @@
   <script src="lib/js/angular-file-upload.js"></script>
   <script src="lib/js/FileAPI.min.js"></script>
   <script src="lib/js/upload.js"></script>
+  <script src="bower_components/angulartics/dist/angulartics.min.js"></script>
+  <script src="bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js"></script>
 
   <script src="js/app.js"></script>
   <script src="js/controllers.js"></script>
@@ -106,5 +108,15 @@
   ga('send', 'pageview');
 
 </script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78150046-1', 'auto');
+</script>
+
 </body>
 </html>
