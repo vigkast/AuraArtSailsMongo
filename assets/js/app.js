@@ -16,7 +16,7 @@ firstapp.run(function($rootScope, NavigationService) {
     };
 });
 
-firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, $httpProvider, $locationProvider, $analyticsProvider) {
+firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, $httpProvider, $locationProvider) {
     //Turn the spinner on or off
 
     $httpProvider.defaults.withCredentials = true;

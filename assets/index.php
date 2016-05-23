@@ -51,8 +51,8 @@
   <script src="lib/js/angular-file-upload.js"></script>
   <script src="lib/js/FileAPI.min.js"></script>
   <script src="lib/js/upload.js"></script>
-  <script src="bower_components/angulartics/dist/angulartics.min.js"></script>
-  <script src="bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js"></script>
+  <!-- <script src="bower_components/angulartics/dist/angulartics.min.js"></script>
+  <script src="bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js"></script> -->
 
   <script src="js/app.js"></script>
   <script src="js/controllers.js"></script>
