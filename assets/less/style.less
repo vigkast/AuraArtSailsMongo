@@ -245,11 +245,12 @@ header.stickyheader {
     font-family: @font-family-head;
     font-size: 11px;
     .lh(120%);
-    position: absolute;
-    top: 50%;
-    left: 40px;
-    .translateY(-50%);
+    // position: absolute;
+    // top: 50%;
+    // left: 40px;
+    // .translateY(-50%);
     padding-right: 5px;
+    display: inline-block;
 }
 .box-height {
     position: relative;
@@ -3632,6 +3633,15 @@ li.title.inline-box-infra {
     width: 11%;
     display: inline-block;
     margin: 0 2px;
+}
+.space-box {
+    display: inline-block;
+    min-width: 80px;
+    max-width: 100px;
+    overflow: hidden;
+}
+.yellow-bg {
+  background-color: #FFE06D;
 }
 /* Mobile Less */
 @import "../less/fancybox-override.less";

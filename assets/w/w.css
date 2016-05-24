@@ -1571,15 +1571,8 @@ header.stickyheader {
   font-family: 'Open Sans';
   font-size: 11px;
   line-height: 120%;
-  position: absolute;
-  top: 50%;
-  left: 40px;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
   padding-right: 5px;
+  display: inline-block;
 }
 .box-height {
   position: relative;
@@ -5122,6 +5115,15 @@ li.title.inline-box-infra {
   display: inline-block;
   margin: 0 2px;
 }
+.space-box {
+  display: inline-block;
+  min-width: 80px;
+  max-width: 100px;
+  overflow: hidden;
+}
+.yellow-bg {
+  background-color: #FFE06D;
+}
 /* Mobile Less */
 #fancybox-loading,
 .fancybox-close,
@@ -5285,7 +5287,6 @@ li.title.inline-box-infra {
   }
   .social-icons {
     padding: 0;
-    float: right;
   }
   .inline-box {
     left: 35px;

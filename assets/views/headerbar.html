@@ -1,5 +1,5 @@
 <div class="row above-nav">
-    <div class="col-md-4 col-sm-4">
+    <div class="col-md-3 col-sm-2 col-xs-12">
         <form ng-submit="getSearchedArt();" class="">
             <div class="input-group ingroup x rel">
                 <input type="search" class="form-control" autocomplete="off" numbers-only required id="topsearch" placeholder="Search..." ng-model="art.search" ng-change="onSearchChange(art.search)">
@@ -12,17 +12,17 @@
             </div>
         </form>
     </div>
-    <div class="col-md-2 col-sm-3">
+    <div class="col-md-2 col-sm-2 col-xs-12">
         <div class="social-icons">
             <ul>
                 <li>
                     <a href="https://www.facebook.com/Aura-Art-226467107365879/" target="_blank"><i class="fa fa-facebook-square"></i></a>
                 </li>
                 <li>
-                    <a href="https://twitter.com/auraarteconnect" target="_blank"><i class="fa fa-twitter-square"></i></a>
+                  <a href="https://www.instagram.com/auraarteconnect/" target="_blank"><i class="fa fa-instagram"></i></a>
                 </li>
                 <li>
-                    <a href="https://www.instagram.com/auraarteconnect/" target="_blank"><i class="fa fa-instagram"></i></a>
+                    <a href="https://twitter.com/auraarteconnect" target="_blank"><i class="fa fa-twitter-square"></i></a>
                 </li>
                 <li>
                     <a href="https://www.youtube.com/user/auraartdpl/" target="_blank"><i class="fa fa-youtube-square"></i></a>
@@ -30,20 +30,27 @@
             </ul>
         </div>
     </div>
-    <div class="col-md-6 col-sm-5 row-flex login-head">
-        <div class="col-flex box-height">
+    <div class="col-md-7 col-sm-8 col-xs-12 login-head">
+        <div class="space-box box-height">
+            <a href="http://blog.auraart.in/">
+                <div class="yellow-bg small-box"><i class="fa fa-file-text"></i>
+                </div>
+                <div class="inline-box">Blog</div>
+            </a>
+        </div>
+        <div class="space-box box-height">
             <a ng-click="reachOut()">
                 <div class="style1-bg small-box"><i class="fa fa-phone"></i>
                 </div>
                 <div class="inline-box">Reach Out</div>
             </a>
         </div>
-        <div class="col-flex box-height" ng-click="showLogin();" ng-hide="showWishlist">
+        <div class="space-box box-height" ng-click="showLogin();" ng-hide="showWishlist">
             <div class="style4-bg small-box"><i class="fa fa-user"></i>
             </div>
             <div class="inline-box">Login</div>
         </div>
-        <div class="col-flex box-height" ng-show="showWishlist">
+        <div class="space-box box-height" ng-show="showWishlist">
             <div class="" ng-click="toaccount();">
                 <div class="style4-bg small-box"><i class="fa fa-user"></i>
                 </div>
@@ -56,7 +63,7 @@
         <script type="text/ng-template" id="demopoplogin">
             Hello World!
         </script>
-        <div class="col-flex box-height" ng-show="showWishlist">
+        <div class="space-box box-height" ng-show="showWishlist">
             <a href="#/favorite">
                 <div class="style3-bg small-box"><i class="fa fa-heart"></i>
                 </div>
@@ -64,7 +71,7 @@
                 </div>
             </a>
         </div>
-        <div class="col-flex box-height list-cart" ui-sref="cart" ng-controller="cartdropctrl" ng-mouseover="showcart(0)" ng-mouseleave="hidecart(0)">
+        <div class="space-box box-height list-cart" ui-sref="cart" ng-controller="cartdropctrl" ng-mouseover="showcart(0)" ng-mouseleave="hidecart(0)">
             <div class="style2-bg small-box">{{cartItems.length}}</div>
             <div class="inline-box">
                 My Cart
