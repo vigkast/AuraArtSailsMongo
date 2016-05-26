@@ -151,9 +151,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     NavigationService.pressFind(getPress);
 
     NavigationService.getupcomingevents(function(data) {
-        if (data.value !== false)
+        if (data.value !== false) {
             $scope.upcomingEvent = data;
-        console.log(data);
+            if ($scope.upcomingEvent.videos) {
+                $scope.upcomingEvent.videos = $scope.upcomingEvent.videos.split(',');
+            }
+        }
+        console.log($scope.upcomingEvent);
     });
 
     NavigationService.getuserprofile(function(data) {
@@ -2022,6 +2026,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     NavigationService.getOneEvents($stateParams.id, function(data) {
         console.log(data);
         $scope.eventDetail = data;
+        if ($scope.eventDetail.videos) {
+            $scope.eventDetail.videos = $scope.eventDetail.videos.split(',');
+        }
         cfpLoadingBar.complete();
     })
 

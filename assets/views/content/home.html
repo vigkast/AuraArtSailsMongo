@@ -335,9 +335,9 @@
                                 <h6>PRESS</h6>
                                 <img alt="" class="img-responsive" ng-src="{{upcomingEvent.pressphoto|uploadthumbnail}}">
                             </div>
-                            <div class="col-flex pointer fancybox.iframe" fancybox-box ng-href="http://www.youtube.com/embed/{{upcomingEvent.videos}}?autoplay=1" ng-if="upcomingEvent.videos">
+                            <div class="col-flex pointer fancybox.iframe" fancybox-box ng-href="http://www.youtube.com/embed/{{upcomingEvent.videos[0]}}?autoplay=1" ng-if="upcomingEvent.videos[0]">
                                 <h6>VIDEO</h6>
-                                <img ng-src="http://img.youtube.com/vi/{{upcomingEvent.videos}}/default.jpg" />
+                                <img ng-src="http://img.youtube.com/vi/{{upcomingEvent.videos[0]}}/default.jpg" />
                             </div>
                         </div>
                     </div>

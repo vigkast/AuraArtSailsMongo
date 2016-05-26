@@ -1,58 +1,69 @@
 <div class="border-top"></div>
 <div class="container ">
-   <div class="eventpad">
-      <div class="row">
-         <div class="eventdetail">
-            <a class="font-color3 pull-right event-invite" ui-sref="invite({img:eventDetail.invitation})">invite</a>
-            <h3 class="font-color3 home-header">{{eventDetail.name}}</h3>
-            <p>
-               <span>Event Venue</span> : {{eventDetail.venue}}</p>
-            <p>
-               <span>Period of show </span> : {{eventDetail.startdate|date:'EEEE, MMMM d, y'}} - {{eventDetail.enddate|date:'EEEE, MMMM d, y'}}</p>
-            <p ng-if="eventDetail.starttime!='undefined:undefined undefined' && eventDetail.endtime!='undefined:undefined undefined'">
-               <span>Event Time</span> : {{eventDetail.starttime}} to {{eventDetail.endtime}}</p>
-         </div>
-      </div>
-      <div class="row">
-         <div class=" details" ng-if="eventDetail.details">
-            <span>Details :</span>
-            <p class="intwo" ng-bind-html="eventDetail.details"></p </div>
-         </div>
-         <div class="row-flex event-descp">
-            <div class="col-flex" ng-if="eventDetail.desc1">
-               <div class="pad10">
-                  <p class="text-justify" ng-bind-html="eventDetail.desc1 | rawHtml"></p>
-               </div>
+    <div class="eventpad">
+        <div class="row">
+            <div class="eventdetail">
+                <a class="font-color3 pull-right event-invite" ui-sref="invite({img:eventDetail.invitation})">invite</a>
+                <h3 class="font-color3 home-header">{{eventDetail.name}}</h3>
+                <p>
+                    <span>Event Venue</span> : {{eventDetail.venue}}</p>
+                <p>
+                    <span>Period of show </span> : {{eventDetail.startdate|date:'EEEE, MMMM d, y'}} - {{eventDetail.enddate|date:'EEEE, MMMM d, y'}}</p>
+                <p ng-if="eventDetail.starttime!='undefined:undefined undefined' && eventDetail.endtime!='undefined:undefined undefined'">
+                    <span>Event Time</span> : {{eventDetail.starttime}} to {{eventDetail.endtime}}</p>
             </div>
-            <div class="col-flex" ng-if="eventDetail.desc2">
-               <div class="pad10">
-                  <p class="text-justify" ng-bind-html="eventDetail.desc2 | rawHtml"></p>
-               </div>
+        </div>
+        <div class="row">
+            <div class=" details" ng-if="eventDetail.details">
+                <span>Details :</span>
+                <p class="intwo" ng-bind-html="eventDetail.details"></p </div>
             </div>
-            <div class="col-flex" ng-if="eventDetail.desc3">
-               <div class="pad10">
-                  <p class="text-justify" ng-bind-html="eventDetail.desc3 | rawHtml"></p>
-               </div>
+            <div class="row-flex event-descp">
+                <div class="col-flex" ng-if="eventDetail.desc1">
+                    <div class="pad10">
+                        <p class="text-justify" ng-bind-html="eventDetail.desc1 | rawHtml"></p>
+                    </div>
+                </div>
+                <div class="col-flex" ng-if="eventDetail.desc2">
+                    <div class="pad10">
+                        <p class="text-justify" ng-bind-html="eventDetail.desc2 | rawHtml"></p>
+                    </div>
+                </div>
+                <div class="col-flex" ng-if="eventDetail.desc3">
+                    <div class="pad10">
+                        <p class="text-justify" ng-bind-html="eventDetail.desc3 | rawHtml"></p>
+                    </div>
+                </div>
+                <div class="col-flex" ng-if="eventDetail.desc4">
+                    <div class="pad10">
+                        <p class="text-justify" ng-bind-html="eventDetail.desc4 | rawHtml"></p>
+                    </div>
+                </div>
+                <div class="col-flex" ng-if="eventDetail.desc5">
+                    <div class="pad10">
+                        <p class="text-justify" ng-bind-html="eventDetail.desc5 | rawHtml"></p>
+                    </div>
+                </div>
             </div>
-            <div class="col-flex" ng-if="eventDetail.desc4">
-               <div class="pad10">
-                  <p class="text-justify" ng-bind-html="eventDetail.desc4 | rawHtml"></p>
-               </div>
+            <h5 class="home-header font-color3" ng-if="eventDetail.photos && eventDetail.photos.length>0">PHOTOS</h5>
+            <div class="row">
+                <div class="eventgallery">
+                    <div class="col-md-3" ng-repeat="gal in eventDetail.photos">
+                        <a class="event-pic" fancybox-box ng-href="{{gal|uploadpath}}" rel="events">
+                            <img class="fix-img" ng-src="{{gal|uploadpath}}">
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="col-flex" ng-if="eventDetail.desc5">
-               <div class="pad10">
-                  <p class="text-justify" ng-bind-html="eventDetail.desc5 | rawHtml"></p>
-               </div>
+            <h5 class="home-header font-color3" ng-if="eventDetail.videos && eventDetail.videos.length>0">VIDEOS</h5>
+            <div class="row">
+                <div class="eventgallery">
+                    <div class="col-md-3" ng-repeat="gal in eventDetail.videos">
+                        <a class="event-pic" fancybox-box ng-href="http://www.youtube.com/embed/{{gal}}?autoplay=1" rel="events">
+                            <img class="fix-img" ng-src="http://img.youtube.com/vi/{{gal}}/mqdefault.jpg">
+                        </a>
+                    </div>
+                </div>
             </div>
-         </div>
-         <div class="row">
-            <div class="eventgallery">
-               <div class="col-md-3" ng-repeat="gal in eventDetail.photos">
-                  <a class="event-pic" fancybox-box ng-href="{{gal|uploadpath}}" rel="events">
-                     <img class="fix-img" ng-src="{{gal|uploadpath}}">
-                  </a>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
