@@ -14,7 +14,7 @@
                                 </div>
                                 <a>
                                     <div class="event-img text-center">
-                                        <img ng-src="{{event.photos[0]|uploadthumbnail}}" class="">
+                                        <img ng-src="{{event.homeimg|uploadthumbnail}}" class="">
                                     </div>
                                 </a>
                             </div>
@@ -28,8 +28,8 @@
         <div class="all-events search-box">
             <h3 class="font-color3 home-header padtop">Current Events</h3>
             <p class="head">{{currentYear}}</p>
-            <div class="row">
-                <div class="col-md-3" ng-repeat="event in events.present[0]">
+            <div class="row" ng-repeat="currevent in events.current">
+                <div class="col-md-3" ng-repeat="event in currevent">
                     <div class="event-detail" ui-sref="eventdetail({id:event._id})">
                         <div class="data">
                             <h6 class="font-color2">{{event.name}}</h6>
@@ -37,7 +37,7 @@
                         </div>
                         <a>
                             <div class="event-img text-center">
-                                <img ng-src="{{event.photos[0]|uploadthumbnail}}" class="">
+                                <img ng-src="{{event.homeimg|uploadthumbnail}}" class="">
                             </div>
                         </a>
                     </div>
@@ -60,7 +60,7 @@
                                 <a>
                                     <!-- {{event}} -->
                                     <div class="event-img text-center">
-                                        <img ng-src="{{event.photos[0]|uploadthumbnail}}" class="">
+                                        <img ng-src="{{event.homeimg|uploadthumbnail}}" class="">
                                     </div>
                                 </a>
                             </div>

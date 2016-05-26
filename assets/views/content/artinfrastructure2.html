@@ -100,6 +100,9 @@
 		<div class="row-head">
 			<p class="font-color3">{{activity.name}}</p>
 		</div>
+		<div class="margin" ng-if="activity.image">
+			<img src="{{activity.image | uploadpath}}" class="img-responsive">
+		</div>
 		<div class="row margintp">
 			<div class="col-md-6">
 				<div class="row-headleft colorblack" ng-bind-html="activity.detail1">
@@ -137,7 +140,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="valuation-insurance" id="valuation">
+	<!-- <div class="valuation-insurance" id="valuation">
 		<div class="row-head  colorblack">
 			<p class="font-color3">Valuation &amp; Insurance</p>
 		</div>
@@ -179,7 +182,7 @@
 		<div class="margin">
 			<img src="img/conversation.jpg" class="img-responsive">
 		</div>
-	</div>
+	</div> -->
 	<!--
     <div class="row">
         <div class="panel-set">
@@ -238,7 +241,7 @@
 
         </div>
     </div>-->
-	<div class="art-initiative" id="art">
+	<!-- <div class="art-initiative" id="art">
 		<div class="row-head">
 			<p class="font-color3">Strategy for Art Initiatives including CSR</p>
 		</div>
@@ -257,5 +260,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </div>

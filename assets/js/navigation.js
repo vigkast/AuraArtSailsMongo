@@ -98,7 +98,7 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
     }, {
         name: "Infra Services",
         active: "",
-        link: "#/infra-services",
+        link: "#/infra-services2",
         classis: "active",
         subnav: []
             // subnav: [{
@@ -257,22 +257,19 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
             }).success(callback);
         },
         getallartist: function(pagedata, callback) {
-            delete pagedata.pagenumber;
-            delete pagedata.pagesize;
+            // delete pagedata.pagenumber;
+            // delete pagedata.pagesize;
             $http({
                 url: adminurl + "user/findbyletter",
                 method: "POST",
                 data: pagedata
             }).success(callback);
         },
-        getListView: function(callback) {
+        getArtistList: function(data, callback) {
             $http({
-                url: adminurl + "user/findbyletter",
+                url: adminurl + "user/findForList",
                 method: "POST",
-                data: {
-                    "pagenumber": 1,
-                    "pagesize": 10000000000000
-                }
+                data: data
             }).success(callback);
         },
         getoneartist: function(artistid, callback) {

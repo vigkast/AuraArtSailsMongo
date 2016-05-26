@@ -320,24 +320,24 @@
                                     <!-- <a href="http://auraart.in/user/resize?file={{upcomingEvent.invitation}}" download="http://auraart.in/user/resize?file={{upcomingEvent.invitation}}"> -->
                                     <!-- <img alt="" class="" src="img/vi.jpg"></a> -->
                                 </div>
-                                <div class="col-flex pointer" ng-if="upcomingEvent.catalogue">
-                                    <h6>CATALOGUE</h6>
-                                    <a href="{{upcomingEvent.catalogue|uploadpath}}" target="_blank">
-                                        <img alt="" class="img-responsive" src="img/vc.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-flex pointer" fancybox-box href="{{upcomingEvent.homeimg|uploadpath}}" ng-if="upcomingEvent.homeimg">
-                                    <h6>PHOTO</h6>
-                                    <img alt="" class="img-responsive" ng-src="{{upcomingEvent.homeimg|uploadthumbnail}}">
-                                </div>
-                                <div class="col-flex" fancybox-box href="{{upcomingEvent.pressphoto|uploadpath}}" ng-if="upcomingEvent.pressphoto">
-                                    <h6>PRESS</h6>
-                                    <img alt="" class="img-responsive" ng-src="{{upcomingEvent.pressphoto|uploadthumbnail}}">
-                                </div>
-                                <div class="col-flex pointer fancybox.iframe" fancybox-box ng-href="http://www.youtube.com/embed/{{upcomingEvent.videos}}?autoplay=1" ng-if="upcomingEvent.videos">
-                                    <h6>VIDEO</h6>
-                                    <img ng-src="http://img.youtube.com/vi/{{upcomingEvent.videos}}/default.jpg" />
-                                </div>
+                            </div>
+                            <div class="col-flex pointer" ng-if="upcomingEvent.catalogue">
+                                <h6>CATALOGUE</h6>
+                                <a href="{{upcomingEvent.catalogue|uploadpath}}" target="_blank">
+                                    <img alt="" class="img-responsive" src="img/vc.jpg">
+                                </a>
+                            </div>
+                            <div class="col-flex pointer" fancybox-box href="{{upcomingEvent.photos[0]|uploadpath}}" ng-if="upcomingEvent.homeimg">
+                                <h6>PHOTO</h6>
+                                <img alt="" class="img-responsive" ng-src="{{upcomingEvent.photos[0]|uploadthumbnail}}">
+                            </div>
+                            <div class="col-flex" fancybox-box href="{{upcomingEvent.pressphoto|uploadpath}}" ng-if="upcomingEvent.pressphoto">
+                                <h6>PRESS</h6>
+                                <img alt="" class="img-responsive" ng-src="{{upcomingEvent.pressphoto|uploadthumbnail}}">
+                            </div>
+                            <div class="col-flex pointer fancybox.iframe" fancybox-box ng-href="http://www.youtube.com/embed/{{upcomingEvent.videos}}?autoplay=1" ng-if="upcomingEvent.videos">
+                                <h6>VIDEO</h6>
+                                <img ng-src="http://img.youtube.com/vi/{{upcomingEvent.videos}}/default.jpg" />
                             </div>
                         </div>
                     </div>
@@ -345,6 +345,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <div class="container" ng-if="press.length>0">
     <div class="padding-more">
