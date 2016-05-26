@@ -353,8 +353,17 @@ module.exports = {
             } else {
                 data.approveTimestamp = new Date();
                 Artwork.lastImage(data, function(lastRespo) {
-                    data.imageno = parseInt(lastRespo.imageno) + 1;
-                    callMe();
+                    if (lastRespo.value != false) {
+                        console.log(lastRespo);
+                        data.imageno = parseInt(lastRespo.imageno) + 1;
+                        console.log(data.imageno);
+                        callMe();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "Error"
+                        });
+                    }
                 });
             }
         } else {
@@ -1576,6 +1585,14 @@ module.exports = {
                                 }
                             }, {
                                 $unwind: "$artwork"
+                            }, {
+                                $match: {
+                                    $or: [{
+                                        "artwork.status": "approve"
+                                    }, {
+                                        "artwork.status": "sold"
+                                    }]
+                                }
                             }, {
                                 $project: {
                                     name: 1,

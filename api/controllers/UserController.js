@@ -517,7 +517,27 @@ module.exports = {
             var print = function(data) {
                 res.json(data);
             }
-            User.findbyletter(req.body, print);
+            if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
+                User.findbyletter(req.body, print);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    findForList: function(req, res) {
+        if (req.body) {
+            var print = function(data) {
+                res.json(data);
+            }
+            User.findForList(req.body, print);
         } else {
             res.json({
                 value: false,

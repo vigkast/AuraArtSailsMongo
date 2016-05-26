@@ -829,5 +829,63 @@ module.exports = {
                 });
             }
         });
+    },
+    changeSculp: function(req, res) {
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                res.json({
+                    value: false
+                });
+            } else {
+                db.collection("user").aggregate([{
+                    $unwind: "$artwork"
+                }, {
+                    $match: {
+                        "artwork.type": "Sculptures",
+                        "artwork.imageno": 500
+                    }
+                }, {
+                    $project: {
+                        _id: 1,
+                        "artwork._id": 1,
+                        "artwork.name": 1,
+                        "artwork.type": 1
+                    }
+                }]).toArray(function(err, found) {
+                    if (err) {
+                        console.log(err);
+                    } else if (found && found.length > 0) {
+                        function callMe(num) {
+                            var xyz = found[num];
+                            Artwork.lastImage({
+                                type: xyz.artwork.type
+                            }, function(lastRespo) {
+                                if (lastRespo.value != false) {
+                                    Artwork.save({
+                                        user: xyz._id,
+                                        _id: xyz.artwork._id,
+                                        imageno: parseInt(lastRespo.imageno) + 1
+                                    }, function(artRespo) {
+                                        if (artRespo) {
+                                            num++;
+                                            if (num == found.length) {
+                                                res.json({
+                                                    value: true,
+                                                    comment: found
+                                                });
+                                            } else {
+                                                callMe(num);
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                        callMe(0);
+                    }
+                });
+            }
+        });
     }
 };

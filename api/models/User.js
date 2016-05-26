@@ -576,6 +576,8 @@
           });
       },
       findbyletter: function(data, callback) {
+          data.pagesize = parseInt(data.pagesize);
+          data.pagenumber = parseInt(data.pagenumber);
           var newreturns = {};
           newreturns.data = [];
           var spacedata = data.searchname;
@@ -618,29 +620,123 @@
                       callback({
                           value: false
                       });
+                  } else {
+                      async.parallel([
+                          function(callback) {
+                              db.collection("user").find(firstmatch, {
+                                  password: 0,
+                                  forgotpassword: 0,
+                                  artwork: { $slice: 1 }
+                              }).sort({
+                                  focused: 1,
+                                  name: 1
+                              }).count(function(err, found) {
+                                  if (err) {
+                                      console.log(err);
+                                      callback(err, null);
+                                  } else if (found) {
+                                      newreturns.totalpages = Math.ceil(found / data.pagesize);
+                                      callback(null, newreturns);
+                                  } else {
+                                      newreturns.totalpages = 0;
+                                      callback(null, newreturns);
+                                  }
+                              });
+                          },
+                          function(callback) {
+                              db.collection("user").find(firstmatch, {
+                                  password: 0,
+                                  forgotpassword: 0,
+                                  artwork: { $slice: 1 }
+                              }).sort({
+                                  focused: 1,
+                                  name: 1
+                              }).skip(data.pagesize * (data.pagenumber - 1)).limit(data.pagesize).toArray(function(err, found) {
+                                  if (err) {
+                                      callback(err, null);
+                                      console.log(err);
+                                  } else if (found && found[0]) {
+                                      newreturns.data = found;
+                                      callback(null, newreturns);
+                                  } else {
+                                      callback(null, newreturns);
+                                      db.close();
+                                  }
+                              });
+                          }
+                      ], function(err, data3) {
+                          if (err) {
+                              console.log(err);
+                              callback({
+                                  value: false,
+                                  comment: "Error"
+                              });
+                          } else {
+                              callback(newreturns);
+                          }
+                      });
                   }
-                  if (db) {
+              });
+          }
+      },
+      findForList: function(data, callback) {
+          var spacedata = data.searchname;
+          spacedata = "\\s" + spacedata;
+          var checkname = new RegExp(spacedata, "i");
+          data.searchname = "^" + data.searchname;
+          var checkspace = new RegExp(data.searchname, "i");
+          data.search = "^" + data.search;
+          var check = new RegExp(data.search, "i");
+          var firstmatch = {
+              $and: [{
+                  name: check
+              }, {
+                  $or: [{
+                      name: {
+                          '$regex': checkname
+                      }
+                  }, {
+                      name: {
+                          '$regex': checkspace
+                      }
+                  }]
+              }],
+              artwork: {
+                  $exists: true
+              },
+              status: "approve",
+              accesslevel: "artist",
+              "artwork.type": data.type
+          };
+          callbackfunc1();
+
+          function callbackfunc1() {
+              if (!data.type || data.type == "") {
+                  delete firstmatch["artwork.type"];
+              }
+              sails.query(function(err, db) {
+                  if (err) {
+                      console.log(err);
+                      callback({
+                          value: false
+                      });
+                  } else {
                       db.collection("user").find(firstmatch, {
-                          password: 0,
-                          forgotpassword: 0
+                          _id: 1,
+                          name: 1
                       }).sort({
                           focused: 1,
                           name: 1
                       }).toArray(function(err, found) {
                           if (err) {
+                              console.log(err);
                               callback({
                                   value: false
                               });
-                              console.log(err);
-                          } else if (found && found[0]) {
-                              newreturns.data = found;
-                              callback(newreturns);
+                          } else if (found && found.length > 0) {
+                              callback(found);
                           } else {
-                              callback({
-                                  value: false,
-                                  comment: "No data found"
-                              });
-                              db.close();
+                              callback([]);
                           }
                       });
                   }
