@@ -432,7 +432,8 @@
                                         <p>{{artwork.name}}</p>
                                         <!-- <p>{{artwork.artwork.dim}}</p> -->
                                         <p>{{artwork.artwork|makesizestr}}</p>
-                                        <p class="status-color">{{artwork.artwork.status}}</p>
+                                        <p class="status-color" ng-if="artwork.artwork.status!='soldbyartist'">{{artwork.artwork.status}}</p>
+                                        <p class="status-color" ng-if="artwork.artwork.status=='soldbyartist'">Unpublished</p>
                                     </div>
                                 </div>
                             </div>
