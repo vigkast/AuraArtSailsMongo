@@ -147,7 +147,7 @@
                         </p>
                         <p ng-if="artistdetails.status!='sold'">
                             <span ng-if="artistdetails.gprice && artistdetails.gprice!='N/A'">
-                Rs {{artistdetails.gprice|number:0}} / ${{artistdetails.gprice|indollars}}
+                Rs {{artistdetails.gprice|inlakhs}} / ${{artistdetails.gprice|indollars}}
               </span>
                             <span ng-if="!artistdetails.gprice || artistdetails.gprice=='N/A'">
                 Available on request

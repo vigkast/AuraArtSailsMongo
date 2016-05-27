@@ -243,8 +243,8 @@ header.stickyheader {
 }
 .inline-box {
     font-family: @font-family-head;
-    font-size: 11px;
-    .lh(120%);
+    font-size: 10px;
+    .lh(150%);
     // position: absolute;
     // top: 50%;
     // left: 40px;
@@ -1333,8 +1333,18 @@ body.ngdialog-open {
             font-family: @font-family-head;
         }
         .media-img {
-            height: 400px;
+          .fixd-height {
+            height: 230px;
             overflow: hidden;
+            display: block;
+            margin-bottom: 10px;
+            img {
+              max-height: 100%;
+              max-width: 100%;
+              width: auto;
+              margin: 0 auto;
+            }
+          }
         }
     }
 }
@@ -3258,9 +3268,16 @@ img.fancybox-image {
         filter:alpha(opacity=0);
     }
 }
-a.col-press {
+.col-press {
     display: block;
     position: relative;
+    height: 250px;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      margin: 0 auto;
+    }
 }
 .mr-right {
     margin-right: 5px;
@@ -3646,6 +3663,9 @@ li.title.inline-box-infra {
 }
 .yellow-bg {
   background-color: #FFE06D;
+}
+.good-radios {
+    font-size: 14px;
 }
 /* Mobile Less */
 @import "../less/fancybox-override.less";

@@ -1,14 +1,14 @@
 <div class="padding-more terms-cont">
     <div class="container" ng-init="check='both'">
         <h4 class="head-team">Terms &amp; Conditions</h4>
-        <span>You are :
-        </span>
-        <input type="radio" name="type" value="artist" ng-model="check">
-        Seller (Artist)
-        <input type="radio" name="type" value="seller" ng-model="check">
-        Reseller
-        <input type="radio" name="type" value="both" ng-model="check">
-        Both
+        <div class="good-radios">
+            <span>You are :</span>
+            <input type="radio" name="type" value="artist" ng-model="check">
+            Seller (Artist)
+            <input type="radio" name="type" value="seller" ng-model="check">
+            Reseller
+            <input type="radio" name="type" value="both" ng-model="check">
+            Both</div>
         <div class="scroll-y">
             <h5 class="bold head-terms" ng-if="check=='artist' || check=='both'">Seller (Artist)</h5>
             <ol ng-if="check=='artist' || check=='both'">
