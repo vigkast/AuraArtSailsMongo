@@ -1,5 +1,5 @@
 <div class="border-top"></div>
-<div class="container ">
+<div class="container">
     <div class="media">
         <h3 class="font-color3 home-header">Press</h3>
     </div>
@@ -14,11 +14,9 @@
                             <p>{{media.date|date}}</p>
                         </div>
                         <div class="media-img text-center">
-                            <figure>
-                                <a fancybox-box href="{{media.photos|uploadpath}}" rel="press" title="{{media.title}} {{media.date|date:'fullDate'}}">
-                                    <img class="img-responsive" ng-src="{{media.photos|uploadthumbnail}}">
-                                </a>
-                            </figure>
+                            <a fancybox-box href="{{media.photos|uploadpath}}" rel="press" title="{{media.title}} {{media.date|date:'fullDate'}}" class="fixd-height">
+                                <img class="img-responsive" ng-src="{{media.photos|uploadthumbnail}}">
+                            </a>
                         </div>
                     </div>
                 </div>

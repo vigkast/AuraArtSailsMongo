@@ -18302,9 +18302,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     NavigationService.pressFind(getPress);
 
     NavigationService.getupcomingevents(function(data) {
-        if (data.value !== false)
+        if (data.value !== false) {
             $scope.upcomingEvent = data;
-        console.log(data);
+            if ($scope.upcomingEvent.videos) {
+                $scope.upcomingEvent.videos = $scope.upcomingEvent.videos.split(',');
+            }
+        }
+        console.log($scope.upcomingEvent);
     });
 
     NavigationService.getuserprofile(function(data) {
@@ -19950,14 +19954,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             if (n.startdate) {
                 var eventDate = new Date(n.startdate);
                 eventDate.setHours(0, 0, 0, 0);
+                var eventEndDate = new Date(n.enddate);
+                eventEndDate.setHours(0, 0, 0, 0);
                 var currDate = new Date();
                 currDate.setHours(0, 0, 0, 0);
                 $scope.currentYear = currDate.getFullYear();
                 // console.log(n.startdate + " / eventDate = " + eventDate + " / currDate = " + currDate + " / " + (eventDate == currDate));
-                if (moment(eventDate).isAfter(currDate)) {
-                    $scope.events.upcoming.push(n);
-                } else if (moment(eventDate).isSame(currDate)) {
+                if (moment(currDate).isBetween(eventDate, eventEndDate)) {
                     $scope.events.current.push(n);
+                } else if (moment(eventDate).isAfter(currDate)) {
+                    $scope.events.upcoming.push(n);
                 } else if (moment(eventDate).isBefore(currDate)) {
                     $scope.events.past.push(n);
                 }
@@ -20171,6 +20177,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     NavigationService.getOneEvents($stateParams.id, function(data) {
         console.log(data);
         $scope.eventDetail = data;
+        if ($scope.eventDetail.videos) {
+            $scope.eventDetail.videos = $scope.eventDetail.videos.split(',');
+        }
         cfpLoadingBar.complete();
     })
 
@@ -20965,7 +20974,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.tab = 'grid';
     $scope.pagedata = {};
     $scope.pagedata.pagenumber = 1;
-    $scope.pagedata.pagesize = 18;
+    $scope.pagedata.pagesize = 12;
     $scope.pagedata.search = '';
     $scope.pagedata.searchname = '';
     $scope.artistimage = [];
@@ -21015,17 +21024,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     var totalpages = 2;
 
     function getAllArtistByAccess() {
-        // var toList = _.cloneDeep($scope.pagedata);
-        // toList.pagenumber = 1;
-        // toList.pagesize = 100000000000;
-        // NavigationService.getallartist(toList, function(data, status) {
-        //     if (data.data) {
-        //         $scope.listview = data.data;
-        //     }
-        // })
+        NavigationService.getArtistList($scope.pagedata, function(data, status) {
+            $scope.listview = data;
+        })
     }
-    getAllArtistByAccess();
 
+    $scope.artistimage = [];
     $scope.reload = function() {
 
         console.log("reload");
@@ -21034,8 +21038,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.pagedata.type = "";
         }
         NavigationService.getallartist($scope.pagedata, function(data, status) {
-            $scope.artistimage = data.data
-            $scope.listview = data.data;
+            lastpage = data.totalpages;
+            _.each(data.data, function(n) {
+                $scope.artistimage.push(n);
+            })
+            $scope.artistimage = _.uniq($scope.artistimage, '_id');
+
             cfpLoadingBar.complete();
             if ($.jStorage.get("artistScroll")) {
                 console.log("in if");
@@ -21065,7 +21073,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         getAllArtistByAccess();
     }
 
-    $scope.getartistbyletter('All');
     $scope.getartistbysearch = function() {
         $scope.pagedata.pagenumber = 1;
         $scope.artistimage = [];
@@ -21085,10 +21092,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             })
             //      if (type == "All")
             //          type = "";
-        $scope.getartistbyletter('All');
-        //      else {
-        //          $scope.getartistbyletter(type);
-        //      }
+            //      else {
+            //          $scope.getartistbyletter(type);
+            //      }
         $scope.pagedata.type = type;
         $scope.pagedata.pagenumber = 1;
         //        $scope.pagedata.search = '';
@@ -21096,6 +21102,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.artistimage = [];
         $scope.listview = [];
         $scope.reload();
+        getAllArtistByAccess();
     }
 
     // $(window).scroll(function() {
@@ -21107,10 +21114,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     // });
 
     $scope.addMoreItems = function() {
-        // if (lastpage >= $scope.pagedata.pagenumber) {
-        //     $scope.pagedata.pagenumber++;
-        //     $scope.reload();
-        // }
+        if (lastpage >= $scope.pagedata.pagenumber) {
+            $scope.pagedata.pagenumber++;
+            $scope.reload();
+        }
     }
 
 
@@ -26129,7 +26136,7 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
     }, {
         name: "Infra Services",
         active: "",
-        link: "#/infra-services",
+        link: "#/infra-services2",
         classis: "active",
         subnav: []
             // subnav: [{
@@ -26288,22 +26295,19 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
             }).success(callback);
         },
         getallartist: function(pagedata, callback) {
-            delete pagedata.pagenumber;
-            delete pagedata.pagesize;
+            // delete pagedata.pagenumber;
+            // delete pagedata.pagesize;
             $http({
                 url: adminurl + "user/findbyletter",
                 method: "POST",
                 data: pagedata
             }).success(callback);
         },
-        getListView: function(callback) {
+        getArtistList: function(data, callback) {
             $http({
-                url: adminurl + "user/findbyletter",
+                url: adminurl + "user/findForList",
                 method: "POST",
-                data: {
-                    "pagenumber": 1,
-                    "pagesize": 10000000000000
-                }
+                data: data
             }).success(callback);
         },
         getoneartist: function(artistid, callback) {
