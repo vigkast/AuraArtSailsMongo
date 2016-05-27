@@ -258,16 +258,32 @@ module.exports = {
             } else if (db) {
                 db.collection("event").find({
                     _id: sails.ObjectID(data._id)
-                }, {}).toArray(function(err, found) {
+                }, {}).toArray(function(err, data2) {
                     if (err) {
                         callback({
                             value: false
                         });
                         console.log(err);
                         db.close();
-                    } else if (found && found[0]) {
-                        callback(found[0]);
-                        db.close();
+                    } else if (data2 && data2[0]) {
+                        db.collection("press").find({
+                            event: data2[0].name
+                        }, {}).toArray(function(err, found) {
+                            if (err) {
+                                callback({
+                                    value: false
+                                });
+                                console.log(err);
+                                db.close();
+                            } else if (found && found[0]) {
+                                data2[0].pressphoto = found[0].photos;
+                                callback(data2[0]);
+                                db.close();
+                            } else {
+                                callback(data2[0]);
+                                db.close();
+                            }
+                        });
                     } else {
                         callback({
                             value: false,

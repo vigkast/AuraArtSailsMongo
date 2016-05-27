@@ -79,7 +79,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("projects").find().toArray(function (err, found) {
+                db.collection("projects").find().sort({ order: 1 }).toArray(function (err, found) {
                     if (err) {
                         callback({
                             value: false

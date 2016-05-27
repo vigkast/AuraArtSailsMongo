@@ -37,8 +37,8 @@ module.exports = {
                                 },
                                 "recipients": ["connect@auraart.in"],
                                 "attributes": {
-                                    "FROM": [data.person],
-                                    "EMAIL": [data.from],
+                                    "AFROM": [data.person],
+                                    "AEMAIL": [data.from],
                                     "MOB": [data.number],
                                     "REM": [data.remarks]
                                 }

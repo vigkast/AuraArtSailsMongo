@@ -105,6 +105,7 @@
                                               "EMAIL": [data.email]
                                           }
                                       };
+                                      
                                       sails.request.get({
                                           url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
                                       }, function(err, httpResponse, body) {
@@ -2212,85 +2213,11 @@
                               });
                               db.close();
                           } else if (updated) {
-                              // callback(sails.diff(data.old, data.new));
-                              // db.close();
                               callback({
                                   value: true,
                                   comment: "Mail sent"
                               });
                               db.close();
-                              // user = user.toString();
-                              // var residence = "";
-                              // var studio = "";
-                              // if (data.residence) {
-                              //     residence = data.residence.flatno + ", " + data.residence.bldgname + ", " + data.residence.landmark + ", " + data.residence.street + ", " + data.residence.locality + ", " + data.residence.city + ", " + data.residence.pincode + ", " + data.residence.state + ", " + data.residence.country;
-                              // } else {
-                              //     residence = "N/A";
-                              // }
-                              // if (data.work) {
-                              //     studio = data.work.flatno + ", " + data.work.bldgname + ", " + data.work.landmark + ", " + data.work.street + ", " + data.work.locality + ", " + data.work.city + ", " + data.work.pincode + ", " + data.work.state + ", " + data.work.country;
-                              // } else {
-                              //     studio = "N/A";
-                              // }
-                              // var obj = {
-                              //     "api_key": "47e02d2b10604fc81304a5837577e286",
-                              //     "email_details": {
-                              //         "fromname": sails.fromName,
-                              //         "subject": "Artist %23" + user.substring(user.length - 5),
-                              //         "from": sails.fromEmail,
-                              //         "replytoid": "connect@aurart.in"
-                              //     },
-                              //     "settings": {
-                              //         "template": "2210",
-                              //     },
-                              //     "recipients": ["connect@aurart.in", selleremail],
-                              //     "attributes": {
-                              //         "NAME": [data.name],
-                              //         "SELLEREMAIL": [selleremail],
-                              //         "GENDER": [data.gender],
-                              //         "EMAIL": [data.email],
-                              //         "CCM": [data.personal.countrycode],
-                              //         "MOB": [data.personal.mob],
-                              //         "CCW": [data.work.countrycode],
-                              //         "CICW": [data.work.citycode],
-                              //         "WNO": [data.work.work],
-                              //         "CCR": [data.residence.countrycode],
-                              //         "CICR": [data.residence.citycode],
-                              //         "RNO": [data.residence.home],
-                              //         "RADD": [residence],
-                              //         "SADD": [studio],
-                              //         "DOB": [data.dob],
-                              //         "SOB": [data.stateofb],
-                              //         "WOA": [data.woa],
-                              //         "GALLERY": [data.galleries],
-                              //         "CLINK": [data.clink],
-                              //         "EBOOK": [data.eblink],
-                              //         "STATUS": [data.status],
-                              //         "COMMENT": [data.comment]
-                              //     }
-                              // };
-                              // sails.request.get({
-                              //     url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
-                              // }, function (err, httpResponse, body) {
-                              //     if (err) {
-                              //         callback({
-                              //             value: false
-                              //         });
-                              //         db.close();
-                              //     } else if (body && body == "success") {
-                              //         callback({
-                              //             value: true,
-                              //             comment: "Mail sent"
-                              //         });
-                              //         db.close();
-                              //     } else {
-                              //         callback({
-                              //             value: false,
-                              //             comment: "Error"
-                              //         });
-                              //         db.close();
-                              //     }
-                              // });
                           } else {
                               callback({
                                   value: false,
@@ -2389,78 +2316,6 @@
                               comment: "Mail sent"
                           });
                           db.close();
-                          // user = user.toString();
-                          // var residence = "";
-                          // var studio = "";
-                          // if (data.residence) {
-                          //     residence = data.residence.flatno + ", " + data.residence.bldgname + ", " + data.residence.landmark + ", " + data.residence.street + ", " + data.residence.locality + ", " + data.residence.city + ", " + data.residence.pincode + ", " + data.residence.state + ", " + data.residence.country;
-                          // } else {
-                          //     residence = "N/A";
-                          // }
-                          // if (data.work) {
-                          //     studio = data.work.flatno + ", " + data.work.bldgname + ", " + data.work.landmark + ", " + data.work.street + ", " + data.work.locality + ", " + data.work.city + ", " + data.work.pincode + ", " + data.work.state + ", " + data.work.country;
-                          // } else {
-                          //     studio = "N/A";
-                          // }
-                          // var obj = {
-                          //     "api_key": "47e02d2b10604fc81304a5837577e286",
-                          //     "email_details": {
-                          //         "fromname": sails.fromName,
-                          //         "subject": "Artist %23" + user.substring(user.length - 5),
-                          //         "from": sails.fromEmail,
-                          //         "replytoid": "connect@aurart.in"
-                          //     },
-                          //     "settings": {
-                          //         "template": "2210",
-                          //     },
-                          //     "recipients": ["connect@aurart.in", selleremail],
-                          //     "attributes": {
-                          //         "NAME": [data.name],
-                          //         "SELLEREMAIL": [selleremail],
-                          //         "GENDER": [data.gender],
-                          //         "EMAIL": [data.email],
-                          //         "CCM": [data.personal.countrycode],
-                          //         "MOB": [data.personal.mob],
-                          //         "CCW": [data.work.countrycode],
-                          //         "CICW": [data.work.citycode],
-                          //         "WNO": [data.work.work],
-                          //         "CCR": [data.residence.countrycode],
-                          //         "CICR": [data.residence.citycode],
-                          //         "RNO": [data.residence.home],
-                          //         "RADD": [residence],
-                          //         "SADD": [studio],
-                          //         "DOB": [data.dob],
-                          //         "SOB": [data.stateofb],
-                          //         "WOA": [data.woa],
-                          //         "GALLERY": [data.galleries],
-                          //         "CLINK": [data.clink],
-                          //         "EBOOK": [data.eblink],
-                          //         "STATUS": [data.status],
-                          //         "COMMENT": [data.comment]
-                          //     }
-                          // };
-                          // sails.request.get({
-                          //     url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
-                          // }, function (err, httpResponse, body) {
-                          //     if (err) {
-                          //         callback({
-                          //             value: false
-                          //         });
-                          //         db.close();
-                          //     } else if (body && body == "success") {
-                          //         callback({
-                          //             value: true,
-                          //             comment: "Mail sent"
-                          //         });
-                          //         db.close();
-                          //     } else {
-                          //         callback({
-                          //             value: false,
-                          //             comment: "Error"
-                          //         });
-                          //         db.close();
-                          //     }
-                          // });
                       } else {
                           callback({
                               value: false,
