@@ -5143,6 +5143,9 @@ li.title.inline-box-infra {
 .yellow-bg {
   background-color: #FFE06D;
 }
+.good-radios {
+  font-size: 14px;
+}
 /* Mobile Less */
 #fancybox-loading,
 .fancybox-close,
