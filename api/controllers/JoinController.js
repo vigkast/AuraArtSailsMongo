@@ -81,12 +81,12 @@ module.exports = {
                             }
                             if (found.artwork.type != "Sculptures") {
                                 found.artwork.breadth = "";
-                                found.artwork.size = found.artwork.height + " X " + found.artwork.width + " inches";
+                                found.artwork.size = found.artwork.height + " x " + found.artwork.width + " inches";
                             } else {
-                                found.artwork.size = found.artwork.height + " X " + found.artwork.width + " X " + found.artwork.breadth + " inches";
+                                found.artwork.size = found.artwork.height + " x " + found.artwork.width + " x " + found.artwork.breadth + " inches";
                             }
                             if (found.artwork.fstatus && found.artwork.fstatus != "rolled" && found.artwork.fstatus != "stretched") {
-                                found.artwork.sizewithframe = found.artwork.framedheight + " X " + found.artwork.framedwidth + " inches";
+                                found.artwork.sizewithframe = found.artwork.framedheight + " x " + found.artwork.framedwidth + " inches";
                             } else {
                                 found.artwork.sizewithframe = "";
                             }

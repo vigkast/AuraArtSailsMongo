@@ -4,6 +4,10 @@
         <div class="row">
             <div class="eventdetail">
                 <a class="font-color3 pull-right event-invite" ui-sref="invite({img:eventDetail.invitation})">invite</a>
+                <a class="font-color3 pull-right event-invite" fancybox-box ng-href="{{eventDetail.catalogue|uploadpath}}" rel="catalogue" ng-if="eventDetail.catalogue">
+                Catalogue
+                </a>
+                <!-- <a class="font-color3 pull-right event-invite" ui-sref="invite({img:eventDetail.invitation})">Catalogue</a> -->
                 <h3 class="font-color3 home-header">{{eventDetail.name}}</h3>
                 <p>
                     <span>Event Venue</span> : {{eventDetail.venue}}</p>
