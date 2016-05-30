@@ -458,10 +458,11 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
         },
         getAllArtistByAccess: function(n, callback) {
             $http({
-                url: adminurl + "user/findbyaccess",
+                url: adminurl + "user/findForList",
                 method: "POST",
                 data: {
-                    "accesslevel": "artist"
+                    "search": "",
+                    "searchname": ""
                 }
             }).success(function(data, status) {
                 callback(data, status, n);
