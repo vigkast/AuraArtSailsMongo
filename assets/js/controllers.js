@@ -3090,8 +3090,15 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     //     $scope.art.search = "";
     // }
 
-    $scope.joinUs = function() {
-
+    $scope.joinUs = function(obj) {
+        NavigationService.joinMailingList(obj, function(data) {
+            ngDialog.closeAll();
+            if (data.value != false) {
+                dataNextPre.messageBox("Thank for joining our mailing list");
+            } else {
+                dataNextPre.messageBox("You have already joined our mailing list");
+            }
+        })
     }
 
     $scope.becomeSeller = function() {

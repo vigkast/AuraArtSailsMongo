@@ -774,5 +774,12 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 method: "POST",
             }).success(callback);
         },
+        joinMailingList: function(obj, callback) {
+            $http({
+                url: adminurl + "join/save",
+                method: "POST",
+                data: obj
+            }).success(callback);
+        },
     }
 });

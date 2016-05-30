@@ -1,16 +1,16 @@
 <div class="container" ng-controller="headerctrl">
     <div class="popup-dialogbox">
-   <div class="ngdialog-close close"></div>
-   <h3 class="createtitle text-center">Join Our Mailing List</h3>
-        <div class="row">
-          <form action="">
-            <div class="col-md-10 nomgpd">
+        <div class="ngdialog-close close"></div>
+        <h3 class="createtitle text-center">Join Our Mailing List</h3>
+        <form ng-submit="joinUs(joinus)">
+            <div class="row">
+                <div class="col-md-10 nomgpd">
                     <input type="text" class="form-control" ng-model="joinus.email" placeholder="Enter your email" required>
+                </div>
+                <div class="col-md-2 nomgpd">
+                    <button type="submit" class="btn btn-primarys">Join Now</button>
+                </div>
             </div>
-            <div class="col-md-2 nomgpd">
-                <button type="submit" class="btn btn-primarys" ng-click="joinUs()">Join Now</button>
-            </div>
-            </form>
-        </div>
+        </form>
     </div>
 </div>
