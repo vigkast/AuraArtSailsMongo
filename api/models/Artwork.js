@@ -43,8 +43,7 @@ module.exports = {
                 callback({
                     value: false
                 });
-            }
-            if (db) {
+            } else {
                 if (!data._id) {
                     data._id = sails.ObjectID();
                     db.collection("user").update({
@@ -176,11 +175,45 @@ module.exports = {
                             });
                             db.close();
                         } else if (updated) {
-                            callback({
-                                value: true,
-                                comment: "Mail sent"
+                            var obj = {
+                                "api_key": "47e02d2b10604fc81304a5837577e286",
+                                "email_details": {
+                                    "fromname": sails.fromName,
+                                    "subject": "Data of Artworks submitted on www.auraart.in",
+                                    "from": sails.fromEmail,
+                                    "replytoid": selleremail
+                                },
+                                "settings": {
+                                    "template": "2211"
+                                },
+                                "recipients": [selleremail, "connect@auraart.in", "harmeet@auraart.in"],
+                                // "recipients": [selleremail, "dhaval@wohlig.com", "vigwohlig@gmail.com"],
+                                "attributes": {
+                                    "ANAME": [sellername, sellername, sellername]
+                                }
+                            };
+                            sails.request.get({
+                                url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                            }, function(err, httpResponse, body) {
+                                if (err) {
+                                    callback({
+                                        value: false
+                                    });
+                                    db.close();
+                                } else if (body && body == "success") {
+                                    callback({
+                                        value: true,
+                                        comment: "Mail sent"
+                                    });
+                                    db.close();
+                                } else {
+                                    callback({
+                                        value: false,
+                                        comment: "Error"
+                                    });
+                                    db.close();
+                                }
                             });
-                            db.close();
                         } else {
                             callback({
                                 value: false,

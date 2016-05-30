@@ -1,5 +1,5 @@
 /**
- * join.js
+ * team.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/#!documentation/models
@@ -16,7 +16,7 @@ module.exports = {
             if (db) {
                 if (!data._id) {
                     data._id = sails.ObjectID();
-                    db.collection('join').find({
+                    db.collection('team').find({
                         email: data.email
                     }).toArray(function(err, found) {
                         if (err) {
@@ -29,11 +29,11 @@ module.exports = {
                         } else if (found && found.length > 0) {
                             callback({
                                 value: false,
-                                comment: "User has already joined our mailing list"
+                                comment: "User has already teamed our mailing list"
                             });
                             db.close();
                         } else {
-                            db.collection('join').insert(data, function(err, created) {
+                            db.collection('team').insert(data, function(err, created) {
                                 if (err) {
                                     console.log(err);
                                     callback({
@@ -56,10 +56,10 @@ module.exports = {
                         }
                     });
                 } else {
-                    var join = sails.ObjectID(data._id);
+                    var team = sails.ObjectID(data._id);
                     delete data._id;
-                    db.collection('join').update({
-                        _id: join
+                    db.collection('team').update({
+                        _id: team
                     }, {
                         $set: data
                     }, function(err, updated) {
@@ -107,7 +107,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("join").count({
+                db.collection("team").count({
                     person: {
                         '$regex': check
                     }
@@ -132,7 +132,7 @@ module.exports = {
                 });
 
                 function callbackfunc() {
-                    db.collection("join").find({
+                    db.collection("team").find({
                         person: {
                             '$regex': check
                         }
@@ -169,10 +169,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("join").find({}, {
-                    _id: 0,
-                    email: 1
-                }).toArray(function(err, found) {
+                db.collection("team").find({}).toArray(function(err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -202,7 +199,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("join").find({
+                db.collection("team").find({
                     "_id": sails.ObjectID(data._id)
                 }, {}).toArray(function(err, data2) {
                     if (err) {
@@ -233,7 +230,7 @@ module.exports = {
                     value: false
                 });
             }
-            db.collection('join').remove({
+            db.collection('team').remove({
                 _id: sails.ObjectID(data._id)
             }, function(err, deleted) {
                 if (deleted) {

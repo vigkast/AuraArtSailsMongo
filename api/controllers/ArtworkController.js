@@ -887,5 +887,79 @@ module.exports = {
                 });
             }
         });
+    },
+    approveTime: function(req, res) {
+        var arr = [];
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                res.json({
+                    value: false,
+                    comment: "Error"
+                });
+            } else {
+                db.collection("user").aggregate([{
+                    $unwind: "$artwork"
+                }, {
+                    $match: {
+                        $or: [{
+                            "artwork.status": "approve"
+                        }, {
+                            "artwork.status": "sold"
+                        }],
+                        "artwork.approveTimestamp": {
+                            $exists: false
+                        }
+                    }
+                }, {
+                    $project: {
+                        _id: 1,
+                        "artwork._id": 1
+                    }
+                }]).toArray(function(err, found) {
+                    if (err) {
+                        console.log(err);
+                        res.json({
+                            value: false,
+                            comment: "Error"
+                        });
+                    } else if (found && found.length > 0) {
+                        async.each(found, function(data2, callback) {
+                            Artwork.save({
+                                user: data2._id,
+                                _id: data2.artwork._id,
+                                approveTimestamp: new Date("2016-05-26")
+                            }, function(respo2) {
+                                if (respo2.value != false) {
+                                    arr.push(data2);
+                                    callback(err);
+                                } else {
+                                    arr.push(data2);
+                                    callback(null);
+                                }
+                            });
+                        }, function(err) {
+                            if (err) {
+                                console.log(err);
+                                res.json({
+                                    value: false,
+                                    comment: err
+                                });
+                            } else {
+                                res.json({
+                                    value: true,
+                                    comment: arr
+                                });
+                            }
+                        });
+                    } else {
+                        res.json({
+                            value: false,
+                            comment: "No data found"
+                        });
+                    }
+                });
+            }
+        });
     }
 };

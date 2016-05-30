@@ -94,18 +94,18 @@
                                               "fromname": sails.fromName,
                                               "subject": "Registration at www.auraart.in",
                                               "from": sails.fromEmail,
-                                              "replytoid": data.email
+                                              "replytoid": data.email,
                                           },
                                           "settings": {
                                               "template": "2336",
                                           },
-                                          "recipients": [data.email],
+                                          "recipients": [data.email, "harmeet@auraart.in", "connect@auraart.in"],
                                           "attributes": {
-                                              "NAME": [data.name],
-                                              "EMAIL": [data.email]
+                                              "NAME": [data.name, data.name, data.name],
+                                              "EMAIL": [data.email, data.email, data.email]
                                           }
                                       };
-                                      
+
                                       sails.request.get({
                                           url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
                                       }, function(err, httpResponse, body) {
@@ -272,10 +272,11 @@
                                       "settings": {
                                           "template": "2336",
                                       },
-                                      "recipients": [data.email],
+                                      // "recipients": [data.email, "harmeet@auraart.in", "connect@auraart.in"],
+                                      "recipients": [data.email, "dhaval@wohlig.com", "vigwohlig@gmail.com"],
                                       "attributes": {
-                                          "NAME": [data.name],
-                                          "EMAIL": [data.email]
+                                          "NAME": [data.name, data.name, data.name],
+                                          "AEMAIL": [data.email, data.email, data.email]
                                       }
                                   };
                                   sails.request.get({
@@ -2162,7 +2163,7 @@
                                   },
                                   "recipients": ["harmeet@aurart.in", "connect@aurart.in"],
                                   "attributes": {
-                                      "NAME": [data.name]
+                                      "NAME": [data.name, data.name]
                                   }
                               };
                               sails.request.get({

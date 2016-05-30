@@ -6,6 +6,100 @@
  */
 
 module.exports = {
+    save: function(req, res) {
+        if (req.body) {
+            if (req.body._id) {
+                if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                    user();
+                } else {
+                    res.json({
+                        value: false,
+                        comment: "Join-id is incorrect"
+                    });
+                }
+            } else {
+                user();
+            }
+
+            function user() {
+                var print = function(data) {
+                    res.json(data);
+                }
+                Join.save(req.body, print);
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    delete: function(req, res) {
+        if (req.body) {
+            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                var print = function(data) {
+                    res.json(data);
+                }
+                Join.delete(req.body, print);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Join-id is incorrect"
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    find: function(req, res) {
+        function callback(data) {
+            res.json(data);
+        };
+        Join.find(req.body, callback);
+    },
+    findone: function(req, res) {
+        if (req.body) {
+            if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
+                var print = function(data) {
+                    res.json(data);
+                }
+                Join.findone(req.body, print);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Join-id is incorrect"
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    findlimited: function(req, res) {
+        if (req.body) {
+            if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
+                function callback(data) {
+                    res.json(data);
+                };
+                Join.findlimited(req.body, callback);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
     excelDownload: function(req, res) {
         var arr = [];
         var i = 0;
@@ -135,5 +229,184 @@ module.exports = {
                 comment: "Invalid Id"
             });
         }
+    },
+    downloadUser: function(req, res) {
+        var abc = [];
+        var i = 0;
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                res.json({
+                    value: false,
+                    comment: "Error"
+                });
+            } else {
+                db.collection("user").find({
+                    $or: [{
+                        accesslevel: "customer"
+                    }, {
+                        accesslevel: "reseller"
+                    }]
+                }).sort({
+                    name: 1
+                }).each(function(err, found) {
+                    if (_.isEmpty(found)) {
+                        var xls = sails.json2xls(abc);
+                        var path = './Login-List.xlsx';
+                        sails.fs.writeFileSync(path, xls, 'binary');
+                        var excel = sails.fs.readFileSync(path);
+                        var mimetype = sails.mime.lookup(path);
+                        res.set('Content-Type', "application/octet-stream");
+                        res.set('Content-Disposition', "attachment;filename=" + path);
+                        res.send(excel);
+                        setTimeout(function() {
+                            sails.fs.unlink(path, function(err) {
+                                console.log(err);
+                            });
+                        }, 30000);
+                        // res.json(abc);
+                        db.close();
+                    } else if (err) {
+                        console.log(err);
+                        db.close();
+                    } else {
+                        i++;
+                        var regadd = "";
+                        var obj = {};
+                        obj = {
+                            "Sr No": i,
+                            "Name": found.name,
+                            "Email-Id": found.email
+                        };
+                        if (found.mob) {
+                            obj["Mobile Number"] = found.mob;
+                        } else {
+                            obj["Mobile Number"] = "";
+                        }
+                        if (found.dob) {
+                            obj["Date Of Birth"] = found.dob;
+                        } else {
+                            obj["Date Of Birth"] = "";
+                        }
+                        if (found.gender) {
+                            obj["Gender"] = sails._.capitalize(found.gender);
+                        } else {
+                            obj["Gender"] = "";
+                        }
+                        if (found.billing && found.billing.bldgname) {
+                            regadd = found.billing.flatno + ", " + found.billing.bldgname + ", " + found.billing.street + ", " + found.billing.locality + ", " + found.billing.landmark + ", " + found.billing.city + ", " + found.billing.state;
+                            if (found.billing.pincode) {
+                                regadd += ", " + found.billing.pincode.toString();
+                            }
+                            if (found.billing.country) {
+                                regadd += ", " + found.billing.country;
+                            }
+                            obj["Registered Address"] = regadd;
+                        } else {
+                            obj["Registered Address"] = "";
+                        }
+                        if (found.fbid) {
+                            obj["Facebook"] = found.fbid;
+                            obj["Google"] = "";
+                            obj["Twitter"] = "";
+                        } else if (found.googleid) {
+                            obj["Facebook"] = "";
+                            obj["Google"] = found.googleid;
+                            obj["Twitter"] = "";
+                        } else if (found.tweetid) {
+                            obj["Facebook"] = "";
+                            obj["Google"] = "";
+                            obj["Twitter"] = found.tweetid;
+                        } else {
+                            obj["Facebook"] = "";
+                            obj["Google"] = "";
+                            obj["Twitter"] = "";
+                        }
+                        if (found.bank) {
+                            if (found.bank.holderName) {
+                                obj["Name of Account Holder"] = found.bank.holderName;
+                            } else {
+                                obj["Name of Account Holder"] = "";
+                            }
+                            if (found.bank.holderAdd) {
+                                obj["Address of Account Holder"] = found.bank.holderAdd;
+                            } else {
+                                obj["Address of Account Holder"] = "";
+                            }
+                            if (found.bank.accountType) {
+                                obj["Type of Account"] = found.bank.accountType;
+                            } else {
+                                obj["Type of Account"] = "";
+                            }
+                            if (found.bank.accountNumber) {
+                                obj["Account Number"] = found.bank.accountNumber;
+                            } else {
+                                obj["Account Number"] = "";
+                            }
+                            if (found.bank.bankName) {
+                                obj["Name of bank"] = found.bank.bankName;
+                            } else {
+                                obj["Name of bank"] = "";
+                            }
+                            if (found.bank.ifsc) {
+                                obj["IFSC Code"] = found.bank.ifsc;
+                            } else {
+                                obj["IFSC Code"] = "";
+                            }
+                            if (found.bank.branchAdd) {
+                                obj["Bank Branch Address"] = found.bank.branchAdd;
+                            } else {
+                                obj["Bank Branch Address"] = "";
+                            }
+                        } else {
+                            obj["Name of Account Holder"] = "";
+                            obj["Address of Account Holder"] = "";
+                            obj["Type of Account"] = "";
+                            obj["Account Number"] = "";
+                            obj["Name of bank"] = "";
+                            obj["IFSC Code"] = "";
+                            obj["Bank Branch Address"] = "";
+                        }
+                        abc.push(obj);
+                    }
+                });
+            }
+        });
+    },
+    downloadJoin: function(req, res) {
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                res.json({
+                    value: false,
+                    comment: "Error"
+                });
+            } else {
+                Join.find({}, function(respo) {
+                    if (respo.value != false) {
+                        var xls = sails.json2xls(respo);
+                        var path = './Mailing-List.xlsx';
+                        sails.fs.writeFileSync(path, xls, 'binary');
+                        var excel = sails.fs.readFileSync(path);
+                        var mimetype = sails.mime.lookup(path);
+                        res.set('Content-Type', "application/octet-stream");
+                        res.set('Content-Disposition', "attachment;filename=" + path);
+                        res.send(excel);
+                        setTimeout(function() {
+                            sails.fs.unlink(path, function(err) {
+                                console.log(err);
+                            });
+                        }, 30000);
+                        db.close();
+                    } else {
+                        res.json({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
     }
 };
