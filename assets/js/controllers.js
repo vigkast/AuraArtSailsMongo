@@ -778,6 +778,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $.jStorage.set("artistScroll", null);
     $.jStorage.set("artworkScroll", null);
+
+    NavigationService.getTeam(function(data) {
+        if (data.value != false) {
+            $scope.team = data[0];
+            console.log($scope.team);
+        }
+    })
+
 })
 
 .controller('ArtistPageCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout) {

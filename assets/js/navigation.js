@@ -781,5 +781,11 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 data: obj
             }).success(callback);
         },
+        getTeam: function(callback) {
+            $http({
+                url: adminurl + 'team/find',
+                method: 'POST'
+            }).success(callback);
+        },
     }
 });
