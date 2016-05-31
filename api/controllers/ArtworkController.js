@@ -5,7 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 var filer = "http://www.auraart.in/user/resize?file=";
-// var filer = "http://192.168.1.131:82/user/resize?file=";
+// var filer = "http://192.168.1.129:82/user/resize?file=";
 module.exports = {
     save: function(req, res) {
         if (req.body) {
@@ -418,13 +418,13 @@ module.exports = {
         if (isfile == true) {
             sails.lwip.open('./auraimg/' + req.query.image, function(err, image) {
                 if (image.width() >= image.height()) {
-                    filePath += "width=1008";
-                    split += "_1008_0.jpg";
+                    filePath += "width=3024";
+                    split += "_3024_0.jpg";
                     callResize();
                 } else {
-                    filePath += "height=648";
-                    split += "_0_648.jpg";
-                    html = html.split("/*widthrow*/").join("width:968px;");
+                    filePath += "height=1944";
+                    split += "_0_1944.jpg";
+                    html = html.split("/*widthrow*/").join("width:2904px;");
                     check = true;
                     callResize();
                 }
@@ -463,12 +463,12 @@ module.exports = {
                                         html = html.split("Medium").join(req.query.medium);
                                         html = html.split("Dim").join(req.query.dim);
                                         html = html.split("http://www.auraart.in/user/resize?file=").join(filePath);
-                                        // html = html.split("http://192.168.1.131:82/user/resize?file=").join(filePath);
+                                        // html = html.split("http://192.168.1.129:82/user/resize?file=").join(filePath);
                                         if (check) {
                                             options = {
                                                 windowSize: {
-                                                    width: 1008,
-                                                    height: imageHeight + 126
+                                                    width: 3024,
+                                                    height: imageHeight + 350
                                                 },
                                                 siteType: 'html'
                                             };
@@ -476,7 +476,7 @@ module.exports = {
                                             options = {
                                                 windowSize: {
                                                     width: imageWidth,
-                                                    height: imageHeight + 126
+                                                    height: imageHeight + 350
                                                 },
                                                 siteType: 'html'
                                             };
@@ -494,7 +494,7 @@ module.exports = {
                                                     sails.fs.unlink(path, function(data) {
                                                         console.log(data);
                                                     });
-                                                }, 120000);
+                                                }, 60000);
                                             });
                                         }
                                     }
