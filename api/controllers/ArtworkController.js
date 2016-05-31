@@ -412,6 +412,7 @@ module.exports = {
         var imageWidth = "";
         var check = false;
         var arr = [];
+        var split1 = req.query.image.split(".")[1];
         var split = req.query.image.split(".")[0];
         var filePath = filer + req.query.image + "&";
         var isfile = sails.fs.existsSync('./auraimg/' + req.query.image);
@@ -420,11 +421,11 @@ module.exports = {
             sails.lwip.open('./auraimg/' + req.query.image, function(err, image) {
                 if (image.width() >= image.height()) {
                     filePath += "width=3024";
-                    split += "_3024_0.jpg";
+                    split += "_3024_0." + split1;
                     callResize();
                 } else {
                     filePath += "height=1944";
-                    split += "_0_1944.jpg";
+                    split += "_0_1944." + split1;
                     html = html.split("/*widthrow*/").join("width:2904px;");
                     check = true;
                     callResize();
@@ -504,7 +505,7 @@ module.exports = {
                                         }
                                     });
                                 }
-                            },10000);
+                            }, 10000);
                         }
                     });
                 }

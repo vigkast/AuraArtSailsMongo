@@ -115,6 +115,8 @@ module.exports = {
         data.srno = parseInt(data.srno);
         if (data.imageno && data.imageno != "") {
             data.imageno = parseInt(data.imageno);
+        } else {
+            delete data.imageno;
         }
         var user = sails.ObjectID(data.user);
         delete data.user;
@@ -311,6 +313,7 @@ module.exports = {
         delete data.sellername;
         delete data.artistname;
         if (data.status == "approve") {
+            console.log(data);
             if (data.approveTimestamp && data.approveTimestamp != "") {
                 data.approveTimestamp = new Date(data.approveTimestamp);
                 callMe();
