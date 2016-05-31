@@ -18954,6 +18954,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.navigation = NavigationService.getnav();
     $.jStorage.set("artistScroll", null);
     $.jStorage.set("artworkScroll", null);
+
+    NavigationService.getTeam(function(data) {
+        if (data.value != false) {
+            $scope.team = data[0];
+            console.log($scope.team);
+        }
+    })
+
 })
 
 .controller('ArtistPageCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout) {
@@ -21266,8 +21274,15 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     //     $scope.art.search = "";
     // }
 
-    $scope.joinUs = function() {
-
+    $scope.joinUs = function(obj) {
+        NavigationService.joinMailingList(obj, function(data) {
+            ngDialog.closeAll();
+            if (data.value != false) {
+                dataNextPre.messageBox("Thank for joining our mailing list");
+            } else {
+                dataNextPre.messageBox("You have already joined our mailing list");
+            }
+        })
     }
 
     $scope.becomeSeller = function() {
@@ -26521,10 +26536,11 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
         },
         getAllArtistByAccess: function(n, callback) {
             $http({
-                url: adminurl + "user/findbyaccess",
+                url: adminurl + "user/findForList",
                 method: "POST",
                 data: {
-                    "accesslevel": "artist"
+                    "search": "",
+                    "searchname": ""
                 }
             }).success(function(data, status) {
                 callback(data, status, n);
@@ -26835,6 +26851,19 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
             $http({
                 url: adminurl + "testimonials/find",
                 method: "POST",
+            }).success(callback);
+        },
+        joinMailingList: function(obj, callback) {
+            $http({
+                url: adminurl + "join/save",
+                method: "POST",
+                data: obj
+            }).success(callback);
+        },
+        getTeam: function(callback) {
+            $http({
+                url: adminurl + 'team/find',
+                method: 'POST'
             }).success(callback);
         },
     }
