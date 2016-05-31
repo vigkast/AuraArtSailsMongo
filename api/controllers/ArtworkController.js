@@ -439,69 +439,71 @@ module.exports = {
                                 value: false
                             });
                         } else {
-                            var isfile2 = sails.fs.existsSync('./' + req.query.image);
-                            if (isfile2) {
-                                var path = "./" + req.query.image;
-                                var image = sails.fs.readFileSync(path);
-                                var mimetype = sails.mime.lookup(path);
-                                res.set('Content-Type', "application/octet-stream");
-                                res.set('Content-Disposition', "attachment;filename=" + path);
-                                res.send(image);
-                            } else {
-                                sails.lwip.open('./auraimg/' + split, function(err, image2) {
-                                    if (err) {
-                                        console.log(err);
-                                        res.json({
-                                            value: false,
-                                            comment: "Error. Cannot Download Image."
-                                        });
-                                    } else {
-                                        imageHeight = image2.height();
-                                        imageWidth = image2.width();
-                                        html = html.split("Artist").join(req.query.artist);
-                                        html = html.split("Artwork").join(req.query.artwork);
-                                        html = html.split("Medium").join(req.query.medium);
-                                        html = html.split("Dim").join(req.query.dim);
-                                        html = html.split("http://www.auraart.in/user/resize?file=").join(filePath);
-                                        // html = html.split("http://192.168.1.129:82/user/resize?file=").join(filePath);
-                                        if (check) {
-                                            options = {
-                                                windowSize: {
-                                                    width: 3024,
-                                                    height: imageHeight + 350
-                                                },
-                                                siteType: 'html'
-                                            };
+                            setTimeout(function() {
+                                var isfile2 = sails.fs.existsSync('./' + req.query.image);
+                                if (isfile2) {
+                                    var path = "./" + req.query.image;
+                                    var image = sails.fs.readFileSync(path);
+                                    var mimetype = sails.mime.lookup(path);
+                                    res.set('Content-Type', "application/octet-stream");
+                                    res.set('Content-Disposition', "attachment;filename=" + path);
+                                    res.send(image);
+                                } else {
+                                    sails.lwip.open('./auraimg/' + split, function(err, image2) {
+                                        if (err) {
+                                            console.log(err);
+                                            res.json({
+                                                value: false,
+                                                comment: "Error. Cannot Download Image."
+                                            });
                                         } else {
-                                            options = {
-                                                windowSize: {
-                                                    width: imageWidth,
-                                                    height: imageHeight + 350
-                                                },
-                                                siteType: 'html'
-                                            };
+                                            imageHeight = image2.height();
+                                            imageWidth = image2.width();
+                                            html = html.split("Artist").join(req.query.artist);
+                                            html = html.split("Artwork").join(req.query.artwork);
+                                            html = html.split("Medium").join(req.query.medium);
+                                            html = html.split("Dim").join(req.query.dim);
+                                            html = html.split("http://www.auraart.in/user/resize?file=").join(filePath);
+                                            // html = html.split("http://192.168.1.129:82/user/resize?file=").join(filePath);
+                                            if (check) {
+                                                options = {
+                                                    windowSize: {
+                                                        width: 3024,
+                                                        height: imageHeight + 350
+                                                    },
+                                                    siteType: 'html'
+                                                };
+                                            } else {
+                                                options = {
+                                                    windowSize: {
+                                                        width: imageWidth,
+                                                        height: imageHeight + 350
+                                                    },
+                                                    siteType: 'html'
+                                                };
+                                            }
+                                            if (html && html != "") {
+                                                setTimeout(function() {
+                                                    sails.webshot(html, "./" + req.query.image, options, function(err) {
+                                                        console.log(err);
+                                                        var path = "./" + req.query.image;
+                                                        var image = sails.fs.readFileSync(path);
+                                                        var mimetype = sails.mime.lookup(path);
+                                                        res.set('Content-Type', "application/octet-stream");
+                                                        res.set('Content-Disposition', "attachment;filename=" + path);
+                                                        res.send(image);
+                                                        setTimeout(function() {
+                                                            sails.fs.unlink(path, function(data) {
+                                                                console.log(data);
+                                                            });
+                                                        }, 60000);
+                                                    });
+                                                }, 10000);
+                                            }
                                         }
-                                        if (html && html != "") {
-                                            setTimeout(function() {
-                                                sails.webshot(html, "./" + req.query.image, options, function(err) {
-                                                    console.log(err);
-                                                    var path = "./" + req.query.image;
-                                                    var image = sails.fs.readFileSync(path);
-                                                    var mimetype = sails.mime.lookup(path);
-                                                    res.set('Content-Type', "application/octet-stream");
-                                                    res.set('Content-Disposition', "attachment;filename=" + path);
-                                                    res.send(image);
-                                                    setTimeout(function() {
-                                                        sails.fs.unlink(path, function(data) {
-                                                            console.log(data);
-                                                        });
-                                                    }, 60000);
-                                                });
-                                            }, 10000);
-                                        }
-                                    }
-                                });
-                            }
+                                    });
+                                }
+                            },10000);
                         }
                     });
                 }
