@@ -24,6 +24,15 @@ module.exports = {
                             });
                             db.close();
                         } else if (created) {
+                            if (data.action) {
+                                if (data.action == "1") {
+                                    data.action = "Request for Price";
+                                } else if (data.action == "2") {
+                                    data.action = "Shoud we call or come to meet you";
+                                } else {
+                                    data.action = "Would you like to schedule a visit to our Gallery";
+                                }
+                            }
                             var obj = {
                                 "api_key": "47e02d2b10604fc81304a5837577e286",
                                 "email_details": {
@@ -40,7 +49,8 @@ module.exports = {
                                     "AFROM": [data.person],
                                     "AEMAIL": [data.from],
                                     "MOB": [data.number],
-                                    "REM": [data.remarks]
+                                    "REM": [data.remarks],
+                                    "AACTION": [data.action]
                                 }
                             };
                             sails.request.get({
