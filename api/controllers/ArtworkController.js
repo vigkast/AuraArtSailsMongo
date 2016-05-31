@@ -405,6 +405,7 @@ module.exports = {
         }
     },
     downloadImage: function(req, res) {
+        console.log(req.query.image);
         var dimension = {};
         var options = {};
         var imageHeight = "";
