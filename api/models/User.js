@@ -272,8 +272,8 @@
                                       "settings": {
                                           "template": "2336",
                                       },
-                                      // "recipients": [data.email, "harmeet@auraart.in", "connect@auraart.in"],
-                                      "recipients": [data.email, "dhaval@wohlig.com", "vigwohlig@gmail.com"],
+                                      "recipients": [data.email, "harmeet@auraart.in", "connect@auraart.in"],
+                                      // "recipients": [data.email, "dhaval@wohlig.com", "vigwohlig@gmail.com"],
                                       "attributes": {
                                           "NAME": [data.name, data.name, data.name],
                                           "AEMAIL": [data.email, data.email, data.email]
