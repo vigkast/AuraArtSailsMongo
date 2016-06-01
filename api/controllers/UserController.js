@@ -626,26 +626,26 @@ module.exports = {
             });
         }
     },
-    findbyaccess: function(req, res) {
-        if (req.body) {
-            if (req.body.accesslevel && req.body.accesslevel != "") {
-                var print = function(data) {
-                    res.json(data);
-                }
-                User.findbyaccess(req.body, print);
-            } else {
-                res.json({
-                    value: false,
-                    comment: "Please provide parameters"
-                });
-            }
-        } else {
-            res.json({
-                value: false,
-                comment: "Please provide parameters"
-            });
-        }
-    },
+    // findbyaccess: function(req, res) {
+    //     if (req.body) {
+    //         if (req.body.accesslevel && req.body.accesslevel != "") {
+    //             var print = function(data) {
+    //                 res.json(data);
+    //             }
+    //             User.findbyaccess(req.body, print);
+    //         } else {
+    //             res.json({
+    //                 value: false,
+    //                 comment: "Please provide parameters"
+    //             });
+    //         }
+    //     } else {
+    //         res.json({
+    //             value: false,
+    //             comment: "Please provide parameters"
+    //         });
+    //     }
+    // },
     searchmail: function(req, res) {
         if (req.body) {
             if (req.body.email && req.body.email != "") {
@@ -899,6 +899,7 @@ module.exports = {
         if (req.body) {
             if (req.session.passport) {
                 req.body.selleremail = req.session.passport.user.email;
+                req.body.sellername = req.session.passport.user.name;
                 user();
             } else {
                 res.json({

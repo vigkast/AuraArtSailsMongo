@@ -272,8 +272,8 @@
                                       "settings": {
                                           "template": "2336",
                                       },
-                                      // "recipients": [data.email, "harmeet@auraart.in", "connect@auraart.in"],
-                                      "recipients": [data.email, "dhaval@wohlig.com", "vigwohlig@gmail.com"],
+                                      "recipients": [data.email, "harmeet@auraart.in", "connect@auraart.in"],
+                                      // "recipients": [data.email, "dhaval@wohlig.com", "vigwohlig@gmail.com"],
                                       "attributes": {
                                           "NAME": [data.name, data.name, data.name],
                                           "AEMAIL": [data.email, data.email, data.email]
@@ -2137,6 +2137,8 @@
               if (db) {
                   var selleremail = data.selleremail;
                   delete data.selleremail;
+                  var sellername = data.sellername;
+                  delete data.sellername;
                   if (!data._id) {
                       data._id = sails.ObjectID();
                       data.status = "approve";
@@ -2154,16 +2156,17 @@
                                   "api_key": "47e02d2b10604fc81304a5837577e286",
                                   "email_details": {
                                       "fromname": sails.fromName,
-                                      "subject": "Artist %23" + data._id.substring(data._id.length - 5),
+                                      "subject": "Artist Registration in www.auraart.in",
                                       "from": sails.fromEmail,
-                                      "replytoid": "harmeet@aurart.in"
+                                      "replytoid": "harmeet@auraart.in"
                                   },
                                   "settings": {
                                       "template": "2210",
                                   },
-                                  "recipients": ["harmeet@aurart.in", "connect@aurart.in"],
+                                  "recipients": [selleremail, "harmeet@auraart.in", "connect@auraart.in"],
                                   "attributes": {
-                                      "NAME": [data.name, data.name]
+                                      "ANAME": [data.name, data.name, data.name],
+                                      "SNAME": [sellername, sellername, sellername]
                                   }
                               };
                               sails.request.get({

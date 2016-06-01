@@ -115,6 +115,8 @@ module.exports = {
         data.srno = parseInt(data.srno);
         if (data.imageno && data.imageno != "") {
             data.imageno = parseInt(data.imageno);
+        } else {
+            delete data.imageno;
         }
         var user = sails.ObjectID(data.user);
         delete data.user;
@@ -179,7 +181,7 @@ module.exports = {
                                 "api_key": "47e02d2b10604fc81304a5837577e286",
                                 "email_details": {
                                     "fromname": sails.fromName,
-                                    "subject": "Data of Artworks submitted on www.auraart.in",
+                                    "subject": "Data of Artwork submitted on www.auraart.in",
                                     "from": sails.fromEmail,
                                     "replytoid": selleremail
                                 },
@@ -187,7 +189,6 @@ module.exports = {
                                     "template": "2211"
                                 },
                                 "recipients": [selleremail, "connect@auraart.in", "harmeet@auraart.in"],
-                                // "recipients": [selleremail, "dhaval@wohlig.com", "vigwohlig@gmail.com"],
                                 "attributes": {
                                     "ANAME": [sellername, sellername, sellername]
                                 }
@@ -311,6 +312,7 @@ module.exports = {
         delete data.sellername;
         delete data.artistname;
         if (data.status == "approve") {
+            console.log(data);
             if (data.approveTimestamp && data.approveTimestamp != "") {
                 data.approveTimestamp = new Date(data.approveTimestamp);
                 callMe();

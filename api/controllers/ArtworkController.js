@@ -405,12 +405,14 @@ module.exports = {
         }
     },
     downloadImage: function(req, res) {
+        console.log(req.query.image);
         var dimension = {};
         var options = {};
         var imageHeight = "";
         var imageWidth = "";
         var check = false;
         var arr = [];
+        var split1 = req.query.image.split(".")[1];
         var split = req.query.image.split(".")[0];
         var filePath = filer + req.query.image + "&";
         var isfile = sails.fs.existsSync('./auraimg/' + req.query.image);
@@ -419,11 +421,11 @@ module.exports = {
             sails.lwip.open('./auraimg/' + req.query.image, function(err, image) {
                 if (image.width() >= image.height()) {
                     filePath += "width=3024";
-                    split += "_3024_0.jpg";
+                    split += "_3024_0." + split1;
                     callResize();
                 } else {
                     filePath += "height=1944";
-                    split += "_0_1944.jpg";
+                    split += "_0_1944." + split1;
                     html = html.split("/*widthrow*/").join("width:2904px;");
                     check = true;
                     callResize();
@@ -439,67 +441,71 @@ module.exports = {
                                 value: false
                             });
                         } else {
-                            var isfile2 = sails.fs.existsSync('./' + req.query.image);
-                            if (isfile2) {
-                                var path = "./" + req.query.image;
-                                var image = sails.fs.readFileSync(path);
-                                var mimetype = sails.mime.lookup(path);
-                                res.set('Content-Type', "application/octet-stream");
-                                res.set('Content-Disposition', "attachment;filename=" + path);
-                                res.send(image);
-                            } else {
-                                sails.lwip.open('./auraimg/' + split, function(err, image2) {
-                                    if (err) {
-                                        console.log(err);
-                                        res.json({
-                                            value: false,
-                                            comment: "Error. Cannot Download Image."
-                                        });
-                                    } else {
-                                        imageHeight = image2.height();
-                                        imageWidth = image2.width();
-                                        html = html.split("Artist").join(req.query.artist);
-                                        html = html.split("Artwork").join(req.query.artwork);
-                                        html = html.split("Medium").join(req.query.medium);
-                                        html = html.split("Dim").join(req.query.dim);
-                                        html = html.split("http://www.auraart.in/user/resize?file=").join(filePath);
-                                        // html = html.split("http://192.168.1.129:82/user/resize?file=").join(filePath);
-                                        if (check) {
-                                            options = {
-                                                windowSize: {
-                                                    width: 3024,
-                                                    height: imageHeight + 350
-                                                },
-                                                siteType: 'html'
-                                            };
-                                        } else {
-                                            options = {
-                                                windowSize: {
-                                                    width: imageWidth,
-                                                    height: imageHeight + 350
-                                                },
-                                                siteType: 'html'
-                                            };
-                                        }
-                                        if (html && html != "") {
-                                            sails.webshot(html, "./" + req.query.image, options, function(err) {
-                                                console.log(err);
-                                                var path = "./" + req.query.image;
-                                                var image = sails.fs.readFileSync(path);
-                                                var mimetype = sails.mime.lookup(path);
-                                                res.set('Content-Type', "application/octet-stream");
-                                                res.set('Content-Disposition', "attachment;filename=" + path);
-                                                res.send(image);
-                                                setTimeout(function() {
-                                                    sails.fs.unlink(path, function(data) {
-                                                        console.log(data);
-                                                    });
-                                                }, 60000);
+                            setTimeout(function() {
+                                var isfile2 = sails.fs.existsSync('./' + req.query.image);
+                                if (isfile2) {
+                                    var path = "./" + req.query.image;
+                                    var image = sails.fs.readFileSync(path);
+                                    var mimetype = sails.mime.lookup(path);
+                                    res.set('Content-Type', "application/octet-stream");
+                                    res.set('Content-Disposition', "attachment;filename=" + path);
+                                    res.send(image);
+                                } else {
+                                    sails.lwip.open('./auraimg/' + split, function(err, image2) {
+                                        if (err) {
+                                            console.log(err);
+                                            res.json({
+                                                value: false,
+                                                comment: "Error. Cannot Download Image."
                                             });
+                                        } else {
+                                            imageHeight = image2.height();
+                                            imageWidth = image2.width();
+                                            html = html.split("Artist").join(req.query.artist);
+                                            html = html.split("Artwork").join(req.query.artwork);
+                                            html = html.split("Medium").join(req.query.medium);
+                                            html = html.split("Dim").join(req.query.dim);
+                                            html = html.split("http://www.auraart.in/user/resize?file=").join(filePath);
+                                            // html = html.split("http://192.168.1.129:82/user/resize?file=").join(filePath);
+                                            if (check) {
+                                                options = {
+                                                    windowSize: {
+                                                        width: 3024,
+                                                        height: imageHeight + 350
+                                                    },
+                                                    siteType: 'html'
+                                                };
+                                            } else {
+                                                options = {
+                                                    windowSize: {
+                                                        width: imageWidth,
+                                                        height: imageHeight + 350
+                                                    },
+                                                    siteType: 'html'
+                                                };
+                                            }
+                                            if (html && html != "") {
+                                                setTimeout(function() {
+                                                    sails.webshot(html, "./" + req.query.image, options, function(err) {
+                                                        console.log(err);
+                                                        var path = "./" + req.query.image;
+                                                        var image = sails.fs.readFileSync(path);
+                                                        var mimetype = sails.mime.lookup(path);
+                                                        res.set('Content-Type', "application/octet-stream");
+                                                        res.set('Content-Disposition', "attachment;filename=" + path);
+                                                        res.send(image);
+                                                        setTimeout(function() {
+                                                            sails.fs.unlink(path, function(data) {
+                                                                console.log(data);
+                                                            });
+                                                        }, 60000);
+                                                    });
+                                                }, 10000);
+                                            }
                                         }
-                                    }
-                                });
-                            }
+                                    });
+                                }
+                            }, 10000);
                         }
                     });
                 }

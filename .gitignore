@@ -65,7 +65,7 @@ config/local.js
 # (credit Addy Osmani, @addyosmani)
 #
 ################################################
-
+profileUploads
 node_modules
 bower_components
 
