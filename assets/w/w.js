@@ -21460,7 +21460,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.reachOutArtistId = reachOutArtist[1];
             $scope.artworkInterested = dataNextPre.reachout.artwork;
             if (reachOutArtist[0] != "#/artist/detai")
-                $scope.reachOutForm.srno = $scope.artworkInterested[0].srno;
+                $scope.reachOutForm.srno = $scope.artworkInterested[0].imageno;
             if (dataNextPre.reachout) {
                 $scope.reachOutForm.artist = dataNextPre.reachout.name;
                 if (reachOutArtist[0] != "#/artist/detai")
@@ -21484,7 +21484,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.reachOutArtistId = reachOutArtist[1];
             $scope.artworkInterested = dataNextPre.reachout.artwork;
             if (reachOutArtist[0] != "#/artist/detai")
-                $scope.reachOutForm.srno = $scope.artworkInterested[0].srno;
+                $scope.reachOutForm.srno = $scope.artworkInterested[0].imageno;
             if (dataNextPre.reachout) {
                 $scope.reachOutForm.artist = dataNextPre.reachout.name;
                 if (reachOutArtist[0] != "#/artist/detai")
@@ -22788,7 +22788,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                             console.log(data);
                             if (data.value == true) {
                                 $scope.disableSubmit = true;
-                                dataNextPre.messageBox("Your artwork has been submitted");
+                                dataNextPre.messageBox("Details of artwork have been submitted");
                                 globalFunction.tab = "myartworks";
                                 $timeout(function() {
                                     $state.go('account');
@@ -23313,7 +23313,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                         console.log(data);
                         if (data.value == true) {
                             $scope.disableSubmit = true;
-                            dataNextPre.messageBox("Your artwork has been submitted");
+                            dataNextPre.messageBox("Details of artwork have been submitted");
                             globalFunction.tab = "myartworks";
                             $timeout(function() {
                                 $state.go('account');
@@ -24253,7 +24253,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             cfpLoadingBar.complete();
             console.log(data);
             if (data.value != false) {
-                dataNextPre.messageBox("You are now a seller");
+                dataNextPre.messageBox("You are now a Seller");
                 $state.go("account");
             } else {
                 dataNextPre.messageBox("There's  some problem");

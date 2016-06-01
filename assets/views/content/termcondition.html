@@ -3,12 +3,15 @@
         <h4 class="head-team">Terms &amp; Conditions</h4>
         <div class="good-radios">
             <span>You are :</span>
-            <input type="radio" name="type" value="artist" ng-model="check">
-            Seller (Artist)
-            <input type="radio" name="type" value="seller" ng-model="check">
-            Reseller
-            <input type="radio" name="type" value="both" ng-model="check">
-            Both</div>
+            <span class="mar10"><input type="radio" name="type" value="artist" ng-model="check">
+            Seller (Artist)</span>
+
+            <span class="mar10"><input type="radio" name="type" value="seller" ng-model="check">
+            Reseller</span>
+
+            <span class="mar10"><input type="radio" name="type" value="both" ng-model="check">
+            Both</div></span>
+
         <div class="scroll-y">
             <h5 class="bold head-terms" ng-if="check=='artist' || check=='both'">Seller (Artist)</h5>
             <ol ng-if="check=='artist' || check=='both'">
