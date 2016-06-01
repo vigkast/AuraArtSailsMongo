@@ -181,7 +181,7 @@ module.exports = {
                                 "api_key": "47e02d2b10604fc81304a5837577e286",
                                 "email_details": {
                                     "fromname": sails.fromName,
-                                    "subject": "Data of Artworks submitted on www.auraart.in",
+                                    "subject": "Data of Artwork submitted on www.auraart.in",
                                     "from": sails.fromEmail,
                                     "replytoid": selleremail
                                 },
@@ -189,7 +189,6 @@ module.exports = {
                                     "template": "2211"
                                 },
                                 "recipients": [selleremail, "connect@auraart.in", "harmeet@auraart.in"],
-                                // "recipients": [selleremail, "dhaval@wohlig.com", "vigwohlig@gmail.com"],
                                 "attributes": {
                                     "ANAME": [sellername, sellername, sellername]
                                 }

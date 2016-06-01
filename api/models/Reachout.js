@@ -44,7 +44,7 @@ module.exports = {
                                 "settings": {
                                     "template": "2599"
                                 },
-                                "recipients": ["connect@auraart.in"],
+                                "recipients": ["connect@auraart.in","harmeet@auraart.in"],
                                 "attributes": {
                                     "AFROM": [data.person],
                                     "AEMAIL": [data.from],
