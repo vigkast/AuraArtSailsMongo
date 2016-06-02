@@ -44,13 +44,13 @@ module.exports = {
                                 "settings": {
                                     "template": "2599"
                                 },
-                                "recipients": ["connect@auraart.in","harmeet@auraart.in"],
+                                "recipients": ["connect@auraart.in", "harmeet@auraart.in"],
                                 "attributes": {
-                                    "AFROM": [data.person,data.person],
-                                    "AEMAIL": [data.from,data.from],
-                                    "MOB": [data.number,data.number],
-                                    "REM": [data.remarks,data.remarks],
-                                    "AACTION": [data.action,data.action]
+                                    "AFROM": [data.person, data.person],
+                                    "AEMAIL": [data.from, data.from],
+                                    "MOB": [data.number, data.number],
+                                    "REM": [data.remarks, data.remarks],
+                                    "AACTION": [data.action, data.action]
                                 }
                             };
                             sails.request.get({
