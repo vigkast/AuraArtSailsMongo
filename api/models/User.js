@@ -2151,7 +2151,6 @@
                               });
                               db.close();
                           } else if (created) {
-                              data._id = data._id.toString();
                               var obj = {
                                   "api_key": "47e02d2b10604fc81304a5837577e286",
                                   "email_details": {
