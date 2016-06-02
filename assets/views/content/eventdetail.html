@@ -54,7 +54,7 @@
                 <div class="eventgallery">
                     <div class="col-md-3" ng-repeat="gal in eventDetail.photos">
                         <a class="event-pic" fancybox-box ng-href="{{gal|uploadpath}}" rel="events">
-                            <img class="fix-img" ng-src="{{gal|uploadpath}}">
+                            <img class="fix-img" ng-src="{{gal|uploadthumbnail}}">
                         </a>
                     </div>
                 </div>
