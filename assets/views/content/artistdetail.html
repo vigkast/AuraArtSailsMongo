@@ -146,11 +146,14 @@
               </span>
                         </p>
                         <p ng-if="artistdetails.status!='sold'">
-                            <span ng-if="artistdetails.gprice && artistdetails.gprice!='N/A'">
+                            <span ng-if="artistdetails.gprice && artistdetails.gprice!='N/A' && artistdetails.status!='sold'">
                 Rs {{artistdetails.gprice|inlakhs}} / ${{artistdetails.gprice|indollars}}
               </span>
                             <span ng-if="!artistdetails.gprice || artistdetails.gprice=='N/A'">
                 Available on request
+              </span>
+                            <span ng-if="artistdetails.status=='sold'">
+                Sold
               </span>
                         </p>
                     </div>

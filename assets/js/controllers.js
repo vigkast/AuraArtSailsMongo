@@ -2299,10 +2299,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             console.log(data);
             $scope.aristImages = [];
             $scope.artid = data[0]._id;
+            $.jStorage.set("reachout", data[0]);
+            dataNextPre.reachout = data[0];
             NavigationService.getArtistDetail(data[0]._id, function(artistdata, status) {
                 console.log(artistdata);
-                $.jStorage.set("reachout", artistdata);
-                dataNextPre.reachout = artistdata;
                 $scope.artistdetail = artistdata;
                 $scope.allartworks = artistdata;
                 _.each(artistdata.artwork, function(n) {
@@ -3283,8 +3283,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         if (reachOutArtist[0] == "#/artist/detai" || reachOutArtist[0] == "#/artwork/detai" || reachOutArtist[0].indexOf("sculpture") != -1) {
             $scope.reachOutArtistId = reachOutArtist[1];
             $scope.artworkInterested = dataNextPre.reachout.artwork;
+            console.log($scope.artworkInterested);
             if (reachOutArtist[0] != "#/artist/detai")
-                $scope.reachOutForm.srno = $scope.artworkInterested[0].imageno;
+                $scope.reachOutForm.srno = $scope.artworkInterested.imageno;
             if (dataNextPre.reachout) {
                 $scope.reachOutForm.artist = dataNextPre.reachout.name;
                 if (reachOutArtist[0] != "#/artist/detai")
@@ -3304,11 +3305,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     globalFunction.reachOut = function() {
         var reachOutArtist = window.location.hash.split('l/');
+        console.log(dataNextPre.reachout);
         if (reachOutArtist[0] == "#/artist/detai" || reachOutArtist[0] == "#/artwork/detai" || reachOutArtist[0].indexOf("sculpture") != -1) {
             $scope.reachOutArtistId = reachOutArtist[1];
             $scope.artworkInterested = dataNextPre.reachout.artwork;
             if (reachOutArtist[0] != "#/artist/detai")
-                $scope.reachOutForm.srno = $scope.artworkInterested[0].imageno;
+                $scope.reachOutForm.srno = $scope.artworkInterested.imageno;
             if (dataNextPre.reachout) {
                 $scope.reachOutForm.artist = dataNextPre.reachout.name;
                 if (reachOutArtist[0] != "#/artist/detai")
