@@ -271,6 +271,7 @@ module.exports = {
         delete data.cart;
         delete data.wishlist;
         data.srno = parseInt(data.srno);
+        console.log(data);
         if (data.imageno && data.imageno != "") {
             data.imageno = parseInt(data.imageno);
         }
@@ -312,7 +313,6 @@ module.exports = {
         delete data.sellername;
         delete data.artistname;
         if (data.status == "approve") {
-            console.log(data);
             if (data.approveTimestamp && data.approveTimestamp != "") {
                 data.approveTimestamp = new Date(data.approveTimestamp);
                 callMe();
