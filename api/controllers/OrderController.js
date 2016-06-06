@@ -168,6 +168,7 @@ module.exports = {
     payU: function(req, res) {
         if (req.body) {
             Order.payU(req.body, function(respo) {
+                 console.log(respo);
                 if (respo.value != false) {
                     res.redirect(frontend + "/thankyou");
                 } else {
