@@ -1639,6 +1639,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.user.vat = $scope.vat;
             $scope.user.grantTotal = $scope.totalCartPrice + $scope.vat;
             $scope.user.discount = 0;
+            $scope.user.pinfo = "Purchase of artwork";
             delete $scope.user.id;
             NavigationService.checkout($scope.user, function(data) {
                 // console.log("incheck");
