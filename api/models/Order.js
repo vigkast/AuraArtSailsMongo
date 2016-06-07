@@ -325,7 +325,7 @@ module.exports = {
                 }, {
                     user: 0
                 }).toArray(function (err, data2) {
-                    if (data2 && data2[0]) {
+                    if (data2 && data2.length > 0) {
                         callback(data2);
                     } else if (err) {
                         console.log(err);
@@ -333,6 +333,8 @@ module.exports = {
                             value: false
                         });
                         db.close();
+                    }else{
+                        callback([]);
                     }
                 });
             }
