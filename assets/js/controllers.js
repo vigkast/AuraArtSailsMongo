@@ -6199,6 +6199,147 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 })
 
+.controller('CommissionSculpturesCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("commission-sculptures");
+    $scope.menutitle = NavigationService.makeactive("Commission Sculptures");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.imgsculpture = [{
+        img: "img/sculpture.jpg"
+    }, {
+        img: "img/sculpture1.jpg"
+    }, {
+        img: "img/painting1.jpg"
+    }, {
+        img: "img/sculpture1.jpg"
+    }, {
+        img: "img/sculpture.jpg"
+    }, {
+        img: "img/painting1.jpg"
+    }, ]
+})
+
+.controller('CommissionProjectsCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("commission-projects");
+    $scope.menutitle = NavigationService.makeactive("Commission Projects");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+
+    $scope.ticket = {};
+    $scope.showLoginErr = false;
+    $scope.chat = {};
+    $scope.chat.message = "";
+
+    $scope.userprofiles = [
+        'Artist',
+        'Buyer'
+    ]
+
+    $scope.activeTab = "projects";
+    $scope.changeTab = function(data) {
+        $scope.activeTab = data;
+    }
+
+    $scope.createTicket = function() {
+        cfpLoadingBar.start();
+        NavigationService.getuserprofile(function(data) {
+            if (data.id) {
+                NavigationService.createTicket($scope.ticket, function(tdata) {
+                    console.log(data);
+                    $scope.ticket = {};
+                    cfpLoadingBar.complete();
+                    getProjects();
+                });
+            } else {
+                cfpLoadingBar.complete();
+                dataNextPre.messageBox("Please login to make a new project");
+            }
+        })
+    }
+
+    function getProjects() {
+        NavigationService.getProject(function(data) {
+            if (data.value != false) {
+                $scope.showLoginErr = false;
+                $scope.tickets = data;
+            } else if (data.value == false && data.comment == "User not logged-in") {
+                $scope.showLoginErr = true;
+            }
+        })
+    }
+    NavigationService.getuserprofile(function(data) {
+        if (data.id) {
+            $scope.userData = data;
+            getProjects();
+        } else {
+            $scope.showLoginErr = true;
+        }
+    })
+
+    $scope.getChats = function(ticket) {
+        $scope.activeTab = 'projectschat';
+        $scope.ticketDetail = ticket;
+        $scope.activeProject = ticket._id;
+        var foundIndex = _.findIndex(ticket.client, {
+            '_id': $scope.userData.id
+        });
+        if (foundIndex != -1) {
+            $scope.upSideClass = "right";
+            $scope.upClass = "box-right pull-right mb20 width80";
+        } else {
+            $scope.upSideClass = "left";
+            $scope.upClass = "chngpswd-cont box-left width80 userprofile-com mb20";
+        }
+        getTicketElements();
+    }
+
+    function getTicketElements() {
+        NavigationService.getTicketElements($scope.activeProject, function(data) {
+            if (data.value != false) {
+                $scope.chatsArr = data;
+                _.each($scope.chatsArr, function(n) {
+                    if (n.chatid == $scope.userData.id) {
+                        n.upSideClass = "right";
+                        n.upClass = "box-right pull-right mb20 width80";
+                    } else {
+                        n.upSideClass = "left";
+                        n.upClass = "chngpswd-cont box-left width80 userprofile-com mb20";
+                    }
+                });
+                setTimeout(function() {
+                    $("#chatDiv").scrollTop($('#chatDiv').prop("scrollHeight"));
+                }, 1000);
+
+            }
+        })
+    }
+
+    $scope.saveTicketElement = function() {
+        var obj = {};
+        obj.ticket = $scope.activeProject;
+        obj.chatid = $scope.userData.id;
+        if ($scope.userData.accesslevel == "reseller") {
+            obj.status = 1;
+            obj.character = "A";
+        } else {
+            obj.status = 2;
+            obj.character = "C";
+        }
+        obj.name = $scope.userData.name;
+        obj.message = $scope.chat.message;
+        console.log(obj);
+        NavigationService.saveTicketElement(obj, function(data) {
+            if (data.value != false) {
+                $scope.chat.message = "";
+                getTicketElements();
+            }
+        })
+    }
+
+})
+
 .controller('ThankYouCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("thankyou");
@@ -6233,43 +6374,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
 })
-
-.controller('CommissionSculpturesCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
-        //Used to name the .html file
-        $scope.template = TemplateService.changecontent("commission-sculptures");
-        $scope.menutitle = NavigationService.makeactive("Commission Sculptures");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-        $scope.imgsculpture = [{
-            img: "img/sculpture.jpg"
-        }, {
-            img: "img/sculpture1.jpg"
-        }, {
-            img: "img/painting1.jpg"
-        }, {
-            img: "img/sculpture1.jpg"
-        }, {
-            img: "img/sculpture.jpg"
-        }, {
-            img: "img/painting1.jpg"
-        }, ]
-    })
-    .controller('CommissionProjectsCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
-        //Used to name the .html file
-        $scope.template = TemplateService.changecontent("commission-projects");
-        $scope.menutitle = NavigationService.makeactive("Commission Projects");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-        $scope.userprofiles = [
-            'Artist',
-            'Buyer'
-        ]
-
-        $scope.activeTab = "profile";
-        $scope.changeTab = function(data) {
-            $scope.activeTab = data;
-        }
-    })
 
 .controller('Error500Ctrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
     //Used to name the .html file

@@ -1,21 +1,21 @@
 <div class="border-top"></div>
 <div class="info min-cont">
     <div class="container">
-        <div class="row">
+        <div class="row" ng-hide="showLoginErr">
             <div class="myaccnthead col-md-12">
                 <h4>COMMISSION SCULPTURES</h4>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" ng-init="activeIndex=null;">
                 <div class="info-cont">
                     <ul class="info-li">
-                        <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'profile'}" ng-click="changeTab('profile');">User Profile</li>
+                        <!-- <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'profile'}" ng-click="changeTab('profile');">User Profile</li> -->
                         <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'projects'}" ng-click="changeTab('projects');">Projects <a href="" class="uppercase addnew">+new</a></li>
-                        <li class="cat-list sub-catpointers" ng-class="{'bolds' : activeTab == 'projectschat'}" ng-click="changeTab('projectschat');">Project 1</li>
+                        <li class="cat-list sub-catpointers" ng-class="{'bolds' : activeTab == 'projectschat' && activeIndex == $index}" ng-click="activeIndex=$index;getChats(ticket);" ng-repeat="ticket in tickets">{{ticket.title}}</li>
                     </ul>
                 </div>
             </div>
             <!-- <div class="col-md-5" ng-if="activeTab == 'profile'"> -->
-            <div class="col-md-10" ng-if="activeTab == 'profile'">
+            <!-- <div class="col-md-10" ng-if="activeTab == 'profile'">
                 <div class="chngpswd-cont userprofile-com">
                     <div class="form-group">
                         <div class="row">
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-10" ng-if="activeTab == 'projects'">
                 <div class="row">
                     <div class=" col-md-offset-1 col-md-11">
@@ -76,45 +76,46 @@
                         </div>
                         <div class="chngpswd-cont userprofile-chat userprofile-com">
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="input-id">
-                                            <input class="form-control" ng-model="user.title" placeholder="Project Title*" required type="text">
+                                <form ng-submit="createTicket();">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="input-id">
+                                                <input class="form-control" ng-model="ticket.title" placeholder="Project Title*" required type="text">
+                                            </div>
+                                            <div class="input-id">
+                                                <textarea class="form-control" name="" ng-model="ticket.brief" placeholder="Project Brief*" required id="" cols="30"></textarea>
+                                            </div>
+                                            <div class="input-id">
+                                                <ui-select tagging tagging-label="('new')" ng-model="ticket.reference" theme="bootstrap" title="Choose Reference">
+                                                    <ui-select-match placeholder="Choose Reference">{{$select.selected}}</ui-select-match>
+                                                    <ui-select-choices repeat="userprofile in userprofiles | filter: $select.search">
+                                                        <div ng-bind-html="userprofile | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
                                         </div>
-                                        <div class="input-id">
-                                            <textarea class="form-control" name="" ng-model="user.brief" placeholder="Project Brief" required id="" cols="30"></textarea>
+                                        <div class="col-md-6">
+                                            <div class="input-id">
+                                                <input class="form-control" ng-model="ticket.material" placeholder="Preferred Material to be Used" type="text">
+                                            </div>
+                                            <div class="input-id">
+                                                <input class="form-control" ng-model="ticket.size" placeholder="Specific Size" type="text">
+                                            </div>
+                                            <div class="input-id">
+                                                <input class="form-control" ng-model="ticket.budget" placeholder="Budget" type="text">
+                                            </div>
+                                            <div class="input-id">
+                                                <input class="form-control" ng-model="ticket.addinfo" placeholder="Any additional information" type="text">
+                                            </div>
+                                            <div class="input-id">
+                                                <input class="form-control" ng-model="ticket.time" placeholder="Lead Time" type="text">
+                                            </div>
                                         </div>
-                                        <div class="input-id">
-                                            <ui-select tagging tagging-label="('new')" ng-model="singleDemo.userprofile" theme="bootstrap" title="Choose Conference">
-                                                <ui-select-match placeholder="Choose Conference">{{$select.selected}}</ui-select-match>
-                                                <ui-select-choices repeat="userprofile in userprofiles | filter: $select.search">
-                                                    <div ng-bind-html="userprofile | highlight: $select.search"></div>
-                                                </ui-select-choices>
-                                            </ui-select>
-                                        </div>
-
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="input-id">
-                                            <input class="form-control" ng-model="user.material" placeholder="Preferred Material to be Used" required type="text">
-                                        </div>
-                                        <div class="input-id">
-                                            <input class="form-control" ng-model="user.size" placeholder="Specific Size" required type="text">
-                                        </div>
-                                        <div class="input-id">
-                                            <input class="form-control" ng-model="user.budget" placeholder="Budget" required type="text">
-                                        </div>
-                                        <div class="input-id">
-                                            <input class="form-control" ng-model="user.addinfo" placeholder="Any additional information" required type="text">
-                                        </div>
-                                        <div class="input-id">
-                                            <input class="form-control" ng-model="user.time" placeholder="Lead Time" required type="time">
-                                        </div>
+                                    <div class="text-center super-margin">
+                                        <button class="btn btn-primarys uppercase" type="submit">Submit</button>
                                     </div>
-                                </div>
-                                <div class="text-center super-margin">
-                                    <button class="btn btn-primarys uppercase" type="submit">Submit</button>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -124,18 +125,18 @@
                 <div class="row">
                     <div class="box-bord pad20">
                         <h5>Client</h5>
-                        <div class="chat-content scroll-y">
+                        <div class="chat-content scroll-y" id="chatDiv">
                             <div class="row">
-                                <div class=" col-md-offset-1 col-md-11">
-                                    <div class="profile-img left bg-green">
+                                <div class=" col-md-offset-1 col-md-10">
+                                    <div class="profile-img {{upSideClass}} bg-green">
                                         <h5 class="bold text-center">C</h5>
                                     </div>
-                                    <div class="chngpswd-cont box-left width80 userprofile-com mb20">
+                                    <div class="{{upClass}}">
                                         <div class="chat-cont">
                                             <div class="user-made">
-                                                <h5 class="title font-color2 bold">Project One</h5>
+                                                <h5 class="title font-color2 bold">{{ticketDetail.title}}</h5>
                                                 <p>
-                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                                    {{ticketDetail.brief}}
                                                 </p>
                                             </div>
                                             <div class="made-madein">
@@ -158,7 +159,7 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="material-cont">
-                                                            <p>Wood,brozen,fiber glass</p>
+                                                            <p>{{ticketDetail.material}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -168,7 +169,7 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="material-cont">
-                                                            <p>15.45 inches</p>
+                                                            <p>{{ticketDetail.size}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -178,7 +179,7 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="material-cont">
-                                                            <p>Rs. 15,4222</p>
+                                                            <p>Rs. {{ticketDetail.budget | inlakhs}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -188,7 +189,7 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="material-cont">
-                                                            <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                                            <p> {{ticketDetail.addinfo}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -198,45 +199,46 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="material-cont">
-                                                            <p> One Week</p>
+                                                            <p>{{ticketDetail.time}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="time-date text-right">
                                                 <p>
-                                                    <span>Sr Excutive (Mahesh)</span>,
-                                                    <span>14 jun</span>,
-                                                    <span>12:30 pm</span>
+                                                    <span>{{ticketDetail.client[0].name}}</span>,
+                                                    <span>{{ticketDetail.timestamp | date:'MMM d, y h:mm a'}}</span>
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class=" col-md-offset-1 col-md-10 ">
-                                    <div class="profile-img right bg-brown">
-                                        <h5 class="bold text-center">A</h5>
-                                    </div>
-                                    <div class="box-right pull-right mb20 width80">
-                                        <div class="user-response">
-                                            <h5>Hello Mr. XYZ,</h5>
-                                            <p>
-                                                We have recieved your request for commisioned sculpture. We will go through all your specification and get back to in 2 days.
-                                            </p>
-                                            <div class="time-date text-right">
+                                <div ng-repeat="chat in chatsArr">
+                                    <div class=" col-md-offset-1 col-md-10">
+                                        <div class="profile-img {{chat.upSideClass}} bg-brown">
+                                            <h5 class="bold text-center">{{chat.character}}</h5>
+                                        </div>
+                                        <div class="{{chat.upClass}}">
+                                            <div class="user-response">
+                                                <!-- <h5>Hello Mr. XYZ,</h5> -->
                                                 <p>
-                                                    <span>14 jun</span>,
-                                                    <span>12:30 pm</span>
+                                                    {{chat.message}}
                                                 </p>
+                                                <div class="time-date text-right">
+                                                    <p>
+                                                        <span>{{chat.name}}</span>,
+                                                        <span>{{chat.timestamp | date:'MMM d, y h:mm a'}}</span>
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="dotted-milestone">
-                                        <hr class="line-green">
-                                        <div class="wait-conform">
-                                            Waiting for Artist conformation (proposal state)
+                                    <div class="col-md-12" ng-if="chat.status==5">
+                                        <div class="dotted-milestone">
+                                            <hr class="line-green">
+                                            <div class="wait-conform">
+                                                Waiting for Artist conformation (proposal state)
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -246,12 +248,12 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="box-right pad0">
-                                        <textarea name="" id="" placeholder="Please enter your text here" class="form-control"></textarea>
+                                        <textarea name="" id="" placeholder="Please enter your text here" class="form-control" ng-model="chat.message"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="box-button text-center">
-                                        <button class="btn btn-primary all-btn">
+                                        <button class="btn btn-primary all-btn" ng-click="saveTicketElement();">
                                             Enter
                                         </button>
                                         <button class="btn btn-primary all-btn">
@@ -269,6 +271,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row text-center" ng-show="showLoginErr">
+            <h4 class="">Please login to view your projects</h4>
         </div>
     </div>
 </div>

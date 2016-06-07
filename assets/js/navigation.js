@@ -788,5 +788,34 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 method: 'POST'
             }).success(callback);
         },
+        createTicket: function(obj, callback) {
+            $http({
+                url: adminurl + "ticket/save",
+                method: "POST",
+                data: obj
+            }).success(callback);
+        },
+        getProject: function(callback) {
+            $http({
+                url: adminurl + "ticket/getProject",
+                method: "POST"
+            }).success(callback);
+        },
+        getTicketElements: function(id, callback) {
+            $http({
+                url: adminurl + "ticket/findone",
+                method: "POST",
+                data: {
+                    "_id": id
+                }
+            }).success(callback);
+        },
+        saveTicketElement: function(obj, callback) {
+            $http({
+                url: adminurl + "ticketelement/save",
+                method: "POST",
+                data: obj
+            }).success(callback);
+        },
     }
 });
