@@ -861,6 +861,11 @@ module.exports = {
                 }]).toArray(function(err, found) {
                     if (err) {
                         console.log(err);
+                        res.json({
+                            value: false,
+                            comment: err
+                        });
+                        db.close();
                     } else if (found && found.length > 0) {
                         function callMe(num) {
                             var xyz = found[num];
@@ -929,6 +934,7 @@ module.exports = {
                             value: false,
                             comment: "Error"
                         });
+                        db.close();
                     } else if (found && found.length > 0) {
                         async.each(found, function(data2, callback) {
                             Artwork.save({
@@ -951,11 +957,13 @@ module.exports = {
                                     value: false,
                                     comment: err
                                 });
+                                db.close();
                             } else {
                                 res.json({
                                     value: true,
                                     comment: arr
                                 });
+                                db.close();
                             }
                         });
                     } else {
@@ -963,6 +971,7 @@ module.exports = {
                             value: false,
                             comment: "No data found"
                         });
+                        db.close();
                     }
                 });
             }
