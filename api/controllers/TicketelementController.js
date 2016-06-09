@@ -8,31 +8,43 @@
 module.exports = {
     save: function(req, res) {
         if (req.body) {
-            if (req.body.ticket && req.body.ticket != "" && sails.ObjectID.isValid(req.body.ticket)) {
-                if (req.body._id) {
-                    if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                        feed();
-                    } else {
-                        res.json({
-                            value: false,
-                            comment: "Ticketelement-id is incorrect"
-                        });
+            if (req.session.passport) {
+                if (req.body.ticket && req.body.ticket != "" && sails.ObjectID.isValid(req.body.ticket) && req.body.status && req.body.status != "") {
+                    var print = function(data) {
+                        res.json(data);
                     }
+                    Ticketelement.save(req.body, print);
                 } else {
-                    feed();
+                    res.json({
+                        value: false,
+                        comment: "Ticket-id is incorrect"
+                    });
                 }
             } else {
                 res.json({
                     value: false,
-                    comment: "ticket-id is incorrect "
+                    comment: "User not logged-in"
                 });
             }
-
-            function feed() {
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
+    saveBack: function(req, res) {
+        if (req.body) {
+            if (req.body.ticket && req.body.ticket != "" && sails.ObjectID.isValid(req.body.ticket)) {
                 var print = function(data) {
                     res.json(data);
                 }
                 Ticketelement.save(req.body, print);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Ticket-id is incorrect"
+                });
             }
         } else {
             res.json({
@@ -58,7 +70,7 @@ module.exports = {
             } else {
                 res.json({
                     value: false,
-                    comment: "ticket-id is incorrect "
+                    comment: "Ticket-id is incorrect "
                 });
             }
         } else {
@@ -78,7 +90,7 @@ module.exports = {
             } else {
                 res.json({
                     value: false,
-                    comment: "ticket-id is incorrect "
+                    comment: "Ticket-id is incorrect "
                 });
             }
         } else {
@@ -105,7 +117,7 @@ module.exports = {
             } else {
                 res.json({
                     value: false,
-                    comment: "ticket-id is incorrect "
+                    comment: "Ticket-id is incorrect "
                 });
             }
         } else {
@@ -132,7 +144,7 @@ module.exports = {
             } else {
                 res.json({
                     value: false,
-                    comment: "ticket-id is incorrect "
+                    comment: "Ticket-id is incorrect "
                 });
             }
         } else {

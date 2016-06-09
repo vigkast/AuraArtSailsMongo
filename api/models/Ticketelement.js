@@ -7,9 +7,21 @@
 
 module.exports = {
     save: function(data, callback) {
+        delete data.client;
+        delete data.artist;
         var ticket = sails.ObjectID(data.ticket);
-        data.user = sails.ObjectID(data.user);
         delete data.ticket;
+        data.timestamp = new Date();
+        var insertobj = {};
+        if (data.status == 2 || data.status == 4) {
+            insertobj = {
+                "ticketelement.client": data
+            };
+        } else if (data.status == 1 || data.status == 3) {
+            insertobj = {
+                "ticketelement.artist": data
+            };
+        }
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -18,73 +30,31 @@ module.exports = {
                 });
             }
             if (db) {
-                if (!data._id) {
-                    data._id = sails.ObjectID();
-                    db.collection("ticket").update({
-                        _id: ticket
-                    }, {
-                        $push: {
-                            ticketelement: data
-                        }
-                    }, function(err, updated) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (updated) {
-                            callback({
-                                value: true
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "Not created"
-                            });
-                            db.close();
-                        }
-                    });
-                } else {
-                    data._id = sails.ObjectID(data._id);
-                    var tobechanged = {};
-                    var attribute = "ticketelement.$.";
-                    _.forIn(data, function(value, key) {
-                        tobechanged[attribute + key] = value;
-                    });
-                    db.collection("ticket").update({
-                        "_id": ticket,
-                        "ticketelement._id": data._id
-                    }, {
-                        $set: tobechanged
-                    }, function(err, updated) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (updated.result.nModified != 0 && updated.result.n != 0) {
-                            callback({
-                                value: true
-                            });
-                            db.close();
-                        } else if (updated.result.nModified == 0 && updated.result.n != 0) {
-                            callback({
-                                value: true,
-                                comment: "Data already updated"
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "No data found"
-                            });
-                            db.close();
-                        }
-                    });
-                }
+                data._id = sails.ObjectID();
+                db.collection("ticket").update({
+                    _id: ticket
+                }, {
+                    $push: insertobj
+                }, function(err, updated) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else if (updated) {
+                        callback({
+                            value: true
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "Not created"
+                        });
+                        db.close();
+                    }
+                });
             }
         });
     },
@@ -331,63 +301,6 @@ module.exports = {
                             }
                         });
                 }
-            }
-        });
-    },
-    localtoserver: function(data, callback) {
-        if (data.creationtime) {
-            ticketelement.save(data, callback);
-        } else if (!data._id && !data.creationtime) {
-            callback({
-                value: false
-            });
-        } else if (data.id && !data.creationtime) {
-            ticketelement.delete(data, callback)
-        }
-    },
-    servertolocal: function(data, callback) {
-        var d = new Date(data.modifytime);
-        var ticket = sails.ObjectID(data.ticket);
-        sails.query(function(err, db) {
-            if (err) {
-                console.log(err);
-                callback({
-                    value: false
-                });
-            }
-            if (db) {
-                db.collection("ticket").aggregate([{
-                    $match: {
-                        _id: ticket,
-                        "ticketelement.modifytime": {
-                            $gt: d
-                        }
-                    }
-                }, {
-                    $unwind: "$ticketelement"
-                }, {
-                    $match: {
-                        "ticketelement.modifytime": {
-                            $gt: d
-                        }
-                    }
-                }, {
-                    $project: {
-                        ticketelement: 1
-                    }
-                }]).toArray(
-                    function(err, data) {
-                        if (data != null) {
-                            callback(data);
-                        }
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false,
-                                comment: "No data found"
-                            });
-                        }
-                    });
             }
         });
     }

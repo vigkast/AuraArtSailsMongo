@@ -1,5 +1,5 @@
-var adminurl = "http://www.auraart.in/";
-// var adminurl = "http://192.168.1.129:82/";
+// var adminurl = "http://www.auraart.in/";
+var adminurl = "http://192.168.1.129:1337/";
 var imgUploadUrl = adminurl + "user/uploadfile";
 var wallUploadUrl = adminurl + "user/wallUpload";
 
@@ -402,7 +402,6 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 }
             }).success(callback);
         },
-
         getupcomingevents: function(callback) {
             $http({
                 url: adminurl + "event/findevents",

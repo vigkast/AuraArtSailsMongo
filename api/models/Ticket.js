@@ -6,21 +6,103 @@
  */
 module.exports = {
     save: function(data, callback) {
-        if (data.user) {
-            for (var i = 0; i < data.user.length; i++) {
-                data.user[i] = sails.ObjectID(data.user[i]);
-            }
-        }
+        data.timestamp = new Date();
+        data.status = "Scoping";
+        _.each(data.client, function(client) {
+            client._id = sails.ObjectID(client._id);
+        });
         sails.query(function(err, db) {
-            var exit = 0;
-            var exitup = 0;
             if (err) {
                 console.log(err);
                 callback({
                     value: false
                 });
+            } else {
+                data._id = sails.ObjectID();
+                db.collection('ticket').insert(data, function(err, created) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else if (created) {
+                        callback({
+                            value: true,
+                            id: data._id
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "Not created"
+                        });
+                        db.close();
+                    }
+                });
             }
-            if (db) {
+        });
+    },
+    edit: function(data, callback) {
+        delete data.timestamp;
+        delete data.client;
+        delete data.artist;
+        var ticket = sails.ObjectID(data._id);
+        delete data._id;
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            } else {
+                db.collection('ticket').update({
+                    _id: ticket
+                }, {
+                    $set: data
+                }, function(err, updated) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+                        callback({
+                            value: true
+                        });
+                        db.close();
+                    } else if (updated.result.nModified == 0 && updated.result.n != 0) {
+                        callback({
+                            value: true,
+                            comment: "Data already updated"
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    },
+    saveBack: function(data, callback) {
+        _.each(data.client, function(client) {
+            client._id = sails.ObjectID(client._id);
+        });
+        _.each(data.artist, function(client) {
+            client._id = sails.ObjectID(client._id);
+        });
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            } else if (db) {
                 if (!data._id) {
                     data._id = sails.ObjectID();
                     db.collection('ticket').insert(data, function(err, created) {
@@ -32,14 +114,13 @@ module.exports = {
                             db.close();
                         } else if (created) {
                             callback({
-                                value: true,
-                                id: data._id
+                                value: true
                             });
                             db.close();
                         } else {
                             callback({
                                 value: false,
-                                comment: "Not created"
+                                comment: "Not Created"
                             });
                             db.close();
                         }
@@ -97,7 +178,7 @@ module.exports = {
             }
             if (db) {
                 db.collection("ticket").count({
-                    artist: {
+                    title: {
                         '$regex': check
                     }
                 }, function(err, number) {
@@ -122,7 +203,7 @@ module.exports = {
 
                 function callbackfunc() {
                     db.collection("ticket").find({
-                        artist: {
+                        title: {
                             '$regex': check
                         }
                     }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
@@ -189,16 +270,82 @@ module.exports = {
             }
             if (db) {
                 db.collection("ticket").find({
-                    "_id": sails.ObjectID(data._id)
-                }, {}).toArray(function(err, data) {
+                    "_id": sails.ObjectID(data._id),
+                    ticketelement: {
+                        $exists: true
+                    }
+                }, {
+                    _id: 0,
+                    ticketelement: 1
+                }).toArray(function(err, data2) {
                     if (err) {
                         console.log(err);
                         callback({
                             value: false
                         });
                         db.close();
-                    } else if (data && data[0]) {
-                        callback(data[0]);
+                    } else if (data2 && data2.length > 0) {
+                        callback(data2[0].ticketelement);
+                        db.close();
+                    } else {
+                        callback([]);
+                        db.close();
+                    }
+                });
+            }
+        });
+    },
+    findTicketBack: function(data, callback) {
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("ticket").find({
+                    "_id": sails.ObjectID(data._id)
+                }).toArray(function(err, data2) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else if (data2 && data2.length > 0) {
+                        callback(data2[0]);
+                        db.close();
+                    } else {
+                        callback([]);
+                        db.close();
+                    }
+                });
+            }
+        });
+    },
+    findoneBack: function(data, callback) {
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("ticket").find({
+                    "_id": sails.ObjectID(data._id)
+                }, {
+                    ticketelement: 0
+                }).toArray(function(err, data2) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else if (data2 && data2.length > 0) {
+                        callback(data2[0]);
                         db.close();
                     } else {
                         callback({
@@ -241,6 +388,49 @@ module.exports = {
                     db.close();
                 }
             });
+        });
+    },
+    getProject: function(data, callback) {
+        var matchobj = {};
+        if (data.accesslevel == "reseller" || data.accesslevel == "artist") {
+            matchobj = {
+                "artist._id": sails.ObjectID(data._id)
+            };
+        } else {
+            matchobj = {
+                "client._id": sails.ObjectID(data._id)
+            };
+        }
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false,
+                    comment: err
+                });
+            } else {
+                db.collection("ticket").find(matchobj, {
+                    ticketelement: 0
+                }).toArray(function(err, found) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false,
+                            comment: err
+                        });
+                        db.close();
+                    } else if (found && found.length > 0) {
+                        callback(found);
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
         });
     }
 };

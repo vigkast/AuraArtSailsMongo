@@ -6247,16 +6247,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         NavigationService.getuserprofile(function(data) {
             if (data.id) {
                 NavigationService.createTicket($scope.ticket, function(tdata) {
-                    console.log(data);
-                    $scope.ticket = {};
-                    cfpLoadingBar.complete();
-                    getProjects();
+                    if (tdata.value != false) {
+                        console.log(tdata);
+                        $scope.ticket = {};
+                        cfpLoadingBar.complete();
+                        getProjects();
+                    } else {
+                        cfpLoadingBar.complete();
+                        dataNextPre.messageBox("Only customers can create projects");
+                    }
                 });
             } else {
                 cfpLoadingBar.complete();
                 dataNextPre.messageBox("Please login to make a new project");
             }
-        })
+        });
     }
 
     function getProjects() {
@@ -6267,7 +6272,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             } else if (data.value == false && data.comment == "User not logged-in") {
                 $scope.showLoginErr = true;
             }
-        })
+        });
     }
     NavigationService.getuserprofile(function(data) {
         if (data.id) {
@@ -6276,7 +6281,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         } else {
             $scope.showLoginErr = true;
         }
-    })
+    });
 
     $scope.getChats = function(ticket) {
         $scope.activeTab = 'projectschat';
@@ -6298,20 +6303,40 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     function getTicketElements() {
         NavigationService.getTicketElements($scope.activeProject, function(data) {
             if (data.value != false) {
-                $scope.chatsArr = data;
-                _.each($scope.chatsArr, function(n) {
-                    if (n.chatid == $scope.userData.id) {
-                        n.upSideClass = "right";
-                        n.upClass = "box-right pull-right mb20 width80";
+                if ($scope.userData.accesslevel == "reseller" || $scope.userData.accesslevel == "artist") {
+                    if (data.artist && data.artist.length > 0) {
+                        $scope.chatsArr = data.artist;
+                        _.each($scope.chatsArr, function(n) {
+                            if (n.chatid == $scope.userData.id) {
+                                n.upSideClass = "right";
+                                n.upClass = "box-right pull-right mb20 width80";
+                            } else {
+                                n.upSideClass = "left";
+                                n.upClass = "chngpswd-cont box-left width80 userprofile-com mb20";
+                            }
+                        });
                     } else {
-                        n.upSideClass = "left";
-                        n.upClass = "chngpswd-cont box-left width80 userprofile-com mb20";
+                        $scope.chatsArr = [];
                     }
-                });
+                } else {
+                    if (data.client && data.client.length > 0) {
+                        $scope.chatsArr = data.client;
+                        _.each($scope.chatsArr, function(n) {
+                            if (n.chatid == $scope.userData.id) {
+                                n.upSideClass = "right";
+                                n.upClass = "box-right pull-right mb20 width80";
+                            } else {
+                                n.upSideClass = "left";
+                                n.upClass = "chngpswd-cont box-left width80 userprofile-com mb20";
+                            }
+                        });
+                    } else {
+                        $scope.chatsArr = [];
+                    }
+                }
                 setTimeout(function() {
                     $("#chatDiv").scrollTop($('#chatDiv').prop("scrollHeight"));
-                }, 1000);
-
+                }, 500);
             }
         })
     }
@@ -6335,7 +6360,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.chat.message = "";
                 getTicketElements();
             }
-        })
+        });
     }
 
 })
