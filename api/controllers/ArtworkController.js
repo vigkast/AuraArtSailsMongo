@@ -5,7 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 var filer = "http://www.auraart.in/user/resize?file=";
-// var filer = "http://192.168.1.129:82/user/resize?file=";
+// var filer = "http://192.168.1.129:1337/user/resize?file=";
 module.exports = {
     save: function(req, res) {
         if (req.body) {
@@ -465,8 +465,11 @@ module.exports = {
                                             html = html.split("Artwork").join(req.query.artwork);
                                             html = html.split("Medium").join(req.query.medium);
                                             html = html.split("Dim").join(req.query.dim);
+                                            if (req.query.yoc && req.query.yoc != "") {
+                                                html = html.split(req.query.dim).join(req.query.dim + ", " + req.query.yoc);
+                                            }
                                             html = html.split("http://www.auraart.in/user/resize?file=").join(filePath);
-                                            // html = html.split("http://192.168.1.129:82/user/resize?file=").join(filePath);
+                                            // html = html.split("http://192.168.1.129:1337/user/resize?file=").join(filePath);
                                             if (check) {
                                                 options = {
                                                     windowSize: {

@@ -745,6 +745,82 @@
               });
           }
       },
+      findforDrop: function(data, callback) {
+          var returns = [];
+          var exit = 0;
+          var exitup = 1;
+          var check = new RegExp(data.search, "i");
+          var matchobj = {};
+          if (data.accesslevel && data.accesslevel == "reseller") {
+              matchobj = {
+                  name: {
+                      '$regex': check
+                  },
+                  $or: [{
+                      accesslevel: "artist"
+                  }, {
+                      accesslevel: "reseller"
+                  }]
+              };
+          } else {
+              matchobj = {
+                  name: {
+                      '$regex': check
+                  },
+                  accesslevel: data.accesslevel
+              };
+          }
+
+          function callback2(exit, exitup, data) {
+              if (exit == exitup) {
+                  callback(data);
+              }
+          }
+          sails.query(function(err, db) {
+              if (err) {
+                  console.log(err);
+                  callback({
+                      value: false
+                  });
+              }
+              if (db) {
+                  db.collection("user").find(matchobj, {
+                      _id: 1,
+                      name: 1
+                  }).limit(10).toArray(function(err, found) {
+                      if (err) {
+                          callback({
+                              value: false
+                          });
+                          console.log(err);
+                      }
+                      if (found != null) {
+                          exit++;
+                          if (data.array.length != 0) {
+                              var nedata;
+                              nedata = _.remove(found, function(n) {
+                                  var flag = false;
+                                  _.each(data.array, function(n1) {
+                                      if (n1.name == n.name) {
+                                          flag = true;
+                                      }
+                                  })
+                                  return flag;
+                              });
+                          }
+                          returns = returns.concat(found);
+                          callback2(exit, exitup, returns);
+                      } else {
+                          callback({
+                              value: false,
+                              comment: "No data found"
+                          });
+                          db.close();
+                      }
+                  });
+              }
+          });
+      },
       findone: function(data, callback) {
           sails.query(function(err, db) {
               if (err) {
@@ -1626,43 +1702,6 @@
                           callback({
                               value: false
                           });
-                          db.close();
-                      } else {
-                          callback({
-                              value: false,
-                              comment: "No data found"
-                          });
-                          db.close();
-                      }
-                  });
-              }
-          });
-      },
-      findbyaccess: function(data, callback) {
-          sails.query(function(err, db) {
-              if (err) {
-                  console.log(err);
-                  callback({
-                      value: false
-                  });
-              }
-              if (db) {
-                  db.collection("user").find({
-                      status: "approve",
-                      accesslevel: data.accesslevel
-                  }, {
-                      password: 0,
-                      forgotpassword: 0
-                  }).sort({
-                      name: 1
-                  }).toArray(function(err, found) {
-                      if (err) {
-                          callback({
-                              value: false
-                          });
-                          db.close();
-                      } else if (found && found[0]) {
-                          callback(found);
                           db.close();
                       } else {
                           callback({
