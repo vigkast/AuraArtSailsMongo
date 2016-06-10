@@ -159,7 +159,7 @@
                                     </div>
                                 </div>
                                 <div ng-repeat="chat in chatsArr">
-                                    <div class=" col-md-offset-1 col-md-10">
+                                    <div class=" col-md-offset-1 col-md-10"  ng-if="chat.status!=5">
                                         <div class="profile-img {{chat.upSideClass}} bg-brown">
                                             <h5 class="bold text-center">{{chat.character}}</h5>
                                         </div>
@@ -182,7 +182,7 @@
                                         <div class="dotted-milestone">
                                             <hr class="line-green">
                                             <div class="wait-conform">
-                                                Waiting for Artist conformation (proposal state)
+                                                {{chat.message}}
                                             </div>
                                         </div>
                                     </div>
@@ -194,6 +194,9 @@
                                 <div class="col-md-8">
                                     <div class="box-right pad0">
                                         <textarea name="" id="" placeholder="Please enter your text here" class="form-control" ng-model="chat.message"></textarea>
+                                    </div> 
+                                     <div class="box-desgnation pad0">
+                                        <input name="" id="" placeholder="Please enter your Designation" class="form-control" ng-model="chat.message">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -205,12 +208,12 @@
                                             Upload
                                         </button>
                                     </div>
-                                    <div class="box-button">
+                         <!--            <div class="box-button">
                                         <button class="btn btn-primary all-btn form-control">
                                             Mile Stone
                                         </button>
                                     </div>
-                                </div>
+ -->                                </div>
                             </div>
                         </div>
                     </div>

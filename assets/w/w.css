@@ -5121,7 +5121,12 @@ img.fancybox-image {
   resize: none;
   border: 0;
   border-radius: 10px!important;
-  height: 100px;
+  height: 60px;
+}
+.box-desgnation input {
+  margin-top: 10px;
+  border-radius: 10px!important;
+  height: 30px;
 }
 .pad0 {
   padding: 0;

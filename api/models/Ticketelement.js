@@ -13,11 +13,11 @@ module.exports = {
         delete data.ticket;
         data.timestamp = new Date();
         var insertobj = {};
-        if (data.status == 2 || data.status == 4) {
+        if (data.status == 2 || data.status == 4 || (data.status == 5 && data.type == 2)) {
             insertobj = {
                 "ticketelement.client": data
             };
-        } else if (data.status == 1 || data.status == 3) {
+        } else if (data.status == 1 || data.status == 3 || (data.status == 5 && data.type == 1)) {
             insertobj = {
                 "ticketelement.artist": data
             };
