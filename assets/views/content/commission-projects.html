@@ -159,7 +159,7 @@
                                     </div>
                                 </div>
                                 <div ng-repeat="chat in chatsArr">
-                                    <div class=" col-md-offset-1 col-md-10"  ng-if="chat.status!=5">
+                                    <div class=" col-md-offset-1 col-md-10" ng-if="chat.status!=5">
                                         <div class="profile-img {{chat.upSideClass}} bg-brown">
                                             <h5 class="bold text-center">{{chat.character}}</h5>
                                         </div>
@@ -191,29 +191,32 @@
                         </div>
                         <div class="fixed-chat">
                             <div class="row">
-                                <div class="col-md-8">
-                                    <div class="box-right pad0">
-                                        <textarea name="" id="" placeholder="Please enter your text here" class="form-control" ng-model="chat.message"></textarea>
-                                    </div> 
-                                     <div class="box-desgnation pad0">
-                                        <input name="" id="" placeholder="Please enter your Designation" class="form-control" ng-model="chat.message">
+                                <form ng-submit="saveTicketElement();">
+                                    <div class="col-md-8">
+                                        <div class="box-right pad0">
+                                            <textarea name="" id="" placeholder="Please enter your text here" class="form-control" ng-model="chat.message" required></textarea>
+                                        </div>
+                                        <div class="box-desgnation pad0">
+                                            <input name="" id="" placeholder="Please enter your Designation" class="form-control" ng-model="chat.designation">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="box-button text-center">
-                                        <button class="btn btn-primary all-btn" ng-click="saveTicketElement();">
-                                            Enter
-                                        </button>
-                                        <button class="btn btn-primary all-btn">
-                                            Upload
-                                        </button>
-                                    </div>
-                         <!--            <div class="box-button">
+                                    <div class="col-md-4">
+                                        <div class="box-button text-center">
+                                            <button class="btn btn-primary all-btn">
+                                                Enter
+                                            </button>
+                                            <button class="btn btn-primary all-btn">
+                                                Upload
+                                            </button>
+                                        </div>
+                                        <!--            <div class="box-button">
                                         <button class="btn btn-primary all-btn form-control">
                                             Mile Stone
                                         </button>
                                     </div>
- -->                                </div>
+ -->
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

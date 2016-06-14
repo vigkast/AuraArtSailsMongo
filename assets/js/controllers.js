@@ -6303,7 +6303,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     function getTicketElements() {
         NavigationService.getTicketElements($scope.activeProject, function(data) {
             if (data.value != false) {
-                if ($scope.userData.accesslevel == "reseller" || $scope.userData.accesslevel == "artist") {
+                var foundIndex = _.findIndex($scope.ticketDetail.client, {
+                    '_id': $scope.userData.id
+                });
+                if (foundIndex == -1) {
                     if (data.artist && data.artist.length > 0) {
                         $scope.chatsArr = data.artist;
                         _.each($scope.chatsArr, function(n) {
@@ -6345,7 +6348,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         var obj = {};
         obj.ticket = $scope.activeProject;
         obj.chatid = $scope.userData.id;
-        if ($scope.userData.accesslevel == "reseller") {
+        var foundIndex = _.findIndex($scope.ticketDetail.client, {
+            '_id': $scope.userData.id
+        });
+        if (foundIndex == -1) {
             obj.status = 1;
             obj.character = "A";
         } else {
@@ -6354,10 +6360,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
         obj.name = $scope.userData.name;
         obj.message = $scope.chat.message;
+        obj.designation = $scope.chat.designation;
         console.log(obj);
         NavigationService.saveTicketElement(obj, function(data) {
             if (data.value != false) {
                 $scope.chat.message = "";
+                $scope.chat.designation = "";
                 getTicketElements();
             }
         });
