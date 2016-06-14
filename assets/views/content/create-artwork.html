@@ -399,7 +399,7 @@
                               </div>
                            </div>
                         </div> -->
-                                <div class="form-group">
+                                <div class="form-group" style="margin-bottom:0;">
                                     <label>Image
                                         <span ng-show="artwork.type=='Sculptures'">(Multiple Upload)</span>
                                     </label>
@@ -420,6 +420,9 @@
                                             <input multiple name="file" ng-file-select="onFileSelect($files,1)" onclick="this.value=null" type="file" ng-show="multiplesel">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>After Uploading, please wait for the thumbnail of the image to appear here before you proceed to Submit</label>
                                 </div>
                                 <div class="form-group">
                                     <label>Upload Certificate</label>
