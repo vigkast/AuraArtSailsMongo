@@ -9,22 +9,15 @@ module.exports = {
     save: function(req, res) {
         if (req.body) {
             if (req.session.passport) {
-                if (req.session.passport.user.accesslevel && req.session.passport.user.accesslevel == "customer") {
-                    req.body.client = [];
-                    req.body.client.push({
-                        _id: req.session.passport.user.id,
-                        name: req.session.passport.user.name
-                    });
-                    var print = function(data) {
-                        res.json(data);
-                    }
-                    Ticket.save(req.body, print);
-                } else {
-                    res.json({
-                        value: false,
-                        comment: "Only customers can create projects"
-                    });
+                req.body.client = [];
+                req.body.client.push({
+                    _id: req.session.passport.user.id,
+                    name: req.session.passport.user.name
+                });
+                var print = function(data) {
+                    res.json(data);
                 }
+                Ticket.save(req.body, print);
             } else {
                 res.json({
                     value: false,
