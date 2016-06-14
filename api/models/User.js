@@ -273,7 +273,6 @@
                                           "template": "2336",
                                       },
                                       "recipients": [data.email, "harmeet@auraart.in", "connect@auraart.in"],
-                                      // "recipients": [data.email, "dhaval@wohlig.com", "vigwohlig@gmail.com"],
                                       "attributes": {
                                           "NAME": [data.name, data.name, data.name],
                                           "AEMAIL": [data.email, data.email, data.email]
@@ -317,7 +316,10 @@
                           data._id = sails.ObjectID();
                           if (data.email && data.email != "") {
                               db.collection("user").find({
-                                  email: data.email
+                                  email: data.email,
+                                  accesslevel: {
+                                      $ne: "artist"
+                                  }
                               }).toArray(function(err, data2) {
                                   if (err) {
                                       console.log(err);

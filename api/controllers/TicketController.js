@@ -210,7 +210,6 @@ module.exports = {
         if (req.body) {
             if (req.session.passport) {
                 req.body._id = req.session.passport.user.id;
-                req.body.accesslevel = req.session.passport.user.accesslevel;
                 Ticket.getProject(req.body, function(respo) {
                     res.json(respo);
                 });

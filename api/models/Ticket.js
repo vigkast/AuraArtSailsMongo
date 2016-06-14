@@ -391,16 +391,6 @@ module.exports = {
         });
     },
     getProject: function(data, callback) {
-        var matchobj = {};
-        if (data.accesslevel == "reseller" || data.accesslevel == "artist") {
-            matchobj = {
-                "artist._id": sails.ObjectID(data._id)
-            };
-        } else {
-            matchobj = {
-                "client._id": sails.ObjectID(data._id)
-            };
-        }
         sails.query(function(err, db) {
             if (err) {
                 console.log(err);
@@ -409,7 +399,13 @@ module.exports = {
                     comment: err
                 });
             } else {
-                db.collection("ticket").find(matchobj, {
+                db.collection("ticket").find({
+                    $or: [{
+                        "artist._id": sails.ObjectID(data._id)
+                    }, {
+                        "client._id": sails.ObjectID(data._id)
+                    }]
+                }, {
                     ticketelement: 0
                 }).toArray(function(err, found) {
                     if (err) {
