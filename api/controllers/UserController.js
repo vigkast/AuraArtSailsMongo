@@ -100,12 +100,22 @@ module.exports = {
                     i++;
                     if (i == req.session.cart.items.length) {
                         req.session.cart = {};
-                        res.redirect(frontend);
+                        var abc = setInterval(function() {
+                            if (req.session.passport) {
+                                clearInterval(abc);
+                                res.redirect(frontend);
+                            }
+                        }, 500);
                     }
                 });
             });
         } else {
-            res.redirect(frontend);
+            var abc = setInterval(function() {
+                if (req.session.passport) {
+                    clearInterval(abc);
+                    res.redirect(frontend);
+                }
+            }, 500);
         }
     },
     fail: function(req, res) {
