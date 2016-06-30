@@ -7,7 +7,7 @@
 
 module.exports = {
     save: function(req, res) {
-        if (req.body) {
+        if (req.body && req.body.email) {
             if (req.body._id) {
                 if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
                     reachout();
