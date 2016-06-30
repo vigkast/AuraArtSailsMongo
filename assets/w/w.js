@@ -19815,6 +19815,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.user.vat = $scope.vat;
             $scope.user.grantTotal = $scope.totalCartPrice + $scope.vat;
             $scope.user.discount = 0;
+            $scope.user.pinfo = "Purchase of artwork";
             delete $scope.user.id;
             NavigationService.checkout($scope.user, function(data) {
                 // console.log("incheck");
@@ -20475,10 +20476,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             console.log(data);
             $scope.aristImages = [];
             $scope.artid = data[0]._id;
+            $.jStorage.set("reachout", data[0]);
+            dataNextPre.reachout = data[0];
             NavigationService.getArtistDetail(data[0]._id, function(artistdata, status) {
                 console.log(artistdata);
-                $.jStorage.set("reachout", artistdata);
-                dataNextPre.reachout = artistdata;
                 $scope.artistdetail = artistdata;
                 $scope.allartworks = artistdata;
                 _.each(artistdata.artwork, function(n) {
@@ -21459,8 +21460,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         if (reachOutArtist[0] == "#/artist/detai" || reachOutArtist[0] == "#/artwork/detai" || reachOutArtist[0].indexOf("sculpture") != -1) {
             $scope.reachOutArtistId = reachOutArtist[1];
             $scope.artworkInterested = dataNextPre.reachout.artwork;
+            console.log($scope.artworkInterested);
             if (reachOutArtist[0] != "#/artist/detai")
-                $scope.reachOutForm.srno = $scope.artworkInterested[0].imageno;
+                $scope.reachOutForm.srno = $scope.artworkInterested.imageno;
             if (dataNextPre.reachout) {
                 $scope.reachOutForm.artist = dataNextPre.reachout.name;
                 if (reachOutArtist[0] != "#/artist/detai")
@@ -21480,11 +21482,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     globalFunction.reachOut = function() {
         var reachOutArtist = window.location.hash.split('l/');
+        console.log(dataNextPre.reachout);
         if (reachOutArtist[0] == "#/artist/detai" || reachOutArtist[0] == "#/artwork/detai" || reachOutArtist[0].indexOf("sculpture") != -1) {
             $scope.reachOutArtistId = reachOutArtist[1];
             $scope.artworkInterested = dataNextPre.reachout.artwork;
             if (reachOutArtist[0] != "#/artist/detai")
-                $scope.reachOutForm.srno = $scope.artworkInterested[0].imageno;
+                $scope.reachOutForm.srno = $scope.artworkInterested.imageno;
             if (dataNextPre.reachout) {
                 $scope.reachOutForm.artist = dataNextPre.reachout.name;
                 if (reachOutArtist[0] != "#/artist/detai")
@@ -24372,6 +24375,180 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 })
 
+.controller('CommissionSculpturesCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("commission-sculptures");
+    $scope.menutitle = NavigationService.makeactive("Commission Sculptures");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+    $scope.imgsculpture = [{
+        img: "img/sculpture.jpg"
+    }, {
+        img: "img/sculpture1.jpg"
+    }, {
+        img: "img/painting1.jpg"
+    }, {
+        img: "img/sculpture1.jpg"
+    }, {
+        img: "img/sculpture.jpg"
+    }, {
+        img: "img/painting1.jpg"
+    }, ]
+})
+
+.controller('CommissionProjectsCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
+    //Used to name the .html file
+    $scope.template = TemplateService.changecontent("commission-projects");
+    $scope.menutitle = NavigationService.makeactive("Commission Projects");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+
+    $scope.ticket = {};
+    $scope.showLoginErr = false;
+    $scope.chat = {};
+    $scope.chat.message = "";
+
+    $scope.userprofiles = [
+        'Artist',
+        'Buyer'
+    ]
+
+    $scope.activeTab = "projects";
+    $scope.changeTab = function(data) {
+        $scope.activeTab = data;
+    }
+
+    $scope.createTicket = function() {
+        cfpLoadingBar.start();
+        NavigationService.getuserprofile(function(data) {
+            if (data.id) {
+                NavigationService.createTicket($scope.ticket, function(tdata) {
+                    if (tdata.value != false) {
+                        console.log(tdata);
+                        $scope.ticket = {};
+                        cfpLoadingBar.complete();
+                        getProjects();
+                    } else {
+                        cfpLoadingBar.complete();
+                        dataNextPre.messageBox("Only customers can create projects");
+                    }
+                });
+            } else {
+                cfpLoadingBar.complete();
+                dataNextPre.messageBox("Please login to make a new project");
+            }
+        });
+    }
+
+    function getProjects() {
+        NavigationService.getProject(function(data) {
+            if (data.value != false) {
+                $scope.showLoginErr = false;
+                $scope.tickets = data;
+            } else if (data.value == false && data.comment == "User not logged-in") {
+                $scope.showLoginErr = true;
+            }
+        });
+    }
+    NavigationService.getuserprofile(function(data) {
+        if (data.id) {
+            $scope.userData = data;
+            getProjects();
+        } else {
+            $scope.showLoginErr = true;
+        }
+    });
+
+    $scope.getChats = function(ticket) {
+        $scope.activeTab = 'projectschat';
+        $scope.ticketDetail = ticket;
+        $scope.activeProject = ticket._id;
+        var foundIndex = _.findIndex(ticket.client, {
+            '_id': $scope.userData.id
+        });
+        if (foundIndex != -1) {
+            $scope.upSideClass = "right";
+            $scope.upClass = "box-right pull-right mb20 width80";
+        } else {
+            $scope.upSideClass = "left";
+            $scope.upClass = "chngpswd-cont box-left width80 userprofile-com mb20";
+        }
+        getTicketElements();
+    }
+
+    function getTicketElements() {
+        NavigationService.getTicketElements($scope.activeProject, function(data) {
+            if (data.value != false) {
+                var foundIndex = _.findIndex($scope.ticketDetail.client, {
+                    '_id': $scope.userData.id
+                });
+                if (foundIndex == -1) {
+                    if (data.artist && data.artist.length > 0) {
+                        $scope.chatsArr = data.artist;
+                        _.each($scope.chatsArr, function(n) {
+                            if (n.chatid == $scope.userData.id) {
+                                n.upSideClass = "right";
+                                n.upClass = "box-right pull-right mb20 width80";
+                            } else {
+                                n.upSideClass = "left";
+                                n.upClass = "chngpswd-cont box-left width80 userprofile-com mb20";
+                            }
+                        });
+                    } else {
+                        $scope.chatsArr = [];
+                    }
+                } else {
+                    if (data.client && data.client.length > 0) {
+                        $scope.chatsArr = data.client;
+                        _.each($scope.chatsArr, function(n) {
+                            if (n.chatid == $scope.userData.id) {
+                                n.upSideClass = "right";
+                                n.upClass = "box-right pull-right mb20 width80";
+                            } else {
+                                n.upSideClass = "left";
+                                n.upClass = "chngpswd-cont box-left width80 userprofile-com mb20";
+                            }
+                        });
+                    } else {
+                        $scope.chatsArr = [];
+                    }
+                }
+                setTimeout(function() {
+                    $("#chatDiv").scrollTop($('#chatDiv').prop("scrollHeight"));
+                }, 500);
+            }
+        })
+    }
+
+    $scope.saveTicketElement = function() {
+        var obj = {};
+        obj.ticket = $scope.activeProject;
+        obj.chatid = $scope.userData.id;
+        var foundIndex = _.findIndex($scope.ticketDetail.client, {
+            '_id': $scope.userData.id
+        });
+        if (foundIndex == -1) {
+            obj.status = 1;
+            obj.character = "A";
+        } else {
+            obj.status = 2;
+            obj.character = "C";
+        }
+        obj.name = $scope.userData.name;
+        obj.message = $scope.chat.message;
+        obj.designation = $scope.chat.designation;
+        console.log(obj);
+        NavigationService.saveTicketElement(obj, function(data) {
+            if (data.value != false) {
+                $scope.chat.message = "";
+                $scope.chat.designation = "";
+                getTicketElements();
+            }
+        });
+    }
+
+})
+
 .controller('ThankYouCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
     //Used to name the .html file
     $scope.template = TemplateService.changecontent("thankyou");
@@ -24406,43 +24583,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
 })
-
-.controller('CommissionSculpturesCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
-        //Used to name the .html file
-        $scope.template = TemplateService.changecontent("commission-sculptures");
-        $scope.menutitle = NavigationService.makeactive("Commission Sculptures");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-        $scope.imgsculpture = [{
-            img: "img/sculpture.jpg"
-        }, {
-            img: "img/sculpture1.jpg"
-        }, {
-            img: "img/painting1.jpg"
-        }, {
-            img: "img/sculpture1.jpg"
-        }, {
-            img: "img/sculpture.jpg"
-        }, {
-            img: "img/painting1.jpg"
-        }, ]
-    })
-    .controller('CommissionProjectsCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
-        //Used to name the .html file
-        $scope.template = TemplateService.changecontent("commission-projects");
-        $scope.menutitle = NavigationService.makeactive("Commission Projects");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-        $scope.userprofiles = [
-            'Artist',
-            'Buyer'
-        ]
-
-        $scope.activeTab = "profile";
-        $scope.changeTab = function(data) {
-            $scope.activeTab = data;
-        }
-    })
 
 .controller('Error500Ctrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
     //Used to name the .html file
@@ -26077,7 +26217,7 @@ templateservicemod.controller('cartdropctrl', ['$scope', 'TemplateService',
 ]);
 ;
 var adminurl = "http://www.auraart.in/";
-// var adminurl = "http://192.168.1.129:82/";
+// var adminurl = "http://192.168.1.129:1337/";
 var imgUploadUrl = adminurl + "user/uploadfile";
 var wallUploadUrl = adminurl + "user/wallUpload";
 
@@ -26480,7 +26620,6 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 }
             }).success(callback);
         },
-
         getupcomingevents: function(callback) {
             $http({
                 url: adminurl + "event/findevents",
@@ -26864,6 +27003,35 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
             $http({
                 url: adminurl + 'team/find',
                 method: 'POST'
+            }).success(callback);
+        },
+        createTicket: function(obj, callback) {
+            $http({
+                url: adminurl + "ticket/save",
+                method: "POST",
+                data: obj
+            }).success(callback);
+        },
+        getProject: function(callback) {
+            $http({
+                url: adminurl + "ticket/getProject",
+                method: "POST"
+            }).success(callback);
+        },
+        getTicketElements: function(id, callback) {
+            $http({
+                url: adminurl + "ticket/findone",
+                method: "POST",
+                data: {
+                    "_id": id
+                }
+            }).success(callback);
+        },
+        saveTicketElement: function(obj, callback) {
+            $http({
+                url: adminurl + "ticketelement/save",
+                method: "POST",
+                data: obj
             }).success(callback);
         },
     }
