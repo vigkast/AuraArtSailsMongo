@@ -504,8 +504,8 @@ module.exports = {
             } else if (db) {
                 var order = sails.ObjectID(data.txnid);
                 data.udf1 = data.udf1.substr(1);
-                data.net_amount_debit = parseInt(data.net_amount_debit);
                 delete data.txnid;
+                console.log(parseFloat(data.net_amount_debit));
                 if (data.status && data.status == "success") {
                     db.collection('order').update({
                         _id: order,

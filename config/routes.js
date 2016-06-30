@@ -35,9 +35,9 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
-  '/backend': {
-    view: 'backend'
-  }
+  // '/backend': {
+  //   view: 'backend'
+  // }
 
 
   /***************************************************************************
