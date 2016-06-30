@@ -166,9 +166,9 @@ module.exports = {
         }
     },
     payU: function(req, res) {
-        if (req.body) {
+        if (req.body && req.body.udf1 && req.body.txnid && req.body.status && req.body.net_amount_debit) {
             Order.payU(req.body, function(respo) {
-                 console.log(respo);
+                console.log(respo);
                 if (respo.value != false) {
                     res.redirect(frontend + "/thankyou");
                 } else {
