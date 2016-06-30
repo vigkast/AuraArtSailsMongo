@@ -5237,6 +5237,7 @@ li.title.inline-box-infra {
   display: inline-block;
   min-width: 80px;
   max-width: 100px;
+  text-align: left;
 }
 .yellow-bg {
   background-color: #FFE06D;
@@ -5247,6 +5248,9 @@ li.title.inline-box-infra {
 }
 .good-radios .mar10 {
   margin-left: 10px;
+}
+.login-head {
+  text-align: right;
 }
 /* Mobile Less */
 #fancybox-loading,
@@ -5379,6 +5383,9 @@ li.title.inline-box-infra {
   }
 }
 @media only screen and (max-width: 767px) {
+  .login-head {
+    text-align: center;
+  }
   .col-press {
     height: auto;
   }
