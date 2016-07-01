@@ -72,7 +72,7 @@
             </a>
         </div>
         <div class="space-box box-height list-cart" ui-sref="cart" ng-controller="cartdropctrl" ng-mouseover="showcart(0)" ng-mouseleave="hidecart(0)">
-            <div class="style2-bg small-box">{{cartItems.length}}</div>
+            <div class="small-box" ng-class="cartItems.length>0 ? 'style2-bg' : 'grey-back'">{{cartItems.length}}</div>
             <div class="inline-box">
                 My Cart
             </div>

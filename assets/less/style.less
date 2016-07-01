@@ -64,7 +64,7 @@ i {
 .flexslider {
     margin: 0;
 }
- :focus {
+:focus {
     outline: -webkit-focus-ring-color auto 0 !important;
 }
 .full-image {
@@ -1230,7 +1230,7 @@ nav.pagination-artist {
         font-weight: 600;
     }
     .eventgallery {
-        margin-top: 30px;
+        // margin-top: 30px;
         .event-pic {
             text-align: center;
             position: relative;
@@ -1241,6 +1241,24 @@ nav.pagination-artist {
                 max-width: 100%;
                 max-height: 100%;
                 cursor: pointer;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+            }
+            .fa.fa-youtube-play {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 45px;
+                color: #e62117;
+                background: aliceblue;
+                line-height: 20px;
+                width: 40px;
+            }
+            .fa-youtube-play:before {
+                margin-left: -3px;
             }
         }
     }
@@ -3588,8 +3606,8 @@ img.fancybox-image {
 .width80 {
     width: 80%;
 }
-.box-left:before,
-.box-left:after {
+.box-left:after,
+.box-left:before {
     content: '';
     width: 0;
     height: 0;
@@ -3616,8 +3634,8 @@ img.fancybox-image {
     border-radius: 10px;
     position: relative;
 }
-.box-right:before,
-.box-right:after {
+.box-right:after,
+.box-right:before {
     content: '';
     width: 0;
     height: 0;
@@ -3644,9 +3662,8 @@ img.fancybox-image {
     border-radius: 10px!important;
     height: 60px;
 }
-
 .box-desgnation input {
-    margin-top:10px;
+    margin-top: 10px;
     border-radius: 10px!important;
     height: 30px;
 }
@@ -3707,7 +3724,7 @@ img.fancybox-image {
     margin: 0;
 }
 .chat-content.scroll-y {
-    .calc(height, ~'100vh - 400px');
+    .calc(height, ~  '100vh - 400px');
     overflow-y: auto;
     overflow-x: hidden;
     margin-bottom: 20px;
@@ -3751,7 +3768,6 @@ li.title.inline-box-infra {
     display: inline-block;
     min-width: 80px;
     max-width: 100px;
-    text-align: left;
     // overflow: hidden;
 }
 .yellow-bg {
@@ -3764,8 +3780,9 @@ li.title.inline-box-infra {
         margin-left: 10px;
     }
 }
-.login-head {
-  text-align: right;
+.grey-back {
+    background-color: #e6e7e9;
+    color: #313138;
 }
 /* Mobile Less */
 @import "../less/fancybox-override.less";
