@@ -269,6 +269,8 @@ module.exports = {
             if (!isfile2) {
                 console.log("in if");
                 sails.lwip.open(newfilepath, function(err, image) {
+                    console.log(err);
+                    console.log(image);
                     if (err) {
                         console.log(err);
                         showimage(filepath);
