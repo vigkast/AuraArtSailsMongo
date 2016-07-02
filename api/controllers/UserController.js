@@ -277,14 +277,11 @@ module.exports = {
                             comment: err
                         });
                     } else {
-                        var dimensions = {};
-                        dimensions.width = sizeresp.width
-                        dimensions.height = sizeresp.height
                         if (width == 0) {
-                            width = dimensions.width / dimensions.height * height;
+                            width = sizeresp.width / sizeresp.height * height;
                         }
                         if (height == 0) {
-                            height = dimensions.height / dimensions.width * width;
+                            height = sizeresp.height / sizeresp.width * width;
                         }
                         console.log(sizeresp);
                         console.log(width);
