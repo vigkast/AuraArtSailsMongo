@@ -286,20 +286,20 @@ module.exports = {
                         if (height == 0) {
                             height = dimensions.height / dimensions.width * width;
                         }
-                        gm(newfilepath)
-                            .resize(width, height)
-                            .noProfile()
-                            .write(newfilename, function(err) {
-                                if (err) {
-                                    console.log(err);
-                                    res.json({
-                                        value: false,
-                                        comment: err
-                                    });
-                                } else {
-                                    showimage(newfilename);
-                                }
-                            });
+                        console.log(sizeresp);
+                        console.log(width);
+                        console.log(height);
+                        gm(newfilepath).resize(width, height).write(newfilename, function(err) {
+                            if (err) {
+                                console.log(err);
+                                res.json({
+                                    value: false,
+                                    comment: err
+                                });
+                            } else {
+                                showimage(newfilename);
+                            }
+                        });
                     }
                 });
             } else {
