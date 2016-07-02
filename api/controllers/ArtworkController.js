@@ -418,15 +418,15 @@ module.exports = {
         var isfile = sails.fs.existsSync('./auraimg/' + req.query.image);
         var html = sails.fs.readFileSync('auraart.html', 'utf-8');
         if (isfile == true) {
-            sails.lwip.open('./auraimg/' + req.query.image, function(err, image) {
+            sails.gm('./auraimg/' + req.query.image).size(function(err, image) {
                 if (err) {
                     console.log(err);
                     res.json({
                         value: false,
-                        comment: "Error. Cannot Download Image."
+                        comment: err
                     });
                 } else {
-                    if (image.width() >= image.height()) {
+                    if (image.width >= image.height) {
                         filePath += "width=3024";
                         split += "_3024_0." + split1;
                         callResize();
@@ -458,7 +458,7 @@ module.exports = {
                                         res.set('Content-Disposition', "attachment;filename=" + path);
                                         res.send(image);
                                     } else {
-                                        sails.lwip.open('./auraimg/' + split, function(err, image2) {
+                                        sails.gm('./auraimg/' + split).size(function(err, image2) {
                                             if (err) {
                                                 console.log(err);
                                                 res.json({
@@ -466,8 +466,8 @@ module.exports = {
                                                     comment: "Error. Cannot Download Image."
                                                 });
                                             } else {
-                                                imageHeight = image2.height();
-                                                imageWidth = image2.width();
+                                                imageHeight = image2.height;
+                                                imageWidth = image2.width;
                                                 html = html.split("Artist").join(req.query.artist);
                                                 html = html.split("Artwork").join(req.query.artwork);
                                                 html = html.split("Medium").join(req.query.medium);

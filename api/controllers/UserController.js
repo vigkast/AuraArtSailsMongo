@@ -6,7 +6,6 @@
  */
 // var frontend = "http://192.168.0.114/manjhi/";
 var frontend = "http://www.auraart.in/";
-var gm = require('gm');
 
 var passport = require('passport'),
     TwitterStrategy = require('passport-twitter').Strategy,
@@ -269,7 +268,7 @@ module.exports = {
             var isfile2 = sails.fs.existsSync(newfilename);
             if (!isfile2) {
                 console.log("in if");
-                gm(newfilepath).size(function(err, sizeresp) {
+                sails.gm(newfilepath).size(function(err, sizeresp) {
                     if (err) {
                         console.log(err);
                         res.json({
@@ -283,10 +282,7 @@ module.exports = {
                         if (height == 0) {
                             height = sizeresp.height / sizeresp.width * width;
                         }
-                        console.log(sizeresp);
-                        console.log(width);
-                        console.log(height);
-                        gm(newfilepath).resize(width, height).write(newfilename, function(err) {
+                        sails.gm(newfilepath).resize(width, height).write(newfilename, function(err) {
                             if (err) {
                                 console.log(err);
                                 res.json({
@@ -331,91 +327,6 @@ module.exports = {
             }
         }
     },
-    // resize2: function(req, res) {
-    //     function showimage(path) {
-    //         var image = sails.fs.readFileSync(path);
-    //         var mimetype = sails.mime.lookup(path);
-    //         res.set('Content-Type', mimetype);
-    //         res.send(image);
-    //     }
-
-    //     function checknewfile(newfilepath, width, height) {
-    //         width = parseInt(width);
-    //         height = parseInt(height);
-    //         newfilenamearr = newfilepath.split(".");
-    //         extension = newfilenamearr.pop();
-    //         var indexno = newfilepath.search("." + extension);
-    //         var newfilestart = newfilepath.substr(0, indexno);
-    //         var newfileend = newfilepath.substr(indexno, newfilepath.length);
-    //         var newfilename = newfilestart + "_" + width + "_" + height + newfileend;
-    //         var isfile2 = sails.fs.existsSync(newfilename);
-    //         if (!isfile2) {
-    //             console.log("in if");
-    //             gm(newfilepath).size(function(err, sizeresp) {
-    //                 if (err) {
-    //                     console.log(err);
-    //                     res.json({
-    //                         value: false,
-    //                         comment: err
-    //                     });
-    //                 } else {
-    //                     var dimensions = {};
-    //                     dimensions.width = sizeresp.width
-    //                     dimensions.height = sizeresp.height
-    //                     if (width == 0) {
-    //                         width = dimensions.width / dimensions.height * height;
-    //                     }
-    //                     if (height == 0) {
-    //                         height = dimensions.height / dimensions.width * width;
-    //                     }
-    //                     gm(newfilepath)
-    //                         .resize(width, height)
-    //                         .noProfile()
-    //                         .write(newfilename, function(err) {
-    //                             if (err) {
-    //                                 console.log(err);
-    //                                 res.json({
-    //                                     value: false,
-    //                                     comment: err
-    //                                 });
-    //                             } else {
-    //                                 showimage(newfilename);
-    //                             }
-    //                         });
-    //                 }
-    //             });
-    //         } else {
-    //             console.log("in else");
-    //             showimage(newfilename);
-    //         }
-    //     }
-
-    //     var file = req.query.file;
-    //     var filepath = './auraimg/' + file;
-    //     var newheight = req.query.height;
-    //     var newwidth = req.query.width;
-    //     var isfile = sails.fs.existsSync(filepath);
-    //     if (isfile == false) {
-    //         var path = './auraimg/noimage.jpg';
-    //         var split = path.substr(path.length - 3);
-    //         var image = sails.fs.readFileSync(path);
-    //         var mimetype = sails.mime.lookup(split);
-    //         res.set('Content-Type', mimetype);
-    //         res.send(image);
-    //     } else {
-    //         if (!newwidth && !newheight) {
-    //             showimage(filepath);
-    //         } else if (!newwidth && newheight) {
-    //             newheight = parseInt(newheight);
-    //             checknewfile(filepath, 0, newheight);
-    //         } else if (newwidth && !newheight) {
-    //             newwidth = parseInt(newwidth);
-    //             checknewfile(filepath, newwidth, 0);
-    //         } else {
-    //             checknewfile(filepath, newwidth, newheight);
-    //         }
-    //     }
-    // },
     "resize.jpg": function(req, res) {
         function showimage(path) {
             var image = sails.fs.readFileSync(path);
@@ -436,31 +347,31 @@ module.exports = {
             var isfile2 = sails.fs.existsSync(newfilename);
             if (!isfile2) {
                 console.log("in if");
-                sails.lwip.open(newfilepath, function(err, image) {
+                sails.gm(newfilepath).size(function(err, sizeresp) {
                     if (err) {
                         console.log(err);
-                        showimage(filepath);
+                        res.json({
+                            value: false,
+                            comment: err
+                        });
                     } else {
-                        // if (image && (width < image.width() || height < image.height)) {
-                        var dimensions = {};
-                        dimensions.width = image.width();
-                        dimensions.height = image.height();
                         if (width == 0) {
-                            width = dimensions.width / dimensions.height * height;
+                            width = sizeresp.width / sizeresp.height * height;
                         }
                         if (height == 0) {
-                            height = dimensions.height / dimensions.width * width;
+                            height = sizeresp.height / sizeresp.width * width;
                         }
-                        image.resize(width, height, "lanczos", function(err, image) {
-                            image.toBuffer(extension, function(err, buffer) {
-                                sails.fs.writeFileSync(newfilename, buffer);
+                        sails.gm(newfilepath).resize(width, height).write(newfilename, function(err) {
+                            if (err) {
+                                console.log(err);
+                                res.json({
+                                    value: false,
+                                    comment: err
+                                });
+                            } else {
                                 showimage(newfilename);
-                            });
+                            }
                         });
-                        // } else {
-                        //     console.log("in else");
-                        //     showimage(newfilepath);
-                        // }
                     }
                 });
             } else {
@@ -515,27 +426,32 @@ module.exports = {
             var isfile2 = sails.fs.existsSync(newfilename);
             if (!isfile2) {
                 console.log("in if");
-                sails.lwip.open(newfilepath, function(err, image) {
-                    // if (image && (width < image.width() || height < image.height)) {
-                    var dimensions = {};
-                    dimensions.width = image.width();
-                    dimensions.height = image.height();
-                    if (width == 0) {
-                        width = dimensions.width / dimensions.height * height;
-                    }
-                    if (height == 0) {
-                        height = dimensions.height / dimensions.width * width;
-                    }
-                    image.resize(width, height, "lanczos", function(err, image) {
-                        image.toBuffer(extension, function(err, buffer) {
-                            sails.fs.writeFileSync(newfilename, buffer);
-                            showimage(newfilename);
+                sails.gm(newfilepath).size(function(err, sizeresp) {
+                    if (err) {
+                        console.log(err);
+                        res.json({
+                            value: false,
+                            comment: err
                         });
-                    });
-                    // } else {
-                    //     console.log("in else");
-                    //     showimage(newfilepath);
-                    // }
+                    } else {
+                        if (width == 0) {
+                            width = sizeresp.width / sizeresp.height * height;
+                        }
+                        if (height == 0) {
+                            height = sizeresp.height / sizeresp.width * width;
+                        }
+                        sails.gm(newfilepath).resize(width, height).write(newfilename, function(err) {
+                            if (err) {
+                                console.log(err);
+                                res.json({
+                                    value: false,
+                                    comment: err
+                                });
+                            } else {
+                                showimage(newfilename);
+                            }
+                        });
+                    }
                 });
             } else {
                 console.log("in else");
