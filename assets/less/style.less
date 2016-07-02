@@ -109,7 +109,7 @@ h3.home-header {
     font-weight: 600;
 }
 .navbar-toggle .icon-bar {
-    background-color: black;
+    background-color: white;
 }
 .copy {
     font-family: @font-family-head;
@@ -643,9 +643,9 @@ h4 {
     .box-shadow(0px 1px 2px 0px rgba(0, 0, 0, 0.4));
 }
 .nav > li > a {
-    padding: 10px 8px;
+    padding: 10px 9px;
     // padding: 10px 20px;
-    font-weight: 600;
+    // font-weight: 600;
 }
 .nav > li > a:focus,
 .nav > li > a:hover {
@@ -657,7 +657,9 @@ h4 {
 .nav {
     li {
         a {
-            .background-image(linear-gradient(to bottom, @menu-color-light 0%, @menu-color 100%));
+            // .background-image(linear-gradient(to bottom, @menu-color-light 0%, @menu-color 100%));
+            background-color: @color2;
+            color: white;
             .transition(all 0.3s ease);
         }
         .slant-menu {
@@ -666,7 +668,8 @@ h4 {
             position: absolute;
             content: "";
             top: 0;
-            .background-image(linear-gradient(to bottom, @menu-color-light 0%, @menu-color 100%));
+            // .background-image(linear-gradient(to bottom, @menu-color-light 0%, @menu-color 100%));
+            background-color: @color2;
             .skew(-20deg);
             z-index: -1;
             .transition(all 0.3s ease);
@@ -3769,6 +3772,7 @@ li.title.inline-box-infra {
     min-width: 80px;
     max-width: 100px;
     // overflow: hidden;
+    text-align: left;
 }
 .yellow-bg {
     background-color: #FFE06D;
@@ -3783,6 +3787,26 @@ li.title.inline-box-infra {
 .grey-back {
     background-color: #e6e7e9;
     color: #313138;
+}
+.login-head {
+  text-align: right;
+}
+.storie {
+  img {
+    width: 70%;
+    margin: 0 auto;
+  }
+  a+a {
+    margin-top: 5px;
+    display: block;
+  }
+}
+.social-plat a {
+    float: left;
+    width:50%
+}
+.stickyheader .navbar-toggle {
+    display: none;
 }
 /* Mobile Less */
 @import "../less/fancybox-override.less";
