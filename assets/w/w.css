@@ -1891,8 +1891,8 @@ ul.decimal {
   bottom: 0;
   right: 5px;
 }
-.artwork-box {
-  padding-bottom: 25px;
+.artwork-box + .artwork-box {
+  padding-bottom: 15px;
 }
 .artwork-box .row-flex {
   margin: 0 -5px;
