@@ -1651,7 +1651,7 @@ nav.navbar {
 }
 .logo {
   padding-top: 5px;
-  width: 90%;
+  width: 75%;
   margin: 0 auto;
 }
 a.link-page {
@@ -5256,7 +5256,7 @@ li.title.inline-box-infra {
   text-align: right;
 }
 .storie img {
-  width: 70%;
+  width: 67%;
   margin: 0 auto;
 }
 .storie a + a {
@@ -5266,6 +5266,16 @@ li.title.inline-box-infra {
 .social-plat a {
   float: left;
   width: 50%;
+}
+.social-plat img {
+  -webkit-filter: grayscale(100%);
+  /* Chrome, Safari, Opera */
+  filter: grayscale(100%);
+}
+.social-plat img:hover {
+  -webkit-filter: grayscale(0%);
+  /* Chrome, Safari, Opera */
+  filter: grayscale(0%);
 }
 .stickyheader .navbar-toggle {
   display: none;
@@ -5401,6 +5411,13 @@ li.title.inline-box-infra {
   }
 }
 @media only screen and (max-width: 767px) {
+  .fit-width {
+    width: 48%;
+    float: left;
+  }
+  .fit-width + .fit-width {
+    margin-left: 10px;
+  }
   .login-head {
     text-align: center;
     margin-top: 10px;

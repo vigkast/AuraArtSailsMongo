@@ -318,7 +318,7 @@ nav.navbar {
 }
 .logo {
     padding-top: 5px;
-    width: 90%;
+    width: 75%;
     margin: 0 auto;
 }
 a.link-page {
@@ -3795,7 +3795,7 @@ li.title.inline-box-infra {
 }
 .storie {
   img {
-    width: 70%;
+    width: 67%;
     margin: 0 auto;
   }
   a+a {
@@ -3803,9 +3803,19 @@ li.title.inline-box-infra {
     display: block;
   }
 }
-.social-plat a {
+.social-plat {
+  a {
     float: left;
     width:50%
+  }
+  img {
+   -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
+   filter: grayscale(100%);
+   &:hover {
+     -webkit-filter: grayscale(0%); /* Chrome, Safari, Opera */
+     filter: grayscale(0%);
+   }
+  }
 }
 .stickyheader .navbar-toggle {
     display: none;
