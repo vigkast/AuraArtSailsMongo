@@ -535,6 +535,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         }
     }
 
+    $scope.reachOut = function() {
+        globalFunction.reachOut();
+    }
+
 })
 
 .controller('FavoriteCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $state, $stateParams, ngDialog) {
