@@ -4,10 +4,10 @@
         <div class="row">
             <div class="eventdetail">
                 <a class="font-color3 pull-right event-invite" ui-sref="invite({img:eventDetail.invitation})" ng-if="eventDetail.invitation">invite</a>
-                <a class="font-color3 pull-right event-invite" fancybox-box ng-href="{{eventDetail.catalogue|uploadpath}}" rel="catalogue" ng-if="eventDetail.catalogue">
+                <a class="font-color3 pull-right event-invite" href="{{eventDetail.catalogue}}" rel="catalogue" ng-if="eventDetail.catalogue" target="_blank">
                 Catalogue
                 </a>
-                <a class="font-color3 pull-right event-invite" ng-href="{{eventDetail.ecatalogue}}" ng-if="eventDetail.ecatalogue" target="_blank">
+                <a class="font-color3 pull-right event-invite" href="{{eventDetail.ecatalogue}}" rel="ecatalogue" ng-if="eventDetail.ecatalogue" target="_blank">
                     <span style="text-transform: lowercase;">e</span>Catalogue
                 </a>
                 <!-- <a class="font-color3 pull-right event-invite" ui-sref="invite({img:eventDetail.invitation})">Catalogue</a> -->
@@ -82,6 +82,10 @@
                         </a>
                     </div>
                 </div>
+            </div>
+            <h5 class="home-header font-color3" ng-if="eventDetail.feed && eventDetail.feed.length>0">PRESS</h5>
+            <div class="row">
+                <div class="eventgallery" ng-bind-html="eventDetail.feed"></div>
             </div>
         </div>
     </div>
