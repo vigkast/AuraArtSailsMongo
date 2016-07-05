@@ -419,6 +419,8 @@ module.exports = {
         var html = sails.fs.readFileSync('auraart.html', 'utf-8');
         if (isfile == true) {
             sails.gm('./auraimg/' + req.query.image).size(function(err, image) {
+                console.log(err);
+                console.log(image);
                 if (err) {
                     console.log(err);
                     res.json({
@@ -442,6 +444,8 @@ module.exports = {
                         sails.request.get({
                             url: filePath
                         }, function(err, http, body) {
+                            console.log(err);
+                            console.log(body);
                             if (err) {
                                 console.log(err);
                                 res.json({
@@ -459,6 +463,8 @@ module.exports = {
                                         res.send(image);
                                     } else {
                                         sails.gm('./auraimg/' + split).size(function(err, image2) {
+                                            console.log(err);
+                                            console.log(image2);
                                             if (err) {
                                                 console.log(err);
                                                 res.json({
