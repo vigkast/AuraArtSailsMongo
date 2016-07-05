@@ -246,4 +246,29 @@ module.exports = {
             showimage(filepath);
         }
     },
+    donwloadFromURL: function(req, res) {
+        if (req.query && req.query.url) {
+            sails.webshot(req.query.url, "./abcd.jpg", function(err) {
+                if (err) {
+                    console.log(err);
+                    res.json({
+                        value: false,
+                        comment: err
+                    });
+                } else {
+                    var path = './abcd.jpg';
+                    var split = path.substr(path.length - 3);
+                    var image = sails.fs.readFileSync(path);
+                    var mimetype = sails.mime.lookup(split);
+                    res.set('Content-Type', mimetype);
+                    res.send(image);
+                }
+            });
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide params"
+            });
+        }
+    }
 };
