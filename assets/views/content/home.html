@@ -152,8 +152,36 @@
             </div>
         </div>
     </div> -->
-    <div class="artwork-box sweet-box">
-        <!-- <h3 class="font-color3 home-header">Artworks</h3> -->
+    <div class="artwork-box sweet-box fit-width">
+        <div class="row-flex row-unflex">
+
+            <div class="col-flex pointer">
+                <a href="http://blog.auraart.in" target="_blank"><img alt="sculpture" class="img-responsive" src="img/home/blog.jpg"></a>
+                <span class="text-heading">Blog</span>
+            </div>
+            <div class="col-flex pointer">
+                <a href=""><img class="img-responsive" src="img/home/tutorial.jpg"></a>
+                <span class="text-heading">Tutorials</span>
+            </div>
+            <div class="col-flex pointer" ng-click="reachOut()">
+                <img alt="prints" class="img-responsive" src="img/home/reachout.jpg">
+                <span class="text-heading">Reach Out</span>
+            </div>
+            <div class="col-flex pointer storie">
+                <a href="https://itunes.apple.com/in/app/whatsapp-messenger/id1130853155"><img alt="painting" class="img-responsive" src="img/home/app-store.png"></a>
+                <a href="https://play.google.com/store/apps/details?id=in.auraart"><img alt="painting" class="img-responsive" src="img/home/play-store.png"></a>
+            </div>
+            <div class="col-flex pointer social-plat">
+                <a href="https://www.facebook.com/Aura-Art-226467107365879/" target="_blank"><img alt="Facebook" class="img-responsive" src="img/home/fb.png"></a>
+                <a href="https://www.instagram.com/auraarteconnect/" target="_blank"><img alt="Instagram" class="img-responsive" src="img/home/inst.png"></a>
+                <a href="https://twitter.com/auraarteconnect" target="_blank"><img alt="Twitter" class="img-responsive" src="img/home/tw.png"></a>
+                <a href="https://www.youtube.com/user/auraartdpl/" target="_blank"><img alt="Youtube" class="img-responsive" src="img/home/yt.png"></a>
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+    </div>
+    <div class="artwork-box sweet-box fit-width">
         <div class="row-flex row-unflex">
             <div class="col-flex pointer" ng-click="goToArtworks('Paintings')">
                 <img alt="painting" class="img-responsive" src="img/painting1.jpg">
@@ -177,6 +205,8 @@
             </div>
         </div>
     </div>
+
+    <div class="clearfix"></div>
 </div>
 <div class="style2-bg">
     <div class="container">
@@ -314,10 +344,10 @@
                     <div class="some-image">
                         <div class="row-flex row-unflex image-box text-center">
                             <div class="col-flex col-flex-20 pointer" fancybox-box ng-href="{{upcomingEvent.invitation|uploadpath}}" ng-if="upcomingEvent.invitation">
-                                    <h6>INVITE</h6>
-                                    <img alt="" class="" ng-src="{{upcomingEvent.invitation|uploadthumbnail}}">
-                                    <!-- <a href="http://auraart.in/user/resize?file={{upcomingEvent.invitation}}" download="http://auraart.in/user/resize?file={{upcomingEvent.invitation}}"> -->
-                                    <!-- <img alt="" class="" src="img/vi.jpg"></a> -->
+                                <h6>INVITE</h6>
+                                <img alt="" class="" ng-src="{{upcomingEvent.invitation|uploadthumbnail}}">
+                                <!-- <a href="http://auraart.in/user/resize?file={{upcomingEvent.invitation}}" download="http://auraart.in/user/resize?file={{upcomingEvent.invitation}}"> -->
+                                <!-- <img alt="" class="" src="img/vi.jpg"></a> -->
                             </div>
                             <div class="col-flex col-flex-20 pointer" ng-if="upcomingEvent.catalogue">
                                 <h6>CATALOGUE</h6>
@@ -329,7 +359,7 @@
                                 <h6>PHOTO</h6>
                                 <img alt="" class="img-responsive" ng-src="{{upcomingEvent.photos[0]|uploadthumbnail}}">
                             </div>
-                            <div class="col-flex col-flex-20"  fancybox-box href="{{upcomingEvent.pressphoto|uploadpath}}" ng-if="upcomingEvent.pressphoto">
+                            <div class="col-flex col-flex-20" fancybox-box href="{{upcomingEvent.pressphoto|uploadpath}}" ng-if="upcomingEvent.pressphoto">
                                 <h6>PRESS</h6>
                                 <img alt="" class="img-responsive" ng-src="{{upcomingEvent.pressphoto|uploadthumbnail}}">
                             </div>
