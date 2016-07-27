@@ -4,19 +4,23 @@
         <div class="row">
             <div class="myaccnthead col-md-12">
                 <div class="alert alert-success" ng-show="showSuccess">
-                    <strong>Success!</strong> User updated successfully.
+                    <strong>Success!</strong>
+                    User updated successfully.
                 </div>
                 <div class="alert alert-danger" ng-show="showFail">
-                    <strong>Failed!</strong> Failed to update user info.
+                    <strong>Failed!</strong>
+                    Failed to update user info.
                 </div>
                 <div class="alert alert-warning" ng-show="showPass">
-                    <strong>Warning!</strong> Don't use same password. Please use different password.
+                    <strong>Warning!</strong>
+                    Don't use same password. Please use different password.
                 </div>
                 <h4>My Account
-          <span class="pull-right regular-link" ng-if="user.accesslevel!='reseller'" ng-click="becomeSeller()">
-            <i class="fa fa-upload"></i> Upload Artwork for sale
-          </span>
-        </h4>
+                    <span class="pull-right regular-link" ng-if="user.accesslevel!='reseller'" ng-click="becomeSeller()">
+                        <i class="fa fa-upload"></i>
+                        Upload Artwork for sale
+                    </span>
+                </h4>
             </div>
 
             <div class="col-md-2">
@@ -27,13 +31,21 @@
                         <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'address'}" ng-click="changeTab('address');">My Address Book</li>
                         <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'orders'}" ng-click="changeTab('orders');">My Orders</li>
                         <!-- <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'commission'}" ng-click="changeTab('commission');">Commission Sculptures</li> -->
-                        <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'commission'}"><a href="#/commission-sculptures">Commission Sculptures</a></li>
-                        <li class="cat-list cpointer"><a href="#/favorite">My Favourites</a></li>
+                        <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'commission'}">
+                            <a href="#/commission-sculptures">Commission Sculptures</a>
+                        </li>
+                        <li class="cat-list cpointer">
+                            <a href="#/favorite">My Favourites</a>
+                        </li>
                         <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'views'}" ng-click="changeTab('views');">My Saved Views</li>
                         <hr class="line" ng-if="user.accesslevel=='reseller'">
                         <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'banking'}" ng-click="changeTab('banking');" ng-if="user.accesslevel=='reseller'">Banking Details</li>
-                        <li class="cat-list cpointer" ng-if="user.accesslevel=='reseller'"> <a href="#/create-artwork">Upload Artwork</a></li>
+                        <li class="cat-list cpointer" ng-if="user.accesslevel=='reseller'">
+                            <a href="#/create-artwork">Upload Artwork</a>
+                        </li>
                         <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'myartworks'}" ng-click="changeTab('myartworks');" ng-if="user.accesslevel=='reseller'">My Artworks</li>
+                        <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'comcomplete'}" ng-click="changeTab('comcomplete');">Commissioned Works Done</li>
+                        <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'comproject'}" ng-click="changeTab('comproject');">Commissioned Projects</li>
                     </ul>
                 </div>
             </div>
@@ -218,9 +230,10 @@
                         <div class="col-md-4" ng-repeat="view in views">
                             <div class="aristimg-grp1" fancybox-box ng-href="{{view | roompath}}">
                                 <div class="hover-look tr-fit pointer" ng-click="downloadView(view)">
-                                    <i class="fa fa-download"></i> Download View
+                                    <i class="fa fa-download"></i>
+                                    Download View
                                 </div>
-                                <img ng-src="{{view | roompath}}" class="full-image" />
+                                <img ng-src="{{view | roompath}}" class="full-image"/>
                             </div>
                         </div>
                     </div>
@@ -230,16 +243,24 @@
                 </div>
             </div>
 
-
             <div class="col-md-10" ng-if="activeTab == 'orders'">
                 <div class="cart orders" ng-repeat="orders in myorderedproducts" ng-if="myorderedproducts.length>0">
                     <h5>
                         <div class="row">
-                            <div class="col-md-4 pull-left"><span class="bold">Order Id : {{orders.orderid}}</span></div>
-                            <div class="col-md-4 text-center"><span class="bold">Status : {{orders.status | touppercase}}</span></div>
-                            <div class="col-md-4"><span class="pull-right bold">Date : {{orders.timestamp | date:'MMMM dd, yyyy'}}</span></div>
+                            <div class="col-md-4 pull-left">
+                                <span class="bold">Order Id :
+                                    {{orders.orderid}}</span>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <span class="bold">Status :
+                                    {{orders.status | touppercase}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <span class="pull-right bold">Date :
+                                    {{orders.timestamp | date:'MMMM dd, yyyy'}}</span>
+                            </div>
                         </div>
-                  </h5>
+                    </h5>
                     <table class="table table-hover content-static">
                         <thead>
                             <tr>
@@ -254,13 +275,15 @@
                         <tbody>
                             <tr ng-repeat="artwork in orders.cart track by $index">
                                 <td fancybox-box href="{{artwork.artwork.image[0] | uploadthumbnail}}">
-                                    <img ng-src="{{artwork.artwork.image[0] | uploadsmallimage}}" height="30" />
+                                    <img ng-src="{{artwork.artwork.image[0] | uploadsmallimage}}" height="30"/>
                                 </td>
                                 <td>{{artwork.artwork.name}}</td>
                                 <td>{{artwork.name}}</td>
                                 <td>{{artwork.artwork.reseller[0].name}}</td>
                                 <!--                                <td>{{orders.status}}</td>-->
-                                <td>Rs {{artwork.artwork.gprice | inlakhs}} / ${{artwork.artwork.gprice|indollars}}</td>
+                                <td>Rs
+                                    {{artwork.artwork.gprice | inlakhs}}
+                                    / ${{artwork.artwork.gprice|indollars}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -274,7 +297,9 @@
                                         <p>Grand Total:</p>
                                     </div>
                                     <div class="col-xs-6">
-                                        <p>Rs {{orders.grantTotal | inlakhs}} / ${{orders.grantTotal |indollars}}</p>
+                                        <p>Rs
+                                            {{orders.grantTotal | inlakhs}}
+                                            / ${{orders.grantTotal |indollars}}</p>
                                         <button class="btn btn-sucesses" ng-if="orders.status == 'pending'" ng-click="callPay(orders);">Pay Now</button>
                                     </div>
                                 </div>
@@ -284,72 +309,84 @@
                 </div>
                 <div class="text-center" ng-if="myorderedproducts.length==0">
                     <p class="text-center font-special">You haven't placed any orders yet.
-                        <br><a href="#/artwork/All" class="btn btn-sucesses">Shop Now</a></p>
+                        <br>
+                        <a href="#/artwork/All" class="btn btn-sucesses">Shop Now</a>
+                    </p>
                 </div>
                 <div style="display:none;">
                     <form action="http://aura--art.appspot.com/payment.php" method="post" name="payuForm">
-                        <input type="hidden" name="key" value="3gqoHz" />
-                        <input type="text" name="txnid" value="" ng-model="getOrder._id" />
+                        <input type="hidden" name="key" value="3gqoHz"/>
+                        <input type="text" name="txnid" value="" ng-model="getOrder._id"/>
                         <table>
                             <tr>
-                                <td><b>Mandatory Parameters</b></td>
-                            </tr>
-                            <tr>
-                                <td>Amount: </td>
                                 <td>
-                                    <input name="amount" value="" ng-model="getOrder.grantTotal" />
-                                </td>
-                                <td>First Name: </td>
-                                <td>
-                                    <input name="firstname" id="firstname" value="" ng-model="getOrder.billing.name" />
+                                    <b>Mandatory Parameters</b>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Email: </td>
-                                <td>
-                                    <input name="email" id="email" value="" ng-model="getOrder.billing.email" />
+                                <td>Amount:
                                 </td>
-                                <td>Phone: </td>
                                 <td>
-                                    <input name="phone" value="" ng-model="getOrder.billing.mobileno" />
+                                    <input name="amount" value="" ng-model="getOrder.grantTotal"/>
+                                </td>
+                                <td>First Name:
+                                </td>
+                                <td>
+                                    <input name="firstname" id="firstname" value="" ng-model="getOrder.billing.name"/>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Product Info: </td>
+                                <td>Email:
+                                </td>
+                                <td>
+                                    <input name="email" id="email" value="" ng-model="getOrder.billing.email"/>
+                                </td>
+                                <td>Phone:
+                                </td>
+                                <td>
+                                    <input name="phone" value="" ng-model="getOrder.billing.mobileno"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Product Info:
+                                </td>
                                 <td colspan="3">
                                     <textarea name="productinfo" value="Purchase of artwork" ng-model="getOrder.pinfo"></textarea>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Success URI: </td>
+                                <td>Success URI:
+                                </td>
                                 <td colspan="3">
                                     <!--                                    <input name="surl" value="http://192.168.0.109:81/order/payU" size="64" />-->
-                                    <input name="surl" value="http://www.auraart.in/order/payU" size="64" />
+                                    <input name="surl" value="http://www.auraart.in/order/payU" size="64"/>
                                     <!-- <input name="surl" value="http://www.auraart.in/manjhi/payumoney/success.php" size="64" /> -->
                                 </td>
                             </tr>
                             <tr>
-                                <td>Failure URI: </td>
+                                <td>Failure URI:
+                                </td>
                                 <td colspan="3">
                                     <!--                                    <input name="furl" value="http://192.168.0.109:81/order/payU" size="64" />-->
-                                    <input name="furl" value="http://www.auraart.in/order/payU" size="64" />
+                                    <input name="furl" value="http://www.auraart.in/order/payU" size="64"/>
                                     <!-- <input name="furl" value="http://www.auraart.in/manjhi/payumoney/failure.php" size="64" /> -->
                                 </td>
                             </tr>
                             <tr>
-                                <td>UDF1: </td>
+                                <td>UDF1:
+                                </td>
                                 <td>
-                                    <input name="udf1" value="" ng-model="getOrder.orderid" />
+                                    <input name="udf1" value="" ng-model="getOrder.orderid"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="3">
-                                    <input type="hidden" name="service_provider" value="" size="64" />
+                                    <input type="hidden" name="service_provider" value="" size="64"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="4">
-                                    <input type="submit" value="Submit" />
+                                    <input type="submit" value="Submit"/>
                                 </td>
                             </tr>
                         </table>
@@ -424,11 +461,13 @@
                                 <div class="aristimg-grp1">
                                     <div class="relative">
                                         <div class="image-holders">
-                                            <img ng-src="{{artwork.artwork.image[0]|uploadpath}}" alt="my-artwork" />
+                                            <img ng-src="{{artwork.artwork.image[0]|uploadpath}}" alt="my-artwork"/>
                                         </div>
                                     </div>
                                     <div class="artist-cont-detail">
-                                        <p>{{artwork.artwork.imageno}} <i class="fa fa-pencil"></i></p>
+                                        <p>{{artwork.artwork.imageno}}
+                                            <i class="fa fa-pencil"></i>
+                                        </p>
                                         <p>{{artwork.name}}</p>
                                         <!-- <p>{{artwork.artwork.dim}}</p> -->
                                         <p>{{artwork.artwork|makesizestr}}</p>
@@ -436,6 +475,97 @@
                                         <p class="status-color" ng-if="artwork.artwork.status=='soldbyartist'">Unpublished</p>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10" ng-if="activeTab == 'comcomplete'">
+                <div class="row">
+                    <div class="myaccnthead col-md-12">
+                        <h4>Commission Sculptures Done
+                        </h4>
+                    </div>
+                    <div class="col-xs-20 ng-scope">
+                        <div class="aristimg-grp1">
+                            <div class="relative" ng-click="getHeight(totalartconts);">
+                                <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
+                                <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
+                                <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
+                                    <div class="image-holders fixit">
+                                        <img class="fix-img doneLoading" ng-src="img/smallsculpture.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
+                                    </div>
+                                </a>
+                                <!-- end ngIf: totalartconts.artwork.type!='Sculptures' -->
+                                <div class="hover-look">
+                                    <button type="submit" class="btn btn-sucesses button-small text-center" ng-click="showDetails(totalartconts);">Quick View</button>
+                                    <a type="submit" class="btn btn-sucesses button-small text-center" ng-click="goToDetailPage(totalartconts.artwork);">Details</a>
+                                </div>
+                            </div>
+                            <div class="artist-cont-detail">
+                                <p class="ng-binding">
+                                    <!-- {{totalartconts.artwork.srno}} -->
+                                    Project1
+                                    <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
+                                    <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
+                                    <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
+                                    <!-- ngIf: totalartconts.artwork.status=='sold' -->
+                                </p>
+                                <p class="m0">
+                                  Sculptures
+                                </p>
+                                <p class="m0">
+                                    canavas
+                                </p>
+                                <p class="m0">
+                                    18 x 12 inches
+                                </p>
+                                <p class="m0">
+                                    22 / 06 / 2016
+                                </p>
+                                <!-- end ngIf: totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold' -->
+                                <!-- ngIf: !totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A' -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10" ng-if="activeTab == 'comproject'">
+                <div class="row">
+                    <div class="myaccnthead col-md-12">
+                        <h4>Commission Project
+                        </h4>
+                    </div>
+                    <div class="col-xs-20 ng-scope">
+                        <div class="aristimg-grp1">
+                            <div class="relative" ng-click="getHeight(totalartconts);">
+                                <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
+                                <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
+                                <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
+                                    <div class="image-holders fixit">
+                                        <img class="fix-img doneLoading" ng-src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
+                                    </div>
+                                </a>
+                                <!-- end ngIf: totalartconts.artwork.type!='Sculptures' -->
+                                <div class="hover-look">
+                                    <button type="submit" class="btn btn-sucesses button-small text-center" ng-click="showDetails(totalartconts);">Quick View</button>
+                                    <a type="submit" class="btn btn-sucesses button-small text-center" ng-click="goToDetailPage(totalartconts.artwork);">Details</a>
+                                </div>
+                            </div>
+                            <div class="artist-cont-detail">
+                                <p class="ng-binding">
+                                    <!-- {{totalartconts.artwork.srno}} -->
+                                    Project2
+                                    <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
+                                    <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
+                                    <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
+                                    <!-- ngIf: totalartconts.artwork.status=='sold' -->
+                                </p>
+                                <p class="ng-binding">
+                                    Ajay De
+                                </p>
+                                <!-- end ngIf: totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold' -->
+                                <!-- ngIf: !totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A' -->
                             </div>
                         </div>
                     </div>

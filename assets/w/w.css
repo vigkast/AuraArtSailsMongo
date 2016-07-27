@@ -217,7 +217,7 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
  * Contributing author: Tyler Smith (@mbmufffin)
- * 
+ *
  */
 /* ====================================================================================================================
  * FONT-FACE
@@ -506,14 +506,14 @@ html[xmlns] .flexslider .slides {
 
 /**
  * 	Angular RangeSlider SCSS
- * 
+ *
  *	Version: 0.0.14
  *
  * 	Author: Daniel Crisp, danielcrisp.com
  *
  * 	The rangeSlider has been styled to match the default styling
  * 	of form elements styled using Twitter's Bootstrap
- * 
+ *
  * 	Originally forked from https://github.com/leongersen/noUiSlider
  *
 
@@ -5742,6 +5742,15 @@ li.title.inline-box-infra {
 
 .dim.dim-h:before, .dim.dim-h:after {
   height: calc(50% - 20px);
+}
+.m0{
+  margin: 0;
+}
+.size-input .form-group {
+    width: 24%;
+}
+.size-input .form-group .form-control  {
+    width: 100%;
 }
 
 /*# sourceMappingURL=w.css.map */
