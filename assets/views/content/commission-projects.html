@@ -13,8 +13,11 @@
                         <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'projects'}" ng-click="changeTab('projects');">Projects
                             <a href="" class="uppercase addnew">+new</a>
                         </li>
+
                         <li class="cat-list sub-catpointers" ng-class="{'bolds' : activeTab == 'projectschat' && activeIndex == $index}" ng-click="activeIndex=$index;getChats(ticket);" ng-repeat="ticket in tickets">{{ticket.title}}
                             (Proposal)</li>
+                        <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'viewprojects'}" ng-click="changeTab('viewprojects');">View All Projects
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -338,6 +341,10 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-10" ng-if="activeTab == 'viewprojects'">
+jhj
+
             </div>
         </div>
         <div class="row text-center" ng-show="showLoginErr">
