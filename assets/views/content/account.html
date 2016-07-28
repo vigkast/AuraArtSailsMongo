@@ -44,8 +44,8 @@
                             <a href="#/create-artwork">Upload Artwork</a>
                         </li>
                         <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'myartworks'}" ng-click="changeTab('myartworks');" ng-if="user.accesslevel=='reseller'">My Artworks</li>
-                        <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'comcomplete'}" ng-click="changeTab('comcomplete');">Commissioned Works Done</li>
-                        <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'comproject'}" ng-click="changeTab('comproject');">Commissioned Projects</li>
+                        <!-- <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'comcomplete'}" ng-click="changeTab('comcomplete');">Commissioned Works Done</li> -->
+                        <!-- <li class="cat-list cpointer" ng-class="{'bolds' : activeTab == 'comproject'}" ng-click="changeTab('comproject');">Commissioned Projects</li> -->
                     </ul>
                 </div>
             </div>
@@ -480,7 +480,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-10" ng-if="activeTab == 'comcomplete'">
+            <!-- <div class="col-md-10" ng-if="activeTab == 'comcomplete'">
                 <div class="row">
                     <div class="myaccnthead col-md-12">
                         <h4>Commission Sculptures Done
@@ -529,8 +529,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-10" ng-if="activeTab == 'comproject'">
+            </div> -->
+            <!-- <div class="col-md-10" ng-if="activeTab == 'comproject'">
                 <div class="row">
                     <div class="myaccnthead col-md-12">
                         <h4>Commission Project
@@ -570,7 +570,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
