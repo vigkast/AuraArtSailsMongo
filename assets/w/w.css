@@ -5755,5 +5755,12 @@ li.title.inline-box-infra {
 .aristimg-grp1.mb20{
   margin-bottom: 20px;
 }
-
+.undertaken-aura-art .artist-cont-detail i,
+.comission-project .artist-cont-detail i {
+    color: #ddd;
+    cursor: pointer;
+  }
+.mt10{
+  margin-top: 10px;
+}
 /*# sourceMappingURL=w.css.map */

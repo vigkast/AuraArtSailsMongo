@@ -13,11 +13,11 @@
                         <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'projects'}" ng-click="changeTab('projects');">Projects
                             <a href="" class="uppercase addnew">+new</a>
                         </li>
-
                         <li class="cat-list sub-catpointers" ng-class="{'bolds' : activeTab == 'projectschat' && activeIndex == $index}" ng-click="activeIndex=$index;getChats(ticket);" ng-repeat="ticket in tickets">{{ticket.title}}
                             (Proposal)</li>
                         <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'viewprojects'}" ng-click="changeTab('viewprojects');">View All Projects
                         </li>
+                        <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'viewprojectsfavourite'}" ng-click="changeTab('viewprojectsfavourite');">Favourite</li>
                     </ul>
                 </div>
             </div>
@@ -186,15 +186,15 @@
                 </div>
             </div>
             <div class="col-md-offset-1 col-md-8" ng-if="activeTab == 'projectschat'">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="ticket pb20">
-                    <label for="">
-                        Ticket Number</label>
-                    12333
-                  </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ticket pb20">
+                            <label for="">
+                                Ticket Number</label>
+                            12333
+                        </div>
+                    </div>
                 </div>
-              </div>
                 <div class="row">
                     <div class="box-bord pad20">
                         <h5>Client</h5>
@@ -219,10 +219,10 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="img-inline-box">
-                                                            <img src="img/sculpture1.jpg" alt="">
+                                                            <img src="img/artist/sculpture4.jpg" alt="">
                                                         </div>
                                                         <div class="img-inline-box">
-                                                            <img src="img/sculpture1.jpg" alt="">
+                                                            <img src="img/artist/sculpture4.jpg" alt="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -351,6 +351,148 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-10" ng-if="activeTab == 'viewprojectsfavourite'">
+              <div class="active-project comission-project">
+                  <div class="panel">
+                      <div class="panel-body">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="panel-head">
+                                      <h4>
+                                          Active Projects</h4>
+                                  </div>
+                              </div>
+                              <div class="col-xs-20 ng-scope">
+                                  <div class="aristimg-grp1 mb20">
+                                      <div class="relative" ng-click="getHeight(totalartconts);">
+                                          <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
+                                          <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
+                                          <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
+                                              <div class="image-holders fixit">
+                                                  <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
+                                              </div>
+                                          </a>
+                                          <!-- end ngIf: totalartconts.artwork.type!='Sculptures' -->
+                                          <div class="hover-look">
+                                              <button type="submit" class="btn btn-sucesses button-small text-center" ng-click="showDetails(totalartconts);">Quick View</button>
+                                              <a type="submit" class="btn btn-sucesses button-small text-center" ng-click="goToDetailPage(totalartconts.artwork);">Details</a>
+                                          </div>
+                                      </div>
+                                      <div class="artist-cont-detail">
+                                          <p class="ng-binding">
+                                              <!-- {{totalartconts.artwork.srno}} -->
+                                              Project1 <i class="fa fa-heart font-color3" ng-click="makeFav(totalartconts);"></i>
+                                              <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
+                                              <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
+                                              <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
+                                              <!-- ngIf: totalartconts.artwork.status=='sold' -->
+                                          </p>
+                                          <p class="m0">
+                                              Sculptures
+                                          </p>
+                                          <p class="m0">
+                                              canavas
+                                          </p>
+                                          <p class="m0">
+                                              18 x 12 inches
+                                          </p>
+                                          <!-- <p class="m0">
+                                              22 / 06 / 2016
+                                          </p> -->
+                                          <!-- end ngIf: totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold' -->
+                                          <!-- ngIf: !totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A' -->
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-xs-20 ng-scope">
+                                  <div class="aristimg-grp1 mb20">
+                                      <div class="relative" ng-click="getHeight(totalartconts);">
+                                          <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
+                                          <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
+                                          <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
+                                              <div class="image-holders fixit">
+                                                  <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
+                                              </div>
+                                          </a>
+                                          <!-- end ngIf: totalartconts.artwork.type!='Sculptures' -->
+                                          <div class="hover-look">
+                                              <button type="submit" class="btn btn-sucesses button-small text-center" ng-click="showDetails(totalartconts);">Quick View</button>
+                                              <a type="submit" class="btn btn-sucesses button-small text-center" ng-click="goToDetailPage(totalartconts.artwork);">Details</a>
+                                          </div>
+                                      </div>
+                                      <div class="artist-cont-detail">
+                                          <p class="ng-binding">
+                                              <!-- {{totalartconts.artwork.srno}} -->
+                                              Project1 <i class="fa fa-heart font-color3" ng-click="makeFav(totalartconts);"></i>
+                                              <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
+                                              <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
+                                              <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
+                                              <!-- ngIf: totalartconts.artwork.status=='sold' -->
+                                          </p>
+                                          <p class="m0">
+                                              Sculptures
+                                          </p>
+                                          <p class="m0">
+                                              canavas
+                                          </p>
+                                          <p class="m0">
+                                              18 x 12 inches
+                                          </p>
+                                          <!-- <p class="m0">
+                                              22 / 06 / 2016
+                                          </p> -->
+                                          <!-- end ngIf: totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold' -->
+                                          <!-- ngIf: !totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A' -->
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-xs-20 ng-scope">
+                                  <div class="aristimg-grp1 mb20">
+                                      <div class="relative" ng-click="getHeight(totalartconts);">
+                                          <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
+                                          <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
+                                          <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
+                                              <div class="image-holders fixit">
+                                                  <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
+                                              </div>
+                                          </a>
+                                          <!-- end ngIf: totalartconts.artwork.type!='Sculptures' -->
+                                          <div class="hover-look">
+                                              <button type="submit" class="btn btn-sucesses button-small text-center" ng-click="showDetails(totalartconts);">Quick View</button>
+                                              <a type="submit" class="btn btn-sucesses button-small text-center" ng-click="goToDetailPage(totalartconts.artwork);">Details</a>
+                                          </div>
+                                      </div>
+                                      <div class="artist-cont-detail">
+                                          <p class="ng-binding">
+                                              <!-- {{totalartconts.artwork.srno}} -->
+                                              Project1 <i class="fa fa-heart font-color3" ng-click="makeFav(totalartconts);"></i>
+                                              <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
+                                              <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
+                                              <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
+                                              <!-- ngIf: totalartconts.artwork.status=='sold' -->
+                                          </p>
+                                          <p class="m0">
+                                              Sculptures
+                                          </p>
+                                          <p class="m0">
+                                              canavas
+                                          </p>
+                                          <p class="m0">
+                                              18 x 12 inches
+                                          </p>
+                                          <!-- <p class="m0">
+                                              22 / 06 / 2016
+                                          </p> -->
+                                          <!-- end ngIf: totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold' -->
+                                          <!-- ngIf: !totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A' -->
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
             <div class="col-md-10" ng-if="activeTab == 'viewprojects'">
                 <div class="active-project comission-project">
                     <div class="panel">
@@ -369,7 +511,7 @@
                                             <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
                                             <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
                                                 <div class="image-holders fixit">
-                                                    <img class="fix-img doneLoading" ng-src="img/smallsculpture.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
+                                                    <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
                                                 </div>
                                             </a>
                                             <!-- end ngIf: totalartconts.artwork.type!='Sculptures' -->
@@ -381,7 +523,7 @@
                                         <div class="artist-cont-detail">
                                             <p class="ng-binding">
                                                 <!-- {{totalartconts.artwork.srno}} -->
-                                                Project1
+                                                Project1 <i class="fa fa-heart" ng-click="makeFav(totalartconts);"></i>
                                                 <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
                                                 <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
                                                 <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
@@ -396,9 +538,9 @@
                                             <p class="m0">
                                                 18 x 12 inches
                                             </p>
-                                            <p class="m0">
+                                            <!-- <p class="m0">
                                                 22 / 06 / 2016
-                                            </p>
+                                            </p> -->
                                             <!-- end ngIf: totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold' -->
                                             <!-- ngIf: !totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A' -->
                                         </div>
@@ -411,7 +553,7 @@
                                             <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
                                             <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
                                                 <div class="image-holders fixit">
-                                                    <img class="fix-img doneLoading" ng-src="img/smallsculpture.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
+                                                    <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
                                                 </div>
                                             </a>
                                             <!-- end ngIf: totalartconts.artwork.type!='Sculptures' -->
@@ -423,7 +565,7 @@
                                         <div class="artist-cont-detail">
                                             <p class="ng-binding">
                                                 <!-- {{totalartconts.artwork.srno}} -->
-                                                Project1
+                                                Project1 <i class="fa fa-heart" ng-click="makeFav(totalartconts);"></i>
                                                 <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
                                                 <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
                                                 <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
@@ -438,9 +580,9 @@
                                             <p class="m0">
                                                 18 x 12 inches
                                             </p>
-                                            <p class="m0">
+                                            <!-- <p class="m0">
                                                 22 / 06 / 2016
-                                            </p>
+                                            </p> -->
                                             <!-- end ngIf: totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold' -->
                                             <!-- ngIf: !totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A' -->
                                         </div>
@@ -453,7 +595,7 @@
                                             <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
                                             <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
                                                 <div class="image-holders fixit">
-                                                    <img class="fix-img doneLoading" ng-src="img/smallsculpture.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
+                                                    <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
                                                 </div>
                                             </a>
                                             <!-- end ngIf: totalartconts.artwork.type!='Sculptures' -->
@@ -465,7 +607,7 @@
                                         <div class="artist-cont-detail">
                                             <p class="ng-binding">
                                                 <!-- {{totalartconts.artwork.srno}} -->
-                                                Project1
+                                                Project1 <i class="fa fa-heart" ng-click="makeFav(totalartconts);"></i>
                                                 <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
                                                 <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
                                                 <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
@@ -480,9 +622,9 @@
                                             <p class="m0">
                                                 18 x 12 inches
                                             </p>
-                                            <p class="m0">
+                                            <!-- <p class="m0">
                                                 22 / 06 / 2016
-                                            </p>
+                                            </p> -->
                                             <!-- end ngIf: totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold' -->
                                             <!-- ngIf: !totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A' -->
                                         </div>
@@ -508,7 +650,7 @@
                                         <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
                                         <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
                                             <div class="image-holders fixit">
-                                                <img class="fix-img doneLoading" ng-src="img/smallsculpture.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
+                                                <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
                                             </div>
                                         </a>
                                         <!-- end ngIf: totalartconts.artwork.type!='Sculptures' -->
@@ -520,7 +662,6 @@
                                     <div class="artist-cont-detail">
                                         <p class="ng-binding">
                                             <!-- {{totalartconts.artwork.srno}} -->
-                                            Project1
                                             <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
                                             <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
                                             <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
@@ -550,7 +691,7 @@
                                         <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
                                         <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
                                             <div class="image-holders fixit">
-                                                <img class="fix-img doneLoading" ng-src="img/smallsculpture.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
+                                                <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
                                             </div>
                                         </a>
                                         <!-- end ngIf: totalartconts.artwork.type!='Sculptures' -->
@@ -562,7 +703,6 @@
                                     <div class="artist-cont-detail">
                                         <p class="ng-binding">
                                             <!-- {{totalartconts.artwork.srno}} -->
-                                            Project1
                                             <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
                                             <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
                                             <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
@@ -592,7 +732,7 @@
                                         <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
                                         <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
                                             <div class="image-holders fixit">
-                                                <img class="fix-img doneLoading" ng-src="img/smallsculpture.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
+                                                <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
                                             </div>
                                         </a>
                                         <!-- end ngIf: totalartconts.artwork.type!='Sculptures' -->
@@ -604,7 +744,6 @@
                                     <div class="artist-cont-detail">
                                         <p class="ng-binding">
                                             <!-- {{totalartconts.artwork.srno}} -->
-                                            Project1
                                             <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
                                             <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
                                             <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
