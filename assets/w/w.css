@@ -5763,4 +5763,13 @@ li.title.inline-box-infra {
 .mt10{
   margin-top: 10px;
 }
+.fnt-300{
+  font-weight: 300;
+  font-size: small;
+}
+.heght-readmore {
+    height: 210px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
 /*# sourceMappingURL=w.css.map */

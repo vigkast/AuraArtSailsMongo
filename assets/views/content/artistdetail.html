@@ -60,19 +60,19 @@
                                 <span ng-if="auction.auctionhouse">{{auction.auctionhouse}}</span>
                                 <span class="negmargin" ng-if="auction.auctionhouse && auction.location">, </span>
                                 <span ng-if="auction.location">{{auction.location}}</span>
-                                <span class="negmargin" ng-if="auction.location && auction.details">, </span>
-                                <span ng-if="auction.details">{{auction.details}}</span>
+                                <span class="negmargin" ng-if="auction.location && auction.details"></span>
+                                <!-- <span ng-if="auction.details">{{auction.details}}</span> -->
                                 </span>
                             </p>
                             <p ng-if="artistdetail.soloshow && artistdetail.soloshow.length>0 && (artistdetail.soloshow[0].year || artistdetail.soloshow[0].title || artistdetail.soloshow[0].gallery || artistdetail.soloshow[0].venue || artistdetail.soloshow[0].city)">
                                 <span class="bold">Solo Shows</span>
                                 <span ng-repeat="solo in artistdetail.soloshow">
                   <br>
-                  <span ng-if="solo.year">{{solo.year}}</span>
-                                <span class="negmargin" ng-if="solo.title">, {{solo.title}}</span>
-                                <span class="negmargin" ng-if="solo.gallery">, {{solo.gallery}}</span>
-                                <span class="negmargin" ng-if="solo.venue">, {{solo.venue}}</span>
-                                <span class="negmargin" ng-if="solo.city">, {{solo.city}}</span>
+                  <span ng-if="solo.year">{{solo.year}},</span>
+                                <span class="negmargin" ng-if="solo.title"> {{solo.title}} ,</span>
+                                <span class="negmargin" ng-if="solo.gallery">{{solo.gallery}},</span>
+                                <span class="negmargin" ng-if="solo.venue">{{solo.venue}} ,</span>
+                                <span class="negmargin" ng-if="solo.city">{{solo.city}}</span>
                                 </span>
                             </p>
                             <p ng-if="artistdetail.groupshow && artistdetail.groupshow.length>0 && (artistdetail.groupshow[0].year || artistdetail.groupshow[0].title || artistdetail.groupshow[0].gallery || artistdetail.groupshow[0].venue || artistdetail.groupshow[0].city)">
