@@ -75,8 +75,30 @@
             <flex-slider animation-loop="true" animation="fade" class="carousel" flex-slide="testimonial in testimonials">
                 <li>
                     <div class="row">
-                        <div class="col-md-offset-2 col-md-8">
-                            <ul class="row-flex list-unstyled no-pl">
+                        <div class="col-md-2">
+                      <p class="title bold">{{testimonial.projecttitle}}</p>
+                        </div>
+                        <div class="col-md-2">
+                          <p class="name bold">{{testimonial.name}},
+                              <span class="font-color3">{{testimonial.designation}}</span>
+                          </p>
+                        </div>
+                        <div class="col-md-2">
+                          <p class="category bold">{{testimonial.activity.name}}</p>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="img-holder inline-box-infra">
+                              <div class="description" ng-bind-html=testimonial.testimonial></div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="img-holder inline-box-infra">
+                              <figure>
+                                  <img ng-src="{{testimonial.image | uploadthumbnail}}" alt="">
+                              </figure>
+                          </div>
+                        </div>
+                            <!-- <ul class="row-flex list-unstyled no-pl">
                                 <li class="img-holder inline-box-infra">
                                     <figure>
                                         <img ng-src="{{testimonial.image | uploadthumbnail}}" alt="">
@@ -93,8 +115,7 @@
                                     </p>
                                     </p>
                                 </li>
-                            </ul>
-                        </div>
+                            </ul> -->
                     </div>
                 </li>
             </flex-slider>
