@@ -4,9 +4,8 @@
         <h3 class="home-header font-color3">Art Infrastructure Services</h3>
 
         <h5 class="home-header font-color3">ACTIVITIES</h5>
-        <p>In line with its aspiration to migrate to a fully Integrated Art House, Aura Art Development Pvt Ltd is pleased to offer Art Infrastructure Solutions (through provision of services and products, in-house as well as through Partners), to
-            Collectors, Corporates, Galleries and other Institutions, including, inter-alia, assistance with the following activities.</p>
-
+        <p>In line with its aspiration to migrate to a fully Integrated Art House, Aura Art Development Pvt Ltd is pleased to offer Art Infrastructure Solutions (through provision of services and products, in-house as well as through Partners), to Collectors,
+            Corporates, Galleries and other Institutions, including, inter-alia, assistance with the following activities.</p>
         <div class="row-unflex pad-flex">
             <div class="col-mix" ng-repeat="activity in activities">
                 <div class="box-style1">
@@ -15,7 +14,8 @@
                     </div>
                     <h5>{{activity.name}}</h5>
                     <p ng-bind-html="activity.activityinbrief"></p>
-                    <a class="more2" ui-sref="artInfrastructureID({ id: 'data' })">Click for more</a>
+                    <a class="more2" ui-sref="artInfrastructureID({ id: '{{activity._id}}' })" ng-if="activity.detail1 || activity.detail2 || activity.image">Click for more</a>
+                    <a class="more2" ng-if!="activity.detail1 || activity.detail2 || activity.image"></a>
                 </div>
             </div>
         </div>
@@ -25,7 +25,6 @@
     <!-- New HTML -->
     <div class="partners padding-more brd-btm">
         <h5 class="home-header font-color3">PARTNERS</h5>
-
         <div class="row heght-readmore" ng-repeat="data in partners">
             <div class="col-md-2">
                 <p class="bold">{{data.name}}</p>
@@ -39,7 +38,7 @@
                 <p ng-bind-html="data.associationwithauraart"></p>
             </div>
             <div class="col-md-2">
-                <a href="{{data.pdf | uploadpath}}" target="_blank">{{data.pdf | uploadpath}}</a>
+                <a href="{{data.pdf | uploadpath}}" target="_blank">{{data.pdf}}</a>
             </div>
         </div>
     </div>
@@ -64,209 +63,62 @@
                         <img ng-src="{{data.image | uploadthumbnail}}" alt="" class="img-responsive">
                     </div>
                 </div>
-                <div class="text-right">
+                <!-- <div class="text-right">
                     <a class="more2">Readmore</a>
-                </div>
+                </div> -->
             </div>
         </div>
-
     </div>
-</div>
-<div class="partners padding-more testimonial brd-btm">
-    <h5 class="home-header font-color3">TESTIMONIALS</h5>
-    <div class="row">
-        <flex-slider animation-loop="true" animation="fade" class="carousel" flex-slide="testimonial in testimonials">
-        <li>
-            <div class="row">
-                <div class="col-md-offset-2 col-md-8">
-                    <ul class="row-flex list-unstyled no-pl">
-                        <li class="img-holder inline-box-infra">
-                            <figure>
-                                <img ng-src="{{testimonial.image | uploadthumbnail}}" alt="">
-                            </figure>
-                        </li>
-                        <li class="title inline-box-infra pl10">
-                            <p class="title">{{testimonial.projecttitle}}</p>
-                            <p class="name">{{testimonial.name}},
-                                <span class="font-color3">{{testimonial.designation}}</span>
-                            </p>
-                            <p class="designation"></p>
-                            <p class="category">{{testimonial.activity.name}}</p>
-                            <div class="description" ng-bind-html=testimonial.testimonial></div>
-                        </p>
-                    </p>
+    <div class="partners padding-more testimonial brd-btm" ng-if="testimonials">
+        <h5 class="home-header font-color3">TESTIMONIALS</h5>
+        <div class="row">
+            <flex-slider animation-loop="true" animation="fade" class="carousel" flex-slide="testimonial in testimonials">
+                <li>
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-8">
+                            <ul class="row-flex list-unstyled no-pl">
+                                <li class="img-holder inline-box-infra">
+                                    <figure>
+                                        <img ng-src="{{testimonial.image | uploadthumbnail}}" alt="">
+                                    </figure>
+                                </li>
+                                <li class="title inline-box-infra pl10">
+                                    <p class="title">{{testimonial.projecttitle}}</p>
+                                    <p class="name">{{testimonial.name}},
+                                        <span class="font-color3">{{testimonial.designation}}</span>
+                                    </p>
+                                    <p class="designation"></p>
+                                    <p class="category">{{testimonial.activity.name}}</p>
+                                    <div class="description" ng-bind-html=testimonial.testimonial></div>
+                                    </p>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </li>
-            </ul>
+            </flex-slider>
         </div>
     </div>
-</li>
-</flex-slider>
-</div>
-</div>
-<!--End New New HTML -->
-<div class="data-managment" id="data" ng-repeat="activity in activities">
-<div class="row-head">
-<p class="font-color3">{{activity.name}}</p>
-</div>
-<div class="margin" ng-if="activity.image">
-<img src="{{activity.image | uploadpath}}" class="img-responsive">
-</div>
-<div class="row margintp">
-<div class="col-md-6">
-<div class="row-headleft colorblack" ng-bind-html="activity.detail1">
-    <!-- <span>1. Planning Stage</span>
-					<ul>
-						<li><strong>Identify the Collection </strong>to be mapped including various categories (paintings, sculptures, prints etc)</li>
-						<li>Assess the number of items under each category, to ascertain the total collection size</li>
-						<li>Identify the various <strong>locations</strong> where the collection is housed</li>
-						<li>Gather preliminary data readily available</li>
-					</ul>
-					<span>2. Photographing the Collection</span>
-					<ul>
-						<li>Engage a <strong>professional photographer</strong> with experience in photographing fine art</li>
-						<li>May include unpacking framed works, stretching of rolled canvases, unframing of glass works to get high quality photos</li>
-						<li> <strong>Editing</strong> the photos, including <strong>color correction, cropping and conversion</strong> to Jpeg format (300dpi)</li>
-					</ul> -->
-</div>
-</div>
-<div class="col-md-6">
-<div class="row-headleft colorblack" ng-bind-html="activity.detail2">
-    <!-- <span>3. Data Collection</span>
-					<ul>
-						<li>Collect the <strong>necessary documents</strong>, like invoices, authentication certificates, condition report (if any previous restoration done), featured in any catalogue (auction/show) etc.</li>
-						<li><strong>Measure</strong> each Item in the Collection (with and without frame)</li>
-						<li>Check if the work is signed and if so, placement of signature</li>
-						<li>Assign a <strong>Permanent No</strong> for each Item in the collection</li>
-					</ul>
-					<span>4. Data Mapping and Presentation</span>
-					<ul>
-						<li>Compile all the gathered data in Excel</li>
-						<li> <strong>Identify information gaps</strong> in the collection</li>
-						<li>Map the final data on an <strong>online platform (database)</strong> or present the findings in a <strong>catalogue/coffee table book</strong></li>
-					</ul> -->
-</div>
-</div>
-</div>
-</div>
-<!-- <div class="valuation-insurance" id="valuation">
-		<div class="row-head  colorblack">
-			<p class="font-color3">Valuation &amp; Insurance</p>
-		</div>
-		<div class="row margintp">
-			<div class="col-md-6">
-				<div class="row-headleft ">
-					<span>1. Valuation</span>
-					<p> Once the data for the Collection has been mapped, Aura Art Development Pvt Ltd ("AADPL") will Value the Art Collection, based on available benchmarks.</p>
-
-					<ul>
-						<li>Auction records constitute the most credible third party data available to the public. AADPL has consistently mapped all auction results (by Sotheby's, Christies, Osians, Saffronart etc) of significant Indian artists over last 10 years.</li>
-						<li>Each Painting is valued within the range of Per Sq Feet values that similar works of the respective artists command, to the extent data is available.</li>
-						<li>For other cases, we will utilize our industry network to create appropriate bench marks.</li>
-
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="row-headleft colorblack">
-					<span>2. Insurance</span>
-					<p> Once the Art Collection is valued, we will provide guidance for insuring the collection, viz:</p>
-
-					<ul>
-						<li>Identify which part of the collection to be insured and value: cost vs market value</li>
-						<li>Risks to be covered (stay risks vs transit risks) and exclusions</li>
-						<li>Negotiate quotes and other terms with insurer(s)</li>
-						<li>Guide on checks and balances to be put in place on an on-going basis. Periodic review to assess compliance with intended processes, to ensure smooth and efficient renewal</li>
-
-					</ul>
-
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="conservation" id="conservation">
-		<div class="row-head">
-			<p class="font-color3">Conservation &amp; Restoration</p>
-		</div>
-		<div class="margin">
-			<img src="img/conversation.jpg" class="img-responsive">
-		</div>
-	</div> -->
-<!--
-    <div class="row">
-        <div class="panel-set">
-            <div class="col-md-2">
-                <div class="panels">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Preliminary Observation
-                        </div>
-                        <div class="panel-body">
-                            Prima facie review of items displaying visual signs of degradation
-                        </div>
-                    </div </div>
+    <!--End New New HTML -->
+    <div>
+        <div class="data-managment" ng-repeat="activity in activities" ng-if="activity.detail1 || activity.detail2 || activity.image" id="{{activity._id}}">
+            <div class="row-head">
+                <p class="font-color3">{{activity.name}}</p>
+            </div>
+            <div class="margin" ng-if="activity.image">
+                <img src="{{activity.image | uploadpath}}" class="img-responsive">
+            </div>
+            <div class="row margintp">
+                <div class="col-md-6">
+                    <div class="row-headleft colorblack" ng-bind-html="activity.detail1">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row-headleft colorblack" ng-bind-html="activity.detail2">
+                    </div>
                 </div>
             </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-2">
-                <div class="panels">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Condition Report
-                        </div>
-                        <div class="panel-body">
-                            Documentation of the present condition of the object by an expert Restorer, along with drawings/photos, past treatment evidence, methods of examination and testing
-                        </div>
-                    </div </div>
-                </div>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-2">
-                <div class="panels">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Treatment Proposal
-                        </div>
-                        <div class="panel-body">
-                            Includes materials to be used, time estimate, cost estimate, objectives and limitations of treatment, benefits and risks, general description of properties of materials to be used
-                        </div>
-                    </div </div>
-                </div>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-2">
-                <div class="panels">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Client-decision Parameters
-                        </div>
-                        <div class="panel-body">
-                            - Stabilization (to maintain the integrity of an object) vs Restoration (treatment procedures intended to return the object to a known or assumed state)
-                            <br> - Treatment to be done on-site / off-site
-                        </div>
-                    </div </div>
-                </div>
-            </div>
-
         </div>
-    </div>-->
-<!-- <div class="art-initiative" id="art">
-		<div class="row-head">
-			<p class="font-color3">Strategy for Art Initiatives including CSR</p>
-		</div>
-		<div class="row margintp">
-			<div class="col-md-12">
-				<div class="row-headleft col-2">
-					<ul class="decimal">
-						<li>Artists respond to the world around them, create links between communities by developing work that is inclusive/ socially relevant, through an alternative voice of creativity. Therefore, exposing such art to people can enable them to understand
-							their cultural, social, political, economic and natural environments better.</li>
-						<li>Since India prides on its rich heritage and culture, corporate support towards the conservation and preservation of arts, heritage sites, manuscripts etc is vital.</li>
-						<li>Art is an effective way to engage/ interact with the community in an interesting way – hence the importance of Public art, including through public-private partnerships.</li>
-						<li>Art triggers emotion and sensitizes people, therefore exposure to various kinds of art can soften people and lead to personal growth and sooth their nerves.</li>
-						<li>Promotion of arts education can enable people to discover their inherent creative capability and provide a means of self expression and fulfillment.</li>
-						<li>Art programs aimed at the upliftment of artists with lack of means and resources can foster better talent and eventually add to the already rich cultural fabric of India.</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div> -->
+    </div>
 </div>

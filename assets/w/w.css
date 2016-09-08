@@ -5231,6 +5231,7 @@ li.title.inline-box-infra {
   width: 11%;
   display: inline-block;
   margin: 0 2px;
+  float: left;
 }
 .space-box {
   display: inline-block;
