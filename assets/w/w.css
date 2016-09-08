@@ -2534,6 +2534,8 @@ nav.pagination-artist label.grid-view:before {
 .colorblack span {
   color: #000!important;
   padding-left: 0;
+  font-weight: normal;
+  line-height: 120%;
 }
 .art-initiative li {
   line-height: 200%;

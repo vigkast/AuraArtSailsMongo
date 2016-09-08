@@ -2635,35 +2635,35 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 })
 
-// .controller('ArtInfrastructureCtrl', function($scope, TemplateService, NavigationService, $location, $stateParams, $document) {
-//     $scope.template = TemplateService.changecontent("artinfrastructure");
-//     $scope.menutitle = NavigationService.makeactive("Art Infrastructure");
-//     TemplateService.title = $scope.menutitle;
-//     $scope.navigation = NavigationService.getnav();
-//
-//     $.jStorage.set("artistScroll", null);
-//     $.jStorage.set("artworkScroll", null);
-//     $scope.$on('$viewContentLoaded', function(event) {
-//         setTimeout(function() {
-//             makeAnimation($stateParams.id);
-//         }, 100);
-//     });
-//
-//     function makeAnimation(stateValue) {
-//         var goTo = angular.element(document.getElementById(stateValue));
-//         $document.scrollToElement(goTo, offset, duration);
-//     }
-//     $scope.changeURL = function(id) {
-//         $state.transitionTo('artInfrastructure', {
-//             id: id
-//         }, {
-//             notify: false
-//         });
-//         makeAnimation(id);
-//         $location.replace();
-//     };
-//
-// })
+.controller('ArtInfrastructure2Ctrl', function($scope, TemplateService, NavigationService, $location, $stateParams, $document) {
+    $scope.template = TemplateService.changecontent("artinfrastructure");
+    $scope.menutitle = NavigationService.makeactive("Art Infrastructure");
+    TemplateService.title = $scope.menutitle;
+    $scope.navigation = NavigationService.getnav();
+
+    $.jStorage.set("artistScroll", null);
+    $.jStorage.set("artworkScroll", null);
+    $scope.$on('$viewContentLoaded', function(event) {
+        setTimeout(function() {
+            makeAnimation($stateParams.id);
+        }, 100);
+    });
+
+    function makeAnimation(stateValue) {
+        var goTo = angular.element(document.getElementById(stateValue));
+        $document.scrollToElement(goTo, offset, duration);
+    }
+    $scope.changeURL = function(id) {
+        $state.transitionTo('artInfrastructure', {
+            id: id
+        }, {
+            notify: false
+        });
+        makeAnimation(id);
+        $location.replace();
+    };
+
+})
 
 
 .controller('ArtInfrastructureCtrl', function($scope, TemplateService, NavigationService, $location, $stateParams, $document, $timeout) {
@@ -2677,7 +2677,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     // $scope.$on('$viewContentLoaded', function(event) {
     //   console.log("loaded");
-        
+
         $timeout(function () {
           console.log("in time out");
           makeAnimation($stateParams.id);
