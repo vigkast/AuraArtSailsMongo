@@ -1894,6 +1894,11 @@ ul.decimal {
 .artwork-box + .artwork-box {
   padding-bottom: 15px;
 }
+.artwork-box {
+  height: 98px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
 .artwork-box .row-flex {
   margin: 0 -5px;
 }
