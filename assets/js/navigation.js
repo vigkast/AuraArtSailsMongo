@@ -98,7 +98,7 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
     }, {
         name: "Infra Services",
         active: "",
-        link: "#/infra-services2",
+        link: "#/infra-services",
         classis: "active",
         subnav: []
             // subnav: [{

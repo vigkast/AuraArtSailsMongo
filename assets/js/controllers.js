@@ -2635,55 +2635,38 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 })
 
-.controller('ArtInfrastructureCtrl', function($scope, TemplateService, NavigationService, $location, $stateParams, $document) {
-    $scope.template = TemplateService.changecontent("artinfrastructure");
-    $scope.menutitle = NavigationService.makeactive("Art Infrastructure");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-
-    $.jStorage.set("artistScroll", null);
-    $.jStorage.set("artworkScroll", null);
-    $scope.$on('$viewContentLoaded', function(event) {
-        setTimeout(function() {
-            makeAnimation($stateParams.id);
-        }, 100);
-    });
-
-    function makeAnimation(stateValue) {
-        var goTo = angular.element(document.getElementById(stateValue));
-        $document.scrollToElement(goTo, offset, duration);
-    }
-
-
-
-    $scope.artistDetailImg = [{
-        image: 'img/imagedetail/imagedetail.jpg',
-        id: ' 1527',
-        artistname: 'Veguri Ravindra Babu',
-        title: ' Floating Dreams',
-        typename: 'Untitled',
-        madein: 'Oil on board',
-        size: '19.5 x 23',
-        year: '1978',
-        price: 'Rs.1,00,000/ $6,400'
-    }];
-    $scope.changeURL = function(id) {
-        $state.transitionTo('artInfrastructure', {
-            id: id
-        }, {
-            notify: false
-        });
-        makeAnimation(id);
-        $location.replace();
-    };
-    // $scope.changeURL = function(id) {
-    //   console.log(id);
-    //   $location.path("" + id);
-    // };
-})
+// .controller('ArtInfrastructureCtrl', function($scope, TemplateService, NavigationService, $location, $stateParams, $document) {
+//     $scope.template = TemplateService.changecontent("artinfrastructure");
+//     $scope.menutitle = NavigationService.makeactive("Art Infrastructure");
+//     TemplateService.title = $scope.menutitle;
+//     $scope.navigation = NavigationService.getnav();
+//
+//     $.jStorage.set("artistScroll", null);
+//     $.jStorage.set("artworkScroll", null);
+//     $scope.$on('$viewContentLoaded', function(event) {
+//         setTimeout(function() {
+//             makeAnimation($stateParams.id);
+//         }, 100);
+//     });
+//
+//     function makeAnimation(stateValue) {
+//         var goTo = angular.element(document.getElementById(stateValue));
+//         $document.scrollToElement(goTo, offset, duration);
+//     }
+//     $scope.changeURL = function(id) {
+//         $state.transitionTo('artInfrastructure', {
+//             id: id
+//         }, {
+//             notify: false
+//         });
+//         makeAnimation(id);
+//         $location.replace();
+//     };
+//
+// })
 
 
-.controller('ArtInfrastructure2Ctrl', function($scope, TemplateService, NavigationService, $location, $stateParams, $document) {
+.controller('ArtInfrastructureCtrl', function($scope, TemplateService, NavigationService, $location, $stateParams, $document, $timeout) {
     $scope.template = TemplateService.changecontent("artinfrastructure2");
     $scope.menutitle = NavigationService.makeactive("Art Infrastructure");
     TemplateService.title = $scope.menutitle;
@@ -2691,6 +2674,31 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     $.jStorage.set("artistScroll", null);
     $.jStorage.set("artworkScroll", null);
+
+    // $scope.$on('$viewContentLoaded', function(event) {
+    //   console.log("loaded");
+        
+        $timeout(function () {
+          console.log("in time out");
+          makeAnimation($stateParams.id);
+
+    }, 2000);
+    // });
+    function makeAnimation(stateValue) {
+        var goTo = angular.element(document.getElementById(stateValue));
+        $document.scrollToElement(goTo, offset, duration);
+    }
+    // makeAnimation($stateParams.id);
+
+    $scope.changeURL = function(id) {
+        $state.transitionTo('artInfrastructureID', {
+            id: id
+        }, {
+            notify: false
+        });
+        makeAnimation(id);
+        $location.replace();
+    };
 
     NavigationService.getAllActivities(function(data) {
         console.log("activities", data);
@@ -2719,17 +2727,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.testimonials = data;
         }
     })
-
-    $scope.$on('$viewContentLoaded', function(event) {
-        setTimeout(function() {
-            makeAnimation($stateParams.id);
-        }, 100);
-    });
-
-    function makeAnimation(stateValue) {
-        var goTo = angular.element(document.getElementById(stateValue));
-        $document.scrollToElement(goTo, offset, duration);
-    }
 
     $scope.slides = [{
         image: "img/patners.jpg",
