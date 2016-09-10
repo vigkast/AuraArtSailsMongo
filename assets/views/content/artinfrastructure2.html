@@ -29,16 +29,16 @@
             <div class="col-md-2">
                 <p class="bold">{{data.name}}</p>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <img ng-src="{{data.image | uploadthumbnail}}" alt="" class="img-responsive"></div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <p ng-bind-html="data.profileofpartner"></p>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <p ng-bind-html="data.associationwithauraart"></p>
             </div>
-            <div class="col-md-2">
-                <a href="{{data.pdf | uploadpath}}" target="_blank">{{data.pdf}}</a>
+            <div class="col-md-1">
+                <a class="btn btn-primarys" href="{{data.pdf | uploadpath}}" target="_blank" style="font-size:10px;">View PDF</a>
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@
                     <div class="col-md-2">
                         <p class="bold">{{data.periodofproject}}</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <p ng-bind-html="data.briefprojectdescription"></p>
                     </div>
                     <div class="col-md-2">
@@ -70,7 +70,7 @@
         </div>
     </div>
     <div class="partners padding-more testimonial brd-btm" ng-if="testimonials">
-        <h5 class="home-header font-color3">TESTIMONIALS</h5>
+        <h5 class="home-header font-color3"> TESTIMONIALS </h5>
         <div class="row">
             <flex-slider animation-loop="true" animation="fade" class="carousel" flex-slide="testimonial in testimonials">
                 <li>
@@ -86,17 +86,18 @@
                         <div class="col-md-2">
                           <p class="category bold">{{testimonial.activity.name}}</p>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                           <div class="img-holder inline-box-infra">
                               <div class="description" ng-bind-html=testimonial.testimonial></div>
                           </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                           <div class="img-holder inline-box-infra">
                               <figure>
                                   <img ng-src="{{testimonial.image | uploadthumbnail}}" alt="">
                               </figure>
                           </div>
+                          <a class="btn btn-primarys mt10" href="{{data.pdf | uploadpath}}" target="_blank" style="font-size:10px;">View PDF</a>
                         </div>
                             <!-- <ul class="row-flex list-unstyled no-pl">
                                 <li class="img-holder inline-box-infra">

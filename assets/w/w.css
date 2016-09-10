@@ -5045,7 +5045,7 @@ img.fancybox-image {
   display: none;
 }
 .userprofile-com textarea {
-  height: 122px;
+  height: 80px;
 }
 .profile-img {
   height: 30px;
@@ -5235,9 +5235,9 @@ li.title.inline-box-infra {
   padding-left: 0 !important;
 }
 .col-mix {
-  width: 11%;
+  width: 12.1%;
   display: inline-block;
-  margin: 0 2px;
+  margin: 5px 2px;
   float: left;
 }
 .space-box {
