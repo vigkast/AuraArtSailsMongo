@@ -5045,7 +5045,10 @@ img.fancybox-image {
   display: none;
 }
 .userprofile-com textarea {
-  height: 80px;
+    height: 122px;
+}
+.userprofile-com1 textarea {
+    height: 80px;
 }
 .profile-img {
   height: 30px;

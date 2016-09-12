@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="input-id userprofile-com">
+                                <div class="input-id userprofile-com1">
                                     <div class="text-make">
                                         <textarea name="" placeholder="Address" class="form-control" id="" cols="30"></textarea>
                                     </div>
@@ -105,16 +105,38 @@
                                             <div class="input-id">
                                                 <input class="form-control" ng-model="ticket.title" placeholder="Project Title*" required type="text">
                                             </div>
-                                            <div class="input-id">
+                                            <div class="input-id userprofile-com">
                                                 <textarea class="form-control" name="" ng-model="ticket.brief" placeholder="Project Brief*" required id="" cols="30"></textarea>
                                             </div>
                                             <div class="input-id">
-                                                <ui-select tagging tagging-label="('new')" ng-model="ticket.reference" theme="bootstrap" title="Choose Reference">
+                                              <div class="form-group" style="margin-bottom:0;">
+                                                  <label>Reference
+                                                      <span ng-show="artwork.type=='Sculptures'">(Multiple Upload)</span>
+                                                  </label>
+                                                  <div class="scroll-x">
+                                                      <div class="img-box">
+                                                          <div class="many-img" ng-repeat="bill in artwork.image">
+                                                              <img ng-if="artwork.image.length!=0" ng-src="{{bill | uploadpath}}">
+                                                              <button class="btn btn-danger close-btn" ng-click="removeimage(artwork.image.indexOf(bill));" ng-if="artwork.image.length!=0" type="button">
+                                                                  <i class="glyphicon glyphicon-trash"></i>
+                                                              </button>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="upload-div" ng-hide="artwork.type!='Sculptures' && artwork.image.length>=1">
+                                                      <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
+                                                      <div class="upload-buttons">
+                                                          <input name="file" ng-file-select="onFileSelect($files,1)" onclick="this.value=null" type="file" ng-hide="multiplesel">
+                                                          <input multiple name="file" ng-file-select="onFileSelect($files,1)" onclick="this.value=null" type="file" ng-show="multiplesel">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                                <!-- <ui-select tagging tagging-label="('new')" ng-model="ticket.reference" theme="bootstrap" title="Choose Reference">
                                                     <ui-select-match placeholder="Choose Reference">{{$select.selected}}</ui-select-match>
                                                     <ui-select-choices repeat="userprofile in userprofiles | filter: $select.search">
                                                         <div ng-bind-html="userprofile | highlight: $select.search"></div>
                                                     </ui-select-choices>
-                                                </ui-select>
+                                                </ui-select> -->
                                             </div>
                                         </div>
                                         <div class="col-md-6">
