@@ -2443,7 +2443,7 @@ nav.pagination-artist label.grid-view:before {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-.btn-primarys:hover {
+.btn-primarys:hover, .btn-primarys:focus{
   background: #fff!important;
   border: 1px solid #D4AE70 !important;
   color: #D4AE70 !important;
