@@ -801,17 +801,25 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 })
 
 .controller('ContactusCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout) {
-    //Used to name the .html file
-    $scope.template = TemplateService.changecontent("contactus");
-    $scope.menutitle = NavigationService.makeactive("Contact Us");
-    TemplateService.title = $scope.menutitle;
-    $scope.navigation = NavigationService.getnav();
-    $.jStorage.set("artistScroll", null);
-    $.jStorage.set("artworkScroll", null);
-    $scope.becomeSeller = function() {
-        globalFunction.becomeSeller();
-    }
-})
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("contactus");
+        $scope.menutitle = NavigationService.makeactive("Contact Us");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $.jStorage.set("artistScroll", null);
+        $.jStorage.set("artworkScroll", null);
+        $scope.becomeSeller = function() {
+            globalFunction.becomeSeller();
+        }
+    })
+    .controller('ViewCommissionedCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, ngDialog, $stateParams, $location, $state) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("commissioned-view");
+        $scope.menutitle = NavigationService.makeactive("Commissioned");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+    })
 
 .controller('TotalartWorkCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, ngDialog, $stateParams, $location, $state) {
     //Used to name the .html file
@@ -2678,9 +2686,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     // $scope.$on('$viewContentLoaded', function(event) {
     //   console.log("loaded");
 
-        $timeout(function () {
-          console.log("in time out");
-          makeAnimation($stateParams.id);
+    $timeout(function() {
+        console.log("in time out");
+        makeAnimation($stateParams.id);
 
     }, 2000);
     // });
@@ -4163,6 +4171,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.artwork.subtype = [];
     $scope.artwork.tag = [];
     $scope.showBreadth = false;
+    $scope.showAddressTextarea = false;
+    $scope.hideAddressTextarea = true;
     $scope.onTextClick = function($event) {
         $event.target.select();
     }
@@ -4505,6 +4515,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.showmed = 0;
         if (type == "Sculptures") {
             $scope.showBreadth = true;
+            $scope.otherDetails = "eg. with pedestal";
+        } else if (type == "Commissioned Sculpture") {
+            $scope.showBreadth = true;
+            $scope.showAddressTextarea = true;
+            $scope.hideAddressTextarea = false;
             $scope.otherDetails = "eg. with pedestal";
         } else if (type == "Paintings") {
             $scope.showBreadth = false;
