@@ -523,6 +523,25 @@ module.exports = {
                             });
                             db.close();
                         } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+                            // var obj = {
+                            //     "api_key": "47e02d2b10604fc81304a5837577e286",
+                            //     "email_details": {
+                            //         "fromname": sails.fromName,
+                            //         "subject": "Order of Artworks",
+                            //         "from": sails.fromEmail,
+                            //         "replytoid": data.email
+                            //     },
+                            //     "settings": {
+                            //         "template": "changeme",
+                            //     },
+                            //     "recipients": [data.email, "connect@auraart.in"],
+                            //     "attributes": {}
+                            // };
+                            // sails.request.get({
+                            //     url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                            // }, function(err, httpResponse, body) {
+                            //     if (err) {} else if (body && body == "success") {} else {}
+                            // });
                             var i = 0;
                             Order.findone({
                                 _id: order

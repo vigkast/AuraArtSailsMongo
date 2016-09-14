@@ -126,7 +126,12 @@
                                             <label>Gallery Commission (in %)</label>
                                             <input class="form-control" ng-change="calculateprice(2);calcsq();" ng-model="artwork.comm" placeholder="Gallery Commission" type="text" only-digits ng-trim="false">
                                         </div>
+                                            <label>Artist Price (in Rs)</label>
+                                            <input class="form-control" ng-change="calculateprice(1);calcsq();" ng-model="artwork.price" placeholder="Artist Price" type="text" only-digits ng-trim="false" readonly>
+                                        </div>
                                     </div>
+                                </div>
+                                         </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Artist Price (in Rs)</label>
@@ -207,8 +212,8 @@
                                     </div>
                                     <div ng-if="artwork.pedestal == 'with pedestal'">
                                         <h4 class="title-color">Size
-                      <span class="lowercase">(with pedestal)</span>
-                    </h4>
+                                            <span class="lowercase">(with pedestal)</span>
+                                        </h4>
                                         <hr>
                                         <div class="row">
                                             <div class="col-md-3">
@@ -258,8 +263,8 @@
                                     </div>
                                     <div ng-if="framedStatus">
                                         <h4 class="title-color">Size
-                      <span class="lowercase">(with frame)</span>
-                    </h4>
+                                            <span class="lowercase">(with frame)</span>
+                                        </h4>
                                         <hr>
                                         <div class="row">
                                             <div class="col-md-3">
@@ -305,7 +310,7 @@
                                       <textarea name="name" rows="3" class="form-control" placeholder="Artwork Location"></textarea>
                                         </div>
                                     </div> -->
-                                      <!-- ui for end commissioned sculpture  -->
+                                    <!-- ui for end commissioned sculpture  -->
                                 </div>
                                 <div class="row" ng-if="artwork.address=='new';">
                                     <div class="col-md-6">

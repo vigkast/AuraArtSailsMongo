@@ -100,7 +100,7 @@
                         REQUEST FOR PRICE
                     </button>
                     <!-- <button type="button" class="btn btn-block uppercase" ng-click="lauchedSoon();"> -->
-                        <button type="button" class="btn btn-block uppercase" ui-sref="room-with-a-view({id:artistDetailImg.artwork._id})">
+                    <button type="button" class="btn btn-block uppercase" ui-sref="room-with-a-view({id:artistDetailImg.artwork._id})">
                         VIEW ARTWORK IN YOUR ROOM
                     </button>
                     <a type="button" class="btn btn-primarys btn-block uppercase" ng-click="addToCart(artistDetailImg);" ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A' && artistDetailImg.artwork.status!='sold'">
@@ -119,10 +119,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h4 class="head-more">
-                     MORE WORKS BY THIS ARTIST
-                     <a ui-sref="artistdetail({artistid:artid})" class="link-viewall">VIEW ALL</a>
-                     <a class="link-viewall" ng-click="status.open = !status.open;checkForEmpty();">VIEW PROFILE</a>
-                  </h4>
+                            MORE WORKS BY THIS ARTIST
+                            <a ui-sref="artistdetail({artistid:artid})" class="link-viewall">VIEW ALL</a>
+                            <a class="link-viewall" ng-click="status.open = !status.open;checkForEmpty();">VIEW PROFILE</a>
+                        </h4>
                         <div class="cont-artist" id="divh">
                             <uib-accordion>
                                 <uib-accordion-group is-open="status.open">
