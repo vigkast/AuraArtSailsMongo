@@ -1358,32 +1358,9 @@ module.exports = {
                 }
                 var matchobj = {
                     "artwork.type": "Commissioned Sculpture",
-                    "artwork.subtype.name": {
-                        $regex: checkmedium
-                    },
-                    "artwork.tag.name": {
-                        $in: matcharray
-                    },
+
                     status: "approve-commissioned",
-                    name: {
-                        $regex: check
-                    },
-                    "artwork.gprice": {
-                        $gte: data.minprice,
-                        $lte: data.maxprice
-                    },
-                    "artwork.height": {
-                        $gte: data.minheight,
-                        $lte: data.maxheight
-                    },
-                    "artwork.width": {
-                        $gte: data.minwidth,
-                        $lte: data.maxwidth
-                    },
-                    "artwork.breadth": {
-                        $gte: data.minbreadth,
-                        $lte: data.maxbreadth
-                    }
+
                 };
                 if (matchobj["artwork.tag.name"].$in.length == 0) {
                     delete matchobj["artwork.tag.name"];
