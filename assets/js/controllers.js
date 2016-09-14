@@ -1171,6 +1171,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     }, {
         name: "Others",
         class: ""
+    }, {
+        name: "Commissioned Sculptures",
+        class: ""
     }]
 
     $scope.changeHeartColor = function(totalartcont) {

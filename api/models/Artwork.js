@@ -1285,6 +1285,223 @@ module.exports = {
             }
         });
     },
+    artworktypeCommissioned: function(data, callback) {
+        var matcharray = [];
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            } else if (db) {
+                var newreturns = {};
+                var check = new RegExp(data.search, "i");
+                var checkmedium = new RegExp(data.medium, "i");
+                var checkcolor = new RegExp(data.color, "i");
+                var checkstyle = new RegExp(data.style, "i");
+                var checkelement = new RegExp(data.element, "i");
+                var pagesize = data.pagesize;
+                var pagenumber = data.pagenumber;
+                var user = sails.ObjectID(data.user);
+                var sortnum = parseInt(data.sort);
+                var sort = {};
+                if (data.filter && data.filter == "srno") {
+                    sort = {};
+                    sort.focused = 1;
+                    sort.name = 1;
+                    sort['artwork.srno'] = 1;
+                } else if (data.filter == "yoc") {
+                    sort = {};
+                    sort.focused = 1;
+                    sort['artwork.approveTimestamp'] = sortnum;
+                    sort.name = 1;
+                } else {
+                    sort = {};
+                    sort['artwork.' + data.filter] = sortnum;
+                    sort.name = 1;
+                }
+                if (data.color) {
+                    matcharray.push(data.color);
+                }
+                if (data.style) {
+                    matcharray.push(data.style);
+                }
+                if (data.element) {
+                    matcharray.push(data.element);
+                }
+                if (matcharray && !matcharray[0]) {
+                    matcharray = [];
+                }
+                if (data.minprice == "") {
+                    data.minprice = 0;
+                }
+                if (data.maxprice == "") {
+                    data.maxprice = 0;
+                }
+                if (data.minheight == "") {
+                    data.minheight = 0;
+                }
+                if (data.maxheight == "") {
+                    data.maxheight = 0;
+                }
+                if (data.minwidth == "") {
+                    data.minwidth = 0;
+                }
+                if (data.maxwidth == "") {
+                    data.maxwidth = 0;
+                }
+                if (data.minbreadth == "") {
+                    data.minbreadth = 0;
+                }
+                if (data.maxbreadth == "") {
+                    data.maxbreadth = 0;
+                }
+                var matchobj = {
+                    "artwork.type": "Commissioned Sculptures",
+                    "artwork.subtype.name": {
+                        $regex: checkmedium
+                    },
+                    "artwork.tag.name": {
+                        $in: matcharray
+                    },
+                    status: "approve-commissioned",
+                    name: {
+                        $regex: check
+                    },
+                    "artwork.gprice": {
+                        $gte: data.minprice,
+                        $lte: data.maxprice
+                    },
+                    "artwork.height": {
+                        $gte: data.minheight,
+                        $lte: data.maxheight
+                    },
+                    "artwork.width": {
+                        $gte: data.minwidth,
+                        $lte: data.maxwidth
+                    },
+                    "artwork.breadth": {
+                        $gte: data.minbreadth,
+                        $lte: data.maxbreadth
+                    }
+                };
+                if (data.type == "") {
+                    delete matchobj["artwork.type"];
+                }
+                if (matchobj["artwork.tag.name"].$in.length == 0) {
+                    delete matchobj["artwork.tag.name"];
+                }
+                if (data.search == "") {
+                    delete matchobj.name;
+                }
+                if (data.medium == "") {
+                    delete matchobj["artwork.subtype.name"];
+                }
+                if (data.minprice == 0 && data.maxprice == 0) {
+                    delete matchobj["artwork.gprice"];
+                }
+                if (data.minheight == 0 && data.maxheight == 0) {
+                    delete matchobj["artwork.height"];
+                }
+                if (data.minwidth == 0 && data.maxwidth == 0) {
+                    delete matchobj["artwork.width"];
+                }
+                if (data.minbreadth == 0 && data.maxbreadth == 0) {
+                    delete matchobj["artwork.breadth"];
+                }
+                if (data.filter && data.filter == "srno" && (data.minprice != 0 || data.maxprice != 0)) {
+                    sort = {};
+                    sort['artwork.gprice'] = 1;
+                    sort.focused = 1;
+                    sort.name = 1;
+                    matchobj["artwork.gprice"] = {
+                        $nin: ["", null, 0],
+                        $gte: data.minprice,
+                        $lte: data.maxprice
+                    };
+                }
+                if (data.filter == "gprice") {
+                    matchobj["artwork.gprice"] = {
+                        $nin: ["", null, 0]
+                    };
+                }
+                callme();
+
+                function callme() {
+                    db.collection("user").aggregate([{
+                        $match: matchobj
+                    }, {
+                        $unwind: "$artwork"
+                    }, {
+                        $match: matchobj
+                    }, {
+                        $group: {
+                            _id: user,
+                            count: {
+                                $sum: 1
+                            }
+                        }
+                    }, {
+                        $project: {
+                            count: 1
+                        }
+                    }]).toArray(function(err, result) {
+                        if (result && result[0]) {
+                            newreturns.total = result[0].count;
+                            newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
+                            callbackfunc();
+                        } else if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "Count of null"
+                            });
+                            db.close();
+                        }
+                    });
+
+                    function callbackfunc() {
+                        db.collection("user").aggregate([{
+                            $match: matchobj
+                        }, {
+                            $unwind: "$artwork"
+                        }, {
+                            $match: matchobj
+                        }, {
+                            $project: {
+                                name: 1,
+                                artwork: 1,
+                                focused: 1
+                            }
+                        }]).sort(sort).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                            if (found && found[0]) {
+                                newreturns.data = found;
+                                newreturns.page = pagenumber;
+                                callback(newreturns);
+                                db.close();
+                            } else if (err) {
+                                console.log(err);
+                                callback({
+                                    value: false
+                                });
+                                db.close();
+                            } else {
+                                callback({
+                                    value: false,
+                                    comment: "No data found"
+                                });
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    },
     searchartwork: function(data, callback) {
         sails.query(function(err, db) {
             if (err) {

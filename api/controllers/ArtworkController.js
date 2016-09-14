@@ -322,6 +322,26 @@ module.exports = {
             });
         }
     },
+    artworktypeCommissioned: function(req, res) {
+        if (req.body) {
+            if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
+                function callback(data) {
+                    res.json(data);
+                };
+                Artwork.artworktype(req.body, callback);
+            } else {
+                res.json({
+                    value: false,
+                    comment: "Please provide parameters"
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
     favoriteartwork: function(req, res) {
         if (req.body) {
             if (req.body.artwork && req.body.artwork.length > 0) {
