@@ -1357,7 +1357,7 @@ module.exports = {
                     data.maxbreadth = 0;
                 }
                 var matchobj = {
-                    "artwork.type": "Commissioned Sculptures",
+                    "artwork.type": "Commissioned Sculpture",
                     "artwork.subtype.name": {
                         $regex: checkmedium
                     },
