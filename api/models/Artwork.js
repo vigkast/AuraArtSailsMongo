@@ -1431,6 +1431,8 @@ module.exports = {
 
                 function callme() {
                     db.collection("user").aggregate([{
+                        $match: matchobj
+                    }, {
                         $unwind: "$artwork"
                     }, {
                         $match: matchobj
