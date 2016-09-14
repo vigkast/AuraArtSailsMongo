@@ -823,6 +823,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 .controller('TotalartWorkCtrl', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, ngDialog, $stateParams, $location, $state) {
     //Used to name the .html file
+    console.log("One is called");
     $scope.template = TemplateService.changecontent("totalartwork");
     $scope.menutitle = NavigationService.makeactive("Total Artwork");
     TemplateService.title = $scope.menutitle;
@@ -1419,6 +1420,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
 .controller('TotalartWorkCtrl2', function($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, ngDialog, $stateParams, $location, $state) {
     //Used to name the .html file
+
+    console.log("Checking this one");
+
     $scope.template = TemplateService.changecontent("totalartwork");
     $scope.menutitle = NavigationService.makeactive("Total Artwork");
     TemplateService.title = $scope.menutitle;
@@ -1810,8 +1814,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.htlactive = '';
             $scope.lthactive = '';
         }
+        console.log(filterdata);
         NavigationService.artworktypeCommissioned(filterdata, function(data, status) {
-            // console.log(data.data);
+            console.log(data.data);
             lastpage = parseInt(data.totalpages);
             // $scope.totalartcont = _.union($scope.totalartcont, data.data);
             _.each(data.data, function(n) {
