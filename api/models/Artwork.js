@@ -1366,8 +1366,6 @@ module.exports = {
 
                 function callme() {
                     db.collection("user").aggregate([{
-                        $match: matchobj
-                    }, {
                         $unwind: "$artwork"
                     }, {
                         $match: matchobj
@@ -1383,6 +1381,7 @@ module.exports = {
                             count: 1
                         }
                     }]).toArray(function(err, result) {
+                        console.log(result);
                         if (result && result[0]) {
                             newreturns.total = result[0].count;
                             newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
