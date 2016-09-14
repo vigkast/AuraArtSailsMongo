@@ -153,6 +153,13 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
         controller: 'TotalartWorkCtrl'
     })
 
+    .state('totalartpage2', {
+        url: "/artwork/Commissioned/:number",
+        templateUrl: "views/template.html",
+        controller: 'TotalartWorkCtrl2',
+
+    })
+
     .state('commissioned-artwork', {
         url: "/commissioned-artwork",
         templateUrl: "views/template.html",

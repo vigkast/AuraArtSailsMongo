@@ -247,6 +247,15 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 data: filterdata
             }).success(callback);
         },
+        artworktypeCommissioned: function(filterdata, callback) {
+            //            delete pagedata.minbreadth;
+            //            delete pagedata.maxbreadth;
+            $http({
+                url: adminurl + "artwork/artworktypeCommissioned",
+                method: "POST",
+                data: filterdata
+            }).success(callback);
+        },
         getartworkdetail: function(artid, callback) {
             $http({
                 url: adminurl + "artwork/findbyid",
