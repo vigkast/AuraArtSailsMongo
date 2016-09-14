@@ -1358,14 +1358,76 @@ module.exports = {
                 }
                 var matchobj = {
                     "artwork.type": "Commissioned Sculpture",
-
-                    status: "approve-commissioned"
+                    "artwork.subtype.name": {
+                        $regex: checkmedium
+                    },
+                    "artwork.tag.name": {
+                        $in: matcharray
+                    },
+                    status: "approve-commissioned",
+                    name: {
+                        $regex: check
+                    },
+                    "artwork.gprice": {
+                        $gte: data.minprice,
+                        $lte: data.maxprice
+                    },
+                    "artwork.height": {
+                        $gte: data.minheight,
+                        $lte: data.maxheight
+                    },
+                    "artwork.width": {
+                        $gte: data.minwidth,
+                        $lte: data.maxwidth
+                    },
+                    "artwork.breadth": {
+                        $gte: data.minbreadth,
+                        $lte: data.maxbreadth
+                    }
                 };
-
+                if (matchobj["artwork.tag.name"].$in.length == 0) {
+                    delete matchobj["artwork.tag.name"];
+                }
+                if (data.search == "") {
+                    delete matchobj.name;
+                }
+                if (data.medium == "") {
+                    delete matchobj["artwork.subtype.name"];
+                }
+                if (data.minprice == 0 && data.maxprice == 0) {
+                    delete matchobj["artwork.gprice"];
+                }
+                if (data.minheight == 0 && data.maxheight == 0) {
+                    delete matchobj["artwork.height"];
+                }
+                if (data.minwidth == 0 && data.maxwidth == 0) {
+                    delete matchobj["artwork.width"];
+                }
+                if (data.minbreadth == 0 && data.maxbreadth == 0) {
+                    delete matchobj["artwork.breadth"];
+                }
+                if (data.filter && data.filter == "srno" && (data.minprice != 0 || data.maxprice != 0)) {
+                    sort = {};
+                    sort['artwork.gprice'] = 1;
+                    sort.focused = 1;
+                    sort.name = 1;
+                    matchobj["artwork.gprice"] = {
+                        $nin: ["", null, 0],
+                        $gte: data.minprice,
+                        $lte: data.maxprice
+                    };
+                }
+                if (data.filter == "gprice") {
+                    matchobj["artwork.gprice"] = {
+                        $nin: ["", null, 0]
+                    };
+                }
                 callme();
 
                 function callme() {
                     db.collection("user").aggregate([{
+                        $match: matchobj
+                    }, {
                         $unwind: "$artwork"
                     }, {
                         $match: matchobj
@@ -1381,7 +1443,6 @@ module.exports = {
                             count: 1
                         }
                     }]).toArray(function(err, result) {
-                        console.log(result);
                         if (result && result[0]) {
                             newreturns.total = result[0].count;
                             newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);

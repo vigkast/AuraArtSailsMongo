@@ -328,7 +328,7 @@ module.exports = {
                 function callback(data) {
                     res.json(data);
                 };
-                Artwork.artworktype(req.body, callback);
+                Artwork.artworktypeCommissioned(req.body, callback);
             } else {
                 res.json({
                     value: false,
