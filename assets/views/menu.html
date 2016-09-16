@@ -1,7 +1,7 @@
-<ul class="nav row-flex row-unflex">
+<ul class="nav row-flex row-unflex menu-made">
     <li ng-repeat="menu in navigation" class="{{menu.classis}} nav-menus text-center">
         <a ng-href="{{menu.link}}">
-{{menu.name}}
+            {{menu.name}}
         </a>
         <ul class="dropdown-menu" ng-if="menu.subnav!='';">
             <li ng-repeat="submenu in menu.subnav">
