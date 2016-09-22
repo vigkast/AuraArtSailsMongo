@@ -1,5 +1,5 @@
 /**
- * slider.js
+ * commissionslider.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/#!documentation/models
@@ -15,7 +15,7 @@ module.exports = {
             } else if (db) {
                 if (!data._id) {
                     data._id = sails.ObjectID();
-                    db.collection('slider').insert(data, function(err, created) {
+                    db.collection('commissionslider').insert(data, function(err, created) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -36,10 +36,10 @@ module.exports = {
                         }
                     });
                 } else {
-                    var slider = sails.ObjectID(data._id);
+                    var commissionslider = sails.ObjectID(data._id);
                     delete data._id;
-                    db.collection('slider').update({
-                        _id: slider
+                    db.collection('commissionslider').update({
+                        _id: commissionslider
                     }, {
                         $set: data
                     }, function(err, updated) {
@@ -87,7 +87,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("slider").count({
+                db.collection("commissionslider").count({
                     title: {
                         '$regex': check
                     }
@@ -111,7 +111,7 @@ module.exports = {
                 });
 
                 function callbackfunc() {
-                    db.collection("slider").find({
+                    db.collection("commissionslider").find({
                         title: {
                             '$regex': check
                         }
@@ -148,7 +148,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("slider").find({}, {}).toArray(function(err, found) {
+                db.collection("commissionslider").find({}, {}).toArray(function(err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -178,7 +178,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("slider").find({
+                db.collection("commissionslider").find({
                     "_id": sails.ObjectID(data._id)
                 }, {}).toArray(function(err, found) {
                     if (err) {
@@ -209,7 +209,7 @@ module.exports = {
                     value: false
                 });
             }
-            db.collection('slider').remove({
+            db.collection('commissionslider').remove({
                 _id: sails.ObjectID(data._id)
             }, function(err, deleted) {
                 if (deleted) {
