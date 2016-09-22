@@ -10,53 +10,84 @@
                 </h4>
                 <div class="cont-com-sculp">
                     <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It
-                        has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-                        publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                        survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                        with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                     </p>
                 </div>
             </div>
         </div>
         <div class="undertaken-aura-art">
-            <h5 class="title bold">Projects undertaken by Aura Art</h5>
-            <div class="img-holder-auraart">
-                <div class="flex-slider">
-                    <flex-slider flex-slide="data in imgsculpture track by $index" animation="slide" animation-loop="false" item-width="285">
-                    <li>
-                        <div class="img-holder">
-                            <img src="{{data.img}}" alt="">
+            <div class="mb20">
+                <h5 class="title bold">Projects undertaken by Aura Art <button class="btn btn-primarys uppercase ml-20" ui-sref="commission-projects">Start Your Project</button></h5>
+            </div>
+            <!--<div class="pul">
+                <button class="btn btn-primarys uppercase" ui-sref="commission-projects">Start Your Project</button>
+            </div>-->
+            <div class="artist comission-project">
+                <div class="row">
+                    <div class="col-xs-20">
+                        <div class="aristimg-grp1 mb20">
+                            <div class="relative">
+                                <a ui-sref="detail({artid:totalartconts.artwork._id})">
+                                    <div class="image-holders fixit">
+                                        <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg">
+                                    </div>
+                                </a>
+                                <!--<div class="hover-look">
+                                    <button type="submit" class="btn btn-sucesses button-small text-center">Quick View</button>
+                                    <a type="submit" class="btn btn-sucesses button-small text-center">Details</a>
+                                </div>-->
+                            </div>
+                            <div class="artist-cont-detail">
+                                <p class="ng-binding">
+                                    Project1 <i class="fa fa-heart font-color3" ng-click="makeFav(totalartconts);"></i>
+                                    <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
+                                </p>
+                                <p class="m0">
+                                    Sculptures
+                                </p>
+                                <p class="m0">
+                                    canavas
+                                </p>
+                                <p class="m0">
+                                    18 x 12 inches
+                                </p>
+                            </div>
                         </div>
-                        <div class="artist-cont-detail">
-                            <p class="mt10">
-                                <!-- {{totalartconts.artwork.srno}} -->
-                                Project1 <i class="fa fa-heart"></i>
-                                <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
-                                <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
-                                <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
-                                <!-- ngIf: totalartconts.artwork.status=='sold' -->
-                            </p>
-                            <p class="m0">
-                                Sculptures
-                            </p>
-                            <p class="m0">
-                                canavas
-                            </p>
-                            <p class="m0">
-                                18 x 12 inches
-                            </p>
-                            <p class="m0">
-                                22 / 06 / 2016
-                            </p>
-                            <!-- end ngIf: totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold' -->
-                            <!-- ngIf: !totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A' -->
+                    </div>
+                    <div class="col-xs-20">
+                        <div class="aristimg-grp1 mb20">
+                            <div class="relative">
+                                <a ui-sref="detail({artid:totalartconts.artwork._id})">
+                                    <div class="image-holders fixit">
+                                        <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg">
+                                    </div>
+                                </a>
+                                <!--<div class="hover-look">
+                                    <button type="submit" class="btn btn-sucesses button-small text-center">Quick View</button>
+                                    <a type="submit" class="btn btn-sucesses button-small text-center">Details</a>
+                                </div>-->
+                            </div>
+                            <div class="artist-cont-detail">
+                                <p class="ng-binding">
+                                    Project1 <i class="fa fa-heart font-color3" ng-click="makeFav(totalartconts);"></i>
+                                    <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
+                                </p>
+                                <p class="m0">
+                                    Sculptures
+                                </p>
+                                <p class="m0">
+                                    canavas
+                                </p>
+                                <p class="m0">
+                                    18 x 12 inches
+                                </p>
+                            </div>
                         </div>
-                    </li>
-                </flex-slider>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="text-center super-margin">
-        <button class="btn btn-primarys uppercase" ui-sref="commission-projects">Start Your Project</button>
-    </div>
-</div>
 </div>
