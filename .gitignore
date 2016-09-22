@@ -116,6 +116,7 @@ npm-debug.log
 nbproject
 .idea
 .node_history
+assets/bower_components
 
 uploads
 uploads/3e48a5ad-f58c-4ece-bdc9-d811882955e4.png
