@@ -87,11 +87,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("commissionslider").count({
-                    title: {
-                        '$regex': check
-                    }
-                }, function(err, number) {
+                db.collection("commissionslider").count({}, function(err, number) {
                     if (number) {
                         newreturns.total = number;
                         newreturns.totalpages = Math.ceil(number / data.pagesize);
@@ -111,11 +107,7 @@ module.exports = {
                 });
 
                 function callbackfunc() {
-                    db.collection("commissionslider").find({
-                        title: {
-                            '$regex': check
-                        }
-                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                    db.collection("commissionslider").find({}, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
                         if (err) {
                             callback({
                                 value: false
