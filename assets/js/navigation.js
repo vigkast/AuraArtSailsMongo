@@ -2,6 +2,11 @@ var adminurl = "http://www.auraart.in/";
 // var adminurl = "http://192.168.1.129:1337/";
 var imgUploadUrl = adminurl + "user/uploadfile";
 var wallUploadUrl = adminurl + "user/wallUpload";
+var imgurl = adminurl + "upload/";
+
+var imgpath = imgurl + "readFile";
+var uploadurl = imgurl;
+
 
 var navigationservice = angular.module('navigationservice', ['ngDialog'])
 
@@ -208,6 +213,21 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 method: "POST",
                 data: register
             }).success(callback);
+        },
+        saveDesignation: function(desig) {
+            if ($.jStorage.get("designation")) {
+                var a = $.jStorage.get("designation");
+                a.push(desig);
+                $.jStorage.set("designation", a);
+            } else {
+                var a = [];
+                a.push(desig);
+                $.jStorage.set("designation", a);
+            }
+
+        },
+        getDesignation: function() {
+            return $.jStorage.get("designation");
         },
         registerArtist: function(register, callback) {
             delete register.confirmpassword

@@ -8,13 +8,13 @@
             <div class="col-md-2" ng-init="activeIndex=null;">
                 <div class="info-cont">
                     <ul class="info-li">
-                        <li class="cat-list bold">Mahesh Mauraya</li>
+                        <li class="cat-list bold">{{userData.name || "-"}}</li>
                         <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'profile'}" ng-click="changeTab('profile');">User Profile</li>
                         <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'projects'}" ng-click="changeTab('projects');">Projects
                             <a href="" class="uppercase addnew">+new</a>
                         </li>
-                        <li class="cat-list sub-catpointers" ng-class="{'bolds' : activeTab == 'projectschat' && activeIndex == $index}" ng-click="activeIndex=$index;getChats(ticket);" ng-repeat="ticket in tickets">{{ticket.title}}
-                            (Proposal)</li>
+                        <li class="cat-list sub-catpointers" ng-class="{'bolds' : activeTab == 'projectschat' && activeIndex == $index}" ng-click="activeIndex=$index;getChats(ticket);" ng-repeat="ticket in tickets">{{ticket.title}} (Proposal)
+                        </li>
                         <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'viewprojects'}" ng-click="changeTab('viewprojects');">View All Projects
                         </li>
                         <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'viewprojectsfavourite'}" ng-click="changeTab('viewprojectsfavourite');">Favourite</li>
@@ -24,56 +24,60 @@
             <div class="col-md-10" ng-if="activeTab == 'profile'">
                 <div class="chngpswd-cont">
                     <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="input-id">
-                                    <input class="form-control" ng-model="user.name" placeholder="Name*" required type="text">
+                        <form ng-submit="saveUser();">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-id">
+                                        <input class="form-control" ng-model="userData.name" placeholder="Name*" required type="text">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-id">
-                                    <input class="form-control" ng-model="user.email" placeholder="Email ID*" required type="email">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="input-id">
-                                    <ui-select tagging tagging-label="('new')" ng-model="ticket.reference" theme="bootstrap" title="Choose Reference">
-                                        <ui-select-match placeholder="Select User Profile">{{$select.selected}}</ui-select-match>
-                                        <ui-select-choices repeat="userprofile in userprofiles | filter: $select.search">
-                                            <div ng-bind-html="userprofile | highlight: $select.search"></div>
-                                        </ui-select-choices>
-                                    </ui-select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-id">
-                                    <input class="form-control" ng-model="user.phone" placeholder="Contact Number*" required type="text">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <!-- <div class="input-id">
-                                    <input class="form-control" ng-model="user.name" placeholder="User Name" required type="text">
-                                </div> -->
-                                <div class="input-id">
-                                    <input class="form-control" ng-model="user.password" placeholder="Password*" required type="password">
-                                </div>
-                                <div class="input-id">
-                                    <input class="form-control" ng-model="user.password" placeholder="Reenter Password*" required type="password">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-id userprofile-com1">
-                                    <div class="text-make">
-                                        <textarea name="" placeholder="Address" class="form-control" id="" cols="30"></textarea>
+                                <div class="col-md-6">
+                                    <div class="input-id">
+                                        <input class="form-control" ng-model="userData.email" placeholder="Email ID*" required type="email">
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-id">
+                                        <ui-select tagging tagging-label="('new')" ng-model="userData.reference" theme="bootstrap" title="Choose Reference">
+                                            <ui-select-match placeholder="Select User Profile">{{$select.selected}}</ui-select-match>
+                                            <ui-select-choices repeat="userprofile in userprofiles | filter: $select.search">
+                                                <div ng-bind-html="userprofile | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-id">
+                                        <input class="form-control" ng-model="userData.mob" placeholder="Contact Number*" required type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!-- <div class="input-id">
+                                    <input class="form-control" ng-model="user.name" placeholder="User Name" required type="text">
+                                </div> -->
+                                    <div class="input-id">
+                                        <input class="form-control" ng-model="user.password" placeholder="Password*" type="password">
+                                    </div>
+                                    <div class="input-id">
+                                        <input class="form-control" ng-model="user.password" placeholder="Reenter Password*" type="password">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-id userprofile-com1">
+                                        <div class="text-make">
+                                            <textarea name="" ng-model="userData.address" placeholder="Address" class="form-control" id="" cols="30"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center super-margin">
+                                <button class="btn btn-primarys uppercase" type="submit">Submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -109,53 +113,58 @@
                                                 <textarea class="form-control" name="" ng-model="ticket.brief" placeholder="Project Brief*" required id="" cols="30"></textarea>
                                             </div>
                                             <div class="input-id">
-                                              <div class="form-group" style="margin-bottom:0;">
-                                                  <label>Reference
-                                                      <span ng-show="artwork.type=='Sculptures'">(Multiple Upload)</span>
+                                                <div class="form-group" style="margin-bottom:0;">
+                                                    <label>Reference
                                                   </label>
-                                                  <div class="scroll-x">
-                                                      <div class="img-box">
-                                                          <div class="many-img" ng-repeat="bill in artwork.image">
-                                                              <img ng-if="artwork.image.length!=0" ng-src="{{bill | uploadpath}}">
-                                                              <button class="btn btn-danger close-btn" ng-click="removeimage(artwork.image.indexOf(bill));" ng-if="artwork.image.length!=0" type="button">
-                                                                  <i class="glyphicon glyphicon-trash"></i>
-                                                              </button>
-                                                          </div>
-                                                      </div>
-                                                  </div>
-                                                  <div class="upload-div" ng-hide="artwork.type!='Sculptures' && artwork.image.length>=1">
-                                                      <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
-                                                      <div class="upload-buttons">
-                                                          <input name="file" ng-file-select="onFileSelect($files,1)" onclick="this.value=null" type="file" ng-hide="multiplesel">
-                                                          <input multiple name="file" ng-file-select="onFileSelect($files,1)" onclick="this.value=null" type="file" ng-show="multiplesel">
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                                <!-- <ui-select tagging tagging-label="('new')" ng-model="ticket.reference" theme="bootstrap" title="Choose Reference">
-                                                    <ui-select-match placeholder="Choose Reference">{{$select.selected}}</ui-select-match>
-                                                    <ui-select-choices repeat="userprofile in userprofiles | filter: $select.search">
-                                                        <div ng-bind-html="userprofile | highlight: $select.search"></div>
-                                                    </ui-select-choices>
-                                                </ui-select> -->
+                                                    <!--<upload-image ng-model="ticket.refrence"></upload-image>-->
+
+                                                    <div class="form-group" style="margin-bottom:0;">
+
+                                                        <span>(Multiple Upload)</span>
+
+                                                        <div class="scroll-x">
+                                                            <div class="img-box">
+                                                                <div class="many-img" ng-repeat="bill in ticket.image">
+                                                                    <img ng-if="artwork.image.length!=0" ng-src="{{bill | uploadpath}}">
+                                                                    <button class="btn btn-danger close-btn" ng-click="removeimage(artwork.image.indexOf(bill));" ng-if="artwork.image.length!=0" type="button">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="upload-div">
+                                                            <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
+                                                            <div class="upload-buttons">
+                                                                <!--<input name="file" ng-file-select="onFileSelect($files,1)" onclick="this.value=null" type="file" ng-hide="multiplesel">-->
+                                                                <input multiple name="file" ng-file-select="onFileSelect($files,1)" onclick="this.value=null" type="file">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="input-id">
-                                                <input class="form-control" ng-model="ticket.material" placeholder="Preferred Material to be Used" type="text">
+                                                <ui-select multiple ng-model="ticket.material" tagging tagging-label="false">
+                                                    <ui-select-match placeholder="Preferred Material to be Used">{{$item.name}}</ui-select-match>
+                                                    <ui-select-choices refresh-delay="0" refresh="refreshMedium($select.search,$select.selected)" repeat="person in medium track by person._id">
+                                                        <div ng-bind-html="person.name"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
                                             </div>
                                             <div class="form-inline size-input">
                                                 <div class="input-id">
                                                     <div class="form-group">
-                                                        <input class="form-control" ng-model="ticket.size" placeholder="Height" type="text">
+                                                        <input class="form-control" ng-model="ticket.height" placeholder="Height" type="text">
                                                     </div>
                                                     <div class="form-group">
-                                                        <input class="form-control" ng-model="ticket.size" placeholder="Width" type="text">
+                                                        <input class="form-control" ng-model="ticket.width" placeholder="Width" type="text">
                                                     </div>
                                                     <div class="form-group">
-                                                        <input class="form-control" ng-model="ticket.size" placeholder="Depth" type="text">
+                                                        <input class="form-control" ng-model="ticket.depth" placeholder="Depth" type="text">
                                                     </div>
                                                     <div class="form-group">
-                                                        <select class="form-control" id="sel1">
+                                                        <select class="form-control" ng-model="ticket.major" id="sel1">
                                                             <option>mm</option>
                                                             <option>cm</option>
                                                             <option>meter</option>
@@ -169,16 +178,16 @@
                                             <div class="form-inline size-input">
                                                 <div class="input-id">
                                                     <div class="form-group">
-                                                        <input class="form-control" ng-model="ticket.size" placeholder="Start Price" type="text">
+                                                        <input class="form-control" ng-model="ticket.startPrice" placeholder="Start Price" type="text">
                                                     </div>
                                                     <div class="form-group text-center">
                                                         to
                                                     </div>
                                                     <div class="form-group">
-                                                        <input class="form-control" ng-model="ticket.size" placeholder="End Price" type="text">
+                                                        <input class="form-control" ng-model="ticket.endPrice" placeholder="End Price" type="text">
                                                     </div>
                                                     <div class="form-group">
-                                                        <select class="form-control" id="sel1">
+                                                        <select class="form-control" ng-model="ticket.currency" id="sel1">
                                                             <option>Rs</option>
                                                             <option>USD</option>
                                                         </select>
@@ -186,15 +195,15 @@
                                                 </div>
                                             </div>
                                             <div class="input-id">
-                                                <input class="form-control" ng-model="ticket.addinfo" placeholder="Any additional information" type="text">
+                                                <input class="form-control" ng-model="ticket.additionalInfo" placeholder="Any additional information" type="text">
                                             </div>
                                             <div class="input-id">
-                                                <input class="form-control" ng-model="ticket.time" placeholder="Lead Time" type="text">
+                                                <input class="form-control" ng-model="ticket.leadTime" placeholder="Lead Time" type="text">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="text-make">
-                                                <textarea name="" placeholder="Delivery Location" class="form-control" id=""></textarea>
+                                                <textarea name="" placeholder="Delivery Location" ng-model="ticket.deliveryLocation" class="form-control" id=""></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -212,8 +221,7 @@
                     <div class="col-md-12">
                         <div class="ticket pb20">
                             <label for="">
-                                Ticket Number</label>
-                            12333
+                                Ticket Number</label> 12333
                         </div>
                     </div>
                 </div>
@@ -240,12 +248,10 @@
                                                         <h5 class="title font-color2">References</h5>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <div class="img-inline-box">
-                                                            <img src="img/artist/sculpture4.jpg" alt="">
+                                                        <div class="img-inline-box" ng-repeat="img in ticketDetail.image">
+                                                            <img ng-src="{{img | uploadpath}}" alt="">
                                                         </div>
-                                                        <div class="img-inline-box">
-                                                            <img src="img/artist/sculpture4.jpg" alt="">
-                                                        </div>
+
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -254,7 +260,7 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="material-cont">
-                                                            <p>{{ticketDetail.material}}</p>
+                                                            <p ng-repeat="material in ticketDetail.material">{{material.name}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -264,7 +270,7 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="material-cont">
-                                                            <p>{{ticketDetail.size}}</p>
+                                                            <p>{{ticketDetail.height}} x {{ticketDetail.width}} x {{ticketDetail.depth}} {{ticketDetail.major}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -274,8 +280,7 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="material-cont">
-                                                            <p>Rs.
-                                                                {{ticketDetail.budget | inlakhs}}</p>
+                                                            <p> From {{ticketDetail.currency}}. {{ticketDetail.startPrice}} To {{ticketDetail.currency}}. {{ticketDetail.endPrice}} </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -286,7 +291,7 @@
                                                     <div class="col-md-9">
                                                         <div class="material-cont">
                                                             <p>
-                                                                {{ticketDetail.addinfo}}</p>
+                                                                {{ticketDetail.additionalInfo}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -296,7 +301,7 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="material-cont">
-                                                            <p>{{ticketDetail.time}}</p>
+                                                            <p>{{ticketDetail.leadTime}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -349,7 +354,7 @@
                                             <textarea name="" id="" placeholder="Please enter your text here" class="form-control" ng-model="chat.message" required></textarea>
                                         </div>
                                         <div class="box-desgnation pad0">
-                                            <input name="" id="" placeholder="Please enter your Designation" class="form-control" ng-model="chat.designation">
+                                            <input type="text" placeholder="Please enter your Designation" ng-model="chat.designation" uib-typeahead="desig for desig in desigs | filter:$viewValue | limitTo:8" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -374,148 +379,6 @@
                 </div>
             </div>
             <div class="col-md-10" ng-if="activeTab == 'viewprojectsfavourite'">
-              <div class="active-project comission-project">
-                  <div class="panel">
-                      <div class="panel-body">
-                          <div class="row">
-                              <div class="col-md-12">
-                                  <div class="panel-head">
-                                      <h4>
-                                          Active Projects</h4>
-                                  </div>
-                              </div>
-                              <div class="col-xs-20 ng-scope">
-                                  <div class="aristimg-grp1 mb20">
-                                      <div class="relative" ng-click="getHeight(totalartconts);">
-                                          <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
-                                          <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
-                                          <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
-                                              <div class="image-holders fixit">
-                                                  <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
-                                              </div>
-                                          </a>
-                                          <!-- end ngIf: totalartconts.artwork.type!='Sculptures' -->
-                                          <div class="hover-look">
-                                              <button type="submit" class="btn btn-sucesses button-small text-center" ng-click="showDetails(totalartconts);">Quick View</button>
-                                              <a type="submit" class="btn btn-sucesses button-small text-center" ng-click="goToDetailPage(totalartconts.artwork);">Details</a>
-                                          </div>
-                                      </div>
-                                      <div class="artist-cont-detail">
-                                          <p class="ng-binding">
-                                              <!-- {{totalartconts.artwork.srno}} -->
-                                              Project1 <i class="fa fa-heart font-color3" ng-click="makeFav(totalartconts);"></i>
-                                              <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
-                                              <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
-                                              <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
-                                              <!-- ngIf: totalartconts.artwork.status=='sold' -->
-                                          </p>
-                                          <p class="m0">
-                                              Sculptures
-                                          </p>
-                                          <p class="m0">
-                                              canavas
-                                          </p>
-                                          <p class="m0">
-                                              18 x 12 inches
-                                          </p>
-                                          <!-- <p class="m0">
-                                              22 / 06 / 2016
-                                          </p> -->
-                                          <!-- end ngIf: totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold' -->
-                                          <!-- ngIf: !totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A' -->
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-xs-20 ng-scope">
-                                  <div class="aristimg-grp1 mb20">
-                                      <div class="relative" ng-click="getHeight(totalartconts);">
-                                          <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
-                                          <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
-                                          <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
-                                              <div class="image-holders fixit">
-                                                  <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
-                                              </div>
-                                          </a>
-                                          <!-- end ngIf: totalartconts.artwork.type!='Sculptures' -->
-                                          <div class="hover-look">
-                                              <button type="submit" class="btn btn-sucesses button-small text-center" ng-click="showDetails(totalartconts);">Quick View</button>
-                                              <a type="submit" class="btn btn-sucesses button-small text-center" ng-click="goToDetailPage(totalartconts.artwork);">Details</a>
-                                          </div>
-                                      </div>
-                                      <div class="artist-cont-detail">
-                                          <p class="ng-binding">
-                                              <!-- {{totalartconts.artwork.srno}} -->
-                                              Project1 <i class="fa fa-heart font-color3" ng-click="makeFav(totalartconts);"></i>
-                                              <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
-                                              <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
-                                              <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
-                                              <!-- ngIf: totalartconts.artwork.status=='sold' -->
-                                          </p>
-                                          <p class="m0">
-                                              Sculptures
-                                          </p>
-                                          <p class="m0">
-                                              canavas
-                                          </p>
-                                          <p class="m0">
-                                              18 x 12 inches
-                                          </p>
-                                          <!-- <p class="m0">
-                                              22 / 06 / 2016
-                                          </p> -->
-                                          <!-- end ngIf: totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold' -->
-                                          <!-- ngIf: !totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A' -->
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-xs-20 ng-scope">
-                                  <div class="aristimg-grp1 mb20">
-                                      <div class="relative" ng-click="getHeight(totalartconts);">
-                                          <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
-                                          <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
-                                          <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
-                                              <div class="image-holders fixit">
-                                                  <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
-                                              </div>
-                                          </a>
-                                          <!-- end ngIf: totalartconts.artwork.type!='Sculptures' -->
-                                          <div class="hover-look">
-                                              <button type="submit" class="btn btn-sucesses button-small text-center" ng-click="showDetails(totalartconts);">Quick View</button>
-                                              <a type="submit" class="btn btn-sucesses button-small text-center" ng-click="goToDetailPage(totalartconts.artwork);">Details</a>
-                                          </div>
-                                      </div>
-                                      <div class="artist-cont-detail">
-                                          <p class="ng-binding">
-                                              <!-- {{totalartconts.artwork.srno}} -->
-                                              Project1 <i class="fa fa-heart font-color3" ng-click="makeFav(totalartconts);"></i>
-                                              <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
-                                              <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
-                                              <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
-                                              <!-- ngIf: totalartconts.artwork.status=='sold' -->
-                                          </p>
-                                          <p class="m0">
-                                              Sculptures
-                                          </p>
-                                          <p class="m0">
-                                              canavas
-                                          </p>
-                                          <p class="m0">
-                                              18 x 12 inches
-                                          </p>
-                                          <!-- <p class="m0">
-                                              22 / 06 / 2016
-                                          </p> -->
-                                          <!-- end ngIf: totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold' -->
-                                          <!-- ngIf: !totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A' -->
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-            <div class="col-md-10" ng-if="activeTab == 'viewprojects'">
                 <div class="active-project comission-project">
                     <div class="panel">
                         <div class="panel-body">
@@ -545,7 +408,7 @@
                                         <div class="artist-cont-detail">
                                             <p class="ng-binding">
                                                 <!-- {{totalartconts.artwork.srno}} -->
-                                                Project1
+                                                Project1 <i class="fa fa-heart font-color3" ng-click="makeFav(totalartconts);"></i>
                                                 <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
                                                 <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
                                                 <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
@@ -561,8 +424,8 @@
                                                 18 x 12 inches
                                             </p>
                                             <!-- <p class="m0">
-                                                22 / 06 / 2016
-                                            </p> -->
+                                              22 / 06 / 2016
+                                          </p> -->
                                             <!-- end ngIf: totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold' -->
                                             <!-- ngIf: !totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A' -->
                                         </div>
@@ -587,7 +450,7 @@
                                         <div class="artist-cont-detail">
                                             <p class="ng-binding">
                                                 <!-- {{totalartconts.artwork.srno}} -->
-                                                Project1
+                                                Project1 <i class="fa fa-heart font-color3" ng-click="makeFav(totalartconts);"></i>
                                                 <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
                                                 <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
                                                 <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
@@ -603,8 +466,8 @@
                                                 18 x 12 inches
                                             </p>
                                             <!-- <p class="m0">
-                                                22 / 06 / 2016
-                                            </p> -->
+                                              22 / 06 / 2016
+                                          </p> -->
                                             <!-- end ngIf: totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold' -->
                                             <!-- ngIf: !totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A' -->
                                         </div>
@@ -629,7 +492,7 @@
                                         <div class="artist-cont-detail">
                                             <p class="ng-binding">
                                                 <!-- {{totalartconts.artwork.srno}} -->
-                                                Project1
+                                                Project1 <i class="fa fa-heart font-color3" ng-click="makeFav(totalartconts);"></i>
                                                 <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
                                                 <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
                                                 <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
@@ -643,6 +506,64 @@
                                             </p>
                                             <p class="m0">
                                                 18 x 12 inches
+                                            </p>
+                                            <!-- <p class="m0">
+                                              22 / 06 / 2016
+                                          </p> -->
+                                            <!-- end ngIf: totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold' -->
+                                            <!-- ngIf: !totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A' -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10" ng-if="activeTab == 'viewprojects'">
+                <div class="active-project comission-project">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel-head">
+                                        <h4>
+                                            Active Projects</h4>
+                                    </div>
+                                </div>
+                                <div class="col-xs-20 ng-scope" ng-repeat="ticket in tickets">
+                                    <div class="aristimg-grp1 mb20">
+                                        <div class="relative" ng-click="getHeight(totalartconts);">
+                                            <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
+                                            <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
+                                            <!--<a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">-->
+                                            <div class="image-holders fixit">
+                                                <img class="fix-img doneLoading" ng-src="{{ticket.image[0]|uploadpath}}">
+                                            </div>
+                                            <!--</a>-->
+                                            <!-- end ngIf: totalartconts.artwork.type!='Sculptures' -->
+                                            <div class="hover-look">
+                                                <button type="submit" class="btn btn-sucesses button-small text-center" ng-click="showDetails(totalartconts);">Quick View</button>
+                                                <a type="submit" class="btn btn-sucesses button-small text-center" ng-click="goToDetailPage(totalartconts.artwork);">Details</a>
+                                            </div>
+                                        </div>
+                                        <div class="artist-cont-detail">
+                                            <p class="ng-binding">
+                                                <!-- {{totalartconts.artwork.srno}} -->
+                                                {{ticket.title}}
+                                                <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
+                                                <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
+                                                <!-- end ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
+                                                <!-- ngIf: totalartconts.artwork.status=='sold' -->
+                                            </p>
+                                            <p class="m0">
+                                                Sculptures
+                                            </p>
+                                            <p class="m0">
+                                                <span ng-repeat="mtrl in ticket.material track by $index">{{mtrl.name}}<span ng-if="$index < ticket.material.length-1">,</span> </span>
+                                            </p>
+                                            <p class="m0">
+                                                {{ticket.height}} x {{ticket.width}} x {{ticket.depth}} {{ticket.major}}
                                             </p>
                                             <!-- <p class="m0">
                                                 22 / 06 / 2016
