@@ -18391,7 +18391,7 @@ img.fancybox-image {
 }
 
 .box-right {
-  padding: 20px;
+  padding: 20px 20px 5px 20px;
   border: 1px solid #ddd;
   border-radius: 10px;
   position: relative;

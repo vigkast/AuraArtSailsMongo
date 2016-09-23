@@ -6852,6 +6852,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     //imageupload
     var imagejstupld = "";
     $scope.ticket.image = [];
+    $scope.chatimages = [];
     // $scope.artwork.certi = "";
     $scope.usingFlash = FileAPI && FileAPI.upload != null;
     $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
@@ -6925,7 +6926,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $timeout(function() {
                     $scope.uploadResult.push(response.data);
                     imagejstupld = response.data;
-                    $scope.ticket.image.push(imagejstupld.files[0].fd);
+                    if (whichone == 1) {
+                        $scope.ticket.image.push(imagejstupld.files[0].fd);
+                    } else {
+                        $scope.chatimages.push(imagejstupld.files[0].fd);
+                    }
 
                 });
             }, function(response) {
@@ -7119,16 +7124,22 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         obj.name = $scope.userData.name;
         obj.message = $scope.chat.message;
         obj.designation = $scope.chat.designation;
+        obj.image = $scope.chatimages;
 
         console.log(obj);
         NavigationService.saveTicketElement(obj, function(data) {
             if (data.value != false) {
+                $scope.chatimages = [];
                 NavigationService.saveDesignation($scope.chat.designation);
                 $scope.chat.message = "";
                 $scope.chat.designation = "";
                 getTicketElements();
             }
         });
+    }
+    $scope.refreshElement = function() {
+        console.log("refresh clicked");
+        getTicketElements();
     }
 
 })
