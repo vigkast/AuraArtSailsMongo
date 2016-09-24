@@ -113,8 +113,10 @@
                                                         </div>
                                                         <div class="upload-div">
                                                             <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
-                                                            <div class="upload-buttons">
-                                                                <input multiple name="file" ng-file-select="onFileSelect($files,1)" onclick="this.value=null" type="file">
+
+                                                            <div class="file-upload btn btn-primary" ng-hide="uploading">
+                                                                <span>Upload Image</span>
+                                                                <input class="btn-upload" type='file' name='file' ng-file-select='onFileSelect($files,1)' onclick='this.value=null'>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -363,8 +365,9 @@
                                             </a>
                                             <div class="upload-div">
                                                 <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
-                                                <div class="upload-buttons">
-                                                    <input multiple name="file" ng-file-select="onFileSelect($files,2)" onclick="this.value=null" type="file">
+                                                <div class="file-upload btn btn-primary" ng-hide="uploading">
+                                                    <span>Upload Image</span>
+                                                    <input class="btn-upload" type='file' name='file' ng-file-select='onFileSelect($files,2)' onclick='this.value=null'>
                                                 </div>
                                             </div>
 
@@ -529,7 +532,10 @@
                                             Active Projects</h4>
                                     </div>
                                 </div>
-                                <div class="col-xs-20 ng-scope" ng-repeat="ticket in tickets">
+                                <div class="col-xs-20 ng-scope" ng-if="activeTickets==''">
+                                    <span>No Active Project.</span>
+                                </div>
+                                <div class="col-xs-20 ng-scope" ng-repeat="ticket in activeTickets">
                                     <div class="aristimg-grp1 mb20">
                                         <div class="relative" ng-click="getHeight(totalartconts);">
 
@@ -576,14 +582,16 @@
                                         Closed Projects</h4>
                                 </div>
                             </div>
-                            <div class="col-xs-20 ng-scope">
+                            <div class="col-xs-20 ng-scope" ng-if="closedTickets==''">
+                                <span>No Closed Project.</span>
+                            </div>
+                            <div class="col-xs-20 ng-scope" ng-repeat="ticket in closedTickets">
                                 <div class="aristimg-grp1 mb20">
                                     <div class="relative" ng-click="getHeight(totalartconts);">
-                                        <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
-                                            <div class="image-holders fixit">
-                                                <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
-                                            </div>
-                                        </a>
+
+                                        <div class="image-holders fixit">
+                                            <img class="fix-img doneLoading" ng-src="{{ticket.image[0]|uploadpath}}">
+                                        </div>
                                         <div class="hover-look">
                                             <button type="submit" class="btn btn-sucesses button-small text-center" ng-click="showDetails(totalartconts);">Quick View</button>
                                             <a type="submit" class="btn btn-sucesses button-small text-center" ng-click="goToDetailPage(totalartconts.artwork);">Details</a>
@@ -591,20 +599,17 @@
                                     </div>
                                     <div class="artist-cont-detail">
                                         <p class="ng-binding">
+                                            {{ticket.title}}
                                             <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
-
                                         </p>
                                         <p class="m0">
                                             Sculptures
                                         </p>
                                         <p class="m0">
-                                            canavas
+                                            <span ng-repeat="mtrl in ticket.material track by $index">{{mtrl.name}}<span ng-if="$index < ticket.material.length-1">,</span> </span>
                                         </p>
                                         <p class="m0">
-                                            18 x 12 inches
-                                        </p>
-                                        <p class="m0">
-                                            22 / 06 / 2016
+                                            {{ticket.height}} x {{ticket.width}} x {{ticket.depth}} {{ticket.major}}
                                         </p>
                                     </div>
                                 </div>

@@ -839,6 +839,17 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 }
             }).success(callback);
         },
+        getAllTicket: function(callback) {
+            $http({
+                url: adminurl + "ticket/findlimited",
+                method: "POST",
+                data: {
+                    "pagenumber": 1,
+                    "pagesize": 50,
+                    "serch": ""
+                }
+            }).success(callback);
+        },
         saveTicketElement: function(obj, callback) {
             $http({
                 url: adminurl + "ticketelement/save",

@@ -6813,19 +6813,18 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.menutitle = NavigationService.makeactive("Commission Sculptures");
     TemplateService.title = $scope.menutitle;
     $scope.navigation = NavigationService.getnav();
-    $scope.imgsculpture = [{
-        img: "img/sculpture.jpg"
-    }, {
-        img: "img/sculpture1.jpg"
-    }, {
-        img: "img/painting1.jpg"
-    }, {
-        img: "img/sculpture1.jpg"
-    }, {
-        img: "img/sculpture.jpg"
-    }, {
-        img: "img/painting1.jpg"
-    }, ]
+    $scope.sculpture = [];
+    $scope.msg = "Loading";
+
+    NavigationService.getAllTicket(function(data) {
+        if (data.value) {
+            $scope.msg = "";
+            $scope.sculpture = data.data;
+        } else {
+            $scope.msg = "No Data Found.";
+        }
+    });
+
 })
 
 .controller('CommissionProjectsCtrl', function($scope, TemplateService, NavigationService, $state, cfpLoadingBar, $upload, $timeout) {
@@ -7030,6 +7029,27 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             if (data.value != false) {
                 $scope.showLoginErr = false;
                 $scope.tickets = data;
+                $scope.activeTickets = [];
+                $scope.closedTickets = [];
+                _.each(data, function(n) {
+                    switch (n.status) {
+                        case "Active":
+                            {
+                                $scope.activeTickets.push(n);
+                                break;
+                            }
+                        case "Closing":
+                            {
+                                $scope.closedTickets.push(n);
+                                break;
+                            }
+                        default:
+                            {
+                                break;
+                            }
+
+                    }
+                });
             } else if (data.value == false && data.comment == "User not logged-in") {
                 $scope.showLoginErr = true;
             }
