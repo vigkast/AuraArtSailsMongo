@@ -60,6 +60,19 @@ module.exports = {
         };
         CommissionSlider.find(req.body, callback);
     },
+    findCommission: function(req, res) {
+        if (req.body) {
+            function callback(data) {
+                res.json(data);
+            };
+            CommissionSlider.findCommission(req.body, callback);
+        } else {
+            res.json({
+                value: false,
+                comment: "Please provide parameters"
+            });
+        }
+    },
     findone: function(req, res) {
         if (req.body) {
             if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {

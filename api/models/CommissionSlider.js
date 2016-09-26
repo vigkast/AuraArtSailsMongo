@@ -15,6 +15,7 @@ module.exports = {
             } else if (db) {
                 if (!data._id) {
                     data._id = sails.ObjectID();
+                    data.product = sails.ObjectID(data.product);
                     db.collection('commissionslider').insert(data, function(err, created) {
                         if (err) {
                             console.log(err);
@@ -72,6 +73,46 @@ module.exports = {
             }
         });
     },
+    findCommission: function(data, callback) {
+        sails.query(function(err, db) {
+            console.log("demo");
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("commissionslider").aggregate([{
+                    $unwind: "$product"
+                }, {
+                    $lookup: {
+                        from: "artwork",
+                        localField: "product",
+                        foreignField: "_id",
+                        as: "Products"
+                    }
+                }]).toArray(function(err, found) {
+                    if (err) {
+                        callback({
+                            value: false
+                        });
+                        console.log(err);
+                        db.close();
+                    } else if (found && found[0]) {
+                        callback(found[0]);
+                        db.close()
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    },
     findlimited: function(data, callback) {
         var newcallback = 0;
         var newreturns = {};
@@ -107,7 +148,13 @@ module.exports = {
                 });
 
                 function callbackfunc() {
-                    db.collection("commissionslider").find({}, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                    db.collection("commissionslider").aggregate([{
+                        $unwind: "$artwork"
+                    }, {
+                        $match: {
+                            "artwork.imageno": m.imageno
+                        }
+                    }]).find({}, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
                         if (err) {
                             callback({
                                 value: false
