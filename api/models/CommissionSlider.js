@@ -90,7 +90,7 @@ module.exports = {
                         from: "artwork",
                         localField: "product",
                         foreignField: "_id",
-                        as: "Products"
+                        as: "product"
                     }
                 }]).toArray(function(err, found) {
                     if (err) {

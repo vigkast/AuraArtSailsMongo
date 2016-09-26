@@ -93,35 +93,6 @@
                                             <div class="input-id userprofile-com">
                                                 <textarea class="form-control" name="" ng-model="ticket.brief" placeholder="Project Brief*" required id="" cols="30"></textarea>
                                             </div>
-                                            <div class="input-id">
-                                                <div class="form-group" style="margin-bottom:0;">
-                                                    <label>Reference
-                                                  </label>
-                                                    <div class="form-group" style="margin-bottom:0;">
-
-                                                        <span>(Multiple Upload)</span>
-
-                                                        <div class="scroll-x">
-                                                            <div class="img-box">
-                                                                <div class="many-img" ng-repeat="bill in ticket.image">
-                                                                    <img ng-if="artwork.image.length!=0" ng-src="{{bill | uploadpath}}">
-                                                                    <button class="btn btn-danger close-btn" ng-click="removeimage(artwork.image.indexOf(bill));" ng-if="artwork.image.length!=0" type="button">
-                                                    <i class="glyphicon glyphicon-trash"></i>
-                                                </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="upload-div">
-                                                            <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
-
-                                                            <div class="file-upload btn btn-primary" ng-hide="uploading">
-                                                                <span>Upload Image</span>
-                                                                <input class="btn-upload" type='file' name='file' ng-file-select='onFileSelect($files,1)' onclick='this.value=null'>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="input-id">
@@ -183,6 +154,37 @@
                                         <div class="col-md-12">
                                             <div class="text-make">
                                                 <textarea name="" placeholder="Delivery Location" ng-model="ticket.deliveryLocation" class="form-control" id=""></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="input-id">
+                                                <div class="form-group" style="margin-bottom:0;">
+                                                    <label>Reference
+                                                  </label>
+                                                    <div class="form-group" style="margin-bottom:0;">
+
+                                                        <span>(Multiple Upload)</span>
+
+                                                        <div class="scroll-x">
+                                                            <div class="img-box">
+                                                                <div class="many-img" ng-repeat="bill in ticket.image">
+                                                                    <img ng-if="artwork.image.length!=0" ng-src="{{bill | uploadpath}}">
+                                                                    <button class="btn btn-danger close-btn" ng-click="removeimage(artwork.image.indexOf(bill));" ng-if="artwork.image.length!=0" type="button">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="upload-div col-md-6">
+                                                            <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
+
+                                                            <div class="file-upload btn btn-primary" ng-hide="uploading">
+                                                                <span>Upload Image</span>
+                                                                <input class="btn-upload" type='file' name='file' ng-file-select='onFileSelect($files,1)' onclick='this.value=null'>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
