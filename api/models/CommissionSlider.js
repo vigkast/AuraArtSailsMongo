@@ -83,32 +83,66 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("commissionslider").aggregate([{
-                    $unwind: "$product"
-                }, {
-                    $lookup: {
-                        from: "artwork",
-                        localField: "product",
-                        foreignField: "_id",
-                        as: "product"
-                    }
-                }]).toArray(function(err, found) {
+
+                db.collection("commissionslider").find().sort({
+                    order: 1
+                }).toArray(function(err, data) {
+                    console.log(data);
                     if (err) {
                         callback({
                             value: false
                         });
-                        console.log(err);
-                        db.close();
-                    } else if (found && found[0]) {
-                        callback(found[0]);
-                        db.close()
+                    } else if (data.length > 0) {
+                        var returnVal = [];
+                        async.each(data, function(obj, callback) {
+                            db.collection("user").aggregate([{
+                                $unwind: "$artwork"
+                            }, {
+                                "$match": {
+                                    "artwork._id": obj.product
+                                }
+                            }]).toArray(function(err, found) {
+                                if (err) {
+                                    callback({
+                                        value: false
+                                    });
+                                    console.log(err);
+                                    db.close();
+                                } else if (found && found[0]) {
+                                    returnVal.push(found[0].artwork);
+                                    callback(null);
+                                    db.close()
+                                } else {
+                                    callback({
+                                        value: false,
+                                        comment: "No data found"
+                                    });
+                                    db.close();
+                                }
+                            });
+
+                        }, function(err) {
+                            // if any of the file processing produced an error, err would equal that error
+                            if (err) {
+                                // One of the iterations produced an error.
+                                // All processing will now stop.
+                                callback({
+                                    error: err,
+                                    value: false
+                                });
+                            } else {
+                                callback(returnVal);
+                            }
+                        });
                     } else {
                         callback({
                             value: false,
-                            comment: "No data found"
+                            error: "Product not found"
                         });
-                        db.close();
                     }
+
+
+
                 });
             }
         });
