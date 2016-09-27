@@ -286,6 +286,13 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 }
             }).success(callback);
         },
+        findCommission: function(artid, callback) {
+            $http({
+                url: adminurl + "commissionslider/findCommission",
+                method: "POST",
+                data: {}
+            }).success(callback);
+        },
         getallartist: function(pagedata, callback) {
             // delete pagedata.pagenumber;
             // delete pagedata.pagesize;
