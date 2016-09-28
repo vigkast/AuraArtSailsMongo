@@ -26,12 +26,12 @@
             </div>-->
             <div class="artist comission-project">
                 <div class="row">
-                    <div class="col-xs-20">
+                    <div class="col-xs-20" ng-repeat="artwork in sculpture">
                         <div class="aristimg-grp1 mb20">
                             <div class="relative">
-                                <a ui-sref="detail({artid:totalartconts.artwork._id})">
+                                <a ui-sref="detail({artid:artwork._id})">
                                     <div class="image-holders fixit">
-                                        <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg">
+                                        <img class="fix-img doneLoading" ng-src="{{artwork.image[0]|uploadpath}}">
                                     </div>
                                 </a>
                                 <!--<div class="hover-look">
@@ -41,18 +41,16 @@
                             </div>
                             <div class="artist-cont-detail">
                                 <p class="ng-binding">
-                                    Project1 <i class="fa fa-heart font-color3" ng-click="makeFav(totalartconts);"></i>
-                                    <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
+                                    {{artwork.name}} <i class="{{totalartconts.heartClass = (totalartconts.artwork._id | showheart)}}" ng-click="makeFav(artwork);"></i>
+                                    <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(artwork);" ng-if="artwork.status!='sold' &amp;&amp; artwork.gprice &amp;&amp; artwork.gprice!='N/A'"></i>
                                 </p>
                                 <p class="m0">
-                                    Sculptures
+                                    {{artwork.type}}
                                 </p>
-                                <p class="m0">
+                                <!--<p class="m0">
                                     canavas
-                                </p>
-                                <p class="m0">
-                                    18 x 12 inches
-                                </p>
+                                </p>-->
+                                <p class="m0">{{artwork.height}} x {{artwork.width}} <span ng-if="artwork.breadth">x {{artwork.breadth}}</span><span ng-if="artwork.depth">x {{artwork.depth}}</span><span ng-if="artwork.major"> {{artwork.major}}</span> <span ng-if="!artwork.major">inches</span></p>
                             </div>
                         </div>
                     </div>

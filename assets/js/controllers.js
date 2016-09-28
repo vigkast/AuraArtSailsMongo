@@ -6816,13 +6816,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
     $scope.sculpture = [];
     $scope.msg = "Loading";
 
-    NavigationService.getAllTicket(function(data) {
-        if (data.value) {
-            $scope.msg = "";
-            $scope.sculpture = data.data;
-        } else {
-            $scope.msg = "No Data Found.";
-        }
+    NavigationService.findCommission(function(data) {
+        // if (data) {
+        $scope.msg = "";
+        $scope.sculpture = data;
+        // } else {
+        //     $scope.msg = "No Data Found.";
+        // }
     });
 
 })

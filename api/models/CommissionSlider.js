@@ -182,13 +182,8 @@ module.exports = {
                 });
 
                 function callbackfunc() {
-                    db.collection("commissionslider").aggregate([{
-                        $unwind: "$artwork"
-                    }, {
-                        $match: {
-                            "artwork.imageno": m.imageno
-                        }
-                    }]).find({}, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+
+                    db.collection("commissionslider").find({}, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
                         if (err) {
                             callback({
                                 value: false
