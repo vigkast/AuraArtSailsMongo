@@ -534,6 +534,88 @@ firstapp.directive('elevateZoom', function($document, $filter) {
     };
 });
 
+firstapp.directive('uploadImage', function($http, $filter) {
+    return {
+        templateUrl: 'views/directive/uploadFile.html',
+        scope: {
+            model: '=ngModel',
+            callback: "=ngCallback"
+        },
+        link: function($scope, element, attrs) {
+
+            $scope.showImage = function() {
+                console.log($scope.image);
+            };
+
+
+            $scope.isMultiple = false;
+            $scope.inObject = false;
+            if (attrs.multiple || attrs.multiple === "") {
+                $scope.isMultiple = true;
+                $("#inputImage").attr("multiple", "ADD");
+            }
+            if (attrs.noView || attrs.noView === "") {
+                $scope.noShow = true;
+            }
+
+            $scope.$watch("image", function(newVal, oldVal) {
+                if (newVal && newVal.file) {
+                    $scope.uploadNow(newVal);
+                }
+            });
+
+            if ($scope.model) {
+                if (_.isArray($scope.model)) {
+                    $scope.image = [];
+                    _.each($scope.model, function(n) {
+                        $scope.image.push({
+                            url: n
+                        });
+                    });
+                }
+
+            }
+            if (attrs.inobj || attrs.inobj === "") {
+                $scope.inObject = true;
+            }
+            $scope.clearOld = function() {
+                $scope.model = [];
+            };
+            $scope.uploadNow = function(image) {
+                $scope.uploadStatus = "uploading";
+
+                var Template = this;
+                image.hide = true;
+                var formData = new FormData();
+                formData.append('file', image.file, image.name);
+                $http.post(uploadurl, formData, {
+                    headers: {
+                        'Content-Type': undefined
+                    },
+                    transformRequest: angular.identity
+                }).success(function(data) {
+                    if ($scope.callback) {
+                        $scope.callback(data);
+                    } else {
+                        $scope.uploadStatus = "uploaded";
+                        if ($scope.isMultiple) {
+                            if ($scope.inObject) {
+                                $scope.model.push({
+                                    "image": data.data[0]
+                                });
+                            } else {
+                                $scope.model.push(data.data[0]);
+                            }
+                        } else {
+                            $scope.model = data.data[0];
+                        }
+                    }
+                });
+            };
+        }
+    };
+});
+
 firstapp.directive('zoomContainer', function() {
     return {
         restrict: 'A',

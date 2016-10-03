@@ -280,6 +280,7 @@ module.exports = {
                     value: false
                 });
             }
+
             if (db) {
                 db.collection("user").aggregate([{
                     $match: {
@@ -287,6 +288,75 @@ module.exports = {
                     }
                 }, {
                     $unwind: "$wishlist"
+                }, {
+                    $group: {
+                        _id: "$_id",
+                        wishlist: {
+                            $addToSet: "$wishlist"
+                        }
+                    }
+                }, {
+                    $project: {
+                        _id: 0,
+                        wishlist: 1
+                    }
+                }, {
+                    $unwind: "$wishlist"
+                }]).toArray(function(err, data2) {
+                    if (data2 && data2[0]) {
+                        _.each(data2, function(z) {
+                            lastresult.push(z.wishlist);
+                            i++;
+                            if (i == data2.length) {
+                                callback(lastresult);
+                                db.close();
+                            }
+                        });
+                    } else if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    },
+    findCommission: function(data, callback, isCommision) {
+        var lastresult = [];
+        var i = 0;
+        var user = sails.ObjectID(data.user);
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            var obj = {};
+            if (isCommision) {
+                obj = {
+
+                }
+            }
+            if (db) {
+                db.collection("user").aggregate([{
+                    $match: {
+                        _id: user
+                    }
+                }, {
+                    $unwind: "$wishlist"
+                }, {
+                    $match: {
+                        "wishlist.type": NE(commisionSulpture)
+                    }
                 }, {
                     $group: {
                         _id: "$_id",
