@@ -5,8 +5,8 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 module.exports = {
-    save: function(data, callback) {
-        sails.query(function(err, db) {
+    save: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -16,7 +16,7 @@ module.exports = {
                 if (!data._id) {
                     data._id = sails.ObjectID();
                     data.product = sails.ObjectID(data.product);
-                    db.collection('commissionslider').insert(data, function(err, created) {
+                    db.collection('commissionslider').insert(data, function (err, created) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -43,7 +43,7 @@ module.exports = {
                         _id: commissionslider
                     }, {
                         $set: data
-                    }, function(err, updated) {
+                    }, function (err, updated) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -73,8 +73,8 @@ module.exports = {
             }
         });
     },
-    findCommission: function(data, callback) {
-        sails.query(function(err, db) {
+    findCommission: function (data, callback) {
+        sails.query(function (err, db) {
             console.log("demo");
             if (err) {
                 console.log(err);
@@ -86,7 +86,7 @@ module.exports = {
 
                 db.collection("commissionslider").find().sort({
                     order: 1
-                }).toArray(function(err, data) {
+                }).toArray(function (err, data) {
                     console.log(data);
                     if (err) {
                         callback({
@@ -94,14 +94,14 @@ module.exports = {
                         });
                     } else if (data.length > 0) {
                         var returnVal = [];
-                        async.each(data, function(obj, callback) {
+                        async.each(data, function (obj, callback) {
                             db.collection("user").aggregate([{
                                 $unwind: "$artwork"
                             }, {
                                 "$match": {
-                                    "artwork._id": obj.product
+                                    "artwork._id": sails.ObjectID(obj.product)
                                 }
-                            }]).toArray(function(err, found) {
+                            }]).toArray(function (err, found) {
                                 if (err) {
                                     callback({
                                         value: false
@@ -121,7 +121,7 @@ module.exports = {
                                 }
                             });
 
-                        }, function(err) {
+                        }, function (err) {
                             // if any of the file processing produced an error, err would equal that error
                             if (err) {
                                 // One of the iterations produced an error.
@@ -147,14 +147,14 @@ module.exports = {
             }
         });
     },
-    findlimited: function(data, callback) {
+    findlimited: function (data, callback) {
         var newcallback = 0;
         var newreturns = {};
         newreturns.data = [];
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -162,7 +162,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("commissionslider").count({}, function(err, number) {
+                db.collection("commissionslider").count({}, function (err, number) {
                     if (number) {
                         newreturns.total = number;
                         newreturns.totalpages = Math.ceil(number / data.pagesize);
@@ -183,7 +183,7 @@ module.exports = {
 
                 function callbackfunc() {
 
-                    db.collection("commissionslider").find({}, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                    db.collection("commissionslider").find({}, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
                         if (err) {
                             callback({
                                 value: false
@@ -206,9 +206,9 @@ module.exports = {
             }
         });
     },
-    find: function(data, callback) {
+    find: function (data, callback) {
         var returns = [];
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -216,7 +216,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("commissionslider").find({}, {}).toArray(function(err, found) {
+                db.collection("commissionslider").find({}, {}).toArray(function (err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -237,8 +237,8 @@ module.exports = {
             }
         });
     },
-    findone: function(data, callback) {
-        sails.query(function(err, db) {
+    findone: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -248,7 +248,7 @@ module.exports = {
             if (db) {
                 db.collection("commissionslider").find({
                     "_id": sails.ObjectID(data._id)
-                }, {}).toArray(function(err, found) {
+                }, {}).toArray(function (err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -269,8 +269,8 @@ module.exports = {
             }
         });
     },
-    delete: function(data, callback) {
-        sails.query(function(err, db) {
+    delete: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -279,7 +279,7 @@ module.exports = {
             }
             db.collection('commissionslider').remove({
                 _id: sails.ObjectID(data._id)
-            }, function(err, deleted) {
+            }, function (err, deleted) {
                 if (deleted) {
                     callback({
                         value: true
