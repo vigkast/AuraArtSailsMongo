@@ -1,20 +1,20 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Art Enclave 2016</title>
+	<title>Aura Art Show 2016</title>
 	<meta name="viewport" content="width = 1050, user-scalable = no" />
 	<!-- <link rel="icon" type="image/png" href="../../pics/favicon.png" /> -->
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-	<script type="text/javascript" src="https://storage.googleapis.com/auraartemails/ArtEnclave/2016/eFlipBook/extras/jquery.min.1.7.js"></script>
-	<script type="text/javascript" src="https://storage.googleapis.com/auraartemails/ArtEnclave/2016/eFlipBook/extras/modernizr.2.5.3.min.js"></script>
-	<script type="text/javascript" src="https://storage.googleapis.com/auraartemails/ArtEnclave/2016/eFlipBook/extras/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="https://storage.googleapis.com/auraartemails/Events/AhmedabadShow2016/eFlipBook/extras/jquery.min.1.7.js"></script>
+	<script type="text/javascript" src="https://storage.googleapis.com/auraartemails/Events/AhmedabadShow2016/eFlipBook/extras/modernizr.2.5.3.min.js"></script>
+	<script type="text/javascript" src="https://storage.googleapis.com/auraartemails/Events/AhmedabadShow2016/eFlipBook/extras/jquery.mousewheel.min.js"></script>
 
 	<!-- turn.js files -->
 
-	<script type="text/javascript" src="https://storage.googleapis.com/auraartemails/ArtEnclave/2016/eFlipBook/extras/lib/hash.js"></script>
-	<script type="text/javascript" src="https://storage.googleapis.com/auraartemails/ArtEnclave/2016/eFlipBook/js/magazine.js"></script>
+	<script type="text/javascript" src="https://storage.googleapis.com/auraartemails/Events/AhmedabadShow2016/eFlipBook/extras/lib/hash.js"></script>
+	<script type="text/javascript" src="https://storage.googleapis.com/auraartemails/Events/AhmedabadShow2016/eFlipBook/js/magazine.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	<link type="text/css" rel="stylesheet" href="https://storage.googleapis.com/auraartemails/ArtEnclave/2016/eFlipBook/css/magazine.css"></link>
+	<link type="text/css" rel="stylesheet" href="https://storage.googleapis.com/auraartemails/Events/AhmedabadShow2016/eFlipBook/css/magazine.css"></link>
 	<script type="text/javascript">
 		var bookUtil = {};
 		bookUtil.playing = 0;
@@ -36,7 +36,7 @@
 			$("#pageslider").slider({
 				value:0,
 				min: 0,
-				max: 100,
+				max: 68,
 				step: 1,
 				slide: function( event, ui ) {
 					$('.magazine').turn('page', ui.value);
@@ -65,7 +65,7 @@
 	<a href="javascript:void(0);" onClick="$('.magazine').turn('previous');" class="paginate btn">&lt; Prev</a>
 	<div class="pagera" ><input type="submit" value="Go to Page" id="goto"><input type="text" id="pagenumber"> </div>
 	<a href="javascript:void(0)"  onClick="$('.magazine').turn('next');" class="paginate btn">Next &gt;</a>
-	<a href="javascript:void(0);" onClick="$('.magazine').turn('page',100);" class="paginate btn">Last &gt;&gt;</a>
+	<a href="javascript:void(0);" onClick="$('.magazine').turn('page',68);" class="paginate btn">Last &gt;&gt;</a>
 	<a href="javascript:void(0);" id="autoplay" class="paginate btn">Start autoplay</a>
 </div>
 <div id="pageslider"></div>
@@ -127,7 +127,7 @@ function loadApp() {
 
 			// The number of pages
 
-			pages: 100,
+			pages: 68,
 
 
 			// Events
@@ -441,9 +441,9 @@ function loadApp() {
 
 yepnope({
 	test : Modernizr.csstransforms,
-	yep: ['https://storage.googleapis.com/auraartemails/ArtEnclave/2016/eFlipBook/extras/lib/turn.min.js'],
-	nope: ['https://storage.googleapis.com/auraartemails/ArtEnclave/2016/eFlipBook/extras/lib/turn.html4.min.js'],
-	both: ['https://storage.googleapis.com/auraartemails/ArtEnclave/2016/eFlipBook/extras/lib/zoom.min.js'],
+	yep: ['https://storage.googleapis.com/auraartemails/Events/AhmedabadShow2016/eFlipBook/extras/lib/turn.min.js'],
+	nope: ['https://storage.googleapis.com/auraartemails/Events/AhmedabadShow2016/eFlipBook/extras/lib/turn.html4.min.js'],
+	both: ['https://storage.googleapis.com/auraartemails/Events/AhmedabadShow2016/eFlipBook/extras/lib/zoom.min.js'],
 	complete: loadApp
 });
 </script>
