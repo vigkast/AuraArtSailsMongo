@@ -278,25 +278,35 @@
                                           "AEMAIL": [data.email, data.email, data.email]
                                       }
                                   };
+
+                                  console.log("objjj", obj);
                                   sails.request.get({
                                       url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
                                   }, function(err, httpResponse, body) {
+
+                                      console.log("bodyyyy", body);
                                       if (err) {
                                           callback({
                                               value: false
                                           });
                                           db.close();
-                                      } else if (body && body == "success") {
+                                      }
+                                    //    else if (body && body.message == "success") {
+                                    //       delete data.password;
+                                    //       data.id = data._id;
+                                    //       callback(data);
+                                    //       db.close();
+                                    //   } 
+                                      else {
                                           delete data.password;
                                           data.id = data._id;
                                           callback(data);
                                           db.close();
-                                      } else {
-                                          callback({
-                                              value: false,
-                                              comment: "Error"
-                                          });
-                                          db.close();
+                                        //   callback({
+                                        //       value: false,
+                                        //       comment: "Error"
+                                        //   });
+                                        //   db.close();
                                       }
                                   });
                               }
