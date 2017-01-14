@@ -61,16 +61,10 @@ module.exports = {
                                         value: false
                                     });
                                     db.close();
-                                } else if (body && body == "success") {
+                                }  else {
                                     callback({
                                         value: true,
                                         comment: "Mail sent"
-                                    });
-                                    db.close();
-                                } else {
-                                    callback({
-                                        value: false,
-                                        comment: "Error"
                                     });
                                     db.close();
                                 }
