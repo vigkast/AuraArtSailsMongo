@@ -4745,6 +4745,18 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Reach Out");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+
+
+        $scope.reachOutForm ={};
+        $scope.submitReachOut = function(senddata){
+          NavigationService.reachOutArtist(senddata, function(data){
+            if(data.value==true){
+                alert("Thank you! Your query has been successfully submited.");
+              console.log("saved");
+              $scope.reachOutForm ={};
+            }
+          });
+        }
     })
 
 .controller('CreateArtworkCtrl', function($scope, TemplateService, NavigationService, $upload, $timeout, $http, $state) {
