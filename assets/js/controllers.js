@@ -5668,6 +5668,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.showBreadth = false;
             $scope.otherDetails = "eg. Diptych, Triptych";
             $scope.artwork.breadth = '';
+        } else if (type == "Commissioned Sculpture") {
+            $scope.showBreadth = true;
+            $scope.showAddressTextarea = true;
+            $scope.hideAddressTextarea = false;
+            $scope.otherDetails = "eg. with pedestal";
         } else {
             $scope.showBreadth = false;
             $scope.otherDetails = "eg. Edition, Diptych, Triptych";
