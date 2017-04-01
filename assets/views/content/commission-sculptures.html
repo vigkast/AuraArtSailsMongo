@@ -10,9 +10,15 @@
                 </h4>
                 <div class="cont-com-sculp">
                     <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-                        survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-                        with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        Aura Art eConnect Pvt Ltd is increasing its focus on Commissioned Sculptures, to meet the needs of collectors, corporates,
+                        realty developers, architects and interior designers. We believe that this initiative will go a long
+                        way in expanding the Sculpture category, by making works available to clients that match their aesthetic,
+                        size, medium and other requirements. Have provided below images of select commissioned projects already
+                        executed by Aura Art, in diverse subjects and mediums, at illustrious locations. </p>
+
+                    <p>We are confident that you will find this platform, which is India's First Online Platform for Commissioned
+                        Sculptures, extremely useful in managing the entire life cycle of a commissioning project. Look forward
+                        to working with you on any commissioning requirement.
                     </p>
                 </div>
             </div>
@@ -41,7 +47,8 @@
                             </div>
                             <div class="artist-cont-detail">
                                 <p class="ng-binding">
-                                    {{artwork.name}} <i class="{{totalartconts.heartClass = (totalartconts.artwork._id | showheart)}}" ng-click="makeFav(artwork);"></i>
+                                    {{artwork.name}} <i class="{{totalartconts.heartClass = (totalartconts.artwork._id | showheart)}}"
+                                        ng-click="makeFav(artwork);"></i>
                                     <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(artwork);" ng-if="artwork.status!='sold' &amp;&amp; artwork.gprice &amp;&amp; artwork.gprice!='N/A'"></i>
                                 </p>
                                 <p class="m0">
@@ -50,7 +57,12 @@
                                 <!--<p class="m0">
                                     canavas
                                 </p>-->
-                                <p class="m0">{{artwork.height}} x {{artwork.width}} <span ng-if="artwork.breadth">x {{artwork.breadth}}</span><span ng-if="artwork.depth">x {{artwork.depth}}</span><span ng-if="artwork.major"> {{artwork.major}}</span> <span ng-if="!artwork.major">inches</span></p>
+                                <p class="m0">{{artwork.height}} x {{artwork.width}} <span ng-if="artwork.breadth">x {{artwork.breadth}}</span>
+                                    <span
+                                        ng-if="artwork.depth">x {{artwork.depth}}</span><span ng-if="artwork.major"> {{artwork.major}}</span>
+                                        <span
+                                            ng-if="!artwork.major">inches</span>
+                                </p>
                             </div>
                         </div>
                     </div>
