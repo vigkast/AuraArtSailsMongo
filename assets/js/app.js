@@ -7,16 +7,16 @@ var firstapp = angular.module('firstapp', [
 
 ]);
 
-firstapp.run(function($rootScope, NavigationService) {
-    $rootScope.addToFav = function(artid, folderid) {
-        NavigationService.addToFav(artid, function(data, status) {
+firstapp.run(function ($rootScope, NavigationService) {
+    $rootScope.addToFav = function (artid, folderid) {
+        NavigationService.addToFav(artid, function (data, status) {
             console.log(data);
             $.jStorage.set("user", data);
         });
     };
 });
 
-firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, $httpProvider, $locationProvider) {
+firstapp.config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, $httpProvider, $locationProvider) {
     //Turn the spinner on or off
 
     $httpProvider.defaults.withCredentials = true;
@@ -27,282 +27,287 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
     $stateProvider
 
         .state('home', {
-        url: "/home",
-        templateUrl: "views/template.html",
-        controller: 'HomeCtrl'
-    })
+            url: "/home",
+            templateUrl: "views/template.html",
+            controller: 'HomeCtrl'
+        })
 
-    .state('feature', {
-        url: "/feature",
-        templateUrl: "views/template.html",
-        controller: 'FeatureCtrl'
-    })
+        .state('feature', {
+            url: "/feature",
+            templateUrl: "views/template.html",
+            controller: 'FeatureCtrl'
+        })
 
-    .state('infinite', {
-        url: "/infinite",
-        templateUrl: "views/template.html",
-        controller: 'InfiniteCtrl'
-    })
+        .state('infinite', {
+            url: "/infinite",
+            templateUrl: "views/template.html",
+            controller: 'InfiniteCtrl'
+        })
 
-    .state('termcondition', {
-        url: "/terms-condition",
-        templateUrl: "views/template.html",
-        controller: 'TermConditionCtrl'
-    })
+        .state('termcondition', {
+            url: "/terms-condition",
+            templateUrl: "views/template.html",
+            controller: 'TermConditionCtrl'
+        })
 
-    .state('buyerstermcondition', {
-        url: "/buyers-terms-condition",
-        templateUrl: "views/template.html",
-        controller: 'BuyersTermConditionCtrl'
-    })
+        .state('buyerstermcondition', {
+            url: "/buyers-terms-condition",
+            templateUrl: "views/template.html",
+            controller: 'BuyersTermConditionCtrl'
+        })
 
-    .state('privacypolicy', {
-        url: "/privacy-policy",
-        templateUrl: "views/template.html",
-        controller: 'PrivacyPolicyCtrl'
-    })
+        .state('privacypolicy', {
+            url: "/privacy-policy",
+            templateUrl: "views/template.html",
+            controller: 'PrivacyPolicyCtrl'
+        })
 
-    .state('commission-sculptures', {
-        url: "/commission-sculptures",
-        templateUrl: "views/template.html",
-        controller: 'CommissionSculpturesCtrl'
-    })
+        .state('commission-sculptures', {
+            url: "/commission-sculptures",
+            templateUrl: "views/template.html",
+            controller: 'CommissionSculpturesCtrl'
+        })
 
-    .state('commission-projects', {
-        url: "/commission-projects",
-        templateUrl: "views/template.html",
-        controller: 'CommissionProjectsCtrl'
-    })
+        .state('commission-projects', {
+            url: "/commission-projects",
+            templateUrl: "views/template.html",
+            controller: 'CommissionProjectsCtrl'
+        })
 
-    .state('cart', {
-        url: "/cart",
-        templateUrl: "views/template.html",
-        controller: 'CartCtrl'
-    })
+        .state('cart', {
+            url: "/cart",
+            templateUrl: "views/template.html",
+            controller: 'CartCtrl'
+        })
 
-    .state('checkout', {
-        url: "/checkout",
-        templateUrl: "views/template.html",
-        controller: 'CheckoutCtrl'
-    })
+        .state('checkout', {
+            url: "/checkout",
+            templateUrl: "views/template.html",
+            controller: 'CheckoutCtrl'
+        })
 
-    .state('artist', {
-        url: "/artist/:type",
-        templateUrl: "views/template.html",
-        controller: 'ArtistCtrl'
-    })
+        .state('artist', {
+            url: "/artist/:type",
+            templateUrl: "views/template.html",
+            controller: 'ArtistCtrl'
+        })
 
-    .state('artistdetail', {
-        url: "/artist/detail/:artistid",
-        templateUrl: "views/template.html",
-        controller: 'ArtistDetailCtrl'
-    })
+        .state('artistdetail', {
+            url: "/artist/detail/:artistid",
+            templateUrl: "views/template.html",
+            controller: 'ArtistDetailCtrl'
+        })
 
-    .state('detail', {
-        url: "/artwork/detail/:artid",
-        templateUrl: "views/template.html",
-        controller: 'ArtistDetailImageCtrl'
-    })
+        .state('detail', {
+            url: "/artwork/detail/:artid",
+            templateUrl: "views/template.html",
+            controller: 'ArtistDetailImageCtrl'
+        })
 
-    .state('team', {
-        url: "/team",
-        templateUrl: "views/template.html",
-        controller: 'TeamCtrl'
-    })
+        .state('team', {
+            url: "/team",
+            templateUrl: "views/template.html",
+            controller: 'TeamCtrl'
+        })
 
-    .state('artInfrastructure2', {
-        url: "/infra-services2",
-        templateUrl: "views/template.html",
-        controller: 'ArtInfrastructure2Ctrl'
-    })
+        .state('artInfrastructure2', {
+            url: "/infra-services2",
+            templateUrl: "views/template.html",
+            controller: 'ArtInfrastructure2Ctrl'
+        })
 
-    .state('artInfrastructure', {
-        url: "/infra-services",
-        templateUrl: "views/template.html",
-        controller: 'ArtInfrastructureCtrl'
-    })
+        .state('artInfrastructure', {
+            url: "/infra-services",
+            templateUrl: "views/template.html",
+            controller: 'ArtInfrastructureCtrl'
+        })
 
-    .state('artInfrastructureID', {
-        url: "/infra-services/:id",
-        templateUrl: "views/template.html",
-        controller: 'ArtInfrastructureCtrl'
-    })
+        .state('artInfrastructureID', {
+            url: "/infra-services/:id",
+            templateUrl: "views/template.html",
+            controller: 'ArtInfrastructureCtrl'
+        })
 
 
-    .state('events', {
-        url: "/events",
-        templateUrl: "views/template.html",
-        controller: 'EventsCtrl'
-    })
+        .state('events', {
+            url: "/events",
+            templateUrl: "views/template.html",
+            controller: 'EventsCtrl'
+        })
 
-    .state('invite', {
-        url: "/invite/:img",
-        templateUrl: "views/template.html",
-        controller: 'InviteCtrl'
-    })
+        .state('invite', {
+            url: "/invite/:img",
+            templateUrl: "views/template.html",
+            controller: 'InviteCtrl'
+        })
 
-    .state('eventdetail', {
-        url: "/eventdetail/:id",
-        templateUrl: "views/template.html",
-        controller: 'EventdetailCtrl'
-    })
+        .state('eventdetail', {
+            url: "/eventdetail/:id",
+            templateUrl: "views/template.html",
+            controller: 'EventdetailCtrl'
+        })
 
-    .state('totalartpage', {
-        url: "/artwork/:type",
-        templateUrl: "views/template.html",
-        controller: 'TotalartWorkCtrl'
-    })
+        .state('totalartpage', {
+            url: "/artwork/:type",
+            templateUrl: "views/template.html",
+            controller: 'TotalartWorkCtrl'
+        })
 
-    .state('totalartpage2', {
-        url: "/artwork/Commissioned/:number",
-        templateUrl: "views/template.html",
-        controller: 'TotalartWorkCtrl2',
+        .state('totalartpage2', {
+            url: "/artwork/Commissioned/:number",
+            templateUrl: "views/template.html",
+            controller: 'TotalartWorkCtrl2',
 
-    })
+        })
 
-    .state('commissioned-artwork', {
-        url: "/commissioned-artwork",
-        templateUrl: "views/template.html",
-        controller: 'ViewCommissionedCtrl'
-    })
+        .state('commissioned-artwork', {
+            url: "/commissioned-artwork",
+            templateUrl: "views/template.html",
+            controller: 'ViewCommissionedCtrl'
+        })
 
-    .state('press', {
-        url: "/press",
-        templateUrl: "views/template.html",
-        controller: 'PressCtrl'
-    })
+        .state('press', {
+            url: "/press",
+            templateUrl: "views/template.html",
+            controller: 'PressCtrl'
+        })
 
-    .state('account', {
-        url: "/account",
-        templateUrl: "views/template.html",
-        controller: 'AccountCtrl'
-    })
+        .state('account', {
+            url: "/account",
+            templateUrl: "views/template.html",
+            controller: 'AccountCtrl'
+        })
 
-    .state('thoughtleadership', {
-        url: "/thoughtleadership",
-        templateUrl: "views/template.html",
-        controller: 'ThoughtleadershipCtrl'
-    })
+        .state('thoughtleadership', {
+            url: "/thoughtleadership",
+            templateUrl: "views/template.html",
+            controller: 'ThoughtleadershipCtrl'
+        })
 
-    .state('thoughtleadershipdetail', {
-        url: "/thoughtleadershipdetail/:id",
-        templateUrl: "views/template.html",
-        controller: 'ThoughtleadershipdetailCtrl'
-    })
+        .state('thoughtleadershipdetail', {
+            url: "/thoughtleadershipdetail/:id",
+            templateUrl: "views/template.html",
+            controller: 'ThoughtleadershipdetailCtrl'
+        })
 
-    .state('sculpture', {
-        url: "/sculpture/:artid",
-        templateUrl: "views/template.html",
-        controller: 'SculptureCtrl'
-    })
+        .state('sculpture', {
+            url: "/sculpture/:artid",
+            templateUrl: "views/template.html",
+            controller: 'SculptureCtrl'
+        })
 
-    .state('favorite', {
-        url: "/favorite",
-        templateUrl: "views/template.html",
-        controller: 'FavoriteCtrl'
-    })
+        .state('favorite', {
+            url: "/favorite",
+            templateUrl: "views/template.html",
+            controller: 'FavoriteCtrl'
+        })
 
-    .state('favorites', {
-        url: "/favorite/:artist",
-        templateUrl: "views/template.html",
-        controller: 'FavoriteCtrl'
-    })
+        .state('favorites', {
+            url: "/favorite/:artist",
+            templateUrl: "views/template.html",
+            controller: 'FavoriteCtrl'
+        })
 
-    .state('artistpage', {
-        url: "/artistpage",
-        templateUrl: "views/template.html",
-        controller: 'ArtistPageCtrl'
-    })
+        .state('artistpage', {
+            url: "/artistpage",
+            templateUrl: "views/template.html",
+            controller: 'ArtistPageCtrl'
+        })
 
-    .state('contactus', {
-        url: "/contactus",
-        templateUrl: "views/template.html",
-        controller: 'ContactusCtrl'
-    })
+        .state('contactus', {
+            url: "/contactus",
+            templateUrl: "views/template.html",
+            controller: 'ContactusCtrl'
+        })
 
-    .state('activities', {
-        url: "/activities",
-        templateUrl: "views/template.html",
-        controller: 'ActivitiesCtrl'
-    })
+        .state('activities', {
+            url: "/activities",
+            templateUrl: "views/template.html",
+            controller: 'ActivitiesCtrl'
+        })
 
-    .state('favorite-product', {
-        url: "/favorite-product/:artid",
-        templateUrl: "views/template.html",
-        controller: 'FavoriteProductCtrl'
-    })
+        .state('favorite-product', {
+            url: "/favorite-product/:artid",
+            templateUrl: "views/template.html",
+            controller: 'FavoriteProductCtrl'
+        })
 
-    .state('reach-out', {
-        url: "/reach-out",
-        templateUrl: "views/template.html",
-        controller: 'ReachOutCtrl'
-    })
+        .state('reach-out', {
+            url: "/reach-out",
+            templateUrl: "views/template.html",
+            controller: 'ReachOutCtrl'
+        })
 
-    .state('register-artist', {
-        url: "/register-artist",
-        templateUrl: "views/template.html",
-        controller: 'RegisterArtistCtrl'
-    })
+        .state('register-artist', {
+            url: "/register-artist",
+            templateUrl: "views/template.html",
+            controller: 'RegisterArtistCtrl'
+        })
 
-    .state('editartist', {
-        url: "/edit-artist/:id",
-        templateUrl: "views/template.html",
-        controller: 'EditArtistCtrl'
-    })
+        .state('editartist', {
+            url: "/edit-artist/:id",
+            templateUrl: "views/template.html",
+            controller: 'EditArtistCtrl'
+        })
 
-    .state('create-artwork', {
-        url: "/create-artwork",
-        templateUrl: "views/template.html",
-        controller: 'CreateArtworkCtrl'
-    })
+        .state('create-artwork', {
+            url: "/create-artwork",
+            templateUrl: "views/template.html",
+            controller: 'CreateArtworkCtrl'
+        })
 
-    .state('edit-artwork', {
-        url: "/edit-artwork/:id",
-        templateUrl: "views/template.html",
-        controller: 'EditArtworkCtrl'
-    })
+        .state('edit-artwork', {
+            url: "/edit-artwork/:id",
+            templateUrl: "views/template.html",
+            controller: 'EditArtworkCtrl'
+        })
 
-    .state('searchresults', {
-        url: "/searchresults",
-        templateUrl: "views/template.html",
-        controller: 'SearchResultsCtrl'
-    })
+        .state('searchresults', {
+            url: "/searchresults",
+            templateUrl: "views/template.html",
+            controller: 'SearchResultsCtrl'
+        })
 
-    .state('thankyou', {
-        url: "/thankyou",
-        templateUrl: "views/template.html",
-        controller: 'ThankYouCtrl'
-    })
+        .state('thankyou', {
+            url: "/thankyou",
+            templateUrl: "views/template.html",
+            controller: 'ThankYouCtrl'
+        })
 
-    .state('sorry', {
-        url: "/sorry/:orderId",
-        templateUrl: "views/template.html",
-        controller: 'SorryCtrl'
-    })
+        .state('sorry', {
+            url: "/sorry/:orderId",
+            templateUrl: "views/template.html",
+            controller: 'SorryCtrl'
+        })
 
-    .state('error404', {
-        url: "/error404",
-        templateUrl: "views/template.html",
-        controller: 'Error404Ctrl'
-    })
+        .state('error404', {
+            url: "/error404",
+            templateUrl: "views/template.html",
+            controller: 'Error404Ctrl'
+        })
 
-    .state('error500', {
-        url: "/error500",
-        templateUrl: "views/template.html",
-        controller: 'Error500Ctrl'
-    })
+        .state('error500', {
+            url: "/error500",
+            templateUrl: "views/template.html",
+            controller: 'Error500Ctrl'
+        })
 
-    .state('room-with-a-view', {
-        url: "/room-with-a-view/:id",
-        templateUrl: "views/template.html",
-        controller: 'RoomViewCtrl'
-    })
+        .state('room-with-a-view', {
+            url: "/room-with-a-view/:id",
+            templateUrl: "views/template.html",
+            controller: 'RoomViewCtrl'
+        })
 
-    .state('room-shot', {
-        url: "/room-shot/:id",
-        templateUrl: "views/template.html",
-        controller: 'RoomShotCtrl'
-    });
+        .state('room-shot', {
+            url: "/room-shot/:id",
+            templateUrl: "views/template.html",
+            controller: 'RoomShotCtrl'
+        })
+        .state('hidden', {
+            url: "/iamhidden",
+            templateUrl: "views/template.html",
+            controller: 'HiddenCtrl'
+        });
 
     if (isproduction) {
         $locationProvider.html5Mode(isproduction);
@@ -312,9 +317,9 @@ firstapp.config(function($stateProvider, $urlRouterProvider, cfpLoadingBarProvid
 
 });
 
-firstapp.directive("scroll", function($window) {
-    return function(scope, element, attrs) {
-        angular.element($window).bind("scroll", function() {
+firstapp.directive("scroll", function ($window) {
+    return function (scope, element, attrs) {
+        angular.element($window).bind("scroll", function () {
             if (this.pageYOffset >= 100) {
                 element.addClass('min');
             } else {
@@ -325,8 +330,8 @@ firstapp.directive("scroll", function($window) {
 });
 
 firstapp.filter('rawHtml', ['$sce',
-    function($sce) {
-        return function(val) {
+    function ($sce) {
+        return function (val) {
             return $sce.trustAsHtml(val);
         };
     }
@@ -348,10 +353,10 @@ firstapp.directive('readmores', function ($window) {
     };
 });*/
 
-firstapp.directive('focusMe', function($timeout) {
+firstapp.directive('focusMe', function ($timeout) {
     return {
-        link: function(scope, element, attrs) {
-            scope.$watch(attrs.focusMe, function(value) {
+        link: function (scope, element, attrs) {
+            scope.$watch(attrs.focusMe, function (value) {
                 if (value === true) {
                     console.log('value=', value);
                     //$timeout(function() {
@@ -364,15 +369,15 @@ firstapp.directive('focusMe', function($timeout) {
     };
 });
 
-firstapp.directive("uiselectAutofocus", function($timeout) {
+firstapp.directive("uiselectAutofocus", function ($timeout) {
     return {
         restrict: 'EA',
         require: 'uiSelect',
-        link: function(scope, elem, attr) {
+        link: function (scope, elem, attr) {
             //         scope.$watch(attr.)
-            scope.$watch(attr.demo, function() {
+            scope.$watch(attr.demo, function () {
                 console.log(attr.demo);
-                $timeout(function() {
+                $timeout(function () {
                     var input = elem.find('input');
                     //                if (attr.uiselectAutofocus == 'open')
                     //                    input.click();
@@ -384,15 +389,15 @@ firstapp.directive("uiselectAutofocus", function($timeout) {
 });
 
 firstapp.directive('focus',
-    function($timeout) {
+    function ($timeout) {
         return {
             scope: {
                 trigger: '@focus'
             },
-            link: function(scope, element) {
-                scope.$watch('trigger', function(value) {
+            link: function (scope, element) {
+                scope.$watch('trigger', function (value) {
                     if (value === "true") {
-                        $timeout(function() {
+                        $timeout(function () {
                             element[0].focus();
                         }, 1000);
                     }
@@ -403,7 +408,7 @@ firstapp.directive('focus',
 );
 
 firstapp.directive('googlePlusSignin', ['$window',
-    function($window) {
+    function ($window) {
         var ending = /\.apps\.googleusercontent\.com$/;
 
         return {
@@ -411,7 +416,7 @@ firstapp.directive('googlePlusSignin', ['$window',
             transclude: true,
             template: '<span></span>',
             replace: true,
-            link: function(scope, element, attrs, ctrl, linker) {
+            link: function (scope, element, attrs, ctrl, linker) {
                 attrs.clientid += (ending.test(attrs.clientid) ? '' : '.apps.googleusercontent.com');
 
                 attrs.$set('data-clientid', attrs.clientid);
@@ -432,7 +437,7 @@ firstapp.directive('googlePlusSignin', ['$window',
                 defaults.theme = attrs.theme;
 
                 // Overwrite default values if explicitly set
-                angular.forEach(Object.getOwnPropertyNames(defaults), function(propName) {
+                angular.forEach(Object.getOwnPropertyNames(defaults), function (propName) {
                     if (attrs.hasOwnProperty(propName)) {
                         defaults[propName] = attrs[propName];
                     }
@@ -440,7 +445,7 @@ firstapp.directive('googlePlusSignin', ['$window',
 
                 // Default language
                 // Supported languages: https://developers.google.com/+/web/api/supported-languages
-                attrs.$observe('language', function(value) {
+                attrs.$observe('language', function (value) {
                     $window.___gcfg = {
                         lang: value ? value : 'en'
                     };
@@ -454,8 +459,8 @@ firstapp.directive('googlePlusSignin', ['$window',
                 var s = document.getElementsByTagName('script')[0];
                 s.parentNode.insertBefore(po, s);
 
-                linker(function(el, tScope) {
-                    po.onload = function() {
+                linker(function (el, tScope) {
+                    po.onload = function () {
                         if (el.length) {
                             element.append(el);
                         }
@@ -466,8 +471,8 @@ firstapp.directive('googlePlusSignin', ['$window',
         };
     }
 ]).run(['$window', '$rootScope',
-    function($window, $rootScope) {
-        $window.signinCallback = function(authResult) {
+    function ($window, $rootScope) {
+        $window.signinCallback = function (authResult) {
             if (authResult && authResult.access_token) {
                 $rootScope.$broadcast('event:google-plus-signin-success', authResult);
             } else {
@@ -479,11 +484,11 @@ firstapp.directive('googlePlusSignin', ['$window',
 
 var dem = 0;
 
-firstapp.directive('fancyboxBox', function($document) {
+firstapp.directive('fancyboxBox', function ($document) {
     return {
         restrict: 'EA',
         replace: false,
-        link: function(scope, element, attr) {
+        link: function (scope, element, attr) {
             var $element = $(element);
             var target;
             if (attr.rel) {
@@ -506,12 +511,12 @@ firstapp.directive('fancyboxBox', function($document) {
 });
 
 
-firstapp.directive('elevateZoom', function($document, $filter) {
+firstapp.directive('elevateZoom', function ($document, $filter) {
     return {
         restrict: 'EA',
-        link: function($scope, element, attr) {
-            $scope.$watch(attr.image, function() {
-                $scope.changeImage = function() {
+        link: function ($scope, element, attr) {
+            $scope.$watch(attr.image, function () {
+                $scope.changeImage = function () {
                     var $element = $(element);
                     var image = '';
                     image = $scope[attr.image].artwork.image[0];
@@ -525,7 +530,7 @@ firstapp.directive('elevateZoom', function($document, $filter) {
                         ez.swaptheimage(newImage, newImage);
                     }
                 };
-                $scope.$on('changeImage', function(event, data) {
+                $scope.$on('changeImage', function (event, data) {
                     $scope.changeImage();
                 });
                 $scope.changeImage();
@@ -534,16 +539,16 @@ firstapp.directive('elevateZoom', function($document, $filter) {
     };
 });
 
-firstapp.directive('uploadImage', function($http, $filter) {
+firstapp.directive('uploadImage', function ($http, $filter) {
     return {
         templateUrl: 'views/directive/uploadFile.html',
         scope: {
             model: '=ngModel',
             callback: "=ngCallback"
         },
-        link: function($scope, element, attrs) {
+        link: function ($scope, element, attrs) {
 
-            $scope.showImage = function() {
+            $scope.showImage = function () {
                 console.log($scope.image);
             };
 
@@ -558,7 +563,7 @@ firstapp.directive('uploadImage', function($http, $filter) {
                 $scope.noShow = true;
             }
 
-            $scope.$watch("image", function(newVal, oldVal) {
+            $scope.$watch("image", function (newVal, oldVal) {
                 if (newVal && newVal.file) {
                     $scope.uploadNow(newVal);
                 }
@@ -567,7 +572,7 @@ firstapp.directive('uploadImage', function($http, $filter) {
             if ($scope.model) {
                 if (_.isArray($scope.model)) {
                     $scope.image = [];
-                    _.each($scope.model, function(n) {
+                    _.each($scope.model, function (n) {
                         $scope.image.push({
                             url: n
                         });
@@ -578,10 +583,10 @@ firstapp.directive('uploadImage', function($http, $filter) {
             if (attrs.inobj || attrs.inobj === "") {
                 $scope.inObject = true;
             }
-            $scope.clearOld = function() {
+            $scope.clearOld = function () {
                 $scope.model = [];
             };
-            $scope.uploadNow = function(image) {
+            $scope.uploadNow = function (image) {
                 $scope.uploadStatus = "uploading";
 
                 var Template = this;
@@ -593,7 +598,7 @@ firstapp.directive('uploadImage', function($http, $filter) {
                         'Content-Type': undefined
                     },
                     transformRequest: angular.identity
-                }).success(function(data) {
+                }).success(function (data) {
                     if ($scope.callback) {
                         $scope.callback(data);
                     } else {
@@ -616,11 +621,11 @@ firstapp.directive('uploadImage', function($http, $filter) {
     };
 });
 
-firstapp.directive('zoomContainer', function() {
+firstapp.directive('zoomContainer', function () {
     return {
         restrict: 'A',
-        link: function(scope, element, attrs) {
-            scope.$on('$stateChangeSuccess', function() {
+        link: function (scope, element, attrs) {
+            scope.$on('$stateChangeSuccess', function () {
                 var target = element.children('div.zoomContainer').remove();
             });
         }
@@ -628,8 +633,8 @@ firstapp.directive('zoomContainer', function() {
 
 });
 
-firstapp.filter('uploadthumbnail', function() {
-    return function(input) {
+firstapp.filter('uploadthumbnail', function () {
+    return function (input) {
         if (input && input !== "") {
             return adminurl + "user/resize?height=190&file=" + input;
             // return adminurl + "user/resize?file=" + input;
@@ -639,8 +644,8 @@ firstapp.filter('uploadthumbnail', function() {
     };
 });
 
-firstapp.filter('wallpath', function() {
-    return function(input) {
+firstapp.filter('wallpath', function () {
+    return function (input) {
         if (input && input !== "") {
             if (input.indexOf('img/') == -1) {
                 return adminurl + "user/wallResize?width=1500&file=" + input;
@@ -653,8 +658,8 @@ firstapp.filter('wallpath', function() {
     };
 });
 
-firstapp.filter('uploadpath', function() {
-    return function(input) {
+firstapp.filter('uploadpath', function () {
+    return function (input) {
         if (input && input !== "") {
             if (input.indexOf('.jpg') != -1)
                 return adminurl + "user/resize?width=1200&file=" + input;
@@ -667,8 +672,8 @@ firstapp.filter('uploadpath', function() {
     };
 });
 
-firstapp.filter('uploadsmallimage', function() {
-    return function(input) {
+firstapp.filter('uploadsmallimage', function () {
+    return function (input) {
         if (input && input !== "") {
             // return adminurl + "user/resize?file=" + input;
             return adminurl + "user/resize?width=750&file=" + input;
@@ -678,8 +683,8 @@ firstapp.filter('uploadsmallimage', function() {
     };
 });
 
-firstapp.filter('roompath', function() {
-    return function(input) {
+firstapp.filter('roompath', function () {
+    return function (input) {
         if (input && input !== "") {
             if (input.indexOf('.jpg') != -1)
                 return adminurl + "slider/resizeRoom?file=" + input;
@@ -692,16 +697,16 @@ firstapp.filter('roompath', function() {
     };
 });
 
-firstapp.directive('img', function($compile, $parse) {
+firstapp.directive('img', function ($compile, $parse) {
     return {
         restrict: 'EA',
         replace: false,
-        link: function($scope, element, attrs) {
+        link: function ($scope, element, attrs) {
             var $element = $(element);
             if (!attrs.noloading) {
                 $element.after("<img src='img/loading.gif' class='loading' />");
                 var $loading = $element.next(".loading");
-                $element.load(function() {
+                $element.load(function () {
                     $loading.remove();
                     $(this).addClass("doneLoading");
                 });
@@ -711,10 +716,10 @@ firstapp.directive('img', function($compile, $parse) {
         }
     };
 });
-firstapp.directive('numbersOnly', function() {
+firstapp.directive('numbersOnly', function () {
     return {
         require: 'ngModel',
-        link: function(scope, element, attr, ngModelCtrl) {
+        link: function (scope, element, attr, ngModelCtrl) {
             function fromUser(text) {
                 if (text) {
                     var transformedInput = text.replace(/[^a-z\s]/gi, '');
@@ -732,16 +737,16 @@ firstapp.directive('numbersOnly', function() {
     };
 });
 
-firstapp.filter('touppercase', function() {
-    return function(input) {
+firstapp.filter('touppercase', function () {
+    return function (input) {
         var firstletter = input.substr(0, 1);
         var remaining = input.substr(1);
         return firstletter.toUpperCase() + remaining;
     };
 });
 
-firstapp.filter('makesizestr', function() {
-    return function(artobj) {
+firstapp.filter('makesizestr', function () {
+    return function (artobj) {
         var size = "";
         if (artobj && artobj !== undefined) {
             if (artobj.height && artobj.height !== "") {
@@ -767,8 +772,8 @@ firstapp.filter('makesizestr', function() {
 });
 
 
-firstapp.filter('showheart', function(NavigationService) {
-    return function(input) {
+firstapp.filter('showheart', function (NavigationService) {
+    return function (input) {
         if (input) {
             if (userProfile.wishlist) {
                 var ispresent = _.findIndex(userProfile.wishlist, {
@@ -786,8 +791,8 @@ firstapp.filter('showheart', function(NavigationService) {
     };
 });
 
-firstapp.filter('indollars', function(NavigationService, $filter) {
-    return function(input) {
+firstapp.filter('indollars', function (NavigationService, $filter) {
+    return function (input) {
         if (input && dollarPrice) {
             if (input != "0") {
                 var price = parseFloat(input) / parseFloat(dollarPrice);
@@ -800,8 +805,8 @@ firstapp.filter('indollars', function(NavigationService, $filter) {
     };
 });
 
-firstapp.filter('inlakhs', function(NavigationService, $filter) {
-    return function(input) {
+firstapp.filter('inlakhs', function (NavigationService, $filter) {
+    return function (input) {
         if (input) {
             if (input != "0") {
                 var x = input;
@@ -825,11 +830,11 @@ firstapp.filter('inlakhs', function(NavigationService, $filter) {
     };
 });
 
-firstapp.directive('onlyDigits', function() {
+firstapp.directive('onlyDigits', function () {
     return {
         require: 'ngModel',
         restrict: 'A',
-        link: function(scope, element, attr, ctrl) {
+        link: function (scope, element, attr, ctrl) {
             function inputValue(val) {
                 var digits;
                 if (val) {
@@ -853,9 +858,9 @@ firstapp.directive('onlyDigits', function() {
     };
 });
 
-firstapp.directive('clickme', function() {
-    return function(scope, element, attrs) {
-        var clickingCallback = function() {
+firstapp.directive('clickme', function () {
+    return function (scope, element, attrs) {
+        var clickingCallback = function () {
             console.log(userProfile);
             alert(userProfile);
         };
@@ -863,11 +868,11 @@ firstapp.directive('clickme', function() {
     };
 });
 
-firstapp.directive('wallRatio', function() {
+firstapp.directive('wallRatio', function () {
     return {
         restrict: 'EA',
         replace: false,
-        link: function(scope, element, attr) {
+        link: function (scope, element, attr) {
             var $element = $(element);
             var width = $(element).width(); // width is 13.33ft.
             var height = (width) / 1.33; // height is 10ft.
@@ -876,7 +881,7 @@ firstapp.directive('wallRatio', function() {
     };
 });
 
-firstapp.directive('youtube', function($sce) {
+firstapp.directive('youtube', function ($sce) {
     return {
         restrict: 'A',
         scope: {
@@ -884,8 +889,8 @@ firstapp.directive('youtube', function($sce) {
         },
         replace: true,
         template: '<iframe id="popup-youtube-player" style="overflow:hidden;width:100%" width="100%" height="130px" src="{{url}}" frameborder="0" allowscriptaccess="always" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>',
-        link: function(scope) {
-            scope.$watch('code', function(newVal) {
+        link: function (scope) {
+            scope.$watch('code', function (newVal) {
                 if (newVal) {
                     scope.url = $sce.trustAsResourceUrl("http://www.youtube.com/embed/" + newVal);
                 }
@@ -894,7 +899,7 @@ firstapp.directive('youtube', function($sce) {
     };
 });
 
-var formvalidation = function(allvalidation) {
+var formvalidation = function (allvalidation) {
     console.log(allvalidation);
     var isvalid2 = true;
     var error = '';
@@ -913,8 +918,8 @@ var formvalidation = function(allvalidation) {
     return isvalid2;
 };
 
-firstapp.filter('addhighlight', function() {
-    return function(str, searchkey) {
+firstapp.filter('addhighlight', function () {
+    return function (str, searchkey) {
         if (!str) {
             return str;
         }
@@ -928,7 +933,7 @@ firstapp.filter('addhighlight', function() {
         var string2 = "";
         if (smallSearchkey && smallSearchkey !== "") {
             var split = newstr.split(" ");
-            _.each(split, function(n) {
+            _.each(split, function (n) {
                 var subst = n.substr(0, searchkey.length);
                 var subst2 = n.substr(searchkey.length);
                 var abc = "";
@@ -950,7 +955,7 @@ firstapp.filter('addhighlight', function() {
 });
 
 
-var clearFields = function(allvalidation) {
+var clearFields = function (allvalidation) {
     var isvalid2 = true;
     var error = '';
     for (var i = 0; i < allvalidation.length; i++) {
@@ -959,14 +964,14 @@ var clearFields = function(allvalidation) {
     return isvalid2;
 };
 
-firstapp.directive('wallBuilder', function($http) {
+firstapp.directive('wallBuilder', function ($http) {
     return {
         templateUrl: 'views/directive/wallbuilder.html',
         scope: {
             model: '=ngModel'
         },
-        link: function($scope, element, attrs) {
-            $scope.getTimes = function(n) {
+        link: function ($scope, element, attrs) {
+            $scope.getTimes = function (n) {
                 if (n) {
                     n = Math.ceil(n);
                     return new Array(n);
@@ -974,9 +979,9 @@ firstapp.directive('wallBuilder', function($http) {
                     return new Array(0);
                 }
             };
-            $scope.updateWall = function() {};
+            $scope.updateWall = function () {};
             $scope.updateWall();
-            $scope.$on('updateWall', function(event, data) {
+            $scope.$on('updateWall', function (event, data) {
                 $scope.updateWall();
             });
         }
