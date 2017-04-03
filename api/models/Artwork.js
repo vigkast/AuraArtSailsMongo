@@ -5,7 +5,7 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 module.exports = {
-    save: function(data, callback) {
+    save: function (data, callback) {
         if (data.srno) {
             data.srno = parseInt(data.srno);
         }
@@ -17,27 +17,27 @@ module.exports = {
         delete data.cart;
         delete data.wishlist;
         if (data.reseller && data.reseller.length > 0) {
-            _.each(data.reseller, function(x) {
+            _.each(data.reseller, function (x) {
                 if (x._id && x._id != "") {
                     x._id = sails.ObjectID(x._id);
                 }
             });
         }
         if (data.subtype && data.subtype.length > 0) {
-            _.each(data.subtype, function(x) {
+            _.each(data.subtype, function (x) {
                 if (x._id && x._id != "") {
                     x._id = sails.ObjectID(x._id);
                 }
             });
         }
         if (data.tag && data.tag.length > 0) {
-            _.each(data.tag, function(y) {
+            _.each(data.tag, function (y) {
                 if (y._id && y._id != "") {
                     y._id = sails.ObjectID(y._id);
                 }
             });
         }
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -52,7 +52,7 @@ module.exports = {
                         $push: {
                             artwork: data
                         }
-                    }, function(err, updated) {
+                    }, function (err, updated) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -76,7 +76,7 @@ module.exports = {
                     data._id = sails.ObjectID(data._id);
                     tobechanged = {};
                     var attribute = "artwork.$.";
-                    _.forIn(data, function(value, key) {
+                    _.forIn(data, function (value, key) {
                         tobechanged[attribute + key] = value;
                     });
                     db.collection("user").update({
@@ -84,7 +84,7 @@ module.exports = {
                         "artwork._id": data._id
                     }, {
                         $set: tobechanged
-                    }, function(err, updated) {
+                    }, function (err, updated) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -109,7 +109,7 @@ module.exports = {
             }
         });
     },
-    saveFront: function(data, callback) {
+    saveFront: function (data, callback) {
         delete data.cart;
         delete data.wishlist;
         data.srno = parseInt(data.srno);
@@ -133,27 +133,27 @@ module.exports = {
         }
         data.reseller[0].email = data.selleremail;
         if (data.reseller && data.reseller.length > 0) {
-            _.each(data.reseller, function(x) {
+            _.each(data.reseller, function (x) {
                 if (x._id && x._id != "") {
                     x._id = sails.ObjectID(x._id);
                 }
             });
         }
         if (data.subtype && data.subtype.length > 0) {
-            _.each(data.subtype, function(x) {
+            _.each(data.subtype, function (x) {
                 if (x._id && x._id != "") {
                     x._id = sails.ObjectID(x._id);
                 }
             });
         }
         if (data.tag && data.tag.length > 0) {
-            _.each(data.tag, function(y) {
+            _.each(data.tag, function (y) {
                 if (y._id && y._id != "") {
                     y._id = sails.ObjectID(y._id);
                 }
             });
         }
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -169,7 +169,7 @@ module.exports = {
                         $push: {
                             artwork: data
                         }
-                    }, function(err, updated) {
+                    }, function (err, updated) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -195,7 +195,7 @@ module.exports = {
                             };
                             sails.request.get({
                                 url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
-                            }, function(err, httpResponse, body) {
+                            }, function (err, httpResponse, body) {
                                 if (err) {
                                     callback({
                                         value: false
@@ -209,18 +209,18 @@ module.exports = {
                                 //     });
                                 //     db.close();
                                 // }
-                                 else {
+                                else {
                                     // callback({
                                     //     value: false,
                                     //     comment: "Error"
                                     // });
                                     // db.close();
-                            callback({
+                                    callback({
                                         value: true,
                                         comment: "Mail sent"
                                     });
-                                    db.close();    
-                            }
+                                    db.close();
+                                }
                             });
                         } else {
                             callback({
@@ -234,7 +234,7 @@ module.exports = {
                         data._id = sails.ObjectID(data._id);
                         tobechanged = {};
                         var attribute = "artwork.$.";
-                        _.forIn(data, function(value, key) {
+                        _.forIn(data, function (value, key) {
                             tobechanged[attribute + key] = value;
                         });
                         db.collection("user").update({
@@ -242,7 +242,7 @@ module.exports = {
                             "artwork._id": data._id
                         }, {
                             $set: tobechanged
-                        }, function(err, updated) {
+                        }, function (err, updated) {
                             if (err) {
                                 console.log(err);
                                 callback({
@@ -274,7 +274,7 @@ module.exports = {
             }
         });
     },
-    saveBack: function(data, callback) {
+    saveBack: function (data, callback) {
         delete data.cart;
         delete data.wishlist;
         data.srno = parseInt(data.srno);
@@ -286,21 +286,21 @@ module.exports = {
             data.reseller = [data.reseller];
         }
         if (data.reseller && data.reseller.length > 0) {
-            _.each(data.reseller, function(x) {
+            _.each(data.reseller, function (x) {
                 if (x._id && x._id != "") {
                     x._id = sails.ObjectID(x._id);
                 }
             });
         }
         if (data.subtype && data.subtype.length > 0) {
-            _.each(data.subtype, function(x) {
+            _.each(data.subtype, function (x) {
                 if (x._id && x._id != "") {
                     x._id = sails.ObjectID(x._id);
                 }
             });
         }
         if (data.tag && data.tag.length > 0) {
-            _.each(data.tag, function(y) {
+            _.each(data.tag, function (y) {
                 if (y._id && y._id != "") {
                     y._id = sails.ObjectID(y._id);
                 }
@@ -325,7 +325,7 @@ module.exports = {
                 callMe();
             } else {
                 data.approveTimestamp = new Date();
-                Artwork.lastImage(data, function(lastRespo) {
+                Artwork.lastImage(data, function (lastRespo) {
                     if (lastRespo.value != false) {
                         console.log(lastRespo);
                         data.imageno = parseInt(lastRespo.imageno) + 1;
@@ -344,7 +344,7 @@ module.exports = {
         }
 
         function callMe() {
-            sails.query(function(err, db) {
+            sails.query(function (err, db) {
                 if (err) {
                     console.log(err);
                     callback({
@@ -355,7 +355,7 @@ module.exports = {
                     data._id = sails.ObjectID(data._id);
                     tobechanged = {};
                     var attribute = "artwork.$.";
-                    _.forIn(data, function(value, key) {
+                    _.forIn(data, function (value, key) {
                         tobechanged[attribute + key] = value;
                     });
                     db.collection("user").update({
@@ -363,7 +363,7 @@ module.exports = {
                         "artwork._id": data._id
                     }, {
                         $set: tobechanged
-                    }, function(err, updated) {
+                    }, function (err, updated) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -388,25 +388,25 @@ module.exports = {
             });
         }
     },
-    delete: function(data, callback) {
+    delete: function (data, callback) {
         delete data.cart;
         delete data.wishlist;
         if (data.reseller && data.reseller.length > 0) {
-            _.each(data.reseller, function(x) {
+            _.each(data.reseller, function (x) {
                 if (x._id && x._id != "") {
                     x._id = sails.ObjectID(x._id);
                 }
             });
         }
         if (data.subtype && data.subtype.length > 0) {
-            _.each(data.subtype, function(x) {
+            _.each(data.subtype, function (x) {
                 if (x._id && x._id != "") {
                     x._id = sails.ObjectID(x._id);
                 }
             });
         }
         if (data.tag && data.tag.length > 0) {
-            _.each(data.tag, function(y) {
+            _.each(data.tag, function (y) {
                 if (y._id && y._id != "") {
                     y._id = sails.ObjectID(y._id);
                 }
@@ -421,7 +421,7 @@ module.exports = {
         if (data.imageno && data.imageno != "") {
             data.imageno = parseInt(data.imageno);
         }
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -439,7 +439,7 @@ module.exports = {
                             "_id": sails.ObjectID(data._id)
                         }
                     }
-                }, function(err, updated) {
+                }, function (err, updated) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -462,9 +462,9 @@ module.exports = {
             }
         });
     },
-    findone: function(data, callback) {
+    findone: function (data, callback) {
         var user = sails.ObjectID(data.user);
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -479,7 +479,7 @@ module.exports = {
                     email: 1,
                     name: 1,
                     "artwork.$": 1
-                }).toArray(function(err, data2) {
+                }).toArray(function (err, data2) {
                     if (data2 && data2[0] && data2[0].artwork && data2[0].artwork[0]) {
                         data2[0].artwork[0].email = data2[0].email;
                         data2[0].artwork[0].artistname = data2[0].name;
@@ -502,9 +502,9 @@ module.exports = {
             }
         });
     },
-    find: function(data, callback) {
+    find: function (data, callback) {
         var user = sails.ObjectID(data.user);
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -528,7 +528,7 @@ module.exports = {
                     $project: {
                         artwork: 1
                     }
-                }]).toArray(function(err, data2) {
+                }]).toArray(function (err, data2) {
                     if (data2 && data2[0] && data2[0].artwork && data2[0].artwork[0]) {
                         callback(data2);
                         db.close();
@@ -549,8 +549,8 @@ module.exports = {
             }
         });
     },
-    findall: function(data, callback) {
-        sails.query(function(err, db) {
+    findall: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -570,7 +570,7 @@ module.exports = {
                     $project: {
                         artwork: 1
                     }
-                }]).toArray(function(err, data2) {
+                }]).toArray(function (err, data2) {
                     if (data2 && data2[0]) {
                         callback(data2);
                         db.close();
@@ -590,8 +590,8 @@ module.exports = {
             }
         });
     },
-    findlimited: function(data, callback) {
-        sails.query(function(err, db) {
+    findlimited: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -656,7 +656,7 @@ module.exports = {
                         $project: {
                             count: 1
                         }
-                    }]).toArray(function(err, result) {
+                    }]).toArray(function (err, result) {
                         if (result && result[0]) {
                             newreturns.total = result[0].count;
                             newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
@@ -689,7 +689,7 @@ module.exports = {
                             }
                         }, {
                             $sort: sort
-                        }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                        }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
                             if (found && found[0]) {
                                 newreturns.data = found;
                                 callback(newreturns);
@@ -713,8 +713,8 @@ module.exports = {
             }
         });
     },
-    findbyid: function(data, callback) {
-        sails.query(function(err, db) {
+    findbyid: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -738,7 +738,7 @@ module.exports = {
                         artwork: 1,
                         focused: 1
                     }
-                }]).toArray(function(err, found) {
+                }]).toArray(function (err, found) {
                     if (found && found[0]) {
                         callback(found);
                         db.close();
@@ -759,25 +759,25 @@ module.exports = {
             }
         });
     },
-    deleteout: function(data, callback) {
+    deleteout: function (data, callback) {
         delete data.cart;
         delete data.wishlist;
         if (data.reseller && data.reseller.length > 0) {
-            _.each(data.reseller, function(x) {
+            _.each(data.reseller, function (x) {
                 if (x._id && x._id != "") {
                     x._id = sails.ObjectID(x._id);
                 }
             });
         }
         if (data.subtype && data.subtype.length > 0) {
-            _.each(data.subtype, function(x) {
+            _.each(data.subtype, function (x) {
                 if (x._id && x._id != "") {
                     x._id = sails.ObjectID(x._id);
                 }
             });
         }
         if (data.tag && data.tag.length > 0) {
-            _.each(data.tag, function(y) {
+            _.each(data.tag, function (y) {
                 if (y._id && y._id != "") {
                     y._id = sails.ObjectID(y._id);
                 }
@@ -791,7 +791,7 @@ module.exports = {
         if (data.imageno && data.imageno != "") {
             data.imageno = parseInt(data.imageno);
         }
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -807,7 +807,7 @@ module.exports = {
                             "_id": sails.ObjectID(data._id)
                         }
                     }
-                }, function(err, updated) {
+                }, function (err, updated) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -830,8 +830,8 @@ module.exports = {
             }
         });
     },
-    findlimitedout: function(data, callback) {
-        sails.query(function(err, db) {
+    findlimitedout: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -883,7 +883,7 @@ module.exports = {
                         $project: {
                             count: 1
                         }
-                    }]).toArray(function(err, result) {
+                    }]).toArray(function (err, result) {
                         if (result && result[0]) {
                             newreturns.total = result[0].count;
                             newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
@@ -916,7 +916,7 @@ module.exports = {
                             }
                         }, {
                             $sort: sort
-                        }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                        }]).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
                             if (found && found[0]) {
                                 newreturns.data = found;
                                 callback(newreturns);
@@ -939,9 +939,9 @@ module.exports = {
             }
         });
     },
-    lastsr: function(data, callback) {
+    lastsr: function (data, callback) {
         var user = sails.ObjectID(data.user);
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -960,7 +960,7 @@ module.exports = {
                     $sort: {
                         "artwork.srno": -1
                     }
-                }]).limit(1).toArray(function(err, result) {
+                }]).limit(1).toArray(function (err, result) {
                     if (result && result[0]) {
                         callback(result[0].artwork);
                         db.close();
@@ -986,9 +986,9 @@ module.exports = {
             }
         });
     },
-    lastImage: function(data, callback) {
+    lastImage: function (data, callback) {
         var user = sails.ObjectID(data.user);
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -1011,7 +1011,7 @@ module.exports = {
                     $sort: {
                         "artwork.imageno": -1
                     }
-                }]).limit(1).toArray(function(err, result) {
+                }]).limit(1).toArray(function (err, result) {
                     if (result && result[0]) {
                         callback(result[0].artwork);
                         db.close();
@@ -1037,7 +1037,7 @@ module.exports = {
             }
         });
     },
-    saveartwork: function(data) {
+    saveartwork: function (data) {
         var user = sails.ObjectID(data.user);
         delete data.user;
         data._id = sails.ObjectID();
@@ -1045,7 +1045,7 @@ module.exports = {
         if (data.imageno && data.imageno != "") {
             data.imageno = parseInt(data.imageno);
         }
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
             }
@@ -1056,7 +1056,7 @@ module.exports = {
                     $push: {
                         artwork: data
                     }
-                }, function(err, updated) {
+                }, function (err, updated) {
                     if (err) {
                         console.log(err);
                         db.close();
@@ -1070,9 +1070,9 @@ module.exports = {
             }
         });
     },
-    artworktype: function(data, callback) {
+    artworktype: function (data, callback) {
         var matcharray = [];
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -1235,7 +1235,7 @@ module.exports = {
                         $project: {
                             count: 1
                         }
-                    }]).toArray(function(err, result) {
+                    }]).toArray(function (err, result) {
                         if (result && result[0]) {
                             newreturns.total = result[0].count;
                             newreturns.totalpages = Math.ceil(result[0].count / data.pagesize);
@@ -1268,7 +1268,7 @@ module.exports = {
                                 artwork: 1,
                                 focused: 1
                             }
-                        }]).sort(sort).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                        }]).sort(sort).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
                             if (found && found[0]) {
                                 newreturns.data = found;
                                 newreturns.page = pagenumber;
@@ -1292,9 +1292,9 @@ module.exports = {
             }
         });
     },
-    artworktypeCommissioned: function(data, callback) {
+    artworktypeCommissioned: function (data, callback) {
         var matcharray = [];
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -1371,7 +1371,6 @@ module.exports = {
                     "artwork.tag.name": {
                         $in: matcharray
                     },
-                    status: "approve",
                     $or: [{
                         "artwork.status": "approve-commissioned"
                     }, {
@@ -1454,7 +1453,7 @@ module.exports = {
                         $project: {
                             count: 1
                         }
-                    }]).toArray(function(err, result) {
+                    }]).toArray(function (err, result) {
                         console.log(result);
                         if (result && result[0]) {
                             newreturns.total = result[0].count;
@@ -1488,7 +1487,7 @@ module.exports = {
                                 artwork: 1,
                                 focused: 1
                             }
-                        }]).sort(sort).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                        }]).sort(sort).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
                             if (found && found[0]) {
                                 newreturns.data = found;
                                 newreturns.page = pagenumber;
@@ -1512,8 +1511,8 @@ module.exports = {
             }
         });
     },
-    searchartwork: function(data, callback) {
-        sails.query(function(err, db) {
+    searchartwork: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -1563,7 +1562,7 @@ module.exports = {
                         $sort: {
                             name: 1
                         }
-                    }]).toArray(function(err, found) {
+                    }]).toArray(function (err, found) {
                         if (found && found[0]) {
                             newreturns.data = found;
                             callback(newreturns);
@@ -1616,7 +1615,7 @@ module.exports = {
                         $sort: {
                             name: 1
                         }
-                    }]).toArray(function(err, found) {
+                    }]).toArray(function (err, found) {
                         if (found && found[0]) {
                             newreturns.data = found;
                             callback(newreturns);
@@ -1659,7 +1658,7 @@ module.exports = {
                         $sort: {
                             name: 1
                         }
-                    }]).toArray(function(err, found) {
+                    }]).toArray(function (err, found) {
                         if (found && found[0]) {
                             newreturns.data = found;
                             callback(newreturns);
@@ -1702,7 +1701,7 @@ module.exports = {
                         $sort: {
                             name: 1
                         }
-                    }]).toArray(function(err, found) {
+                    }]).toArray(function (err, found) {
                         if (found && found[0]) {
                             newreturns.data = found;
                             callback(newreturns);
@@ -1723,7 +1722,7 @@ module.exports = {
                     });
                 } else {
                     async.parallel([
-                        function(callback) {
+                        function (callback) {
                             db.collection("user").aggregate([{
                                 $match: {
                                     $or: [{
@@ -1757,9 +1756,9 @@ module.exports = {
                                 $sort: {
                                     name: 1
                                 }
-                            }]).toArray(function(err, found) {
+                            }]).toArray(function (err, found) {
                                 if (found && found[0]) {
-                                    _.each(found, function(x) {
+                                    _.each(found, function (x) {
                                         newreturns.data.push(x);
                                     });
                                     callback(null, newreturns);
@@ -1771,7 +1770,7 @@ module.exports = {
                                 }
                             });
                         },
-                        function(callback) {
+                        function (callback) {
                             db.collection("user").aggregate([{
                                 $unwind: "$artwork"
                             }, {
@@ -1803,9 +1802,9 @@ module.exports = {
                                 $sort: {
                                     name: 1
                                 }
-                            }]).toArray(function(err, found1) {
+                            }]).toArray(function (err, found1) {
                                 if (found1 && found1[0]) {
-                                    _.each(found1, function(y) {
+                                    _.each(found1, function (y) {
                                         newreturns.data.push(y);
                                     });
                                     callback(null, newreturns);
@@ -1817,7 +1816,7 @@ module.exports = {
                                 }
                             });
                         },
-                        function(callback) {
+                        function (callback) {
                             db.collection("user").aggregate([{
                                 $unwind: "$artwork"
                             }, {
@@ -1841,9 +1840,9 @@ module.exports = {
                                 $sort: {
                                     name: 1
                                 }
-                            }]).toArray(function(err, found2) {
+                            }]).toArray(function (err, found2) {
                                 if (found2 && found2[0]) {
-                                    _.each(found2, function(z) {
+                                    _.each(found2, function (z) {
                                         newreturns.data.push(z);
                                     });
                                     callback(null, newreturns);
@@ -1855,7 +1854,7 @@ module.exports = {
                                 }
                             });
                         },
-                        function(callback) {
+                        function (callback) {
                             db.collection("user").aggregate([{
                                 $unwind: "$artwork"
                             }, {
@@ -1879,9 +1878,9 @@ module.exports = {
                                 $sort: {
                                     name: 1
                                 }
-                            }]).toArray(function(err, found3) {
+                            }]).toArray(function (err, found3) {
                                 if (found3 && found3[0]) {
-                                    _.each(found3, function(a) {
+                                    _.each(found3, function (a) {
                                         newreturns.data.push(a);
                                     });
                                     callback(null, newreturns);
@@ -1889,14 +1888,14 @@ module.exports = {
                                     console.log(err);
                                     callback(err, null);
                                 } else {
-                                    _.each(found3, function(a) {
+                                    _.each(found3, function (a) {
                                         newreturns.data.push(a);
                                     });
                                     callback(null, newreturns);
                                 }
                             });
                         }
-                    ], function(err, data6) {
+                    ], function (err, data6) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -1919,8 +1918,8 @@ module.exports = {
             }
         });
     },
-    searchdrop: function(data, callback) {
-        sails.query(function(err, db) {
+    searchdrop: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -1937,7 +1936,7 @@ module.exports = {
                 var checkname = new RegExp(data.search, "i");
                 var user = sails.ObjectID(data.user);
                 async.parallel([
-                    function(callback) {
+                    function (callback) {
                         db.collection("user").find({
                             $or: [{
                                 name: {
@@ -1955,9 +1954,9 @@ module.exports = {
                             name: 1
                         }).sort({
                             name: 1
-                        }).limit(10).toArray(function(err, data2) {
+                        }).limit(10).toArray(function (err, data2) {
                             if (data2 && data2[0]) {
-                                _.each(data2, function(user) {
+                                _.each(data2, function (user) {
                                     user.type = "Artist";
                                     newreturns.push(user);
                                 });
@@ -1970,7 +1969,7 @@ module.exports = {
                             }
                         });
                     },
-                    function(callback) {
+                    function (callback) {
                         db.collection("user").aggregate([{
                             $unwind: "$artwork"
                         }, {
@@ -2017,9 +2016,9 @@ module.exports = {
                             $sort: {
                                 name: 1
                             }
-                        }]).limit(10).toArray(function(err, data3) {
+                        }]).limit(10).toArray(function (err, data3) {
                             if (data3 && data3[0]) {
-                                _.each(data3, function(user) {
+                                _.each(data3, function (user) {
                                     newreturns.push(user);
                                 });
                                 callback(null, newreturns);
@@ -2031,7 +2030,7 @@ module.exports = {
                             }
                         });
                     },
-                    function(callback) {
+                    function (callback) {
                         db.collection("artmedium").find({
                             $or: [{
                                 name: {
@@ -2047,9 +2046,9 @@ module.exports = {
                             name: 1
                         }).sort({
                             name: 1
-                        }).limit(10).toArray(function(err, data4) {
+                        }).limit(10).toArray(function (err, data4) {
                             if (data4 && data4[0]) {
-                                _.each(data4, function(user) {
+                                _.each(data4, function (user) {
                                     user.type = "Art-medium";
                                     newreturns.push(user);
                                 });
@@ -2062,7 +2061,7 @@ module.exports = {
                             }
                         });
                     },
-                    function(callback) {
+                    function (callback) {
                         db.collection("tag").find({
                             $or: [{
                                 name: {
@@ -2078,9 +2077,9 @@ module.exports = {
                             name: 1
                         }).sort({
                             name: 1
-                        }).limit(10).toArray(function(err, data5) {
+                        }).limit(10).toArray(function (err, data5) {
                             if (data5 && data5[0]) {
-                                _.each(data5, function(user) {
+                                _.each(data5, function (user) {
                                     user.type = "Tag";
                                     newreturns.push(user);
                                 });
@@ -2093,7 +2092,7 @@ module.exports = {
                             }
                         });
                     },
-                ], function(err, data6) {
+                ], function (err, data6) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -2115,10 +2114,10 @@ module.exports = {
             }
         });
     },
-    favoriteartwork: function(data, callback) {
+    favoriteartwork: function (data, callback) {
         var i = 0;
         var returnData = [];
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -2126,8 +2125,8 @@ module.exports = {
                     comment: "Error"
                 });
             } else if (db) {
-                _.each(data.artwork, function(art) {
-                    Artwork.findbyid(art, function(respo) {
+                _.each(data.artwork, function (art) {
+                    Artwork.findbyid(art, function (respo) {
                         if (respo.value != false) {
                             if (art.wishlistfolder) {
                                 respo[0].wishlistfolder = art.wishlistfolder;
@@ -2146,8 +2145,8 @@ module.exports = {
             }
         });
     },
-    findMyArtwork: function(data, callback) {
-        sails.query(function(err, db) {
+    findMyArtwork: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -2168,7 +2167,7 @@ module.exports = {
                         name: 1,
                         artwork: 1
                     }
-                }]).toArray(function(err, found) {
+                }]).toArray(function (err, found) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -2190,14 +2189,14 @@ module.exports = {
             }
         });
     },
-    nextartwork: function(data, callback) {
+    nextartwork: function (data, callback) {
         var mysr = parseInt(data.srno);
         if (data.type == "next") {
             mysr++;
         } else {
             mysr--;
         }
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -2216,7 +2215,7 @@ module.exports = {
                         _id: 0,
                         "artwork._id": 1
                     }
-                }]).toArray(function(err, found) {
+                }]).toArray(function (err, found) {
                     if (found && found[0]) {
                         callback(found[0]);
                         db.close();

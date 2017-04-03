@@ -9,7 +9,7 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.bootstrap.html
  */
 
-module.exports.bootstrap = function(cb) {
+module.exports.bootstrap = function (cb) {
     sails.Db = require('mongodb').Db,
         sails.MongoClient = require('mongodb').MongoClient,
         sails.ISODate = require('mongodb').ISODate,
@@ -32,7 +32,7 @@ module.exports.bootstrap = function(cb) {
         sails.webshot = require('webshot'),
         sails._ = require('lodash'),
         sails.request = require('request'),
-        sails.lwip = require('lwip'),
+        // sails.lwip = require('lwip'),
         sails.myurl = "http://www.auraart.in/",
         sails.PDFImagePack = require("pdf-image-pack"),
         sails.fromEmail = "rishiraj@auraart.in",
@@ -42,7 +42,7 @@ module.exports.bootstrap = function(cb) {
 
         // Connection URL
         sails.url = 'mongodb://localhost:27017/auraart';
-    sails.query = function(myfunc) {
+    sails.query = function (myfunc) {
         sails.MongoClient.connect(sails.url, myfunc);
     };
     // It's very important to trigger this callback method when you are finished
