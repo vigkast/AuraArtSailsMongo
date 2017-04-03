@@ -1,4 +1,4 @@
-var adminurl = "http://localhost:1337/";
+var adminurl = "http://auraart.in/";
 var imgUploadUrl = adminurl + "user/uploadfile";
 var wallUploadUrl = adminurl + "user/wallUpload";
 var imgurl = adminurl + "upload/";
