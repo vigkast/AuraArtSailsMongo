@@ -329,6 +329,9 @@ module.exports = {
         }
         if (req.body) {
             if (req.body.pagesize && req.body.pagesize !== "" && req.body.pagenumber && req.body.pagenumber !== "") {
+                if (_.isEmpty(req.body.filter)) {
+                    req.body.filter = "srno";
+                }
                 Artwork.artworktypeCommissioned(req.body, callback);
             } else {
                 res.json({

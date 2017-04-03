@@ -1312,6 +1312,7 @@ module.exports = {
                 var user = sails.ObjectID(data.user);
                 var sortnum = parseInt(data.sort);
                 var sort = {};
+
                 if (data.filter && data.filter == "srno") {
                     sort = {};
                     sort.focused = 1;
