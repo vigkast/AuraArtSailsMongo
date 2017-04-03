@@ -196,11 +196,12 @@ module.exports = {
         }
     },
     findlimitedout: function (req, res) {
+        function callback(data) {
+            res.json(data);
+        };
         if (req.body) {
-            if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
-                function callback(data) {
-                    res.json(data);
-                };
+            if (req.body.pagesize && req.body.pagesize !== "" && req.body.pagenumber && req.body.pagenumber !== "") {
+
                 Artwork.findlimitedout(req.body, callback);
             } else {
                 res.json({
