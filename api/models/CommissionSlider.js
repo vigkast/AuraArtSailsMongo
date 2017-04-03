@@ -87,7 +87,6 @@ module.exports = {
                 db.collection("commissionslider").find().sort({
                     order: 1
                 }).toArray(function (err, data) {
-                    console.log(data);
                     if (err) {
                         callback({
                             value: false
@@ -95,33 +94,29 @@ module.exports = {
                     } else if (data.length > 0) {
                         var returnVal = [];
                         async.each(data, function (obj, callback) {
+                            console.log(obj);
                             db.collection("user").aggregate([{
-                                $unwind: "$artwork"
-                            }, {
                                 "$match": {
                                     "artwork._id": sails.ObjectID(obj.product)
                                 }
                             }]).toArray(function (err, found) {
+                                console.log(err);
                                 if (err) {
                                     callback({
                                         value: false
                                     });
-                                    console.log(err);
-                                    db.close();
+                                    // db.close();
                                 } else if (found && found[0]) {
                                     returnVal.push(found[0].artwork);
                                     callback(null);
-                                    db.close()
+
                                 } else {
-                                    callback({
-                                        value: false,
-                                        comment: "No data found"
-                                    });
-                                    db.close();
+                                    callback();
                                 }
                             });
 
                         }, function (err) {
+                            // db.close();
                             // if any of the file processing produced an error, err would equal that error
                             if (err) {
                                 // One of the iterations produced an error.

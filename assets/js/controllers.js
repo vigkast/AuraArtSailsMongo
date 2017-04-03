@@ -14,540 +14,540 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     //.controller('AppCtrl')
     .controller('HomeCtrl', function ($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
-   
-            $.jStorage.set("artistScroll", null);
-            $.jStorage.set("artworkScroll", null);
-            //Used to name the .html file
-            $scope.template = TemplateService.changecontent("home");
-            $scope.menutitle = NavigationService.makeactive("Home");
-            TemplateService.title = $scope.menutitle;
-            $scope.navigation = NavigationService.getnav();
 
-            $scope.filterby = {};
-            $scope.filterby.search = "";
-            $scope.filterby.type = "";
-            $scope.filterby.pagenumber = 1;
-            $scope.filterby.pagesize = 20;
-            $scope.filterby.filter = "srno";
-            $scope.filterby.sort = 1;
-            $scope.filterby.minprice = 0;
-            $scope.filterby.maxprice = 10000000;
-            $scope.filterby.minwidth = '';
-            $scope.filterby.maxwidth = '';
-            $scope.filterby.minheight = '';
-            $scope.filterby.maxheight = '';
-            $scope.filterby.minbreadth = '';
-            $scope.filterby.maxbreadth = '';
-            $scope.showInvalidLogin = false;
-            //  $scope.filterby.color = '';
-            //  $scope.filterby.style = '';
-            //  $scope.filterby.element = '';
-            NavigationService.getSlider(function (data) {
-                $scope.slides = data;
+        $.jStorage.set("artistScroll", null);
+        $.jStorage.set("artworkScroll", null);
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("home");
+        $scope.menutitle = NavigationService.makeactive("Home");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+        $scope.filterby = {};
+        $scope.filterby.search = "";
+        $scope.filterby.type = "";
+        $scope.filterby.pagenumber = 1;
+        $scope.filterby.pagesize = 20;
+        $scope.filterby.filter = "srno";
+        $scope.filterby.sort = 1;
+        $scope.filterby.minprice = 0;
+        $scope.filterby.maxprice = 10000000;
+        $scope.filterby.minwidth = '';
+        $scope.filterby.maxwidth = '';
+        $scope.filterby.minheight = '';
+        $scope.filterby.maxheight = '';
+        $scope.filterby.minbreadth = '';
+        $scope.filterby.maxbreadth = '';
+        $scope.showInvalidLogin = false;
+        //  $scope.filterby.color = '';
+        //  $scope.filterby.style = '';
+        //  $scope.filterby.element = '';
+        NavigationService.getSlider(function (data) {
+            $scope.slides = data;
+        });
+
+        $scope.openPop = function () {
+            dataNextPre.messageBoxSignUp();
+        }
+
+        $scope.toPayU = function () {
+            console.log("in payu");
+            window.location.href = "http://www.auraart.in/PayUMoney_PHP_Module/PayUMoney_form.php";
+        }
+
+        $scope.becomeSeller = function () {
+            globalFunction.becomeSeller();
+            // if ($scope.isLoggedIn == true) {
+            //   if (userProfile && userProfile.accesslevel == "reseller") {
+            //     $state.go("create-artwork");
+            //   } else {
+            //     $state.go("termcondition");
+            //   }
+            // } else {
+            //   ngDialog.open({
+            //     template: 'views/content/sellerRegister.html'
+            //   });
+            // }
+        }
+
+        $scope.registeruser = function () {
+            if ($scope.register.password === $scope.register.confirmpassword) {
+                $scope.passwordNotMatch = false;
+                $scope.register.accesslevel = "customer";
+                NavigationService.registeruser($scope.register, function (data, status) {
+                    console.log(data);
+                    if (data.value != false) {
+                        $scope.showAlreadyRegistered = false;
+                        $scope.showWishlist = true;
+                        //$.jStorage.set("user", data);
+                        ngDialog.closeAll();
+                        $state.go("termcondition");
+                    } else if (data.value == false && data.comment == "User already exists") {
+                        $scope.showAlreadyRegistered = true;
+                    }
+                })
+            } else {
+                $scope.passwordNotMatch = true;
+            }
+        };
+
+        $scope.lauchedSoon = function () {
+            ngDialog.open({
+                template: 'views/content/modal-launch.html'
             });
+            $timeout(function () {
+                ngDialog.closeAll();
+            }, 3000);
+        };
 
-            $scope.openPop = function () {
-                dataNextPre.messageBoxSignUp();
-            }
-
-            $scope.toPayU = function () {
-                console.log("in payu");
-                window.location.href = "http://www.auraart.in/PayUMoney_PHP_Module/PayUMoney_form.php";
-            }
-
-            $scope.becomeSeller = function () {
-                globalFunction.becomeSeller();
-                // if ($scope.isLoggedIn == true) {
-                //   if (userProfile && userProfile.accesslevel == "reseller") {
-                //     $state.go("create-artwork");
-                //   } else {
-                //     $state.go("termcondition");
-                //   }
-                // } else {
-                //   ngDialog.open({
-                //     template: 'views/content/sellerRegister.html'
-                //   });
-                // }
-            }
-
-            $scope.registeruser = function () {
-                if ($scope.register.password === $scope.register.confirmpassword) {
-                    $scope.passwordNotMatch = false;
-                    $scope.register.accesslevel = "customer";
-                    NavigationService.registeruser($scope.register, function (data, status) {
-                        console.log(data);
-                        if (data.value != false) {
-                            $scope.showAlreadyRegistered = false;
-                            $scope.showWishlist = true;
-                            //$.jStorage.set("user", data);
-                            ngDialog.closeAll();
+        $scope.userlogin = function () {
+            NavigationService.userlogin($scope.login, function (data, status) {
+                if (data.value != false) {
+                    $scope.showInvalidLogin = false;
+                    NavigationService.getuserprofile(function (data) {
+                        ngDialog.closeAll();
+                        if (data.id && data.accesslevel == "reseller") {
+                            $state.go("create-artwork");
+                        } else {
                             $state.go("termcondition");
-                        } else if (data.value == false && data.comment == "User already exists") {
-                            $scope.showAlreadyRegistered = true;
                         }
                     })
                 } else {
-                    $scope.passwordNotMatch = true;
+                    $scope.showInvalidLogin = true;
                 }
-            };
 
-            $scope.lauchedSoon = function () {
-                ngDialog.open({
-                    template: 'views/content/modal-launch.html'
+
+                // if (data.value != false) {
+                //     $scope.showInvalidLogin = false;
+                //     $scope.showWishlist = true;
+                //     //$.jStorage.set("user", data);
+                //     $scope.user.name = data.name;
+                //     ngDialog.closeAll();
+                //     window.location.reload();
+                // } else {
+                //     $scope.showInvalidLogin = true;
+                // }
+            })
+        };
+
+        $scope.showLogin = true;
+        $scope.changeTab = function (tab) {
+            console.log(tab);
+            if (tab == 1) {
+                $scope.showLogin = false;
+            } else {
+                $scope.showLogin = true;
+            }
+        }
+
+        function getPress(data) {
+
+            if (data.value != false) {
+                $scope.press = data
+                console.log(data);
+            } else {
+                $scope.press = [];
+            }
+        }
+        NavigationService.pressFind(getPress);
+
+        NavigationService.getupcomingevents(function (data) {
+            if (data.value !== false) {
+                $scope.upcomingEvent = data;
+                if ($scope.upcomingEvent.videos) {
+                    $scope.upcomingEvent.videos = $scope.upcomingEvent.videos.split(',');
+                }
+            }
+            console.log($scope.upcomingEvent);
+        });
+
+        NavigationService.getuserprofile(function (data) {
+            if (data.id) {
+                $scope.isLoggedIn = true;
+                userProfile = data;
+                NavigationService.getMyFavourites(data.id, function (favorite) {
+                    userProfile.wishlist = favorite;
                 });
-                $timeout(function () {
-                    ngDialog.closeAll();
-                }, 3000);
-            };
+            } else {
+                $scope.isLoggedIn = false;
+            }
+        });
 
-            $scope.userlogin = function () {
-                NavigationService.userlogin($scope.login, function (data, status) {
-                    if (data.value != false) {
-                        $scope.showInvalidLogin = false;
-                        NavigationService.getuserprofile(function (data) {
-                            ngDialog.closeAll();
-                            if (data.id && data.accesslevel == "reseller") {
-                                $state.go("create-artwork");
-                            } else {
-                                $state.go("termcondition");
-                            }
-                        })
+        $scope.onfock = "";
+        $scope.oon = function () {
+            if ($scope.onfock === "") {
+                $scope.onfock = "sdfs";
+            } else {
+                $scope.onfock = "";
+            }
+        };
+        dataNextPre.setData = function (data) {
+            //      console.log(data);
+        };
+        $scope.changeUI = 0;
+        // set available range
+        $scope.minPrice = 0;
+        $scope.maxPrice = 10000000;
+
+        // default the user's values to the available range
+        $scope.userMinPrice = $scope.minPrice;
+        $scope.userMaxPrice = $scope.maxPrice;
+
+        //    NavigationService.getsliderimages(function (data, status) {
+        //        _.each(data, function (n) {
+        //            $scope.slides.push(n._id);
+        //        })
+        //    });
+
+        $scope.applyfilter = function () {
+            //      console.log($scope.filterby);
+            console.log($scope.filterby);
+            $.jStorage.set("filterby", $scope.filterby);
+            //      $location.url("/artwork/-1");
+            $state.go('totalartpage', {
+                type: -1
+            });
+        };
+
+        $scope.goToArtworks = function (type) {
+            //      $location.url("/artwork/" + type);
+            $state.go('totalartpage', {
+                type: type
+            });
+        };
+
+        $scope.goToEvents = function () {
+            $state.go('events');
+        };
+
+        $scope.onclick = function (value) {
+            $scope.filterby.checked
+        };
+        var lastChecked = null;
+        $scope.onclick = function (event) {
+            if (event.target.value === lastChecked) {
+                $scope.filterby.type = "";
+                $scope.getallartist();
+                lastChecked = null;
+            } else {
+                lastChecked = event.target.value;
+            }
+        };
+        $scope.changetype = function (chang) {
+            if (chang == 1) {
+                $scope.filterby.type = "Paintings";
+                $scope.getallartist();
+                $scope.getmedium();
+                $scope.getClr();
+                $scope.getElm();
+                $scope.getStl();
+            } else if (chang == 2) {
+                $scope.filterby.type = "Sculptures";
+                $scope.getallartist();
+                $scope.getmedium();
+                $scope.getClr();
+                $scope.getElm();
+                $scope.getStl();
+            } else if (chang == 3) {
+                $scope.filterby.type = "Photographs";
+                $scope.getallartist();
+                $scope.getmedium();
+                $scope.getClr();
+                $scope.getElm();
+                $scope.getStl();
+            } else if (chang == 4) {
+                $scope.filterby.type = "Prints";
+                $scope.getallartist();
+                $scope.getmedium();
+                $scope.getClr();
+                $scope.getElm();
+                $scope.getStl();
+            }
+        };
+        $scope.setSearch = function (select) {
+            $scope.filterby.search = select.selected.name;
+        };
+        $scope.setMediumSearch = function (select) {
+            $scope.filterby.medium = select.selected.name;
+        };
+        $scope.setColorSearch = function (select) {
+            $scope.filterby.color = select.selected.name;
+        };
+        $scope.setStyleSearch = function (select) {
+            $scope.filterby.style = select.selected.name;
+        };
+        $scope.setElementSearch = function (select) {
+            $scope.filterby.element = select.selected.name;
+        };
+        $scope.allartist = [];
+        $scope.allmedium = [];
+        $scope.getmedium = function () {
+            if ($scope.filterby.type === "") {
+                //          console.log("in if");
+                $scope.change = "";
+                NavigationService.getallmedium($scope.change, function (data, status) {
+                    if (data && data.value !== false) {
+                        $scope.allmedium = _.uniq(data, '_id');
                     } else {
-                        $scope.showInvalidLogin = true;
+                        $scope.allmedium = [];
+                    }
+                });
+            } else {
+                //          console.log("in else");
+                $scope.change = {};
+                $scope.change.type = $scope.filterby.type;
+                NavigationService.getallmedium($scope.change, function (data, status) {
+                    if (data && data.value !== false) {
+                        $scope.allmedium = _.uniq(data, '_id');
+                    } else {
+                        $scope.allmedium = [];
+                    }
+                });
+            }
+        };
+
+        $scope.getClr = function () {
+            if ($scope.filterby.type == "") {
+                //          console.log("in if");
+                $scope.change = "";
+                NavigationService.tagSearchType($scope.change, "", function (data, status) {
+                    if (data && data.value != false) {
+                        $scope.allColor = _.uniq(data, '_id');
+                        $scope.allColor.unshift({
+                            "_id": "0",
+                            name: ""
+                        });
+                    } else {
+                        $scope.allColor = [];
+                    }
+                });
+            } else {
+                //          console.log("in else");
+                $scope.change = {};
+                $scope.change.type = $scope.filterby.type;
+                NavigationService.tagSearchType($scope.change, "", function (data, status) {
+                    if (data && data.value !== false) {
+                        $scope.allColor = _.uniq(data, '_id');
+                        $scope.allColor.unshift({
+                            "_id": "0",
+                            name: ""
+                        });
+                    } else {
+                        $scope.allColor = [];
+                    }
+                });
+            }
+        };
+        $scope.getStl = function () {
+            if ($scope.filterby.type === "") {
+                //          console.log("in if");
+                $scope.change = "";
+                NavigationService.tagSearchType($scope.change, "", function (data, status) {
+                    if (data && data.value !== false) {
+                        $scope.allStyle = _.uniq(data, '_id');
+                        $scope.allStyle.unshift({
+                            "_id": "0",
+                            name: ""
+                        });
+                    } else {
+                        $scope.allStyle = [];
+                    }
+                });
+            } else {
+                //          console.log("in else");
+                $scope.change = {};
+                $scope.change.type = $scope.filterby.type;
+                NavigationService.tagSearchType($scope.change, "", function (data, status) {
+                    if (data && data.value !== false) {
+                        $scope.allStyle = _.uniq(data, '_id');
+                        $scope.allStyle.unshift({
+                            "_id": "0",
+                            name: ""
+                        });
+                    } else {
+                        $scope.allStyle = [];
+                    }
+                });
+            }
+        };
+        $scope.getElm = function () {
+            if ($scope.filterby.type === "") {
+                //          console.log("in if");
+                $scope.change = "";
+                NavigationService.tagSearchType($scope.change, "", function (data, status) {
+                    if (data && data.value !== false) {
+                        $scope.allElement = _.uniq(data, '_id');
+                        $scope.allElement.unshift({
+                            "_id": "0",
+                            name: ""
+                        });
+                    } else {
+                        $scope.allElement = [];
+                    }
+                });
+            } else {
+                //          console.log("in else");
+                $scope.change = {};
+                $scope.change.type = $scope.filterby.type;
+                NavigationService.tagSearchType($scope.change, "", function (data, status) {
+                    if (data && data.value !== false) {
+                        $scope.allElement = _.uniq(data, '_id');
+                        $scope.allElement.unshift({
+                            "_id": "0",
+                            name: ""
+                        });
+                    } else {
+                        $scope.allElement = [];
+                    }
+                });
+            }
+        };
+        $scope.getClr();
+        $scope.getElm();
+        $scope.getStl();
+        var countcall = 0;
+        $scope.getallartist = function () {
+            if ($scope.filterby.type === "") {
+                NavigationService.getAllArtistByAccess(++countcall, function (data, status, n) {
+                    if (n == countcall) {
+                        if (data && data.value !== false) {
+                            $scope.allartist = _.uniq(data, '_id');
+                            $scope.allartist.unshift({
+                                "_id": "0",
+                                name: ""
+                            });
+                        } else {
+                            $scope.allartist = [];
+                        }
+                    } else {
+                        $scope.allartist = [];
+                    }
+                });
+            } else {
+                NavigationService.userbytype($scope.filterby.type, ++countcall, function (data, status, n) {
+                    if (n == countcall) {
+                        if (data && data.value !== false) {
+                            $scope.allartist = data;
+                            $scope.allartist.unshift({
+                                "_id": "0",
+                                name: ""
+                            });
+                        } else {
+                            $scope.allartist = [];
+                        }
+                    } else {
+                        $scope.allartist = [];
                     }
 
-
-                    // if (data.value != false) {
-                    //     $scope.showInvalidLogin = false;
-                    //     $scope.showWishlist = true;
-                    //     //$.jStorage.set("user", data);
-                    //     $scope.user.name = data.name;
-                    //     ngDialog.closeAll();
-                    //     window.location.reload();
-                    // } else {
-                    //     $scope.showInvalidLogin = true;
-                    // }
-                })
-            };
-
-            $scope.showLogin = true;
-            $scope.changeTab = function (tab) {
-                console.log(tab);
-                if (tab == 1) {
-                    $scope.showLogin = false;
-                } else {
-                    $scope.showLogin = true;
-                }
-            }
-
-            function getPress(data) {
-
-                if (data.value != false) {
-                    $scope.press = data
-                    console.log(data);
-                } else {
-                    $scope.press = [];
-                }
-            }
-            NavigationService.pressFind(getPress);
-
-            NavigationService.getupcomingevents(function (data) {
-                if (data.value !== false) {
-                    $scope.upcomingEvent = data;
-                    if ($scope.upcomingEvent.videos) {
-                        $scope.upcomingEvent.videos = $scope.upcomingEvent.videos.split(',');
-                    }
-                }
-                console.log($scope.upcomingEvent);
-            });
-
-            NavigationService.getuserprofile(function (data) {
-                if (data.id) {
-                    $scope.isLoggedIn = true;
-                    userProfile = data;
-                    NavigationService.getMyFavourites(data.id, function (favorite) {
-                        userProfile.wishlist = favorite;
-                    });
-                } else {
-                    $scope.isLoggedIn = false;
-                }
-            });
-
-            $scope.onfock = "";
-            $scope.oon = function () {
-                if ($scope.onfock === "") {
-                    $scope.onfock = "sdfs";
-                } else {
-                    $scope.onfock = "";
-                }
-            };
-            dataNextPre.setData = function (data) {
-                //      console.log(data);
-            };
-            $scope.changeUI = 0;
-            // set available range
-            $scope.minPrice = 0;
-            $scope.maxPrice = 10000000;
-
-            // default the user's values to the available range
-            $scope.userMinPrice = $scope.minPrice;
-            $scope.userMaxPrice = $scope.maxPrice;
-
-            //    NavigationService.getsliderimages(function (data, status) {
-            //        _.each(data, function (n) {
-            //            $scope.slides.push(n._id);
-            //        })
-            //    });
-
-            $scope.applyfilter = function () {
-                //      console.log($scope.filterby);
-                console.log($scope.filterby);
-                $.jStorage.set("filterby", $scope.filterby);
-                //      $location.url("/artwork/-1");
-                $state.go('totalartpage', {
-                    type: -1
                 });
-            };
-
-            $scope.goToArtworks = function (type) {
-                //      $location.url("/artwork/" + type);
-                $state.go('totalartpage', {
-                    type: type
-                });
-            };
-
-            $scope.goToEvents = function () {
-                $state.go('events');
-            };
-
-            $scope.onclick = function (value) {
-                $scope.filterby.checked
-            };
-            var lastChecked = null;
-            $scope.onclick = function (event) {
-                if (event.target.value === lastChecked) {
-                    $scope.filterby.type = "";
-                    $scope.getallartist();
-                    lastChecked = null;
-                } else {
-                    lastChecked = event.target.value;
-                }
-            };
-            $scope.changetype = function (chang) {
-                if (chang == 1) {
-                    $scope.filterby.type = "Paintings";
-                    $scope.getallartist();
-                    $scope.getmedium();
-                    $scope.getClr();
-                    $scope.getElm();
-                    $scope.getStl();
-                } else if (chang == 2) {
-                    $scope.filterby.type = "Sculptures";
-                    $scope.getallartist();
-                    $scope.getmedium();
-                    $scope.getClr();
-                    $scope.getElm();
-                    $scope.getStl();
-                } else if (chang == 3) {
-                    $scope.filterby.type = "Photographs";
-                    $scope.getallartist();
-                    $scope.getmedium();
-                    $scope.getClr();
-                    $scope.getElm();
-                    $scope.getStl();
-                } else if (chang == 4) {
-                    $scope.filterby.type = "Prints";
-                    $scope.getallartist();
-                    $scope.getmedium();
-                    $scope.getClr();
-                    $scope.getElm();
-                    $scope.getStl();
-                }
-            };
-            $scope.setSearch = function (select) {
-                $scope.filterby.search = select.selected.name;
-            };
-            $scope.setMediumSearch = function (select) {
-                $scope.filterby.medium = select.selected.name;
-            };
-            $scope.setColorSearch = function (select) {
-                $scope.filterby.color = select.selected.name;
-            };
-            $scope.setStyleSearch = function (select) {
-                $scope.filterby.style = select.selected.name;
-            };
-            $scope.setElementSearch = function (select) {
-                $scope.filterby.element = select.selected.name;
-            };
-            $scope.allartist = [];
-            $scope.allmedium = [];
-            $scope.getmedium = function () {
-                if ($scope.filterby.type === "") {
-                    //          console.log("in if");
-                    $scope.change = "";
-                    NavigationService.getallmedium($scope.change, function (data, status) {
-                        if (data && data.value !== false) {
-                            $scope.allmedium = _.uniq(data, '_id');
-                        } else {
-                            $scope.allmedium = [];
-                        }
-                    });
-                } else {
-                    //          console.log("in else");
-                    $scope.change = {};
-                    $scope.change.type = $scope.filterby.type;
-                    NavigationService.getallmedium($scope.change, function (data, status) {
-                        if (data && data.value !== false) {
-                            $scope.allmedium = _.uniq(data, '_id');
-                        } else {
-                            $scope.allmedium = [];
-                        }
-                    });
-                }
-            };
-
-            $scope.getClr = function () {
-                if ($scope.filterby.type == "") {
-                    //          console.log("in if");
-                    $scope.change = "";
-                    NavigationService.tagSearchType($scope.change, "", function (data, status) {
+            }
+        };
+        $scope.getDropdown = function (search) {
+            if (search.length >= 1) {
+                $scope.change = {};
+                $scope.change.type = $scope.filterby.type;
+                $scope.change.search = search;
+                $timeout(function () {
+                    NavigationService.getAllArtistDrop($scope.change, function (data) {
+                        console.log(data);
                         if (data && data.value != false) {
-                            $scope.allColor = _.uniq(data, '_id');
-                            $scope.allColor.unshift({
+                            $scope.allartist = data;
+                            $scope.allartist.unshift({
                                 "_id": "0",
                                 name: ""
                             });
-                        } else {
-                            $scope.allColor = [];
-                        }
-                    });
-                } else {
-                    //          console.log("in else");
-                    $scope.change = {};
-                    $scope.change.type = $scope.filterby.type;
-                    NavigationService.tagSearchType($scope.change, "", function (data, status) {
-                        if (data && data.value !== false) {
-                            $scope.allColor = _.uniq(data, '_id');
-                            $scope.allColor.unshift({
-                                "_id": "0",
-                                name: ""
-                            });
-                        } else {
-                            $scope.allColor = [];
-                        }
-                    });
-                }
-            };
-            $scope.getStl = function () {
-                if ($scope.filterby.type === "") {
-                    //          console.log("in if");
-                    $scope.change = "";
-                    NavigationService.tagSearchType($scope.change, "", function (data, status) {
-                        if (data && data.value !== false) {
-                            $scope.allStyle = _.uniq(data, '_id');
-                            $scope.allStyle.unshift({
-                                "_id": "0",
-                                name: ""
-                            });
-                        } else {
-                            $scope.allStyle = [];
-                        }
-                    });
-                } else {
-                    //          console.log("in else");
-                    $scope.change = {};
-                    $scope.change.type = $scope.filterby.type;
-                    NavigationService.tagSearchType($scope.change, "", function (data, status) {
-                        if (data && data.value !== false) {
-                            $scope.allStyle = _.uniq(data, '_id');
-                            $scope.allStyle.unshift({
-                                "_id": "0",
-                                name: ""
-                            });
-                        } else {
-                            $scope.allStyle = [];
-                        }
-                    });
-                }
-            };
-            $scope.getElm = function () {
-                if ($scope.filterby.type === "") {
-                    //          console.log("in if");
-                    $scope.change = "";
-                    NavigationService.tagSearchType($scope.change, "", function (data, status) {
-                        if (data && data.value !== false) {
-                            $scope.allElement = _.uniq(data, '_id');
-                            $scope.allElement.unshift({
-                                "_id": "0",
-                                name: ""
-                            });
-                        } else {
-                            $scope.allElement = [];
-                        }
-                    });
-                } else {
-                    //          console.log("in else");
-                    $scope.change = {};
-                    $scope.change.type = $scope.filterby.type;
-                    NavigationService.tagSearchType($scope.change, "", function (data, status) {
-                        if (data && data.value !== false) {
-                            $scope.allElement = _.uniq(data, '_id');
-                            $scope.allElement.unshift({
-                                "_id": "0",
-                                name: ""
-                            });
-                        } else {
-                            $scope.allElement = [];
-                        }
-                    });
-                }
-            };
-            $scope.getClr();
-            $scope.getElm();
-            $scope.getStl();
-            var countcall = 0;
-            $scope.getallartist = function () {
-                if ($scope.filterby.type === "") {
-                    NavigationService.getAllArtistByAccess(++countcall, function (data, status, n) {
-                        if (n == countcall) {
-                            if (data && data.value !== false) {
-                                $scope.allartist = _.uniq(data, '_id');
-                                $scope.allartist.unshift({
-                                    "_id": "0",
-                                    name: ""
-                                });
-                            } else {
-                                $scope.allartist = [];
-                            }
                         } else {
                             $scope.allartist = [];
                         }
                     });
-                } else {
-                    NavigationService.userbytype($scope.filterby.type, ++countcall, function (data, status, n) {
-                        if (n == countcall) {
-                            if (data && data.value !== false) {
-                                $scope.allartist = data;
-                                $scope.allartist.unshift({
-                                    "_id": "0",
-                                    name: ""
-                                });
-                            } else {
-                                $scope.allartist = [];
-                            }
+                }, 1000);
+            } else {
+                $scope.getallartist();
+            }
+        }
+        $scope.getDropdownMedium = function (search) {
+            if (search.length >= 1) {
+                $scope.change = {};
+                $scope.change.type = $scope.filterby.type;
+                $scope.change.search = search;
+                $timeout(function () {
+                    NavigationService.getallmedium($scope.change, function (data) {
+                        if (data && data.value != false) {
+                            $scope.allmedium = data;
+                            $scope.allmedium.unshift({
+                                "_id": "0",
+                                name: ""
+                            });
                         } else {
-                            $scope.allartist = [];
+                            $scope.allmedium = [];
                         }
-
                     });
-                }
-            };
-            $scope.getDropdown = function (search) {
-                if (search.length >= 1) {
-                    $scope.change = {};
-                    $scope.change.type = $scope.filterby.type;
-                    $scope.change.search = search;
-                    $timeout(function () {
-                        NavigationService.getAllArtistDrop($scope.change, function (data) {
-                            console.log(data);
-                            if (data && data.value != false) {
-                                $scope.allartist = data;
-                                $scope.allartist.unshift({
-                                    "_id": "0",
-                                    name: ""
-                                });
-                            } else {
-                                $scope.allartist = [];
-                            }
-                        });
-                    }, 1000);
-                } else {
-                    $scope.getallartist();
-                }
+                }, 1000);
+            } else {
+                $scope.getmedium();
             }
-            $scope.getDropdownMedium = function (search) {
-                if (search.length >= 1) {
-                    $scope.change = {};
-                    $scope.change.type = $scope.filterby.type;
-                    $scope.change.search = search;
-                    $timeout(function () {
-                        NavigationService.getallmedium($scope.change, function (data) {
-                            if (data && data.value != false) {
-                                $scope.allmedium = data;
-                                $scope.allmedium.unshift({
-                                    "_id": "0",
-                                    name: ""
-                                });
-                            } else {
-                                $scope.allmedium = [];
-                            }
-                        });
-                    }, 1000);
-                } else {
-                    $scope.getmedium();
-                }
-            }
+        }
 
-            //search by keyword
+        //search by keyword
 
-            $scope.getColorDropdown = function (search) {
-                if (search.length >= 1) {
-                    $timeout(function () {
-                        NavigationService.tagSearchType($scope.filterby.type, search, function (data) {
-                            if (data && data.value != false) {
-                                $scope.allColor = data;
-                            } else {
-                                $scope.allColor = [];
-                            }
-                        });
-                    }, 1000);
-                } else {
-                    $scope.getClr();
-                }
+        $scope.getColorDropdown = function (search) {
+            if (search.length >= 1) {
+                $timeout(function () {
+                    NavigationService.tagSearchType($scope.filterby.type, search, function (data) {
+                        if (data && data.value != false) {
+                            $scope.allColor = data;
+                        } else {
+                            $scope.allColor = [];
+                        }
+                    });
+                }, 1000);
+            } else {
+                $scope.getClr();
             }
-            $scope.getStyleDropdown = function (search) {
-                if (search.length >= 1) {
-                    $timeout(function () {
-                        NavigationService.tagSearchType($scope.filterby.type, search, function (data) {
-                            if (data && data.value != false) {
-                                $scope.allStyle = data;
-                            } else {
-                                $scope.allStyle = [];
-                            }
-                        });
-                    }, 1000);
-                } else {
-                    $scope.getStl();
-                }
+        }
+        $scope.getStyleDropdown = function (search) {
+            if (search.length >= 1) {
+                $timeout(function () {
+                    NavigationService.tagSearchType($scope.filterby.type, search, function (data) {
+                        if (data && data.value != false) {
+                            $scope.allStyle = data;
+                        } else {
+                            $scope.allStyle = [];
+                        }
+                    });
+                }, 1000);
+            } else {
+                $scope.getStl();
             }
-            $scope.getElementDropdown = function (search) {
-                if (search.length >= 1) {
-                    $timeout(function () {
-                        NavigationService.tagSearchType($scope.filterby.type, search, function (data) {
-                            if (data && data.value != false) {
-                                $scope.allElement = data;
-                            } else {
-                                $scope.allElement = [];
-                            }
-                        });
-                    }, 1000);
-                } else {
-                    $scope.getElm();
-                }
+        }
+        $scope.getElementDropdown = function (search) {
+            if (search.length >= 1) {
+                $timeout(function () {
+                    NavigationService.tagSearchType($scope.filterby.type, search, function (data) {
+                        if (data && data.value != false) {
+                            $scope.allElement = data;
+                        } else {
+                            $scope.allElement = [];
+                        }
+                    });
+                }, 1000);
+            } else {
+                $scope.getElm();
             }
+        }
 
-            $scope.reachOut = function () {
-                globalFunction.reachOut();
-            }
+        $scope.reachOut = function () {
+            globalFunction.reachOut();
+        }
     })
 
     .controller('HiddenCtrl', function ($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $state, $stateParams, ngDialog) {
         //Used to name the .html file\
-        
+
         $scope.template = TemplateService.changecontent("iamhidden");
         $scope.menutitle = NavigationService.makeactive("iamhidden");
         $.jStorage.set("iamgenuine", true);
-        $.jStorage.setTTL("iamgenuine", 3*60*1000);
+        $.jStorage.setTTL("iamgenuine", 3 * 60 * 1000);
         $state.go("totalartpage2");
     })
 
@@ -1432,593 +1432,592 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         //Used to name the .html file
 
         console.log("Checking this one");
-     if ($.jStorage.get("iamgenuine")) {
-         $scope.template = TemplateService.changecontent("totalartwork");
-        $scope.menutitle = NavigationService.makeactive("Total Artwork");
-        TemplateService.title = $scope.menutitle;
-        $scope.navigation = NavigationService.getnav();
-        $scope.pagedata = {};
-        $scope.pagedata.search = "";
-        $scope.pagedata.type = "";
-        $scope.pagedata.medium = "";
-        $scope.pagedata.pagenumber = 1;
-        $scope.pagedata.pagesize = 20;
-        $scope.pagedata.filter = "";
-        $scope.pagedata.sort = 1;
-        $scope.pagedata.minprice = '';
-        $scope.pagedata.maxprice = '';
-        $scope.pagedata.minwidth = '';
-        $scope.pagedata.maxwidth = '';
-        $scope.pagedata.minheight = '';
-        $scope.pagedata.maxheight = '';
-        $scope.pagedata.minbreadth = '';
-        $scope.pagedata.maxbreadth = '';
-        $scope.totalartcont = [];
-        $scope.maxpages = 2;
-        $scope.callinfinite = true;
-        $scope.isRed = false;
-        $scope.heartClass = "fa fa-heart";
-        var lastpage = 2;
-        $.jStorage.set("artistScroll", null);
-        NavigationService.getuserprofile(function (data) {
-            if (data.id) {
-                userProfile = data;
-                NavigationService.getMyFavourites(data.id, function (favorite) {
-                    userProfile.wishlist = favorite;
-                })
-            }
-        })
+        if ($.jStorage.get("iamgenuine")) {
+            $scope.template = TemplateService.changecontent("totalartwork");
+            $scope.menutitle = NavigationService.makeactive("Total Artwork");
+            TemplateService.title = $scope.menutitle;
+            $scope.navigation = NavigationService.getnav();
+            $scope.pagedata = {};
+            $scope.pagedata.search = "";
+            $scope.pagedata.type = "";
+            $scope.pagedata.medium = "";
+            $scope.pagedata.pagenumber = 1;
+            $scope.pagedata.pagesize = 20;
+            $scope.pagedata.filter = "";
+            $scope.pagedata.sort = 1;
+            $scope.pagedata.minprice = '';
+            $scope.pagedata.maxprice = '';
+            $scope.pagedata.minwidth = '';
+            $scope.pagedata.maxwidth = '';
+            $scope.pagedata.minheight = '';
+            $scope.pagedata.maxheight = '';
+            $scope.pagedata.minbreadth = '';
+            $scope.pagedata.maxbreadth = '';
+            $scope.totalartcont = [];
+            $scope.maxpages = 2;
+            $scope.callinfinite = true;
+            $scope.isRed = false;
+            $scope.heartClass = "fa fa-heart";
+            var lastpage = 2;
+            $.jStorage.set("artistScroll", null);
+            NavigationService.getuserprofile(function (data) {
+                if (data.id) {
+                    userProfile = data;
+                    NavigationService.getMyFavourites(data.id, function (favorite) {
+                        userProfile.wishlist = favorite;
+                    })
+                }
+            })
 
-        function getScrollXY() {
-            var x = 0,
-                y = 0;
-            if (typeof (window.pageYOffset) == 'number') {
-                // Netscape
-                x = window.pageXOffset;
-                y = window.pageYOffset;
-            } else if (document.body && (document.body.scrollLeft || document.body.scrollTop)) {
-                // DOM
-                x = document.body.scrollLeft;
-                y = document.body.scrollTop;
-            } else if (document.documentElement && (document.documentElement.scrollLeft || document.documentElement.scrollTop)) {
-                // IE6 standards compliant mode
-                x = document.documentElement.scrollLeft;
-                y = document.documentElement.scrollTop;
+            function getScrollXY() {
+                var x = 0,
+                    y = 0;
+                if (typeof (window.pageYOffset) == 'number') {
+                    // Netscape
+                    x = window.pageXOffset;
+                    y = window.pageYOffset;
+                } else if (document.body && (document.body.scrollLeft || document.body.scrollTop)) {
+                    // DOM
+                    x = document.body.scrollLeft;
+                    y = document.body.scrollTop;
+                } else if (document.documentElement && (document.documentElement.scrollLeft || document.documentElement.scrollTop)) {
+                    // IE6 standards compliant mode
+                    x = document.documentElement.scrollLeft;
+                    y = document.documentElement.scrollTop;
+                }
+                return [x, y];
             }
-            return [x, y];
-        }
 
-        $scope.openReachout = function () {
-            globalFunction.reachOut();
-        }
-
-        //get user details
-        $scope.setColorSearch = function (select) {
-            $scope.pagedata.color = select.selected.name;
-        }
-        $scope.setStyleSearch = function (select) {
-            $scope.pagedata.style = select.selected.name;
-        }
-        $scope.setElementSearch = function (select) {
-            $scope.pagedata.element = select.selected.name;
-        }
-
-        $scope.getClr = function () {
-            if ($scope.pagedata.type == "") {
-                //          console.log("in if");
-                $scope.change = "";
-                NavigationService.tagSearchType($scope.change, "", function (data, status) {
-                    if (data && data.value != false) {
-                        $scope.allColor = _.uniq(data, '_id');
-                        $scope.allColor.unshift({
-                            "_id": "0",
-                            name: ""
-                        });
-                    } else {
-                        $scope.allColor = [];
-                    }
-                });
-            } else {
-                //          console.log("in else");
-                $scope.change = {};
-                $scope.change.type = $scope.pagedata.type;
-                NavigationService.tagSearchType($scope.change, "", function (data, status) {
-                    if (data && data.value != false) {
-                        $scope.allColor = _.uniq(data, '_id');
-                        $scope.allColor.unshift({
-                            "_id": "0",
-                            name: ""
-                        });
-                    } else {
-                        $scope.allColor = [];
-                    }
-                });
+            $scope.openReachout = function () {
+                globalFunction.reachOut();
             }
-        }
-        $scope.getStl = function () {
-            if ($scope.pagedata.type == "") {
-                //          console.log("in if");
-                $scope.change = "";
-                NavigationService.tagSearchType($scope.change, "", function (data, status) {
-                    if (data && data.value != false) {
-                        $scope.allStyle = _.uniq(data, '_id');
-                        $scope.allStyle.unshift({
-                            "_id": "0",
-                            name: ""
-                        });
-                    } else {
-                        $scope.allStyle = [];
-                    }
-                });
-            } else {
-                //          console.log("in else");
-                $scope.change = {};
-                $scope.change.type = $scope.pagedata.type;
-                NavigationService.tagSearchType($scope.change, "", function (data, status) {
-                    if (data && data.value != false) {
-                        $scope.allStyle = _.uniq(data, '_id');
-                        $scope.allStyle.unshift({
-                            "_id": "0",
-                            name: ""
-                        });
-                    } else {
-                        $scope.allStyle = [];
-                    }
-                });
-            }
-        }
-        $scope.getElm = function () {
-            if ($scope.pagedata.type == "") {
-                //          console.log("in if");
-                $scope.change = "";
-                NavigationService.tagSearchType($scope.change, "", function (data, status) {
-                    if (data && data.value != false) {
-                        $scope.allElement = _.uniq(data, '_id');
-                        $scope.allElement.unshift({
-                            "_id": "0",
-                            name: ""
-                        });
-                    } else {
-                        $scope.allElement = [];
-                    }
-                });
-            } else {
-                //          console.log("in else");
-                $scope.change = {};
-                $scope.change.type = $scope.pagedata.type;
-                NavigationService.tagSearchType($scope.change, "", function (data, status) {
-                    if (data && data.value != false) {
-                        $scope.allElement = _.uniq(data, '_id');
-                        $scope.allElement.unshift({
-                            "_id": "0",
-                            name: ""
-                        });
-                    } else {
-                        $scope.allElement = [];
-                    }
-                });
-            }
-        }
-        $scope.getClr();
-        $scope.getElm();
-        $scope.getStl();
 
-        $scope.getColorDropdown = function (search) {
-            if (search.length >= 1) {
-                $timeout(function () {
-                    NavigationService.tagSearchType($scope.pagedata.type, search, function (data) {
+            //get user details
+            $scope.setColorSearch = function (select) {
+                $scope.pagedata.color = select.selected.name;
+            }
+            $scope.setStyleSearch = function (select) {
+                $scope.pagedata.style = select.selected.name;
+            }
+            $scope.setElementSearch = function (select) {
+                $scope.pagedata.element = select.selected.name;
+            }
+
+            $scope.getClr = function () {
+                if ($scope.pagedata.type == "") {
+                    //          console.log("in if");
+                    $scope.change = "";
+                    NavigationService.tagSearchType($scope.change, "", function (data, status) {
                         if (data && data.value != false) {
-                            $scope.allColor = data;
+                            $scope.allColor = _.uniq(data, '_id');
+                            $scope.allColor.unshift({
+                                "_id": "0",
+                                name: ""
+                            });
                         } else {
                             $scope.allColor = [];
                         }
                     });
-                }, 1000);
-            } else {
-                $scope.getClr();
-            }
-        }
-        $scope.getStyleDropdown = function (search) {
-            if (search.length >= 1) {
-                $timeout(function () {
-                    NavigationService.tagSearchType($scope.pagedata.type, search, function (data) {
+                } else {
+                    //          console.log("in else");
+                    $scope.change = {};
+                    $scope.change.type = $scope.pagedata.type;
+                    NavigationService.tagSearchType($scope.change, "", function (data, status) {
                         if (data && data.value != false) {
-                            $scope.allStyle = data;
+                            $scope.allColor = _.uniq(data, '_id');
+                            $scope.allColor.unshift({
+                                "_id": "0",
+                                name: ""
+                            });
+                        } else {
+                            $scope.allColor = [];
+                        }
+                    });
+                }
+            }
+            $scope.getStl = function () {
+                if ($scope.pagedata.type == "") {
+                    //          console.log("in if");
+                    $scope.change = "";
+                    NavigationService.tagSearchType($scope.change, "", function (data, status) {
+                        if (data && data.value != false) {
+                            $scope.allStyle = _.uniq(data, '_id');
+                            $scope.allStyle.unshift({
+                                "_id": "0",
+                                name: ""
+                            });
                         } else {
                             $scope.allStyle = [];
                         }
                     });
-                }, 1000);
-            } else {
-                $scope.getStl();
-            }
-        }
-        $scope.getElementDropdown = function (search) {
-            if (search.length >= 1) {
-                $timeout(function () {
-                    NavigationService.tagSearchType($scope.pagedata.type, search, function (data) {
+                } else {
+                    //          console.log("in else");
+                    $scope.change = {};
+                    $scope.change.type = $scope.pagedata.type;
+                    NavigationService.tagSearchType($scope.change, "", function (data, status) {
                         if (data && data.value != false) {
-                            $scope.allElement = data;
+                            $scope.allStyle = _.uniq(data, '_id');
+                            $scope.allStyle.unshift({
+                                "_id": "0",
+                                name: ""
+                            });
+                        } else {
+                            $scope.allStyle = [];
+                        }
+                    });
+                }
+            }
+            $scope.getElm = function () {
+                if ($scope.pagedata.type == "") {
+                    //          console.log("in if");
+                    $scope.change = "";
+                    NavigationService.tagSearchType($scope.change, "", function (data, status) {
+                        if (data && data.value != false) {
+                            $scope.allElement = _.uniq(data, '_id');
+                            $scope.allElement.unshift({
+                                "_id": "0",
+                                name: ""
+                            });
                         } else {
                             $scope.allElement = [];
                         }
                     });
-                }, 1000);
-            } else {
-                $scope.getElm();
-            }
-        }
-        var countcall = 0;
-        $scope.getallartist = function () {
-            if ($scope.pagedata.type == "") {
-                NavigationService.getAllArtistByAccess(++countcall, function (data, status, n) {
-                    if (n == countcall) {
+                } else {
+                    //          console.log("in else");
+                    $scope.change = {};
+                    $scope.change.type = $scope.pagedata.type;
+                    NavigationService.tagSearchType($scope.change, "", function (data, status) {
                         if (data && data.value != false) {
-                            $scope.allartist = _.uniq(data, '_id');
-                            $scope.allartist.unshift({
+                            $scope.allElement = _.uniq(data, '_id');
+                            $scope.allElement.unshift({
                                 "_id": "0",
                                 name: ""
                             });
                         } else {
-                            $scope.allartist = [];
+                            $scope.allElement = [];
                         }
-                    } else {
-                        $scope.allartist = [];
-                    }
-                });
-            } else {
-                NavigationService.userbytype($scope.pagedata.type, ++countcall, function (data, status, n) {
-                    if (n == countcall) {
-                        if (data && data.value != false) {
-                            $scope.allartist = data;
-                            $scope.allartist.unshift({
-                                "_id": "0",
-                                name: ""
-                            });
-                        } else {
-                            $scope.allartist = [];
-                        }
-                    } else {
-                        $scope.allartist = [];
-                    }
-                });
+                    });
+                }
             }
-        }
+            $scope.getClr();
+            $scope.getElm();
+            $scope.getStl();
 
-        $scope.getmedium = function () {
-            if ($scope.pagedata.type == "") {
-                //          console.log("in if");
-                $scope.change = "";
-                NavigationService.getallmedium($scope.change, function (data, status) {
-                    if (data && data.value != false) {
-                        $scope.allmedium = _.uniq(data, '_id');
-                    } else {
-                        $scope.allmedium = [];
-                    }
-                });
-            } else {
-                //          console.log("in else");
-                $scope.change = {};
-                $scope.change.type = $scope.pagedata.type;
-                NavigationService.getallmedium($scope.change, function (data, status) {
-                    if (data && data.value != false) {
-                        $scope.allmedium = _.uniq(data, '_id');
-                    } else {
-                        $scope.allmedium = [];
-                    }
-                });
+            $scope.getColorDropdown = function (search) {
+                if (search.length >= 1) {
+                    $timeout(function () {
+                        NavigationService.tagSearchType($scope.pagedata.type, search, function (data) {
+                            if (data && data.value != false) {
+                                $scope.allColor = data;
+                            } else {
+                                $scope.allColor = [];
+                            }
+                        });
+                    }, 1000);
+                } else {
+                    $scope.getClr();
+                }
             }
-        }
-        $scope.getallartist();
-        $scope.getDropdown = function (search) {
-            if (search.length >= 1) {
-                $scope.change = {};
-                $scope.change.type = $scope.pagedata.type;
-                $scope.change.search = search;
-                $timeout(function () {
-                    NavigationService.getAllArtistDrop($scope.change, function (data) {
-                        if (data && data.value != false) {
-                            $scope.allartist = data;
-                            $scope.allartist.unshift({
-                                "_id": "0",
-                                name: ""
-                            });
+            $scope.getStyleDropdown = function (search) {
+                if (search.length >= 1) {
+                    $timeout(function () {
+                        NavigationService.tagSearchType($scope.pagedata.type, search, function (data) {
+                            if (data && data.value != false) {
+                                $scope.allStyle = data;
+                            } else {
+                                $scope.allStyle = [];
+                            }
+                        });
+                    }, 1000);
+                } else {
+                    $scope.getStl();
+                }
+            }
+            $scope.getElementDropdown = function (search) {
+                if (search.length >= 1) {
+                    $timeout(function () {
+                        NavigationService.tagSearchType($scope.pagedata.type, search, function (data) {
+                            if (data && data.value != false) {
+                                $scope.allElement = data;
+                            } else {
+                                $scope.allElement = [];
+                            }
+                        });
+                    }, 1000);
+                } else {
+                    $scope.getElm();
+                }
+            }
+            var countcall = 0;
+            $scope.getallartist = function () {
+                if ($scope.pagedata.type == "") {
+                    NavigationService.getAllArtistByAccess(++countcall, function (data, status, n) {
+                        if (n == countcall) {
+                            if (data && data.value != false) {
+                                $scope.allartist = _.uniq(data, '_id');
+                                $scope.allartist.unshift({
+                                    "_id": "0",
+                                    name: ""
+                                });
+                            } else {
+                                $scope.allartist = [];
+                            }
                         } else {
                             $scope.allartist = [];
                         }
                     });
-                }, 1000);
-            } else {
-                $scope.getallartist();
+                } else {
+                    NavigationService.userbytype($scope.pagedata.type, ++countcall, function (data, status, n) {
+                        if (n == countcall) {
+                            if (data && data.value != false) {
+                                $scope.allartist = data;
+                                $scope.allartist.unshift({
+                                    "_id": "0",
+                                    name: ""
+                                });
+                            } else {
+                                $scope.allartist = [];
+                            }
+                        } else {
+                            $scope.allartist = [];
+                        }
+                    });
+                }
             }
-        }
 
-        $scope.getDropdownMedium = function (search) {
-            if (search.length >= 1) {
-                $scope.change = {};
-                $scope.change.type = $scope.pagedata.type;
-                $scope.change.search = search;
-                $timeout(function () {
-                    NavigationService.getallmedium($scope.change, function (data) {
+            $scope.getmedium = function () {
+                if ($scope.pagedata.type == "") {
+                    //          console.log("in if");
+                    $scope.change = "";
+                    NavigationService.getallmedium($scope.change, function (data, status) {
                         if (data && data.value != false) {
-                            $scope.allmedium = data;
-                            $scope.allmedium.unshift({
-                                "_id": "0",
-                                name: ""
-                            });
+                            $scope.allmedium = _.uniq(data, '_id');
                         } else {
                             $scope.allmedium = [];
                         }
                     });
-                }, 1000);
-            } else {
-                $scope.getmedium();
+                } else {
+                    //          console.log("in else");
+                    $scope.change = {};
+                    $scope.change.type = $scope.pagedata.type;
+                    NavigationService.getallmedium($scope.change, function (data, status) {
+                        if (data && data.value != false) {
+                            $scope.allmedium = _.uniq(data, '_id');
+                        } else {
+                            $scope.allmedium = [];
+                        }
+                    });
+                }
             }
-        }
-
-        $scope.setSearch = function (select) {
-            $scope.pagedata.search = select.selected.name;
-        }
-        $scope.setMediumSearch = function (select) {
-            $scope.pagedata.medium = select.selected.name;
-        }
-
-        $scope.typejson = [{
-            name: "All",
-            class: "actives"
-        }, {
-            name: "Paintings",
-            class: ""
-        }, {
-            name: "Sculptures",
-            class: ""
-        }, {
-            name: "Photographs",
-            class: ""
-        }, {
-            name: "Prints",
-            class: ""
-        }, {
-            name: "Others",
-            class: ""
-        }, {
-            name: "Commissioned Sculptures",
-            class: ""
-        }]
-
-        $scope.changeHeartColor = function (totalartcont) {
-            if ($scope.isRed == true)
-                totalartcont.heartClass = "fa fa-heart";
-            else
-                totalartcont.heartClass = "fa fa-heart font-color3";
-            $scope.isRed = !$scope.isRed;
-        }
-
-        $scope.makeFav = function (art) {
-            dataNextPre.favorite(art);
-        }
-
-        $scope.addToCart = function (art) {
-            dataNextPre.addToCart(art);
-        }
-
-        $scope.checkForEmpty = function () {
-
-        }
-
-        $scope.reload = function () {
-            cfpLoadingBar.start();
-            //      console.log($scope.pagedata);
-            var filterdata = $scope.pagedata;
-            if (filterdata.minprice == 0) {
-                filterdata.minprice = '';
-                $scope.pagedata.minprice = '';
-            }
-            if (filterdata.maxprice == 10000000) {
-                filterdata.maxprice = '';
-                $scope.pagedata.maxprice = '';
+            $scope.getallartist();
+            $scope.getDropdown = function (search) {
+                if (search.length >= 1) {
+                    $scope.change = {};
+                    $scope.change.type = $scope.pagedata.type;
+                    $scope.change.search = search;
+                    $timeout(function () {
+                        NavigationService.getAllArtistDrop($scope.change, function (data) {
+                            if (data && data.value != false) {
+                                $scope.allartist = data;
+                                $scope.allartist.unshift({
+                                    "_id": "0",
+                                    name: ""
+                                });
+                            } else {
+                                $scope.allartist = [];
+                            }
+                        });
+                    }, 1000);
+                } else {
+                    $scope.getallartist();
+                }
             }
 
-            if (filterdata.sort == 1) {
-                $scope.lotactive = '';
-                $scope.htlactive = '';
-                $scope.lthactive = '';
+            $scope.getDropdownMedium = function (search) {
+                if (search.length >= 1) {
+                    $scope.change = {};
+                    $scope.change.type = $scope.pagedata.type;
+                    $scope.change.search = search;
+                    $timeout(function () {
+                        NavigationService.getallmedium($scope.change, function (data) {
+                            if (data && data.value != false) {
+                                $scope.allmedium = data;
+                                $scope.allmedium.unshift({
+                                    "_id": "0",
+                                    name: ""
+                                });
+                            } else {
+                                $scope.allmedium = [];
+                            }
+                        });
+                    }, 1000);
+                } else {
+                    $scope.getmedium();
+                }
             }
-            console.log(filterdata);
-            NavigationService.artworktypeCommissioned(filterdata, function (data, status) {
-                console.log(data.data);
-                lastpage = parseInt(data.totalpages);
-                // $scope.totalartcont = _.union($scope.totalartcont, data.data);
-                _.each(data.data, function (n) {
-                    n.artwork.pageno = data.page;
-                    $scope.totalartcont.push(n);
-                });
-                $scope.totalartcont = _.uniq($scope.totalartcont, 'artwork._id');
-                $scope.callinfinite = false;
-                cfpLoadingBar.complete();
-                if ($.jStorage.get("artworkScroll")) {
-                    if (data.page == $.jStorage.get("artworkScroll").pageno) {
-                        window.scrollTo(0, $.jStorage.get("artworkScroll").scroll);
-                    } else {
-                        var variablepage = data.page;
-                        $scope.pagedata.pagenumber = ++variablepage;
-                        if ($scope.pagedata.pagenumber <= $.jStorage.get("artworkScroll").pageno) {
-                            $scope.reload();
+
+            $scope.setSearch = function (select) {
+                $scope.pagedata.search = select.selected.name;
+            }
+            $scope.setMediumSearch = function (select) {
+                $scope.pagedata.medium = select.selected.name;
+            }
+
+            $scope.typejson = [{
+                name: "All",
+                class: "actives"
+            }, {
+                name: "Paintings",
+                class: ""
+            }, {
+                name: "Sculptures",
+                class: ""
+            }, {
+                name: "Photographs",
+                class: ""
+            }, {
+                name: "Prints",
+                class: ""
+            }, {
+                name: "Others",
+                class: ""
+            }, {
+                name: "Commissioned Sculptures",
+                class: ""
+            }]
+
+            $scope.changeHeartColor = function (totalartcont) {
+                if ($scope.isRed == true)
+                    totalartcont.heartClass = "fa fa-heart";
+                else
+                    totalartcont.heartClass = "fa fa-heart font-color3";
+                $scope.isRed = !$scope.isRed;
+            }
+
+            $scope.makeFav = function (art) {
+                dataNextPre.favorite(art);
+            }
+
+            $scope.addToCart = function (art) {
+                dataNextPre.addToCart(art);
+            }
+
+            $scope.checkForEmpty = function () {
+
+            }
+
+            $scope.reload = function () {
+                cfpLoadingBar.start();
+                //      console.log($scope.pagedata);
+                var filterdata = $scope.pagedata;
+                if (filterdata.minprice == 0) {
+                    filterdata.minprice = '';
+                    $scope.pagedata.minprice = '';
+                }
+                if (filterdata.maxprice == 10000000) {
+                    filterdata.maxprice = '';
+                    $scope.pagedata.maxprice = '';
+                }
+
+                if (filterdata.sort == 1) {
+                    $scope.lotactive = '';
+                    $scope.htlactive = '';
+                    $scope.lthactive = '';
+                }
+                console.log(filterdata);
+                NavigationService.artworktypeCommissioned(filterdata, function (data, status) {
+                    console.log(data.data);
+                    lastpage = parseInt(data.totalpages);
+                    // $scope.totalartcont = _.union($scope.totalartcont, data.data);
+                    _.each(data.data, function (n) {
+                        n.artwork.pageno = data.page;
+                        $scope.totalartcont.push(n);
+                    });
+                    $scope.totalartcont = _.uniq($scope.totalartcont, 'artwork._id');
+                    $scope.callinfinite = false;
+                    cfpLoadingBar.complete();
+                    if ($.jStorage.get("artworkScroll")) {
+                        if (data.page == $.jStorage.get("artworkScroll").pageno) {
+                            window.scrollTo(0, $.jStorage.get("artworkScroll").scroll);
+                        } else {
+                            var variablepage = data.page;
+                            $scope.pagedata.pagenumber = ++variablepage;
+                            if ($scope.pagedata.pagenumber <= $.jStorage.get("artworkScroll").pageno) {
+                                $scope.reload();
+                            }
                         }
                     }
-                }
-            });
-        }
+                });
+            }
 
-        $scope.getHeight = function (artwork) {
-            var xy = getScrollXY();
-            var obj = {};
-            obj.pageno = artwork.artwork.pageno;
-            obj.scroll = xy[1];
-            $.jStorage.set("artworkScroll", obj);
-        }
+            $scope.getHeight = function (artwork) {
+                var xy = getScrollXY();
+                var obj = {};
+                obj.pageno = artwork.artwork.pageno;
+                obj.scroll = xy[1];
+                $.jStorage.set("artworkScroll", obj);
+            }
 
-        // if ($.jStorage.get("artworkScroll")) {
-        //     function abcd(pageno) {
-        //         // for (var i = 2; i <= $.jStorage.get("artworkScroll").pageno; i++) {
-        //         console.log(i);
-        //         $scope.pagedata.pagenumber = pageno;
-        //         if(pageno){}
-        //         $scope.reload();
-        //     }
-        //     abcd(2);
-        //     // }
-        // }
+            // if ($.jStorage.get("artworkScroll")) {
+            //     function abcd(pageno) {
+            //         // for (var i = 2; i <= $.jStorage.get("artworkScroll").pageno; i++) {
+            //         console.log(i);
+            //         $scope.pagedata.pagenumber = pageno;
+            //         if(pageno){}
+            //         $scope.reload();
+            //     }
+            //     abcd(2);
+            //     // }
+            // }
 
-        $scope.makeactive = function (type) {
-            //      console.log(type);
-            _.each($scope.typejson, function (n) {
-                var index = n.name.indexOf(type);
-                if (index != -1) {
-                    n.class = "actives";
-                } else {
-                    n.class = "";
-                }
-            })
-            if (type == "All")
-                type = "";
-            $scope.pagedata.type = type;
-            $scope.totalartcont = [];
-            $scope.pagedata.pagenumber = 1;
-            // $scope.pagedata.search = '';
-            $scope.pagedata.filter = "srno";
-            $scope.pagedata.sort = 1;
-            // $scope.pagedata.medium = '';
-            $scope.checkForEmpty();
-            $scope.reload();
-        }
-
-        //    $scope.loadMore = function () {
-        //        $scope.pagedata.pagenumber++;
-        //        if ($scope.pagedata.pagenumber <= $scope.totalpagecount) {
-        //            $scope.reload();
-        //        }
-        //    };
-
-        $scope.filterresults = function (search) {
-            //      console.log(search);
-            $scope.pagedata.search = _.capitalize(search);
-            $scope.totalartcont = [];
-            $scope.pagedata.pagenumber = 1;
-            $scope.pagedata.filter = "srno";
-            $scope.pagedata.sort = 1;
-            $scope.checkForEmpty();
-            $scope.reload();
-        }
-
-        // $(window).scroll(function() {
-        //     if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-        //         console.log("at bottom");
-        //         $scope.pagedata.pagenumber++;
-        //         $scope.reload();
-        //     }
-        // });
-
-        $scope.addMoreItems = function () {
-            if (lastpage > $scope.pagedata.pagenumber) {
-                $scope.pagedata.pagenumber++;
+            $scope.makeactive = function (type) {
+                //      console.log(type);
+                _.each($scope.typejson, function (n) {
+                    var index = n.name.indexOf(type);
+                    if (index != -1) {
+                        n.class = "actives";
+                    } else {
+                        n.class = "";
+                    }
+                })
+                if (type == "All")
+                    type = "";
+                $scope.pagedata.type = type;
+                $scope.totalartcont = [];
+                $scope.pagedata.pagenumber = 1;
+                // $scope.pagedata.search = '';
+                $scope.pagedata.filter = "srno";
+                $scope.pagedata.sort = 1;
+                // $scope.pagedata.medium = '';
+                $scope.checkForEmpty();
                 $scope.reload();
             }
-        }
 
+            //    $scope.loadMore = function () {
+            //        $scope.pagedata.pagenumber++;
+            //        if ($scope.pagedata.pagenumber <= $scope.totalpagecount) {
+            //            $scope.reload();
+            //        }
+            //    };
 
-        // set available range
-        $scope.minPrice = 0;
-        $scope.maxPrice = 10000000;
-
-        // default the user's values to the available range
-        $scope.userMinPrice = $scope.minPrice;
-        $scope.userMaxPrice = $scope.maxPrice;
-
-        $scope.imageSrc = 'img/artist/artist1.jpg';
-
-        $scope.artistDetailImg = {};
-        $scope.showDetails = function (oneuser) {
-            //      console.log(oneuser)
-            $scope.artistDetailImg = oneuser;
-            ngDialog.open({
-                scope: $scope,
-                template: 'views/content/quickview-imagedetail.html'
-            });
-        };
-
-        $scope.lauchedSoon = function () {
-            ngDialog.open({
-                template: 'views/content/modal-launch.html'
-            });
-            $timeout(function () {
-                ngDialog.closeAll();
-            }, 3000);
-        };
-
-        $scope.sortBy = function (num, by) {
-            if (num == -1 && by == 'yoc') {
-                $scope.lotactive = 'active';
-                $scope.htlactive = '';
-                $scope.lthactive = '';
-            } else if (num == -1 && by == 'gprice') {
-                $scope.lotactive = '';
-                $scope.htlactive = 'active';
-                $scope.lthactive = '';
-            } else if (num == 1 && by == 'gprice') {
-                $scope.lotactive = '';
-                $scope.htlactive = '';
-                $scope.lthactive = 'active';
+            $scope.filterresults = function (search) {
+                //      console.log(search);
+                $scope.pagedata.search = _.capitalize(search);
+                $scope.totalartcont = [];
+                $scope.pagedata.pagenumber = 1;
+                $scope.pagedata.filter = "srno";
+                $scope.pagedata.sort = 1;
+                $scope.checkForEmpty();
+                $scope.reload();
             }
-            $scope.pagedata.sort = num;
-            $scope.pagedata.filter = by;
-            $scope.pagedata.pagenumber = 1;
-            $scope.totalartcont = [];
-            $scope.reload();
-        }
 
+            // $(window).scroll(function() {
+            //     if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+            //         console.log("at bottom");
+            //         $scope.pagedata.pagenumber++;
+            //         $scope.reload();
+            //     }
+            // });
 
-
-        $scope.clearfilters = function () {
-            $scope.pagedata.search = "";
-            $scope.pagedata.type = "";
-            $scope.pagedata.pagenumber = 1;
-            $scope.pagedata.pagesize = 20;
-            $scope.pagedata.filter = "";
-            $scope.pagedata.medium = '';
-            $scope.pagedata.sort = 1;
-            $scope.pagedata.minheight = "";
-            $scope.pagedata.maxheight = "";
-            $scope.pagedata.minwidth = "";
-            $scope.pagedata.maxwidth = "";
-            $scope.pagedata.minbreadth = "";
-            $scope.pagedata.maxbreadth = "";
-            $scope.pagedata.minprice = "";
-            $scope.pagedata.maxprice = "";
-            $scope.pagedata.color = "";
-            $scope.pagedata.style = "";
-            $scope.pagedata.element = "";
-
-            $scope.makeactive('All');
-        }
-
-        $scope.goToDetailPage = function (artwork) {
-            if (artwork.type == "Sculptures") {
-                //          $location.url("/sculpture/" + artwork._id);
-                $state.go('sculpture', {
-                    artid: artwork._id
-                });
-            } else {
-                //          $location.url("/artwork/detail/" + artwork._id);
-                $state.go('detail', {
-                    artid: artwork._id
-                });
+            $scope.addMoreItems = function () {
+                if (lastpage > $scope.pagedata.pagenumber) {
+                    $scope.pagedata.pagenumber++;
+                    $scope.reload();
+                }
             }
+
+
+            // set available range
+            $scope.minPrice = 0;
+            $scope.maxPrice = 10000000;
+
+            // default the user's values to the available range
+            $scope.userMinPrice = $scope.minPrice;
+            $scope.userMaxPrice = $scope.maxPrice;
+
+            $scope.imageSrc = 'img/artist/artist1.jpg';
+
+            $scope.artistDetailImg = {};
+            $scope.showDetails = function (oneuser) {
+                //      console.log(oneuser)
+                $scope.artistDetailImg = oneuser;
+                ngDialog.open({
+                    scope: $scope,
+                    template: 'views/content/quickview-imagedetail.html'
+                });
+            };
+
+            $scope.lauchedSoon = function () {
+                ngDialog.open({
+                    template: 'views/content/modal-launch.html'
+                });
+                $timeout(function () {
+                    ngDialog.closeAll();
+                }, 3000);
+            };
+
+            $scope.sortBy = function (num, by) {
+                if (num == -1 && by == 'yoc') {
+                    $scope.lotactive = 'active';
+                    $scope.htlactive = '';
+                    $scope.lthactive = '';
+                } else if (num == -1 && by == 'gprice') {
+                    $scope.lotactive = '';
+                    $scope.htlactive = 'active';
+                    $scope.lthactive = '';
+                } else if (num == 1 && by == 'gprice') {
+                    $scope.lotactive = '';
+                    $scope.htlactive = '';
+                    $scope.lthactive = 'active';
+                }
+                $scope.pagedata.sort = num;
+                $scope.pagedata.filter = by;
+                $scope.pagedata.pagenumber = 1;
+                $scope.totalartcont = [];
+                $scope.reload();
+            }
+
+
+
+            $scope.clearfilters = function () {
+                $scope.pagedata.search = "";
+                $scope.pagedata.type = "";
+                $scope.pagedata.pagenumber = 1;
+                $scope.pagedata.pagesize = 20;
+                $scope.pagedata.filter = "";
+                $scope.pagedata.medium = '';
+                $scope.pagedata.sort = 1;
+                $scope.pagedata.minheight = "";
+                $scope.pagedata.maxheight = "";
+                $scope.pagedata.minwidth = "";
+                $scope.pagedata.maxwidth = "";
+                $scope.pagedata.minbreadth = "";
+                $scope.pagedata.maxbreadth = "";
+                $scope.pagedata.minprice = "";
+                $scope.pagedata.maxprice = "";
+                $scope.pagedata.color = "";
+                $scope.pagedata.style = "";
+                $scope.pagedata.element = "";
+
+                $scope.makeactive('All');
+            }
+
+            $scope.goToDetailPage = function (artwork) {
+                if (artwork.type == "Sculptures") {
+                    //          $location.url("/sculpture/" + artwork._id);
+                    $state.go('sculpture', {
+                        artid: artwork._id
+                    });
+                } else {
+                    //          $location.url("/artwork/detail/" + artwork._id);
+                    $state.go('detail', {
+                        artid: artwork._id
+                    });
+                }
+            }
+        } else {
+            $state.go("home");
         }
-     }
-     else{
-        $state.go("home");
-     }
     })
 
     .controller('CheckoutCtrl', function ($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, valdr, $state, ngDialog, $filter) {
@@ -6845,12 +6844,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.msg = "Loading";
 
         NavigationService.findCommission(function (data) {
-            // if (data) {
             $scope.msg = "";
             $scope.sculpture = data;
-            // } else {
-            //     $scope.msg = "No Data Found.";
-            // }
         });
 
     })

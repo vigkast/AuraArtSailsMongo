@@ -308,7 +308,7 @@ module.exports = {
             res.json(data);
         }
         if (req.body) {
-            if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
+            if (req.body.pagesize && req.body.pagesize !== "" && req.body.pagenumber && req.body.pagenumber !== "") {
                 Artwork.artworktype(req.body, callback);
             } else {
                 res.json({
@@ -347,11 +347,12 @@ module.exports = {
         }
     },
     favoriteartwork: function (req, res) {
+        function callback(data) {
+            res.json(data);
+        }
         if (req.body) {
             if (req.body.artwork && req.body.artwork.length > 0) {
-                function callback(data) {
-                    res.json(data);
-                };
+
                 Artwork.favoriteartwork(req.body, callback);
             } else {
                 res.json({
