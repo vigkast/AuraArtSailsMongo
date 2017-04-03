@@ -96,6 +96,8 @@ module.exports = {
                         async.each(data, function (obj, callback) {
                             console.log(obj);
                             db.collection("user").aggregate([{
+                                $unwind: "$artwork"
+                            }, {
                                 "$match": {
                                     "artwork._id": sails.ObjectID(obj.product)
                                 }
