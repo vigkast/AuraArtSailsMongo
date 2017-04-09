@@ -10,7 +10,7 @@
 @import (inline) "../bower_components/angular-rangeslider/angular.rangeSlider.css";
 @import (inline) "../bower_components/fancyBox/source/jquery.fancybox.css";
 @import (inline) "../bower_components/select2/dist/css/select2.min.css";
-@import (inline) "../bower_components/ui-select/dist/select.min.css";
+@import (inline) "../bower_components/angular-ui-select/dist/select.min.css";
 @import (inline) "../bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css";
 @import "../less/toggle.less";
 /*Author Wohlig Technology*/
@@ -3735,7 +3735,10 @@ img.fancybox-image {
     margin: 0 5px 5px;
 }
 .img-inline-box img {
-    width: 100%;
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
 }
 .time-date p {
     font-size: 12px;
@@ -3842,7 +3845,9 @@ font-weight: 300;
 .nav li:nth-child(3) {
   display: none;
 }
-
+.com-h {
+    height: 70px;
+}
 /* Mobile Less */
 @import "../less/fancybox-override.less";
 @import "../less/mobile.less";

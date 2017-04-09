@@ -8,7 +8,7 @@
             <i class="fa fa-upload"></i> Upload Artwork for sale
           </span> -->
                 </h4>
-                <div class="cont-com-sculp">
+                <div class="cont-com-sculp text-justify">
                     <p>
                         Aura Art eConnect Pvt Ltd is increasing its focus on Commissioned Sculptures, to meet the needs of collectors, corporates,
                         realty developers, architects and interior designers. We believe that this initiative will go a long
@@ -25,7 +25,8 @@
         </div>
         <div class="undertaken-aura-art">
             <div class="mb20">
-                <h5 class="title bold">Projects undertaken by Aura Art <button class="btn btn-primarys uppercase ml-20" ui-sref="commission-projects">Start Your Project</button></h5>
+                <button class="btn btn-primarys uppercase ml-20 pull-right" ui-sref="commission-projects">Start Your Project</button>
+                <h5 class="title bold">Projects undertaken by Aura Art </h5>
             </div>
             <!--<div class="pul">
                 <button class="btn btn-primarys uppercase" ui-sref="commission-projects">Start Your Project</button>
@@ -33,6 +34,7 @@
             <div class="artist comission-project">
                 <div class="row">
                     <div class="col-xs-20" ng-repeat="artwork in sculpture">
+                        <!--<pre>{{artwork|json}}</pre>-->
                         <div class="aristimg-grp1 mb20">
                             <div class="relative">
                                 <a ui-sref="detail({artid:artwork._id})">
@@ -45,24 +47,27 @@
                                     <a type="submit" class="btn btn-sucesses button-small text-center">Details</a>
                                 </div>-->
                             </div>
-                            <div class="artist-cont-detail">
+                            <div class="artist-cont-detail com-h">
+
                                 <p class="ng-binding">
-                                    {{artwork.name}} <i class="{{totalartconts.heartClass = (totalartconts.artwork._id | showheart)}}"
+                                    {{artwork.srno}}<i class="{{totalartconts.heartClass = (totalartconts.artwork._id | showheart)}}"
                                         ng-click="makeFav(artwork);"></i>
                                     <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(artwork);" ng-if="artwork.status!='sold' &amp;&amp; artwork.gprice &amp;&amp; artwork.gprice!='N/A'"></i>
                                 </p>
-                                <p class="m0">
-                                    {{artwork.type}}
+                                <p> {{artwork.name}}</p>
+                                <p> {{artwork.subtype[0].name}} </p>
+                                <p class="m0">{{artwork.height}} x {{artwork.width}} <span ng-if="artwork.breadth">x {{artwork.breadth}}</span>
+                                    <span ng-if="artwork.depth">x {{artwork.depth}}</span><span ng-if="artwork.major"> {{artwork.major}}</span>
+                                    <span ng-if="!artwork.major">inches</span>
                                 </p>
+                                <!--<p>Rs {{artwork.gprice|inlakhs}} / ${{artwork.gprice|indollars}}</p>-->
+                                <!--<p class="m0">
+                                    {{artwork.type}}
+                                </p>-->
                                 <!--<p class="m0">
                                     canavas
                                 </p>-->
-                                <p class="m0">{{artwork.height}} x {{artwork.width}} <span ng-if="artwork.breadth">x {{artwork.breadth}}</span>
-                                    <span
-                                        ng-if="artwork.depth">x {{artwork.depth}}</span><span ng-if="artwork.major"> {{artwork.major}}</span>
-                                        <span
-                                            ng-if="!artwork.major">inches</span>
-                                </p>
+
                             </div>
                         </div>
                     </div>
