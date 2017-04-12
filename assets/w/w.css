@@ -1920,7 +1920,7 @@ ul.decimal {
   text-transform: uppercase;
   width: 100%;
   text-align: center;
-  font-size: 13px;
+  font-size: 12px;
   padding: 8px 0;
   font-weight: 500;
   background-color: rgba(0, 0, 0, 0.6);
@@ -5065,7 +5065,7 @@ img.fancybox-image {
   color: #fff;
 }
 .profile-img h5 {
-  margin: 7px 0;
+  margin: 7px 0 !important;
 }
 .profile-img.left {
   left: -30px;
@@ -5074,9 +5074,12 @@ img.fancybox-image {
   right: -30px;
 }
 .box-left {
-  padding: 20px;
+  padding: 10px;
   border: 1px solid #ddd;
   border-radius: 10px;
+}
+.box-left p{
+    margin-bottom: 5px;
 }
 .width80 {
   width: 80%;
@@ -5104,10 +5107,13 @@ img.fancybox-image {
   margin-top: 0;
 }
 .box-right {
-  padding: 20px;
+  padding: 10px;
   border: 1px solid #ddd;
   border-radius: 10px;
   position: relative;
+}
+.box-right p{
+  margin-bottom: 5px;
 }
 .box-right:after,
 .box-right:before {
@@ -5135,7 +5141,7 @@ img.fancybox-image {
   resize: none;
   border: 0;
   border-radius: 10px!important;
-  height: 60px;
+  height: 45px;
 }
 .box-desgnation input {
   margin-top: 10px;
@@ -5167,6 +5173,9 @@ img.fancybox-image {
 }
 .box-bord {
   border: 1px solid #ddd;
+}
+.box-bord h5{
+  margin: 0 0 5px;
 }
 .dotted-milestone {
   position: relative;
@@ -5210,11 +5219,9 @@ img.fancybox-image {
 height:-webkit-calc(100vh - 400px);
 height:-moz-calc(100vh - 400px);
 height:calc(100vh - 400px);
-;
   overflow-y: auto;
   overflow-x: hidden;
-  margin-bottom: 20px;
-  padding: 10px;
+  margin-bottom: 10px;
 }
 /* Let's get this party started */
 .chat-content.scroll-y::-webkit-scrollbar {
@@ -5774,4 +5781,10 @@ li.title.inline-box-infra {
   height: calc(50% - 20px);
 }
 
+.mb10{
+  margin-bottom: 10px;
+}
+.inline {
+    display: inline-block;
+}
 /*# sourceMappingURL=w.css.map */

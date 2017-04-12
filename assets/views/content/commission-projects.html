@@ -3,13 +3,13 @@
     <div class="container">
         <div class="row" ng-hide="showLoginErr">
             <div class="myaccnthead col-md-12">
-                <h4>COMMISSION SCULPTURES</h4>
+                <h4>Commissioned Sculpture</h4>
             </div>
             <div class="col-md-2" ng-init="activeIndex=null;">
                 <div class="info-cont">
                     <ul class="info-li">
                         <li class="cat-list bold">{{userData.name || "-"}}</li>
-                        <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'profile'}" ng-click="changeTab('profile');">User Profile</li>
+                        <!--<li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'profile'}" ng-click="changeTab('profile');">User Profile</li>-->
                         <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'projects'}" ng-click="changeTab('projects');">Projects
                             <a href="" class="uppercase addnew">+new</a>
                         </li>
@@ -17,11 +17,11 @@
                         </li>
                         <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'viewprojects'}" ng-click="changeTab('viewprojects');">View All Projects
                         </li>
-                        <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'viewprojectsfavourite'}" ng-click="changeTab('viewprojectsfavourite');">Favourite</li>
+                        <!--<li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'viewprojectsfavourite'}" ng-click="changeTab('viewprojectsfavourite');">Favourite</li>-->
                     </ul>
                 </div>
             </div>
-            <div class="col-md-10" ng-if="activeTab == 'profile'">
+            <!--<div class="col-md-10" ng-if="activeTab == 'profile'">
                 <div class="chngpswd-cont">
                     <div class="form-group">
                         <form ng-submit="saveUser();">
@@ -55,14 +55,6 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <!--<div class="col-md-6">
-                                    <div class="input-id">
-                                        <input class="form-control" ng-model="user.password" placeholder="Password*" type="password">
-                                    </div>
-                                    <div class="input-id">
-                                        <input class="form-control" ng-model="user.password" placeholder="Reenter Password*" type="password">
-                                    </div>
-                                </div>-->
                                 <div class="col-md-12">
                                     <div class="input-id userprofile-com1">
                                         <div class="text-make">
@@ -77,7 +69,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="col-md-10" ng-if="activeTab == 'projects'">
                 <div class="row">
                     <div class=" col-md-offset-1 col-md-10">
@@ -202,12 +194,12 @@
                     <div class="col-md-12">
                         <div class="ticket pb20">
                             <label for="">
-                                Ticket Number</label> 12333
+                                Ticket Number</label> {{chatsArr[0].chatid}}
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="box-bord pad20">
+                    <div class="box-bord pad10">
                         <h5>Client</h5>
                         <div class="chat-content scroll-y" id="chatDiv">
                             <div class="row">
@@ -310,9 +302,16 @@
                                                 <p>
                                                     {{chat.message}}
                                                 </p>
-                                                <div class="img-inline-box" ng-repeat="img in chat.image">
-                                                    <img ng-src="{{img | uploadpath}}" alt="">
+                                                <!--<pre>{{chat}}</pre>-->
+                                                <div ng-repeat="img in chat.image" ng-init="isPdf=(img|imgPdf)" class="inline">
+                                                    <div class="img-inline-box inline" ng-if="!isPdf">
+                                                        <img ng-src="{{img | uploadpath}}" alt="">
+                                                    </div>
+                                                    <a href="{{img | uploadpath}}" target="_blank" ng-if="isPdf" class="btn btn-default inline">
+                                                        View Pdf {{$index + 1}}
+                                                    </a>
                                                 </div>
+                                                
                                                 <div class="time-date text-right">
                                                     <p>
                                                         <span>{{chat.name}}</span>,
@@ -342,7 +341,7 @@
                                             <textarea name="" id="" placeholder="Please enter your text here" class="form-control" ng-model="chat.message" required></textarea>
                                         </div>
                                         <div class="box-desgnation pad0">
-                                            <input type="text" placeholder="Please enter your Designation" ng-model="chat.designation" uib-typeahead="desig for desig in desigs | filter:$viewValue | limitTo:8" class="form-control">
+                                            <input type="text" placeholder="Please enter your Name and Designation" ng-model="chat.designation" uib-typeahead="desig for desig in desigs | filter:$viewValue | limitTo:8" class="form-control">
                                         </div>
                                         <div class="box-desgnation pad0">
                                             <div class="scroll-x">
@@ -393,7 +392,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-20 ng-scope">
-                                    <div class="aristimg-grp1 mb20">
+                                    <div class="aristimg-grp1 mb10">
                                         <div class="relative" ng-click="getHeight(totalartconts);">
                                             <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
                                             <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
@@ -435,7 +434,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-20 ng-scope">
-                                    <div class="aristimg-grp1 mb20">
+                                    <div class="aristimg-grp1 mb10">
                                         <div class="relative" ng-click="getHeight(totalartconts);">
                                             <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
                                             <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
@@ -477,7 +476,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-20 ng-scope">
-                                    <div class="aristimg-grp1 mb20">
+                                    <div class="aristimg-grp1 mb10">
                                         <div class="relative" ng-click="getHeight(totalartconts);">
                                             <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
                                             <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
@@ -538,7 +537,7 @@
                                     <span>No Active Project.</span>
                                 </div>
                                 <div class="col-xs-20 ng-scope" ng-repeat="ticket in activeTickets">
-                                    <div class="aristimg-grp1 mb20">
+                                    <div class="aristimg-grp1 mb10">
                                         <div class="relative" ng-click="getHeight(totalartconts);">
 
                                             <div class="image-holders fixit">
@@ -588,7 +587,7 @@
                                 <span>No Closed Project.</span>
                             </div>
                             <div class="col-xs-20 ng-scope" ng-repeat="ticket in closedTickets">
-                                <div class="aristimg-grp1 mb20">
+                                <div class="aristimg-grp1 mb10">
                                     <div class="relative" ng-click="getHeight(totalartconts);">
 
                                         <div class="image-holders fixit">

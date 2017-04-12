@@ -696,7 +696,20 @@ firstapp.filter('roompath', function () {
         }
     };
 });
+firstapp.filter('imgPdf',function(){
+return function (pdfmade){
 
+   var isPdf=pdfmade.indexOf(".pdf");
+   console.log(pdfmade,isPdf);
+   if(isPdf==-1){
+       console.log("false");
+       return false;
+   }else{
+       return true;
+       console.log("true");
+   }
+}
+});
 firstapp.directive('img', function ($compile, $parse) {
     return {
         restrict: 'EA',

@@ -69,7 +69,23 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             //   });
             // }
         }
-
+///undo
+        NavigationService.getDesignation(function (data) {
+            $scope.desigs = data;
+        });
+        // $scope.desigs = NavigationService.getDesignation();
+                console.log($scope.desigs);
+                $scope.goToDetailPage = function () {
+            console.log(chatsArr);
+            if (desigs[0].chatid == "") {
+                //          $location.url("/sculpture/" + artwork._id);
+                $state.go('commission-sculptures');
+            } else {
+                //          $location.url("/artwork/detail/" + artwork._id);
+                $state.go('commission-projects');
+            }
+        }
+// undo
         $scope.registeruser = function () {
             if ($scope.register.password === $scope.register.confirmpassword) {
                 $scope.passwordNotMatch = false;
@@ -4744,7 +4760,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 // }
             })
         };
-
     })
 
     .controller('ActivitiesCtrl', function ($scope, TemplateService, NavigationService) {
@@ -6790,7 +6805,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.art.pagenumber++;
             $scope.getSearchedArt();
         }
-
+        $scope.artistDetailImg = {};
         $scope.showDetails = function (oneuser) {
             console.log(oneuser)
             $scope.artistDetailImg = oneuser;
@@ -6834,7 +6849,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     })
 
-    .controller('CommissionSculpturesCtrl', function ($scope, TemplateService, NavigationService, $state, cfpLoadingBar) {
+    .controller('CommissionSculpturesCtrl', function ($scope, TemplateService, NavigationService, $state, cfpLoadingBar,ngDialog) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("commission-sculptures");
         $scope.menutitle = NavigationService.makeactive("Commission Sculptures");
@@ -6847,7 +6862,15 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.msg = "";
             $scope.sculpture = data;
         });
-
+        $scope.artistDetailImg = {};
+        $scope.showDetails = function (oneuser) {
+            $scope.artistDetailImg = oneuser;
+            ngDialog.open({
+                scope: $scope,
+                template: 'views/content/quick-view-commission.html'
+            });
+        };
+        // $scope.artistDetailImg = data[0];
     })
 
     .controller('CommissionProjectsCtrl', function ($scope, TemplateService, NavigationService, $state, cfpLoadingBar, $upload, $timeout) {
@@ -6981,7 +7004,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 fileReader.readAsArrayBuffer($scope.selectedFiles[index]);
             }
         };
-
         $scope.dragOverClass = function ($event) {
             var items = $event.dataTransfer.items;
             var hasFile = false;
@@ -7096,14 +7118,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             });
             if (foundIndex != -1) {
                 $scope.upSideClass = "right";
-                $scope.upClass = "box-right pull-right mb20 width80";
+                $scope.upClass = "box-right pull-right mb10 width80";
             } else {
                 $scope.upSideClass = "left";
-                $scope.upClass = "chngpswd-cont box-left width80 userprofile-com mb20";
+                $scope.upClass = "chngpswd-cont box-left width80 userprofile-com mb10";
             }
             getTicketElements();
         }
-
         function getTicketElements() {
             $scope.desigs = NavigationService.getDesignation();
             NavigationService.getTicketElements($scope.activeProject, function (data) {
@@ -7117,10 +7138,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                             _.each($scope.chatsArr, function (n) {
                                 if (n.chatid == $scope.userData.id) {
                                     n.upSideClass = "right";
-                                    n.upClass = "box-right pull-right mb20 width80";
+                                    n.upClass = "box-right pull-right mb10 width80";
                                 } else {
                                     n.upSideClass = "left";
-                                    n.upClass = "chngpswd-cont box-left width80 userprofile-com mb20";
+                                    n.upClass = "chngpswd-cont box-left width80 userprofile-com mb10";
                                 }
                             });
                         } else {
@@ -7132,10 +7153,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                             _.each($scope.chatsArr, function (n) {
                                 if (n.chatid == $scope.userData.id) {
                                     n.upSideClass = "right";
-                                    n.upClass = "box-right pull-right mb20 width80";
+                                    n.upClass = "box-right pull-right mb10 width80";
                                 } else {
                                     n.upSideClass = "left";
-                                    n.upClass = "chngpswd-cont box-left width80 userprofile-com mb20";
+                                    n.upClass = "chngpswd-cont box-left width80 userprofile-com mb10";
                                 }
                             });
                         } else {

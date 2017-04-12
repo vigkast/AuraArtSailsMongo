@@ -556,7 +556,7 @@ ul.decimal {
         text-transform: uppercase;
         width: 100%;
         text-align: center;
-        font-size: 13px;
+        font-size: 12px;
         padding: 8px 0;
         font-weight: 500;
         background-color: rgba(0, 0, 0, 0.6);
@@ -3617,7 +3617,7 @@ img.fancybox-image {
     }
 }
 .box-left {
-    padding: 20px;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 10px;
 }
@@ -3643,14 +3643,22 @@ img.fancybox-image {
     left: 8px;
     top: 15px;
 }
-.box-left h5 {
+.box-left{ h5 {
     margin-top: 0;
 }
+p{
+    margin-bottom: 5px;
+}
+}
 .box-right {
-    padding: 20px;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 10px;
     position: relative;
+    margin-bottom: 10px;
+    p{
+    margin-bottom: 5px;
+}
 }
 .box-right:after,
 .box-right:before {
@@ -3678,7 +3686,7 @@ img.fancybox-image {
     resize: none;
     border: 0;
     border-radius: 10px!important;
-    height: 60px;
+    height: 40px;
 }
 .box-desgnation input {
     margin-top: 10px;
@@ -3748,7 +3756,7 @@ img.fancybox-image {
     .calc(height, ~  '100vh - 400px');
     overflow-y: auto;
     overflow-x: hidden;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding: 10px;
 }
 /* Let's get this party started */
@@ -3847,6 +3855,9 @@ font-weight: 300;
 }
 .com-h {
     height: 70px;
+}
+.mb10{
+    margin-bottom: 10px;
 }
 /* Mobile Less */
 @import "../less/fancybox-override.less";

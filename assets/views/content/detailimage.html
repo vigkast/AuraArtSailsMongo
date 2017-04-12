@@ -28,6 +28,7 @@
                             <table class="table">
                                 <tbody>
                                     <tr>
+                                        <!--<pre>{{artistDetailImg.artwork}}</pre>-->
                                         <td>
                                             <!-- <span ng-if="artistDetailImg.artwork.srno && artistDetailImg.artwork.srno!=''">{{artistDetailImg.artwork.srno}}
                                             </span> -->
@@ -83,15 +84,18 @@
                                             N/A
                                         </td>
                                     </tr>
-                                    <tr ng-if="artistDetailImg.artwork.status!='sold'">
-                                        <td class="labels">Price: </td>
+                                    <tr ng-if="artistDetailImg.artwork.description=='N/A' || artistDetailImg.artwork.description==''">
+                                        <td class="labels">Description: </td>
+                                        <td>
+                                            {{artistDetailImg.artwork.description}}
+                                        </td>
+                                    </tr>
+                                        <!--<tr ng-if="artistDetailImg.artwork.status!='sold'">
+                                        <td class="labels">Description: </td>
                                         <td ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A'">
                                             Rs {{artistDetailImg.artwork.gprice|inlakhs}} / ${{artistDetailImg.artwork.gprice|indollars}} <span>(excluding VAT)</span>
                                         </td>
-                                        <td ng-if="!artistDetailImg.artwork.gprice || artistDetailImg.artwork.gprice=='N/A'">
-                                            Available on request
-                                        </td>
-                                    </tr>
+                                    </tr>-->
                                 </tbody>
                             </table>
                         </div>

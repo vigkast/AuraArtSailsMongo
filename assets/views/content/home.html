@@ -156,12 +156,16 @@
         <div class="row-flex row-unflex">
 
             <div class="col-flex pointer">
-                <a href="http://www.auraart.in/#/thoughtleadership" target="_blank"><img alt="sculpture" class="img-responsive" src="img/home/blog.jpg"></a>
+                <a href="#/thoughtleadership" target="_blank">
+                <img alt="sculpture" class="img-responsive" src="img/home/blog.jpg">
                 <span class="text-heading">Blog</span>
+                </a>
             </div>
             <div class="col-flex pointer">
-                <a href=""><img class="img-responsive" src="img/home/tutorial.jpg"></a>
-                <span class="text-heading">Tutorials</span>
+                <a href="">
+                    <img class="img-responsive" src="img/home/tutorial.jpg">
+                    <span class="text-heading">Tutorials</span>
+                </a>
             </div>
             <div class="col-flex pointer" ng-click="reachOut()">
                 <img alt="prints" class="img-responsive" src="img/home/reachout.jpg">
@@ -191,9 +195,11 @@
                 <img alt="sculpture" class="img-responsive" src="img/artist/sculpture4.jpg">
                 <span class="text-heading">Sculptures</span>
             </div>
-            <div class="col-flex pointer" ng-click="lauchedSoon();">
-                <img class="img-responsive" src="img/sculpture.jpg">
-                <span class="text-heading">Commissioned sculptures</span>
+            <div class="col-flex pointer">
+                <a ng-click="goToDetailPage();">
+                    <img class="img-responsive" src="img/sculpture.jpg">
+                    <span class="text-heading">Commissioned sculptures</span>
+                </a>
             </div>
             <div class="col-flex pointer" ng-click="goToArtworks('Photographs')">
                 <img alt="photographs" class="img-responsive" src="img/photograph1.jpg">

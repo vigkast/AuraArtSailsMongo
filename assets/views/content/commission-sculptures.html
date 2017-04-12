@@ -23,10 +23,12 @@
                 </div>
             </div>
         </div>
+        <div class="text-center">
+            <button class="btn btn-danger uppercase ml-20 style3-bg" ui-sref="commission-projects">Start Your Project</button>
+        </div>
         <div class="undertaken-aura-art">
             <div class="mb20">
-                <button class="btn btn-primarys uppercase ml-20 pull-right" ui-sref="commission-projects">Start Your Project</button>
-                <h5 class="title bold">Projects undertaken by Aura Art </h5>
+                <h5 class="title bold font-color3">Projects undertaken by Aura Art </h5>
             </div>
             <!--<div class="pul">
                 <button class="btn btn-primarys uppercase" ui-sref="commission-projects">Start Your Project</button>
@@ -37,7 +39,7 @@
                         <!--<pre>{{artwork|json}}</pre>-->
                         <div class="aristimg-grp1 mb20">
                             <div class="relative">
-                                <a ui-sref="detail({artid:artwork._id})">
+                                <a ng-click="showDetails(artwork)">
                                     <div class="image-holders fixit">
                                         <img class="fix-img doneLoading" ng-src="{{artwork.image[0]|uploadpath}}">
                                     </div>
@@ -48,26 +50,20 @@
                                 </div>-->
                             </div>
                             <div class="artist-cont-detail com-h">
-
-                                <p class="ng-binding">
-                                    {{artwork.srno}}<i class="{{totalartconts.heartClass = (totalartconts.artwork._id | showheart)}}"
-                                        ng-click="makeFav(artwork);"></i>
+                                <p class="ng-binding">{{artwork.srno}}
+                                    <i class="{{totalartconts.heartClass = (totalartconts.artwork._id | showheart)}}" ng-click="makeFav(artwork);"></i>
                                     <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(artwork);" ng-if="artwork.status!='sold' &amp;&amp; artwork.gprice &amp;&amp; artwork.gprice!='N/A'"></i>
                                 </p>
                                 <p> {{artwork.name}}</p>
                                 <p> {{artwork.subtype[0].name}} </p>
-                                <p class="m0">{{artwork.height}} x {{artwork.width}} <span ng-if="artwork.breadth">x {{artwork.breadth}}</span>
-                                    <span ng-if="artwork.depth">x {{artwork.depth}}</span><span ng-if="artwork.major"> {{artwork.major}}</span>
+                                <p class="m0">
+                                    {{artwork.height}} x {{artwork.width}} 
+                                    <span ng-if="artwork.breadth">x {{artwork.breadth}}</span>
+                                    <span ng-if="artwork.depth">x {{artwork.depth}}</span>
+                                    <span ng-if="artwork.major"> {{artwork.major}}</span>
                                     <span ng-if="!artwork.major">inches</span>
                                 </p>
-                                <!--<p>Rs {{artwork.gprice|inlakhs}} / ${{artwork.gprice|indollars}}</p>-->
-                                <!--<p class="m0">
-                                    {{artwork.type}}
-                                </p>-->
-                                <!--<p class="m0">
-                                    canavas
-                                </p>-->
-
+                                <p ng-if="!artwork.description">{{artwork.description}}</p>
                             </div>
                         </div>
                     </div>
