@@ -3200,7 +3200,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     .controller('ThoughtleadershipdetailCtrl', function ($scope, TemplateService, NavigationService, $stateParams, cfpLoadingBar) {
         $scope.template = TemplateService.changecontent("thoughtleadershipdetail");
-        $scope.menutitle = NavigationService.makeactive("Thought Leadership");
+        $scope.menutitle = NavigationService.makeactive("Blog");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         cfpLoadingBar.start();

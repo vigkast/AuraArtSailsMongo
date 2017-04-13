@@ -178,18 +178,17 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvi
             controller: 'AccountCtrl'
         })
 
-        .state('thoughtleadership', {
-            url: "/thoughtleadership",
+       .state('thoughtleadership', {
+            url: "/blog",
             templateUrl: "views/template.html",
             controller: 'ThoughtleadershipCtrl'
         })
 
         .state('thoughtleadershipdetail', {
-            url: "/thoughtleadershipdetail/:id",
+            url: "/blog/:id",
             templateUrl: "views/template.html",
             controller: 'ThoughtleadershipdetailCtrl'
         })
-
         .state('sculpture', {
             url: "/sculpture/:artid",
             templateUrl: "views/template.html",
