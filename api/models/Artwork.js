@@ -736,7 +736,8 @@ module.exports = {
                     $project: {
                         name: 1,
                         artwork: 1,
-                        focused: 1
+                        focused: 1,
+                        description:1
                     }
                 }]).toArray(function (err, found) {
                     if (found && found[0]) {

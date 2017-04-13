@@ -54,12 +54,12 @@
                                  <td>{{artistDetailImg|makesizestr}}</td>
                                  <!-- <td>{{artistDetailImg.dim}} inches</td> -->
                               </tr>
-                                <tr ng-if="artistDetailImg.description">
-                                 <td class="labels">Description: </td>
-                                 <td>
-                                    {{artistDetailImg.description}}
-                                 </td>
-                              </tr>
+                                <tr ng-if="artistDetailImg.artwork.description">
+                                    <td class="labels">Description: </td>
+                                        <td>
+                                            {{artistDetailImg.description}}
+                                        </td>
+                                </tr>
                            </tbody>
                         </table>
                      </div>

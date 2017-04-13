@@ -25,6 +25,7 @@
                 <div class="cont-imagedetail">
                     <div class="artist-cont-detail">
                         <div class="painting-details">
+                            <!--{{artistDetailImg}}-->
                             <table class="table">
                                 <tbody>
                                     <tr>
@@ -84,7 +85,7 @@
                                             N/A
                                         </td>
                                     </tr>
-                                    <tr ng-if="artistDetailImg.artwork.description=='N/A' || artistDetailImg.artwork.description==''">
+                                    <tr ng-if="artistDetailImg.artwork.description">
                                         <td class="labels">Description: </td>
                                         <td>
                                             {{artistDetailImg.artwork.description}}

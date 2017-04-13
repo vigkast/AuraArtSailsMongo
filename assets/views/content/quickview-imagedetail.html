@@ -64,6 +64,12 @@
                                     N/A
                                  </td>
                               </tr>
+                                <tr ng-if="artistDetailImg.artwork.description">
+                                    <td class="labels">Description: </td>
+                                        <td>
+                                            {{artistDetailImg.artwork.description}}
+                                        </td>
+                                </tr>
                               <tr ng-if="artistDetailImg.artwork.status!='sold'">
                                  <td class="labels">Price: </td>
                                  <td ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A'">
