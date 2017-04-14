@@ -85,18 +85,19 @@
                                             N/A
                                         </td>
                                     </tr>
+                                    <tr ng-if="artistDetailImg.artwork.status!='sold'">
+                                        <td class="labels">Description: </td>
+                                        <td ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A'">
+                                            Rs {{artistDetailImg.artwork.gprice|inlakhs}} / ${{artistDetailImg.artwork.gprice|indollars}} <span>(excluding VAT)</span>
+                                        </td>
+                                    </tr>
                                     <tr ng-if="artistDetailImg.artwork.description">
                                         <td class="labels">Description: </td>
                                         <td>
                                             {{artistDetailImg.artwork.description}}
                                         </td>
                                     </tr>
-                                        <!--<tr ng-if="artistDetailImg.artwork.status!='sold'">
-                                        <td class="labels">Description: </td>
-                                        <td ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A'">
-                                            Rs {{artistDetailImg.artwork.gprice|inlakhs}} / ${{artistDetailImg.artwork.gprice|indollars}} <span>(excluding VAT)</span>
-                                        </td>
-                                    </tr>-->
+
                                 </tbody>
                             </table>
                         </div>
@@ -135,8 +136,8 @@
                                         <div class="col-md-6">
                                             <p>
                                                 <span class="bold" ng-if="artistdetail.dob || artistdetail.stateofb">Born </span>
-                                                <span class="bold" ng-if="artistdetail.dob && artistdetail.dob!=''">in </span> {{artistdetail.dob}}
-                                                <span class="bold" ng-if="artistdetail.stateofb && artistdetail.stateofb!=''">at</span> {{artistdetail.stateofb}}
+                                                <span class="bold" ng-if="artistdetail.dob && artistdetail.dob!=''">in </span>                                                {{artistdetail.dob}}
+                                                <span class="bold" ng-if="artistdetail.stateofb && artistdetail.stateofb!=''">at</span>                                                {{artistdetail.stateofb}}
                                             </p>
                                             <p ng-if="artistdetail.passedaway">
                                                 <span class="bold">Passed away in {{artistdetail.passedaway}}</span>
