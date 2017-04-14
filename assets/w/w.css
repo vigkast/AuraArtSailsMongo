@@ -5065,7 +5065,7 @@ img.fancybox-image {
   color: #fff;
 }
 .profile-img h5 {
-  margin: 7px 0 !important;
+  margin: 7px 0;
 }
 .profile-img.left {
   left: -30px;
@@ -5077,9 +5077,6 @@ img.fancybox-image {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 10px;
-}
-.box-left p{
-    margin-bottom: 5px;
 }
 .width80 {
   width: 80%;
@@ -5106,13 +5103,17 @@ img.fancybox-image {
 .box-left h5 {
   margin-top: 0;
 }
+.box-left p {
+  margin-bottom: 5px;
+}
 .box-right {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 10px;
   position: relative;
+  margin-bottom: 10px;
 }
-.box-right p{
+.box-right p {
   margin-bottom: 5px;
 }
 .box-right:after,
@@ -5141,7 +5142,7 @@ img.fancybox-image {
   resize: none;
   border: 0;
   border-radius: 10px!important;
-  height: 45px;
+  height: 40px;
 }
 .box-desgnation input {
   margin-top: 10px;
@@ -5173,9 +5174,6 @@ img.fancybox-image {
 }
 .box-bord {
   border: 1px solid #ddd;
-}
-.box-bord h5{
-  margin: 0 0 5px;
 }
 .dotted-milestone {
   position: relative;
@@ -5219,9 +5217,11 @@ img.fancybox-image {
 height:-webkit-calc(100vh - 400px);
 height:-moz-calc(100vh - 400px);
 height:calc(100vh - 400px);
+;
   overflow-y: auto;
   overflow-x: hidden;
   margin-bottom: 10px;
+  padding: 10px;
 }
 /* Let's get this party started */
 .chat-content.scroll-y::-webkit-scrollbar {
@@ -5316,6 +5316,12 @@ li.title.inline-box-infra {
 }
 .com-h {
   height: 70px;
+}
+.mb10 {
+  margin-bottom: 10px;
+}
+.artist .painting ul.artist-crisp li:nth-child(7) {
+  display: none;
 }
 /* Mobile Less */
 #fancybox-loading,
@@ -5781,10 +5787,4 @@ li.title.inline-box-infra {
   height: calc(50% - 20px);
 }
 
-.mb10{
-  margin-bottom: 10px;
-}
-.inline {
-    display: inline-block;
-}
 /*# sourceMappingURL=w.css.map */
