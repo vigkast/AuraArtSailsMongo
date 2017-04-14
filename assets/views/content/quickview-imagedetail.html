@@ -1,104 +1,104 @@
 <div class="image-detail">
-   <div class="container">
-      <div class="ngdialog-close close"></div>
-      <div class="row padding-more">
-         <div class="breadcrums">
-            <div class="col-md-8">
-               <div class="aboveimage images fixit">
-                  <img class="fix-img" ng-src="{{artistDetailImg.artwork.image[0]|uploadpath}}" style="max-width: 100%;max-height: 100%;" />
-               </div>
-            </div>
-            <div class="col-md-4">
-               <div class="cont-imagedetail">
-                  <div class="artist-cont-detail">
-                     <div class="painting-details">
-                        <table class="table">
-                           <tbody>
-                              <tr>
-                                 <td>
-                                    <!-- <span ng-if="artistDetailImg.artwork.srno && artistDetailImg.artwork.srno!=''">                                                                    {{artistDetailImg.artwork.srno}}
+    <div class="container">
+        <div class="ngdialog-close close"></div>
+        <div class="row padding-more">
+            <div class="breadcrums">
+                <div class="col-md-8">
+                    <div class="aboveimage images fixit">
+                        <img class="fix-img" ng-src="{{artistDetailImg.artwork.image[0]|uploadpath}}" style="max-width: 100%;max-height: 100%;" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cont-imagedetail">
+                        <div class="artist-cont-detail">
+                            <div class="painting-details">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <!-- <span ng-if="artistDetailImg.artwork.srno && artistDetailImg.artwork.srno!=''">                                                                    {{artistDetailImg.artwork.srno}}
                                             </span> -->
-                                    <span ng-if="artistDetailImg.artwork.imageno">
+                                                <span ng-if="artistDetailImg.artwork.imageno">
                                                {{artistDetailImg.artwork.imageno}}</span>
-                                    <i class="{{artistDetailImg.heartClass = (artistDetailImg.artwork._id | showheart)}}" ng-click="makeFav(artistDetailImg);"></i>
-                                 </td>
-                              </tr>
-                              <tr class="font-color3">
-                                 <td class="labels">Artist:</td>
-                                 <td ng-if="artistDetailImg.name && artistDetailImg.name!=''">
-                                    {{artistDetailImg.name}}
-                                 </td>
-                                 <td ng-if="!artistDetailImg.name || artistDetailImg.name==''">
-                                    N/A
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="labels">Title:</td>
-                                 <td ng-if="artistDetailImg.artwork.name && artistDetailImg.artwork.name!=''">
-                                    {{artistDetailImg.artwork.name}}
-                                 </td>
-                                 <td ng-if="!artistDetailImg.artwork.name || artistDetailImg.artwork.name==''">
-                                    N/A
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="labels">Medium: </td>
-                                 <td ng-if="artistDetailImg.artwork.subtype.length>0 && artistDetailImg.artwork.subtype[0].name!=''">
-                                    {{artistDetailImg.artwork.subtype[0].name}}
-                                 </td>
-                                 <td ng-if="!artistDetailImg.artwork.subtype || artistDetailImg.artwork.subtype.length==0">
-                                    N/A
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="labels">Size:</td>
-                                 <td>{{artistDetailImg.artwork|makesizestr}}</td>
-                                 <!-- <td>{{artistDetailImg.artwork.dim}} inches</td> -->
-                              </tr>
-                              <tr ng-if="artistDetailImg.artwork.yoc && artistDetailImg.artwork.yoc!=''">
-                                 <td class="labels">Year: </td>
-                                 <td ng-if="artistDetailImg.artwork.yoc && artistDetailImg.artwork.yoc!=''">
-                                    {{artistDetailImg.artwork.yoc}}
-                                 </td>
-                                 <td ng-if="!artistDetailImg.artwork.yoc || artistDetailImg.artwork.yoc==''">
-                                    N/A
-                                 </td>
-                              </tr>
-                                <tr ng-if="artistDetailImg.artwork.description">
-                                    <td class="labels">Description: </td>
-                                        <td>
-                                            {{artistDetailImg.artwork.description}}
-                                        </td>
-                                </tr>
-                              <tr ng-if="artistDetailImg.artwork.status!='sold'">
-                                 <td class="labels">Price: </td>
-                                 <td ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A'">
-                                    Rs {{artistDetailImg.artwork.gprice|inlakhs}} / ${{artistDetailImg.artwork.gprice|indollars}}
-                                     <br><span>(excluding VAT)</span>
-                                 </td>
-                                 <td ng-if="!artistDetailImg.artwork.gprice || artistDetailImg.artwork.gprice=='N/A'">
-                                    Available on request
-                                 </td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                  </div>
-                  <button type="button" class="btn btn-block  uppercase" ng-click="openReachout();" ng-if="!artistDetailImg.artwork.gprice || artistDetailImg.artwork.gprice=='N/A'">
+                                                <i class="{{artistDetailImg.heartClass = (artistDetailImg.artwork._id | showheart)}}" ng-click="makeFav(artistDetailImg);"></i>
+                                            </td>
+                                        </tr>
+                                        <tr class="font-color3">
+                                            <td class="labels">Artist:</td>
+                                            <td ng-if="artistDetailImg.name && artistDetailImg.name!=''">
+                                                {{artistDetailImg.name}}
+                                            </td>
+                                            <td ng-if="!artistDetailImg.name || artistDetailImg.name==''">
+                                                N/A
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="labels">Title:</td>
+                                            <td ng-if="artistDetailImg.artwork.name && artistDetailImg.artwork.name!=''">
+                                                {{artistDetailImg.artwork.name}}
+                                            </td>
+                                            <td ng-if="!artistDetailImg.artwork.name || artistDetailImg.artwork.name==''">
+                                                N/A
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="labels">Medium: </td>
+                                            <td ng-if="artistDetailImg.artwork.subtype.length>0 && artistDetailImg.artwork.subtype[0].name!=''">
+                                                {{artistDetailImg.artwork.subtype[0].name}}
+                                            </td>
+                                            <td ng-if="!artistDetailImg.artwork.subtype || artistDetailImg.artwork.subtype.length==0">
+                                                N/A
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="labels">Size:</td>
+                                            <td>{{artistDetailImg.artwork|makesizestr}}</td>
+                                            <!-- <td>{{artistDetailImg.artwork.dim}} inches</td> -->
+                                        </tr>
+                                        <tr ng-if="artistDetailImg.artwork.yoc && artistDetailImg.artwork.yoc!=''">
+                                            <td class="labels">Year: </td>
+                                            <td ng-if="artistDetailImg.artwork.yoc && artistDetailImg.artwork.yoc!=''">
+                                                {{artistDetailImg.artwork.yoc}}
+                                            </td>
+                                            <td ng-if="!artistDetailImg.artwork.yoc || artistDetailImg.artwork.yoc==''">
+                                                N/A
+                                            </td>
+                                        </tr>
+                                        <tr ng-if="artistDetailImg.artwork.description">
+                                            <td class="labels" colspan="2">Description: </td>
+                                            <td colspan="2">
+                                                {{artistDetailImg.artwork.description}}
+                                            </td>
+                                        </tr>
+                                        <tr ng-if="artistDetailImg.artwork.status!='sold'">
+                                            <td class="labels">Price: </td>
+                                            <td ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A'">
+                                                Rs {{artistDetailImg.artwork.gprice|inlakhs}} / ${{artistDetailImg.artwork.gprice|indollars}}
+                                                <br><span>(excluding VAT)</span>
+                                            </td>
+                                            <td ng-if="!artistDetailImg.artwork.gprice || artistDetailImg.artwork.gprice=='N/A'">
+                                                Available on request
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-block  uppercase" ng-click="openReachout();" ng-if="!artistDetailImg.artwork.gprice || artistDetailImg.artwork.gprice=='N/A'">
                      REQUEST FOR PRICE
                   </button>
-                  <button type="button" class="btn btn-block  uppercase" ng-click="lauchedSoon();">
+                        <button type="button" class="btn btn-block  uppercase" ng-click="lauchedSoon();">
                      VIEW ARTWORK IN YOUR ROOM
                   </button>
-                  <a type="button" class="btn btn-primarys btn-block uppercase" ng-click="addToCart(artistDetailImg);" ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A' && artistDetailImg.artwork.status!='sold'">
+                        <a type="button" class="btn btn-primarys btn-block uppercase" ng-click="addToCart(artistDetailImg);" ng-if="artistDetailImg.artwork.gprice && artistDetailImg.artwork.gprice!='N/A' && artistDetailImg.artwork.status!='sold'">
                         ADD TO CART
                     </a>
-                  <div type="button" class="soldout uppercase font-color3" ng-if="artistDetailImg.artwork.status=='sold'">
-                     Sold
-                  </div>
-               </div>
+                        <div type="button" class="soldout uppercase font-color3" ng-if="artistDetailImg.artwork.status=='sold'">
+                            Sold
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
