@@ -13,7 +13,8 @@
                         <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'projects'}" ng-click="changeTab('projects');">Projects
                             <a href="" class="uppercase addnew">+new</a>
                         </li>
-                        <li class="cat-list sub-catpointers" ng-class="{'bolds' : activeTab == 'projectschat' && activeIndex == $index}" ng-click="activeIndex=$index;getChats(ticket);" ng-repeat="ticket in tickets">{{ticket.title}} (Proposal)
+                        <li class="cat-list sub-catpointers" ng-class="{'bolds' : activeTab == 'projectschat' && activeIndex == $index}" ng-click="activeIndex=$index;getChats(ticket);"
+                            ng-repeat="ticket in tickets">{{ticket.title}} (Proposal)
                         </li>
                         <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'viewprojects'}" ng-click="changeTab('viewprojects');">View All Projects
                         </li>
@@ -161,7 +162,8 @@
                                                             <div class="img-box">
                                                                 <div class="many-img" ng-repeat="bill in ticket.image">
                                                                     <img ng-if="artwork.image.length!=0" ng-src="{{bill | uploadpath}}">
-                                                                    <button class="btn btn-danger close-btn" ng-click="removeimage(artwork.image.indexOf(bill));" ng-if="artwork.image.length!=0" type="button">
+                                                                    <button class="btn btn-danger close-btn" ng-click="removeimage(artwork.image.indexOf(bill));" ng-if="artwork.image.length!=0"
+                                                                        type="button">
                                                     <i class="glyphicon glyphicon-trash"></i>
                                                 </button>
                                                                 </div>
@@ -246,7 +248,9 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="material-cont">
-                                                            <p>{{ticketDetail.height}} x {{ticketDetail.width}} x {{ticketDetail.depth}} {{ticketDetail.major}}</p>
+                                                            <p>{{ticketDetail.height}} x {{ticketDetail.width}} x {{ticketDetail.depth}}
+                                                                {{ticketDetail.major}}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -256,7 +260,8 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="material-cont">
-                                                            <p> From {{ticketDetail.currency}}. {{ticketDetail.startPrice}} To {{ticketDetail.currency}}. {{ticketDetail.endPrice}} </p>
+                                                            <p> From {{ticketDetail.currency}}. {{ticketDetail.startPrice}} To
+                                                                {{ticketDetail.currency}}. {{ticketDetail.endPrice}} </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -311,7 +316,7 @@
                                                         View Pdf {{$index + 1}}
                                                     </a>
                                                 </div>
-                                                
+
                                                 <div class="time-date text-right">
                                                     <p>
                                                         <span>{{chat.name}}</span>,
@@ -341,7 +346,8 @@
                                             <textarea name="" id="" placeholder="Please enter your text here" class="form-control" ng-model="chat.message" required></textarea>
                                         </div>
                                         <div class="box-desgnation pad0">
-                                            <input type="text" placeholder="Please enter your Name and Designation" ng-model="chat.designation" uib-typeahead="desig for desig in desigs | filter:$viewValue | limitTo:8" class="form-control">
+                                            <input type="text" placeholder="Please enter your Name and Designation" ng-model="chat.designation" uib-typeahead="desig for desig in desigs | filter:$viewValue | limitTo:8"
+                                                class="form-control">
                                         </div>
                                         <div class="box-desgnation pad0">
                                             <div class="scroll-x">
@@ -396,7 +402,8 @@
                                         <div class="relative" ng-click="getHeight(totalartconts);">
                                             <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
                                             <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
-                                            <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
+                                            <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope"
+                                                href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
                                                 <div class="image-holders fixit">
                                                     <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
                                                 </div>
@@ -438,7 +445,8 @@
                                         <div class="relative" ng-click="getHeight(totalartconts);">
                                             <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
                                             <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
-                                            <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
+                                            <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope"
+                                                href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
                                                 <div class="image-holders fixit">
                                                     <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
                                                 </div>
@@ -480,7 +488,8 @@
                                         <div class="relative" ng-click="getHeight(totalartconts);">
                                             <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
                                             <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
-                                            <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
+                                            <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" class="ng-scope"
+                                                href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
                                                 <div class="image-holders fixit">
                                                     <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
                                                 </div>
@@ -557,7 +566,7 @@
                                                 Sculptures
                                             </p>
                                             <p class="m0">
-                                                <span ng-repeat="mtrl in ticket.material track by $index">{{mtrl.name}}<span ng-if="$index < ticket.material.length-1">,</span> </span>
+                                                <span ng-repeat="mtrl in ticket.material track by $index">{{mtrl.name}}<span ng-if="$index < ticket.material.length-1">,</span>                                                </span>
                                             </p>
                                             <p class="m0">
                                                 {{ticket.height}} x {{ticket.width}} x {{ticket.depth}} {{ticket.major}}
@@ -607,7 +616,7 @@
                                             Sculptures
                                         </p>
                                         <p class="m0">
-                                            <span ng-repeat="mtrl in ticket.material track by $index">{{mtrl.name}}<span ng-if="$index < ticket.material.length-1">,</span> </span>
+                                            <span ng-repeat="mtrl in ticket.material track by $index">{{mtrl.name}}<span ng-if="$index < ticket.material.length-1">,</span>                                            </span>
                                         </p>
                                         <p class="m0">
                                             {{ticket.height}} x {{ticket.width}} x {{ticket.depth}} {{ticket.major}}
@@ -622,7 +631,7 @@
         </div>
     </div>
     <div class="row text-center" ng-show="showLoginErr">
-        <h4 class="">Please login to view your projects</h4>
+        <h4 class="">Please login to start/view your projects</h4>
     </div>
 </div>
 </div>
