@@ -27,7 +27,7 @@
             <button class="btn btn-danger uppercase ml-20 style3-bg" ui-sref="commission-projects">Start Your Project</button>
         </div>
         <div class="undertaken-aura-art">
-            <div class="mb20">
+            <div>
                 <h5 class="title bold font-color3">Projects undertaken by Aura Art </h5>
             </div>
             <!--<div class="pul">
@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-xs-20" ng-repeat="artwork in sculpture">
                         <!--<pre>{{artwork|json}}</pre>-->
-                        <div class="aristimg-grp1 mb20">
+                        <div class="aristimg-grp1 mb20 pt-20">
                             <div class="relative">
                                 <a ng-click="showDetails(artwork)">
                                     <div class="image-holders fixit">
@@ -63,7 +63,7 @@
                                     <span ng-if="artwork.major"> {{artwork.major}}</span>
                                     <span ng-if="!artwork.major">inches</span>
                                 </p>
-                                <!--<p ng-if="!artwork.description">{{artwork.description}}</p>-->
+                                <p ng-if="artwork.description">{{artwork.description}}</p>
                             </div>
                         </div>
                     </div>

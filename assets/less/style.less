@@ -668,6 +668,9 @@ h4 {
             background-color: @color2;
             color: white;
             .transition(all 0.3s ease);
+            &:hover{
+                 background-color: lighten(@color2 , 30%)
+            }
         }
         .slant-menu {
             height: 100%;
@@ -896,6 +899,9 @@ h4 {
         position: relative;
         .transition(all 0.3s ease);
         overflow: hidden;
+        &.p-20{
+            padding:0;
+        }
         &:hover .hover-look {
             opacity: 1;
         }
@@ -909,7 +915,7 @@ h4 {
         }
         .artist-cont-detail {
             margin-top: 10px;
-            height: 54px;
+            height: 70px;
             overflow: hidden;
             p {
                 margin-bottom: 0;
@@ -2110,7 +2116,7 @@ a.forgetlink {
     }
     .myaccnthead {
         h4 {
-            margin: 0 0 20px;
+            margin: 0 0 15px;
             font-size: 18px;
             text-transform: uppercase;
             color: @color3;
@@ -3753,7 +3759,7 @@ p{
     margin: 0;
 }
 .chat-content.scroll-y {
-    .calc(height, ~  '100vh - 400px');
+    .calc(height, ~  '100vh - 300px');
     overflow-y: auto;
     overflow-x: hidden;
     margin-bottom: 10px;
@@ -3861,6 +3867,30 @@ font-weight: 300;
 }
 .artist .painting ul.artist-crisp li:nth-child(7) {
     display: none;
+}
+.table>tbody>tr>td, 
+.table>tbody>tr>th, 
+.table>tfoot>tr>td, 
+.table>tfoot>tr>th, 
+.table>thead>tr>td, 
+.table>thead>tr>th {
+    padding: 4px 8px;
+}
+.made-madein{
+    h5{
+        margin: 0 0 5px 0;
+    }
+}
+.img-box {
+    margin-top: 10px;
+        .many-img {
+        display: inline-block;
+        margin-right: 25px;
+        img {
+        border: 1px solid #ddd;
+        padding: 5px;
+        }
+    }
 }
 /* Mobile Less */
 @import "../less/fancybox-override.less";

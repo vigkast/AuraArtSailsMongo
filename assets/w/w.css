@@ -2031,6 +2031,9 @@ h4 {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
+.nav li a:hover{
+  background-color: #D4AE70;
+}
 .nav li .slant-menu {
   height: 100%;
   width: 20px;

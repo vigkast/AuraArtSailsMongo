@@ -13,9 +13,9 @@
                         <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'projects'}" ng-click="changeTab('projects');">Projects
                             <a href="" class="uppercase addnew">+new</a>
                         </li>
+                        <!--{{ticket}}-->
                         <li class="cat-list sub-catpointers" ng-class="{'bolds' : activeTab == 'projectschat' && activeIndex == $index}" ng-click="activeIndex=$index;getChats(ticket);"
-                            ng-repeat="ticket in tickets">{{ticket.title}} (Proposal)
-                        </li>
+                            ng-repeat="ticket in tickets">{{ticket.title}} ({{ticket.status}})
                         <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'viewprojects'}" ng-click="changeTab('viewprojects');">View All Projects
                         </li>
                         <!--<li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'viewprojectsfavourite'}" ng-click="changeTab('viewprojectsfavourite');">Favourite</li>-->
@@ -164,8 +164,8 @@
                                                                     <img ng-if="artwork.image.length!=0" ng-src="{{bill | uploadpath}}">
                                                                     <button class="btn btn-danger close-btn" ng-click="removeimage(artwork.image.indexOf(bill));" ng-if="artwork.image.length!=0"
                                                                         type="button">
-                                                    <i class="glyphicon glyphicon-trash"></i>
-                                                </button>
+                                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -210,6 +210,7 @@
                                         <h5 class="bold text-center">C</h5>
                                     </div>
                                     <div class="{{upClass}}">
+                                        <!--<pre>{{ticketDetail}}</pre>-->
                                         <div class="chat-cont">
                                             <div class="user-made">
                                                 <h5 class="title font-color2 bold">{{ticketDetail.title}}</h5>
@@ -238,7 +239,7 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="material-cont">
-                                                            <p ng-repeat="material in ticketDetail.material">{{material.name}}</p>
+                                                            <p ng-repeat="material in ticketDetail.material">{{ticketDetail.material}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -308,8 +309,8 @@
                                                     {{chat.message}}
                                                 </p>
                                                 <!--<pre>{{chat}}</pre>-->
-                                                <div ng-repeat="img in chat.image" ng-init="isPdf=(img|imgPdf)" class="inline">
-                                                    <div class="img-inline-box inline" ng-if="!isPdf">
+                                                <div ng-repeat="img in chat.image" ng-init="isPdf=(img|imgPdf)" class="img-inline-box inline">
+                                                    <div class="inline" ng-if="!isPdf">
                                                         <img ng-src="{{img | uploadpath}}" alt="">
                                                     </div>
                                                     <a href="{{img | uploadpath}}" target="_blank" ng-if="isPdf" class="btn btn-default inline">
@@ -353,7 +354,7 @@
                                             <div class="scroll-x">
                                                 <div class="img-box">
                                                     <div class="many-img" ng-repeat="bill in chatimages">
-                                                        <img ng-if="chatimages.length!=0" ng-src="{{bill | uploadpath}}">
+                                                        <img ng-if="chatimages.length!=0" ng-src="{{bill | uploadpath}}" width="65">
                                                         <button class="btn btn-danger close-btn" ng-click="removeimage(chatimages.indexOf(bill));" ng-if="chatimages.length!=0" type="button">
                                                     <i class="glyphicon glyphicon-trash"></i>
                                                 </button>
