@@ -89,6 +89,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="input-id">
+                              
                                                 <ui-select multiple ng-model="ticket.material" tagging tagging-label="false">
                                                     <ui-select-match placeholder="Preferred Material to be Used">{{$item.name}}</ui-select-match>
                                                     <ui-select-choices refresh-delay="0" refresh="refreshMedium($select.search,$select.selected)" repeat="person in medium track by person._id">
@@ -210,7 +211,6 @@
                                         <h5 class="bold text-center">C</h5>
                                     </div>
                                     <div class="{{upClass}}">
-                                        <!--<pre>{{ticketDetail}}</pre>-->
                                         <div class="chat-cont">
                                             <div class="user-made">
                                                 <h5 class="title font-color2 bold">{{ticketDetail.title}}</h5>
@@ -239,7 +239,7 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="material-cont">
-                                                            <p ng-repeat="material in ticketDetail.material">{{ticketDetail.material}}</p>
+                                                            <p ng-repeat="material in ticketDetail.material">{{material.name}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
