@@ -168,11 +168,29 @@
                                                                         <i class="glyphicon glyphicon-trash"></i>
                                                                     </button>
                                                                 </div>
+
+                                                    <div class="many-img" ng-repeat="bill in chatimages" ng-init="isPdf=(bill|imgPdf)">
+                                                        <div ng-if="artwork.image.length!=0">
+                                                            <div ng-if="!isPdf">
+                                                            <img  ng-src="{{bill | uploadpath}}" width="65">
+                                                        <button class="btn btn-danger close-btn" ng-click="removeimage(chatimages.indexOf(bill));" type="button">
+                                                            <i class="glyphicon glyphicon-trash"></i>
+                                                        </button>
+                                                            </div>
+                                                            <div ng-if="isPdf">
+                                                                <a href="{{bill | uploadpath}}" target="_blank" class="btn btn-default inline">
+                                                                    View Pdf {{$index + 1}}
+                                                                </a>
+                                                    <button class="btn btn-danger close-btn" ng-click="removeimage(chatimages.indexOf(bill));" type="button">
+                                                            <i class="glyphicon glyphicon-trash"></i>
+                                                        </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                             </div>
                                                         </div>
                                                         <div class="upload-div col-md-6">
                                                             <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
-
                                                             <div class="file-upload btn btn-primary" ng-hide="uploading">
                                                                 <span>Upload Image</span>
                                                                 <input class="btn-upload" type='file' name='file' ng-file-select='onFileSelect($files,1)' onclick='this.value=null'>
@@ -196,14 +214,17 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="ticket pb20">
-                            <label for="">
-                                Ticket Number</label> {{chatsArr[0].ticketnumber}}
+                            <!--<label for="">
+                                Ticket Number</label> -->
+                                <label class="pull-right"> {{ticketDetail.ticketnumber}}</label>
+                                <h5>Client</h5>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="box-bord pad10">
-                        <h5>Client</h5>
+                        
+                        <!--<pre>{{ticketDetail}}</pre>-->
                         <div class="chat-content scroll-y" id="chatDiv">
                             <div class="row">
                                 <div class=" col-md-offset-1 col-md-10">
@@ -353,11 +374,23 @@
                                         <div class="box-desgnation pad0">
                                             <div class="scroll-x">
                                                 <div class="img-box">
-                                                    <div class="many-img" ng-repeat="bill in chatimages">
-                                                        <img ng-if="chatimages.length!=0" ng-src="{{bill | uploadpath}}" width="65">
-                                                        <button class="btn btn-danger close-btn" ng-click="removeimage(chatimages.indexOf(bill));" ng-if="chatimages.length!=0" type="button">
-                                                    <i class="glyphicon glyphicon-trash"></i>
-                                                </button>
+                                                    <div class="many-img" ng-repeat="bill in chatimages" ng-init="isPdf=(bill|imgPdf)">
+                                                     <div ng-if="artwork.image.length!=0">
+                                                            <div ng-if="!isPdf">
+                                                            <img  ng-src="{{bill | uploadpath}}" width="65">
+                                                        <button class="btn btn-danger close-btn" ng-click="removeimage(chatimages.indexOf(bill));" type="button">
+                                                            <i class="glyphicon glyphicon-trash"></i>
+                                                        </button>
+                                                            </div>
+                                                            <div ng-if="isPdf">
+                                                                <a href="{{bill | uploadpath}}" target="_blank" class="btn btn-default inline">
+                                                                    View Pdf {{$index + 1}}
+                                                                </a>
+                                                    <button class="btn btn-danger close-btn" ng-click="removeimage(chatimages.indexOf(bill));" type="button">
+                                                            <i class="glyphicon glyphicon-trash"></i>
+                                                        </button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -377,6 +410,8 @@
                                                     <span>Upload Image</span>
                                                     <input class="btn-upload" type='file' name='file' ng-file-select='onFileSelect($files,2)' onclick='this.value=null'>
                                                 </div>
+                                                  <span class="font-color3" ng-if="uploadStatus=='uploading'"> Uploading ...</span>
+                                                 <span class="font-color4" ng-if="uploadStatus=='uploaded'"> Uploaded</span>
                                             </div>
 
                                         </div>

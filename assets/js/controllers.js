@@ -6919,6 +6919,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.selectedFiles = [];
             $scope.progress = [];
             console.log($files);
+            $scope.uploadStatus = "uploading";
             if ($scope.upload && $scope.upload.length > 0) {
                 for (var i = 0; i < $scope.upload.length; i++) {
                     if ($scope.upload[i] != null) {
@@ -6940,8 +6941,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                             $timeout(function () {
                                 $scope.dataUrls[index] = e.target.result;
                             });
-                        }
-                    }(fileReader, i);
+                    }
+                }
+                (fileReader, i);     
                 }
                 $scope.progress[i] = -1;
                 if ($scope.uploadRightAway) {
@@ -6971,6 +6973,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     $timeout(function () {
                         $scope.uploadResult.push(response.data);
                         imagejstupld = response.data;
+                        $scope.uploadStatus = "uploaded";   
                         if (whichone == 1) {
                             $scope.ticket.image.push(imagejstupld.files[0].fd);
                         } else {
