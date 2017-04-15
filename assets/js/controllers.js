@@ -6998,6 +6998,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                         data: e.target.result
                     }).then(function (response) {
                         $scope.uploadResult.push(response.data);
+                         $scope.uploadStatus = "uploaded";  
                     }, function (response) {
                         if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
                     }, function (evt) {
