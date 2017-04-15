@@ -658,7 +658,7 @@ h4 {
 .nav > li > a:hover {
     &:after,
     &:before {
-        background-color: @menu-color-hover;
+        background-color: lighten(@color2 , 30%);
     }
 }
 .nav {
@@ -669,7 +669,7 @@ h4 {
             color: white;
             .transition(all 0.3s ease);
             &:hover{
-                 background-color: lighten(@color2 , 30%)
+                 background-color: lighten(@color2 , 30%);
             }
         }
         .slant-menu {
