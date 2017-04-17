@@ -6849,14 +6849,23 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     })
 
-    .controller('CommissionSculpturesCtrl', function ($scope, TemplateService, NavigationService, $state, cfpLoadingBar,ngDialog) {
+    .controller('CommissionSculpturesCtrl', function ($scope, TemplateService, NavigationService, $state, cfpLoadingBar,ngDialog,$location) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("commission-sculptures");
         $scope.menutitle = NavigationService.makeactive("Commission Sculptures");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.sculpture = [];
+        // $scope.getProjectData=[];
         $scope.msg = "Loading";
+        NavigationService.getProject(function (data) {
+            $scope.getProjectData=data;
+            if($scope.getProjectData.length>0){
+            $location.path('commission-projects');
+            }
+             console.log($scope.getProjectData);
+        });
+        
 
         NavigationService.findCommission(function (data) {
             $scope.msg = "";
@@ -6998,7 +7007,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                         data: e.target.result
                     }).then(function (response) {
                         $scope.uploadResult.push(response.data);
-                         $scope.uploadStatus = "uploaded";  
+                        //  $scope.uploadStatus = "uploaded";  
                     }, function (response) {
                         if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
                     }, function (evt) {
@@ -7078,10 +7087,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 if (data.value != false) {
                     $scope.showLoginErr = false;
                     $scope.tickets = data;
+                    $scope.scopingTickets = [];
                     $scope.activeTickets = [];
                     $scope.closedTickets = [];
                     _.each(data, function (n) {
                         switch (n.status) {
+                            case "Scoping":
+                                {
+                                    $scope.scopingTickets.push(n);
+                                    break;
+                                }
                             case "Active":
                                 {
                                     $scope.activeTickets.push(n);
