@@ -80,11 +80,6 @@ var navigationservice = angular.module('navigationservice', ['ngDialog'])
                 link: "#/artwork/Sculptures",
                 clickopen: ""
             }, {
-                name: "Commissioned Sculptures",
-                classis: "active",
-                link: "#/artwork/Sculptures",
-                clickopen: ""
-            }, {
                 name: "Photographs",
                 classis: "active",
                 link: "#/artwork/Photographs",
