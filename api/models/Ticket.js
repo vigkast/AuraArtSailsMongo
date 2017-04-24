@@ -26,7 +26,7 @@ module.exports = {
                 //     }
                      var possible = "9999999999";
                     for (var i = 0; i < possible; i++) {
-                        data.ticketnumber += i;
+                        data.ticketnumber = i + 1;
                     }
                 db.collection('ticket').insert(data, function(err, created) {
                     if (err) {
