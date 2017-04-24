@@ -1,0 +1,6 @@
+apps:
+  - script: "app.js"
+    name: "Aura Art"
+    watch: false
+    args: "--prod"
+    exec_mode: "cluster"
