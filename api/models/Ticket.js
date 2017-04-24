@@ -20,9 +20,13 @@ module.exports = {
             } else {
                 data._id = sails.ObjectID();
                  data.ticketnumber = "#Ticket";
-                var possible = "0123456789";
-                    for (var i = 0; i < 8; i++) {
-                        data.ticketnumber += possible.charAt(Math.floor(Math.random() * possible.length));
+                // var possible = "0123456789";
+                //     for (var i = 0; i < 8; i++) {
+                //         data.ticketnumber += possible.charAt(Math.floor(Math.random() * possible.length));
+                //     }
+                     var possible = "9999999999";
+                    for (var i = 0; i < possible; i++) {
+                        data.ticketnumber += i;
                     }
                 db.collection('ticket').insert(data, function(err, created) {
                     if (err) {

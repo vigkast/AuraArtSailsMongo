@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="text-center">
-            <button class="btn btn-danger uppercase ml-20 style3-bg" ui-sref="commission-projects">Start Your Project</button>
+            <button class="btn btn-danger uppercase ml-20 style3-bg" ui-sref="commission-projects">Start Your Project / View Your Projects</button>
         </div>
         <div class="undertaken-aura-art">
             <div>
@@ -35,7 +35,7 @@
             </div>-->
             <div class="artist comission-project">
                 <div class="row">
-                    <div class="col-xs-20" ng-repeat="artwork in sculpture">
+                    <div class="col-xs-20" ng-repeat="artwork in sculpture track by $index">
                         <!--<pre>{{artwork|json}}</pre>-->
                         <div class="aristimg-grp1 mb20 pt-20">
                             <div class="relative">
@@ -50,7 +50,7 @@
                                 </div>-->
                             </div>
                             <div class="artist-cont-detail com-h">
-                                <p class="ng-binding">{{artwork.srno}}
+                                <p class="ng-binding">{{artwork.imageno}}
                                     <i class="{{totalartconts.heartClass = (totalartconts.artwork._id | showheart)}}" ng-click="makeFav(artwork);"></i>
                                     <i class="fa fa-shopping-cart ng-scope" ng-click="addToCart(artwork);" ng-if="artwork.status!='sold' &amp;&amp; artwork.gprice &amp;&amp; artwork.gprice!='N/A'"></i>
                                 </p>
