@@ -367,93 +367,93 @@ module.exports = {
             });
         });
     },
-    // gettag: function(data, callback) {
-    //     if (data.type && data.type != "" && data.search && data.search != "") {
-    //         var spacedata = data.search;
-    //         spacedata = "\\s" + spacedata;
-    //         var check = new RegExp(spacedata, "i");
-    //         data.search = "^" + data.search;
-    //         var checkname = new RegExp(data.search, "i");
-    //         var matchobj = {
-    //             $or: [{
-    //                 name: {
-    //                     '$regex': checkname
-    //                 }
-    //             }, {
-    //                 name: {
-    //                     '$regex': check
-    //                 }
-    //             }],
-    //             $or: [{
-    //                 category: data.type
-    //             }, {
-    //                 category: {
-    //                     $exists: false
-    //                 }
-    //             }]
-    //         };
-    //     } else if ((!data.type || data.type && data.type == "") && data.search && data.search != "") {
-    //         var spacedata = data.search;
-    //         spacedata = "\\s" + spacedata;
-    //         var check = new RegExp(spacedata, "i");
-    //         data.search = "^" + data.search;
-    //         var checkname = new RegExp(data.search, "i");
-    //         var matchobj = {
-    //             $or: [{
-    //                 name: {
-    //                     '$regex': checkname
-    //                 }
-    //             }, {
-    //                 name: {
-    //                     '$regex': check
-    //                 }
-    //             }]
-    //         };
-    //     } else if (data.type && data.type != "" && (!data.search || data.search && data.search == "")) {
-    //         var matchobj = {
-    //             $or: [{
-    //                 category: data.type
-    //             }, {
-    //                 category: {
-    //                     $exists: false
-    //                 }
-    //             }]
-    //         };
-    //     } else if (!data.type && !data.search) {
-    //         var matchobj = {};
-    //     }
-    //     sails.query(function(err, db) {
-    //         if (err) {
-    //             console.log(err);
-    //             callback({
-    //                 value: false
-    //             });
-    //         }
-    //         if (db) {
-    //             db.collection("tag").find(matchobj).sort({
-    //                 name: 1
-    //             }).toArray(function(err, data2) {
-    //                 if (err) {
-    //                     console.log(err);
-    //                     callback({
-    //                         value: false,
-    //                         comment: "Error"
-    //                     });
-    //                     db.close();
-    //                 } else if (data2 && data2[0]) {
-    //                     callback(data2);
-    //                     db.close();
-    //                 } else {
-    //                     callback({
-    //                         value: false,
-    //                         comment: "No data found"
-    //                     });
-    //                     db.close();
-    //                 }
-    //             });
-    //         }
-    //     });
-    // },
+    gettag: function(data, callback) {
+        if (data.type && data.type != "" && data.search && data.search != "") {
+            var spacedata = data.search;
+            spacedata = "\\s" + spacedata;
+            var check = new RegExp(spacedata, "i");
+            data.search = "^" + data.search;
+            var checkname = new RegExp(data.search, "i");
+            var matchobj = {
+                $or: [{
+                    name: {
+                        '$regex': checkname
+                    }
+                }, {
+                    name: {
+                        '$regex': check
+                    }
+                }],
+                $or: [{
+                    category: data.type
+                }, {
+                    category: {
+                        $exists: false
+                    }
+                }]
+            };
+        } else if ((!data.type || data.type && data.type == "") && data.search && data.search != "") {
+            var spacedata = data.search;
+            spacedata = "\\s" + spacedata;
+            var check = new RegExp(spacedata, "i");
+            data.search = "^" + data.search;
+            var checkname = new RegExp(data.search, "i");
+            var matchobj = {
+                $or: [{
+                    name: {
+                        '$regex': checkname
+                    }
+                }, {
+                    name: {
+                        '$regex': check
+                    }
+                }]
+            };
+        } else if (data.type && data.type != "" && (!data.search || data.search && data.search == "")) {
+            var matchobj = {
+                $or: [{
+                    category: data.type
+                }, {
+                    category: {
+                        $exists: false
+                    }
+                }]
+            };
+        } else if (!data.type && !data.search) {
+            var matchobj = {};
+        }
+        sails.query(function(err, db) {
+            if (err) {
+                console.log(err);
+                callback({
+                    value: false
+                });
+            }
+            if (db) {
+                db.collection("tag").find(matchobj).sort({
+                    name: 1
+                }).toArray(function(err, data2) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false,
+                            comment: "Error"
+                        });
+                        db.close();
+                    } else if (data2 && data2[0]) {
+                        callback(data2);
+                        db.close();
+                    } else {
+                        callback({
+                            value: false,
+                            comment: "No data found"
+                        });
+                        db.close();
+                    }
+                });
+            }
+        });
+    },
     savetagexcel: function(data, callback) {
         var newdata = {};
         newdata.name = data.name;
