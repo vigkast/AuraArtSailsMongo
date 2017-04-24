@@ -2290,7 +2290,7 @@ h4 {
   border: 0;
 }
 .artist .aristimg-grp1 {
-  padding: 20px 0;
+  padding: 0px;
   position: relative;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
@@ -5788,6 +5788,10 @@ li.title.inline-box-infra {
 
 .dim.dim-h:before, .dim.dim-h:after {
   height: calc(50% - 20px);
+}
+
+.material-cont {
+    margin: 10px 0;
 }
 
 /*# sourceMappingURL=w.css.map */
