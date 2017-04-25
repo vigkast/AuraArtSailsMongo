@@ -5,13 +5,13 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 module.exports = {
-    save: function(data, callback) {
+    save: function (data, callback) {
         data.timestamp = new Date();
         data.status = "Scoping";
-        _.each(data.client, function(client) {
+        _.each(data.client, function (client) {
             client._id = sails.ObjectID(client._id);
         });
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -19,42 +19,55 @@ module.exports = {
                 });
             } else {
                 data._id = sails.ObjectID();
-                 data.ticketnumber = "#Ticket";
-                var possible = "0123456789";
-                    for (var i = 0; i < 8; i++) {
-                        data.ticketnumber += possible.charAt(Math.floor(Math.random() * possible.length));
-                    }
-                db.collection('ticket').insert(data, function(err, created) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false
-                        });
-                        db.close();
-                    } else if (created) {
-                        callback({
-                            value: true,
-                            id: data._id
-                        });
-                        db.close();
-                    } else {
-                        callback({
-                            value: false,
-                            comment: "Not created"
-                        });
-                        db.close();
-                    }
-                });
+                data.ticketnumber = 1;
+
+                function callSave() {
+                    db.collection('ticket').insert(data, function (err, created) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else if (created) {
+                            callback({
+                                value: true,
+                                id: data._id
+                            });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "Not created"
+                            });
+                            db.close();
+                        }
+                    });
+                }
+                db.collection('ticket').find({ticketnumber:{$exists:true}},{ticketnumber:1}).sort({ticketnumber:-1}).limit(1).toArray(function (err, foundTicket) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                        } else if (foundTicket && foundTicket.length >0) {
+                            data.ticketnumber=foundTicket[0].ticketnumber+1;
+                            callSave();
+                        } else {
+                            data.ticketnumber=1;
+                            callSave();
+                        }
+                    });
             }
         });
     },
-    edit: function(data, callback) {
+    edit: function (data, callback) {
         delete data.timestamp;
         delete data.client;
         delete data.artist;
         var ticket = sails.ObjectID(data._id);
         delete data._id;
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -65,7 +78,7 @@ module.exports = {
                     _id: ticket
                 }, {
                     $set: data
-                }, function(err, updated) {
+                }, function (err, updated) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -94,14 +107,14 @@ module.exports = {
             }
         });
     },
-    saveBack: function(data, callback) {
-        _.each(data.client, function(client) {
+    saveBack: function (data, callback) {
+        _.each(data.client, function (client) {
             client._id = sails.ObjectID(client._id);
         });
-        _.each(data.artist, function(client) {
+        _.each(data.artist, function (client) {
             client._id = sails.ObjectID(client._id);
         });
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -110,7 +123,7 @@ module.exports = {
             } else if (db) {
                 if (!data._id) {
                     data._id = sails.ObjectID();
-                    db.collection('ticket').insert(data, function(err, created) {
+                    db.collection('ticket').insert(data, function (err, created) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -137,7 +150,7 @@ module.exports = {
                         _id: ticket
                     }, {
                         $set: data
-                    }, function(err, updated) {
+                    }, function (err, updated) {
                         if (err) {
                             console.log(err);
                             callback({
@@ -167,14 +180,14 @@ module.exports = {
             }
         });
     },
-    findlimited: function(data, callback) {
+    findlimited: function (data, callback) {
         var newcallback = 0;
         var newreturns = {};
         newreturns.data = [];
         var check = new RegExp(data.search, "i");
         var pagesize = data.pagesize;
         var pagenumber = data.pagenumber;
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -186,7 +199,7 @@ module.exports = {
                     title: {
                         '$regex': check
                     }
-                }, function(err, number) {
+                }, function (err, number) {
                     if (number) {
                         newreturns.total = number;
                         newreturns.totalpages = Math.ceil(number / data.pagesize);
@@ -211,7 +224,7 @@ module.exports = {
                         title: {
                             '$regex': check
                         }
-                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function(err, found) {
+                    }, {}).skip(pagesize * (pagenumber - 1)).limit(pagesize).toArray(function (err, found) {
                         if (err) {
                             callback({
                                 value: false
@@ -234,9 +247,9 @@ module.exports = {
             }
         });
     },
-    find: function(data, callback) {
+    find: function (data, callback) {
         var returns = [];
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -244,7 +257,7 @@ module.exports = {
                 });
             }
             if (db) {
-                db.collection("ticket").find({}, {}).toArray(function(err, found) {
+                db.collection("ticket").find({}, {}).toArray(function (err, found) {
                     if (err) {
                         callback({
                             value: false
@@ -265,8 +278,8 @@ module.exports = {
             }
         });
     },
-    findone: function(data, callback) {
-        sails.query(function(err, db) {
+    findone: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -282,7 +295,7 @@ module.exports = {
                 }, {
                     _id: 0,
                     ticketelement: 1
-                }).toArray(function(err, data2) {
+                }).toArray(function (err, data2) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -300,8 +313,8 @@ module.exports = {
             }
         });
     },
-    findTicketBack: function(data, callback) {
-        sails.query(function(err, db) {
+    findTicketBack: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -311,7 +324,7 @@ module.exports = {
             if (db) {
                 db.collection("ticket").find({
                     "_id": sails.ObjectID(data._id)
-                }).toArray(function(err, data2) {
+                }).toArray(function (err, data2) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -329,8 +342,8 @@ module.exports = {
             }
         });
     },
-    findoneBack: function(data, callback) {
-        sails.query(function(err, db) {
+    findoneBack: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -342,7 +355,7 @@ module.exports = {
                     "_id": sails.ObjectID(data._id)
                 }, {
                     ticketelement: 0
-                }).toArray(function(err, data2) {
+                }).toArray(function (err, data2) {
                     if (err) {
                         console.log(err);
                         callback({
@@ -363,8 +376,8 @@ module.exports = {
             }
         });
     },
-    delete: function(data, callback) {
-        sails.query(function(err, db) {
+    delete: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -373,7 +386,7 @@ module.exports = {
             }
             var cticket = db.collection('ticket').remove({
                 _id: sails.ObjectID(data._id)
-            }, function(err, deleted) {
+            }, function (err, deleted) {
                 if (deleted) {
                     callback({
                         value: true
@@ -395,8 +408,8 @@ module.exports = {
             });
         });
     },
-    getProject: function(data, callback) {
-        sails.query(function(err, db) {
+    getProject: function (data, callback) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 callback({
@@ -412,7 +425,7 @@ module.exports = {
                     }]
                 }, {
                     ticketelement: 0
-                }).toArray(function(err, found) {
+                }).toArray(function (err, found) {
                     if (err) {
                         console.log(err);
                         callback({
