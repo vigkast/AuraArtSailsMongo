@@ -6888,8 +6888,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.menutitle = NavigationService.makeactive("Commission Projects");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.medium = [];
         $scope.ticket = {};
+        $scope.ticket.medium =[];
         $scope.showLoginErr = false;
         $scope.chat = {};
         $scope.chat.message = "";
@@ -6902,7 +6903,25 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.removeimage = function (i) {
             $scope.ticket.image.splice(i, 1);
         };
-
+       $scope.ismatchmed = function (data, select) {
+            _.each(data, function (n, key) {
+                if (typeof n == 'string') {
+                    var item = {
+                        _id: _.now(),
+                        name: _.capitalize(n)
+                    };
+                    NavigationService.saveMedium(item, function (data, status) {
+                        if (data.value == true) {
+                            item._id = data.id;
+                        }
+                    });
+                    select.selected = _.without(select.selected, n);
+                    select.selected.push(item);
+                    $scope.ticket.medium = select.selected;
+                }
+            });
+            console.log($scope.ticket.medium);
+        }
         //imageupload
         var imagejstupld = "";
         $scope.ticket.image = [];
@@ -7043,6 +7062,18 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.medium = [];
             if (search) {
                 NavigationService.findMedium(search, selected, function (data, status) {
+                    $scope.medium = data;
+                });
+            }
+        };
+
+
+        $scope.refreshMedium = function (search) {
+            $scope.medium = [];
+            if (search) {
+                if (!$scope.ticket.medium)
+                    $scope.ticket.medium = [];
+                NavigationService.findMedium(search, $scope.ticket.medium, function (data, status) {
                     $scope.medium = data;
                 });
             }
