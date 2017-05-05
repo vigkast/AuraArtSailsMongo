@@ -89,13 +89,32 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="input-id">
-                              
-                                                <ui-select multiple ng-model="ticket.material" tagging tagging-label="false">
+                                 <ui-select multiple tagging tagging-label="false " ng-model="ticket.medium " ng-change="ismatchmed(ticket.medium,$select);">
+                                    <ui-select-match placeholder="Preferred Material to be Used">{{$item.name}}</ui-select-match>
+                                    <ui-select-choices repeat="person in medium track by person._id" refresh="refreshMedium($select.search,$select.selected) "
+                                        refresh-delay="0 ">
+                                        <div ng-bind-html="person.name "></div>
+                                    </ui-select-choices>
+                                </ui-select>
+
+
+                                   <!--<ui-select tagging tagging-label="false" multiple ng-model="ticket.material" ng-change="ismatchmed(ticket.material,$select);">
+                                       <ui-select-match placeholder="Select Medium">{{$item.name}}</ui-select-match>
+                                       <ui-select-choices repeat="person in medium track by person._id" refresh="refreshMedium($select.search,$select.selected)" refresh-delay="0">
+                                          <div ng-bind-html="person.name"></div>
+                                       </ui-select-choices>
+                                    </ui-select>-->
+
+
+
+
+
+                                                <!--<ui-select multiple ng-model="ticket.material" tagging tagging-label="false">
                                                     <ui-select-match placeholder="Preferred Material to be Used">{{$item.name}}</ui-select-match>
                                                     <ui-select-choices refresh-delay="0" refresh="refreshMedium($select.search,$select.selected)" repeat="person in medium track by person._id">
                                                         <div ng-bind-html="person.name"></div>
                                                     </ui-select-choices>
-                                                </ui-select>
+                                                </ui-select>-->
                                             </div>
                                             <div class="form-inline size-input">
                                                 <div class="input-id">
@@ -255,7 +274,7 @@
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="material-cont">
-                                                            <p ng-repeat="material in ticketDetail.material">{{material.name}}</p>
+                                                            <p ng-repeat="material in ticketDetail.medium">{{material.name}}</p>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -9,15 +9,23 @@
                 <div class="info-cont">
                     <ul class="info-li">
                         <li class="cat-list bold">{{userData.name || "-"}}</li>
-                        <!--<li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'profile'}" ng-click="changeTab('profile');">User Profile</li>-->
+                        <li class="cat-list cpointer bold" ng-click="changeTab('projects');" ng-class="{'bolds': activeTab == 'projects'}">Projects -
+                            <a href="" class="uppercase addnew">+new</a>
+                        </li>
+                        <li class="cat-list sub-catpointers" ng-click="activeIndex=$index;getChats(ticket);" ng-class="{'bolds': activeTab == 'projectschat' && activeIndex == $index}"
+                            ng-repeat="ticket in tickets">
+                            {{ticket.title}} ({{ticket.status}})</li>
+                        <li class="cat-list cpointer bold" ng-click="changeTab('viewprojects')" ng-class="{'bolds': activeTab == 'viewprojects'}">
+                            View All Projects</li>
+
+                        <!--<li class="cat-list bold">{{userData.name || "-"}}</li>
                         <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'projects'}" ng-click="changeTab('projects');">Projects
                             <a href="" class="uppercase addnew">+new</a>
                         </li>
-                        <!--{{ticket}}-->
                         <li class="cat-list sub-catpointers" ng-class="{'bolds' : activeTab == 'projectschat' && activeIndex == $index}" ng-click="activeIndex=$index;getChats(ticket);"
-                            ng-repeat="ticket in tickets" ng-if="!(ticket.status=='Closing')">{{ticket.title}} ({{ticket.status}})
+                            ng-repeat="ticket in tickets" ng-if="!(ticket.status=='Closing')">{{ticket.title}} ({{ticket.status}})</li>
                         <li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'viewprojects'}" ng-click="changeTab('viewprojects');">View All Projects
-                        </li>
+                        </li>-->
                         <!--<li class="cat-list cpointer bold" ng-class="{'bolds' : activeTab == 'viewprojectsfavourite'}" ng-click="changeTab('viewprojectsfavourite');">Favourite</li>-->
                     </ul>
                 </div>
@@ -89,16 +97,16 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="input-id">
-                                 <ui-select multiple tagging tagging-label="false " ng-model="ticket.medium " ng-change="ismatchmed(ticket.medium,$select);">
-                                    <ui-select-match placeholder="Preferred Material to be Used">{{$item.name}}</ui-select-match>
-                                    <ui-select-choices repeat="person in medium track by person._id" refresh="refreshMedium($select.search,$select.selected) "
-                                        refresh-delay="0 ">
-                                        <div ng-bind-html="person.name "></div>
-                                    </ui-select-choices>
-                                </ui-select>
+                                                <ui-select multiple tagging tagging-label="false " ng-model="ticket.medium " ng-change="ismatchmed(ticket.medium,$select);">
+                                                    <ui-select-match placeholder="Preferred Material to be Used">{{$item.name}}</ui-select-match>
+                                                    <ui-select-choices repeat="person in medium track by person._id" refresh="refreshMedium($select.search,$select.selected) "
+                                                        refresh-delay="0 ">
+                                                        <div ng-bind-html="person.name "></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
 
 
-                                   <!--<ui-select tagging tagging-label="false" multiple ng-model="ticket.material" ng-change="ismatchmed(ticket.material,$select);">
+                                                <!--<ui-select tagging tagging-label="false" multiple ng-model="ticket.material" ng-change="ismatchmed(ticket.material,$select);">
                                        <ui-select-match placeholder="Select Medium">{{$item.name}}</ui-select-match>
                                        <ui-select-choices repeat="person in medium track by person._id" refresh="refreshMedium($select.search,$select.selected)" refresh-delay="0">
                                           <div ng-bind-html="person.name"></div>
@@ -180,24 +188,24 @@
 
                                                         <div class="scroll-x">
                                                             <div class="img-box">
-                                                    <div class="many-img" ng-repeat="bill in ticket.image" ng-init="isPdf=(bill|imgPdf)">
-                                                        <div ng-if="artwork.image.length!=0">
-                                                            <div ng-if="!isPdf">
-                                                            <img  ng-src="{{bill | uploadpath}}" width="65">
-                                                        <button class="btn btn-danger close-btn" ng-click="removeimage(artwork.image.indexOf(bill));" type="button">
+                                                                <div class="many-img" ng-repeat="bill in ticket.image" ng-init="isPdf=(bill|imgPdf)">
+                                                                    <div ng-if="artwork.image.length!=0">
+                                                                        <div ng-if="!isPdf">
+                                                                            <img ng-src="{{bill | uploadpath}}" width="65">
+                                                                            <button class="btn btn-danger close-btn" ng-click="removeimage(artwork.image.indexOf(bill));" type="button">
                                                             <i class="glyphicon glyphicon-trash"></i>
                                                         </button>
-                                                            </div>
-                                                            <div ng-if="isPdf">
-                                                                <a href="{{bill | uploadpath}}" target="_blank" class="btn btn-default inline">
+                                                                        </div>
+                                                                        <div ng-if="isPdf">
+                                                                            <a href="{{bill | uploadpath}}" target="_blank" class="btn btn-default inline">
                                                                     View Pdf {{$index + 1}} 
                                                                 </a>
-                                                    <button class="btn btn-danger close-btn" ng-click="removeimage(artwork.image.indexOf(bill));" type="button">
+                                                                            <button class="btn btn-danger close-btn" ng-click="removeimage(artwork.image.indexOf(bill));" type="button">
                                                             <i class="glyphicon glyphicon-trash"></i>
                                                         </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="upload-div col-md-6">
@@ -230,14 +238,14 @@
                         <div class="ticket pb20">
                             <!--<label for="">
                                 Ticket Number</label> -->
-                                <label class="pull-right"> {{ticketDetail.ticketnumber}}</label>
-                                <h5>Client</h5>
+                            <label class="pull-right"> {{ticketDetail.ticketnumber}}</label>
+                            <h5>Client</h5>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="box-bord pad10">
-                        
+
                         <!--<pre>{{ticketDetail}}</pre>-->
                         <div class="chat-content scroll-y" id="chatDiv">
                             <div class="row">
@@ -378,9 +386,9 @@
                             <div class="row">
                                 <form ng-submit="saveTicketElement();">
                                     <div class="col-md-8">
-                                          <!--<pre>{{tickets[1].status}}</pre> -->
+                                        <!--<pre>{{tickets[1].status}}</pre> -->
                                         <div class="box-right pad0">
-                                                                         
+
                                             <textarea name="" id="" placeholder="Please enter your text here" class="form-control" ng-model="chat.message" required></textarea>
                                         </div>
                                         <div class="box-desgnation pad0">
@@ -391,10 +399,10 @@
                                             <div class="scroll-x">
                                                 <div class="img-box">
                                                     <div class="many-img" ng-repeat="bill in chatimages" ng-init="isPdf=(bill|imgPdf)">
-                                                     <div ng-if="chatimages.length!=0">
+                                                        <div ng-if="chatimages.length!=0">
                                                             <div ng-if="!isPdf">
-                                                            <img  ng-src="{{bill | uploadpath}}" width="65">
-                                                        <button class="btn btn-danger close-btn" ng-click="removeimage(chatimages.indexOf(bill));" type="button">
+                                                                <img ng-src="{{bill | uploadpath}}" width="65">
+                                                                <button class="btn btn-danger close-btn" ng-click="removeimage(chatimages.indexOf(bill));" type="button">
                                                             <i class="glyphicon glyphicon-trash"></i>
                                                         </button>
                                                             </div>
@@ -402,7 +410,7 @@
                                                                 <a href="{{bill | uploadpath}}" target="_blank" class="btn btn-default inline">
                                                                     View Pdf {{$index + 1}}
                                                                 </a>
-                                                    <button class="btn btn-danger close-btn" ng-click="removeimage(chatimages.indexOf(bill));" type="button">
+                                                                <button class="btn btn-danger close-btn" ng-click="removeimage(chatimages.indexOf(bill));" type="button">
                                                             <i class="glyphicon glyphicon-trash"></i>
                                                         </button>
                                                             </div>
@@ -426,8 +434,8 @@
                                                     <span>Upload Image</span>
                                                     <input class="btn-upload" type='file' name='file' ng-file-select='onFileSelect($files,2)' onclick='this.value=null'>
                                                 </div>
-                                                  <span class="font-color3" ng-if="uploadStatus=='uploading'"> Uploading ...</span>
-                                                 <span class="font-color4" ng-if="uploadStatus=='uploaded'"> Uploaded</span>
+                                                <span class="font-color3" ng-if="uploadStatus=='uploading'"> Uploading ...</span>
+                                                <span class="font-color4" ng-if="uploadStatus=='uploaded'"> Uploaded</span>
                                             </div>
 
                                         </div>
@@ -455,8 +463,7 @@
                                         <div class="relative" ng-click="getHeight(totalartconts);">
                                             <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
                                             <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
-                                            <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'"
-                                                href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
+                                            <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
                                                 <div class="image-holders fixit">
                                                     <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
                                                 </div>
@@ -498,8 +505,7 @@
                                         <div class="relative" ng-click="getHeight(totalartconts);">
                                             <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
                                             <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
-                                            <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'"
-                                                href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
+                                            <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
                                                 <div class="image-holders fixit">
                                                     <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
                                                 </div>
@@ -541,8 +547,7 @@
                                         <div class="relative" ng-click="getHeight(totalartconts);">
                                             <!-- ngIf: totalartconts.artwork.type=='Sculptures' -->
                                             <!-- ngIf: totalartconts.artwork.type!='Sculptures' -->
-                                            <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'"
-                                                href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
+                                            <a ui-sref="detail({artid:totalartconts.artwork._id})" ng-if="totalartconts.artwork.type!='Sculptures'" href="#/artwork/detail/569ccb38c59450ed6bdc8d00">
                                                 <div class="image-holders fixit">
                                                     <img class="fix-img doneLoading" ng-src="img/artist/sculpture4.jpg" src="http://www.auraart.in/user/resize?height=190&amp;file=2004.jpg">
                                                 </div>
@@ -727,8 +732,8 @@
                                     </div>
                                     <div class="artist-cont-detail">
                                         <p>
-                                            {{ticket.title}}  
-                                            </p>
+                                            {{ticket.title}}
+                                        </p>
                                         <!--<p class="m0">
                                             Sculptures
                                         </p>

@@ -69,13 +69,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             //   });
             // }
         }
-///undo
+        ///undo
         NavigationService.getDesignation(function (data) {
             $scope.desigs = data;
         });
         // $scope.desigs = NavigationService.getDesignation();
-                console.log($scope.desigs);
-                $scope.goToDetailPage = function () {
+        console.log($scope.desigs);
+        $scope.goToDetailPage = function () {
             console.log(chatsArr);
             if (desigs[0].chatid == "") {
                 //          $location.url("/sculpture/" + artwork._id);
@@ -85,7 +85,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $state.go('commission-projects');
             }
         }
-// undo
+        // undo
         $scope.registeruser = function () {
             if ($scope.register.password === $scope.register.confirmpassword) {
                 $scope.passwordNotMatch = false;
@@ -6849,7 +6849,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     })
 
-    .controller('CommissionSculpturesCtrl', function ($scope, TemplateService, NavigationService, $state, cfpLoadingBar,ngDialog,$location) {
+    .controller('CommissionSculpturesCtrl', function ($scope, TemplateService, NavigationService, $state, cfpLoadingBar, ngDialog, $location) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("commission-sculptures");
         $scope.menutitle = NavigationService.makeactive("Commission Sculptures");
@@ -6859,13 +6859,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         // $scope.getProjectData=[];
         $scope.msg = "Loading";
         NavigationService.getProject(function (data) {
-            $scope.getProjectData=data;
-            if($scope.getProjectData.length>0){
-            $location.path('commission-projects');
+            $scope.getProjectData = data;
+            if ($scope.getProjectData.length > 0) {
+                $location.path('commission-projects');
             }
-             console.log($scope.getProjectData);
+            console.log($scope.getProjectData);
         });
-        
+
 
         NavigationService.findCommission(function (data) {
             $scope.msg = "";
@@ -6882,7 +6882,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         // $scope.artistDetailImg = data[0];
     })
 
-    .controller('CommissionProjectsCtrl', function ($scope, TemplateService, NavigationService, $state, cfpLoadingBar, $upload, $timeout) {
+    .controller('CommissionProjectsCtrl', function ($scope, TemplateService, NavigationService, $state, cfpLoadingBar, $upload, $timeout,$stateParams ) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("commission-projects");
         $scope.menutitle = NavigationService.makeactive("Commission Projects");
@@ -6890,7 +6890,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.navigation = NavigationService.getnav();
         $scope.medium = [];
         $scope.ticket = {};
-        $scope.ticket.medium =[];
+        $scope.ticket.medium = [];
         $scope.showLoginErr = false;
         $scope.chat = {};
         $scope.chat.message = "";
@@ -6903,7 +6903,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.removeimage = function (i) {
             $scope.ticket.image.splice(i, 1);
         };
-       $scope.ismatchmed = function (data, select) {
+        $scope.ismatchmed = function (data, select) {
             _.each(data, function (n, key) {
                 if (typeof n == 'string') {
                     var item = {
@@ -6965,13 +6965,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     var fileReader = new FileReader();
                     fileReader.readAsDataURL($files[i]);
                     var loadFile = function (fileReader, index) {
-                        fileReader.onload = function (e) {
-                            $timeout(function () {
-                                $scope.dataUrls[index] = e.target.result;
-                            });
-                    }
-                }
-                (fileReader, i);     
+                            fileReader.onload = function (e) {
+                                $timeout(function () {
+                                    $scope.dataUrls[index] = e.target.result;
+                                });
+                            }
+                        }
+                        (fileReader, i);
                 }
                 $scope.progress[i] = -1;
                 if ($scope.uploadRightAway) {
@@ -7001,7 +7001,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     $timeout(function () {
                         $scope.uploadResult.push(response.data);
                         imagejstupld = response.data;
-                        $scope.uploadStatus = "uploaded";   
+                        $scope.uploadStatus = "uploaded";
                         if (whichone == 1) {
                             $scope.ticket.image.push(imagejstupld.files[0].fd);
                         } else {
@@ -7053,10 +7053,18 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
         ////
         //upload image
-
-        $scope.activeTab = "projects";
-        $scope.changeTab = function (data) {
+        $scope.activeTab = $stateParams.active;
+        // $scope.activeTab = "projects";
+        $scope.changeTab = function (data, activeTab) {
             $scope.activeTab = data;
+
+            $state.go("commission-projects", {
+                active: status
+            }, {
+                location: true,
+                notify: false,
+                reload: false
+            })
         }
         $scope.refreshMedium = function (search, selected) {
             $scope.medium = [];
@@ -7175,6 +7183,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
             getTicketElements();
         }
+
         function getTicketElements() {
             $scope.desigs = NavigationService.getDesignation();
             NavigationService.getTicketElements($scope.activeProject, function (data) {
