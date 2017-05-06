@@ -83,9 +83,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             } else {
                 //          $location.url("/artwork/detail/" + artwork._id);
                 // $state.go('commission-projects(projects)');
-                $state.go('commission-projects');
+                // $state.go('commission-projects');
                 // $window.location.href$location.url(#/commission-projects/viewprojects) ;   
-                // $window.location.href = 'http://auraart.in/#/commission-projects/viewprojects';
+                $window.location.href = 'http://auraart.in/#/commission-projects/viewprojects';
             }
         }
         // undo
