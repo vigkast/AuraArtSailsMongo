@@ -278,7 +278,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <div class="row" ng-if="ticketDetail.height || ticketDetail.width || ticketDetail.depth || ticketDetail.major">
                                                     <div class="col-md-3">
                                                         <h5 class="title font-color2">Specific Size</h5>
                                                     </div>
@@ -290,7 +290,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <div class="row" ng-if="ticket.startPrice || ticketDetail.endPrice">
                                                     <div class="col-md-3">
                                                         <h5 class="title font-color2">Budget</h5>
                                                     </div>
@@ -301,7 +301,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <div class="row" ng-if="ticket.additionalInfo">
                                                     <div class="col-md-3">
                                                         <h5 class="title font-color2">Additional Info</h5>
                                                     </div>
@@ -312,7 +312,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <div class="row" ng-if="ticketDetail.leadTime">
                                                     <div class="col-md-3">
                                                         <h5 class="title font-color2">Lead Time</h5>
                                                     </div>

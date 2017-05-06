@@ -82,7 +82,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $state.go('commission-sculptures');
             } else {
                 //          $location.url("/artwork/detail/" + artwork._id);
+                // $state.go('commission-projects(projects)');
                 $state.go('commission-projects');
+                // $window.location.href$location.url(#/commission-projects/viewprojects) ;   
+                // $window.location.href = 'http://auraart.in/#/commission-projects/viewprojects';
             }
         }
         // undo
@@ -7055,11 +7058,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         //upload image
         $scope.activeTab = $stateParams.active;
         // $scope.activeTab = "projects";
+
+               console.log(status);
         $scope.changeTab = function (data, activeTab) {
             $scope.activeTab = data;
-
+              console.log( $scope.activeTab);
             $state.go("commission-projects", {
-                active: status
+                active: $scope.activeTab
             }, {
                 location: true,
                 notify: false,

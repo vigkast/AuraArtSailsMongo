@@ -69,7 +69,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, cfpLoadingBarProvi
         })
 
         .state('commission-projects', {
-            url: "/commission-projects/{active:(?:projects|projectschat|viewprojects)}",
+            url: "/commission-projects/{active:(?:projects|viewprojects)}",
             templateUrl: "views/template.html",
             controller: 'CommissionProjectsCtrl'
         })
