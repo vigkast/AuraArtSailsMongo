@@ -22,8 +22,8 @@
   <link rel="stylesheet" type="text/css" href="w/w.css" />
 
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <!--<script src="bower_components/select2/select2.min.js"></script>-->
-   <script src="bower_components/select2/dist/js/select2.min.js"></script>
+  <script src="bower_components/select2/select2.min.js"></script>
+   <!--<script src="bower_components/select2/dist/js/select2.min.js"></script>-->
   <script src="lib/flexislider/jquery.flexslider.js"></script>
   <script src="bower_components/fancyBox/source/jquery.fancybox.pack.js"></script>
   <script src="bower_components/moment/min/moment.min.js"></script>
@@ -33,7 +33,7 @@
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="lib/flexislider/angular-flexslider.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+  <!--<script src="bower_components/angular-animate/angular-animate.min.js"></script>-->
   <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
   <script src="bower_components/ui-router/release/angular-ui-router.min.js"></script>
@@ -44,7 +44,7 @@
   <script src="bower_components/valdr/valdr-message.min.js"></script>
   <script src="bower_components/ngDialog/js/ngDialog.min.js"></script>
   <!--<script src="bower_components/ngAutocomplete/src/ngAutocomplete.js"></script>-->
-    <script src="bower_components/ui-select/dist/select.min.js"></script>
+    <!--<script src="bower_components/ui-select/dist/select.min.js"></script>-->
   <script src="bower_components/angular-ui-select/dist/select.min.js"></script>
   <script src="bower_components/lodash/lodash.js"></script>
   <script src="bower_components/angular-rangeslider/angular.rangeSlider.js"></script>

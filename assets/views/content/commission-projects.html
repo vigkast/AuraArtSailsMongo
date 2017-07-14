@@ -590,6 +590,7 @@
                 </div>
             </div>
             <div class="col-md-10" ng-if="activeTab == 'viewprojects'">
+                <!--Schoping Projects-->
                 <div class="active-project comission-project">
                     <div class="panel">
                         <div class="panel-body">
@@ -655,6 +656,7 @@
                         </div>
                     </div>
                 </div>
+                <!--Active Projects-->
                 <div class="active-project comission-project">
                     <div class="panel">
                         <div class="panel-body">
@@ -685,20 +687,21 @@
                                                 {{ticket.title}}
                                                 <i class="fa fa-shopping-cart " ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
                                             </p>
-                                            <!--<p class="m0">
-                                                Sculptures
-                                            </p>-->
-                                            <!--<p class="m0">
-                                                <span ng-repeat="mtrl in ticket.material track by $index">{{mtrl.name}}<span ng-if="$index < ticket.material.length-1">,</span>                                                </span>
+                                            <p>
+                                                {{ticket.mediumfinal}}
                                             </p>
-                                            <p class="m0">
-                                                {{ticket.height}} x {{ticket.width}} x {{ticket.depth}} {{ticket.major}}
-                                            </p>-->
-                                            <!-- <p class="m0">
-                                                22 / 06 / 2016
-                                            </p> -->
-                                            <!-- end ngIf: totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' && totalartconts.artwork.status!='sold' -->
-                                            <!-- ngIf: !totalartconts.artwork.gprice || totalartconts.artwork.gprice=='N/A' -->
+                                            <p ng-if="(ticket.heightfinal.length>0)||(ticket.widthfinal.length>0)||(ticket.depthfinal.length>0)">
+                                                {{ticket.heightfinal}} x {{ticket.widthfinal}} x {{ticket.depthfinal}} {{ticket.majorfinal}}
+                                            </p>
+                                            <p>
+                                                {{ticket.startPricefinal}}
+                                            </p>
+                                            <p>
+                                                {{ticket.deadline}}
+                                            </p>
+                                            <p>
+                                                {{ticket.location}}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -706,6 +709,7 @@
                         </div>
                     </div>
                 </div>
+                <!--Closed Projects-->
                 <div class="panel">
                     <div class="panel-body">
                         <div class="row">
@@ -733,16 +737,23 @@
                                     <div class="artist-cont-detail">
                                         <p>
                                             {{ticket.title}}
+                                            <i class="fa fa-shopping-cart " ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
                                         </p>
-                                        <!--<p class="m0">
-                                            Sculptures
+                                        <p>
+                                            {{ticket.mediumfinal}}
                                         </p>
-                                        <p class="m0">
-                                            <span ng-repeat="mtrl in ticket.material track by $index">{{mtrl.name}}<span ng-if="$index < ticket.material.length-1">,</span>                                            </span>
+                                        <p ng-if="(ticket.heightfinal.length>0)||(ticket.widthfinal.length>0)||(ticket.depthfinal.length>0)">
+                                            {{ticket.heightfinal}} x {{ticket.widthfinal}} x {{ticket.depthfinal}} {{ticket.majorfinal}}
                                         </p>
-                                        <p class="m0">
-                                            {{ticket.height}} x {{ticket.width}} x {{ticket.depth}} {{ticket.major}}
-                                        </p>-->
+                                        <p>
+                                            {{ticket.startPricefinal}}
+                                        </p>
+                                        <p>
+                                            {{ticket.deadline}}
+                                        </p>
+                                        <p>
+                                            {{ticket.location}}
+                                        </p>
                                     </div>
                                 </div>
                             </div>

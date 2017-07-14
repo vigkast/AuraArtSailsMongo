@@ -10,7 +10,8 @@ var duration = 2000;
 var offset = 70;
 globalFunction.tab = "info";
 
-angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'cfp.loadingBar', 'infinite-scroll', 'duScroll', 'toaster', 'ngAnimate', 'ngAutocomplete', 'ngDialog', 'valdr', 'ngSanitize', 'ui.select', 'angular-flexslider', 'ui-rangeSlider', 'angularFileUpload', 'colorpicker.module', 'angulartics', 'angulartics.google.analytics'])
+// angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'cfp.loadingBar', 'infinite-scroll', 'duScroll', 'toaster', 'ngAnimate', 'ngAutocomplete', 'ngDialog', 'valdr', 'ngSanitize', 'ui.select', 'angular-flexslider', 'ui-rangeSlider', 'angularFileUpload', 'colorpicker.module', 'angulartics', 'angulartics.google.analytics'])
+angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ui.bootstrap', 'cfp.loadingBar', 'infinite-scroll', 'duScroll', 'toaster', 'ngDialog', 'valdr', 'ngSanitize', 'ui.select', 'angular-flexslider', 'ui-rangeSlider', 'angularFileUpload', 'colorpicker.module', 'angulartics', 'angulartics.google.analytics'])
 
     //.controller('AppCtrl')
     .controller('HomeCtrl', function ($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, $location, $state, $stateParams, ngDialog) {
@@ -2598,10 +2599,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         };
 
         $scope.event2016 = [{
-                name: 'AURA ART CONNECTS THE TWO WORLDS OF ART AND FASHION',
-                detail: ' ITC Grand-Maratha, Sahar Road, Mumbai',
-                img: 'img/event/event1.jpg'
-            }
+            name: 'AURA ART CONNECTS THE TWO WORLDS OF ART AND FASHION',
+            detail: ' ITC Grand-Maratha, Sahar Road, Mumbai',
+            img: 'img/event/event1.jpg'
+        }
             // , {
             //     name: 'Art and Culture exchange between India & China',
             //     detail: 'Mar 31, 2015 - Mar 31, 2015 ITC Grand-Maratha, Sahar Road, Mumbai',
@@ -2610,10 +2611,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         ];
 
         $scope.event2015 = [{
-                name: 'The Art Enclave at UBM Index Fairs 2014',
-                detail: ' Oct 09, 2014 - Oct 12, 2014 MMRDA Exhibition Centre, BKC, Mumbai',
-                img: 'img/event/event3.jpg'
-            }
+            name: 'The Art Enclave at UBM Index Fairs 2014',
+            detail: ' Oct 09, 2014 - Oct 12, 2014 MMRDA Exhibition Centre, BKC, Mumbai',
+            img: 'img/event/event3.jpg'
+        }
             // , {
             //     name: 'Art Partner for The Edutainment Show 2014',
             //     detail: 'Apr 26, 2014 - Apr 27, 2014 JW Marriott Hotel Mumbai',
@@ -3288,8 +3289,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $state.transitionTo('artInfrastructure', {
                 id: id
             }, {
-                notify: false
-            });
+                    notify: false
+                });
             makeAnimation(id);
             $location.replace();
         };
@@ -3325,8 +3326,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $state.transitionTo('artInfrastructureID', {
                 id: id
             }, {
-                notify: false
-            });
+                    notify: false
+                });
             makeAnimation(id);
             $location.replace();
         };
@@ -4656,7 +4657,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }, function (evt) {
                     $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
                 });
-                $scope.upload[index].xhr(function (xhr) {});
+                $scope.upload[index].xhr(function (xhr) { });
             } else {
                 var fileReader = new FileReader();
                 fileReader.onload = function (e) {
@@ -5088,7 +5089,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }, function (evt) {
                     $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
                 });
-                $scope.upload[index].xhr(function (xhr) {});
+                $scope.upload[index].xhr(function (xhr) { });
             } else {
                 var fileReader = new FileReader();
                 fileReader.onload = function (e) {
@@ -5216,7 +5217,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     if (!$scope.artwork.tag)
                         $scope.artwork.tag = [];
                     console.log($scope.artwork);
-                    if ($scope.artwork.type != "Sculptures") {}
+                    if ($scope.artwork.type != "Sculptures") { }
                     if ($scope.artwork.user) {
                         if (!$scope.artwork.name) {
                             $scope.artwork.name = 'Untitled';
@@ -5626,7 +5627,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }, function (evt) {
                     $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
                 });
-                $scope.upload[index].xhr(function (xhr) {});
+                $scope.upload[index].xhr(function (xhr) { });
             } else {
                 var fileReader = new FileReader();
                 fileReader.onload = function (e) {
@@ -6159,7 +6160,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }, function (evt) {
                     $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
                 });
-                $scope.upload[index].xhr(function (xhr) {});
+                $scope.upload[index].xhr(function (xhr) { });
             } else {
                 var fileReader = new FileReader();
                 fileReader.onload = function (e) {
@@ -6551,7 +6552,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }, function (evt) {
                     $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
                 });
-                $scope.upload[index].xhr(function (xhr) {});
+                $scope.upload[index].xhr(function (xhr) { });
             } else {
                 var fileReader = new FileReader();
                 fileReader.onload = function (e) {
@@ -6862,7 +6863,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             $scope.getProjectData = data;
             if ($scope.getProjectData.length > 0) {
                 // $location.path('commission-projects');
-                   $location.url("/commission-projects/viewprojects");
+                $location.url("/commission-projects/viewprojects");
             }
             console.log($scope.getProjectData);
         });
@@ -6883,7 +6884,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         // $scope.artistDetailImg = data[0];
     })
 
-    .controller('CommissionProjectsCtrl', function ($scope, TemplateService, NavigationService, $state, cfpLoadingBar, $upload, $timeout,$stateParams ) {
+    .controller('CommissionProjectsCtrl', function ($scope, TemplateService, NavigationService, $state, cfpLoadingBar, $upload, $timeout, $stateParams) {
         //Used to name the .html file
         $scope.template = TemplateService.changecontent("commission-projects");
         $scope.menutitle = NavigationService.makeactive("Commission Projects");
@@ -6966,12 +6967,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     var fileReader = new FileReader();
                     fileReader.readAsDataURL($files[i]);
                     var loadFile = function (fileReader, index) {
-                            fileReader.onload = function (e) {
-                                $timeout(function () {
-                                    $scope.dataUrls[index] = e.target.result;
-                                });
-                            }
+                        fileReader.onload = function (e) {
+                            $timeout(function () {
+                                $scope.dataUrls[index] = e.target.result;
+                            });
                         }
+                    }
                         (fileReader, i);
                 }
                 $scope.progress[i] = -1;
@@ -7015,7 +7016,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }, function (evt) {
                     $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
                 });
-                $scope.upload[index].xhr(function (xhr) {});
+                $scope.upload[index].xhr(function (xhr) { });
             } else {
                 var fileReader = new FileReader();
                 fileReader.onload = function (e) {
@@ -7057,17 +7058,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.activeTab = $stateParams.active;
         // $scope.activeTab = "projects";
 
-               console.log(status);
+        console.log(status);
         $scope.changeTab = function (data, activeTab) {
             $scope.activeTab = data;
-              console.log( $scope.activeTab);
+            console.log($scope.activeTab);
             $state.go("commission-projects", {
                 active: $scope.activeTab
             }, {
-                location: true,
-                notify: false,
-                reload: false
-            })
+                    location: true,
+                    notify: false,
+                    reload: false
+                })
         }
         $scope.refreshMedium = function (search, selected) {
             $scope.medium = [];
@@ -8285,7 +8286,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }, function (evt) {
                     $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
                 });
-                $scope.upload[index].xhr(function (xhr) {});
+                $scope.upload[index].xhr(function (xhr) { });
             } else {
                 var fileReader = new FileReader();
                 fileReader.onload = function (e) {
