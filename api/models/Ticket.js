@@ -30,10 +30,53 @@ module.exports = {
                             });
                             db.close();
                         } else if (created) {
-                            callback({
-                                value: true,
-                                id: data._id
+
+
+                            var obj = {
+                                "api_key": "47e02d2b10604fc81304a5837577e286",
+                                "email_details": {
+                                    "fromname": "jagruti",
+                                    "subject": "Registration at www.auraart.in",
+                                    "from": "wohlig@info.com",
+                                    "replytoid": "jagruti@wohlig.com",
+                                },
+                                "settings": {
+                                    "template": "2336",
+                                },
+                                "recipients": ["jagruti@wohlig.com", "sohan@wohlig.com"],
+                                "attributes": {
+                                    "NAME": ["jagruti"],
+                                    "EMAIL": ["jagruti@wohlig.com"]
+                                }
+                            };
+
+                            sails.request.get({
+                                url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                            }, function (err, httpResponse, body) {
+                                if (err) {
+                                    callback({
+                                        value: false
+                                    });
+                                    db.close();
+                                } else if (body && body == "success") {
+                                    data.id = created.ops[0]._id;
+                                    delete data.accessToken;
+                                    delete data.token;
+                                    delete data.tokenSecret;
+                                    callback(null, data);
+                                    db.close();
+                                } else {
+                                    callback({
+                                        value: false,
+                                        comment: "Error"
+                                    });
+                                    db.close();
+                                }
                             });
+                            // callback({
+                            //     value: true,
+                            //     id: data._id
+                            // });
                             db.close();
                         } else {
                             callback({
@@ -44,20 +87,20 @@ module.exports = {
                         }
                     });
                 }
-                db.collection('ticket').find({ticketnumber:{$exists:true}},{ticketnumber:1}).sort({ticketnumber:-1}).limit(1).toArray(function (err, foundTicket) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                        } else if (foundTicket && foundTicket.length >0) {
-                            data.ticketnumber=foundTicket[0].ticketnumber+1;
-                            callSave();
-                        } else {
-                            data.ticketnumber=1;
-                            callSave();
-                        }
-                    });
+                db.collection('ticket').find({ ticketnumber: { $exists: true } }, { ticketnumber: 1 }).sort({ ticketnumber: -1 }).limit(1).toArray(function (err, foundTicket) {
+                    if (err) {
+                        console.log(err);
+                        callback({
+                            value: false
+                        });
+                    } else if (foundTicket && foundTicket.length > 0) {
+                        data.ticketnumber = foundTicket[0].ticketnumber + 1;
+                        callSave();
+                    } else {
+                        data.ticketnumber = 1;
+                        callSave();
+                    }
+                });
             }
         });
     },
@@ -77,33 +120,33 @@ module.exports = {
                 db.collection('ticket').update({
                     _id: ticket
                 }, {
-                    $set: data
-                }, function (err, updated) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false
-                        });
-                        db.close();
-                    } else if (updated.result.nModified != 0 && updated.result.n != 0) {
-                        callback({
-                            value: true
-                        });
-                        db.close();
-                    } else if (updated.result.nModified == 0 && updated.result.n != 0) {
-                        callback({
-                            value: true,
-                            comment: "Data already updated"
-                        });
-                        db.close();
-                    } else {
-                        callback({
-                            value: false,
-                            comment: "No data found"
-                        });
-                        db.close();
-                    }
-                });
+                        $set: data
+                    }, function (err, updated) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+                            callback({
+                                value: true
+                            });
+                            db.close();
+                        } else if (updated.result.nModified == 0 && updated.result.n != 0) {
+                            callback({
+                                value: true,
+                                comment: "Data already updated"
+                            });
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "No data found"
+                            });
+                            db.close();
+                        }
+                    });
             }
         });
     },
@@ -149,33 +192,33 @@ module.exports = {
                     db.collection('ticket').update({
                         _id: ticket
                     }, {
-                        $set: data
-                    }, function (err, updated) {
-                        if (err) {
-                            console.log(err);
-                            callback({
-                                value: false
-                            });
-                            db.close();
-                        } else if (updated.result.nModified != 0 && updated.result.n != 0) {
-                            callback({
-                                value: true
-                            });
-                            db.close();
-                        } else if (updated.result.nModified == 0 && updated.result.n != 0) {
-                            callback({
-                                value: true,
-                                comment: "Data already updated"
-                            });
-                            db.close();
-                        } else {
-                            callback({
-                                value: false,
-                                comment: "No data found"
-                            });
-                            db.close();
-                        }
-                    });
+                            $set: data
+                        }, function (err, updated) {
+                            if (err) {
+                                console.log(err);
+                                callback({
+                                    value: false
+                                });
+                                db.close();
+                            } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+                                callback({
+                                    value: true
+                                });
+                                db.close();
+                            } else if (updated.result.nModified == 0 && updated.result.n != 0) {
+                                callback({
+                                    value: true,
+                                    comment: "Data already updated"
+                                });
+                                db.close();
+                            } else {
+                                callback({
+                                    value: false,
+                                    comment: "No data found"
+                                });
+                                db.close();
+                            }
+                        });
                 }
             }
         });
@@ -293,23 +336,23 @@ module.exports = {
                         $exists: true
                     }
                 }, {
-                    _id: 0,
-                    ticketelement: 1
-                }).toArray(function (err, data2) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false
-                        });
-                        db.close();
-                    } else if (data2 && data2.length > 0) {
-                        callback(data2[0].ticketelement);
-                        db.close();
-                    } else {
-                        callback([]);
-                        db.close();
-                    }
-                });
+                        _id: 0,
+                        ticketelement: 1
+                    }).toArray(function (err, data2) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else if (data2 && data2.length > 0) {
+                            callback(data2[0].ticketelement);
+                            db.close();
+                        } else {
+                            callback([]);
+                            db.close();
+                        }
+                    });
             }
         });
     },
@@ -354,25 +397,25 @@ module.exports = {
                 db.collection("ticket").find({
                     "_id": sails.ObjectID(data._id)
                 }, {
-                    ticketelement: 0
-                }).toArray(function (err, data2) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false
-                        });
-                        db.close();
-                    } else if (data2 && data2.length > 0) {
-                        callback(data2[0]);
-                        db.close();
-                    } else {
-                        callback({
-                            value: false,
-                            comment: "No data found"
-                        });
-                        db.close();
-                    }
-                });
+                        ticketelement: 0
+                    }).toArray(function (err, data2) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false
+                            });
+                            db.close();
+                        } else if (data2 && data2.length > 0) {
+                            callback(data2[0]);
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "No data found"
+                            });
+                            db.close();
+                        }
+                    });
             }
         });
     },
@@ -424,26 +467,26 @@ module.exports = {
                         "client._id": sails.ObjectID(data._id)
                     }]
                 }, {
-                    ticketelement: 0
-                }).toArray(function (err, found) {
-                    if (err) {
-                        console.log(err);
-                        callback({
-                            value: false,
-                            comment: err
-                        });
-                        db.close();
-                    } else if (found && found.length > 0) {
-                        callback(found);
-                        db.close();
-                    } else {
-                        callback({
-                            value: false,
-                            comment: "No data found"
-                        });
-                        db.close();
-                    }
-                });
+                        ticketelement: 0
+                    }).toArray(function (err, found) {
+                        if (err) {
+                            console.log(err);
+                            callback({
+                                value: false,
+                                comment: err
+                            });
+                            db.close();
+                        } else if (found && found.length > 0) {
+                            callback(found);
+                            db.close();
+                        } else {
+                            callback({
+                                value: false,
+                                comment: "No data found"
+                            });
+                            db.close();
+                        }
+                    });
             }
         });
     }
