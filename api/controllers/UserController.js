@@ -27,10 +27,10 @@ module.exports = {
             frontend = req.param("url");
         }
         passport.use(new TwitterStrategy({
-                consumerKey: "LPazfO26oP6KrjYCWlQJfUZq1",
-                consumerSecret: "SJ8tuzeiGvM7YZvRoHqXSk8LLThpn6DPg2BMtuBrgR9n01DQBD",
-                callbackURL: sails.myurl + "user/callbackt"
-            },
+            consumerKey: "LPazfO26oP6KrjYCWlQJfUZq1",
+            consumerSecret: "SJ8tuzeiGvM7YZvRoHqXSk8LLThpn6DPg2BMtuBrgR9n01DQBD",
+            callbackURL: sails.myurl + "user/callbackt"
+        },
             function (token, tokenSecret, profile, done) {
                 profile.token = token;
                 profile.tokenSecret = tokenSecret;
@@ -45,10 +45,10 @@ module.exports = {
             frontend = req.param("url");
         }
         passport.use(new FacebookStrategy({
-                clientID: "1475701386072240",
-                clientSecret: "6e46460c7bb3fb4f06182d89eb7514b9",
-                callbackURL: sails.myurl + "user/callbackf"
-            },
+            clientID: "1475701386072240",
+            clientSecret: "6e46460c7bb3fb4f06182d89eb7514b9",
+            callbackURL: sails.myurl + "user/callbackf"
+        },
             function (accessToken, refreshToken, profile, done) {
                 profile.accessToken = accessToken;
                 profile.refreshToken = refreshToken;
@@ -65,10 +65,10 @@ module.exports = {
             frontend = req.param("url");
         }
         passport.use(new GoogleStrategy({
-                clientID: "265970827010-6cd2gg8psketq39smq2bsfueksgceu4c.apps.googleusercontent.com",
-                clientSecret: "NjO_YjYAVhBkqxGAKBXJUtY4",
-                callbackURL: "callbackg"
-            },
+            clientID: "265970827010-6cd2gg8psketq39smq2bsfueksgceu4c.apps.googleusercontent.com",
+            clientSecret: "NjO_YjYAVhBkqxGAKBXJUtY4",
+            callbackURL: "callbackg"
+        },
             function (token, tokenSecret, profile, done) {
                 profile.token = token;
                 profile.provider = "Google";
@@ -311,7 +311,7 @@ module.exports = {
         var newwidth = req.query.width;
         var isfile = sails.fs.existsSync(filepath);
         if (isfile == false) {
-            var path = './auraimg/noimage.jpg';
+            var path = './profileUploads/noimage.jpg';
             var split = path.substr(path.length - 3);
             var image = sails.fs.readFileSync(path);
             var mimetype = sails.mime.lookup(split);
@@ -390,7 +390,7 @@ module.exports = {
         var newwidth = req.query.width;
         var isfile = sails.fs.existsSync(filepath);
         if (isfile == false) {
-            var path = './auraimg/noimage.jpg';
+            var path = './profileUploads/noimage.jpg';
             var split = path.substr(path.length - 3);
             var image = sails.fs.readFileSync(path);
             var mimetype = sails.mime.lookup(split);
@@ -1101,41 +1101,41 @@ module.exports = {
                         $exists: false
                     }
                 }, {
-                    reseller: 0,
-                    theme: 0,
-                    medium: 0,
-                    artwork: 0
-                }).toArray(function (err, data2) {
-                    if (err) {
-                        console.log(err);
-                        res.json({
-                            value: false,
-                            comment: "No data found"
-                        });
-                        db.close();
-                    } else if (data2 && data2.length > 0) {
-                        var i = 0;
-                        _.each(data2, function (artist) {
-                            artist.focused = "nonfocused";
-                            User.updateId(artist, function (respo) {
-                                i++;
-                                if (i == data2.length) {
-                                    res.json({
-                                        value: true,
-                                        comment: "Updated"
-                                    });
-                                    db.close();
-                                }
+                        reseller: 0,
+                        theme: 0,
+                        medium: 0,
+                        artwork: 0
+                    }).toArray(function (err, data2) {
+                        if (err) {
+                            console.log(err);
+                            res.json({
+                                value: false,
+                                comment: "No data found"
                             });
-                        });
-                    } else {
-                        res.json({
-                            value: false,
-                            comment: "No data found"
-                        });
-                        db.close();
-                    }
-                });
+                            db.close();
+                        } else if (data2 && data2.length > 0) {
+                            var i = 0;
+                            _.each(data2, function (artist) {
+                                artist.focused = "nonfocused";
+                                User.updateId(artist, function (respo) {
+                                    i++;
+                                    if (i == data2.length) {
+                                        res.json({
+                                            value: true,
+                                            comment: "Updated"
+                                        });
+                                        db.close();
+                                    }
+                                });
+                            });
+                        } else {
+                            res.json({
+                                value: false,
+                                comment: "No data found"
+                            });
+                            db.close();
+                        }
+                    });
             }
         });
     },
@@ -1197,7 +1197,7 @@ module.exports = {
                                 if (result) {
                                     sails.fs.unlink(datapath, function (data) {
                                         if (data) {
-                                            sails.fs.unlink(outputpath, function (data2) {});
+                                            sails.fs.unlink(outputpath, function (data2) { });
                                         }
                                     });
 
@@ -1378,7 +1378,7 @@ module.exports = {
                                 if (result) {
                                     sails.fs.unlink(datapath, function (data) {
                                         if (data) {
-                                            sails.fs.unlink(outputpath, function (data2) {});
+                                            sails.fs.unlink(outputpath, function (data2) { });
                                         }
                                     });
 

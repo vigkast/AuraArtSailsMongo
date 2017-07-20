@@ -23,7 +23,8 @@
                                 <div class="wall-image" id="wall" ng-if="uploadwall.wallImage"></div>
 
                                 <div class="painting-holder" id="draggable-element">
-                                    <img ng-src="{{uploadwall.paintingImage|uploadpath}}" alt="Painting" height="{{uploadwall.paintingHeight}}" ng-if="uploadwall.paintingImage" id="paintingImg">
+                                    <img ng-src="{{uploadwall.paintingImage|uploadpath}}" alt="Painting" height="{{uploadwall.paintingHeight}}" ng-if="uploadwall.paintingImage"
+                                        id="paintingImg">
                                     <div class="inner-shadow" ng-if="nowActive==4"></div>
                                 </div>
 
@@ -38,7 +39,8 @@
                                         <div class="abs blacke t-rl lefted"><i class="fa fa-caret-left"></i></div>
                                         {{uploadwall.fwidth | number:2}} feet
                                     </div>
-                                    <img ng-src="{{uploadwall.furnitureImage}}" alt="sofa" height="{{uploadwall.furnitureHeight}}" width="{{uploadwall.furnitureWidth}}" ng-if="uploadwall.furnitureImage">
+                                    <img ng-src="{{uploadwall.furnitureImage}}" alt="sofa" height="{{uploadwall.furnitureHeight}}" width="{{uploadwall.furnitureWidth}}"
+                                        ng-if="uploadwall.furnitureImage">
                                 </div>
 
                                 <div class="grid-holder" ng-if="uploadwall.gridstatus">
@@ -105,7 +107,7 @@
                                             <td class="labels">Price:
                                             </td>
                                             <td>Rs {{artworkDetail.artwork.gprice|inlakhs}} / ${{artworkDetail.artwork.gprice|indollars}}
-                                                <br> <span>(excluding VAT)</span>
+                                                <br> <span>(excluding GST)</span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -143,7 +145,8 @@
                                 <div class="part-row">
                                     <div class="pull-right">
                                         <div class="onoffswitch">
-                                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forfurniture" ng-model="uploadwall.furniturestatus" ng-change="onOrOffFurniture();">
+                                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="forfurniture" ng-model="uploadwall.furniturestatus"
+                                                ng-change="onOrOffFurniture();">
                                             <label class="onoffswitch-label" for="forfurniture">
                                                 <span class="onoffswitch-inner"></span>
                                                 <span class="onoffswitch-switch"></span>
@@ -208,7 +211,8 @@
                                 <div class="part-row">
                                     Select Templates:
                                     <div class="fix-row">
-                                        <div class="col-hw75" ng-repeat="wall in wallTemplateJson" ng-style="{'background-image': 'url({{wall.image}})'}" ng-class="{'selected':wall.id==uploadwall.wallid}" ng-click="changeWallTemplate(wall);">
+                                        <div class="col-hw75" ng-repeat="wall in wallTemplateJson" ng-style="{'background-image': 'url({{wall.image}})'}" ng-class="{'selected':wall.id==uploadwall.wallid}"
+                                            ng-click="changeWallTemplate(wall);">
 
                                         </div>
                                         <!-- <div class="col-hw75" ng-style="{'background-image': 'url(img/templates/1.jpg)'}"></div>
@@ -278,23 +282,23 @@
 
                         <uib-accordion-group ng-click="changeAccordian(4);">
                             <uib-accordion-heading>
-                              Custom Framing<i class="fa fa-chevron-down pull-right"></i>
+                                Custom Framing<i class="fa fa-chevron-down pull-right"></i>
                             </uib-accordion-heading>
                             <div class="part">
-                              <div class="part-row">
-                                <span class="bold">Wall Colour:</span>
-                                <div class="pull-right">
-                                    <span class="color-box" colorpicker-size="180" colorpicker-position="left" colorpicker ng-model="uploadwall.color" ng-style="{'background-color': uploadwall.color}"></span>
+                                <div class="part-row">
+                                    <span class="bold">Wall Colour:</span>
+                                    <div class="pull-right">
+                                        <span class="color-box" colorpicker-size="180" colorpicker-position="left" colorpicker ng-model="uploadwall.color" ng-style="{'background-color': uploadwall.color}"></span>
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
-                                <div class="clearfix"></div>
-                              </div>
                                 <div class="part-row">
                                     <span class="bold">Frame Color:</span>
                                     <div class="color-boxes">
-                                      <div class="sq-box black" ng-click="uploadwall.frameColor='#000';changeMountWidth();"></div>
-                                      <div class="sq-box dark-brown" ng-click="uploadwall.frameColor='#220E05';changeMountWidth();"></div>
-                                      <div class="sq-box brown" ng-click="uploadwall.frameColor='#A06D48';changeMountWidth();"></div>
-                                      <div class="sq-box natural" ng-click="uploadwall.frameColor='#E0CFBA';changeMountWidth();"></div>
+                                        <div class="sq-box black" ng-click="uploadwall.frameColor='#000';changeMountWidth();"></div>
+                                        <div class="sq-box dark-brown" ng-click="uploadwall.frameColor='#220E05';changeMountWidth();"></div>
+                                        <div class="sq-box brown" ng-click="uploadwall.frameColor='#A06D48';changeMountWidth();"></div>
+                                        <div class="sq-box natural" ng-click="uploadwall.frameColor='#E0CFBA';changeMountWidth();"></div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -322,7 +326,8 @@
                                 <div class="part-row" ng-show="uploadwall.mountEnabled">
                                     Mount Colour:
                                     <div class="pull-right">
-                                        <span class="color-box" colorpicker-size="180" colorpicker-position="left" colorpicker ng-model="uploadwall.mountColor" ng-style="{'background-color': uploadwall.mountColor}" ng-change="changeMountWidth();"></span>
+                                        <span class="color-box" colorpicker-size="180" colorpicker-position="left" colorpicker ng-model="uploadwall.mountColor" ng-style="{'background-color': uploadwall.mountColor}"
+                                            ng-change="changeMountWidth();"></span>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -365,7 +370,10 @@
                     <br>Click <i class="fa fa-heart" style="color:#cbcdd1;"></i> to add to favourites.</p>
             </div>
             <div class="padding-more text-center" ng-show="showLogin">
-                <h4>Please <a><u ng-click="openLogin();">login</u></a> to view your favourites.</h4>
+                <h4>Please
+                    <a>
+                        <u ng-click="openLogin();">login</u>
+                    </a> to view your favourites.</h4>
             </div>
         </div>
     </div>

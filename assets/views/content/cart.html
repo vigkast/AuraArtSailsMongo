@@ -26,27 +26,21 @@
               <p style="color: red;padding: 5px;" ng-if="artwork.artwork.status =='sold'">Sold</p>
             </td>
             <td>
-              <span class="mobile">Product Id</span>
-              {{artwork.artwork.imageno}}
+              <span class="mobile">Product Id</span> {{artwork.artwork.imageno}}
             </td>
             <td>
-              <span class="mobile">Artist Name</span>
-              {{artwork.name}}
+              <span class="mobile">Artist Name</span> {{artwork.name}}
             </td>
             <td>
-              <span class="mobile">Title</span>
-              {{artwork.artwork.name}}
+              <span class="mobile">Title</span> {{artwork.artwork.name}}
             </td>
             <td>
-              <span class="mobile">Size</span>
-              {{artwork.artwork|makesizestr}}
+              <span class="mobile">Size</span> {{artwork.artwork|makesizestr}}
               <!-- {{artwork.artwork.dim}} inches -->
             </td>
             <td>
-              <span class="mobile">Price</span>
-              Rs {{artwork.artwork.gprice|inlakhs}}
-              / ${{artwork.artwork.gprice|indollars}}
-              <span>(excluding VAT)</span>
+              <span class="mobile">Price</span> Rs {{artwork.artwork.gprice|inlakhs}} / ${{artwork.artwork.gprice|indollars}}
+              <span>(excluding GST)</span>
             </td>
 
             <td>

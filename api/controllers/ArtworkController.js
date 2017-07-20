@@ -554,7 +554,7 @@ module.exports = {
                 }
             });
         } else {
-            var path = './auraimg/noimage.jpg';
+            var path = './profileUploads/noimage.jpg';
             var image = sails.fs.readFileSync(path);
             var mimetype = sails.mime.lookup(path);
             res.set('Content-Type', mimetype);
@@ -618,7 +618,7 @@ module.exports = {
                                 if (result) {
                                     sails.fs.unlink(datapath, function (data) {
                                         if (data) {
-                                            sails.fs.unlink(outputpath, function (data2) {});
+                                            sails.fs.unlink(outputpath, function (data2) { });
                                         }
                                     });
 

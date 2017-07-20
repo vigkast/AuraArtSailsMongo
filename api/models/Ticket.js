@@ -30,40 +30,52 @@ module.exports = {
                             });
                             db.close();
                         } else if (created) {
-
-
+                            console.log("demo demo demo", created);
+                            // To Client
+                            var dat = created.ops[0];
                             var obj = {
                                 "api_key": "47e02d2b10604fc81304a5837577e286",
                                 "email_details": {
-                                    "fromname": "jagruti",
-                                    "subject": "Registration at www.auraart.in",
-                                    "from": "wohlig@info.com",
-                                    "replytoid": "jagruti@wohlig.com",
+                                    "fromname": "Aura - Art",
+                                    "subject": "",
+                                    "from": "cs@auraart.in",
+                                    "replytoid": "cs@auraart.in"
                                 },
                                 "settings": {
-                                    "template": "2336",
+                                    "template": "5589"
                                 },
-                                "recipients": ["jagruti@wohlig.com", "sohan@wohlig.com"],
+                                "recipients": ["jagruti@wohlig.com"],
                                 "attributes": {
-                                    "NAME": ["jagruti"],
-                                    "EMAIL": ["jagruti@wohlig.com"]
+                                    "WHO": ["Admin"],
+                                    "TICKETNO": [dat.ticketnumber],
+                                    "TITLE": [dat.title],
+                                    "BRIEF": [dat.brief],
+                                    "SIZE": [dat.height + "x" + dat.width + "x" + dat.depth],
+                                    "BUDGET": ["From" + dat.currency + dat.startPrice + " To " + dat.endPrice],
+                                    "ADDITIONALINFO": [dat.additionalInfo],
+                                    "TIME": [dat.leadTime],
+                                    "LOCATION": [dat.deliveryLocation]
                                 }
                             };
-
+                            obj.email_details.subject = encodeURIComponent("Aura Art - Commissioned Artwork - " + dat.ticketnumber + " " + dat.title);
+                            console.log(obj);
                             sails.request.get({
                                 url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
                             }, function (err, httpResponse, body) {
+                                console.log(err);
+                                console.log(body);
+                                var body = JSON.parse(body);
                                 if (err) {
                                     callback({
                                         value: false
                                     });
                                     db.close();
-                                } else if (body && body == "success") {
+                                } else if (body && (body.message == "SUCCESS")) {
                                     data.id = created.ops[0]._id;
                                     delete data.accessToken;
                                     delete data.token;
                                     delete data.tokenSecret;
-                                    callback(null, data);
+                                    callback(data);
                                     db.close();
                                 } else {
                                     callback({
@@ -73,10 +85,6 @@ module.exports = {
                                     db.close();
                                 }
                             });
-                            // callback({
-                            //     value: true,
-                            //     id: data._id
-                            // });
                             db.close();
                         } else {
                             callback({
@@ -129,6 +137,8 @@ module.exports = {
                             });
                             db.close();
                         } else if (updated.result.nModified != 0 && updated.result.n != 0) {
+                            // EMAIL GOES HERE
+                            // IF CLOSED EMAIL GOES HERE
                             callback({
                                 value: true
                             });

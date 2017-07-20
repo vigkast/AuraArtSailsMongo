@@ -766,7 +766,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                         if (n.artwork.gprice != 'N/A')
                             $scope.totalCartPrice += n.artwork.gprice;
                     });
-                    $scope.vat = ($scope.totalCartPrice / 100) * 12.5;
+                    $scope.vat = ($scope.totalCartPrice / 100) * 12;
                 }
                 cfpLoadingBar.complete();
             });
@@ -2218,7 +2218,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     if (n.artwork.gprice != 'N/A')
                         $scope.totalCartPrice += n.artwork.gprice;
                 });
-                $scope.vat = ($scope.totalCartPrice / 100) * 12.5;
+                $scope.vat = ($scope.totalCartPrice / 100) * 12;
                 cfpLoadingBar.complete();
             });
         }

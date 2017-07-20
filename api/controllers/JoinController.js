@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-    save: function(req, res) {
+    save: function (req, res) {
         if (req.body) {
             if (req.body._id) {
                 if (req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
@@ -22,7 +22,7 @@ module.exports = {
             }
 
             function user() {
-                var print = function(data) {
+                var print = function (data) {
                     res.json(data);
                 }
                 Join.save(req.body, print);
@@ -34,10 +34,10 @@ module.exports = {
             });
         }
     },
-    delete: function(req, res) {
+    delete: function (req, res) {
         if (req.body) {
             if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function(data) {
+                var print = function (data) {
                     res.json(data);
                 }
                 Join.delete(req.body, print);
@@ -54,16 +54,16 @@ module.exports = {
             });
         }
     },
-    find: function(req, res) {
+    find: function (req, res) {
         function callback(data) {
             res.json(data);
         };
         Join.find(req.body, callback);
     },
-    findone: function(req, res) {
+    findone: function (req, res) {
         if (req.body) {
             if (req.body._id && req.body._id != "" && sails.ObjectID.isValid(req.body._id)) {
-                var print = function(data) {
+                var print = function (data) {
                     res.json(data);
                 }
                 Join.findone(req.body, print);
@@ -80,7 +80,7 @@ module.exports = {
             });
         }
     },
-    findlimited: function(req, res) {
+    findlimited: function (req, res) {
         if (req.body) {
             if (req.body.pagesize && req.body.pagesize != "" && req.body.pagenumber && req.body.pagenumber != "") {
                 function callback(data) {
@@ -100,11 +100,11 @@ module.exports = {
             });
         }
     },
-    excelDownload: function(req, res) {
+    excelDownload: function (req, res) {
         var arr = [];
         var i = 0;
         if (req.query && req.query._id && req.query._id != "") {
-            sails.query(function(err, db) {
+            sails.query(function (err, db) {
                 if (err) {
                     console.log(err);
                     res.json({
@@ -146,7 +146,7 @@ module.exports = {
                             "artwork.address": 1,
                             "artwork.dim": 1
                         }
-                    }]).each(function(err, found) {
+                    }]).each(function (err, found) {
                         if (_.isEmpty(found)) {
                             var xls = sails.json2xls(arr);
                             var path = './' + arr[0]["Name of Artist"] + '.xlsx';
@@ -156,8 +156,8 @@ module.exports = {
                             res.set('Content-Type', "application/octet-stream");
                             res.set('Content-Disposition', "attachment;filename=" + path);
                             res.send(excel);
-                            setTimeout(function() {
-                                sails.fs.unlink(path, function(err) {
+                            setTimeout(function () {
+                                sails.fs.unlink(path, function (err) {
                                     console.log(err);
                                 });
                             }, 30000);
@@ -167,7 +167,7 @@ module.exports = {
                         } else {
                             if (found.artwork.subtype && found.artwork.subtype.length > 0) {
                                 var medium = '';
-                                _.each(found.artwork.subtype, function(abc) {
+                                _.each(found.artwork.subtype, function (abc) {
                                     medium += abc.name + ",";
                                 });
                                 medium = medium.substring(0, medium.length - 1);
@@ -213,7 +213,7 @@ module.exports = {
                                 "Area in square feet / Volume in cubic feet": found.artwork.area,
                                 "Size in Inches with frame": found.artwork.sizewithframe,
                                 "Year of Creation": found.artwork.yoc,
-                                "Gallery Price, excl VAT (Rs)": found.artwork.gprice,
+                                "Gallery Price, excl GST (Rs)": found.artwork.gprice,
                                 "Gallery Price per square feet": found.artwork.pricesq,
                                 "Artist Price (Rs)": found.artwork.price,
                                 "Location": found.artwork.address,
@@ -230,10 +230,10 @@ module.exports = {
             });
         }
     },
-    downloadUser: function(req, res) {
+    downloadUser: function (req, res) {
         var abc = [];
         var i = 0;
-        sails.query(function(err, db) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 res.json({
@@ -249,7 +249,7 @@ module.exports = {
                     }]
                 }).sort({
                     name: 1
-                }).each(function(err, found) {
+                }).each(function (err, found) {
                     if (_.isEmpty(found)) {
                         var xls = sails.json2xls(abc);
                         var path = './Login-List.xlsx';
@@ -259,8 +259,8 @@ module.exports = {
                         res.set('Content-Type', "application/octet-stream");
                         res.set('Content-Disposition', "attachment;filename=" + path);
                         res.send(excel);
-                        setTimeout(function() {
-                            sails.fs.unlink(path, function(err) {
+                        setTimeout(function () {
+                            sails.fs.unlink(path, function (err) {
                                 console.log(err);
                             });
                         }, 30000);
@@ -373,8 +373,8 @@ module.exports = {
             }
         });
     },
-    downloadJoin: function(req, res) {
-        sails.query(function(err, db) {
+    downloadJoin: function (req, res) {
+        sails.query(function (err, db) {
             if (err) {
                 console.log(err);
                 res.json({
@@ -382,7 +382,7 @@ module.exports = {
                     comment: "Error"
                 });
             } else {
-                Join.find({}, function(respo) {
+                Join.find({}, function (respo) {
                     if (respo.value != false) {
                         var xls = sails.json2xls(respo);
                         var path = './Mailing-List.xlsx';
@@ -392,8 +392,8 @@ module.exports = {
                         res.set('Content-Type', "application/octet-stream");
                         res.set('Content-Disposition', "attachment;filename=" + path);
                         res.send(excel);
-                        setTimeout(function() {
-                            sails.fs.unlink(path, function(err) {
+                        setTimeout(function () {
+                            sails.fs.unlink(path, function (err) {
                                 console.log(err);
                             });
                         }, 30000);
