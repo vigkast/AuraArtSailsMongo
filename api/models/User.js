@@ -802,7 +802,8 @@ module.exports = {
             if (db) {
                 db.collection("user").find(matchobj, {
                     _id: 1,
-                    name: 1
+                    name: 1,
+                    email: 1
                 }).limit(10).toArray(function (err, found) {
                     if (err) {
                         callback({

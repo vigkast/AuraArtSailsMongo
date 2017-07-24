@@ -7093,6 +7093,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
         $scope.refreshMedium("");
 
         $scope.createTicket = function () {
+            console.log($scope.ticket);
             cfpLoadingBar.start();
             NavigationService.getuserprofile(function (data) {
                 if (data.id) {

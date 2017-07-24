@@ -33,10 +33,22 @@ module.exports = {
                             console.log("demo demo demo", created);
                             // To Client
                             var dat = created.ops[0];
+                            var mtrls = "";
+                            var imgstng = "";
+                            _.each(dat.medium, function (mt, key) {
+                                if (key == dat.medium.count - 1) {
+                                    mtrls += mt.name
+                                } else {
+                                    mtrls += mt.name + " / "
+                                }
+                            });
+                            _.each(dat.image, function (mt, key) {
+                                imgstng += "<img src='" + sails.myurl + "user/resize?height=200&file=" + mt + "'>"
+                            });
                             var obj = {
                                 "api_key": "47e02d2b10604fc81304a5837577e286",
                                 "email_details": {
-                                    "fromname": "Aura - Art",
+                                    "fromname": encodeURIComponent("Aura - Art"),
                                     "subject": "",
                                     "from": "cs@auraart.in",
                                     "replytoid": "cs@auraart.in"
@@ -44,17 +56,21 @@ module.exports = {
                                 "settings": {
                                     "template": "5589"
                                 },
-                                "recipients": ["jagruti@wohlig.com"],
+                                "recipients": [dat.client[0].email, "sohan@wohlig.com"],
                                 "attributes": {
-                                    "WHO": ["Admin"],
-                                    "TICKETNO": [dat.ticketnumber],
-                                    "TITLE": [dat.title],
-                                    "BRIEF": [dat.brief],
-                                    "SIZE": [dat.height + "x" + dat.width + "x" + dat.depth],
-                                    "BUDGET": ["From" + dat.currency + dat.startPrice + " To " + dat.endPrice],
-                                    "ADDITIONALINFO": [dat.additionalInfo],
-                                    "TIME": [dat.leadTime],
-                                    "LOCATION": [dat.deliveryLocation]
+                                    "WHO": [dat.client[0].name, "Admin"],
+                                    "CONTENTBODY": [encodeURIComponent("Your Ticket Number: " + dat.ticketnumber), encodeURIComponent("You have a new request for proposal for Commissioned Artwork with Ticket Number: " + dat.ticketnumber + ".Please go through the requirements below and respond promptly with the proposal.")],
+                                    "MATERIAL": [encodeURIComponent(mtrls), encodeURIComponent(mtrls)],
+                                    "TITLE": [encodeURIComponent(dat.title), encodeURIComponent(dat.title)],
+                                    "BRIEF": [encodeURIComponent(dat.brief), encodeURIComponent(dat.brief)],
+                                    "SIZE": [encodeURIComponent(dat.height + "x" + dat.width + "x" + dat.depth), encodeURIComponent(dat.height + "x" + dat.width + "x" + dat.depth)],
+                                    "BUDGET": [encodeURIComponent("From" + dat.currency + dat.startPrice + " To " + dat.endPrice), encodeURIComponent("From" + dat.currency + dat.startPrice + " To " + dat.endPrice)],
+                                    "ADDITIONALINFO": [encodeURIComponent(dat.additionalInfo), encodeURIComponent(dat.additionalInfo)],
+                                    "TIME": [encodeURIComponent(dat.leadTime), encodeURIComponent(dat.leadTime)],
+                                    "LOCATION": [encodeURIComponent(dat.deliveryLocation), encodeURIComponent(dat.deliveryLocation)],
+                                    "REFERENCES": [encodeURIComponent(imgstng), encodeURIComponent(imgstng)]
+
+
                                 }
                             };
                             obj.email_details.subject = encodeURIComponent("Aura Art - Commissioned Artwork - " + dat.ticketnumber + " " + dat.title);
@@ -130,6 +146,7 @@ module.exports = {
                 }, {
                         $set: data
                     }, function (err, updated) {
+                        console.log("updated in ticket", updated.result);
                         if (err) {
                             console.log(err);
                             callback({
@@ -197,6 +214,7 @@ module.exports = {
                         }
                     });
                 } else {
+                    console.log("in edit section");
                     var ticket = sails.ObjectID(data._id);
                     delete data._id;
                     db.collection('ticket').update({
@@ -211,10 +229,151 @@ module.exports = {
                                 });
                                 db.close();
                             } else if (updated.result.nModified != 0 && updated.result.n != 0) {
-                                callback({
-                                    value: true
-                                });
-                                db.close();
+                                console.log("demonstration", data.artist[0]);
+
+
+                                console.log("demo demo demo", data);
+                                // To Client
+                                if (data.artist.count != 0) {
+                                    var dat = data;
+                                    var mtrls = "";
+                                    _.each(dat.medium, function (mt, key) {
+                                        if (key == dat.medium.count - 1) {
+                                            mtrls += mt.name
+                                        } else {
+                                            mtrls += mt.name + " / "
+                                        }
+
+                                    });
+                                    if (data.status == "Closing") {
+
+                                        var obj = {
+                                            "api_key": "47e02d2b10604fc81304a5837577e286",
+                                            "email_details": {
+                                                "fromname": encodeURIComponent("Aura - Art"),
+                                                "subject": "",
+                                                "from": "cs@auraart.in",
+                                                "replytoid": "cs@auraart.in"
+                                            },
+                                            "settings": {
+                                                "template": "5589"
+                                            },
+                                            "recipients": [dat.artist[0].email, dat.client[0].email, "sohan@wohlig.com"],
+                                            "attributes": {
+                                                "WHO": [dat.artist[0].name, dat.client[0].name, "Admin"],
+                                                "CONTENTBODY": [encodeURIComponent("Ticket - " + dat.ticketnumber + dat.title + " - has been Closed."), encodeURIComponent("Ticket - " + dat.ticketnumber + dat.title + " - has been Closed."), encodeURIComponent("Ticket - " + dat.ticketnumber + dat.title + " - has been Closed.")],
+                                                "MATERIAL": [encodeURIComponent((mtrls == "") ? "-" : mtrls), encodeURIComponent((mtrls == "") ? "-" : mtrls), encodeURIComponent((mtrls == "") ? "-" : mtrls)],
+                                                "TITLE": [encodeURIComponent(dat.title), encodeURIComponent(dat.title), encodeURIComponent(dat.title)],
+                                                "BRIEF": [encodeURIComponent(dat.brief), encodeURIComponent(dat.brief), encodeURIComponent(dat.brief)],
+                                                "SIZE": [encodeURIComponent(dat.heightfinal + "x" + dat.widthfinal + "x" + dat.depthfinal +
+                                                    " " + dat.majorfinal), encodeURIComponent(dat.heightfinal + "x" + dat.widthfinal + "x" + dat.depthfinal +
+                                                        " " + dat.majorfinal), encodeURIComponent(dat.heightfinal + "x" + dat.widthfinal + "x" + dat.depthfinal +
+                                                            " " + dat.majorfinal)],
+                                                "BUDGET": [encodeURIComponent("-"), encodeURIComponent("-"), encodeURIComponent("-")],
+                                                "ADDITIONALINFO": [encodeURIComponent((dat.additionalInfo) ? dat.additionalInfo : "-"), encodeURIComponent((dat.additionalInfo) ? dat.additionalInfo : "-"), encodeURIComponent((dat.additionalInfo) ? dat.additionalInfo : "-")],
+                                                "TIME": [encodeURIComponent(dat.deadline), encodeURIComponent(dat.deadline), encodeURIComponent(dat.deadline)],
+                                                "LOCATION": [encodeURIComponent(dat.location), encodeURIComponent(dat.location), encodeURIComponent(dat.location)],
+                                                "REFERENCES": [encodeURIComponent("<img src='" + sails.myurl + "user/resize?height=200&file=" + dat.imagenew + "'>"), encodeURIComponent("<img src='" + sails.myurl + "user/resize?height=200&file=" + dat.imagenew + "'>")]
+
+                                            }
+                                        };
+                                        obj.email_details.subject = encodeURIComponent("Aura Art - Commissioned Artwork - Closing" + dat.ticketnumber + " " + dat.title);
+                                        console.log(obj);
+                                        sails.request.get({
+                                            url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                                        }, function (err, httpResponse, body) {
+                                            console.log(err);
+                                            console.log(body);
+                                            var body = JSON.parse(body);
+                                            if (err) {
+                                                callback({
+                                                    value: false
+                                                });
+                                                db.close();
+                                            } else if (body && (body.message == "SUCCESS")) {
+                                                callback({
+                                                    value: true
+                                                });
+                                                db.close();
+                                            } else {
+                                                callback({
+                                                    value: false,
+                                                    comment: "Error"
+                                                });
+                                                db.close();
+                                            }
+                                        });
+                                        db.close();
+
+                                    } else {
+                                        var imgstng = ""
+                                        _.each(dat.image, function (mt, key) {
+                                            imgstng += "<img src='" + sails.myurl + "user/resize?height=200&file=" + mt + "'>"
+                                        });
+                                        var obj = {
+                                            "api_key": "47e02d2b10604fc81304a5837577e286",
+                                            "email_details": {
+                                                "fromname": encodeURIComponent("Aura - Art"),
+                                                "subject": "",
+                                                "from": "cs@auraart.in",
+                                                "replytoid": "cs@auraart.in"
+                                            },
+                                            "settings": {
+                                                "template": "5589"
+                                            },
+                                            "recipients": [dat.artist[0].email, "sohan@wohlig.com"],
+                                            "attributes": {
+                                                "WHO": [dat.artist[0].name, "Admin"],
+                                                "CONTENTBODY": [encodeURIComponent("We request you to submit your proposal for commissioned Artworks , based on the following requirements:"), encodeURIComponent("AuraArt assigned " + dat.title + "Artwork to " + dat.artist[0].name)],
+                                                "MATERIAL": [encodeURIComponent((mtrls == "") ? "-" : mtrls), encodeURIComponent((mtrls == "") ? "-" : mtrls)],
+                                                "TITLE": [encodeURIComponent(dat.title), encodeURIComponent(dat.title)],
+                                                "BRIEF": [encodeURIComponent(dat.brief), encodeURIComponent(dat.brief)],
+                                                "SIZE": [encodeURIComponent(dat.heightfinal + "x" + dat.widthfinal + "x" + dat.depthfinal +
+                                                    " " + dat.majorfinal), encodeURIComponent(dat.heightfinal + "x" + dat.widthfinal + "x" + dat.depthfinal +
+                                                        " " + dat.majorfinal)],
+                                                "BUDGET": [encodeURIComponent("-"), encodeURIComponent("-")],
+                                                "ADDITIONALINFO": [encodeURIComponent((dat.additionalInfo) ? dat.additionalInfo : "-"), encodeURIComponent((dat.additionalInfo) ? dat.additionalInfo : "-")],
+                                                "TIME": [encodeURIComponent(dat.deadline), encodeURIComponent(dat.deadline)],
+                                                "LOCATION": [encodeURIComponent(dat.location), encodeURIComponent(dat.location)],
+                                                "REFERENCES": [encodeURIComponent(imgstng), encodeURIComponent(imgstng)]
+
+                                            }
+                                        };
+                                        obj.email_details.subject = encodeURIComponent("Aura Art - Commissioned Artwork - " + dat.ticketnumber + " " + dat.title);
+                                        console.log(obj);
+                                        sails.request.get({
+                                            url: "https://api.falconide.com/falconapi/web.send.json?data=" + JSON.stringify(obj)
+                                        }, function (err, httpResponse, body) {
+                                            console.log(err);
+                                            console.log(body);
+                                            var body = JSON.parse(body);
+                                            if (err) {
+                                                callback({
+                                                    value: false
+                                                });
+                                                db.close();
+                                            } else if (body && (body.message == "SUCCESS")) {
+                                                callback({
+                                                    value: true
+                                                });
+                                                db.close();
+                                            } else {
+                                                callback({
+                                                    value: false,
+                                                    comment: "Error"
+                                                });
+                                                db.close();
+                                            }
+                                        });
+                                        db.close();
+                                    }
+                                } else {
+                                    callback({
+                                        value: true
+                                    });
+                                    db.close();
+                                }
+
                             } else if (updated.result.nModified == 0 && updated.result.n != 0) {
                                 callback({
                                     value: true,
