@@ -4571,3 +4571,12 @@ h5.home-header {
 .table>thead>tr>th {
     padding: 4px 8px;
 }
+.material-cont {
+    margin: 0;
+}
+.user-made h5{
+    margin: 0;
+}
+.artist-cont-detail p{
+    margin: 0;
+}

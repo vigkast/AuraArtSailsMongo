@@ -3657,14 +3657,28 @@ p{
 }
 }
 .box-right {
-    padding: 10px;
+    padding: 2px 10px;
     border: 1px solid #ddd;
     border-radius: 10px;
     position: relative;
     margin-bottom: 10px;
     p{
-    margin-bottom: 5px;
+    margin-bottom: 0px;
 }
+}
+
+.user-made p,
+.material-cont p,
+.user-response p{
+  margin-bottom: 0px;
+}
+
+.box-right,.box-left {
+    padding: 2px 10px;
+}
+
+.user-made h5{
+    margin: 0;
 }
 .box-right:after,
 .box-right:before {
@@ -3898,7 +3912,10 @@ font-weight: 300;
     margin-bottom: 0px;
 }
 .material-cont {
-    margin: 10px 0;
+    margin: 0;
+}
+.user-made h5{
+    margin: 0;
 }
 /* Mobile Less */
 @import "../less/fancybox-override.less";

@@ -5,3 +5,12 @@
 .dim.dim-h:before, .dim.dim-h:after {
   height: calc(50% - 20px);
 }
+.material-cont {
+    margin: 0;
+}
+.user-made h5{
+    margin: 0;
+}
+.artist-cont-detail p{
+    margin: 0;
+}
