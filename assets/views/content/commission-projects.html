@@ -256,8 +256,8 @@
                                     <div class="{{upClass}}">
                                         <div class="chat-cont">
                                             <div class="user-made">
-                                                <h5 class="title font-color2 bold">{{ticketDetail.title}}</h5>
-                                                <p>
+                                                <h5 class="title font-color2 bold" style="margin:0">{{ticketDetail.title}}</h5>
+                                                <p style="margin:0">
                                                     {{ticketDetail.brief}}
                                                 </p>
                                             </div>
@@ -281,8 +281,8 @@
                                                         <h5 class="title font-color2">Material</h5>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <div class="material-cont">
-                                                            <p ng-repeat="material in ticketDetail.medium">{{material.name}}</p>
+                                                        <div class="material-cont" style="margin:10px 0 0;">
+                                                            <p ng-repeat="material in ticketDetail.medium" style="margin:0;">{{material.name}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -291,8 +291,8 @@
                                                         <h5 class="title font-color2">Specific Size</h5>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <div class="material-cont">
-                                                            <p>{{ticketDetail.height}} x {{ticketDetail.width}} x {{ticketDetail.depth}}
+                                                        <div class="material-cont" style="margin:10px 0 0;">
+                                                            <p style="margin:0;">{{ticketDetail.height}} x {{ticketDetail.width}} x {{ticketDetail.depth}}
                                                                 {{ticketDetail.major}}
                                                             </p>
                                                         </div>
@@ -300,39 +300,39 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <h5 class="title font-color2">Budget</h5>
+                                                        <h5 class="title font-color2" style="margin:0;">Budget</h5>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <div class="material-cont">
-                                                            <p> From {{ticketDetail.currency}}. {{ticketDetail.startPrice}} To
+                                                        <div class="material-cont" style="margin:0px 0 0;">
+                                                            <p style="margin:0;"> From {{ticketDetail.currency}}. {{ticketDetail.startPrice}} To
                                                                 {{ticketDetail.currency}}. {{ticketDetail.endPrice}} </p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <h5 class="title font-color2">Additional Info</h5>
+                                                        <h5 class="title font-color2" style="margin:0;">Additional Info</h5>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <div class="material-cont">
-                                                            <p>
+                                                        <div class="material-cont" style="margin:0px 0 0;">
+                                                            <p style="margin:0;">
                                                                 {{ticketDetail.additionalInfo}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <h5 class="title font-color2">Lead Time</h5>
+                                                        <h5 class="title font-color2" style="margin:0;">Lead Time</h5>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <div class="material-cont">
-                                                            <p>{{ticketDetail.leadTime}}</p>
+                                                        <div class="material-cont" style="margin:0;">
+                                                            <p style="margin:0;">{{ticketDetail.leadTime}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="time-date text-right">
-                                                <p>
+                                                <p style="margin:0;">
                                                     <span>{{ticketDetail.client[0].name}}</span>,
                                                     <span>{{ticketDetail.timestamp | date:'MMM d, y h:mm a'}}</span>
                                                 </p>
@@ -348,7 +348,7 @@
                                         </div>
                                         <div class="{{chat.upClass}}">
                                             <div class="user-response">
-                                                <p>
+                                                <p style="margin:0">
                                                     {{chat.message}}
                                                 </p>
                                                 <!--<pre>{{chat}}</pre>-->
@@ -387,7 +387,7 @@
                                 <form ng-submit="saveTicketElement();">
                                     <div class="col-md-8">
                                         <!--<pre>{{tickets[1].status}}</pre> -->
-                                        <div class="box-right pad0">
+                                        <div class="box-right pad0" style="padding: 1px 10px;">
 
                                             <textarea name="" id="" placeholder="Please enter your text here" class="form-control" ng-model="chat.message" required></textarea>
                                         </div>
@@ -475,7 +475,7 @@
                                             </div>
                                         </div>
                                         <div class="artist-cont-detail">
-                                            <p>
+                                            <p style="margin:0">
                                                 <!-- {{totalartconts.artwork.srno}} -->
                                                 Project1 <i class="fa fa-heart font-color3" ng-click="makeFav(totalartconts);"></i>
                                                 <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
@@ -517,7 +517,7 @@
                                             </div>
                                         </div>
                                         <div class="artist-cont-detail">
-                                            <p>
+                                            <p style="margin:0">
                                                 <!-- {{totalartconts.artwork.srno}} -->
                                                 Project1 <i class="fa fa-heart font-color3" ng-click="makeFav(totalartconts);"></i>
                                                 <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
@@ -559,7 +559,7 @@
                                             </div>
                                         </div>
                                         <div class="artist-cont-detail">
-                                            <p>
+                                            <p style="margin:0">
                                                 <!-- {{totalartconts.artwork.srno}} -->
                                                 Project1 <i class="fa fa-heart font-color3" ng-click="makeFav(totalartconts);"></i>
                                                 <!-- ngIf: totalartconts.artwork.status!='sold' && totalartconts.artwork.gprice && totalartconts.artwork.gprice!='N/A' -->
@@ -616,23 +616,23 @@
                                             </div>
                                         </div>
                                         <div class="artist-cont-detail">
-                                            <p>
+                                            <p style="margin:0">
                                                 {{ticket.title}}
                                                 <i class="fa fa-shopping-cart " ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
                                             </p>
-                                            <p>
+                                            <p style="margin:0">
                                                 {{ticket.mediumfinal}}
                                             </p>
-                                            <p ng-if="(ticket.heightfinal.length>0)||(ticket.widthfinal.length>0)||(ticket.depthfinal.length>0)">
+                                            <p ng-if="(ticket.heightfinal.length>0)||(ticket.widthfinal.length>0)||(ticket.depthfinal.length>0)" style="margin:0">
                                                 {{ticket.heightfinal}} x {{ticket.widthfinal}} x {{ticket.depthfinal}} {{ticket.majorfinal}}
                                             </p>
-                                            <p>
+                                            <p style="margin:0">
                                                 {{ticket.startPricefinal}}
                                             </p>
-                                            <p>
+                                            <p style="margin:0">
                                                 {{ticket.deadline}}
                                             </p>
-                                            <p>
+                                            <p style="margin:0">
                                                 {{ticket.location}}
                                             </p>
                                             <!--<p class="m0">
@@ -683,23 +683,23 @@
                                             </div>
                                         </div>
                                         <div class="artist-cont-detail">
-                                            <p>
+                                            <p style="margin:0">
                                                 {{ticket.title}}
                                                 <i class="fa fa-shopping-cart " ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
                                             </p>
-                                            <p>
+                                            <p style="margin:0">
                                                 {{ticket.mediumfinal}}
                                             </p>
-                                            <p ng-if="(ticket.heightfinal.length>0)||(ticket.widthfinal.length>0)||(ticket.depthfinal.length>0)">
+                                            <p ng-if="(ticket.heightfinal.length>0)||(ticket.widthfinal.length>0)||(ticket.depthfinal.length>0)" style="margin:0">
                                                 {{ticket.heightfinal}} x {{ticket.widthfinal}} x {{ticket.depthfinal}} {{ticket.majorfinal}}
                                             </p>
-                                            <p>
+                                            <p style="margin:0">
                                                 {{ticket.startPricefinal}}
                                             </p>
-                                            <p>
+                                            <p style="margin:0">
                                                 {{ticket.deadline}}
                                             </p>
-                                            <p>
+                                            <p style="margin:0">
                                                 {{ticket.location}}
                                             </p>
                                         </div>
@@ -735,23 +735,23 @@
                                         </div>
                                     </div>
                                     <div class="artist-cont-detail">
-                                        <p>
+                                        <p style="margin:0">
                                             {{ticket.title}}
                                             <i class="fa fa-shopping-cart " ng-click="addToCart(totalartconts);" ng-if="totalartconts.artwork.status!='sold' &amp;&amp; totalartconts.artwork.gprice &amp;&amp; totalartconts.artwork.gprice!='N/A'"></i>
                                         </p>
-                                        <p>
+                                        <p style="margin:0">
                                             {{ticket.mediumfinal}}
                                         </p>
-                                        <p ng-if="(ticket.heightfinal.length>0)||(ticket.widthfinal.length>0)||(ticket.depthfinal.length>0)">
+                                        <p ng-if="(ticket.heightfinal.length>0)||(ticket.widthfinal.length>0)||(ticket.depthfinal.length>0)" style="margin:0">
                                             {{ticket.heightfinal}} x {{ticket.widthfinal}} x {{ticket.depthfinal}} {{ticket.majorfinal}}
                                         </p>
-                                        <p>
+                                        <p style="margin:0">
                                             {{ticket.startPricefinal}}
                                         </p>
-                                        <p>
+                                        <p style="margin:0">
                                             {{ticket.deadline}}
                                         </p>
-                                        <p>
+                                        <p style="margin:0">
                                             {{ticket.location}}
                                         </p>
                                     </div>
