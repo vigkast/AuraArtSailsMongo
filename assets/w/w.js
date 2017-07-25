@@ -27179,8 +27179,8 @@ templateservicemod.controller('cartdropctrl', ['$scope', 'TemplateService',
     }
 ]);
 ;
-// var adminurl = "http://www.auraart.in/";
-var adminurl = "http://localhost:1337/";
+var adminurl = "http://www.auraart.in/";
+// var adminurl = "http://localhost:1337/";
 var imgUploadUrl = adminurl + "user/uploadfile";
 var wallUploadUrl = adminurl + "user/wallUpload";
 var imgurl = adminurl + "upload/";
