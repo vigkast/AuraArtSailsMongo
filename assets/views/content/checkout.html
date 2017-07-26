@@ -104,11 +104,13 @@
                 </div>
                 <div class="panel-body">
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.billing.name" ng-change="onFieldChange(checked)" placeholder="Full Name*" required type="text">
+                    <input class="form-control" ng-model="user.billing.name" ng-change="onFieldChange(checked)" placeholder="Full Name*" required
+                      type="text">
                   </div>
                   <div class="form-group"></div>
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.billing.email" ng-change="onFieldChange(checked)" placeholder="Email*" required type="email">
+                    <input class="form-control" ng-model="user.billing.email" ng-change="onFieldChange(checked)" placeholder="Email*" required
+                      type="email">
                   </div>
                   <div class="form-group">
                     <input class="form-control" ng-model="user.billing.company" placeholder="Company Name" type="text">
@@ -118,14 +120,18 @@
                   </div>
                   <div class="form-group">
                     <div class="tel-box">
-                      <input class="form-control tel-country" ng-model="user.billing.countrycode" ng-change="onFieldChange(checked)" placeholder="eg. +91*" required only-digits maxlength="8" type="tel">
-                      <input class="form-control tel-number" ng-model="user.billing.mobileno" ng-change="onFieldChange(checked)" placeholder="Mobile Number*" only-digits maxlength="11" required type="tel">
+                      <input class="form-control tel-country" ng-model="user.billing.countrycode" ng-change="onFieldChange(checked)" placeholder="eg. +91*"
+                        required only-digits maxlength="8" type="tel">
+                      <input class="form-control tel-number" ng-model="user.billing.mobileno" ng-change="onFieldChange(checked)" placeholder="Mobile Number*"
+                        only-digits maxlength="11" required type="tel">
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="tel-box house-box">
-                      <input class="form-control one" ng-model="user.billing.flatno" ng-change="onFieldChange(checked)" placeholder="House No*" required type="text">
-                      <input class="form-control two" ng-model="user.billing.bldgname" ng-change="onFieldChange(checked)" placeholder="Name of Buliding*" required type="text">
+                      <input class="form-control one" ng-model="user.billing.flatno" ng-change="onFieldChange(checked)" placeholder="House No*"
+                        required type="text">
+                      <input class="form-control two" ng-model="user.billing.bldgname" ng-change="onFieldChange(checked)" placeholder="Name of Buliding*"
+                        required type="text">
                     </div>
                   </div>
                   <div class="form-group">
@@ -135,19 +141,24 @@
                     <input class="form-control" ng-model="user.billing.street" placeholder="Street" type="text">
                   </div>
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.billing.regadd" ng-change="onFieldChange(checked)" placeholder="Locality*" required type="text">
+                    <input class="form-control" ng-model="user.billing.regadd" ng-change="onFieldChange(checked)" placeholder="Locality*" required
+                      type="text">
                   </div>
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.billing.city" ng-change="onFieldChange(checked)" placeholder="City*" required type="text">
+                    <input class="form-control" ng-model="user.billing.city" ng-change="onFieldChange(checked)" placeholder="City*" required
+                      type="text">
                   </div>
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.billing.pincode" ng-change="onFieldChange(checked)" placeholder="Pincode*" only-digits maxlength="6" type="text">
+                    <input class="form-control" ng-model="user.billing.pincode" ng-change="onFieldChange(checked)" placeholder="Pincode*" only-digits
+                      maxlength="6" type="text">
                   </div>
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.billing.state" ng-change="onFieldChange(checked)" placeholder="State*" required type="text">
+                    <input class="form-control" ng-model="user.billing.state" ng-change="onFieldChange(checked)" placeholder="State*" required
+                      type="text">
                   </div>
                   <div class="form-group">
-                    <select class="form-control" ng-options="country.code as country.name for country in countries" ng-change="onFieldChange(checked)" ng-model="user.billing.country" placeholder="Select county"></select>
+                    <select class="form-control" ng-options="country.code as country.name for country in countries" ng-change="onFieldChange(checked)"
+                      ng-model="user.billing.country" placeholder="Select county"></select>
                   </div>
                 </div>
               </div>
@@ -167,11 +178,13 @@
                 </div>
                 <div class="panel-body">
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.shipping.name" ng-change="onFieldChange(checked)" placeholder="First Name*" required type="text">
+                    <input class="form-control" ng-model="user.shipping.name" ng-change="onFieldChange(checked)" placeholder="First Name*" required
+                      type="text">
                   </div>
                   <div class="form-group"></div>
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.shipping.email" ng-change="onFieldChange(checked)" placeholder="Email*" required type="email">
+                    <input class="form-control" ng-model="user.shipping.email" ng-change="onFieldChange(checked)" placeholder="Email*" required
+                      type="email">
                   </div>
                   <div class="form-group">
                     <input class="form-control" ng-model="user.shipping.company" placeholder="Company" type="text">
@@ -181,14 +194,18 @@
                   </div>
                   <div class="form-group">
                     <div class="tel-box">
-                      <input class="form-control tel-country" ng-model="user.shipping.countrycode" ng-change="onFieldChange(checked)" placeholder="eg. +91*" only-digits maxlength="8" required type="tel">
-                      <input class="form-control tel-number" ng-model="user.shipping.mobileno" ng-change="onFieldChange(checked)" placeholder="Mobile Number*" only-digits maxlength="11" required type="tel">
+                      <input class="form-control tel-country" ng-model="user.shipping.countrycode" ng-change="onFieldChange(checked)" placeholder="eg. +91*"
+                        only-digits maxlength="8" required type="tel">
+                      <input class="form-control tel-number" ng-model="user.shipping.mobileno" ng-change="onFieldChange(checked)" placeholder="Mobile Number*"
+                        only-digits maxlength="11" required type="tel">
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="tel-box house-box">
-                      <input class="form-control one" ng-model="user.shipping.flatno" ng-change="onFieldChange(checked)" placeholder="House No*" required type="text">
-                      <input class="form-control two" ng-model="user.shipping.bldgname" ng-change="onFieldChange(checked)" placeholder="Name of Buliding*" required type="text">
+                      <input class="form-control one" ng-model="user.shipping.flatno" ng-change="onFieldChange(checked)" placeholder="House No*"
+                        required type="text">
+                      <input class="form-control two" ng-model="user.shipping.bldgname" ng-change="onFieldChange(checked)" placeholder="Name of Buliding*"
+                        required type="text">
                     </div>
                   </div>
                   <div class="form-group">
@@ -198,19 +215,24 @@
                     <input class="form-control" ng-model="user.shipping.street" placeholder="Street" type="text">
                   </div>
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.shipping.regadd" ng-change="onFieldChange(checked)" placeholder="Locality*" required type="text">
+                    <input class="form-control" ng-model="user.shipping.regadd" ng-change="onFieldChange(checked)" placeholder="Locality*" required
+                      type="text">
                   </div>
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.shipping.city" ng-change="onFieldChange(checked)" placeholder="City*" required type="text">
+                    <input class="form-control" ng-model="user.shipping.city" ng-change="onFieldChange(checked)" placeholder="City*" required
+                      type="text">
                   </div>
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.shipping.pincode" ng-change="onFieldChange(checked)" placeholder="Pincode*" only-digits maxlength="6" required type="text">
+                    <input class="form-control" ng-model="user.shipping.pincode" ng-change="onFieldChange(checked)" placeholder="Pincode*" only-digits
+                      maxlength="6" required type="text">
                   </div>
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.shipping.state" ng-change="onFieldChange(checked)" placeholder="State*" required type="text">
+                    <input class="form-control" ng-model="user.shipping.state" ng-change="onFieldChange(checked)" placeholder="State*" required
+                      type="text">
                   </div>
                   <div class="form-group">
-                    <select class="form-control" ng-options="country.code as country.name for country in countries" ng-change="onFieldChange(checked)" ng-model="user.shipping.country" ng-change="viewCart(checked)" placeholder="select Country"></select>
+                    <select class="form-control" ng-options="country.code as country.name for country in countries" ng-change="onFieldChange(checked)"
+                      ng-model="user.shipping.country" ng-change="viewCart(checked)" placeholder="select Country"></select>
                   </div>
                 </div>
               </div>
@@ -223,18 +245,20 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title">Shipping Information
-                             <label>
+                    <label>
                                 <input ng-model="checked" ng-change="changeAddress(checked)" type="checkbox"> Same as billing
                              </label>
-                           </h3>
+                  </h3>
                 </div>
                 <div class="panel-body">
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.billing.name" ng-change="onFieldChange(checked)" placeholder="First Name*" required type="text">
+                    <input class="form-control" ng-model="user.billing.name" ng-change="onFieldChange(checked)" placeholder="First Name*" required
+                      type="text">
                   </div>
                   <div class="form-group"></div>
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.billing.email" ng-change="onFieldChange(checked)" placeholder="Email*" required type="email">
+                    <input class="form-control" ng-model="user.billing.email" ng-change="onFieldChange(checked)" placeholder="Email*" required
+                      type="email">
                   </div>
                   <div class="form-group">
                     <input class="form-control" ng-model="user.billing.company" placeholder="Company" type="text">
@@ -244,14 +268,18 @@
                   </div>
                   <div class="form-group">
                     <div class="tel-box">
-                      <input class="form-control tel-country" ng-model="user.billing.countrycode" ng-change="onFieldChange(checked)" placeholder="eg. +91*" required type="tel">
-                      <input class="form-control tel-number" ng-model="user.billing.mobileno" ng-change="onFieldChange(checked)" placeholder="Mobile Number*" required type="tel">
+                      <input class="form-control tel-country" ng-model="user.billing.countrycode" ng-change="onFieldChange(checked)" placeholder="eg. +91*"
+                        required type="tel">
+                      <input class="form-control tel-number" ng-model="user.billing.mobileno" ng-change="onFieldChange(checked)" placeholder="Mobile Number*"
+                        required type="tel">
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="tel-box house-box">
-                      <input class="form-control one" ng-model="user.billing.flatno" ng-change="onFieldChange(checked)" placeholder="House No*" required type="text">
-                      <input class="form-control two" ng-model="user.billing.bldgname" ng-change="onFieldChange(checked)" placeholder="Name of Buliding*" required type="text">
+                      <input class="form-control one" ng-model="user.billing.flatno" ng-change="onFieldChange(checked)" placeholder="House No*"
+                        required type="text">
+                      <input class="form-control two" ng-model="user.billing.bldgname" ng-change="onFieldChange(checked)" placeholder="Name of Buliding*"
+                        required type="text">
                     </div>
                   </div>
                   <div class="form-group">
@@ -261,19 +289,24 @@
                     <input class="form-control" ng-model="user.billing.street" placeholder="Street" type="text">
                   </div>
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.billing.regadd" ng-change="onFieldChange(checked)" placeholder="Locality*" required type="text">
+                    <input class="form-control" ng-model="user.billing.regadd" ng-change="onFieldChange(checked)" placeholder="Locality*" required
+                      type="text">
                   </div>
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.billing.city" ng-change="onFieldChange(checked)" placeholder="City*" required type="text">
+                    <input class="form-control" ng-model="user.billing.city" ng-change="onFieldChange(checked)" placeholder="City*" required
+                      type="text">
                   </div>
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.billing.pincode" ng-change="onFieldChange(checked)" placeholder="Pincode*" required type="text">
+                    <input class="form-control" ng-model="user.billing.pincode" ng-change="onFieldChange(checked)" placeholder="Pincode*" required
+                      type="text">
                   </div>
                   <div class="form-group">
-                    <input class="form-control" ng-model="user.billing.state" ng-change="onFieldChange(checked)" placeholder="State*" required type="text">
+                    <input class="form-control" ng-model="user.billing.state" ng-change="onFieldChange(checked)" placeholder="State*" required
+                      type="text">
                   </div>
                   <div class="form-group">
-                    <select class="form-control" ng-options="country.code as country.name for country in countries" ng-change="onFieldChange(checked)" ng-model="user.billing.country" value=""></select>
+                    <select class="form-control" ng-options="country.code as country.name for country in countries" ng-change="onFieldChange(checked)"
+                      ng-model="user.billing.country" value=""></select>
                   </div>
                 </div>
               </div>
@@ -359,8 +392,11 @@
               <div class="padding-bottom"></div>
               <div class="row">
                 <div class="col-md-8">
-                  <span class="bold">Note:</span> Request you to select in what Form (Rolled or Framed) you would like to receive the Paintings. We offer free shipping for Paintings in Rolled condition across India, paintings in Framed condition within
-                  Mumbai and Sculptures within Mumbai. For Framed Paintings and Sculptures shipped outside Mumbai, we charge an estimated amount which is likely to result in a reasonable recovery of packing and shipping costs.
+                  <span class="bold">Note:</span> Request you to select in what Form (Rolled or Framed) you would like to
+                  receive the Paintings. We offer free shipping for Paintings in Rolled condition across India, paintings
+                  in Framed condition within Mumbai and Sculptures within Mumbai. For Framed Paintings and Sculptures shipped
+                  outside Mumbai, we charge an estimated amount which is likely to result in a reasonable recovery of packing
+                  and shipping costs.
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
@@ -376,7 +412,7 @@
                   <div class="row">
                     <div class="col-xs-6 font-color2 text-right bold">
                       <p>Sub Total:</p>
-                      <p>VAT:</p>
+                      <p>GST:</p>
                       <p>Packing &amp; Shipping:</p>
                       <p>Grand Total:</p>
                     </div>
