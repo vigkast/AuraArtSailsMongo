@@ -1486,6 +1486,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 }
             })
 
+
             function getScrollXY() {
                 var x = 0,
                     y = 0;
@@ -1701,7 +1702,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     });
                 }
             }
-
             $scope.getmedium = function () {
                 if ($scope.pagedata.type == "") {
                     //          console.log("in if");
@@ -1824,6 +1824,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
             }
 
             $scope.reload = function () {
+                console.log("demonstrasion");
                 cfpLoadingBar.start();
                 //      console.log($scope.pagedata);
                 var filterdata = $scope.pagedata;
@@ -1831,7 +1832,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     filterdata.minprice = '';
                     $scope.pagedata.minprice = '';
                 }
-                if (filterdata.maxprice == 10000000) {
+                if (filterdata.maxprice == 1000000000) {
                     filterdata.maxprice = '';
                     $scope.pagedata.maxprice = '';
                 }
@@ -1866,7 +1867,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                     }
                 });
             }
-
+            $scope.reload();
             $scope.getHeight = function (artwork) {
                 var xy = getScrollXY();
                 var obj = {};
@@ -1993,8 +1994,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
                 $scope.totalartcont = [];
                 $scope.reload();
             }
-
-
 
             $scope.clearfilters = function () {
                 $scope.pagedata.search = "";
