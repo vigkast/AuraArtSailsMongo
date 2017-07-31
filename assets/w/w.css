@@ -5793,5 +5793,8 @@ li.title.inline-box-infra {
 .material-cont {
     margin: 10px 0;
 }
+.sortRemoved .sort-by{
+    display: none;
+  }
 
 /*# sourceMappingURL=w.css.map */

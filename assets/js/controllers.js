@@ -1447,7 +1447,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'navigationservice'
 
     .controller('TotalartWorkCtrl2', function ($scope, TemplateService, NavigationService, cfpLoadingBar, $timeout, ngDialog, $stateParams, $location, $state) {
         //Used to name the .html file
-
+$scope.sortRemoved="sortRemoved";
         console.log("Checking this one");
         if ($.jStorage.get("iamgenuine")) {
             $scope.template = TemplateService.changecontent("totalartwork");
