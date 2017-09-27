@@ -1,0 +1,119 @@
+body {
+	margin:0px;
+	padding:0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #000000;
+	background-color: #999;
+	background-image:url(images/bg.gif);
+	text-align: justify;
+}
+h1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #ffffff;
+	font-weight: bold;
+	margin-left: 15px;
+}
+
+
+.textbg {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color: #ffffcc;
+	font-weight: bold;
+	margin-left: 20px;
+}
+
+
+
+.textbg1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-style: italic;
+	color: #ffffcc;
+	padding-left: 20px;
+}
+
+.textbg2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10.5px;
+	color: #000000;
+}
+p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #000;
+	text-align: justify;
+	margin-left: 40px;
+	margin-right: 40px;
+}
+
+.textbg > a:link {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color: #ccffff;
+	font-weight: bold;
+	margin-left: 20px;
+}
+
+.textbg > a:hover {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color: #ccffff;
+}
+
+.textbg > a:visited {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color: #ccffff;
+}
+
+
+div > a:link {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight:bold;
+	line-height:100%;
+	color: #000066;
+	text-decoration: none;
+	margin: 0px;
+	padding-top: 2px;
+	display:block;
+}
+
+div > a:hover {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #ccc;
+}
+
+div > a:visited {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #333366;
+}
+
+
+
+
+a:link {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-style: normal;
+	line-height:140%;
+	color: #000066;
+	text-decoration: none;
+	margin: 0px;
+	padding: 10px;
+}
+a:hover {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #ccc;
+}
+a:visited {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #333366;
+}
